@@ -46,10 +46,10 @@ is made. Native simulator adapters are reused, not reimplemented in C#.
       and mixed-language traversal. v0.7 adds status-bearing discovery queries,
       native Verilator array dimensions and verified Verilator package access;
       driver/load extraction remains unavailable on the tested backends.
-- [ ] Determine simulator-specific capability flags comprehensively. Current known
-      restrictions reject X/Z on Verilator and enable force/release only on Icarus;
-      NVC failed the force/deposit hold contract. Do not infer
-      commercial simulator support merely from the inherited GPI adapter.
+- [x] Centralize simulator capability policy (#15): 20 explicit supported,
+      conditional, unsupported or unverified contracts with evidence. Unknown
+      products reject unverified nonbinary/force writes. See CAPABILITIES.md;
+      unverified features remain tracked separately and are not claimed supported.
 - [ ] Test native shutdown and runtime teardown under debugger and fault injection.
       One early local Icarus run printed `fatal library error, lookup self` after its
       result summary despite exit 0. Later clean runs did not reproduce it; root

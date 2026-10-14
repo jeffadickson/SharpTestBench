@@ -1,5 +1,7 @@
 # Unreleased
 
+- Centralized 20 simulator capabilities with conservative unknown-product guards and per-feature evidence (#15).
+
 - Added four-backend Python timing comparisons for scheduled writes and same-time timers, plus Icarus force/deposit ordering (#7).
 - Added VCD capture with linked JSON/JUnit artifacts on Icarus, Verilator, GHDL and NVC (#30).
 

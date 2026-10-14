@@ -4,6 +4,7 @@
 - [Contribution guide and repository layout](../CONTRIBUTING.md)
 - [All tracked GitHub tasks](TASKS_INDEX.md)
 - [Remaining work narrative](OPEN_WORK.md)
+- [Simulator capability policy](CAPABILITIES.md)
 - [Compatibility inventory](COMPATIBILITY.csv)
 - [Validation and limitations](VALIDATION.md)
 - [Hardware types and generated bindings](HDL_TYPES.md)

@@ -236,10 +236,10 @@ public class Signal : HdlObject
         if (value.Length != Width)
             throw new ArgumentException($"Expected {Width} bits, got {value.Length}");
         string normalized = new LogicArray(value).ToString();
-        if (!Runtime.SupportsFourState && normalized.Any(c => c != '0' && c != '1'))
-            throw new NotSupportedException("This simulator is two-state; X/Z writes are rejected");
-        if (!Runtime.SupportsForceRelease && (action == WriteAction.Force || action == WriteAction.Release))
-            throw new NotSupportedException("Force/release not validated on this simulator");
+        if (normalized.Any(c => c is not ('0' or '1' or 'X' or 'Z')))
+            Runtime.Capabilities.Require(SimulatorFeature.NineStateWrites);
+        else if (normalized.Any(c => c is 'X' or 'Z'))
+            Runtime.Capabilities.Require(SimulatorFeature.FourStateWrites);
         Runtime.Write(Handle, () => Native.gpi_set_signal_value_binstr(Handle, normalized, (int)action), action, () => normalized);
     }
 
@@ -304,8 +304,8 @@ public sealed class Signal<W> : Signal where W : struct, IWidth
     public void Write(LogicVector<W> value, WriteAction action = WriteAction.Deposit)
     {
         Runtime.CheckWrite();
-        if (!Runtime.SupportsFourState && !value.IsKnown)
-            throw new NotSupportedException("This simulator is two-state; X/Z writes are rejected");
+        if (!value.IsKnown)
+            Runtime.Capabilities.Require(SimulatorFeature.FourStateWrites);
         byte[] buffer = PackedTransport.Encode(value);
         Runtime.Write(Handle, () => PackedTransport.Write<W>(Handle, buffer, action), action, () => value.ToString());
     }
@@ -396,7 +396,7 @@ public sealed class StringSignal : HdlObject
         if (value.Contains('\0'))
         {
             if (Kind != ObjectKind.FixedString)
-                throw new NotSupportedException("Dynamic string NUL writes require a length-aware native API");
+                Runtime.Capabilities.Require(SimulatorFeature.DynamicStringNul);
             if (IsConstant)
                 throw new InvalidOperationException("Cannot write an HDL constant");
             // GPI's whole-string setter is NUL-terminated. Character handles preserve NUL.

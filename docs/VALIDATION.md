@@ -1,5 +1,11 @@
 # Unreleased validation update
 
+Capability checkpoint: 1,916 unit assertions; Icarus 47 passed/1 skipped;
+Verilator 46 passed/2 skipped; GHDL 12 passed/6 skipped; NVC 17 passed/1 skipped.
+The native fault suite additionally rejects five raw/typed nonbinary and force/release
+operations on an unknown product. All four backends export complete capability
+catalogues. See CAPABILITIES.md and docs/evidence/capabilities.
+
 Timing/waveform checkpoint: Icarus 46 passed/1 skipped; Verilator 45 passed/2 skipped;
 GHDL 11 passed/6 skipped; NVC 16 passed/1 skipped. New force cases run only on Icarus;
 other added skips explicitly record that limit. Scheduled-write and equal-deadline

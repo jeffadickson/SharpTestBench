@@ -7,6 +7,19 @@ public static class TimingTests
     static void Check(bool value, string message) { if (!value) throw new Exception(message); }
 
     [SimTest]
+    public static Task CapabilityCatalogue(TestContext c)
+    {
+        var caps = c.Runtime.Capabilities;
+        Check(ReferenceEquals(caps, c.Runtime.Capabilities), "stable runtime policy");
+        Check(caps.Family != SimulatorFamily.Unknown, "validated backend recognized");
+        Check(caps.All.Count == Enum.GetValues<SimulatorFeature>().Length, "complete catalogue");
+        Check(c.Runtime.SupportsFourState == caps[SimulatorFeature.FourStateWrites].IsSupported, "legacy flag agrees");
+        File.WriteAllText(Trace + ".capabilities.json", System.Text.Json.JsonSerializer.Serialize(caps.All,
+            new System.Text.Json.JsonSerializerOptions { WriteIndented = true, Converters = { new System.Text.Json.Serialization.JsonStringEnumConverter() } }));
+        return Task.CompletedTask;
+    }
+
+    [SimTest]
     public static async Task ScheduledWriteOrdering(TestContext c)
     {
         var data = c.Dut.Child("data").Signal<W8>();

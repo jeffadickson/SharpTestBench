@@ -54,9 +54,14 @@ public sealed class SimRuntime
         }
     }
 
-    public bool SupportsFourState => !Simulator.Contains("Verilator", StringComparison.OrdinalIgnoreCase);
-    public bool SupportsForceRelease => Simulator.Contains("Icarus", StringComparison.OrdinalIgnoreCase);
-    public bool SupportsNineState => Simulator.Contains("GHDL", StringComparison.OrdinalIgnoreCase) || Simulator.Contains("NVC", StringComparison.OrdinalIgnoreCase);
+    SimulatorCapabilities? capabilities;
+    public SimulatorCapabilities Capabilities
+    {
+        get { CheckThread(); return capabilities ??= SimulatorCapabilities.Describe(Simulator, Native.cs_abi_features()); }
+    }
+    public bool SupportsFourState => Capabilities[SimulatorFeature.FourStateWrites].IsSupported;
+    public bool SupportsForceRelease => Capabilities[SimulatorFeature.ForceRelease].IsSupported;
+    public bool SupportsNineState => Capabilities[SimulatorFeature.NineStateWrites].IsSupported;
     public int PendingCallbacks => registrations.Values.Count(r => r.Kind != CallbackKind.End);
 
     public int Precision
@@ -244,8 +249,8 @@ public sealed class SimRuntime
             throw new InvalidOperationException("Cannot write an HDL constant");
         if (!Enum.IsDefined(action))
             throw new ArgumentOutOfRangeException(nameof(action));
-        if ((action == WriteAction.Force || action == WriteAction.Release) && !SupportsForceRelease)
-            throw new NotSupportedException("Force/release not validated on this simulator");
+        if (action == WriteAction.Force || action == WriteAction.Release)
+            Capabilities.Require(SimulatorFeature.ForceRelease);
         if (action != WriteAction.Deposit || Phase == SimPhase.ReadWrite)
         {
             apply();

@@ -1,0 +1,142 @@
+[
+  {
+    "Feature": "FourStateWrites",
+    "Status": "Supported",
+    "Explanation": "X/Z transport verified on logic/vector fixtures.",
+    "Evidence": "docs/VALIDATION.md",
+    "IsSupported": true
+  },
+  {
+    "Feature": "NineStateWrites",
+    "Status": "Unsupported",
+    "Explanation": "Verilog logic does not preserve U/W/L/H/- as nine-state values.",
+    "Evidence": "tests/VhdlIntegration/Tests.cs",
+    "IsSupported": false
+  },
+  {
+    "Feature": "ForceRelease",
+    "Status": "Supported",
+    "Explanation": "Force/deposit hold and release ordering verified on Icarus 11 and 12 fixtures.",
+    "Evidence": "docs/TIMING_CONFORMANCE.md",
+    "IsSupported": true
+  },
+  {
+    "Feature": "PackedPlaneTransport",
+    "Status": "Supported",
+    "Explanation": "ABI feature bit 0 advertises managed/native packed planes; this does not establish simulator X/Z support or direct adapter transport.",
+    "Evidence": "docs/NATIVE_ABI.md",
+    "IsSupported": true
+  },
+  {
+    "Feature": "NativePackedRanges",
+    "Status": "Unverified",
+    "Explanation": "Native packed-range inference requires ABI feature bit 1, the validated Verilator provider, and successful per-object dimensions/width checks.",
+    "Evidence": "docs/DISCOVERY.md",
+    "IsSupported": false
+  },
+  {
+    "Feature": "RootDiscovery",
+    "Status": "Conditional",
+    "Explanation": "Probe required. Package availability differs by version; empty iterators do not prove absence or completeness.",
+    "Evidence": "docs/DISCOVERY.md",
+    "IsSupported": false
+  },
+  {
+    "Feature": "PackageDiscovery",
+    "Status": "Conditional",
+    "Explanation": "Probe required. Package availability differs by version; empty iterators do not prove absence or completeness.",
+    "Evidence": "docs/DISCOVERY.md",
+    "IsSupported": false
+  },
+  {
+    "Feature": "DriverDiscovery",
+    "Status": "Unverified",
+    "Explanation": "No validated contract for this product/operation; absence of evidence is not support.",
+    "Evidence": "docs/CAPABILITIES.md",
+    "IsSupported": false
+  },
+  {
+    "Feature": "LoadDiscovery",
+    "Status": "Unverified",
+    "Explanation": "No validated contract for this product/operation; absence of evidence is not support.",
+    "Evidence": "docs/CAPABILITIES.md",
+    "IsSupported": false
+  },
+  {
+    "Feature": "PackageVariables",
+    "Status": "Unverified",
+    "Explanation": "No validated contract for this product/operation; absence of evidence is not support.",
+    "Evidence": "docs/CAPABILITIES.md",
+    "IsSupported": false
+  },
+  {
+    "Feature": "NamedStructInference",
+    "Status": "Unsupported",
+    "Explanation": "Only explicit caller-provided packed-struct schemas are available.",
+    "Evidence": "GitHub #10",
+    "IsSupported": false
+  },
+  {
+    "Feature": "FixedStringNul",
+    "Status": "Unverified",
+    "Explanation": "No validated contract for this product/operation; absence of evidence is not support.",
+    "Evidence": "docs/CAPABILITIES.md",
+    "IsSupported": false
+  },
+  {
+    "Feature": "DynamicStringNul",
+    "Status": "Unsupported",
+    "Explanation": "Current dynamic-string ABI is NUL terminated, not length aware.",
+    "Evidence": "GitHub #14",
+    "IsSupported": false
+  },
+  {
+    "Feature": "SignednessMetadata",
+    "Status": "Conditional",
+    "Explanation": "Per-handle metadata can be absent; retain nullable signedness rather than infer it.",
+    "Evidence": "docs/HDL_TYPES.md",
+    "IsSupported": false
+  },
+  {
+    "Feature": "VhdlObjects",
+    "Status": "Unverified",
+    "Explanation": "No validated contract for this product/operation; absence of evidence is not support.",
+    "Evidence": "docs/CAPABILITIES.md",
+    "IsSupported": false
+  },
+  {
+    "Feature": "MixedLanguageTraversal",
+    "Status": "Unverified",
+    "Explanation": "No validated contract for this product/operation; absence of evidence is not support.",
+    "Evidence": "docs/CAPABILITIES.md",
+    "IsSupported": false
+  },
+  {
+    "Feature": "ImmediateSignalVisibility",
+    "Status": "Supported",
+    "Explanation": "Immediate visibility verified for Verilog register fixtures; races between writers remain possible.",
+    "Evidence": "docs/TIMING_CONFORMANCE.md",
+    "IsSupported": true
+  },
+  {
+    "Feature": "VcdCapture",
+    "Status": "Conditional",
+    "Explanation": "Runner can capture VCD; type representation and available signals depend on the backend.",
+    "Evidence": "docs/WAVEFORMS.md",
+    "IsSupported": false
+  },
+  {
+    "Feature": "NativeClock",
+    "Status": "Unsupported",
+    "Explanation": "Only managed SimClock is implemented.",
+    "Evidence": "GitHub #19",
+    "IsSupported": false
+  },
+  {
+    "Feature": "ExternalThreadWakeup",
+    "Status": "Unsupported",
+    "Explanation": "External work has no deterministic native simulator wakeup bridge.",
+    "Evidence": "GitHub #36",
+    "IsSupported": false
+  }
+]

@@ -27,7 +27,7 @@ def main():
         if name == 'gpi_get_signal_value_long':
             ret = 'long'
         value = {'gpi_get_root_handle': '(void *)1', 'gpi_get_object_type': '10',
-                 'gpi_get_signal_value_long': '-2147483649L', 'gpi_get_num_elems': '9', 'gpi_get_simulator_product': '"Icarus Verilog fault fixture"',
+                 'gpi_get_signal_value_long': '-2147483649L', 'gpi_get_num_elems': 'getenv("CS_FAKE_WIDTH") ? atoi(getenv("CS_FAKE_WIDTH")) : 9', 'gpi_get_simulator_product': 'getenv("CS_FAKE_PRODUCT") ? getenv("CS_FAKE_PRODUCT") : "Icarus Verilog fault fixture"',
                  'gpi_get_signal_value_binstr': 'getenv("CS_FAKE_LOGIC") ? getenv("CS_FAKE_LOGIC") : "10XZ01XZ1"',
                  'gpi_is_constant': 'getenv("CS_FAKE_CONSTANT") != NULL'}.get(name, '0')
         fake += f'{ret} {name}({args}) {{' + (f'return {value};' if ret != 'void' else '') + '}\n'
@@ -50,7 +50,7 @@ def main():
     (BUILD / 'Program.cs').write_text('''using SharpTestBench;
 using System.Reflection;
 string mode = args[0];
-if (mode != "registration") {
+if (mode != "registration" && mode != "unknown") {
  try { _ = new SimRuntime(); throw new Exception("Bad ABI was accepted"); }
  catch (NotSupportedException e) {
   string wanted = mode == "legacy" ? "predates packed-plane support" : mode == "version" ? "native ABI 99; expected 1" : "missing GPI symbol: gpi_register_start_of_sim_time_callback";
@@ -60,6 +60,25 @@ if (mode != "registration") {
  return;
 }
 var r = new SimRuntime();
+if (mode == "unknown") {
+ if (r.SupportsFourState || r.SupportsNineState || r.SupportsForceRelease) throw new Exception("Optimistic unknown support");
+ var signal = HdlObject.Root().Signal();
+ var typed = HdlObject.Root().Signal<W8>();
+ Action[] writes = {
+  () => signal.WriteBits("XXXXXXXX", WriteAction.Immediate),
+  () => signal.WriteBits("UUUUUUUU", WriteAction.Immediate),
+  () => typed.Write(LogicVector<W8>.Parse("XXXXXXXX"), WriteAction.Immediate),
+  () => signal.WriteBits("00000000", WriteAction.Force),
+  () => signal.WriteBits("00000000", WriteAction.Release)
+ };
+ foreach (var write in writes) {
+  try { write(); throw new Exception("Unverified write accepted"); }
+  catch (NotSupportedException e) when (e.Message.Contains("Unverified")) { }
+ }
+ if (r.PendingCallbacks != 0) throw new Exception("Rejected operation queued work");
+ Console.WriteLine("PASS unknown: five raw/typed state and force/release guards reject unverified operations");
+ return;
+}
 var kindType = typeof(SimRuntime).Assembly.GetType("SharpTestBench.CallbackKind")!;
 var register = typeof(SimRuntime).GetMethod("Register", BindingFlags.NonPublic | BindingFlags.Instance)!;
 int count = 0;
@@ -92,8 +111,10 @@ Console.WriteLine($"PASS registration: {count} callback kinds cleanly rejected; 
 ''')
     run([SDK / 'dotnet', 'build', BUILD / 'Faults.csproj', '-c', 'Release'])
     results = []
-    for case in ['version', 'legacy', 'missing', 'registration']:
-        env = dict(os.environ, LD_LIBRARY_PATH=str(BUILD / case))
+    for case in ['version', 'legacy', 'missing', 'registration', 'unknown']:
+        env = dict(os.environ, LD_LIBRARY_PATH=str(BUILD / ('registration' if case == 'unknown' else case)))
+        if case == 'unknown':
+            env.update(CS_FAKE_PRODUCT='Unknown Simulator', CS_FAKE_WIDTH='8')
         p = run([SDK / 'dotnet', BUILD / 'bin/Release/net10.0/Faults.dll', case], env=env)
         results.append({'case': case, 'stdout': p.stdout.strip(), 'stderr': p.stderr.strip(), 'exit': p.returncode})
         print(p.stdout.strip())

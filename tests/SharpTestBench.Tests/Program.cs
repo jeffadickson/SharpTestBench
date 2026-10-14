@@ -147,4 +147,23 @@ Check(coverageThreadError is InvalidOperationException, "coverage thread ownersh
 var coverageJson = System.Text.Json.JsonSerializer.Serialize(coverage.Snapshot());
 using (var parsedCoverage = System.Text.Json.JsonDocument.Parse(coverageJson))
     Check(parsedCoverage.RootElement.GetProperty("Points")[0].GetProperty("Bins")[1].GetProperty("Hits").GetUInt64() == 3, "coverage JSON preserves exact counts");
+foreach (var (product, family) in new[] { ("Icarus Verilog 12", SimulatorFamily.Icarus), (" verilator 5.048 ", SimulatorFamily.Verilator), ("GHDL", SimulatorFamily.Ghdl), ("NVC(1.23)", SimulatorFamily.Nvc), ("NotVerilator", SimulatorFamily.Unknown), ("VerilatorClone", SimulatorFamily.Unknown), ("", SimulatorFamily.Unknown) })
+{
+    var caps = SimulatorCapabilities.Describe(product, 3);
+    Check(caps.Family == family, "capability product boundary " + product);
+    Check(caps.All.Count == Enum.GetValues<SimulatorFeature>().Length && caps.All.All(x => x.Explanation.Length > 0 && x.Evidence.Length > 0), "complete explained catalogue");
+    Check(caps[SimulatorFeature.ForceRelease].IsSupported == (family == SimulatorFamily.Icarus), "force policy");
+    if (family == SimulatorFamily.Unknown)
+        foreach (var feature in new[] { SimulatorFeature.FourStateWrites, SimulatorFeature.NineStateWrites, SimulatorFeature.ForceRelease })
+        {
+            Check(caps[feature].Status == CapabilityStatus.Unverified, "unknown remains unverified");
+            Throws<NotSupportedException>(() => caps.Require(feature), "unverified rejected");
+        }
+    Throws<NotSupportedException>(() => caps.Require(SimulatorFeature.DynamicStringNul), "dynamic NUL rejected");
+    Check(caps[SimulatorFeature.PackedPlaneTransport].IsSupported, "ABI transport independent of product");
+}
+var noFeatures = SimulatorCapabilities.Describe("Verilator", 0);
+Check(noFeatures[SimulatorFeature.PackedPlaneTransport].Status == CapabilityStatus.Unsupported && noFeatures[SimulatorFeature.NativePackedRanges].Status == CapabilityStatus.Unsupported, "absent ABI features");
+Throws<NotSupportedException>(() => SimulatorCapabilities.Describe("Verilator", 3).Require(SimulatorFeature.NativePackedRanges), "conditional requires per-object probe");
+Throws<ArgumentNullException>(() => SimulatorCapabilities.Describe(null!, 0), "null product rejected");
 Console.WriteLine($"UNIT_PASS {passed}");

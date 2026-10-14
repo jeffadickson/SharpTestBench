@@ -35,13 +35,17 @@ public partial class HdlObject
     static ObjectDiscovery Discover(SimRuntime runtime, nint parent, int kind)
     {
         runtime.CheckThread();
-        // Restrictions describe pinned adapters/tested products, not universal HDL limitations.
-        if (runtime.Simulator.Contains("NVC", StringComparison.OrdinalIgnoreCase))
-            return new(DiscoveryStatus.Unsupported, System.Array.Empty<HdlObject>(),
-                "The pinned VHPI adapter does not implement this iterator.");
-        if (kind is 2 or 3 && runtime.Simulator.Contains("Verilator", StringComparison.OrdinalIgnoreCase))
-            return new(DiscoveryStatus.Unsupported, System.Array.Empty<HdlObject>(),
-                "The tested Verilator VPI implementation does not implement driver/load iteration.");
+        var feature = kind switch
+        {
+            2 => SimulatorFeature.DriverDiscovery, 3 => SimulatorFeature.LoadDiscovery,
+            4 => SimulatorFeature.PackageDiscovery, 5 => SimulatorFeature.RootDiscovery,
+            _ => throw new ArgumentOutOfRangeException(nameof(kind))
+        };
+        var capability = runtime.Capabilities[feature];
+        if (capability.Status == CapabilityStatus.Unsupported)
+            return new(DiscoveryStatus.Unsupported, System.Array.Empty<HdlObject>(), capability.Explanation);
+        // Conditional/unverified read-only discovery may probe. Its result reports observation,
+        // never upgrades a family-wide capability or turns an empty iterator into proof of absence.
         var iterator = Native.gpi_iterate(parent, kind);
         var handles = new List<nint>();
         var seen = new HashSet<nint>();
@@ -67,7 +71,7 @@ public partial class HdlObject
         if (Kind is not (ObjectKind.Packed or ObjectKind.LogicArray))
             return new(null, "Only packed/vector handles expose a bit-range layout; structures require native member handles or an explicit layout.");
         int width = Native.gpi_get_num_elems(Handle);
-        if (Runtime.Simulator.Contains("Verilator", StringComparison.OrdinalIgnoreCase) && (Native.cs_abi_features() & 2) != 0)
+        if (Runtime.Capabilities[SimulatorFeature.NativePackedRanges].Status == CapabilityStatus.Conditional)
         {
             int[] pairs = new int[128];
             int status = Native.cs_v1_vpi_packed_ranges(FullName, (uint)width, pairs, 64, out uint count);
