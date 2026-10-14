@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 namespace SharpTestBench;
 internal static class Native
 {
-    const string Lib = "libsharptestbench_host.so";
+    const string Lib = "sharptestbench_host";
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     internal delegate int Callback(nint data);
     [DllImport(Lib, EntryPoint = "cs_v1_gpi_register_start_of_sim_time_callback", CallingConvention = CallingConvention.Cdecl)]

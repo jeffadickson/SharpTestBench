@@ -1,7 +1,8 @@
 #include "abi.h"
 #include "upstream/gpi.h"
 #include "upstream/vpi_user.h"
-#include <dlfcn.h>
+#include <stdlib.h>
+#include "platform.h"
 #include <stdio.h>
 #include <limits.h>
 
@@ -60,7 +61,15 @@ const char *cs_bind_gpi(void) {
     static int bound;
     static char error[512];
     if (bound) return NULL;
-    if (!gpi) gpi = dlopen("libgpi.so", RTLD_NOW | RTLD_LOCAL);
+    const char *gpi_path = getenv("CS_GPI_LIBRARY");
+    if (!gpi_path) gpi_path = "libgpi.so";
+#ifdef _WIN32
+    const wchar_t *wide_gpi = _wgetenv(L"CS_GPI_LIBRARY");
+    if (!gpi) gpi = (void *)LoadLibraryW(wide_gpi ? wide_gpi : L"gpi.dll");
+    (void)gpi_path;
+#else
+    if (!gpi) gpi = dlopen(gpi_path, RTLD_NOW | RTLD_LOCAL);
+#endif
     if (!gpi) { snprintf(error, sizeof error, "libgpi.so: %s", dlerror()); return error; }
     p_gpi_register_start_of_sim_time_callback = (__typeof__(p_gpi_register_start_of_sim_time_callback))dlsym(gpi, "gpi_register_start_of_sim_time_callback");
     if (!p_gpi_register_start_of_sim_time_callback) return "missing GPI symbol: gpi_register_start_of_sim_time_callback";

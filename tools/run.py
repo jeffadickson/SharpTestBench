@@ -4,6 +4,7 @@ import argparse,json,os,re,shutil,subprocess,sys
 import xml.etree.ElementTree as ET
 from pathlib import Path
 from cocotb_tools import config
+from native_build import build_host, sdk_root, HOST_NAME, FXR_NAME, LOADER_PATH
 root=Path(__file__).resolve().parents[1]
 def command(args,**kw):
  print('+',' '.join(map(str,args)),flush=True)
@@ -21,22 +22,19 @@ def main():
  label=args.label or args.sim
  if not label.replace('-','').replace('_','').isalnum():raise SystemExit('Label must be alphanumeric')
  (build/(label+'-artifacts.json')).unlink(missing_ok=True)
- sdk=Path(os.environ['CS_DOTNET_ROOT']) if 'CS_DOTNET_ROOT' in os.environ else Path(shutil.which('dotnet')).resolve().parent
+ sdk=sdk_root()
  assembly='VhdlIntegration' if args.sim in ('ghdl','nvc') else args.project
  if not args.no_build:
   if not args.assembly:command([sdk/'dotnet','build',root/f'tests/{assembly}/{assembly}.csproj','-c','Release','--nologo'])
-  headers=sorted((sdk/'packs/Microsoft.NETCore.App.Host.linux-x64').glob('*/runtimes/linux-x64/native'), key=lambda p: tuple(map(int, p.parents[2].name.split('-')[0].split('.'))))[-1]
-  temporary=build/f'host-{os.getpid()}.so'
-  try:
-   command(['gcc','-shared','-fPIC','-Wall','-Wextra','-Werror','-Wl,-soname,libsharptestbench_host.so',root/'native/host.c',root/'native/abi.c','-I',root/'native/upstream','-I',headers,'-ldl','-o',temporary])
-   temporary.replace(build/'libsharptestbench_host.so')
-  finally:temporary.unlink(missing_ok=True)
+  build_host(root,sdk,build)
  binary=root/f'tests/{assembly}/bin/Release/net10.0'
  if args.assembly:
   binary=args.assembly.resolve().parent;assembly=args.assembly.stem
  if not (binary/f'{assembly}.dll').is_file() or not (binary/f'{assembly}.runtimeconfig.json').is_file():raise SystemExit('Test DLL and runtimeconfig.json are required')
  sources=[p.resolve() for p in args.source] if args.source else [root/('tests/VhdlIntegration/top.vhd' if args.sim in ('ghdl','nvc') else 'tests/Integration/top.sv')]
- env=os.environ.copy();env.update(CS_HOSTFXR=str(max((sdk/'host/fxr').glob('*/libhostfxr.so'), key=lambda p: tuple(map(int, p.parent.name.split('-')[0].split('.'))))),CS_CONFIG=str(binary/f'{assembly}.runtimeconfig.json'),CS_ASSEMBLY=str(binary/f'{assembly}.dll'),CS_TOPLEVEL=args.top,CS_ENTRY_TYPE=args.entry_type or 'Entry, '+assembly,CS_RESULTS=str(build/(label+'-results.json')),CS_TRACE=str(build/(label+'-trace.txt')),CS_BINDINGS=str(build/'DutBindings.cs'),DOTNET_ROOT=str(sdk),LD_LIBRARY_PATH=str(args.host.resolve().parent if args.host else build)+os.pathsep+str(config.libs_dir)+os.pathsep+env.get('LD_LIBRARY_PATH',''))
+ env=os.environ.copy();env.update(CS_HOSTFXR=str(max((sdk/'host/fxr').glob('*/'+FXR_NAME), key=lambda p: tuple(map(int, p.parent.name.split('-')[0].split('.'))))),CS_CONFIG=str(binary/f'{assembly}.runtimeconfig.json'),CS_ASSEMBLY=str(binary/f'{assembly}.dll'),CS_TOPLEVEL=args.top,CS_ENTRY_TYPE=args.entry_type or 'Entry, '+assembly,CS_RESULTS=str(build/(label+'-results.json')),CS_TRACE=str(build/(label+'-trace.txt')),CS_BINDINGS=str(build/'DutBindings.cs'),DOTNET_ROOT=str(sdk),LD_LIBRARY_PATH=str(args.host.resolve().parent if args.host else build)+os.pathsep+str(config.libs_dir)+os.pathsep+env.get('LD_LIBRARY_PATH',''))
+ env['CS_GPI_LIBRARY']=config.gpi_entry_point().rsplit(',',1)[0]
+ env[LOADER_PATH]=str(args.host.resolve().parent if args.host else build)+os.pathsep+str(config.libs_dir)+os.pathsep+env.get(LOADER_PATH,'')
  if args.filter:env['CS_TEST_FILTER']=args.filter
  if args.list:env['CS_LIST_TESTS']='1'
  if args.log_json:env['CS_LOG_JSON']=str(args.log_json.resolve())
@@ -45,7 +43,7 @@ def main():
  if args.stage is not None:env['CS_TEST_STAGES']=','.join(map(str,args.stage))
  if args.stage_failure_policy:env['CS_STAGE_FAILURE_POLICY']=args.stage_failure_policy
  env['GPI_IMPL']=subprocess.check_output([sys.executable,'-m','cocotb_tools.config','--gpi-impl',args.sim,'vhpi' if args.sim=='nvc' else 'vpi'],text=True).strip()
- env['COCOTB_BOOTSTRAP']=os.pathsep.join([config.gpi_entry_point(),str(args.host.resolve() if args.host else build/'libsharptestbench_host.so')+',sharptestbench_initialize'])
+ env['COCOTB_BOOTSTRAP']=os.pathsep.join([config.gpi_entry_point(),str(args.host.resolve() if args.host else build/HOST_NAME)+',sharptestbench_initialize'])
  if args.sim=='icarus':
   ivl=['-B',os.environ['CS_IVL_ROOT']] if 'CS_IVL_ROOT' in os.environ else []
   wave_options=[]
@@ -56,17 +54,17 @@ def main():
    helper.write_text('module __sharptestbench_wave_dump; initial if ($test$plusargs("SHARPTESTBENCH_WAVES")) begin $dumpfile("'+literal+'"); $dumpvars(0,'+args.top+'); end endmodule\n')
    wave_options=['-s','__sharptestbench_wave_dump',helper]
   command([os.environ.get('CS_IVERILOG','iverilog'),*ivl,'-g2012','-s',args.top,*wave_options,'-o',build/'top.vvp',*sources])
-  run=[os.environ.get('CS_VVP','vvp'),'-m',config.libs_dir/'libcocotb_bootstrap.so',build/'top.vvp']+(['+SHARPTESTBENCH_WAVES'] if wave else [])
+  run=[os.environ.get('CS_VVP','vvp'),'-m',config.lib_entry('vpi','icarus'),build/'top.vvp']+(['+SHARPTESTBENCH_WAVES'] if wave else [])
  elif args.sim=='ghdl':
   ghdl=os.environ.get('CS_GHDL','ghdl')
   command([ghdl,'-a','--std=08',*sources],cwd=build,env=env)
   command([ghdl,'-e','--std=08',args.top],cwd=build,env=env)
-  run=[ghdl,'-r','--std=08',args.top,'--vpi='+str(config.libs_dir/'libcocotb_bootstrap.so')]+(['--vcd='+str(wave)] if wave else [])
+  run=[ghdl,'-r','--std=08',args.top,'--vpi='+str(config.lib_entry('vpi','ghdl'))]+(['--vcd='+str(wave)] if wave else [])
  elif args.sim=='nvc':
   nvc=os.environ.get('CS_NVC','nvc')
   work='--work=work:'+str(build/'nvc-work')
   command([nvc,'--std=2008',work,'-a',*sources,'--preserve-case'],cwd=build,env=env)
-  run=[nvc,'--std=2008',work,'-e',args.top,'--no-save','--jit','-r','--load='+str(config.libs_dir/'libcocotb_bootstrap.so')]+(['--wave='+str(wave),'--format=vcd'] if wave else [])
+  run=[nvc,'--std=2008',work,'-e',args.top,'--no-save','--jit','-r','--load='+str(config.lib_entry('vhpi','nvc'))]+(['--wave='+str(wave),'--format=vcd'] if wave else [])
  else:
   from cocotb_tools.runner import get_runner
   # Build with upstream's simulator-specific driver; run it with the C# bootstrap.

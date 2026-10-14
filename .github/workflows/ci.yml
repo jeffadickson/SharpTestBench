@@ -12,7 +12,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '10.0.x'
+          dotnet-version: '10.0.402'
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
@@ -51,3 +51,52 @@ jobs:
             build/*trace.txt*
             build/typecheck.log
             build/native-faults.json
+
+  native-platforms:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-2022, macos-14]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.402'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install macOS simulator
+        if: runner.os == 'macOS'
+        run: brew install icarus-verilog
+      - uses: msys2/setup-msys2@v2
+        if: runner.os == 'Windows'
+        with:
+          msystem: UCRT64
+          install: mingw-w64-ucrt-x86_64-gcc
+      - name: Install Windows simulator
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          choco install iverilog --yes --no-progress
+          'C:\iverilog\bin' | Out-File -FilePath $env:GITHUB_PATH -Append
+          'C:\msys64\ucrt64\bin' | Out-File -FilePath $env:GITHUB_PATH -Append
+      - name: Install pinned native adapters
+        run: |
+          python tools/prepare_upstream.py
+          python -m pip install ./build/upstream/cocotb-source pytest
+      - run: dotnet build SharpTestBench.slnx -c Release -p:RestoreLockedMode=true
+      - run: python tools/managed_tests.py
+      - run: python tools/run.py --sim icarus --label platform-icarus --waves build/platform-icarus.vcd
+      - run: python tools/wave_check.py --label platform-icarus
+      - run: python tools/cleanup_tests.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: platform-results-${{ matrix.os }}
+          path: |
+            build/*results.*
+            build/*run.log
+            build/*driver.log
+            build/*.vcd
