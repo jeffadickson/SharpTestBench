@@ -264,3 +264,9 @@ checksum-pinned NVC Ubuntu package and runs the VHDL suite. Dynamic-string callb
 support and additional backend/type combinations remain unverified. The API audit
 still covers 29 definitions; this change resolves one recorded implementation gap,
 not the remaining 273 reviews or full cocotb parity.
+
+[CI run 38648361021](https://github.com/jeffadickson/SharpTestBench/actions/runs/38648361021)
+passed at `23aa543379a0bc3a22739f4b441ba60f0ae704f9`: Linux (including the
+new NVC suite), Windows x64, macOS ARM64, the isolated Linux package consumer,
+and the five-package release-bundle gate. Real callbacks pass on all three Icarus
+platforms; NVC fixed-string evidence is Linux-only. No public packages were published.

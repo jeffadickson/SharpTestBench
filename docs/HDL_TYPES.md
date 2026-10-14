@@ -48,6 +48,26 @@ ordinals follow the supported Linux x86-64 signed C-char ABI. Dynamic-string NUL
 writes remain unsupported. Individual native setters have a void GPI return API;
 their backend-specific error reporting needs further work.
 
+## Waiting for typed value changes
+
+`Triggers.ValueChange` accepts native scalar value objects, including `RealSignal`,
+`StringSignal` and `IntegerSignal`, as well as the original logic `Signal` types.
+For an enum wrapper, pass its `Raw` integer signal. Scope and aggregate handles
+are rejected; select the individual value object you want to observe.
+
+```csharp
+var temperature = c.Dut.Child("temperature").Real();
+await Triggers.ValueChange(temperature).WithCancellation(c.Cancellation);
+await Triggers.ReadOnly(); // Let downstream HDL reactions settle before sampling.
+double measured = temperature.Read();
+```
+
+Real notifications are tested on Icarus and NVC; fixed-string notifications on
+NVC. Equal-value writes do not wake these waiters. Cancellation detaches native
+registrations, and a trigger can be reused or awaited by multiple consumers.
+Dynamic-string callbacks and other backend/type combinations remain unverified.
+The C# trigger object is not identity-equivalent to Python's cached trigger object.
+
 ## Generation and limits
 
 `Bindings.Generate(root, namespaceName: "GeneratedDut")` traverses scopes and
