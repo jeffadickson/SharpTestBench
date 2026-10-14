@@ -1,0 +1,11 @@
+[
+  {
+    "Name": "runtime",
+    "Status": "failed",
+    "Seed": 0,
+    "StartStep": 0,
+    "EndStep": 0,
+    "Seconds": 0,
+    "Error": "System.InvalidOperationException: No tests matched\n   at SharpTestBench.Regression.Run(Assembly assembly) in /workspace/scratch/d13ee848099b/SharpTestBench/src/SharpTestBench/Regression.cs:line 374"
+  }
+]

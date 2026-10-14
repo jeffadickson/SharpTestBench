@@ -10,6 +10,7 @@ public sealed class SimTestAttribute : Attribute
 {
     public ulong TimeoutSteps { get; set; } = 100000;
     public bool Skip { get; set; }
+    public int Stage { get; set; }
     public string[] Simulators { get; set; } = [];
     public Type? ExpectedException { get; set; }
 }
@@ -51,12 +52,44 @@ public sealed class SimRandom
 
 public class SimJob
 {
+    static readonly AsyncLocal<SimJob?> current = new();
+    /// <summary>The StartSoon job executing in this async flow, or null in the test body.</summary>
+    public static SimJob? Current => current.Value;
+    internal static void Enter(SimJob job) => current.Value = job;
+    internal readonly Dictionary<object, object?> Locals = new();
     internal readonly CancellationTokenSource Source;
     public Task Task { get; }
     public string Name { get; private set; }
     public TaskStatus Status => Task.Status;
     public bool IsCompleted => Task.IsCompleted;
     public AggregateException? Exception => Task.Exception;
+    readonly List<Action<Exception?>> completionObservers = new();
+
+    /// <summary>A reusable completion-only trigger. It never propagates this job's
+    /// result, failure or cancellation and never takes ownership of the job.</summary>
+    public Trigger Complete => new CompletionTrigger(this);
+
+    internal void NotifyCompletion()
+    {
+        var observers = completionObservers.ToArray();
+        completionObservers.Clear();
+        foreach (var observer in observers) observer(null);
+    }
+
+    sealed class CompletionTrigger(SimJob job) : Trigger
+    {
+        internal override IDisposable Subscribe(SimRuntime runtime, Action<Exception?> complete)
+        {
+            runtime.CheckThread();
+            if (job.IsCompleted)
+            {
+                complete(null);
+                return new ActionDisposable(() => { });
+            }
+            job.completionObservers.Add(complete);
+            return new ActionDisposable(() => job.completionObservers.Remove(complete));
+        }
+    }
 
     internal SimJob(CancellationTokenSource source, string name, Task task)
     {
@@ -145,6 +178,7 @@ public sealed class TestContext
             // AsyncLocal is restored when this async delegate yields or returns.
             // Every continuation in the child retains its own cancellation scope.
             Runtime.DefaultCancellation = child.Token;
+            SimJob.Enter(job);
             try
             {
                 child.Token.ThrowIfCancellationRequested();
@@ -166,6 +200,10 @@ public sealed class TestContext
                 {
                     started.SetException(e);
                 }
+            }
+            finally
+            {
+                job.NotifyCompletion();
             }
         });
         return job;
@@ -236,13 +274,23 @@ public static class Regression
     {
         try
         {
-            var methods = assembly.GetTypes().SelectMany(t => t.GetMethods(BindingFlags.Public | BindingFlags.Static)).Where(m => m.IsDefined(typeof(SimTestAttribute))).OrderBy(m => m.DeclaringType!.FullName + "." + m.Name, StringComparer.Ordinal);
+            var methods = assembly.GetTypes().SelectMany(t => t.GetMethods(BindingFlags.Public | BindingFlags.Static))
+                .Where(m => m.IsDefined(typeof(SimTestAttribute)))
+                .OrderBy(m => m.GetCustomAttribute<SimTestAttribute>()!.Stage)
+                .ThenBy(m => m.DeclaringType!.FullName + "." + m.Name, StringComparer.Ordinal);
+            string? stagesText = Environment.GetEnvironmentVariable("CS_TEST_STAGES");
+            HashSet<int>? stages = stagesText == null ? null : stagesText.Split(',').Select(int.Parse).ToHashSet();
+            string stagePolicy = Environment.GetEnvironmentVariable("CS_STAGE_FAILURE_POLICY") ?? "continue";
+            if (stagePolicy is not ("continue" or "stop-after-stage"))
+                throw new ArgumentException("CS_STAGE_FAILURE_POLICY must be continue or stop-after-stage");
+            int? failedStage = null;
             string? filter = Environment.GetEnvironmentVariable("CS_TEST_FILTER");
             ulong seed = ulong.Parse(Environment.GetEnvironmentVariable("CS_SEED") ?? "1");
             int index = 0;
             foreach (var method in methods)
             {
                 var attr = method.GetCustomAttribute<SimTestAttribute>()!;
+                if (stages != null && !stages.Contains(attr.Stage)) continue;
                 var cases = method.GetCustomAttributes<SimCaseAttribute>().Select(c => c.Arguments).ToArray();
                 if (cases.Length == 0)
                     cases = [[]];
@@ -253,9 +301,10 @@ public static class Regression
                         continue;
                     ulong testSeed = unchecked(seed + (ulong)index++);
                     bool unavailable = attr.Simulators.Length > 0 && !attr.Simulators.Any(s => runtime!.Simulator.Contains(s, StringComparison.OrdinalIgnoreCase));
-                    if (attr.Skip || unavailable)
+                    bool stoppedStage = stagePolicy == "stop-after-stage" && failedStage.HasValue && attr.Stage > failedStage.Value;
+                    if (attr.Skip || unavailable || stoppedStage)
                     {
-                        results.Add(new(name, "skipped", testSeed, runtime!.Now, runtime.Now, 0, unavailable ? "Requires simulator: " + string.Join(", ", attr.Simulators) : "Explicit skip"));
+                        results.Add(new(name, "skipped", testSeed, runtime!.Now, runtime.Now, 0, stoppedStage ? $"Earlier stage {failedStage} failed" : unavailable ? "Requires simulator: " + string.Join(", ", attr.Simulators) : "Explicit skip"));
                         continue;
                     }
 
@@ -308,6 +357,7 @@ public static class Regression
                     if (attr.ExpectedException != null && error == null)
                         error = new InvalidOperationException("Expected exception was not raised");
                     string status = error == null || expected ? "passed" : "failed";
+                    if (status == "failed") failedStage ??= attr.Stage;
                     watch.Stop();
                     results.Add(new(name, status, testSeed, start, runtime.Now, watch.Elapsed.TotalSeconds, expected ? null : error?.ToString()));
                     Console.WriteLine($"CS_TEST {status} {name} steps={runtime.Now - start} seed={testSeed}");

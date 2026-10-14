@@ -12,14 +12,14 @@ that Python APIs or Python coroutine internals have been reproduced in C#.
 | Task.done() | IsCompleted / Task.IsCompleted | Tested completed, failed and cancelled jobs |
 | Task.cancelled() | Task.IsCanceled | .NET cancellation state |
 | Task.exception() | Exception / Task.Exception | AggregateException container; .NET property behavior differs |
-| Task.get_name() | Name | Constructor-assigned name |
+| Task.get_name() | Name | Mutable diagnostic name |
 | Task.set_name() | SimJob.SetName | Simulator-thread checked; nonblank name; typed and untyped jobs |
-| Task.cancel(msg) | Cancel() | Cooperative CancellationToken; no message or Python cancellation injection |
+| Task.cancel(msg) | Cancel() | Cooperative CancellationToken; deliberate no-message policy (TASKS.md) |
 | Task.kill() | No abrupt kill | Would bypass C# cleanup; deliberately not presented as equivalent to Cancel |
-| Task.complete | Task / IsCompleted | No dedicated completion Trigger accepting mixed trigger/task lists yet |
+| Task.complete | SimJob.Complete | Completion-only Trigger; composes with native triggers, without propagating job failure |
 | Task.join() / Join | Await SimJob | Deprecated Python API is not copied |
-| Task.locals | AsyncLocal used internally for cancellation | No public task-local dictionary API |
-| Task traceback / coroutine introspection | .NET exception stack traces | No equivalent Python frame/traceback inspection |
+| Task.locals | SimTaskLocal<T> | Typed key; isolated per StartSoon job, no inheritance |
+| Task traceback / coroutine introspection | SimJob.Current, Status, Exception | Managed exception stacks; no Python frame/coroutine inspection |
 
 SimTasks.First/Combine/WithTimeout are non-owning waits. RunGroup is an additional
 structured ownership API with sibling cancellation, cleanup joining and aggregate

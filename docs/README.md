@@ -7,6 +7,7 @@
 - [Compatibility inventory](COMPATIBILITY.csv)
 - [Validation and limitations](VALIDATION.md)
 - [Hardware types and generated bindings](HDL_TYPES.md)
+- [Regression stages and failure policies](REGRESSION_STAGES.md)
 - [Task ownership and cancellation](TASKS.md)
 - [Upstream task API mapping](TASK_API_MAP.md)
 - [Packed fields and timing](PACKED_VIEWS_AND_TIMING.md)

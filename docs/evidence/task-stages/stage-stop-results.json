@@ -1,0 +1,47 @@
+[
+  {
+    "Name": "Z_First[0]",
+    "Status": "passed",
+    "Seed": 100,
+    "StartStep": 1,
+    "EndStep": 2,
+    "Seconds": 0.0045999,
+    "Error": null
+  },
+  {
+    "Name": "Z_First[1]",
+    "Status": "passed",
+    "Seed": 101,
+    "StartStep": 3,
+    "EndStep": 4,
+    "Seconds": 0.0002375,
+    "Error": null
+  },
+  {
+    "Name": "A_Fail",
+    "Status": "failed",
+    "Seed": 102,
+    "StartStep": 5,
+    "EndStep": 6,
+    "Seconds": 0.0005254,
+    "Error": "System.FormatException: intentional stage failure\n   at SharpTestBench.Regression.Run(Assembly assembly) in /workspace/scratch/d13ee848099b/SharpTestBench/src/SharpTestBench/Regression.cs:line 336"
+  },
+  {
+    "Name": "B_After",
+    "Status": "passed",
+    "Seed": 103,
+    "StartStep": 7,
+    "EndStep": 8,
+    "Seconds": 5.54E-05,
+    "Error": null
+  },
+  {
+    "Name": "A_Last",
+    "Status": "skipped",
+    "Seed": 104,
+    "StartStep": 8,
+    "EndStep": 8,
+    "Seconds": 0,
+    "Error": "Earlier stage 0 failed"
+  }
+]

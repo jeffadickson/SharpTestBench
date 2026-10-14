@@ -13,6 +13,245 @@ public static class Entry
 public static class Tests
 {
     [SimTest]
+    public static async Task AP_MultipleFailureTeardownStress(TestContext c)
+    {
+        for (int round = 0; round < 256; round++)
+        {
+            int cleaned = 0;
+            AggregateException? failure = null;
+            try
+            {
+                await c.RunGroup(async group =>
+                {
+                    var jobs = Enumerable.Range(0, 4).Select(i =>
+                    {
+                        ulong delay = (ulong)c.Random.Next(3) + 1;
+                        return group.StartSoon(async token =>
+                        {
+                            try
+                            {
+                                await Timer(delay);
+                                throw new FormatException($"failure round={round} child={i}");
+                            }
+                            finally
+                            {
+                                cleaned++;
+                                if (token.IsCancellationRequested)
+                                    throw new ApplicationException($"cleanup round={round} child={i}");
+                            }
+                        });
+                    }).ToArray();
+                    await Task.WhenAll(jobs.Select(j => j.Task));
+                });
+            }
+            catch (AggregateException e) { failure = e; }
+            Check(cleaned == 4 && failure?.Flatten().InnerExceptions.Count == 4,
+                $"aggregate retains each failure once seed={c.Seed} round={round}");
+            await Timer(1);
+            Check(c.Runtime.PendingCallbacks == 1, $"native teardown seed={c.Seed} round={round}");
+        }
+    }
+
+    [SimTest]
+    public static async Task AO_PrimitiveFairnessStress(TestContext c)
+    {
+        const int contenders = 24;
+        for (int round = 0; round < 64; round++)
+        {
+            // The regression prints the seed; each assertion retains round and phase.
+            var cancelled = Enumerable.Range(0, contenders).Select(_ => c.Random.Next(4) == 0).ToArray();
+            var expected = Enumerable.Range(0, contenders).Where(i => !cancelled[i]).ToArray();
+            var order = new List<int>();
+            var semaphore = new SimSemaphore(0, 1);
+            var jobs = Enumerable.Range(0, contenders).Select(i => c.StartSoon(async token =>
+            {
+                await semaphore.Acquire();
+                order.Add(i);
+                semaphore.Release();
+            })).ToArray();
+            await Yield();
+            for (int i = 0; i < contenders; i++) if (cancelled[i]) jobs[i].Cancel();
+            await Yield();
+            semaphore.Release();
+            await Combine(jobs.Select(j => j.Complete).ToArray());
+            Check(order.SequenceEqual(expected) && semaphore.CurrentCount == 1, $"semaphore FIFO/cancellation round={round}");
+
+            order.Clear();
+            var mutex = new SimLock();
+            var held = await mutex.Acquire();
+            jobs = Enumerable.Range(0, contenders).Select(i => c.StartSoon(async token =>
+            {
+                using (await mutex.Acquire())
+                {
+                    order.Add(i);
+                    await Yield(); // Hold across a continuation under contention.
+                }
+            })).ToArray();
+            await Yield();
+            for (int i = 0; i < contenders; i++) if (cancelled[i]) jobs[i].Cancel();
+            await Yield();
+            held.Dispose(); held.Dispose();
+            await Combine(jobs.Select(j => j.Complete).ToArray());
+            Check(order.SequenceEqual(expected), $"lock FIFO/cancellation round={round}");
+            using (await mutex.Acquire()) { }
+
+            var queue = new SimQueue<int>(1);
+            await queue.Put(-1);
+            jobs = Enumerable.Range(0, contenders).Select(i => c.StartSoon(async token => await queue.Put(i))).ToArray();
+            await Yield();
+            for (int i = 0; i < contenders; i++) if (cancelled[i]) jobs[i].Cancel();
+            await Yield();
+            Check(await queue.Get() == -1, "queue retains existing item");
+            foreach (var i in expected)
+                Check(await queue.Get() == i, $"queue blocked-producer FIFO round={round}");
+            await Combine(jobs.Select(j => j.Complete).ToArray());
+            Check(queue.Count == 0, "cancelled producers leave no phantom values");
+
+            order.Clear();
+            jobs = Enumerable.Range(0, contenders).Select(i => c.StartSoon(async token =>
+            {
+                int value = await queue.Get();
+                Check(value == i, $"queue consumer assigned value round={round} index={i}");
+                order.Add(i);
+            })).ToArray();
+            await Yield();
+            for (int i = 0; i < contenders; i++) if (cancelled[i]) jobs[i].Cancel();
+            await Yield();
+            foreach (var i in expected) await queue.Put(i);
+            await Combine(jobs.Select(j => j.Complete).ToArray());
+            Check(order.SequenceEqual(expected) && queue.Count == 0, $"queue blocked-consumer FIFO round={round}");
+            await Timer(1);
+            Check(c.Runtime.PendingCallbacks == 1, $"primitive cleanup round={round}");
+        }
+    }
+
+    [SimTest]
+    public static async Task AN_TaskLocalsAndIntrospection(TestContext c)
+    {
+        var local = new SimTaskLocal<string?>();
+        Check(SimJob.Current == null, "test body is not a job");
+        Throws<InvalidOperationException>(() => local.Value = "outside");
+        SimJob? parent = null;
+        parent = c.StartSoon(async token =>
+        {
+            Check(ReferenceEquals(SimJob.Current, parent), "current job identity");
+            Check(!local.TryGetValue(out _), "new job has empty locals");
+            local.Value = "parent";
+            var nested = c.StartSoon(async token =>
+            {
+                Check(!local.TryGetValue(out _), "nested job storage starts empty");
+                local.Value = null;
+                await Timer(2);
+                Check(local.TryGetValue(out var value) && value == null, "null value survives await");
+                Check(local.Clear() && !local.Clear(), "clear removes only current job value");
+            });
+            await nested;
+            Check(local.Value == "parent" && ReferenceEquals(SimJob.Current, parent), "parent state survives nested job");
+            Exception? error = null;
+            var thread = new Thread(() => { try { local.Value = "illegal"; } catch (Exception e) { error = e; } });
+            thread.Start(); thread.Join();
+            Check(error is InvalidOperationException && local.Value == "parent", "locals reject foreign thread access");
+        }, "local-parent");
+        var sibling = c.StartSoon(async token =>
+        {
+            Check(!local.TryGetValue(out _), "sibling starts empty");
+            local.Value = "sibling";
+            await Timer(1);
+            Check(local.Value == "sibling", "sibling state is isolated");
+        });
+        await SimTasks.Combine(parent.Task, sibling.Task);
+        Check(SimJob.Current == null, "current job does not leak into test body");
+        bool stackObserved = false;
+        try
+        {
+            await c.RunGroup(async group =>
+            {
+                var failed = group.StartSoon(async token => { await Timer(1); throw new FormatException("introspection fixture"); });
+                await failed.Complete.WithCancellation(CancellationToken.None);
+                stackObserved = failed.Status == TaskStatus.Faulted &&
+                    failed.Exception?.InnerException?.StackTrace?.Contains(nameof(AN_TaskLocalsAndIntrospection)) == true;
+            });
+        }
+        catch (FormatException) { }
+        Check(stackObserved, "fault introspection retains managed source stack");
+    }
+
+    [SimTest]
+    public static async Task AL_CompletionTriggers(TestContext c)
+    {
+        var job = c.StartSoon(async _ => { await Timer(5); return 42; });
+        var completion = job.Complete;
+        await First(Timer(1), completion);
+        Check(!job.IsCompleted, "losing completion subscription does not cancel job");
+        using (var cancel = new CancellationTokenSource())
+        {
+            var wait = completion.AsTask(cancel.Token);
+            cancel.Cancel();
+            try { await wait; throw new Exception("wait did not cancel"); }
+            catch (OperationCanceledException) { }
+        }
+        Check(!job.IsCompleted, "cancelled observer leaves job running");
+        var a = completion.AsTask();
+        var b = completion.AsTask();
+        await Combine(completion, Timer(2));
+        await Task.WhenAll(a, b);
+        Check(job.Result == 42, "multiple observers and mixed combine");
+        await First(completion, Timer(10000));
+        await Combine(completion, completion);
+        Check(c.Runtime.PendingCallbacks == 1, "completed job removes losing native timers");
+
+        var cancelled = c.StartSoon(async _ => await Timer(10000));
+        cancelled.Cancel();
+        await cancelled.Complete;
+        Check(cancelled.Task.IsCanceled, "completion observes cancellation without throwing");
+        bool observedFailure = false;
+        try
+        {
+            await c.RunGroup(async group =>
+            {
+                var failed = group.StartSoon(async _ => { await Timer(1); throw new FormatException("completion fixture"); });
+                // Group failure cancels the body's default token; opt out only for this bounded observation.
+                await failed.Complete.WithCancellation(CancellationToken.None);
+                observedFailure = failed.Task.IsFaulted;
+                Throws<FormatException>(() => failed.Task.GetAwaiter().GetResult());
+            });
+        }
+        catch (FormatException) { }
+        Check(observedFailure, "completion preserves failure and group supervision");
+        for (int i = 0; i < 128; i++)
+        {
+            var late = c.StartSoon(async _ => await Timer(2));
+            try { await WithTimeout(late.Complete, 1); throw new Exception("missing timeout"); }
+            catch (TimeoutException) { }
+            Check(!late.IsCompleted, "timeout does not own job");
+            await late.Complete;
+            Check(c.Runtime.PendingCallbacks == 1, "mixed timeout cleanup remains bounded");
+        }
+    }
+
+    [SimTest]
+    public static async Task AM_CancellationContract(TestContext c)
+    {
+        int cleaned = 0;
+        var job = c.StartSoon(async _ =>
+        {
+            try { await Timer(10000); }
+            finally { cleaned++; await Timer(2).WithCancellation(CancellationToken.None); }
+        });
+        await Yield();
+        job.Cancel(); job.Cancel();
+        await job.Complete;
+        Check(job.Task.IsCanceled && cleaned == 1, "repeated cancellation joins cleanup exactly once");
+        job.Cancel();
+        var success = c.StartSoon(_ => Task.FromResult(7));
+        Check(await success == 7, "successful job result");
+        success.Cancel();
+        Check(success.Task.IsCompletedSuccessfully && success.Result == 7, "late cancel cannot rewrite completed result");
+        await Timer(1);
+        Check(c.Runtime.PendingCallbacks == 1, "cancellation cleanup unregisters native waits");
+    }
+
+    [SimTest]
     public static async Task AK_TaskNames(TestContext c)
     {
         var job = c.StartSoon(async _ => { await Timer(2); return 42; }, "initial");

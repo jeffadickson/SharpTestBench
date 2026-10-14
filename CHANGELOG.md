@@ -1,5 +1,10 @@
 # Unreleased
 
+- Added reusable completion triggers, typed job-local state and current-job introspection (#4, #5).
+- Documented and tested cooperative cancellation/kill boundaries (#2).
+- Expanded seeded scheduler teardown and synchronization fairness stress (#6, #40).
+- Added regression stages, selection and failure policies with fresh-process CI tests (#32).
+
 - Published repository structure, solution, CI, contribution guidance and GitHub task index.
 - Added simulator-thread-checked SimJob.SetName for typed and untyped jobs (#3).
 

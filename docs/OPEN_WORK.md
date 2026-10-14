@@ -17,11 +17,13 @@ is made. Native simulator adapters are reused, not reimplemented in C#.
       access, named jobs, task combinators and structured task groups (see TASKS.md).
 - [x] Typed StartSoon results and aggregate multi-failure reporting, including
       nested groups, cancellation cleanup and duplicate exception suppression.
-- [ ] Complete upstream task API semantic mapping. C# cooperative cancellation is
+- [x] Complete upstream task API semantic mapping, typed job-local storage and
+      mixed completion/trigger waits. C# cooperative cancellation is
       not an exact substitute for cocotb kill/cancel internals; see TASK_API_MAP.md.
-- [ ] Stress same-time callback cancellation/reentrancy, native registration errors,
+- [x] Expand same-time callback cancellation/reentrancy, native registration errors,
       simulator early termination, multiple failure races, leaked tasks and teardown.
-      Covered: 100 cancellation races/run, nested multi-failure cleanup, expected-
+      Covered: 100 cancellation races/run, 256 seeded four-failure teardown groups,
+      6,144 synchronization contention jobs, nested multi-failure cleanup, expected-
       exception leak injection, and premature HDL termination. Native registration
       error injection now covers all seven kinds plus 100 failed Timer tasks;
       debugger-based shutdown investigation remains.
@@ -74,8 +76,9 @@ is made. Native simulator adapters are reused, not reimplemented in C#.
 - [ ] Windows/macOS and simulator architecture support; current host is Linux x86-64.
 - [ ] Commercial Questa/Xcelium/VCS/Riviera checks when installations/licenses exist.
 - [ ] Debugger attachment instructions and actual debugger integration validation.
+- [x] Regression stages, explicit stage selection and continue/stop-after-stage policies.
 - [ ] Structured logging, traceback/source mapping, coverage, wave controls, pytest-like
-      fixtures, test stages and richer regression selection/reporting.
+      fixtures and richer regression selection/reporting.
 - [ ] Native AOT feasibility, reflection trimming and process lifecycle tests.
 
 ## P2 — Python-specific interoperability and ecosystem

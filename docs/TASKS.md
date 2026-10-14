@@ -105,3 +105,86 @@ regression to prevent contamination. ExpectedException never exempts a leak.
 The simulator-process runner also enforces a wall-clock watchdog. An end-of-simulation
 callback emits failing JSON/JUnit if HDL terminates the simulator before regression
 completion, including when no ordinary test has yet produced a result.
+
+## Completion triggers
+
+`await Triggers.First(job.Complete, Triggers.RisingEdge(clock))` waits for either
+observation. `Combine` waits for both. `Complete` is reusable and supports multiple
+simultaneous observers. It succeeds for successful, failed, and cancelled jobs;
+use `await job` or `job.Result` to retrieve the result or propagate the failure.
+It does not suppress test/group failure supervision. Group failure may cancel the
+observer's default token; an explicitly bounded cleanup observation can opt out.
+
+Cancelling or timing out the observation detaches it immediately, without cancelling
+the job. Losing native triggers unregister; losing job observers detach. Already
+completed input triggers resolve synchronously in input order during subscription;
+otherwise the first simulator-thread completion notification wins. No thread-pool
+continuation is attached to a job, so abandoned observers do not survive until its
+completion. AL_CompletionTriggers exercises success, cancellation, failure,
+repeated subscriptions, mixed waits and 128 timeout/cleanup cycles.
+
+## Cancellation and Python kill policy
+
+`Cancel()` intentionally has no message overload. .NET CancellationToken represents
+a request, not an injected exception carrying user text. Log a diagnostic reason
+before calling Cancel, or keep it in application state; exception-message matching
+is not part of this API. Repeated cancellation is idempotent while the test context
+is alive. Cancelling an already completed job does not rewrite its result or state.
+Job mutation after the owning test context is disposed is unsupported.
+
+Python's abrupt `kill()` is deliberately not implemented. Terminating a C# async
+state machine without running finally/disposal would violate resource ownership;
+CancellationToken cannot safely preempt arbitrary user code. Use cooperative Cancel,
+join the job, and use bounded cancellation-independent cleanup where necessary.
+The process watchdog bounds noncooperative code; it is not a per-job kill API.
+
+Conformance evidence: S_ChildCancellationScope (finally and native cleanup),
+T_NestedCancellationAndSuppression (inheritance, suppression, pre-start cancellation),
+AM_CancellationContract (repetition, bounded async cleanup, late cancellation).
+Related remaining work: [task locals/introspection](https://github.com/jeffadickson/SharpTestBench/issues/5),
+[scheduler stress](https://github.com/jeffadickson/SharpTestBench/issues/6), and
+[external-thread wakeups](https://github.com/jeffadickson/SharpTestBench/issues/36).
+
+## Typed task-local state and introspection
+
+Create a shared `SimTaskLocal<T>` key and read/write its `Value` inside a StartSoon
+job. Each job has independent storage; a new child starts empty rather than copying
+parent values. Missing Value returns default(T); `TryGetValue` distinguishes missing
+from explicitly stored null/default, and `Clear` removes the current job's value.
+Storage survives awaits and is retained with the job. Mutable reference values
+explicitly shared by the application remain shared objects; no deep copy is made.
+Access from the test body or a foreign thread throws. Pass shared test state as an
+ordinary parameter instead of relying on ambient inheritance.
+
+`SimJob.Current` identifies the job in the current async flow (null in the test
+body). It uses AsyncLocal so identity survives awaits and nested jobs restore their
+parent's identity. It is diagnostic identity, not permission to access the simulator
+from Task.Run. Existing Name, Status, IsCompleted, Task and Exception expose managed
+job state. Exception.InnerException.StackTrace retains managed async source locations
+when matching symbols are available. Python live coroutine/frame inspection is
+intentionally unsupported: a .NET async state machine does not expose that contract.
+Use a managed debugger for live state inspection; debugger attachment validation is
+tracked separately in issue #27. AN_TaskLocalsAndIntrospection verifies isolation,
+null/absent values, thread checks, identity restoration and exception stack capture.
+
+## Synchronization fairness and stress
+
+SimSemaphore grants permits in FIFO subscription order among surviving waiters.
+SimLock inherits that ordering and holds the permit until its IDisposable is disposed;
+disposal is idempotent. SimQueue preserves item FIFO and uses the same FIFO queues
+for blocked producers and consumers. These are simulator-thread ordering guarantees,
+not wall-clock scheduling or fairness across external threads. A waiter must yield
+for another job to run. Cancelling a pending waiter skips it; cancellation after its
+trigger has already completed does not retroactively revoke a successful acquisition.
+
+AO_PrimitiveFairnessStress runs 64 rounds of 24 contenders for each of semaphore,
+lock, bounded-queue producers and bounded-queue consumers (6,144 job attempts).
+Seeded cancellation masks verify surviving FIFO order, permit/item conservation,
+lock release across awaits, double disposal and native callback cleanup. The seed
+is recorded in regression JSON and assertions identify phase/round. Existing
+Y_SameTimeCancellationStress covers 100 grant-versus-cancellation ties.
+AP_MultipleFailureTeardownStress adds 256 groups of four seeded timer/failure jobs,
+checking cleanup exactly once, four distinct retained errors, no duplicate body
+failure and zero child native registrations after every round. This supplements
+native_faults.py registration-failure tests and the regression's leak/early-end
+fixtures; the historical native shutdown diagnostic remains tracked in issue #16.
