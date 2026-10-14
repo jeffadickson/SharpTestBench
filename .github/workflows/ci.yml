@@ -39,6 +39,14 @@ jobs:
       - run: python tools/stage_tests.py
       - run: python tools/typecheck.py
       - run: python tools/parity.py --label icarus
+      - name: Validate managed debugger inside Icarus
+        run: |
+          curl --fail --location --retry 3 https://github.com/Samsung/netcoredbg/releases/download/3.2.0-1092/netcoredbg-linux-amd64.tar.gz -o build/netcoredbg.tar.gz
+          echo '080eb3b2d2152465f599d3b33d1ee6e747794e11cc0a3773ec689f5e5f2c5afa  build/netcoredbg.tar.gz' | sha256sum --check
+          mkdir -p build/debugger
+          tar -xzf build/netcoredbg.tar.gz -C build/debugger
+          dotnet build tests/DebugIntegration -c Debug
+          python tools/debugger_tests.py --debugger build/debugger/netcoredbg/netcoredbg
       - run: python tools/native_faults.py
         env:
           CS_DOTNET_ROOT: ${{ env.DOTNET_ROOT }}
@@ -64,6 +72,7 @@ jobs:
             build/*trace.txt*
             build/typecheck.log
             build/native-faults.json
+            build/debugger-check/**
 
   native-platforms:
     strategy:
