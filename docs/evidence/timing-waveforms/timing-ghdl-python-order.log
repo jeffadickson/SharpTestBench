@@ -1,0 +1,20 @@
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:74   in gpi_print_registered_impl       GPI: VPI support registered
+     -.--ns INFO     pygpi                              ..ib/pygpi/embed.cpp:113  in pygpi_initialize                Using Python 3.12.14 interpreter at /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python
+     0.00ns INFO     cocotb.initialize                  Seeding Python random module with 1791996409
+     0.00ns WARNING  gpi                                vpi_iterate returned NULL for type vpiInstance for object NULL
+     0.00ns INFO     cocotb.initialize                  Initialized cocotb v2.2.0.dev0+r5fa952e9 from /root/.local/lib/python3.12/site-packages/cocotb
+     0.00ns INFO     cocotb.initialize                  Running on GHDL version 2.0.0 (Debian 2.0.0+dfsg-6.2+b2) [Dunoon edition]
+     0.00ns INFO     cocotb.regression                  Running tests
+     0.00ns INFO     cocotb.regression                  running test_timing_order.scheduled_write_ordering (1/2)
+     0.00ns INFO     cocotb.regression                  test_timing_order.scheduled_write_ordering passed
+     0.00ns INFO     cocotb.regression                  skipping test_timing_order.force_deposit_ordering (2/2)
+     0.00ns INFO     cocotb.regression                  ****************************************************************************************************
+                                                        ** TEST                                        STATUS  SIM TIME (ns)  REAL TIME (s)  RATIO (ns/s) **
+                                                        ****************************************************************************************************
+                                                        ** test_timing_order.scheduled_write_ordering   PASS           0.00           0.00          0.01  **
+                                                        ** test_timing_order.force_deposit_ordering     SKIP           0.00           0.00          -.--  **
+                                                        ****************************************************************************************************
+                                                        ** TESTS=2 PASS=1 FAIL=0 SKIP=1                                0.00           0.00          0.01  **
+                                                        ****************************************************************************************************
+loading VPI module '/root/.local/lib/python3.12/site-packages/cocotb/libs/libcocotb_bootstrap.so'
+VPI module loaded!

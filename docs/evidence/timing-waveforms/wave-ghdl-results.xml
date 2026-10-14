@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='utf-8'?>
+<testsuite tests="17" failures="0" skipped="6">
+  <testcase name="VhdlArraysRecordsAndGenerics" time="0">
+    <skipped>Requires simulator: nvc</skipped>
+  <properties><property name="waveform" value="wave-ghdl.vcd" /></properties></testcase>
+  <testcase name="VhdlClockTasks" time="0.0214064"><properties><property name="waveform" value="wave-ghdl.vcd" /></properties></testcase>
+  <testcase name="VhdlDeltaChain" time="0.0068329"><properties><property name="waveform" value="wave-ghdl.vcd" /></properties></testcase>
+  <testcase name="VhdlDiscovery" time="0.0121797"><properties><property name="waveform" value="wave-ghdl.vcd" /></properties></testcase>
+  <testcase name="VhdlForceReleaseGuard" time="0">
+    <skipped>Requires simulator: nvc</skipped>
+  <properties><property name="waveform" value="wave-ghdl.vcd" /></properties></testcase>
+  <testcase name="VhdlIntegerRealStringEnum" time="0">
+    <skipped>Requires simulator: nvc</skipped>
+  <properties><property name="waveform" value="wave-ghdl.vcd" /></properties></testcase>
+  <testcase name="VhdlNamedStruct" time="0.0040983"><properties><property name="waveform" value="wave-ghdl.vcd" /></properties></testcase>
+  <testcase name="VhdlNineStatesAndRange" time="0.0032574"><properties><property name="waveform" value="wave-ghdl.vcd" /></properties></testcase>
+  <testcase name="VhdlNullRangeAndBindings" time="0">
+    <skipped>Requires simulator: nvc</skipped>
+  <properties><property name="waveform" value="wave-ghdl.vcd" /></properties></testcase>
+  <testcase name="VhdlObjectMetadata" time="0.0004465"><properties><property name="waveform" value="wave-ghdl.vcd" /></properties></testcase>
+  <testcase name="VhdlPackedFields" time="0.0019753"><properties><property name="waveform" value="wave-ghdl.vcd" /></properties></testcase>
+  <testcase name="VhdlResolvedDrivers" time="0.0022873"><properties><property name="waveform" value="wave-ghdl.vcd" /></properties></testcase>
+  <testcase name="VhdlSignalAndDeltaCycle" time="0.0017792"><properties><property name="waveform" value="wave-ghdl.vcd" /></properties></testcase>
+  <testcase name="VhdlStringBytes" time="0">
+    <skipped>Requires simulator: nvc</skipped>
+  <properties><property name="waveform" value="wave-ghdl.vcd" /></properties></testcase>
+  <testcase name="VhdlUnknowns" time="0.0031631"><properties><property name="waveform" value="wave-ghdl.vcd" /></properties></testcase>
+  <testcase name="ForceDepositOrdering" time="0">
+    <skipped>Requires simulator: Icarus</skipped>
+  <properties><property name="waveform" value="wave-ghdl.vcd" /></properties></testcase>
+  <testcase name="ScheduledWriteOrdering" time="0.0043111"><properties><property name="waveform" value="wave-ghdl.vcd" /></properties></testcase>
+</testsuite>

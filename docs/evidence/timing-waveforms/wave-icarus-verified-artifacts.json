@@ -1,0 +1,14 @@
+{
+  "SchemaVersion": 1,
+  "Simulator": "icarus",
+  "Results": "wave-icarus-verified-results.json",
+  "Artifacts": [
+    {
+      "Kind": "waveform",
+      "Format": "vcd",
+      "Path": "wave-icarus-verified.vcd",
+      "Exists": true,
+      "Bytes": 117086
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "SchemaVersion": 1,
+  "Simulator": "ghdl",
+  "Results": "wave-ghdl-results.json",
+  "Artifacts": [
+    {
+      "Kind": "waveform",
+      "Format": "vcd",
+      "Path": "wave-ghdl.vcd",
+      "Exists": true,
+      "Bytes": 3400
+    }
+  ]
+}

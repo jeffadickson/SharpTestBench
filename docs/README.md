@@ -7,6 +7,8 @@
 - [Compatibility inventory](COMPATIBILITY.csv)
 - [Validation and limitations](VALIDATION.md)
 - [Hardware types and generated bindings](HDL_TYPES.md)
+- [Timing conformance and reference traces](TIMING_CONFORMANCE.md)
+- [Waveform controls and artifacts](WAVEFORMS.md)
 - [Structured logging and source locations](LOGGING.md)
 - [Functional coverage and export](COVERAGE.md)
 - [Regression stages and failure policies](REGRESSION_STAGES.md)

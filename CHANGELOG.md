@@ -1,5 +1,8 @@
 # Unreleased
 
+- Added four-backend Python timing comparisons for scheduled writes and same-time timers, plus Icarus force/deposit ordering (#7).
+- Added VCD capture with linked JSON/JUnit artifacts on Icarus, Verilator, GHDL and NVC (#30).
+
 - Added opt-in JSON Lines logs with test/job identity, simulation time, source locations and exception details (#28).
 
 - Preserved case seeds across selection; added exact-name selection, discovery-only listing and richer result identity (#33).

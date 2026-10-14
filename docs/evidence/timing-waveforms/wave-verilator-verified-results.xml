@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='utf-8'?>
+<testsuite tests="47" failures="0" skipped="2">
+  <testcase name="AA_TypedJobResults" time="0.0178807"><properties><property name="waveform" value="wave-verilator-verified.vcd" /></properties></testcase>
+  <testcase name="AB_AggregateAndNestedGroups" time="0.0133591"><properties><property name="waveform" value="wave-verilator-verified.vcd" /></properties></testcase>
+  <testcase name="AC_Constants" time="0.0043741"><properties><property name="waveform" value="wave-verilator-verified.vcd" /></properties></testcase>
+  <testcase name="AD_ObjectMetadata" time="0.0005893"><properties><property name="waveform" value="wave-verilator-verified.vcd" /></properties></testcase>
+  <testcase name="AE_PackedPlanes" time="0.085303"><properties><property name="waveform" value="wave-verilator-verified.vcd" /></properties></testcase>
+  <testcase name="AF_PackedArrayAndStruct" time="0.0098873"><properties><property name="waveform" value="wave-verilator-verified.vcd" /></properties></testcase>
+  <testcase name="AG_DeltaChain" time="0.0049558"><properties><property name="waveform" value="wave-verilator-verified.vcd" /></properties></testcase>
+  <testcase name="AH_Discovery" time="0.0167659"><properties><property name="waveform" value="wave-verilator-verified.vcd" /></properties></testcase>
+  <testcase name="AI_NamedStruct" time="0.0025398"><properties><property name="waveform" value="wave-verilator-verified.vcd" /></properties></testcase>
+  <testcase name="AJ_AdjustableClock" time="0.0034867"><properties><property name="waveform" value="wave-verilator-verified.vcd" /></properties></testcase>
+  <testcase name="AK_TaskNames" time="0.0040928"><properties><property name="waveform" value="wave-verilator-verified.vcd" /></properties></testcase>
+  <testcase name="AL_CompletionTriggers" time="0.0090407"><properties><property name="waveform" value="wave-verilator-verified.vcd" /></properties></testcase>
+  <testcase name="AM_CancellationContract" time="0.0029468"><properties><property name="waveform" value="wave-verilator-verified.vcd" /></properties></testcase>
+  <testcase name="AN_TaskLocalsAndIntrospection" time="0.0165955"><properties><property name="waveform" value="wave-verilator-verified.vcd" /></properties></testcase>
+  <testcase name="AO_PrimitiveFairnessStress" time="0.0861095"><properties><property name="waveform" value="wave-verilator-verified.vcd" /></properties></testcase>
+  <testcase name="AP_MultipleFailureTeardownStress" time="0.0269112"><properties><property name="waveform" value="wave-verilator-verified.vcd" /></properties></testcase>
+  <testcase name="AQ_FunctionalCoverage" time="0.0039297"><properties><property name="waveform" value="wave-verilator-verified.vcd" /></properties></testcase>
+  <testcase name="AR_StructuredLogging" time="0.0024135"><properties><property name="waveform" value="wave-verilator-verified.vcd" /></properties></testcase>
+  <testcase name="A_TypesAndSignals" time="0.0048023"><properties><property name="waveform" value="wave-verilator-verified.vcd" /></properties></testcase>
+  <testcase name="B_TimingAndNba" time="0.0031754"><properties><property name="waveform" value="wave-verilator-verified.vcd" /></properties></testcase>
+  <testcase name="C_CancellationAndCombinators" time="0.0041417"><properties><property name="waveform" value="wave-verilator-verified.vcd" /></properties></testcase>
+  <testcase name="D_ConcurrentTasks" time="0.0037211"><properties><property name="waveform" value="wave-verilator-verified.vcd" /></properties></testcase>
+  <testcase name="E_EventsAndQueues" time="0.0045318"><properties><property name="waveform" value="wave-verilator-verified.vcd" /></properties></testcase>
+  <testcase name="F_ForceReleaseAndHierarchy" time="0.0430959"><properties><property name="waveform" value="wave-verilator-verified.vcd" /></properties></testcase>
+  <testcase name="G_ParameterizedClock[0]" time="0.0030322"><properties><property name="waveform" value="wave-verilator-verified.vcd" /></properties></testcase>
+  <testcase name="G_ParameterizedClock[1]" time="0.0004559"><properties><property name="waveform" value="wave-verilator-verified.vcd" /></properties></testcase>
+  <testcase name="H_WriteCoalescing" time="0.0014684"><properties><property name="waveform" value="wave-verilator-verified.vcd" /></properties></testcase>
+  <testcase name="I_NextTimeStep" time="0.0021856"><properties><property name="waveform" value="wave-verilator-verified.vcd" /></properties></testcase>
+  <testcase name="J_BackgroundFailure" time="0.0020564"><properties><property name="waveform" value="wave-verilator-verified.vcd" /></properties></testcase>
+  <testcase name="K_Deadline" time="0.0011711"><properties><property name="waveform" value="wave-verilator-verified.vcd" /></properties></testcase>
+  <testcase name="L_StreamBackpressure" time="0.0044239"><properties><property name="waveform" value="wave-verilator-verified.vcd" /></properties></testcase>
+  <testcase name="M_ThreadGuard" time="0.0015348"><properties><property name="waveform" value="wave-verilator-verified.vcd" /></properties></testcase>
+  <testcase name="N_TimeUnits" time="0.0019336"><properties><property name="waveform" value="wave-verilator-verified.vcd" /></properties></testcase>
+  <testcase name="O_Skip" time="0">
+    <skipped>Explicit skip</skipped>
+  <properties><property name="waveform" value="wave-verilator-verified.vcd" /></properties></testcase>
+  <testcase name="P_ExitStatus" time="0.0011174"><properties><property name="waveform" value="wave-verilator-verified.vcd" /></properties></testcase>
+  <testcase name="Q_ValueChangeFanoutAndYield" time="0.0027088"><properties><property name="waveform" value="wave-verilator-verified.vcd" /></properties></testcase>
+  <testcase name="R_CancelledQueueWait" time="0.0022315"><properties><property name="waveform" value="wave-verilator-verified.vcd" /></properties></testcase>
+  <testcase name="S_ChildCancellationScope" time="0.0026114"><properties><property name="waveform" value="wave-verilator-verified.vcd" /></properties></testcase>
+  <testcase name="T_NestedCancellationAndSuppression" time="0.0038821"><properties><property name="waveform" value="wave-verilator-verified.vcd" /></properties></testcase>
+  <testcase name="U_TaskCombinators" time="0.0033674"><properties><property name="waveform" value="wave-verilator-verified.vcd" /></properties></testcase>
+  <testcase name="V_TaskTimeoutOwnership" time="0.0039318"><properties><property name="waveform" value="wave-verilator-verified.vcd" /></properties></testcase>
+  <testcase name="W_ClockCyclesDefaultCancellation" time="0.0021516"><properties><property name="waveform" value="wave-verilator-verified.vcd" /></properties></testcase>
+  <testcase name="X_StructuredGroup" time="0.0081802"><properties><property name="waveform" value="wave-verilator-verified.vcd" /></properties></testcase>
+  <testcase name="Y_SameTimeCancellationStress" time="0.004254"><properties><property name="waveform" value="wave-verilator-verified.vcd" /></properties></testcase>
+  <testcase name="Z_LeakCannotMatchExpectedException" time="0.0010425"><properties><property name="waveform" value="wave-verilator-verified.vcd" /></properties></testcase>
+  <testcase name="ForceDepositOrdering" time="0">
+    <skipped>Requires simulator: Icarus</skipped>
+  <properties><property name="waveform" value="wave-verilator-verified.vcd" /></properties></testcase>
+  <testcase name="ScheduledWriteOrdering" time="0.002428"><properties><property name="waveform" value="wave-verilator-verified.vcd" /></properties></testcase>
+</testsuite>

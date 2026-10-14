@@ -17,7 +17,7 @@ CS015,Regression,Background failure propagation and task cleanup,verified-core,T
 CS016,Drivers,Clock reset and stream backpressure example,verified-core,Managed clock and 100 transaction randomized stream backpressure test
 CS017,Codegen,Generate C# interface from elaborated hierarchy,partial,Recursive elaborated scopes records and nested arrays; generated consumer runs; Roslyn generator open
 CS018,Interop,Reuse pinned GPI and contain native callback exceptions,partial,Working native host and callback containment; versioned C ABI and injected registration failures; intermittent shutdown message unresolved
-CS019,Validation,Icarus semantic trace parity with Python,partial,Edge/NBA/ReadOnly and 20 multi-NBA transitions match Python; full timing equivalence open
+CS019,Validation,Icarus semantic trace parity with Python,partial,Edge/NBA/ReadOnly and 20 multi-NBA transitions; four-backend scheduled-write/timer traces; Icarus force/deposit reference; full timing equivalence open
 CS020,Validation,Verilator conformance,verified-core,Verilator 5.048 suite with explicit known unsupported capabilities
 CS021,Validation,GHDL VHDL conformance,partial,GHDL eight cases; NVC thirteen; all 81 two-driver resolution pairs checked
 CS022,Validation,Commercial simulator and mixed-language coverage,open,No licensed commercial simulator available in this run
@@ -31,3 +31,4 @@ CS029,Parity,Native clock dynamically adjustable period,open,Managed clock only;
 CS030,Parity,Full object type coverage multidimensional packed handles,partial,NVC nested arrays and records; explicit packed array and struct-field views; inferred layout and backend matrix open
 CS031,Tasks,Typed locals and job identity,verified-core,AN_TaskLocalsAndIntrospection; managed stacks and explicit Python frame-inspection exclusion
 CS032,Coverage,Typed functional bins and per-test reports,verified-core,AQ_FunctionalCoverage and exported HDL fixture counts; code coverage is outside this API
+CS033,Tools,Run-wide VCD waveform capture,verified-core,Four local simulators; signal content and JSON/JUnit links; failure retention and disabled-capture checks

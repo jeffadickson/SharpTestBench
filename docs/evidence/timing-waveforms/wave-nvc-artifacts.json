@@ -1,0 +1,14 @@
+{
+  "SchemaVersion": 1,
+  "Simulator": "nvc",
+  "Results": "wave-nvc-results.json",
+  "Artifacts": [
+    {
+      "Kind": "waveform",
+      "Format": "vcd",
+      "Path": "wave-nvc.vcd",
+      "Exists": true,
+      "Bytes": 4259
+    }
+  ]
+}

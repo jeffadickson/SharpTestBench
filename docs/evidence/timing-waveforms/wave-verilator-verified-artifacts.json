@@ -1,0 +1,14 @@
+{
+  "SchemaVersion": 1,
+  "Simulator": "verilator",
+  "Results": "wave-verilator-verified-results.json",
+  "Artifacts": [
+    {
+      "Kind": "waveform",
+      "Format": "vcd",
+      "Path": "wave-verilator-verified.vcd",
+      "Exists": true,
+      "Bytes": 128053
+    }
+  ]
+}

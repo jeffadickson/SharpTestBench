@@ -27,8 +27,9 @@ is made. Native simulator adapters are reused, not reimplemented in C#.
       exception leak injection, and premature HDL termination. Native registration
       error injection now covers all seven kinds plus 100 failed Timer tasks;
       debugger-based shutdown investigation remains.
-- [ ] Expand timing equivalence beyond the current edge/NBA/ReadOnly trace, including
-      force/deposit ordering, repeated delta cycles, same-time tie cases and VHDL quirks.
+- [x] Expand timing comparisons with force/deposit ordering on Icarus and scheduled
+      writes/same-time timers against Python on all four backends. Full upstream
+      timing-suite parity remains part of the API/conformance audit.
 - [x] NVC/VHPI nine-state transport, null and directed ranges, records, nested arrays,
       generics, integers, enums, real and fixed strings (including NUL/Latin-1).
 - [x] Two-driver std_logic resolution for all 81 nine-state pairs on NVC and GHDL.
@@ -83,7 +84,8 @@ is made. Native simulator adapters are reused, not reimplemented in C#.
       qualified case metadata in JSON reports.
 - [x] Structured simulation logs with task/test identity, managed caller locations and
       exception details; native/HDL source mapping is not implied.
-- [ ] Wave controls and pytest-like fixtures.
+- [x] Run-wide VCD capture and linked JSON/JUnit artifacts on all four local backends.
+- [ ] Pytest-like fixtures.
 - [ ] Native AOT feasibility, reflection trimming and process lifecycle tests.
 
 ## P2 — Python-specific interoperability and ecosystem

@@ -1,5 +1,12 @@
 # Unreleased validation update
 
+Timing/waveform checkpoint: Icarus 46 passed/1 skipped; Verilator 45 passed/2 skipped;
+GHDL 11 passed/6 skipped; NVC 16 passed/1 skipped. New force cases run only on Icarus;
+other added skips explicitly record that limit. Scheduled-write and equal-deadline
+traces exactly match fresh pinned-Python runs on all four backends. VCD signal
+values and JSON/JUnit artifact links are checked, including failing tests and
+disabled capture. Evidence: docs/evidence/timing-waveforms.
+
 Structured logging: 44 passing integration tests (one deliberate skip) on Icarus
 11 and Verilator 5.048. logging_check.py validates identities, source locations,
 exceptions, escaped multiline messages and bounded output fields; stage tests verify
