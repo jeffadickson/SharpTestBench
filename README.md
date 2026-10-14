@@ -184,8 +184,7 @@ HDL compilation still runs. No NuGet package has been published publicly.
   string NUL writes need a length-aware native API and are rejected. HDL strings
   are byte strings; Unicode outside Latin-1 is rejected.
 - CoreCLR hosting is implemented for Linux, macOS and Windows. Native Icarus tests
-  pass on Linux x64 and macOS ARM64; see [platform evidence](docs/ALPHA.md) for Windows
-  status. Native AOT, commercial validation and mixed-language regression remain open.
+  pass on Linux x64, Windows x64 and macOS ARM64; see [platform evidence](docs/ALPHA.md). Native AOT, commercial validation and mixed-language regression remain open.
 - This release has no compatibility promise for its API or native GPI ABI.
 
 ## Validation

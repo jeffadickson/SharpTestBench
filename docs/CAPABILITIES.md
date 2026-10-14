@@ -4,7 +4,9 @@
 Every `SimulatorFeature` has a status, explanation and evidence reference. This is
 an explicit compatibility policy, not a live probe or certification of every release
 with the same product name. Validated versions are Icarus 11/12, Verilator 5.048,
-GHDL 2.0 and NVC 1.23 on Linux x64. Commercial backends remain unverified.
+GHDL 2.0 and NVC 1.23 on Linux x64. Native Icarus CI also passes on Windows x64
+and macOS ARM64; see ALPHA.md for the exact run and scope. Other backends on those
+platforms and commercial backends remain unverified.
 
 ```csharp
 var feature = context.Runtime.Capabilities[SimulatorFeature.ForceRelease];

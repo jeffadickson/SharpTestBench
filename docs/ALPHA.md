@@ -9,11 +9,11 @@ remains separate; an Icarus pass does not certify every backend on that OS.
 
 ## Native execution evidence
 
-[CI run 38620478744](https://github.com/jeffadickson/SharpTestBench/actions/runs/38620478744)
-validates commit `342d9e12a5c9ab476a111ac119eec05c302661f6` on Linux x64 and
+[CI run 38620959862](https://github.com/jeffadickson/SharpTestBench/actions/runs/38620959862)
+validates commit `36259572f9f0ffe2b90eb3b5c163f72a1feeaf4f` on Linux x64, Windows x64 and
 macOS ARM64. Each passed 364 managed tests, 49 Icarus integration tests (one explicit
-skip), waveform checks, the counter example, and six cleanup scenarios. Windows x64
-is pending in that run. Intel Macs and Windows ARM64 are not validated.
+skip), waveform checks, the counter example, and six cleanup scenarios.
+Intel Macs and Windows ARM64 are not validated.
 
 ## Build and try the source example
 
@@ -57,7 +57,7 @@ files remain available while this generator is pending.
 
 ## Remaining alpha gates
 
-- Green native tests on Windows, macOS and Linux, with architecture/tool versions recorded (#24/#25).
+- Preserve the green Windows x64, macOS ARM64 and Linux x64 native matrix; finish architecture-specific packaging (#24/#25).
 - Package native GPI dependencies with provenance and validate a consumer outside the repository (#22/#23).
 - Isolate simulator build workspaces before concurrent orchestration (#41).
 - Prove managed/native debugger attachment (#27).

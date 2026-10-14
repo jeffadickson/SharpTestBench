@@ -129,8 +129,8 @@ still reject conversion; the optimization does not silently turn X/Z into number
 
 ## Remaining validation gaps
 
-The native macOS ARM64 Icarus suite now passes; see ALPHA.md for CI evidence.
-Windows validation and cross-platform packaging remain tracked separately.
+The native Icarus suite now passes on Windows x64 and macOS ARM64 as well as Linux
+x64; see ALPHA.md for CI evidence. Cross-platform packaging remains open.
 Commercial simulators, Native AOT,
 debugger-based shutdown investigation, broader multi-driver/mixed-language cases,
 full upstream timing conformance and realistic-project performance remain open.

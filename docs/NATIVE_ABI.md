@@ -33,8 +33,7 @@ The host has a stable ELF SONAME. The runner also puts the selected host directo
 on the native loader path. This avoids depending on the simulator's working
 directory, and makes a custom `--host` usable with a prebuilt test assembly.
 The host now uses POSIX loading on Linux/macOS and wide-character Windows loading.
-Native Icarus execution is validated on Linux x64 and macOS ARM64; Windows x64 CI
-is tracked separately. See ALPHA.md for current evidence and packaging limitations.
+Native Icarus execution is validated on Linux x64, Windows x64 and macOS ARM64. See ALPHA.md for current evidence and packaging limitations.
 
 ## Validation
 
