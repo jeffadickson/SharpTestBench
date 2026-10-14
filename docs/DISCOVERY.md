@@ -76,3 +76,11 @@ on Verilator; the marker is exposed as packed bits there, not GPI Integer.
 Closing the remaining backend gaps requires new simulator-adapter implementations
 or an elaborated HDL metadata provider. An empty iterator and a flat bit range
 cannot reconstruct connectivity or lost field declarations.
+
+## GitHub CI follow-up: Icarus 12
+
+Icarus 12 exposes the fixture package, unlike the earlier Icarus 11 run. Its GPI
+name lookup did not resolve the package variable. The pinned VPI package iterator
+enumerates parameters only. Child access now falls back to that enumeration,
+and a separate constant-member fixture checks this path; Verilator retains its
+variable-member assertion. Package-variable access on Icarus remains open in #13.

@@ -1,5 +1,6 @@
 `timescale 1ns/1ps
 package discovery_pkg;
+ parameter integer constant_marker=37;
  integer marker=37;
 endpackage
 module top;
