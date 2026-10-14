@@ -64,8 +64,10 @@ is made. Native simulator adapters are reused, not reimplemented in C#.
       measured wide-vector conversion improvement (see PACKED_TRANSPORT.md).
 - [ ] Direct packed access inside GPI/simulator adapters; the shim still converts
       to/from native binary strings.
-- [ ] Real CPU/DSP/AXI model benchmarks and allocation/GC profiling. The current
-      benchmark uses a minimal DUT and cannot establish full-project speedup.
+- [ ] Broader CPU/DSP/AXI benchmarks. An AXI-Lite-shaped memory workload now has
+      independent C#/Python scoreboards, repeated processes, allocation/GC reporting,
+      backpressure/reset coverage and fault negatives. CPU/DSP and full AXI bursts
+      and concurrency remain; see examples/AxiMemory and docs/benchmarks.
 - [x] Managed clock period/duty changes at full-cycle boundaries, with edge-time tests.
 - [ ] Native clock option; the current driver is managed.
 - [x] Recursive elaborated hierarchy generation with nested typed arrays, native

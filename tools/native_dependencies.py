@@ -2,8 +2,9 @@
 import os, re, subprocess, sys
 from pathlib import Path
 
-def inspect(native):
+def inspect(native, simulator_hosts=()):
     reports={}
+    host_names={name.lower() for name in simulator_hosts}
     for path in sorted(native.iterdir()):
         if path.suffix.lower() not in ('.so','.dylib','.dll','.vpi'):continue
         if sys.platform=='linux':
@@ -28,8 +29,9 @@ def inspect(native):
             if not dependencies:raise RuntimeError('No PE import information for '+str(path))
             for dependency in dependencies:
                 lower=dependency.lower()
+                if lower in host_names:continue  # Symbols supplied by the explicitly selected simulator executable.
                 system=lower in {'kernel32.dll','msvcrt.dll','ucrtbase.dll','advapi32.dll','user32.dll','ws2_32.dll','shell32.dll','ole32.dll','bcrypt.dll','ntdll.dll'} or lower.startswith(('api-ms-win-','ext-ms-win-','vcruntime140','msvcp140'))
                 if not system and not any(p.name.lower()==lower for p in native.iterdir()):raise RuntimeError('Unpackaged native dependency: '+dependency)
             output='\n'.join(dependencies)
         reports[path.name]=output
-    return {'platform':sys.platform,'imports':reports,'system_prerequisites':'OS runtime libraries; Windows VC++ 2015-2022 x64 runtime where imported. .NET 10 and matching Icarus installed separately.'}
+    return {'platform':sys.platform,'imports':reports,'simulator_hosts':sorted(host_names),'system_prerequisites':'OS runtime libraries; Windows VC++ 2015-2022 x64 runtime where imported. .NET 10 and matching Icarus installed separately.'}

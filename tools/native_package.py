@@ -43,7 +43,7 @@ def main():
         bootstrap_name = bootstrap.stem + '.vpi'
         shutil.copy2(bootstrap, native / bootstrap_name)
     names = {host.name, Path(gpi_path).name, Path(impl_path).name, bootstrap.name, bootstrap_name}
-    dependencies = inspect(native)
+    dependencies = inspect(native, simulator_hosts=('vvp.exe',) if os.name == 'nt' else ())
     (stage/'dependencies.json').write_text(json.dumps(dependencies,indent=2))
     revision = subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip()
     dirty = bool(subprocess.check_output(['git','status','--porcelain','--untracked-files=no'],cwd=ROOT,text=True))

@@ -33,7 +33,8 @@ Never replace an already published version. A public release needs a new immutab
 version, a passing native matrix, installed-consumer evidence, checksums, source
 revision, licenses and explicit supported OS/architecture/backend limitations.
 CI artifacts contain the nupkg candidates and evidence. Public publication remains
-tracked in #23; no credentials or publication endpoint is configured here.
+tracked in #23; the workflow targets nuget.org, but account/trusted-publisher
+configuration has not been established and no packages have been published.
 
 ## Native dependency and integrity gates
 
@@ -41,7 +42,9 @@ Package staging removes stale generated files. Native import reports are retaine
 Linux uses ldd with only the staged native directory, macOS uses otool, and Windows
 uses PE imports from objdump. Missing/non-system dependencies fail the build.
 Windows VC++ runtime imports remain explicit OS prerequisites; they are not silently
-redistributed. Unix installed execution clears inherited native library search paths.
+redistributed. The Windows Icarus adapter imports symbols from vvp.exe, which is
+explicitly recorded as its separately installed simulator host; other unbundled
+non-system imports still fail. Unix installed execution clears inherited native library search paths.
 RID and hash mismatches are tested as failures before starting a simulator.
 
 Directory.Build.props is the version source for managed, generator and native
@@ -52,7 +55,8 @@ not yet establish byte-for-byte reproducible native builds across toolchain vers
 
 ## Release preparation and publication
 
-The release-bundle CI job waits for all three native consumers. It requires their
+The release-bundle CI job waits for all three native consumers and the Linux
+runtime-only container consumer. It requires the platform consumers'
 expected counter result, RID/checksum negative checks, consistent clean source
 revision and version, and package hashes. It selects exactly five packages: runtime,
 generator and linux-x64/win-x64/osx-arm64 native packages. The Linux copies of the

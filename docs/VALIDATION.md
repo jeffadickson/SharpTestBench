@@ -129,13 +129,15 @@ still reject conversion; the optimization does not silently turn X/Z into number
 
 ## Remaining validation gaps
 
-The native Icarus suite now passes on Windows x64 and macOS ARM64 as well as Linux
-x64; see ALPHA.md for CI evidence. Cross-platform packaging remains open.
+The native Icarus suite and installed native-package consumers pass on Windows x64,
+macOS ARM64 and Linux x64; see ALPHA.md and PACKAGING.md for CI evidence.
+Wider backend/architecture distribution and public publication remain open.
 Commercial simulators, Native AOT,
 debugger-based shutdown investigation, broader multi-driver/mixed-language cases,
-full upstream timing conformance and realistic-project performance remain open.
-The local NuGet contains the Linux native host, but not the simulator or pinned
-GPI libraries. No package was publicly published. See OPEN_WORK.md for both code
+full upstream timing conformance and broader realistic-project performance remain open.
+Native RID packages include the host and pinned GPI/Icarus libraries; .NET, Python,
+Icarus itself and system runtime libraries remain prerequisites.
+No package was publicly published. See OPEN_WORK.md for both code
 work and external-environment gates; there is no full-parity claim.
 
 ## Reproduce
