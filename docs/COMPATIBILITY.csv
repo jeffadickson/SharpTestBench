@@ -1,18 +1,18 @@
 ID,Area,Requirement,Status,Evidence
-CS001,Types,Checked fixed-width unsigned and signed values,verified,1846 unit assertions plus compile-fail and native type tests
+CS001,Types,Checked fixed-width unsigned and signed values,verified,1860 unit assertions plus compile-fail and native type tests
 CS002,Types,Four-state packed vectors and unknown propagation,verified-core,Unit truth tables; Icarus/GHDL XZ tests; unknown integer conversion fails
 CS003,Types,Nine-state VHDL logic preservation,verified-core,Native nine-state transport on GHDL and NVC; upstream operator tables
 CS004,Types,HDL range direction and indexing,verified-core,Explicit directions and null ranges; native NVC null vector; HDL-indexed arrays
 CS005,Scheduler,Concurrent simulator-thread tasks,verified-core,100 concurrent tasks; 10 value-change listeners; Icarus and Verilator
-CS006,Scheduler,Cancellation and callback deregistration,verified-core,Child-scoped and nested cancellation; explicit opt-out; 100 same-time cancellation rounds
+CS006,Scheduler,Cancellation and callback deregistration,verified-core,Child-scoped and nested cancellation; explicit opt-out; 100 same-time cancellation rounds; 256 four-failure teardown groups
 CS007,Timing,Timer edge ReadOnly ReadWrite NextTimeStep,verified-core,Icarus/Verilator suite; narrower GHDL smoke tests
 CS008,Timing,Deferred deposit write order and phase guards,verified-core,ReadOnly guard; deferred writes; downstream settling; Python parity probe
-CS009,Timing,First Combine timeout semantics,partial,Trigger combinators plus non-owning SimTasks First/Combine/typed timeout; upstream semantic mapping open
-CS010,Primitives,Event lock semaphore queue,verified-core,Events semaphore lock bounded queue; fairness stress still open
+CS009,Timing,First Combine timeout semantics,partial,Trigger combinators plus non-owning SimTasks First/Combine/typed timeout; completion-only job triggers with mixed waits; documented cancellation/kill boundaries
+CS010,Primitives,Event lock semaphore queue,verified-core,6144 seeded contention jobs verify FIFO survivors and cancellation conservation
 CS011,Signals,Discovery typed signal width validation hierarchy arrays,partial,Recursive scopes and records; nested arrays; cached handles; explicit packed views; Verilator native packed ranges and package member access; status-bearing driver/load queries; remaining backend metadata gaps
 CS012,Signals,Deposit immediate force release,partial,Icarus force/release verified; NVC and Verilator force hold contract rejected
 CS013,Signals,Real string and integer signal adapters,verified-core,NVC integer enum real fixed-string transport including Latin-1 and NUL; dynamic-string NUL open
-CS014,Regression,Discovery parameterization seeds timeouts JUnit,verified-core,Attributes parameter cases seeds skips expected exceptions JSON JUnit
+CS014,Regression,Discovery parameterization seeds timeouts JUnit,verified-core,Attributes parameter cases seeds skips expected exceptions JSON JUnit; selected stages and stop-after-stage policy
 CS015,Regression,Background failure propagation and task cleanup,verified-core,Typed jobs; aggregate nested failures; leak and early-termination negatives
 CS016,Drivers,Clock reset and stream backpressure example,verified-core,Managed clock and 100 transaction randomized stream backpressure test
 CS017,Codegen,Generate C# interface from elaborated hierarchy,partial,Recursive elaborated scopes records and nested arrays; generated consumer runs; Roslyn generator open
@@ -29,3 +29,5 @@ CS027,Interop,Native packed vector extension,partial,Packed managed/native value
 CS028,Python,Python bridge external-thread helpers and IPython,open,No Python source compatibility or bridge/IPython equivalent
 CS029,Parity,Native clock dynamically adjustable period,open,Managed clock only; native adjustable clock not ported
 CS030,Parity,Full object type coverage multidimensional packed handles,partial,NVC nested arrays and records; explicit packed array and struct-field views; inferred layout and backend matrix open
+CS031,Tasks,Typed locals and job identity,verified-core,AN_TaskLocalsAndIntrospection; managed stacks and explicit Python frame-inspection exclusion
+CS032,Coverage,Typed functional bins and per-test reports,verified-core,AQ_FunctionalCoverage and exported HDL fixture counts; code coverage is outside this API

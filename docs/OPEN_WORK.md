@@ -77,7 +77,9 @@ is made. Native simulator adapters are reused, not reimplemented in C#.
 - [ ] Commercial Questa/Xcelium/VCS/Riviera checks when installations/licenses exist.
 - [ ] Debugger attachment instructions and actual debugger integration validation.
 - [x] Regression stages, explicit stage selection and continue/stop-after-stage policies.
-- [ ] Structured logging, traceback/source mapping, coverage, wave controls, pytest-like
+- [x] Typed sampled functional coverage with per-test JSON export; code coverage remains
+      outside this initial functional API scope (see COVERAGE.md).
+- [ ] Structured logging, traceback/source mapping, wave controls, pytest-like
       fixtures and richer regression selection/reporting.
 - [ ] Native AOT feasibility, reflection trimming and process lifecycle tests.
 

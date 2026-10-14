@@ -1,3 +1,17 @@
+# Unreleased validation update
+
+Task API/stage work: 42 passing integration tests on each of Icarus 11 and
+Verilator 5.048, 1,846 managed assertions, six fresh-process stage checks,
+compiler checks, native fault tests and Python timing parity. Independent
+[GitHub CI](https://github.com/jeffadickson/SharpTestBench/actions/runs/38596631139)
+passed on Icarus 12. Evidence is in `docs/evidence/task-stages`.
+
+Functional coverage adds one HDL fixture per backend (43 passed and one deliberate
+skip each) and raises managed assertions to 1,860. Exact exported sample counts,
+goals and test/seed identity are checked by tools/coverage_check.py. Evidence is
+in `docs/evidence/functional-coverage`. VHDL and package validation below remains
+historical release evidence, not a claim of rerunning those configurations here.
+
 # Validation record — SharpTestBench v0.8.0-alpha
 
 Linux x86-64, .NET SDK 10.0.402/runtime 10.0.13, Python 3.12.14. Pinned cocotb:

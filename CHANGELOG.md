@@ -1,5 +1,7 @@
 # Unreleased
 
+- Added typed functional coverage bins, goals and per-test JSON export with HDL fixture checks (#29).
+
 - Added reusable completion triggers, typed job-local state and current-job introspection (#4, #5).
 - Documented and tested cooperative cancellation/kill boundaries (#2).
 - Expanded seeded scheduler teardown and synchronization fairness stress (#6, #40).

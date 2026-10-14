@@ -13,6 +13,26 @@ public static class Entry
 public static class Tests
 {
     [SimTest]
+    public static async Task AQ_FunctionalCoverage(TestContext c)
+    {
+        var point = c.Coverage.AddPoint("packet-payload",
+            new CoverageBin<uint>("zero", x => x == 0),
+            new CoverageBin<uint>("nonzero", x => x != 0, 3));
+        var signal = c.Dut.Child("packed_packet").Signal<W16>();
+        foreach (uint payload in new uint[] { 0, 1, 0, 2 })
+        {
+            signal.Write(new UInt<W16>(payload << 4));
+            await ReadOnly();
+            point.Sample((uint)c.Dut.Child("packet_payload").Signal<W8>().ReadUInt().Value);
+            await Timer(1);
+        }
+        var result = point.Snapshot();
+        Check(result.Samples == 4 && result.Unmatched == 0 && result.Percent == 50,
+            "functional coverage measures observed HDL values and goal thresholds");
+        Check(result.Bins.All(b => b.Hits == 2), "functional bin counts match independent HDL selection");
+    }
+
+    [SimTest]
     public static async Task AP_MultipleFailureTeardownStress(TestContext c)
     {
         for (int round = 0; round < 256; round++)

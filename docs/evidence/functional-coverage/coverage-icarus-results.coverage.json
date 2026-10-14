@@ -1,0 +1,36 @@
+{
+  "SchemaVersion": 1,
+  "Kind": "functional",
+  "Tests": [
+    {
+      "Test": "AQ_FunctionalCoverage",
+      "Seed": 17,
+      "Status": "passed",
+      "Coverage": {
+        "Points": [
+          {
+            "Name": "packet-payload",
+            "Samples": 4,
+            "Unmatched": 0,
+            "Bins": [
+              {
+                "Name": "zero",
+                "Hits": 2,
+                "Goal": 1,
+                "Covered": true
+              },
+              {
+                "Name": "nonzero",
+                "Hits": 2,
+                "Goal": 3,
+                "Covered": false
+              }
+            ],
+            "Percent": 50
+          }
+        ],
+        "Percent": 50
+      }
+    }
+  ]
+}

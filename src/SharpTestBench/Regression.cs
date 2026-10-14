@@ -133,6 +133,7 @@ public sealed class TestContext
     public SimRuntime Runtime { get; }
     public SimRandom Random { get; }
     public ulong Seed { get; }
+    public FunctionalCoverage Coverage { get; } = new();
     public CancellationToken Cancellation => source.Token;
 
     readonly CancellationTokenSource source = new();
@@ -235,6 +236,7 @@ public static class Regression
 {
     static SimRuntime? runtime;
     static readonly List<TestResult> results = new();
+    static readonly List<object> coverage = new();
     static bool finished;
     public static int Initialize(Assembly assembly)
     {
@@ -361,6 +363,9 @@ public static class Regression
                     watch.Stop();
                     results.Add(new(name, status, testSeed, start, runtime.Now, watch.Elapsed.TotalSeconds, expected ? null : error?.ToString()));
                     Console.WriteLine($"CS_TEST {status} {name} steps={runtime.Now - start} seed={testSeed}");
+                    var snapshot = ctx.Coverage.Snapshot();
+                    if (snapshot.Points.Length > 0)
+                        coverage.Add(new { Test = name, Seed = testSeed, Status = status, Coverage = snapshot });
                     ctx.Dispose();
                     if (leaked)
                     {
@@ -388,6 +393,8 @@ public static class Regression
         string output = Environment.GetEnvironmentVariable("CS_RESULTS") ?? "csharp-results.json";
         Directory.CreateDirectory(Path.GetDirectoryName(Path.GetFullPath(output))!);
         File.WriteAllText(output, JsonSerializer.Serialize(results, new JsonSerializerOptions { WriteIndented = true }));
+        File.WriteAllText(Path.ChangeExtension(output, ".coverage.json"), JsonSerializer.Serialize(
+            new { SchemaVersion = 1, Kind = "functional", Tests = coverage }, new JsonSerializerOptions { WriteIndented = true }));
         var suite = new XElement("testsuite", new XAttribute("tests", results.Count), new XAttribute("failures", results.Count(x => x.Status == "failed")), new XAttribute("skipped", results.Count(x => x.Status == "skipped")), results.Select(x => new XElement("testcase", new XAttribute("name", x.Name), new XAttribute("time", x.Seconds), x.Status == "failed" ? new XElement("failure", x.Error) : x.Status == "skipped" ? new XElement("skipped", x.Error) : null)));
         new XDocument(suite).Save(Path.ChangeExtension(output, "xml"));
         Console.WriteLine($"CS_SUMMARY {results.Count(x => x.Status == "passed")} passed {results.Count(x => x.Status == "failed")} failed {results.Count(x => x.Status == "skipped")} skipped");
