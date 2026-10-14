@@ -57,3 +57,4 @@ See [assessment and adoption boundaries](TEST_TOOLING.md). These are planned, no
 | STB-041 | P1 | [#41 Adopt xUnit for managed tests and external simulator orchestration](https://github.com/jeffadickson/SharpTestBench/issues/41) |
 | STB-042 | P1 | [#42 Add targeted NSubstitute tests for managed lifecycle boundaries](https://github.com/jeffadickson/SharpTestBench/issues/42) |
 | STB-043 | P1 | [#43 Pilot Testcontainers for reproducible simulator integration](https://github.com/jeffadickson/SharpTestBench/issues/43) |
+| STB-044 | P0 | [#44 Compare and implement owned gather/select semantics](https://github.com/jeffadickson/SharpTestBench/issues/44) |

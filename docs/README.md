@@ -1,5 +1,8 @@
 # Documentation
 
+- [Alpha backlog and parity priorities](ALPHA_BACKLOG.md)
+- [cocotb 2.1 concurrency comparison](CONCURRENCY_COMPARISON.md)
+
 - [Cross-platform alpha target and example](ALPHA.md)
 - [Quick start and installation](../README.md)
 - [Contribution guide and repository layout](../CONTRIBUTING.md)

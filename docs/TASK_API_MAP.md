@@ -27,3 +27,5 @@ SimTasks.First/Combine/WithTimeout are non-owning waits. RunGroup is an addition
 structured ownership API with sibling cancellation, cleanup joining and aggregate
 errors. TASKS.md specifies their behavior, including how it differs from trigger
 subscription cancellation. Full upstream scheduler/conformance tests remain open.
+
+See [the cocotb 2.1 concurrency comparison](CONCURRENCY_COMPARISON.md): First/Combine are not gather/select equivalents. Remaining structured combinators are tracked in #44.

@@ -342,5 +342,13 @@
     "issue": 43,
     "url": "https://github.com/jeffadickson/SharpTestBench/issues/43",
     "key": "STB-043"
+  },
+  {
+    "key": "STB-044",
+    "priority": "P0",
+    "title": "Compare and implement owned gather/select semantics from cocotb 2.1",
+    "acceptance": "Version-specific contract matrix, owned/borrowed inputs, typed results, cancellation and cleanup guarantees, released Python oracle and native-platform evidence.",
+    "issue": 44,
+    "url": "https://github.com/jeffadickson/SharpTestBench/issues/44"
   }
 ]

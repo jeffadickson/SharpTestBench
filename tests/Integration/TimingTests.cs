@@ -7,6 +7,80 @@ public static class TimingTests
     static void Check(bool value, string message) { if (!value) throw new Exception(message); }
 
     [SimTest]
+    public static async Task CombinatorBorrowedCancellation(TestContext c)
+    {
+        using var cancellation = new CancellationTokenSource();
+        var callbacks = c.Runtime.PendingCallbacks;
+        var borrowed = Timer(5).AsTask(CancellationToken.None);
+        var wait = SimTasks.First(cancellation.Token, borrowed);
+        cancellation.Cancel();
+        bool cancelled = false;
+        try { await wait; } catch (OperationCanceledException) { cancelled = true; }
+        Check(cancelled && !borrowed.IsCompleted, "cancelled First detaches without cancelling borrowed task");
+        await borrowed;
+        Check(c.Runtime.PendingCallbacks == callbacks, "borrowed timer joined without callback leak");
+    }
+
+    [SimTest]
+    public static async Task CombinatorFailureIsNotFailFast(TestContext c)
+    {
+        var start = c.Runtime.Now;
+        var delayed = Timer(7).AsTask();
+        var failure = new FormatException("borrowed failure");
+        try
+        {
+            await SimTasks.Combine(Task.FromException(failure), delayed);
+            throw new Exception("Combine did not propagate failure");
+        }
+        catch (FormatException error)
+        {
+            Check(ReferenceEquals(error, failure), "original failure retained");
+        }
+        Check(c.Runtime.Now == start + 7 && delayed.IsCompletedSuccessfully,
+            "Combine waits for borrowed success despite an earlier failure");
+        start = c.Runtime.Now;
+        delayed = Timer(3).AsTask();
+        bool cancelled = false;
+        try { await SimTasks.Combine(Task.FromCanceled(new CancellationToken(true)), delayed); }
+        catch (OperationCanceledException) { cancelled = true; }
+        Check(cancelled && c.Runtime.Now == start + 3 && delayed.IsCompletedSuccessfully,
+            "cancelled child also waits for other borrowed tasks");
+    }
+
+    [SimTest]
+    public static async Task CombinatorGroupJoinsAsyncCleanup(TestContext c)
+    {
+        var start = c.Runtime.Now;
+        var callbacks = c.Runtime.PendingCallbacks;
+        bool cleaned = false, caught = false;
+        try
+        {
+            await c.RunGroup(async group =>
+            {
+                var sibling = group.StartSoon(async _ =>
+                {
+                    try { await Timer(100); }
+                    finally
+                    {
+                        await Timer(3).WithCancellation(CancellationToken.None);
+                        cleaned = true;
+                    }
+                });
+                var failing = group.StartSoon(async _ =>
+                {
+                    await Timer(2);
+                    throw new FormatException("owned failure");
+                });
+                await SimTasks.Combine(sibling.Task, failing.Task);
+            });
+        }
+        catch (FormatException) { caught = true; }
+        Check(caught && cleaned && c.Runtime.Now == start + 5,
+            "group cancels sibling then joins asynchronous cleanup before propagating failure");
+        Check(c.Runtime.PendingCallbacks == callbacks, "owned group leaves no native registrations");
+    }
+
+    [SimTest]
     public static Task CapabilityCatalogue(TestContext c)
     {
         var caps = c.Runtime.Capabilities;
