@@ -16,7 +16,7 @@ def main():
  assembly='VhdlIntegration' if args.sim in ('ghdl','nvc') else args.project
  if not args.no_build:
   if not args.assembly:command([sdk/'dotnet','build',root/f'tests/{assembly}/{assembly}.csproj','-c','Release','--nologo'])
-  headers=sorted((sdk/'packs/Microsoft.NETCore.App.Host.linux-x64').glob('*/runtimes/linux-x64/native'))[-1]
+  headers=sorted((sdk/'packs/Microsoft.NETCore.App.Host.linux-x64').glob('*/runtimes/linux-x64/native'), key=lambda p: tuple(map(int, p.parents[2].name.split('-')[0].split('.'))))[-1]
   temporary=build/f'host-{os.getpid()}.so'
   try:
    command(['gcc','-shared','-fPIC','-Wall','-Wextra','-Werror','-Wl,-soname,libsharptestbench_host.so',root/'native/host.c',root/'native/abi.c','-I',root/'native/upstream','-I',headers,'-ldl','-o',temporary])
@@ -27,7 +27,7 @@ def main():
   binary=args.assembly.resolve().parent;assembly=args.assembly.stem
  if not (binary/f'{assembly}.dll').is_file() or not (binary/f'{assembly}.runtimeconfig.json').is_file():raise SystemExit('Test DLL and runtimeconfig.json are required')
  sources=[p.resolve() for p in args.source] if args.source else [root/('tests/VhdlIntegration/top.vhd' if args.sim in ('ghdl','nvc') else 'tests/Integration/top.sv')]
- env=os.environ.copy();env.update(CS_HOSTFXR=str(next((sdk/'host/fxr').glob('*/libhostfxr.so'))),CS_CONFIG=str(binary/f'{assembly}.runtimeconfig.json'),CS_ASSEMBLY=str(binary/f'{assembly}.dll'),CS_TOPLEVEL=args.top,CS_ENTRY_TYPE=args.entry_type or 'Entry, '+assembly,CS_RESULTS=str(build/(label+'-results.json')),CS_TRACE=str(build/(label+'-trace.txt')),CS_BINDINGS=str(build/'DutBindings.cs'),DOTNET_ROOT=str(sdk),LD_LIBRARY_PATH=str(args.host.resolve().parent if args.host else build)+os.pathsep+str(config.libs_dir)+os.pathsep+env.get('LD_LIBRARY_PATH',''))
+ env=os.environ.copy();env.update(CS_HOSTFXR=str(max((sdk/'host/fxr').glob('*/libhostfxr.so'), key=lambda p: tuple(map(int, p.parent.name.split('-')[0].split('.'))))),CS_CONFIG=str(binary/f'{assembly}.runtimeconfig.json'),CS_ASSEMBLY=str(binary/f'{assembly}.dll'),CS_TOPLEVEL=args.top,CS_ENTRY_TYPE=args.entry_type or 'Entry, '+assembly,CS_RESULTS=str(build/(label+'-results.json')),CS_TRACE=str(build/(label+'-trace.txt')),CS_BINDINGS=str(build/'DutBindings.cs'),DOTNET_ROOT=str(sdk),LD_LIBRARY_PATH=str(args.host.resolve().parent if args.host else build)+os.pathsep+str(config.libs_dir)+os.pathsep+env.get('LD_LIBRARY_PATH',''))
  if args.filter:env['CS_TEST_FILTER']=args.filter
  env['GPI_IMPL']=subprocess.check_output([sys.executable,'-m','cocotb_tools.config','--gpi-impl',args.sim,'vhpi' if args.sim=='nvc' else 'vpi'],text=True).strip()
  env['COCOTB_BOOTSTRAP']=os.pathsep.join([config.gpi_entry_point(),str(args.host.resolve() if args.host else build/'libsharptestbench_host.so')+',sharptestbench_initialize'])

@@ -19,7 +19,7 @@ def run(*args):
 def main():
     build = ROOT / "build"
     build.mkdir(exist_ok=True)
-    headers = sorted((SDK / "packs/Microsoft.NETCore.App.Host.linux-x64").glob("*/runtimes/linux-x64/native"))[-1]
+    headers = sorted((SDK / "packs/Microsoft.NETCore.App.Host.linux-x64").glob("*/runtimes/linux-x64/native"), key=lambda p: tuple(map(int, p.parents[2].name.split("-")[0].split("."))))[-1]
     temporary = build / f"host-package-{os.getpid()}.so"
     try:
         run("gcc", "-shared", "-fPIC", "-Wl,-soname,libsharptestbench_host.so", "-Wall", "-Wextra", "-Werror", ROOT / "native/host.c", ROOT / "native/abi.c", "-I", ROOT / "native/upstream", "-I", headers,

@@ -104,6 +104,14 @@ public partial class HdlObject
         if (named.TryGetValue(name, out var cached))
             return cached;
         var h = Native.gpi_get_handle_by_name(Handle, name, 0);
+        // Some package backends enumerate members but cannot resolve their
+        // qualified names through GPI. Use real child handles, never guess separators.
+        if (h == 0 && Kind == ObjectKind.Package)
+        {
+            Children();
+            if (named.TryGetValue(name, out cached))
+                return cached;
+        }
         if (h == 0)
             throw new KeyNotFoundException($"HDL member {name} not found under {Name}");
         var child = new HdlObject(Runtime, h);
