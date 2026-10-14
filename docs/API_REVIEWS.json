@@ -412,8 +412,8 @@
       "module": "cocotb._gpi_triggers",
       "definition": "ValueChange",
       "source_line": 355,
-      "classification": "gap",
-      "reason": "Logic/integer Signal value-change waits are implemented and tested. Python accepts a broader non-indexable value-object family; RealSignal/StringSignal cannot currently be passed to the C# method.",
+      "classification": "idiomatic-equivalent",
+      "reason": "ValueChange accepts HdlObject scalar value families, including RealSignal, StringSignal and IntegerSignal, while preserving the Signal overload. Scopes and aggregates reject before callback allocation. Real callbacks pass on Icarus and NVC; fixed strings pass on NVC, including same-value writes, fanout, cancellation, reuse and cleanup. Python cached trigger identity is not preserved; dynamic-string callback and broader backend coverage are not established.",
       "evidence": [
         {
           "path": "src/SharpTestBench/Triggers.cs",
@@ -422,6 +422,22 @@
         {
           "path": "tests/Integration/Tests.cs",
           "contains": "Q_ValueChangeFanoutAndYield"
+        },
+        {
+          "path": "src/SharpTestBench/Triggers.cs",
+          "contains": "ValueChange(HdlObject signal)"
+        },
+        {
+          "path": "tests/Integration/TimingTests.cs",
+          "contains": "RealValueChangeContract"
+        },
+        {
+          "path": "tests/Integration/TimingTests.cs",
+          "contains": "StringValueChangeContract"
+        },
+        {
+          "path": "tests/Integration/TimingTests.cs",
+          "contains": "ValueChangeTargetGuards"
         }
       ]
     },
@@ -430,7 +446,7 @@
       "definition": "Edge",
       "source_line": 383,
       "classification": "deprecated-omission",
-      "reason": "Deprecated public Edge alias is omitted; use Triggers.ValueChange for supported signal types. This does not close the broader ValueChange object-family gap.",
+      "reason": "Deprecated public Edge alias is omitted; use Triggers.ValueChange for supported scalar value objects.",
       "evidence": [
         {
           "path": "src/SharpTestBench/Triggers.cs",

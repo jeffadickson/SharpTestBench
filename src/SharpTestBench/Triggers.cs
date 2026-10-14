@@ -117,7 +117,22 @@ public static class Triggers
     public static Trigger NextTimeStep() => new NativeTrigger(CallbackKind.NextStep);
     public static Trigger RisingEdge(Signal signal) => Edge(signal, 1);
     public static Trigger FallingEdge(Signal signal) => Edge(signal, 2);
-    public static Trigger ValueChange(Signal signal) => Edge(signal, 0);
+    /// <summary>Wait for a logic or integer signal to change; preserves the original overload.</summary>
+    public static Trigger ValueChange(Signal signal) => ValueChange((HdlObject)signal);
+
+    /// <summary>
+    /// Wait for a scalar value object, including real and HDL string signals, to change.
+    /// Availability of native change notifications depends on the simulator adapter.
+    /// Scopes, arrays and aggregate structures are not value-change targets.
+    /// </summary>
+    public static Trigger ValueChange(HdlObject signal)
+    {
+        ArgumentNullException.ThrowIfNull(signal);
+        if (signal.Kind is not (ObjectKind.Logic or ObjectKind.LogicArray or ObjectKind.Packed
+            or ObjectKind.Integer or ObjectKind.Enum or ObjectKind.Real or ObjectKind.String or ObjectKind.FixedString))
+            throw new ArgumentException("ValueChange requires a scalar value object", nameof(signal));
+        return new NativeTrigger(CallbackKind.Edge, signal: signal.Handle);
+    }
     static Trigger Edge(Signal s, int edge)
     {
         if (edge != 0 && s.Width != 1)

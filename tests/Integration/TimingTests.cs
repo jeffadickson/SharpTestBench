@@ -6,6 +6,63 @@ public static class TimingTests
     static string Trace => Environment.GetEnvironmentVariable("CS_TRACE") ?? "trace.txt";
     static void Check(bool value, string message) { if (!value) throw new Exception(message); }
 
+    /// <summary>Prove native real callbacks wait for a change and detach on cancellation.</summary>
+    [SimTest(Simulators = new[] { "icarus", "nvc" })]
+    public static async Task RealValueChangeContract(TestContext c)
+    {
+        var signal = c.Dut.Child("real_data").Real();
+        signal.Write(1.5);
+        await Timer(1);
+        await ValueChangeContract(c, signal, () => signal.Write(1.5), () => signal.Write(-3.125));
+        Check(signal.Read() == -3.125, "real value visible after notification");
+    }
+
+    /// <summary>Exercise fixed HDL strings through the same native callback path.</summary>
+    [SimTest(Simulators = new[] { "nvc" })]
+    public static async Task StringValueChangeContract(TestContext c)
+    {
+        var signal = c.Dut.Child("text_data").String();
+        signal.Write("HELLO");
+        await Timer(1);
+        await ValueChangeContract(c, signal, () => signal.Write("HELLO"), () => signal.Write("WORLD"));
+        Check(signal.Read() == "WORLD", "string value visible after notification");
+    }
+
+    // Timeout bounds a missing callback; subscription counts detect stale registrations.
+    static async Task ValueChangeContract(TestContext c, HdlObject signal, Action same, Action change)
+    {
+        int baseline = c.Runtime.PendingCallbacks;
+        var trigger = ValueChange(signal);
+        using var cancellation = new CancellationTokenSource();
+        var cancelled = trigger.AsTask(cancellation.Token);
+        cancellation.Cancel();
+        bool caught = false;
+        try { await cancelled; } catch (OperationCanceledException) { caught = true; }
+        Check(caught && c.Runtime.PendingCallbacks == baseline, "cancel detaches native value callback");
+
+        // Reuse the trigger after cancellation and fan out to two independent waiters.
+        var first = WithTimeout(trigger, 20).AsTask();
+        var second = WithTimeout(trigger, 20).AsTask();
+        same();
+        await Timer(2);
+        Check(!first.IsCompleted && !second.IsCompleted, "equal-value write does not notify");
+        change();
+        await Task.WhenAll(first, second);
+        Check(c.Runtime.PendingCallbacks == baseline, "both waiters and their deadlines detach");
+        await ReadOnly();
+    }
+
+    [SimTest]
+    public static async Task ValueChangeTargetGuards(TestContext c)
+    {
+        int baseline = c.Runtime.PendingCallbacks;
+        int rejected = 0;
+        try { _ = ValueChange((HdlObject)null!); } catch (ArgumentNullException) { rejected++; }
+        try { _ = ValueChange(c.Dut); } catch (ArgumentException) { rejected++; }
+        Check(rejected == 2 && c.Runtime.PendingCallbacks == baseline, "invalid targets reject before registration");
+        await Timer(1);
+    }
+
     [SimTest]
     public static async Task ReadOnlyTransitionContract(TestContext c)
     {

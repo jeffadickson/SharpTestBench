@@ -247,3 +247,20 @@ matrix. Broader adapters and architectures remain unverified.
 The release workflow prepares exact validated package bytes and checks provenance
 and hashes before publication. Public NuGet publication has not been attempted;
 trusted-publisher/account configuration remains external. See PACKAGING.md.
+
+
+## Real and fixed-string change callbacks — 2026-10-14
+
+The ValueChange(HdlObject) overload accepts scalar value objects, including real,
+string, integer and enum wrappers; the original Signal overload remains available.
+Null and aggregate targets reject before native registration. Tests verify equal
+writes do not wake waiters, two waiters observe a change, cancellation detaches,
+a cancelled trigger can be reused, and completed waits leave no callbacks behind.
+
+Local .NET 10.0.402 build passes with zero warnings. Full Icarus 12.0 integration:
+62 passed / 2 explicit skips. NVC 1.23.0: 33 passed / 1 explicit skip. Real callbacks
+pass on both; fixed-string callbacks pass on NVC. Linux CI now installs the
+checksum-pinned NVC Ubuntu package and runs the VHDL suite. Dynamic-string callback
+support and additional backend/type combinations remain unverified. The API audit
+still covers 29 definitions; this change resolves one recorded implementation gap,
+not the remaining 273 reviews or full cocotb parity.

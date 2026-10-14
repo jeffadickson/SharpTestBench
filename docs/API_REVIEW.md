@@ -53,7 +53,12 @@ samples READY/VALID before the active edge in ReadOnly, advances time before
 writing again, and matches the released cocotb cycle trace. Existing edge, next-time
 and deposit/coalescing tests support the scoped mappings.
 
-Two additional gaps are explicit: ValueChange accepts Signal but not RealSignal or
-StringSignal; Runtime.Phase does not return the last concrete GPI trigger object.
+ValueChange now accepts scalar HdlObject families, including RealSignal and
+StringSignal, and retains the original Signal overload. RealValueChangeContract
+passes on Icarus and NVC; StringValueChangeContract covers NVC fixed strings.
+These check unchanged writes, cancellation, trigger reuse, two waiters and cleanup.
+Scopes and null targets reject before callback registration. Dynamic-string change
+notifications and other backend/type combinations remain unverified.
+Runtime.Phase still does not return the last concrete GPI trigger object.
 Cached Python trigger identity and X-to-edge backend matrices are not claimed
 equivalent. See API_REVIEWS.json for each definition's evidence and limitations.

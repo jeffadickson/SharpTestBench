@@ -27,6 +27,12 @@ jobs:
       - run: python tools/managed_tests.py
       - run: dotnet run --project tests/SharpTestBench.Generators.Tests -c Release --no-build -- -xml build/generator-results.xml
       - run: python tools/run.py --sim icarus --log-json build/icarus-events.jsonl --waves build/icarus.vcd
+      - name: Install pinned NVC for VHDL value callbacks
+        run: |
+          curl --fail --location --retry 3 https://github.com/nickg/nvc/releases/download/r1.23.0/nvc_1.23.0-1_amd64_ubuntu-24.04.deb -o build/nvc.deb
+          echo '33d65eafb83d83352716895e44c116002f94d8a198a9486a3cee6df3e4fdfb89  build/nvc.deb' | sha256sum --check
+          sudo apt-get install -y ./build/nvc.deb
+      - run: python tools/run.py --sim nvc --label nvc
       - run: python tools/structured_reference_env.py --label icarus
       - run: python tools/logging_check.py --label icarus
       - run: python tools/coverage_check.py --label icarus
