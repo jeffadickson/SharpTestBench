@@ -1,5 +1,9 @@
 # Unreleased validation update
 
+Fixture lifecycle: 364 managed xUnit cases and six fresh-process cleanup scenarios.
+Normal cleanup runs on all four available backends; errors and noncooperative
+callbacks are injected on Icarus. See FIXTURES.md.
+
 Managed test migration: xUnit v3 3.2.2 runs 361 named cases preserving the
 previous 1,916 checks. The isolated mutation probe reports exactly one named
 failure and 360 passing cases. Run `python tools/managed_tests.py` after building.

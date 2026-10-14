@@ -1,5 +1,7 @@
 # Unreleased
 
+- Added reverse-order fixture scopes, resource ownership, bounded async teardown and combined failure reporting (#31).
+
 - Migrated managed checks to 361 xUnit cases with locked dependencies and an isolated failure-reporting probe (#41).
 
 - Centralized 20 simulator capabilities with conservative unknown-product guards and per-feature evidence (#15).

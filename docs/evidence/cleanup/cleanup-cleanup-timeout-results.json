@@ -1,0 +1,26 @@
+[
+  {
+    "Name": "Cleanup_A_Run",
+    "Status": "failed",
+    "Seed": 1,
+    "StartStep": 1,
+    "EndStep": 7,
+    "Seconds": 0.0092069,
+    "Error": "System.AggregateException: One or more errors occurred. (Fixture cleanup timed out) (Fixture cleanup failed (The operation was canceled.))\n ---\u003E System.TimeoutException: Fixture cleanup timed out\n   --- End of inner exception stack trace ---\n ---\u003E (Inner Exception #1) System.AggregateException: Fixture cleanup failed (The operation was canceled.)\n ---\u003E System.OperationCanceledException: The operation was canceled.\n   at SharpTestBench.TriggerAwaiter.GetResult() in /workspace/scratch/d13ee848099b/SharpTestBench/src/SharpTestBench/Triggers.cs:line 38\n   at FixtureTests.\u003C\u003Ec__DisplayClass1_0.\u003C\u003CCleanup_A_Run\u003Eb__2\u003Ed.MoveNext() in /workspace/scratch/d13ee848099b/SharpTestBench/tests/Integration/TimingTests.cs:line 106\n--- End of stack trace from previous location ---\n   at SharpTestBench.CleanupScope.Run(TaskCompletionSource done, CancellationToken cancellation) in /workspace/scratch/d13ee848099b/SharpTestBench/src/SharpTestBench/CleanupScope.cs:line 68\n   --- End of inner exception stack trace ---\u003C---\n",
+    "QualifiedName": "FixtureTests.Cleanup_A_Run",
+    "Stage": 0,
+    "CaseIndex": 0
+  },
+  {
+    "Name": "Cleanup_B_Verify",
+    "Status": "passed",
+    "Seed": 2,
+    "StartStep": 8,
+    "EndStep": 9,
+    "Seconds": 0.001106,
+    "Error": null,
+    "QualifiedName": "FixtureTests.Cleanup_B_Verify",
+    "Stage": 0,
+    "CaseIndex": 0
+  }
+]

@@ -85,7 +85,9 @@ is made. Native simulator adapters are reused, not reimplemented in C#.
 - [x] Structured simulation logs with task/test identity, managed caller locations and
       exception details; native/HDL source mapping is not implied.
 - [x] Run-wide VCD capture and linked JSON/JUnit artifacts on all four local backends.
-- [ ] Pytest-like fixtures.
+- [x] Explicit fixture cleanup scopes (#31): reverse order, owned resources, nested
+      scopes, independent cleanup cancellation/budget and combined error reporting.
+      See FIXTURES.md for noncooperative callback limits.
 - [ ] Native AOT feasibility, reflection trimming and process lifecycle tests.
 
 ## P2 — Python-specific interoperability and ecosystem

@@ -14,10 +14,10 @@ BUILD = ROOT / 'build'
 
 def verify(report, failed):
     cases = ET.parse(report).findall('.//test')
-    assert len(cases) == 361, f'Expected 361 discovered cases, got {len(cases)}'
+    assert len(cases) == 364, f'Expected 364 discovered cases, got {len(cases)}'
     failures = [case for case in cases if case.attrib['result'] == 'Fail']
     assert len(failures) == failed, failures
-    assert sum(case.attrib['result'] == 'Pass' for case in cases) == 361 - failed
+    assert sum(case.attrib['result'] == 'Pass' for case in cases) == 364 - failed
     if failed:
         assert failures[0].attrib['name'] == 'ManagedTests.IntegerBoundaries'
         assert any(c.attrib['name'] == 'ManagedTests.FunctionalCoverage' and c.attrib['result'] == 'Pass' for c in cases)
@@ -37,6 +37,7 @@ def main():
     original = 'new UInt<W8>(255).Value == 255'
     assert source.count(original) == 1
     (probe / 'Program.cs').write_text(source.replace(original, 'new UInt<W8>(255).Value == 254'))
+    shutil.copyfile(PROJECT / 'CleanupTests.cs', probe / 'CleanupTests.cs')
     shutil.copyfile(PROJECT / 'nine-state-reference.txt', probe / 'nine-state-reference.txt')
     shutil.copyfile(PROJECT / 'packages.lock.json', probe / 'packages.lock.json')
     subprocess.run([SDK, 'build', str(probe / 'FailureProbe.csproj'), '-c', 'Release', '--disable-build-servers', '-m:1', '-p:RestoreLockedMode=true'], check=True)
@@ -45,7 +46,7 @@ def main():
     result = subprocess.run([SDK, str(probe / 'bin/Release/net10.0/FailureProbe.dll'), '-xml', str(report)])
     assert result.returncode != 0, 'Injected failure must fail the process'
     verify(report, 1)
-    print('MANAGED_PASS 361 cases; injected failure named correctly; remaining 360 cases passed')
+    print('MANAGED_PASS 364 cases; injected failure named correctly; remaining 363 cases passed')
 
 
 if __name__ == '__main__':

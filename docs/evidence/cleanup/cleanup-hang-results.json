@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "Cleanup_A_Run",
+    "Status": "failed",
+    "Seed": 1,
+    "StartStep": 1,
+    "EndStep": 7,
+    "Seconds": 0.005877,
+    "Error": "System.InvalidOperationException: Test leaked tasks or callbacks; regression aborted to avoid contamination\n ---\u003E System.TimeoutException: Fixture cleanup timed out\n   --- End of inner exception stack trace ---",
+    "QualifiedName": "FixtureTests.Cleanup_A_Run",
+    "Stage": 0,
+    "CaseIndex": 0
+  }
+]

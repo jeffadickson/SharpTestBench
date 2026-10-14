@@ -1,0 +1,26 @@
+[
+  {
+    "Name": "Cleanup_A_Run",
+    "Status": "failed",
+    "Seed": 1,
+    "StartStep": 1,
+    "EndStep": 4,
+    "Seconds": 0.0080034,
+    "Error": "System.AggregateException: One or more errors occurred. (cancellation marker)\n ---\u003E System.FormatException: cancellation marker\n   at FixtureTests.\u003C\u003Ec.\u003CCleanup_A_Run\u003Eb__1_3() in /workspace/scratch/d13ee848099b/SharpTestBench/tests/Integration/TimingTests.cs:line 109\n   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)\n--- End of stack trace from previous location ---\n   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)\n   at System.Threading.CancellationTokenSource.ExecuteCallbackHandlers(Boolean throwOnFirstException)\n   --- End of inner exception stack trace ---\n   at System.Threading.CancellationTokenSource.ExecuteCallbackHandlers(Boolean throwOnFirstException)\n   at SharpTestBench.TestContext.Cancel() in /workspace/scratch/d13ee848099b/SharpTestBench/src/SharpTestBench/Regression.cs:line 223\n   at SharpTestBench.Regression.Run(Assembly assembly) in /workspace/scratch/d13ee848099b/SharpTestBench/src/SharpTestBench/Regression.cs:line 388",
+    "QualifiedName": "FixtureTests.Cleanup_A_Run",
+    "Stage": 0,
+    "CaseIndex": 0
+  },
+  {
+    "Name": "Cleanup_B_Verify",
+    "Status": "passed",
+    "Seed": 2,
+    "StartStep": 5,
+    "EndStep": 6,
+    "Seconds": 0.0009913,
+    "Error": null,
+    "QualifiedName": "FixtureTests.Cleanup_B_Verify",
+    "Stage": 0,
+    "CaseIndex": 0
+  }
+]

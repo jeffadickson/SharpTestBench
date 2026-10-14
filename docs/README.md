@@ -14,6 +14,7 @@
 - [Structured logging and source locations](LOGGING.md)
 - [Functional coverage and export](COVERAGE.md)
 - [Regression stages and failure policies](REGRESSION_STAGES.md)
+- [Fixture setup and cleanup](FIXTURES.md)
 - [Task ownership and cancellation](TASKS.md)
 - [Upstream task API mapping](TASK_API_MAP.md)
 - [Packed fields and timing](PACKED_VIEWS_AND_TIMING.md)

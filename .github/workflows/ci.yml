@@ -29,6 +29,7 @@ jobs:
       - run: python tools/timing_parity.py --sim icarus --label icarus
       - run: python tools/wave_check.py --label icarus
       - run: python tools/wave_tests.py
+      - run: python tools/cleanup_tests.py
       - run: python tools/stage_tests.py
       - run: python tools/typecheck.py
       - run: python tools/parity.py --label icarus

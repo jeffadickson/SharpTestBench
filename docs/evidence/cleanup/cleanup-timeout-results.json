@@ -1,0 +1,26 @@
+[
+  {
+    "Name": "Cleanup_A_Run",
+    "Status": "failed",
+    "Seed": 1,
+    "StartStep": 1,
+    "EndStep": 14,
+    "Seconds": 0.0085413,
+    "Error": "System.TimeoutException: Cleanup_A_Run exceeded 10 simulation steps",
+    "QualifiedName": "FixtureTests.Cleanup_A_Run",
+    "Stage": 0,
+    "CaseIndex": 0
+  },
+  {
+    "Name": "Cleanup_B_Verify",
+    "Status": "passed",
+    "Seed": 2,
+    "StartStep": 15,
+    "EndStep": 16,
+    "Seconds": 0.0011222,
+    "Error": null,
+    "QualifiedName": "FixtureTests.Cleanup_B_Verify",
+    "Stage": 0,
+    "CaseIndex": 0
+  }
+]

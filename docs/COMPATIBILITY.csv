@@ -33,3 +33,4 @@ CS031,Tasks,Typed locals and job identity,verified-core,AN_TaskLocalsAndIntrospe
 CS032,Coverage,Typed functional bins and per-test reports,verified-core,AQ_FunctionalCoverage and exported HDL fixture counts; code coverage is outside this API
 CS033,Tools,Run-wide VCD waveform capture,verified-core,Four local simulators; signal content and JSON/JUnit links; failure retention and disabled-capture checks
 CS_CAP,Compatibility,Explicit simulator capability policy,verified-core,20 documented statuses; 1916 unit assertions; unknown native guards; four backend catalogues; see CAPABILITIES.md
+CS_FIX,Regression,Fixture cleanup scopes,verified-core,364 managed xUnit cases; six Icarus lifecycle scenarios; normal fixture on four backends; see FIXTURES.md

@@ -1,0 +1,26 @@
+[
+  {
+    "Name": "Cleanup_A_Run",
+    "Status": "passed",
+    "Seed": 1,
+    "StartStep": 1,
+    "EndStep": 4,
+    "Seconds": 0.0058236,
+    "Error": null,
+    "QualifiedName": "FixtureTests.Cleanup_A_Run",
+    "Stage": 0,
+    "CaseIndex": 0
+  },
+  {
+    "Name": "Cleanup_B_Verify",
+    "Status": "passed",
+    "Seed": 2,
+    "StartStep": 5,
+    "EndStep": 6,
+    "Seconds": 0.0009644,
+    "Error": null,
+    "QualifiedName": "FixtureTests.Cleanup_B_Verify",
+    "Stage": 0,
+    "CaseIndex": 0
+  }
+]

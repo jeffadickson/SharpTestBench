@@ -10,6 +10,7 @@ namespace SharpTestBench;
 public sealed class SimTestAttribute : Attribute
 {
     public ulong TimeoutSteps { get; set; } = 100000;
+    public ulong CleanupTimeoutSteps { get; set; } = 1000;
     public bool Skip { get; set; }
     public int Stage { get; set; }
     public string[] Simulators { get; set; } = [];
@@ -135,6 +136,7 @@ public sealed class TestContext
     public SimRandom Random { get; }
     public ulong Seed { get; }
     public FunctionalCoverage Coverage { get; } = new();
+    public CleanupScope Cleanup { get; }
     public string TestName { get; }
     public int Stage { get; }
     public CancellationToken Cancellation => source.Token;
@@ -145,6 +147,7 @@ public sealed class TestContext
     internal TestContext(SimRuntime r, ulong seed, string testName, int stage)
     {
         Runtime = r;
+        Cleanup = new CleanupScope(r.CheckThread);
         TestName = testName;
         Stage = stage;
         Dut = HdlObject.Root(Environment.GetEnvironmentVariable("CS_TOPLEVEL") ?? "top");
@@ -351,12 +354,14 @@ public static class Regression
                     Exception? error = null;
                     Task? body = null;
                     bool timedOut = false;
+                    Exception? cancellationError = null;
                     var deadline = new TaskCompletionSource();
                     using var timer = runtime.Register(CallbackKind.Timer, () =>
                     {
                         timedOut = true;
-                        ctx.Cancel();
-                        deadline.TrySetResult();
+                        try { ctx.Cancel(); }
+                        catch (Exception e) { cancellationError = e; }
+                        finally { deadline.TrySetResult(); }
                     }, attr.TimeoutSteps > 0 ? attr.TimeoutSteps : throw new ArgumentException("Zero test timeout"));
                     try
                     {
@@ -380,15 +385,52 @@ public static class Regression
                     }
 
                     timer.Dispose();
-                    ctx.Cancel();
+                    try { ctx.Cancel(); }
+                    catch (Exception e) { cancellationError = e; }
                     runtime.DefaultCancellation = CancellationToken.None;
                     runtime.DiscardWrites();
                     await Triggers.Timer(1).WithCancellation(CancellationToken.None);
-                    error = ctx.BackgroundFailure ?? (timedOut ? new TimeoutException($"{name} exceeded {attr.TimeoutSteps} simulation steps") : error);
+                    error = timedOut ? new TimeoutException($"{name} exceeded {attr.TimeoutSteps} simulation steps") : error;
+                    if (cancellationError != null)
+                        error = error == null ? cancellationError : new AggregateException(error, cancellationError);
+                    if (ctx.BackgroundFailure != null && !ReferenceEquals(error, ctx.BackgroundFailure))
+                        error = error == null || error is OperationCanceledException ? ctx.BackgroundFailure : new AggregateException(error, ctx.BackgroundFailure);
                     bool leaked = (body != null && !body.IsCompleted) || !ctx.JobsComplete || runtime.PendingCallbacks != 0;
+                    Exception? cleanupError = null;
+                    if (ctx.Cleanup.HasEntries)
+                    {
+                        using var cleanupCancellation = new CancellationTokenSource();
+                        var cleanupDeadline = new TaskCompletionSource();
+                        bool cleanupTimedOut = false;
+                        Exception? cleanupCancellationError = null;
+                        using var cleanupTimer = runtime.Register(CallbackKind.Timer, () =>
+                        {
+                            cleanupTimedOut = true;
+                            try { cleanupCancellation.Cancel(); }
+                            catch (Exception e) { cleanupCancellationError = e; }
+                            finally { cleanupDeadline.TrySetResult(); }
+                        }, Math.Max(1UL, attr.CleanupTimeoutSteps));
+                        runtime.DefaultCancellation = cleanupCancellation.Token;
+                        Task cleanup = ctx.Cleanup.CloseAsync(cleanupCancellation.Token);
+                        await Task.WhenAny(cleanup, cleanupDeadline.Task);
+                        cleanupTimer.Dispose();
+                        runtime.DefaultCancellation = CancellationToken.None;
+                        await Triggers.Timer(1).WithCancellation(CancellationToken.None);
+                        cleanupError = cleanup.IsFaulted ? cleanup.Exception!.InnerException : null;
+                        if (cleanupCancellationError != null)
+                            cleanupError = cleanupError == null ? cleanupCancellationError : new AggregateException(cleanupError, cleanupCancellationError);
+                        if (cleanupTimedOut)
+                            cleanupError = cleanupError == null ? new TimeoutException("Fixture cleanup timed out") :
+                                new AggregateException(new TimeoutException("Fixture cleanup timed out"), cleanupError);
+                        if (cleanupError != null)
+                            error = error == null ? cleanupError : new AggregateException("Test and cleanup failed", error, cleanupError);
+                        runtime.DiscardWrites();
+                        leaked |= !cleanup.IsCompleted || runtime.PendingCallbacks != 0;
+                    }
+                    else await ctx.Cleanup.CloseAsync();
                     if (leaked)
                         error = new InvalidOperationException("Test leaked tasks or callbacks; regression aborted to avoid contamination", error);
-                    bool expected = !leaked && attr.ExpectedException != null && error != null && attr.ExpectedException.IsAssignableFrom(error.GetType());
+                    bool expected = !leaked && cleanupError == null && attr.ExpectedException != null && error != null && attr.ExpectedException.IsAssignableFrom(error.GetType());
                     if (attr.ExpectedException != null && error == null)
                         error = new InvalidOperationException("Expected exception was not raised");
                     string status = error == null || expected ? "passed" : "failed";

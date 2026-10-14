@@ -87,3 +87,34 @@ public static class TimingTests
         File.WriteAllLines(Trace + ".force", trace);
     }
 }
+
+public static class FixtureTests
+{
+    static readonly List<int> order = new();
+    [SimTest(TimeoutSteps = 10, CleanupTimeoutSteps = 4)]
+    public static async Task Cleanup_A_Run(TestContext c)
+    {
+        order.Clear();
+        string? mode = Environment.GetEnvironmentVariable("CS_CLEANUP_MODE");
+        c.Cleanup.Defer(() => order.Add(1));
+        var nested = c.Cleanup.CreateScope();
+        nested.Defer(() => order.Add(2));
+        c.Cleanup.Defer(async token =>
+        {
+            order.Add(3);
+            if (mode == "hang") await new TaskCompletionSource().Task;
+            await Timer(mode == "cleanup-timeout" ? 20UL : 1UL).WithCancellation(token);
+            if (mode == "both") throw new FormatException("cleanup marker");
+        });
+        if (mode == "cancel-error") c.Cancellation.Register(() => throw new FormatException("cancellation marker"));
+        if (mode == "both") throw new InvalidOperationException("body marker");
+        if (mode == "timeout") await Timer(20);
+    }
+
+    [SimTest]
+    public static Task Cleanup_B_Verify(TestContext c)
+    {
+        if (!order.SequenceEqual(new[] { 3, 2, 1 })) throw new Exception("Cleanup ordering or continuation failed");
+        return Task.CompletedTask;
+    }
+}
