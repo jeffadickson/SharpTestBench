@@ -73,3 +73,13 @@ environment's release access/review rules as appropriate. No account, trusted po
 or public package ownership is assumed to exist; no public publication was attempted.
 See [NuGet's trusted publishing instructions](https://learn.microsoft.com/en-us/nuget/nuget-org/trusted-publishing).
 These account settings are the remaining external publication prerequisite.
+
+A further CI gate builds a consumer from the candidate feed in a digest-pinned
+.NET SDK image, then copies only its output and installed native package into a
+digest-pinned .NET runtime image. Python and Icarus are OS prerequisites there;
+no cocotb Python package or repository is installed/mounted. Simulation runs with
+network disabled and a read-only container filesystem apart from /tmp and result
+artifacts. This is a separate Linux distribution/consumer environment, not proof
+of every Windows/Mac clean image. OS apt packages are recorded by the build log
+but are not snapshot-pinned; fully reproducible OS provisioning remains separate.
+Run tools/package_container.py --artifacts <downloaded-CI-artifacts> to reproduce.

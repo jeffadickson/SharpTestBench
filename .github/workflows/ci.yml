@@ -148,8 +148,28 @@ jobs:
             build/*driver.log
             build/*.vcd
 
+  installed-linux-container:
+    needs: linux
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: linux-test-results
+          path: downloaded
+      - run: python tools/package_container.py --artifacts downloaded
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: installed-linux-container-evidence
+          path: build/container-evidence/
+
   release-bundle:
-    needs: [linux, native-platforms]
+    needs: [linux, native-platforms, installed-linux-container]
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
