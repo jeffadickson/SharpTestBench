@@ -1,0 +1,55 @@
+{
+  "SchemaVersion": 1,
+  "Tests": [
+    {
+      "Name": "Z_First[0]",
+      "QualifiedName": "StageTests.Z_First[0]",
+      "Stage": -2,
+      "CaseIndex": 0,
+      "Seed": 100,
+      "TimeoutSteps": 100000,
+      "Skip": false,
+      "Simulators": []
+    },
+    {
+      "Name": "Z_First[1]",
+      "QualifiedName": "StageTests.Z_First[1]",
+      "Stage": -2,
+      "CaseIndex": 1,
+      "Seed": 101,
+      "TimeoutSteps": 100000,
+      "Skip": false,
+      "Simulators": []
+    },
+    {
+      "Name": "A_Fail",
+      "QualifiedName": "StageTests.A_Fail",
+      "Stage": 0,
+      "CaseIndex": 0,
+      "Seed": 102,
+      "TimeoutSteps": 100000,
+      "Skip": false,
+      "Simulators": []
+    },
+    {
+      "Name": "B_After",
+      "QualifiedName": "StageTests.B_After",
+      "Stage": 0,
+      "CaseIndex": 0,
+      "Seed": 103,
+      "TimeoutSteps": 100000,
+      "Skip": false,
+      "Simulators": []
+    },
+    {
+      "Name": "A_Last",
+      "QualifiedName": "StageTests.A_Last",
+      "Stage": 2,
+      "CaseIndex": 0,
+      "Seed": 104,
+      "TimeoutSteps": 100000,
+      "Skip": false,
+      "Simulators": []
+    }
+  ]
+}

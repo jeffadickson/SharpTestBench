@@ -12,7 +12,7 @@ CS010,Primitives,Event lock semaphore queue,verified-core,6144 seeded contention
 CS011,Signals,Discovery typed signal width validation hierarchy arrays,partial,Recursive scopes and records; nested arrays; cached handles; explicit packed views; Verilator native packed ranges and package member access; status-bearing driver/load queries; remaining backend metadata gaps
 CS012,Signals,Deposit immediate force release,partial,Icarus force/release verified; NVC and Verilator force hold contract rejected
 CS013,Signals,Real string and integer signal adapters,verified-core,NVC integer enum real fixed-string transport including Latin-1 and NUL; dynamic-string NUL open
-CS014,Regression,Discovery parameterization seeds timeouts JUnit,verified-core,Attributes parameter cases seeds skips expected exceptions JSON JUnit; selected stages and stop-after-stage policy
+CS014,Regression,Discovery parameterization seeds timeouts JUnit,verified-core,Attributes parameter cases seeds skips expected exceptions JSON JUnit; selected stages and stop-after-stage policy; exact names; discovery-only; stable filtered seeds
 CS015,Regression,Background failure propagation and task cleanup,verified-core,Typed jobs; aggregate nested failures; leak and early-termination negatives
 CS016,Drivers,Clock reset and stream backpressure example,verified-core,Managed clock and 100 transaction randomized stream backpressure test
 CS017,Codegen,Generate C# interface from elaborated hierarchy,partial,Recursive elaborated scopes records and nested arrays; generated consumer runs; Roslyn generator open

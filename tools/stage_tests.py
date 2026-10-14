@@ -26,11 +26,14 @@ def main():
          ['Z_First[0]', 'Z_First[1]', 'A_Last'], ['passed'] * 3),
         ('filter', ['--stage', '-2', '--filter', '[1]'], False,
          ['Z_First[1]'], ['passed']),
+        ('exact', ['--exact', 'StageTests.Z_First[1]'], False, ['Z_First[1]'], ['passed']),
+        ('multiple', ['--exact', 'Z_First[0]', '--exact', 'A_Last'], False, ['Z_First[0]', 'A_Last'], ['passed'] * 2),
         ('empty', ['--stage', '99'], False, ['runtime'], ['failed']),
+        ('list', ['--list'], True, [], []),
     ]
     for name, args, fail, names, statuses in scenarios:
         env = os.environ.copy()
-        for key in ['CS_TEST_STAGES', 'CS_TEST_FILTER', 'CS_STAGE_FAILURE_POLICY']:
+        for key in ['CS_TEST_STAGES', 'CS_TEST_FILTER', 'CS_STAGE_FAILURE_POLICY', 'CS_LIST_TESTS', 'CS_TEST_NAMES']:
             env.pop(key, None)
         env.update(CS_STAGE_INJECT_FAILURE=str(int(fail)), CS_SEED='100')
         label = 'stage-' + name
@@ -42,6 +45,17 @@ def main():
         assert [r['Name'] for r in rows] == names, (name, rows)
         assert [r['Status'] for r in rows] == statuses, (name, rows)
         assert result.returncode == (1 if 'failed' in statuses else 0), (name, result.returncode)
+        for row in rows:
+            if row['Name'] in expected:
+                index = expected.index(row['Name'])
+                assert row['Seed'] == 100 + index, (name, row)
+                assert row['QualifiedName'] == 'StageTests.' + row['Name']
+                assert row['Stage'] == [-2, -2, 0, 0, 2][index]
+        if name == 'list':
+            discovery = json.loads((ROOT / f'build/{label}-results.discovery.json').read_text())
+            assert discovery['SchemaVersion'] == 1
+            assert [r['Name'] for r in discovery['Tests']] == expected
+            assert [r['Seed'] for r in discovery['Tests']] == list(range(100, 105))
         if name == 'stop':
             assert rows[-1]['Error'] == 'Earlier stage 0 failed'
         print('STAGE_PASS', name)

@@ -1,0 +1,38 @@
+[
+  {
+    "Name": "Z_First[0]",
+    "Status": "passed",
+    "Seed": 100,
+    "StartStep": 1,
+    "EndStep": 2,
+    "Seconds": 0.0045026,
+    "Error": null,
+    "QualifiedName": "StageTests.Z_First[0]",
+    "Stage": -2,
+    "CaseIndex": 0
+  },
+  {
+    "Name": "Z_First[1]",
+    "Status": "passed",
+    "Seed": 101,
+    "StartStep": 3,
+    "EndStep": 4,
+    "Seconds": 0.0002297,
+    "Error": null,
+    "QualifiedName": "StageTests.Z_First[1]",
+    "Stage": -2,
+    "CaseIndex": 1
+  },
+  {
+    "Name": "A_Last",
+    "Status": "passed",
+    "Seed": 104,
+    "StartStep": 5,
+    "EndStep": 6,
+    "Seconds": 5.89E-05,
+    "Error": null,
+    "QualifiedName": "StageTests.A_Last",
+    "Stage": 2,
+    "CaseIndex": 0
+  }
+]

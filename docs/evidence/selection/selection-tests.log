@@ -1,0 +1,19 @@
+  Determining projects to restore...
+  All projects are up-to-date for restore.
+  SharpTestBench -> /workspace/scratch/d13ee848099b/SharpTestBench/src/SharpTestBench/bin/Release/net10.0/SharpTestBench.dll
+  StageIntegration -> /workspace/scratch/d13ee848099b/SharpTestBench/tests/StageIntegration/bin/Release/net10.0/StageIntegration.dll
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:04.20
+STAGE_PASS order
+STAGE_PASS continue
+STAGE_PASS stop
+STAGE_PASS selection
+STAGE_PASS filter
+STAGE_PASS exact
+STAGE_PASS multiple
+STAGE_PASS empty
+STAGE_PASS list

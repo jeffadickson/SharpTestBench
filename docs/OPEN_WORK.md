@@ -79,8 +79,9 @@ is made. Native simulator adapters are reused, not reimplemented in C#.
 - [x] Regression stages, explicit stage selection and continue/stop-after-stage policies.
 - [x] Typed sampled functional coverage with per-test JSON export; code coverage remains
       outside this initial functional API scope (see COVERAGE.md).
-- [ ] Structured logging, traceback/source mapping, wave controls, pytest-like
-      fixtures and richer regression selection/reporting.
+- [x] Exact-name/stage selection, discovery listing, stable selected-case seeds and
+      qualified case metadata in JSON reports.
+- [ ] Structured logging, traceback/source mapping, wave controls and pytest-like fixtures.
 - [ ] Native AOT feasibility, reflection trimming and process lifecycle tests.
 
 ## P2 — Python-specific interoperability and ecosystem

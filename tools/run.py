@@ -8,7 +8,7 @@ def command(args,**kw):
  print('+',' '.join(map(str,args)),flush=True)
  subprocess.run(list(map(str,args)),check=True,**kw)
 def main():
- parser=argparse.ArgumentParser();parser.add_argument('--host',type=Path,help='Use an existing native host library');parser.add_argument('--assembly',type=Path,help='Prebuilt test DLL with adjacent runtimeconfig.json');parser.add_argument('--source',type=Path,action='append');parser.add_argument('--top',default='top');parser.add_argument('--entry-type');parser.add_argument('--no-build',action='store_true');parser.add_argument('--project',default='Integration',choices=['Integration','Benchmark']);parser.add_argument('--stage',type=int,action='append',help='Run selected regression stages (repeatable)');parser.add_argument('--stage-failure-policy',choices=['continue','stop-after-stage']);parser.add_argument('--filter');parser.add_argument('--label');parser.add_argument('--sim',choices=['icarus','verilator','ghdl','nvc'],default='icarus');args=parser.parse_args()
+ parser=argparse.ArgumentParser();parser.add_argument('--host',type=Path,help='Use an existing native host library');parser.add_argument('--assembly',type=Path,help='Prebuilt test DLL with adjacent runtimeconfig.json');parser.add_argument('--source',type=Path,action='append');parser.add_argument('--top',default='top');parser.add_argument('--entry-type');parser.add_argument('--no-build',action='store_true');parser.add_argument('--project',default='Integration',choices=['Integration','Benchmark']);parser.add_argument('--stage',type=int,action='append',help='Run selected regression stages (repeatable)');parser.add_argument('--stage-failure-policy',choices=['continue','stop-after-stage']);parser.add_argument('--list',action='store_true',help='List selected test metadata without executing test bodies');parser.add_argument('--exact',action='append',help='Select an exact short or qualified case name (repeatable)');parser.add_argument('--seed',type=int);parser.add_argument('--filter');parser.add_argument('--label');parser.add_argument('--sim',choices=['icarus','verilator','ghdl','nvc'],default='icarus');args=parser.parse_args()
  build=root/'build';build.mkdir(exist_ok=True)
  label=args.label or args.sim
  if not label.replace('-','').replace('_','').isalnum():raise SystemExit('Label must be alphanumeric')
@@ -29,6 +29,9 @@ def main():
  sources=[p.resolve() for p in args.source] if args.source else [root/('tests/VhdlIntegration/top.vhd' if args.sim in ('ghdl','nvc') else 'tests/Integration/top.sv')]
  env=os.environ.copy();env.update(CS_HOSTFXR=str(max((sdk/'host/fxr').glob('*/libhostfxr.so'), key=lambda p: tuple(map(int, p.parent.name.split('-')[0].split('.'))))),CS_CONFIG=str(binary/f'{assembly}.runtimeconfig.json'),CS_ASSEMBLY=str(binary/f'{assembly}.dll'),CS_TOPLEVEL=args.top,CS_ENTRY_TYPE=args.entry_type or 'Entry, '+assembly,CS_RESULTS=str(build/(label+'-results.json')),CS_TRACE=str(build/(label+'-trace.txt')),CS_BINDINGS=str(build/'DutBindings.cs'),DOTNET_ROOT=str(sdk),LD_LIBRARY_PATH=str(args.host.resolve().parent if args.host else build)+os.pathsep+str(config.libs_dir)+os.pathsep+env.get('LD_LIBRARY_PATH',''))
  if args.filter:env['CS_TEST_FILTER']=args.filter
+ if args.list:env['CS_LIST_TESTS']='1'
+ if args.exact is not None:env['CS_TEST_NAMES']=json.dumps(args.exact)
+ if args.seed is not None:env['CS_SEED']=str(args.seed)
  if args.stage is not None:env['CS_TEST_STAGES']=','.join(map(str,args.stage))
  if args.stage_failure_policy:env['CS_STAGE_FAILURE_POLICY']=args.stage_failure_policy
  env['GPI_IMPL']=subprocess.check_output([sys.executable,'-m','cocotb_tools.config','--gpi-impl',args.sim,'vhpi' if args.sim=='nvc' else 'vpi'],text=True).strip()
@@ -59,5 +62,7 @@ def main():
  if p.returncode or not result.exists():raise SystemExit('Simulator failed or produced no result file')
  rows=json.loads(result.read_text());failed=[r for r in rows if r['Status']=='failed']
  if failed:print(json.dumps(failed,indent=2));raise SystemExit(1)
+ if args.list or env.get('CS_LIST_TESTS')=='1':
+  print(result.with_suffix('.discovery.json').read_text());return
  if not rows:raise SystemExit('No results')
 if __name__=='__main__':main()

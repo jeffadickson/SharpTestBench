@@ -1,5 +1,7 @@
 # Unreleased
 
+- Preserved case seeds across selection; added exact-name selection, discovery-only listing and richer result identity (#33).
+
 - Added typed functional coverage bins, goals and per-test JSON export with HDL fixture checks (#29).
 
 - Added reusable completion triggers, typed job-local state and current-job introspection (#4, #5).

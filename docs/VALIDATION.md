@@ -1,5 +1,9 @@
 # Unreleased validation update
 
+Selection follow-up: tools/stage_tests.py now runs nine simulator processes,
+including exact/multiple names and discovery-only mode; filtered case seeds are
+checked against complete discovery order. Evidence: docs/evidence/selection.
+
 Task API/stage work: 42 passing integration tests on each of Icarus 11 and
 Verilator 5.048, 1,846 managed assertions, six fresh-process stage checks,
 compiler checks, native fault tests and Python timing parity. Independent

@@ -231,12 +231,21 @@ public sealed class TestContext
     public void Log(string message) => Console.WriteLine($"[{Runtime.Now} step] {message}");
 }
 
-public sealed record TestResult(string Name, string Status, ulong Seed, ulong StartStep, ulong EndStep, double Seconds, string? Error);
+public sealed record TestResult(string Name, string Status, ulong Seed, ulong StartStep, ulong EndStep, double Seconds, string? Error)
+{
+    public string? QualifiedName { get; init; }
+    public int? Stage { get; init; }
+    public int? CaseIndex { get; init; }
+}
+public sealed record TestDescriptor(string Name, string QualifiedName, int Stage, int CaseIndex,
+    ulong Seed, ulong TimeoutSteps, bool Skip, string[] Simulators);
 public static class Regression
 {
     static SimRuntime? runtime;
     static readonly List<TestResult> results = new();
     static readonly List<object> coverage = new();
+    static readonly List<TestDescriptor> discovered = new();
+    static bool listOnly;
     static bool finished;
     public static int Initialize(Assembly assembly)
     {
@@ -286,27 +295,35 @@ public static class Regression
             if (stagePolicy is not ("continue" or "stop-after-stage"))
                 throw new ArgumentException("CS_STAGE_FAILURE_POLICY must be continue or stop-after-stage");
             int? failedStage = null;
+            listOnly = Environment.GetEnvironmentVariable("CS_LIST_TESTS") == "1";
+            string? exactText = Environment.GetEnvironmentVariable("CS_TEST_NAMES");
+            var exact = exactText == null ? null : (JsonSerializer.Deserialize<string[]>(exactText)
+                ?? throw new ArgumentException("CS_TEST_NAMES must be a JSON string array")).ToHashSet(StringComparer.Ordinal);
             string? filter = Environment.GetEnvironmentVariable("CS_TEST_FILTER");
             ulong seed = ulong.Parse(Environment.GetEnvironmentVariable("CS_SEED") ?? "1");
             int index = 0;
             foreach (var method in methods)
             {
                 var attr = method.GetCustomAttribute<SimTestAttribute>()!;
-                if (stages != null && !stages.Contains(attr.Stage)) continue;
                 var cases = method.GetCustomAttributes<SimCaseAttribute>().Select(c => c.Arguments).ToArray();
                 if (cases.Length == 0)
                     cases = [[]];
                 for (int ci = 0; ci < cases.Length; ci++)
                 {
                     string name = method.Name + (cases.Length > 1 ? $"[{ci}]" : "");
-                    if (filter != null && !name.Contains(filter, StringComparison.Ordinal))
-                        continue;
+                    string qualifiedName = method.DeclaringType!.FullName + "." + name;
+                    // Allocate seeds from the complete discovery order, before selection.
                     ulong testSeed = unchecked(seed + (ulong)index++);
+                    if (stages != null && !stages.Contains(attr.Stage)) continue;
+                    if (filter != null && !name.Contains(filter, StringComparison.Ordinal)) continue;
+                    if (exact != null && !exact.Contains(name) && !exact.Contains(qualifiedName)) continue;
+                    discovered.Add(new(name, qualifiedName, attr.Stage, ci, testSeed, attr.TimeoutSteps, attr.Skip, attr.Simulators));
+                    if (listOnly) continue;
                     bool unavailable = attr.Simulators.Length > 0 && !attr.Simulators.Any(s => runtime!.Simulator.Contains(s, StringComparison.OrdinalIgnoreCase));
                     bool stoppedStage = stagePolicy == "stop-after-stage" && failedStage.HasValue && attr.Stage > failedStage.Value;
                     if (attr.Skip || unavailable || stoppedStage)
                     {
-                        results.Add(new(name, "skipped", testSeed, runtime!.Now, runtime.Now, 0, stoppedStage ? $"Earlier stage {failedStage} failed" : unavailable ? "Requires simulator: " + string.Join(", ", attr.Simulators) : "Explicit skip"));
+                        results.Add(new(name, "skipped", testSeed, runtime!.Now, runtime.Now, 0, stoppedStage ? $"Earlier stage {failedStage} failed" : unavailable ? "Requires simulator: " + string.Join(", ", attr.Simulators) : "Explicit skip") { QualifiedName = qualifiedName, Stage = attr.Stage, CaseIndex = ci });
                         continue;
                     }
 
@@ -361,11 +378,11 @@ public static class Regression
                     string status = error == null || expected ? "passed" : "failed";
                     if (status == "failed") failedStage ??= attr.Stage;
                     watch.Stop();
-                    results.Add(new(name, status, testSeed, start, runtime.Now, watch.Elapsed.TotalSeconds, expected ? null : error?.ToString()));
+                    results.Add(new(name, status, testSeed, start, runtime.Now, watch.Elapsed.TotalSeconds, expected ? null : error?.ToString()) { QualifiedName = qualifiedName, Stage = attr.Stage, CaseIndex = ci });
                     Console.WriteLine($"CS_TEST {status} {name} steps={runtime.Now - start} seed={testSeed}");
                     var snapshot = ctx.Coverage.Snapshot();
                     if (snapshot.Points.Length > 0)
-                        coverage.Add(new { Test = name, Seed = testSeed, Status = status, Coverage = snapshot });
+                        coverage.Add(new { Test = name, QualifiedName = qualifiedName, Stage = attr.Stage, Seed = testSeed, Status = status, Coverage = snapshot });
                     ctx.Dispose();
                     if (leaked)
                     {
@@ -375,7 +392,7 @@ public static class Regression
                 }
             }
 
-            if (results.Count == 0)
+            if (discovered.Count == 0)
                 throw new InvalidOperationException("No tests matched");
             Finish();
         }
@@ -392,12 +409,15 @@ public static class Regression
         finished = true;
         string output = Environment.GetEnvironmentVariable("CS_RESULTS") ?? "csharp-results.json";
         Directory.CreateDirectory(Path.GetDirectoryName(Path.GetFullPath(output))!);
+        File.WriteAllText(Path.ChangeExtension(output, ".discovery.json"), JsonSerializer.Serialize(
+            new { SchemaVersion = 1, Tests = discovered }, new JsonSerializerOptions { WriteIndented = true }));
         File.WriteAllText(output, JsonSerializer.Serialize(results, new JsonSerializerOptions { WriteIndented = true }));
         File.WriteAllText(Path.ChangeExtension(output, ".coverage.json"), JsonSerializer.Serialize(
             new { SchemaVersion = 1, Kind = "functional", Tests = coverage }, new JsonSerializerOptions { WriteIndented = true }));
         var suite = new XElement("testsuite", new XAttribute("tests", results.Count), new XAttribute("failures", results.Count(x => x.Status == "failed")), new XAttribute("skipped", results.Count(x => x.Status == "skipped")), results.Select(x => new XElement("testcase", new XAttribute("name", x.Name), new XAttribute("time", x.Seconds), x.Status == "failed" ? new XElement("failure", x.Error) : x.Status == "skipped" ? new XElement("skipped", x.Error) : null)));
         new XDocument(suite).Save(Path.ChangeExtension(output, "xml"));
-        Console.WriteLine($"CS_SUMMARY {results.Count(x => x.Status == "passed")} passed {results.Count(x => x.Status == "failed")} failed {results.Count(x => x.Status == "skipped")} skipped");
+        if (listOnly && results.Count == 0) Console.WriteLine($"CS_DISCOVERY {discovered.Count} tests; no test bodies executed");
+        else Console.WriteLine($"CS_SUMMARY {results.Count(x => x.Status == "passed")} passed {results.Count(x => x.Status == "failed")} failed {results.Count(x => x.Status == "skipped")} skipped");
         if (stopSimulator)
             runtime!.Finish();
     }
