@@ -11,7 +11,7 @@ are not established. GitHub issues are authoritative for completion state.
 | Timing and concurrency | Ordering traces, cancellation stress, native callback faults, structured groups | Full timing conformance beyond the Gather/Select tests (#44), full upstream audit (#1), shutdown investigation (#16), external-thread wakeups (#36) |
 | Packaging | Native packages and fresh installed Icarus consumers pass on Linux x64 / Windows x64 / Mac ARM64; concurrent workspaces tested | Public publication and broader adapter/architecture distribution (#22–#23) |
 | Performance | Microbenchmarks and integer-read optimization | Representative AXI, DSP, CPU and memory workloads, with comparable correctness and throughput measurements (#18); native transport/clock work (#17, #19) |
-| Debugging | Managed symbols and exception stacks; opt-in debugger reproducer records attach failure | Prove breakpoints, local inspection, resume and shutdown with managed debugger attached inside simulator processes (#27) |
+| Debugging | Linux managed attachment proves breakpoint, local inspection, exception stop and shutdown | Native debugger gate and broader OS/mixed debugger validation (#27) |
 | API compatibility | Inventory and explicit task ownership mapping | Audit every entry; classify essential semantics, idiomatic .NET alternatives, and Python-only conveniences (#1, #35, #37) |
 
 ## Release order

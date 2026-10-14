@@ -113,6 +113,12 @@ public sealed class SimRuntime
     }
 
     public ulong Steps(decimal value, TimeUnit unit = TimeUnit.Nanoseconds, TimeRounding rounding = TimeRounding.Error)
+        => ConvertSteps(value, unit, rounding, false);
+
+    internal ulong TimerSteps(decimal value, TimeUnit unit, TimeRounding rounding)
+        => ConvertSteps(value, unit, rounding, true);
+
+    ulong ConvertSteps(decimal value, TimeUnit unit, TimeRounding rounding, bool clampTimer)
     {
         if (value <= 0)
             throw new ArgumentOutOfRangeException(nameof(value));
@@ -130,6 +136,7 @@ public sealed class SimRuntime
             TimeRounding.Ceiling => decimal.Ceiling(scaled),
             TimeRounding.Nearest => decimal.Round(scaled, 0, MidpointRounding.ToEven),
             _ => scaled == decimal.Truncate(scaled) ? scaled : throw new ArgumentException("Time is not an integral simulator step")};
+        if (clampTimer && integral == 0) return 1;
         return integral >= 1 ? checked((ulong)integral) : throw new ArgumentOutOfRangeException(nameof(value), "Timer must consume at least one step");
     }
 

@@ -2,7 +2,8 @@
   "schema_version": 1,
   "source_revision": "5fa952e92c46fd9cb58f55a8655312a4bf02e7de",
   "source_hashes": {
-    "cocotb._base_triggers": "f4c4b9476114f0e37000a05e36078449be301f1251eb99c6633e6d9f6fb1c6f9"
+    "cocotb._base_triggers": "f4c4b9476114f0e37000a05e36078449be301f1251eb99c6633e6d9f6fb1c6f9",
+    "cocotb._gpi_triggers": "9ba67c51a80e7eb74904584d0907143c32eceee516f50337f08b403b3db414f7"
   },
   "reviews": [
     {
@@ -285,6 +286,23 @@
         {
           "path": "src/SharpTestBench/Triggers.cs",
           "contains": "public static Trigger Yield()"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._gpi_triggers",
+      "definition": "Timer",
+      "source_line": 57,
+      "classification": "intentional-difference",
+      "reason": "Positive decimal times use explicit rounding; a rounded zero clamps to one simulation step as upstream Timer does. Exact mode rejects fractional steps; nonpositive inputs reject before rounding. C# supports decimal/ulong rather than arbitrary Fraction/float numeric protocols and omits mutable class-wide rounding defaults and deprecated units spelling. Runtime.Steps intentionally remains a strict conversion helper.",
+      "evidence": [
+        {
+          "path": "tests/Integration/TimingTests.cs",
+          "contains": "TimerRoundingMinimum"
+        },
+        {
+          "path": "src/SharpTestBench/Runtime.cs",
+          "contains": "if (clampTimer && integral == 0) return 1;"
         }
       ]
     }

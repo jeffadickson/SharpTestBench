@@ -191,6 +191,14 @@ debugger success or shutdown root-cause fix is claimed.
 Nineteen inventoried definitions reviewed against pinned _base_triggers.py; see
 API_REVIEW.md and API_REVIEWS.json. Source hashes and evidence anchors are checked
 in CI. PrimitiveEventContract and PrimitiveLockContract pass on local Icarus,
-GHDL and NVC; Icarus also passes the existing 6,144-job fairness stress. IsLocked
+Verilator, GHDL and NVC; Icarus also passes the existing 6,144-job fairness stress. IsLocked
 includes reserved handoff state. These are scoped contract tests, not complete
 upstream API equivalence.
+
+Timer is also reviewed (20 total decisions; 282 inventory definitions remain).
+TimerRoundingMinimum covers positive substep clamping and ties-to-even rounding.
+
+Linux CI job 116071363888 in run 38627816208 passed both DEBUGGER_PASS and
+NATIVE_DEBUGGER_PASS: managed source/local/exception checks and separate GDB
+startup/finish breakpoints with normal simulator exit. The historical fatal
+diagnostic was not reproduced; simultaneous mixed debugging is not claimed.

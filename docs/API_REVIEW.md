@@ -36,3 +36,10 @@ Event docstring's removal wording. No automatic claim of exact parity is made.
 
 Classifications describe design decisions, not test pass counts. The remaining
 inventory and exported aliases/dynamic members still require review under #1.
+
+The Timer review adds a twentieth decision. Positive durations rounded to zero
+are clamped to one simulator step, matching upstream Timer; the separate
+Runtime.Steps conversion stays strict. Exact mode still rejects fractional steps,
+and zero/negative inputs fail before rounding. TimerRoundingMinimum covers all
+three rounding modes and ties-to-even behavior. Decimal/ulong input and explicit
+per-call rounding replace Python's broader numeric protocols and mutable default.

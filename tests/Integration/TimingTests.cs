@@ -7,6 +7,33 @@ public static class TimingTests
     static void Check(bool value, string message) { if (!value) throw new Exception(message); }
 
     [SimTest]
+    public static async Task TimerRoundingMinimum(TestContext c)
+    {
+        foreach (var rounding in new[] { TimeRounding.Floor, TimeRounding.Nearest, TimeRounding.Ceiling })
+        {
+            ulong start = c.Runtime.Now;
+            await Timer(0.1m, TimeUnit.Step, rounding);
+            Check(c.Runtime.Now == start + 1, "positive substep timer clamps to one step");
+        }
+        foreach (decimal value in new[] { 1.5m, 2.5m })
+        {
+            ulong start = c.Runtime.Now;
+            await Timer(value, TimeUnit.Step, TimeRounding.Nearest);
+            Check(c.Runtime.Now == start + 2, "nearest uses ties-to-even rounding");
+        }
+        bool rejected = false;
+        try { _ = Timer(0.1m, TimeUnit.Step); } catch (ArgumentException) { rejected = true; }
+        Check(rejected, "default exact mode rejects fractional steps");
+        foreach (decimal value in new[] { 0m, -0.1m })
+        {
+            rejected = false;
+            try { _ = Timer(value, TimeUnit.Step, TimeRounding.Ceiling); }
+            catch (ArgumentOutOfRangeException) { rejected = true; }
+            Check(rejected, "nonpositive input is rejected before rounding");
+        }
+    }
+
+    [SimTest]
     public static async Task CombinatorBorrowedCancellation(TestContext c)
     {
         using var cancellation = new CancellationTokenSource();

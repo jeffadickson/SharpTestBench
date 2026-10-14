@@ -55,3 +55,25 @@ A fresh 20-run cancellation/teardown stress plus leak and early-HDL-finish negat
 cases passed (22/22) with no `fatal library error` diagnostic. The native callback
 fault suite also passed in CI run 38626020220. This is non-reproduction evidence;
 #16 remains open because the original diagnostic's root cause is unresolved.
+
+## Diagnostic provenance lead
+
+The exact text `fatal library error, lookup self` exists in procps-ng's `ps`
+startup code, in [v4.0.4 src/ps/global.c](https://gitlab.com/procps-ng/procps/-/blob/v4.0.4/src/ps/global.c#L502),
+after its self-process lookup fails. No matching source string was found in the
+pinned cocotb tree or SharpTestBench native sources. A current standalone local
+`ps -p <pid> -o pid=` succeeded without the message. This gives a concrete
+process-environment lead but does not prove which process emitted the original
+historical message. Keep #16 open; capture simulator stdout/stderr independently
+from shell/process-monitor output if it recurs. Do not label this a runtime fix.
+
+The Linux CI native debugger check is `python tools/native_debugger_tests.py`
+(after building the counter and native host). It runs Icarus under GDB, sets
+pending breakpoints at sharptestbench_initialize and cs_v1_gpi_finish, collects
+backtraces, resumes and requires normal exit plus passing regression results.
+GDB and NetCoreDbg checks use separate simulator processes; simultaneous mixed
+debugging is not implied. GDB evidence is in build/native-debugger-check.
+
+The native GDB check passed in Linux job 116071363888, run 38627816208, alongside
+the managed attachment check. Both are required Linux CI gates. This completes
+the initial Linux debugger validation scope of #27.

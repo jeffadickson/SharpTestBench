@@ -111,7 +111,7 @@ public static class Triggers
         return new NativeTrigger(CallbackKind.Timer, steps);
     }
 
-    public static Trigger Timer(decimal value, TimeUnit unit, TimeRounding rounding = TimeRounding.Error) => Timer((SimRuntime.Active ?? throw new InvalidOperationException("No runtime")).Steps(value, unit, rounding));
+    public static Trigger Timer(decimal value, TimeUnit unit, TimeRounding rounding = TimeRounding.Error) => Timer((SimRuntime.Active ?? throw new InvalidOperationException("No runtime")).TimerSteps(value, unit, rounding));
     public static Trigger ReadOnly() => new NativeTrigger(CallbackKind.ReadOnly);
     public static Trigger ReadWrite() => new NativeTrigger(CallbackKind.ReadWrite);
     public static Trigger NextTimeStep() => new NativeTrigger(CallbackKind.NextStep);
