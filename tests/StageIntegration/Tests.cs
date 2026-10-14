@@ -20,9 +20,12 @@ public static class StageTests
     }
 
     [SimTest(Stage = 0)]
-    public static Task A_Fail(TestContext c) =>
-        Environment.GetEnvironmentVariable("CS_STAGE_INJECT_FAILURE") == "1"
-            ? Task.FromException(new FormatException("intentional stage failure")) : Task.CompletedTask;
+    public static Task A_Fail(TestContext c)
+    {
+        if (Environment.GetEnvironmentVariable("CS_STAGE_INJECT_FAILURE") == "1")
+            throw new FormatException("intentional stage failure");
+        return Task.CompletedTask;
+    }
 
     [SimTest(Stage = 0)]
     public static Task B_After(TestContext c) => Task.CompletedTask;

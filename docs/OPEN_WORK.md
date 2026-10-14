@@ -81,7 +81,9 @@ is made. Native simulator adapters are reused, not reimplemented in C#.
       outside this initial functional API scope (see COVERAGE.md).
 - [x] Exact-name/stage selection, discovery listing, stable selected-case seeds and
       qualified case metadata in JSON reports.
-- [ ] Structured logging, traceback/source mapping, wave controls and pytest-like fixtures.
+- [x] Structured simulation logs with task/test identity, managed caller locations and
+      exception details; native/HDL source mapping is not implied.
+- [ ] Wave controls and pytest-like fixtures.
 - [ ] Native AOT feasibility, reflection trimming and process lifecycle tests.
 
 ## P2 — Python-specific interoperability and ecosystem

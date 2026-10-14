@@ -23,7 +23,8 @@ jobs:
           CC=gcc CXX=g++ python -m pip install ./build/upstream/cocotb-source pytest
       - run: dotnet build SharpTestBench.slnx -c Release
       - run: dotnet run --project tests/SharpTestBench.Tests -c Release --no-build
-      - run: python tools/run.py --sim icarus
+      - run: python tools/run.py --sim icarus --log-json build/icarus-events.jsonl
+      - run: python tools/logging_check.py --label icarus
       - run: python tools/coverage_check.py --label icarus
       - run: python tools/stage_tests.py
       - run: python tools/typecheck.py
@@ -37,6 +38,7 @@ jobs:
           name: linux-test-results
           path: |
             build/*results.*
+            build/*events.jsonl
             build/*run.log
             build/*trace.txt*
             build/typecheck.log

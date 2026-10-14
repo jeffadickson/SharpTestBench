@@ -38,7 +38,8 @@ def main():
         env.update(CS_STAGE_INJECT_FAILURE=str(int(fail)), CS_SEED='100')
         label = 'stage-' + name
         command = [sys.executable, str(ROOT / 'tools/run.py'), '--no-build',
-                   '--assembly', str(assembly), '--label', label, *args]
+                   '--assembly', str(assembly), '--label', label,
+                   '--log-json', str(ROOT / f'build/{label}-events.jsonl'), *args]
         result = subprocess.run(command, env=env, text=True, capture_output=True, timeout=120)
         (ROOT / f'build/{label}-driver.log').write_text(result.stdout + result.stderr)
         rows = json.loads((ROOT / f'build/{label}-results.json').read_text())
@@ -58,6 +59,10 @@ def main():
             assert [r['Seed'] for r in discovery['Tests']] == list(range(100, 105))
         if name == 'stop':
             assert rows[-1]['Error'] == 'Earlier stage 0 failed'
+            events = [json.loads(line) for line in (ROOT / f'build/{label}-events.jsonl').read_text().splitlines()]
+            failed = next(e for e in events if e['Kind'] == 'test-end' and e['Message'] == 'failed')
+            assert failed['Test'] == 'StageTests.A_Fail' and failed['Seed'] == 102
+            assert failed['ExceptionType'] == 'System.FormatException' and 'StageTests' in failed['ExceptionDetail']
         print('STAGE_PASS', name)
 
 

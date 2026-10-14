@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text.Json;
 using System.Xml.Linq;
@@ -134,14 +135,18 @@ public sealed class TestContext
     public SimRandom Random { get; }
     public ulong Seed { get; }
     public FunctionalCoverage Coverage { get; } = new();
+    public string TestName { get; }
+    public int Stage { get; }
     public CancellationToken Cancellation => source.Token;
 
     readonly CancellationTokenSource source = new();
     readonly List<SimJob> jobs = new();
     internal Exception? BackgroundFailure;
-    internal TestContext(SimRuntime r, ulong seed)
+    internal TestContext(SimRuntime r, ulong seed, string testName, int stage)
     {
         Runtime = r;
+        TestName = testName;
+        Stage = stage;
         Dut = HdlObject.Root(Environment.GetEnvironmentVariable("CS_TOPLEVEL") ?? "top");
         Seed = seed;
         Random = new(seed);
@@ -228,7 +233,15 @@ public sealed class TestContext
         source.Dispose();
     }
 
-    public void Log(string message) => Console.WriteLine($"[{Runtime.Now} step] {message}");
+    public void Log(string message, SimLogLevel level = SimLogLevel.Info, Exception? error = null,
+        [CallerFilePath] string? file = null, [CallerLineNumber] int line = 0,
+        [CallerMemberName] string? member = null)
+    {
+        ArgumentNullException.ThrowIfNull(message);
+        Runtime.CheckThread();
+        Console.WriteLine($"[{Runtime.Now} step] {message}");
+        SimulationLog.Write(Runtime, "message", TestName, Seed, Stage, level, message, error, file, line, member);
+    }
 }
 
 public sealed record TestResult(string Name, string Status, ulong Seed, ulong StartStep, ulong EndStep, double Seconds, string? Error)
@@ -251,6 +264,7 @@ public static class Regression
     {
         try
         {
+            SimulationLog.Initialize();
             runtime = new SimRuntime();
             runtime.FatalError = Fatal;
             runtime.Register(CallbackKind.End, () =>
@@ -277,6 +291,7 @@ public static class Regression
     {
         if (finished)
             return;
+        if (runtime != null) SimulationLog.Write(runtime, "runtime-failure", "runtime", 0, null, SimLogLevel.Error, e.Message, e);
         results.Add(new("runtime", "failed", 0, 0, 0, 0, e.ToString()));
         Finish();
     }
@@ -328,7 +343,8 @@ public static class Regression
                     }
 
                     await Triggers.Timer(1).WithCancellation(CancellationToken.None);
-                    var ctx = new TestContext(runtime!, testSeed);
+                    var ctx = new TestContext(runtime!, testSeed, qualifiedName, attr.Stage);
+                    SimulationLog.Write(runtime!, "test-start", qualifiedName, testSeed, attr.Stage, SimLogLevel.Info, "Test started");
                     runtime!.DefaultCancellation = ctx.Cancellation;
                     var start = runtime.Now;
                     var watch = Stopwatch.StartNew();
@@ -380,6 +396,8 @@ public static class Regression
                     watch.Stop();
                     results.Add(new(name, status, testSeed, start, runtime.Now, watch.Elapsed.TotalSeconds, expected ? null : error?.ToString()) { QualifiedName = qualifiedName, Stage = attr.Stage, CaseIndex = ci });
                     Console.WriteLine($"CS_TEST {status} {name} steps={runtime.Now - start} seed={testSeed}");
+                    SimulationLog.Write(runtime, "test-end", qualifiedName, testSeed, attr.Stage,
+                        status == "failed" ? SimLogLevel.Error : SimLogLevel.Info, status, expected ? null : error);
                     var snapshot = ctx.Coverage.Snapshot();
                     if (snapshot.Points.Length > 0)
                         coverage.Add(new { Test = name, QualifiedName = qualifiedName, Stage = attr.Stage, Seed = testSeed, Status = status, Coverage = snapshot });

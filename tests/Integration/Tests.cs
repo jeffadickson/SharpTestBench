@@ -13,6 +13,21 @@ public static class Entry
 public static class Tests
 {
     [SimTest]
+    public static async Task AR_StructuredLogging(TestContext c)
+    {
+        c.Log("parent\nmessage", SimLogLevel.Warning);
+        var child = c.StartSoon(async token =>
+        {
+            await Timer(1);
+            try { throw new FormatException("log fixture"); }
+            catch (FormatException e) { c.Log("child failure detail", SimLogLevel.Error, e); }
+        }, "log-child");
+        await child;
+        c.Log(new string('x', 17000), SimLogLevel.Debug);
+        Check(c.TestName.EndsWith(nameof(AR_StructuredLogging)), "context exposes qualified test name");
+    }
+
+    [SimTest]
     public static async Task AQ_FunctionalCoverage(TestContext c)
     {
         var point = c.Coverage.AddPoint("packet-payload",

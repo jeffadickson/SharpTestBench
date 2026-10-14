@@ -1,5 +1,10 @@
 # Unreleased validation update
 
+Structured logging: 44 passing integration tests (one deliberate skip) on Icarus
+11 and Verilator 5.048. logging_check.py validates identities, source locations,
+exceptions, escaped multiline messages and bounded output fields; stage tests verify
+failed-test events. Evidence: docs/evidence/structured-logging.
+
 Selection follow-up: tools/stage_tests.py now runs nine simulator processes,
 including exact/multiple names and discovery-only mode; filtered case seeds are
 checked against complete discovery order. Evidence: docs/evidence/selection.

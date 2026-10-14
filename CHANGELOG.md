@@ -1,5 +1,7 @@
 # Unreleased
 
+- Added opt-in JSON Lines logs with test/job identity, simulation time, source locations and exception details (#28).
+
 - Preserved case seeds across selection; added exact-name selection, discovery-only listing and richer result identity (#33).
 
 - Added typed functional coverage bins, goals and per-test JSON export with HDL fixture checks (#29).
