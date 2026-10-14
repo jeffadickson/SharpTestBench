@@ -35,7 +35,8 @@ env.update(PYTHONPATH=str(root / 'tests/Integration'), PYGPI_PYTHON_BIN=sys.exec
            STRUCTURED_TRACE=str(trace))
 bootstrap = Path(config.lib_name_path('vpi', 'icarus'))
 if sys.platform == 'win32':
-    staged = build / 'cocotb21-reference.vpi'
+    # Keep wheel-relative side-by-side dependency manifests beside the plugin.
+    staged = bootstrap.with_suffix('.vpi')
     shutil.copy2(bootstrap, staged)
     bootstrap = staged
     env['PATH'] = str(config.libs_dir) + os.pathsep + env.get('PATH', '')
