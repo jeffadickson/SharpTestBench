@@ -3,7 +3,8 @@
 Structured logging: 44 passing integration tests (one deliberate skip) on Icarus
 11 and Verilator 5.048. logging_check.py validates identities, source locations,
 exceptions, escaped multiline messages and bounded output fields; stage tests verify
-failed-test events. Evidence: docs/evidence/structured-logging.
+failed-test events. The same updated runtime passed NVC (15 tests) and GHDL
+(10 tests with five explicit backend skips). Evidence: docs/evidence/structured-logging.
 
 Selection follow-up: tools/stage_tests.py now runs nine simulator processes,
 including exact/multiple names and discovery-only mode; filtered case seeds are
@@ -18,8 +19,9 @@ passed on Icarus 12. Evidence is in `docs/evidence/task-stages`.
 Functional coverage adds one HDL fixture per backend (43 passed and one deliberate
 skip each) and raises managed assertions to 1,860. Exact exported sample counts,
 goals and test/seed identity are checked by tools/coverage_check.py. Evidence is
-in `docs/evidence/functional-coverage`. VHDL and package validation below remains
-historical release evidence, not a claim of rerunning those configurations here.
+in `docs/evidence/functional-coverage`. The release table below remains historical;
+VHDL was rerun for the structured-logging checkpoint above. Package consumer
+validation was not rerun in this batch.
 
 # Validation record — SharpTestBench v0.8.0-alpha
 

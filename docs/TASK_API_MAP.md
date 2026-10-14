@@ -17,6 +17,8 @@ that Python APIs or Python coroutine internals have been reproduced in C#.
 | Task.cancel(msg) | Cancel() | Cooperative CancellationToken; deliberate no-message policy (TASKS.md) |
 | Task.kill() | No abrupt kill | Would bypass C# cleanup; deliberately not presented as equivalent to Cancel |
 | Task.complete | SimJob.Complete | Completion-only Trigger; composes with native triggers, without propagating job failure |
+| current_task() | SimJob.Current | Current StartSoon identity; null in test body |
+| TaskComplete.task | Keep the originating SimJob reference | Completion trigger does not expose a reverse lookup |
 | Task.join() / Join | Await SimJob | Deprecated Python API is not copied |
 | Task.locals | SimTaskLocal<T> | Typed key; isolated per StartSoon job, no inheritance |
 | Task traceback / coroutine introspection | SimJob.Current, Status, Exception | Managed exception stacks; no Python frame/coroutine inspection |
