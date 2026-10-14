@@ -40,3 +40,5 @@ coordinates deferred writes and simulation phases. Python scripts orchestrate
 builds and reference comparisons; they are not embedded in the C# test process.
 
 - [Debugger investigation](DEBUGGING.md) — opt-in reproducer and unresolved attachment result.
+
+- [API semantic reviews](API_REVIEW.md) — source-pinned decisions, gaps and evidence.

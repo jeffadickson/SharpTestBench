@@ -1,7 +1,8 @@
-# Debugger investigation (not yet validated)
+# Debugger validation and remaining limits
 
 The DebugIntegration fixture and tools/debugger_tests.py are an opt-in reproducer
-for #27. They are not a passing debugger support claim or a required CI gate.
+for #27. Managed attachment passes on Linux CI with pinned NetCoreDbg 3.2.0-1092.
+The Linux job requires the check to pass and retains its evidence.
 
 Build portable PDBs and run with Icarus and a local NetCoreDbg executable:
 
@@ -20,18 +21,20 @@ after all these checks pass. A failed attachment is a failed check, not a skip.
 The fixture opts into Linux sibling ptrace access only in its own process; it does
 not modify global ptrace settings. Do not use this fixture as production bootstrap.
 
-## Observed result, 2026-10-14
+## Verified Linux managed result, 2026-10-14
 
-Linux x64, .NET 10.0.13, NetCoreDbg 3.1.3-1062: initialize and attach responses
-succeeded, the source breakpoint remained pending, and configurationDone failed
-with HRESULT 0x80070057. The fixture's ptrace opt-in also reported unavailable.
-Repeating with explicit DOTNET_ROOT did not change the result. The test's error
-cleanup now terminates its simulator and lets the runner release the workspace.
-No source breakpoint, local inspection or exception stop has been demonstrated.
-The cause may involve the environment or debugger/runtime compatibility; neither
-is established. Reproduce on an unrestricted development host and a debugger with
-verified .NET 10 support before claiming completion. Windows and Mac managed
-attachment, and native/managed combined debugging, remain unverified.
+[Linux job 116069596771](https://github.com/jeffadickson/SharpTestBench/actions/runs/38627301397/job/116069596771)
+passed with .NET 10.0.13 and NetCoreDbg 3.2.0-1092. It hit the source breakpoint
+after an awaited timer, evaluated inspectedValue as 41, resumed, stopped on the
+expected InvalidOperationException, resumed again and checked the regression
+failure and simulator process exit. The debugger archive is version- and
+SHA-256-pinned in CI. This verifies managed debugging inside Icarus on Linux.
+
+The restricted local environment fails configurationDone with 0x80070057 on both
+NetCoreDbg 3.1.3-1062 and 3.2.0-1092; its fixture ptrace opt-in is also unavailable.
+The successful native-host run rules out a universal framework/.NET 10 attachment
+failure. It does not identify the precise cause of the local restriction.
+Windows/Mac attachment and simultaneous native/managed debugging remain unverified.
 
 For manual managed attachment, set STB_DEBUG_PID to a writable absolute path and
 run the DebugIntegration DLL with tools/run.py, --no-build, --top counter,

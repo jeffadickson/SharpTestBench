@@ -115,6 +115,8 @@ public sealed class SimSemaphore
 public sealed class SimLock
 {
     readonly SimSemaphore semaphore = new(1, 1);
+    /// <summary>True while held or reserved for the next queued acquirer.</summary>
+    public bool IsLocked => semaphore.CurrentCount == 0;
     public async Task<IDisposable> Acquire(CancellationToken? token = null)
     {
         await semaphore.Acquire(token);

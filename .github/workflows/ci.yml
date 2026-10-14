@@ -16,11 +16,12 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - run: sudo apt-get update && sudo apt-get install -y iverilog gcc g++
+      - run: sudo apt-get update && sudo apt-get install -y iverilog gcc g++ gdb
       - name: Install pinned cocotb adapters
         run: |
           python tools/prepare_upstream.py
           CC=gcc CXX=g++ python -m pip install ./build/upstream/cocotb-source pytest
+      - run: python tools/audit_reviews.py --source build/upstream/cocotb-source
       - run: dotnet build SharpTestBench.slnx -c Release -p:RestoreLockedMode=true
       - run: python tools/managed_tests.py
       - run: dotnet run --project tests/SharpTestBench.Generators.Tests -c Release --no-build -- -xml build/generator-results.xml
@@ -47,6 +48,7 @@ jobs:
           tar -xzf build/netcoredbg.tar.gz -C build/debugger
           dotnet build tests/DebugIntegration -c Debug
           python tools/debugger_tests.py --debugger build/debugger/netcoredbg/netcoredbg
+      - run: python tools/native_debugger_tests.py
       - run: python tools/native_faults.py
         env:
           CS_DOTNET_ROOT: ${{ env.DOTNET_ROOT }}
@@ -73,6 +75,7 @@ jobs:
             build/typecheck.log
             build/native-faults.json
             build/debugger-check/**
+            build/native-debugger-check/**
 
   native-platforms:
     strategy:
@@ -108,6 +111,7 @@ jobs:
         run: |
           python tools/prepare_upstream.py
           python -m pip install ./build/upstream/cocotb-source pytest
+      - run: python tools/audit_reviews.py --source build/upstream/cocotb-source
       - run: dotnet build SharpTestBench.slnx -c Release -p:RestoreLockedMode=true
       - run: python tools/managed_tests.py
       - run: dotnet run --project tests/SharpTestBench.Generators.Tests -c Release --no-build -- -xml build/generator-results.xml

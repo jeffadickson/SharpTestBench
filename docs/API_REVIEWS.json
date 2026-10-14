@@ -1,0 +1,292 @@
+{
+  "schema_version": 1,
+  "source_revision": "5fa952e92c46fd9cb58f55a8655312a4bf02e7de",
+  "source_hashes": {
+    "cocotb._base_triggers": "f4c4b9476114f0e37000a05e36078449be301f1251eb99c6633e6d9f6fb1c6f9"
+  },
+  "reviews": [
+    {
+      "module": "cocotb._base_triggers",
+      "definition": "TriggerCallback",
+      "source_line": 28,
+      "classification": "internal-adapter",
+      "reason": "Upstream callback handle is obtained through private trigger registration. C# uses internal IDisposable subscriptions; no public callback registration parity is claimed.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Triggers.cs",
+          "contains": "IDisposable? subscription;"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._base_triggers",
+      "definition": "TriggerCallback.cancel",
+      "source_line": 41,
+      "classification": "internal-adapter",
+      "reason": "Upstream callback handle is obtained through private trigger registration. C# uses internal IDisposable subscriptions; no public callback registration parity is claimed.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Triggers.cs",
+          "contains": "IDisposable? subscription;"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._base_triggers",
+      "definition": "Trigger",
+      "source_line": 51,
+      "classification": "gap",
+      "reason": "Await/cancellation/composition exist, but external custom subclasses cannot implement internal abstract Subscribe. Python private override hooks permit such customization.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Triggers.cs",
+          "contains": "internal abstract IDisposable Subscribe"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._base_triggers",
+      "definition": "Event",
+      "source_line": 142,
+      "classification": "intentional-difference",
+      "reason": "Manual-reset state and broadcast/reuse behavior tested. Wait returns a fresh awaitable rather than cached Python trigger identity; deprecated optional data/name arguments are omitted. Continuation ordering is not an exact-parity claim.",
+      "evidence": [
+        {
+          "path": "tests/Integration/PrimitiveContractTests.cs",
+          "contains": "PrimitiveEventContract"
+        },
+        {
+          "path": "src/SharpTestBench/Primitives.cs",
+          "contains": "public sealed class SimEvent"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._base_triggers",
+      "definition": "Event.name",
+      "source_line": 189,
+      "classification": "deprecated-omission",
+      "reason": "Pinned source retains deprecated accessors; C# omits metadata/payload convenience. Use caller-owned names and payloads. The upstream removal docstring does not match retained implementation.",
+      "evidence": [
+        {
+          "path": "docs/API_REVIEW.md",
+          "contains": "Deprecated Event/Lock names"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._base_triggers",
+      "definition": "Event.name",
+      "source_line": 199,
+      "classification": "deprecated-omission",
+      "reason": "Pinned source retains deprecated accessors; C# omits metadata/payload convenience. Use caller-owned names and payloads. The upstream removal docstring does not match retained implementation.",
+      "evidence": [
+        {
+          "path": "docs/API_REVIEW.md",
+          "contains": "Deprecated Event/Lock names"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._base_triggers",
+      "definition": "Event.data",
+      "source_line": 204,
+      "classification": "deprecated-omission",
+      "reason": "Pinned source retains deprecated accessors; C# omits metadata/payload convenience. Use caller-owned names and payloads. The upstream removal docstring does not match retained implementation.",
+      "evidence": [
+        {
+          "path": "docs/API_REVIEW.md",
+          "contains": "Deprecated Event/Lock names"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._base_triggers",
+      "definition": "Event.data",
+      "source_line": 215,
+      "classification": "deprecated-omission",
+      "reason": "Pinned source retains deprecated accessors; C# omits metadata/payload convenience. Use caller-owned names and payloads. The upstream removal docstring does not match retained implementation.",
+      "evidence": [
+        {
+          "path": "docs/API_REVIEW.md",
+          "contains": "Deprecated Event/Lock names"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._base_triggers",
+      "definition": "Event.set",
+      "source_line": 218,
+      "classification": "intentional-difference",
+      "reason": "Manual-reset state and broadcast/reuse behavior tested. Wait returns a fresh awaitable rather than cached Python trigger identity; deprecated optional data/name arguments are omitted. Continuation ordering is not an exact-parity claim.",
+      "evidence": [
+        {
+          "path": "tests/Integration/PrimitiveContractTests.cs",
+          "contains": "PrimitiveEventContract"
+        },
+        {
+          "path": "src/SharpTestBench/Primitives.cs",
+          "contains": "public sealed class SimEvent"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._base_triggers",
+      "definition": "Event.wait",
+      "source_line": 230,
+      "classification": "intentional-difference",
+      "reason": "Manual-reset state and broadcast/reuse behavior tested. Wait returns a fresh awaitable rather than cached Python trigger identity; deprecated optional data/name arguments are omitted. Continuation ordering is not an exact-parity claim.",
+      "evidence": [
+        {
+          "path": "tests/Integration/PrimitiveContractTests.cs",
+          "contains": "PrimitiveEventContract"
+        },
+        {
+          "path": "src/SharpTestBench/Primitives.cs",
+          "contains": "public sealed class SimEvent"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._base_triggers",
+      "definition": "Event.clear",
+      "source_line": 241,
+      "classification": "idiomatic-equivalent",
+      "reason": "Manual-reset state and broadcast/reuse behavior tested. Wait returns a fresh awaitable rather than cached Python trigger identity; deprecated optional data/name arguments are omitted. Continuation ordering is not an exact-parity claim.",
+      "evidence": [
+        {
+          "path": "tests/Integration/PrimitiveContractTests.cs",
+          "contains": "PrimitiveEventContract"
+        },
+        {
+          "path": "src/SharpTestBench/Primitives.cs",
+          "contains": "public sealed class SimEvent"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._base_triggers",
+      "definition": "Event.is_set",
+      "source_line": 249,
+      "classification": "idiomatic-equivalent",
+      "reason": "Manual-reset state and broadcast/reuse behavior tested. Wait returns a fresh awaitable rather than cached Python trigger identity; deprecated optional data/name arguments are omitted. Continuation ordering is not an exact-parity claim.",
+      "evidence": [
+        {
+          "path": "tests/Integration/PrimitiveContractTests.cs",
+          "contains": "PrimitiveEventContract"
+        },
+        {
+          "path": "src/SharpTestBench/Primitives.cs",
+          "contains": "public sealed class SimEvent"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._base_triggers",
+      "definition": "Lock",
+      "source_line": 334,
+      "classification": "intentional-difference",
+      "reason": "SimLock.Acquire returns an IDisposable lease; FIFO handoff and cancellation are tested. Lease disposal is idempotent; there is no public unowned release, unlike Python.",
+      "evidence": [
+        {
+          "path": "tests/Integration/PrimitiveContractTests.cs",
+          "contains": "PrimitiveLockContract"
+        },
+        {
+          "path": "src/SharpTestBench/Primitives.cs",
+          "contains": "Task<IDisposable> Acquire"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._base_triggers",
+      "definition": "Lock.name",
+      "source_line": 382,
+      "classification": "deprecated-omission",
+      "reason": "Pinned source retains deprecated accessors; C# omits metadata/payload convenience. Use caller-owned names and payloads. The upstream removal docstring does not match retained implementation.",
+      "evidence": [
+        {
+          "path": "docs/API_REVIEW.md",
+          "contains": "Deprecated Event/Lock names"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._base_triggers",
+      "definition": "Lock.name",
+      "source_line": 392,
+      "classification": "deprecated-omission",
+      "reason": "Pinned source retains deprecated accessors; C# omits metadata/payload convenience. Use caller-owned names and payloads. The upstream removal docstring does not match retained implementation.",
+      "evidence": [
+        {
+          "path": "docs/API_REVIEW.md",
+          "contains": "Deprecated Event/Lock names"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._base_triggers",
+      "definition": "Lock.locked",
+      "source_line": 395,
+      "classification": "idiomatic-equivalent",
+      "reason": "IsLocked reports held or reserved-for-handoff state; property spelling replaces Python locked().",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Primitives.cs",
+          "contains": "public bool IsLocked"
+        },
+        {
+          "path": "tests/Integration/PrimitiveContractTests.cs",
+          "contains": "handoff reserves lock"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._base_triggers",
+      "definition": "Lock.acquire",
+      "source_line": 420,
+      "classification": "intentional-difference",
+      "reason": "SimLock.Acquire returns an IDisposable lease; FIFO handoff and cancellation are tested. Lease disposal is idempotent; there is no public unowned release, unlike Python.",
+      "evidence": [
+        {
+          "path": "tests/Integration/PrimitiveContractTests.cs",
+          "contains": "PrimitiveLockContract"
+        },
+        {
+          "path": "src/SharpTestBench/Primitives.cs",
+          "contains": "Task<IDisposable> Acquire"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._base_triggers",
+      "definition": "Lock.release",
+      "source_line": 424,
+      "classification": "intentional-difference",
+      "reason": "SimLock.Acquire returns an IDisposable lease; FIFO handoff and cancellation are tested. Lease disposal is idempotent; there is no public unowned release, unlike Python.",
+      "evidence": [
+        {
+          "path": "tests/Integration/PrimitiveContractTests.cs",
+          "contains": "PrimitiveLockContract"
+        },
+        {
+          "path": "src/SharpTestBench/Primitives.cs",
+          "contains": "Task<IDisposable> Acquire"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._base_triggers",
+      "definition": "NullTrigger",
+      "source_line": 457,
+      "classification": "intentional-difference",
+      "reason": "Triggers.Yield queues zero-time work; exact immediate firing and inter-task ordering are not identical. Explicit events provide synchronization.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Triggers.cs",
+          "contains": "public static Trigger Yield()"
+        }
+      ]
+    }
+  ]
+}

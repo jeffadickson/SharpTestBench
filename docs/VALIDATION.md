@@ -185,3 +185,12 @@ not published releases or proof of other simulator/architecture combinations.
 A separate local lifecycle run passed 22/22 including two intentional failure
 cases. Debugger attachment remains blocked as documented in DEBUGGING.md; no
 debugger success or shutdown root-cause fix is claimed.
+
+## Base-trigger semantic review
+
+Nineteen inventoried definitions reviewed against pinned _base_triggers.py; see
+API_REVIEW.md and API_REVIEWS.json. Source hashes and evidence anchors are checked
+in CI. PrimitiveEventContract and PrimitiveLockContract pass on local Icarus,
+GHDL and NVC; Icarus also passes the existing 6,144-job fairness stress. IsLocked
+includes reserved handoff state. These are scoped contract tests, not complete
+upstream API equivalence.
