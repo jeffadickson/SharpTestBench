@@ -350,5 +350,13 @@
     "acceptance": "Version-specific contract matrix, owned/borrowed inputs, typed results, cancellation and cleanup guarantees, released Python oracle and native-platform evidence.",
     "issue": 44,
     "url": "https://github.com/jeffadickson/SharpTestBench/issues/44"
+  },
+  {
+    "key": "STB-045",
+    "priority": "P1",
+    "title": "Extend debugger validation to Windows, macOS and simultaneous native/managed sessions",
+    "acceptance": "Pin suitable tools; validate managed breakpoint/local/exception/resume/exit and native startup/callback/finish on Windows x64 and macOS ARM64; prove simultaneous debugger ownership or document a validated alternative; retain evidence and explicit blockers.",
+    "issue": 45,
+    "url": "https://github.com/jeffadickson/SharpTestBench/issues/45"
   }
 ]

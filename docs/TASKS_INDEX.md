@@ -50,7 +50,7 @@ See [contribution guide](../CONTRIBUTING.md) for evidence required before closin
 
 ## Development testing follow-up (2026-10-14)
 
-See [assessment and adoption boundaries](TEST_TOOLING.md). These are planned, not completed.
+See [assessment and adoption boundaries](TEST_TOOLING.md). Issue state is authoritative for completion.
 
 | ID | Priority | Task |
 |---|---|---|
@@ -58,3 +58,4 @@ See [assessment and adoption boundaries](TEST_TOOLING.md). These are planned, no
 | STB-042 | P1 | [#42 Add targeted NSubstitute tests for managed lifecycle boundaries](https://github.com/jeffadickson/SharpTestBench/issues/42) |
 | STB-043 | P1 | [#43 Pilot Testcontainers for reproducible simulator integration](https://github.com/jeffadickson/SharpTestBench/issues/43) |
 | STB-044 | P0 | [#44 Compare and implement owned gather/select semantics](https://github.com/jeffadickson/SharpTestBench/issues/44) |
+| STB-045 | P1 | [#45 Extend debugger validation across platforms and mixed sessions](https://github.com/jeffadickson/SharpTestBench/issues/45) |

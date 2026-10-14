@@ -57,11 +57,14 @@ files remain available alongside this build-time generator; see GENERATOR.md.
 
 ## Remaining alpha gates
 
-- Preserve the green Windows x64, macOS ARM64 and Linux x64 native matrix; finish architecture-specific packaging (#24/#25).
-- Package native GPI dependencies with provenance and validate a consumer outside the repository (#22/#23).
-- Isolate simulator build workspaces before concurrent orchestration (#41).
-- Prove managed/native debugger attachment (#27).
+- Preserve the green Windows x64, macOS ARM64 and Linux x64 native/package-consumer matrix.
+- Complete public publication and broader binary adapter distribution (#22/#23).
 - Complete the API audit and investigate the historical shutdown diagnostic (#1/#16).
+
+Completed gates include isolated simulator workspaces (#41), incremental bindings
+(#20), architecture packages (#24/#25) and separate Linux managed/native debugger
+validation (#27). Windows/Mac and simultaneous mixed debugging remain unverified (#45);
+see DEBUGGING.md for the supported boundary.
 
 Native clocks, AOT and optional mocking/HTTP libraries are not required to try the
 source alpha. Publication requires the supported platform matrix and installation

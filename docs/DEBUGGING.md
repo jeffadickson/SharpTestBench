@@ -77,3 +77,5 @@ debugging is not implied. GDB evidence is in build/native-debugger-check.
 The native GDB check passed in Linux job 116071363888, run 38627816208, alongside
 the managed attachment check. Both are required Linux CI gates. This completes
 the initial Linux debugger validation scope of #27.
+
+Remaining platform and simultaneous-debugger work is tracked in [#45](https://github.com/jeffadickson/SharpTestBench/issues/45).

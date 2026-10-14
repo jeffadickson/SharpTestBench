@@ -78,7 +78,9 @@ is made. Native simulator adapters are reused, not reimplemented in C#.
 - [x] Native Windows x64 and Mac ARM64 source builds and installed Icarus packages.
 - [ ] Other architectures and broader OS/backend binary distribution.
 - [ ] Commercial Questa/Xcelium/VCS/Riviera checks when installations/licenses exist.
-- [ ] Debugger attachment instructions and actual debugger integration validation.
+- [x] Linux managed source/local/exception debugging and separate native GDB
+      startup/finish validation; see DEBUGGING.md.
+- [ ] Windows/Mac debugger attachment and simultaneous mixed debugging.
 - [x] Regression stages, explicit stage selection and continue/stop-after-stage policies.
 - [x] Typed sampled functional coverage with per-test JSON export; code coverage remains
       outside this initial functional API scope (see COVERAGE.md).
