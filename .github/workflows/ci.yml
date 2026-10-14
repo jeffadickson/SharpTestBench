@@ -29,6 +29,8 @@ jobs:
       - run: python tools/timing_parity.py --sim icarus --label icarus
       - run: python tools/wave_check.py --label icarus
       - run: python tools/wave_tests.py
+      - run: dotnet build examples/Counter -c Release
+      - run: python tools/run.py --sim icarus --no-build --assembly examples/Counter/bin/Release/net10.0/Counter.dll --source examples/Counter/counter.sv --top counter --entry-type "Entry, Counter" --label counter --waves build/counter.vcd
       - run: python tools/cleanup_tests.py
       - run: python tools/stage_tests.py
       - run: python tools/typecheck.py
@@ -90,6 +92,8 @@ jobs:
       - run: python tools/managed_tests.py
       - run: python tools/run.py --sim icarus --label platform-icarus --waves build/platform-icarus.vcd
       - run: python tools/wave_check.py --label platform-icarus
+      - run: dotnet build examples/Counter -c Release
+      - run: python tools/run.py --sim icarus --no-build --assembly examples/Counter/bin/Release/net10.0/Counter.dll --source examples/Counter/counter.sv --top counter --entry-type "Entry, Counter" --label counter --waves build/counter.vcd
       - run: python tools/cleanup_tests.py
       - uses: actions/upload-artifact@v4
         if: always()

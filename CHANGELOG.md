@@ -1,5 +1,7 @@
 # Unreleased
 
+- Added platform-aware host loading/building, Windows/macOS native CI gates, an SDK pin, prerequisite doctor and real counter example toward cross-platform alpha.
+
 - Added reverse-order fixture scopes, resource ownership, bounded async teardown and combined failure reporting (#31).
 
 - Migrated managed checks to 361 xUnit cases with locked dependencies and an isolated failure-reporting probe (#41).

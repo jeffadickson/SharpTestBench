@@ -1,5 +1,6 @@
 # Documentation
 
+- [Cross-platform alpha target and example](ALPHA.md)
 - [Quick start and installation](../README.md)
 - [Contribution guide and repository layout](../CONTRIBUTING.md)
 - [Development test-tool assessment](TEST_TOOLING.md)
