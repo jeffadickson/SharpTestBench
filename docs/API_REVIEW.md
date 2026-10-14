@@ -43,3 +43,17 @@ Runtime.Steps conversion stays strict. Exact mode still rejects fractional steps
 and zero/negative inputs fail before rounding. TimerRoundingMinimum covers all
 three rounding modes and ties-to-even behavior. Decimal/ulong input and explicit
 per-call rounding replace Python's broader numeric protocols and mutable default.
+
+## Native trigger review and AXI evidence
+
+All ten inventoried _gpi_triggers definitions are now reviewed (29 total decisions;
+273 inventoried definitions remain). ReadOnly/ReadWrite phase guards and callback
+allocation rejection are covered by ReadOnlyTransitionContract. AXI stimulus
+samples READY/VALID before the active edge in ReadOnly, advances time before
+writing again, and matches the released cocotb cycle trace. Existing edge, next-time
+and deposit/coalescing tests support the scoped mappings.
+
+Two additional gaps are explicit: ValueChange accepts Signal but not RealSignal or
+StringSignal; Runtime.Phase does not return the last concrete GPI trigger object.
+Cached Python trigger identity and X-to-edge backend matrices are not claimed
+equivalent. See API_REVIEWS.json for each definition's evidence and limitations.

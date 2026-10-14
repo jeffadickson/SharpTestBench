@@ -5,7 +5,6 @@
     <Nullable>enable</Nullable>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <Version>0.8.0-alpha</Version>
     <Description>Experimental typed C# HDL verification using pinned cocotb native GPI adapters.</Description>
     <PackageLicenseExpression>MIT AND BSD-3-Clause</PackageLicenseExpression>
     <PackageReadmeFile>README.md</PackageReadmeFile>

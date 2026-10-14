@@ -7,6 +7,23 @@ public static class TimingTests
     static void Check(bool value, string message) { if (!value) throw new Exception(message); }
 
     [SimTest]
+    public static async Task ReadOnlyTransitionContract(TestContext c)
+    {
+        await Timer(1);
+        await ReadOnly();
+        Check(c.Runtime.Phase == SimPhase.ReadOnly, "read-only phase is reported");
+        int rejected = 0;
+        int callbacks = c.Runtime.PendingCallbacks;
+        try { await ReadOnly(); } catch (InvalidOperationException) { rejected++; }
+        try { await ReadWrite(); } catch (InvalidOperationException) { rejected++; }
+        Check(rejected == 2 && c.Runtime.PendingCallbacks == callbacks,
+            "illegal same-step transitions reject without callback allocation");
+        await Timer(1);
+        await ReadWrite();
+        Check(c.Runtime.Phase == SimPhase.ReadWrite, "next step permits writable synchronization");
+    }
+
+    [SimTest]
     public static async Task TimerRoundingMinimum(TestContext c)
     {
         foreach (var rounding in new[] { TimeRounding.Floor, TimeRounding.Nearest, TimeRounding.Ceiling })

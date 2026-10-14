@@ -1,0 +1,88 @@
+name: Prepare or publish validated NuGet release
+on:
+  workflow_dispatch:
+    inputs:
+      run_id:
+        description: Successful main-branch Build and Icarus tests run ID
+        required: true
+        type: string
+      publish:
+        description: Publish the verified bundle to nuget.org (requires configured trusted publisher)
+        type: boolean
+        default: false
+permissions:
+  contents: read
+  actions: read
+jobs:
+  prepare:
+    runs-on: ubuntu-24.04
+    outputs:
+      revision: ${{ steps.verify.outputs.revision }}
+    steps:
+      - name: Verify source CI run
+        id: verify
+        uses: actions/github-script@v7
+        env:
+          RUN_ID: ${{ inputs.run_id }}
+        with:
+          script: |
+            if (!/^[0-9]+$/.test(process.env.RUN_ID)) throw new Error('Invalid run ID');
+            const {data: run} = await github.rest.actions.getWorkflowRun({...context.repo, run_id: Number(process.env.RUN_ID)});
+            if (run.conclusion !== 'success' || run.head_branch !== 'main' || run.path !== '.github/workflows/ci.yml' || run.event !== 'push' || run.head_repository.full_name !== `${context.repo.owner}/${context.repo.repo}`)
+              throw new Error('Requires a successful main push from the native CI workflow');
+            core.setOutput('revision', run.head_sha);
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.verify.outputs.revision }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          github-token: ${{ github.token }}
+          run-id: ${{ inputs.run_id }}
+          path: downloaded
+      - name: Assemble exact validated packages
+        env:
+          REVISION: ${{ steps.verify.outputs.revision }}
+        run: python tools/release_bundle.py --artifacts downloaded --output release --revision "$REVISION"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: verified-release-bundle
+          path: release/
+  publish:
+    if: ${{ inputs.publish }}
+    needs: prepare
+    runs-on: ubuntu-24.04
+    environment: nuget-release
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.prepare.outputs.revision }}
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.402'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: verified-release-bundle
+          path: release
+      - run: python tools/release_preflight.py --bundle release
+      - name: Obtain short-lived NuGet credential
+        uses: NuGet/login@v1
+        id: login
+        with:
+          user: ${{ secrets.NUGET_USER }}
+      - name: Publish immutable versions
+        env:
+          NUGET_API_KEY: ${{ steps.login.outputs.NUGET_API_KEY }}
+        shell: bash
+        run: |
+          for package in release/*.nupkg; do
+            dotnet nuget push "$package" --api-key "$NUGET_API_KEY" --source https://api.nuget.org/v3/index.json
+          done

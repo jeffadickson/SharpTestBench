@@ -21,6 +21,7 @@ jobs:
         run: |
           python tools/prepare_upstream.py
           CC=gcc CXX=g++ python -m pip install ./build/upstream/cocotb-source pytest
+      - run: python -m unittest discover -s tests/Tooling -v
       - run: python tools/audit_reviews.py --source build/upstream/cocotb-source
       - run: dotnet build SharpTestBench.slnx -c Release -p:RestoreLockedMode=true
       - run: python tools/managed_tests.py
@@ -35,6 +36,8 @@ jobs:
       - run: dotnet build examples/Counter -c Release
       - run: python tools/run.py --sim icarus --no-build --assembly examples/Counter/bin/Release/net10.0/Counter.dll --source examples/Counter/counter.sv --top counter --entry-type "Entry, Counter" --label counter --waves build/counter.vcd
       - run: python tools/cleanup_tests.py
+      - run: dotnet build examples/AxiMemory -c Release -p:RestoreLockedMode=true
+      - run: python tools/axi_workload.py --transactions 128 --repeat 3
       - run: python tools/workspace_tests.py
       - run: python tools/native_package.py
       - run: python tools/stage_tests.py
@@ -61,6 +64,7 @@ jobs:
             build/packages-*/*.nupkg
             build/package-evidence-*/**
             build/workspace-check/**
+            build/axi-workload/**
             build/*structured.json
             build/structured-*.json
             build/structured-*.log
@@ -111,6 +115,7 @@ jobs:
         run: |
           python tools/prepare_upstream.py
           python -m pip install ./build/upstream/cocotb-source pytest
+      - run: python -m unittest discover -s tests/Tooling -v
       - run: python tools/audit_reviews.py --source build/upstream/cocotb-source
       - run: dotnet build SharpTestBench.slnx -c Release -p:RestoreLockedMode=true
       - run: python tools/managed_tests.py
@@ -121,6 +126,8 @@ jobs:
       - run: dotnet build examples/Counter -c Release
       - run: python tools/run.py --sim icarus --no-build --assembly examples/Counter/bin/Release/net10.0/Counter.dll --source examples/Counter/counter.sv --top counter --entry-type "Entry, Counter" --label counter --waves build/counter.vcd
       - run: python tools/cleanup_tests.py
+      - run: dotnet build examples/AxiMemory -c Release -p:RestoreLockedMode=true
+      - run: python tools/axi_workload.py --transactions 128 --repeat 3
       - run: python tools/workspace_tests.py
       - run: python tools/native_package.py
       - uses: actions/upload-artifact@v4
@@ -132,6 +139,7 @@ jobs:
             build/packages-*/*.nupkg
             build/package-evidence-*/**
             build/workspace-check/**
+            build/axi-workload/**
             build/*structured.json
             build/structured-*.json
             build/structured-*.log
@@ -139,3 +147,23 @@ jobs:
             build/*run.log
             build/*driver.log
             build/*.vcd
+
+  release-bundle:
+    needs: [linux, native-platforms]
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          path: downloaded
+      - name: Validate release candidates from all native consumers
+        env:
+          REVISION: ${{ github.sha }}
+        run: python tools/release_bundle.py --artifacts downloaded --output release --revision "$REVISION"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: release-candidate
+          path: release/

@@ -34,3 +34,42 @@ version, a passing native matrix, installed-consumer evidence, checksums, source
 revision, licenses and explicit supported OS/architecture/backend limitations.
 CI artifacts contain the nupkg candidates and evidence. Public publication remains
 tracked in #23; no credentials or publication endpoint is configured here.
+
+## Native dependency and integrity gates
+
+Package staging removes stale generated files. Native import reports are retained:
+Linux uses ldd with only the staged native directory, macOS uses otool, and Windows
+uses PE imports from objdump. Missing/non-system dependencies fail the build.
+Windows VC++ runtime imports remain explicit OS prerequisites; they are not silently
+redistributed. Unix installed execution clears inherited native library search paths.
+RID and hash mismatches are tested as failures before starting a simulator.
+
+Directory.Build.props is the version source for managed, generator and native
+packages. Each native manifest records the repository revision, dirty-tree flag,
+upstream provenance, imports and file hashes. CI packages are candidates; local
+packages from a dirty tree cannot be assembled into the release bundle. This does
+not yet establish byte-for-byte reproducible native builds across toolchain versions.
+
+## Release preparation and publication
+
+The release-bundle CI job waits for all three native consumers. It requires their
+expected counter result, RID/checksum negative checks, consistent clean source
+revision and version, and package hashes. It selects exactly five packages: runtime,
+generator and linux-x64/win-x64/osx-arm64 native packages. The Linux copies of the
+platform-neutral packages are canonical. It writes release-manifest.json and
+SHA256SUMS. Seven tooling tests exercise acceptance and rejection paths.
+
+The manual release.yml workflow accepts a successful main-push CI run ID. With
+publish=false it produces a reviewable bundle without publishing. With publish=true
+it checks that every package version is absent on nuget.org, then uses NuGet trusted
+publishing and pushes the exact validated bytes. There is no rebuild at publication
+and no skip-duplicate flag. Multi-package NuGet publication is not atomic: a partial
+network failure requires inspection and a deliberate recovery/re-version decision.
+
+Before the first public release, the owner must configure a nuget.org trusted
+publisher for jeffadickson/SharpTestBench, workflow release.yml, environment
+nuget-release, and set NUGET_USER to the NuGet profile name. Configure the GitHub
+environment's release access/review rules as appropriate. No account, trusted policy,
+or public package ownership is assumed to exist; no public publication was attempted.
+See [NuGet's trusted publishing instructions](https://learn.microsoft.com/en-us/nuget/nuget-org/trusted-publishing).
+These account settings are the remaining external publication prerequisite.

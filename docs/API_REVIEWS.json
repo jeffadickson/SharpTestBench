@@ -305,6 +305,151 @@
           "contains": "if (clampTimer && integral == 0) return 1;"
         }
       ]
+    },
+    {
+      "module": "cocotb._gpi_triggers",
+      "definition": "GPITrigger",
+      "source_line": 33,
+      "classification": "internal-adapter",
+      "reason": "Native callback registration/deregistration and phase tracking are encapsulated by SimRuntime. Python GPITrigger identity/extension API is not exposed.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Runtime.cs",
+          "contains": "internal Registration Register"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._gpi_triggers",
+      "definition": "ReadOnly",
+      "source_line": 173,
+      "classification": "idiomatic-equivalent",
+      "reason": "Stable read-only callback and rejection of ReadOnly/ReadWrite reentry are tested. C# trigger identity is not the Python singleton identity; this classification covers phase semantics.",
+      "evidence": [
+        {
+          "path": "tests/Integration/TimingTests.cs",
+          "contains": "ReadOnlyTransitionContract"
+        },
+        {
+          "path": "examples/AxiMemory/Tests.cs",
+          "contains": "Sample stable READY/VALID"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._gpi_triggers",
+      "definition": "ReadWrite",
+      "source_line": 199,
+      "classification": "idiomatic-equivalent",
+      "reason": "Runtime flushes scheduled deposits before queued ReadWrite continuations and rejects entry from ReadOnly. Callback object identity is not preserved.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Runtime.cs",
+          "contains": "FlushWrites();"
+        },
+        {
+          "path": "tests/Integration/TimingTests.cs",
+          "contains": "ReadOnlyTransitionContract"
+        },
+        {
+          "path": "tests/Integration/Tests.cs",
+          "contains": "H_WriteCoalescing"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._gpi_triggers",
+      "definition": "NextTimeStep",
+      "source_line": 225,
+      "classification": "idiomatic-equivalent",
+      "reason": "Uses next-time callback rather than a delta-cycle yield. Test schedules a future timer and requires time advance; no promise to advance absent future simulator events.",
+      "evidence": [
+        {
+          "path": "tests/Integration/Tests.cs",
+          "contains": "I_NextTimeStep"
+        },
+        {
+          "path": "src/SharpTestBench/Triggers.cs",
+          "contains": "CallbackKind.NextStep"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._gpi_triggers",
+      "definition": "RisingEdge",
+      "source_line": 267,
+      "classification": "intentional-difference",
+      "reason": "One-bit signal check and GPI rising callback match core behavior. Cached Python signal trigger identity and simulator-specific X-to-1 edge matrices are not claimed.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Triggers.cs",
+          "contains": "Rising/falling edge requires a one-bit signal"
+        },
+        {
+          "path": "tests/Integration/Tests.cs",
+          "contains": "AJ_AdjustableClock"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._gpi_triggers",
+      "definition": "FallingEdge",
+      "source_line": 311,
+      "classification": "intentional-difference",
+      "reason": "One-bit signal check and GPI falling callback match core behavior. Cached Python signal trigger identity and simulator-specific X-to-0 edge matrices are not claimed.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Triggers.cs",
+          "contains": "Rising/falling edge requires a one-bit signal"
+        },
+        {
+          "path": "tests/Integration/Tests.cs",
+          "contains": "AJ_AdjustableClock"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._gpi_triggers",
+      "definition": "ValueChange",
+      "source_line": 355,
+      "classification": "gap",
+      "reason": "Logic/integer Signal value-change waits are implemented and tested. Python accepts a broader non-indexable value-object family; RealSignal/StringSignal cannot currently be passed to the C# method.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Triggers.cs",
+          "contains": "ValueChange(Signal signal)"
+        },
+        {
+          "path": "tests/Integration/Tests.cs",
+          "contains": "Q_ValueChangeFanoutAndYield"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._gpi_triggers",
+      "definition": "Edge",
+      "source_line": 383,
+      "classification": "deprecated-omission",
+      "reason": "Deprecated public Edge alias is omitted; use Triggers.ValueChange for supported signal types. This does not close the broader ValueChange object-family gap.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Triggers.cs",
+          "contains": "ValueChange(Signal signal)"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._gpi_triggers",
+      "definition": "current_gpi_trigger",
+      "source_line": 413,
+      "classification": "gap",
+      "reason": "Runtime.Phase exposes a phase category, not the last concrete trigger object. Timer/NextTimeStep are not distinguishable through it. No exact introspection equivalent.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Runtime.cs",
+          "contains": "public SimPhase Phase"
+        }
+      ]
     }
   ]
 }

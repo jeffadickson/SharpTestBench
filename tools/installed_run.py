@@ -4,6 +4,7 @@ import argparse
 import hashlib
 import json
 import os
+import platform
 from pathlib import Path
 import shutil
 import subprocess
@@ -19,6 +20,13 @@ p.add_argument('--work-dir', type=Path, required=True)
 a = p.parse_args()
 native = a.native_dir.resolve()
 manifest = json.loads((native / 'native-manifest.json').read_text())
+arch={'x86_64':'x64','amd64':'x64','aarch64':'arm64','arm64':'arm64'}.get(platform.machine().lower())
+rid=('win' if os.name=='nt' else 'osx' if sys.platform=='darwin' else 'linux')+'-'+str(arch)
+if manifest.get('rid')!=rid: raise SystemExit('Native package RID mismatch: expected '+rid)
+for field in ('host','gpi','implementation','bootstrap'):
+    name=manifest[field]
+    if Path(name).name!=name or name not in manifest['sha256']: raise SystemExit('Unverified native manifest reference: '+field)
+
 for name, digest in manifest['sha256'].items():
     if Path(name).name != name or hashlib.sha256((native / name).read_bytes()).hexdigest() != digest:
         raise SystemExit('Native package checksum mismatch: ' + name)
@@ -42,7 +50,8 @@ try:
                COCOTB_BOOTSTRAP=os.pathsep.join([str(native / manifest['gpi']) + ',' + manifest['gpi_entry'],
                                                str(native / manifest['host']) + ',sharptestbench_initialize']))
     loader = 'PATH' if os.name == 'nt' else 'DYLD_LIBRARY_PATH' if sys.platform == 'darwin' else 'LD_LIBRARY_PATH'
-    env[loader] = str(native) + os.pathsep + env.get(loader, '')
+    # Unix package checks must not fall back to an externally installed cocotb directory.
+    env[loader] = str(native) + (os.pathsep + env.get(loader, '') if os.name=='nt' else '')
     ivl = ['-B', env['CS_IVL_ROOT']] if 'CS_IVL_ROOT' in env else []
     subprocess.run([env.get('CS_IVERILOG', 'iverilog'), *ivl, '-g2012', '-s', a.top, '-o', str(work / 'top.vvp'), str(a.source.resolve())], check=True)
     report = work / 'results.json'

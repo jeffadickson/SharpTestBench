@@ -1,0 +1,234 @@
+{
+  "schema": 1,
+  "seed": 20261014,
+  "commands": 2120,
+  "plan_sha256": "d91cc30dfc40e574912f3c6f545db63287217cd19d47caddd88723a5c16a418f",
+  "trace_sha256": "9db30c664b0f6e8d9a119f856b1b663a5ed8eb63f032303ba2fb97ddd25867b5",
+  "records": [
+    {
+      "language": "csharp",
+      "label": "csharp-0",
+      "wall_seconds": 0.9417557830020087,
+      "cycles": 30353,
+      "write_stalls": 7800,
+      "read_stalls": 10383,
+      "seconds": 0.6807992,
+      "allocated_bytes": 238153840,
+      "gc_collections": [
+        14,
+        1,
+        0
+      ]
+    },
+    {
+      "language": "python",
+      "label": "python-0",
+      "wall_seconds": 2.829603127989685,
+      "cycles": 30353,
+      "write_stalls": 7800,
+      "read_stalls": 10383,
+      "seconds": 2.3844610069936607,
+      "traced_peak_bytes": null,
+      "allocation_profile": false,
+      "gc_collections": [
+        3,
+        0,
+        0
+      ]
+    },
+    {
+      "language": "python",
+      "label": "python-1",
+      "wall_seconds": 2.7416216210112907,
+      "cycles": 30353,
+      "write_stalls": 7800,
+      "read_stalls": 10383,
+      "seconds": 2.3042192830034764,
+      "traced_peak_bytes": null,
+      "allocation_profile": false,
+      "gc_collections": [
+        3,
+        0,
+        0
+      ]
+    },
+    {
+      "language": "csharp",
+      "label": "csharp-1",
+      "wall_seconds": 0.9783403059991542,
+      "cycles": 30353,
+      "write_stalls": 7800,
+      "read_stalls": 10383,
+      "seconds": 0.6938853,
+      "allocated_bytes": 237051712,
+      "gc_collections": [
+        14,
+        1,
+        0
+      ]
+    },
+    {
+      "language": "csharp",
+      "label": "csharp-2",
+      "wall_seconds": 1.0981710310006747,
+      "cycles": 30353,
+      "write_stalls": 7800,
+      "read_stalls": 10383,
+      "seconds": 0.7763571,
+      "allocated_bytes": 240619576,
+      "gc_collections": [
+        14,
+        1,
+        0
+      ]
+    },
+    {
+      "language": "python",
+      "label": "python-2",
+      "wall_seconds": 2.938732843991602,
+      "cycles": 30353,
+      "write_stalls": 7800,
+      "read_stalls": 10383,
+      "seconds": 2.4095379399950616,
+      "traced_peak_bytes": null,
+      "allocation_profile": false,
+      "gc_collections": [
+        3,
+        0,
+        0
+      ]
+    },
+    {
+      "language": "python",
+      "label": "python-3",
+      "wall_seconds": 2.7353038520086557,
+      "cycles": 30353,
+      "write_stalls": 7800,
+      "read_stalls": 10383,
+      "seconds": 2.2950839569966774,
+      "traced_peak_bytes": null,
+      "allocation_profile": false,
+      "gc_collections": [
+        3,
+        0,
+        0
+      ]
+    },
+    {
+      "language": "csharp",
+      "label": "csharp-3",
+      "wall_seconds": 1.0307717590039829,
+      "cycles": 30353,
+      "write_stalls": 7800,
+      "read_stalls": 10383,
+      "seconds": 0.7563176,
+      "allocated_bytes": 240543936,
+      "gc_collections": [
+        14,
+        1,
+        0
+      ]
+    },
+    {
+      "language": "csharp",
+      "label": "csharp-4",
+      "wall_seconds": 1.0177600960014388,
+      "cycles": 30353,
+      "write_stalls": 7800,
+      "read_stalls": 10383,
+      "seconds": 0.7364277,
+      "allocated_bytes": 236280656,
+      "gc_collections": [
+        14,
+        1,
+        0
+      ]
+    },
+    {
+      "language": "python",
+      "label": "python-4",
+      "wall_seconds": 2.7789430460106814,
+      "cycles": 30353,
+      "write_stalls": 7800,
+      "read_stalls": 10383,
+      "seconds": 2.3344982029957464,
+      "traced_peak_bytes": null,
+      "allocation_profile": false,
+      "gc_collections": [
+        3,
+        0,
+        0
+      ]
+    }
+  ],
+  "python_allocation_profile": {
+    "language": "python",
+    "label": "python-allocation",
+    "wall_seconds": 6.587105386992334,
+    "cycles": 30353,
+    "write_stalls": 7800,
+    "read_stalls": 10383,
+    "seconds": 6.117889176006429,
+    "traced_peak_bytes": 299586,
+    "allocation_profile": true,
+    "gc_collections": [
+      3,
+      0,
+      0
+    ]
+  },
+  "negative_tests": [
+    {
+      "language": "csharp",
+      "fault": 1,
+      "detected": true
+    },
+    {
+      "language": "python",
+      "fault": 1,
+      "detected": true
+    },
+    {
+      "language": "csharp",
+      "fault": 2,
+      "detected": true
+    },
+    {
+      "language": "python",
+      "fault": 2,
+      "detected": true
+    },
+    {
+      "language": "csharp",
+      "fault": 3,
+      "detected": true
+    },
+    {
+      "language": "python",
+      "fault": 3,
+      "detected": true
+    }
+  ],
+  "medians": {
+    "csharp": {
+      "wall_seconds": 1.0177600960014388,
+      "seconds": 0.7364277
+    },
+    "python": {
+      "wall_seconds": 2.7789430460106814,
+      "seconds": 2.3344982029957464
+    }
+  },
+  "scope": "Icarus AXI4-Lite-shaped single-outstanding memory fixture; not full AXI conformance or CPU/DSP benchmark",
+  "methodology": "One unmeasured fresh-process warmup per language; repeated fresh processes in alternating order. Wall time includes HDL compile and runner/runtime startup. Body time includes bus driving, scoreboard and trace accumulation. C# cumulative allocations and Python separately-profiled peak traced memory are different metrics, not directly comparable.",
+  "environment": {
+    "os": "Linux-6.18.44-x86_64-with-glibc2.39",
+    "architecture": "x86_64",
+    "python_runner": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+    "cocotb_oracle": "2.1.0",
+    "dotnet_sdk": "10.0.402",
+    "source_base_revision": "99fe26365d1ebe37e8601ff6307f45ecc824cebc",
+    "working_tree_dirty": true,
+    "note": "Measured development changes in this commit; not a released-version baseline."
+  }
+}

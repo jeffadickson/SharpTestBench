@@ -1,0 +1,71 @@
+<Bindings class="AxiPorts" namespace="Generated">
+  <Signal name="clk" width="1">
+    <Child name="clk" />
+  </Signal>
+  <Signal name="reset_n" width="1">
+    <Child name="reset_n" />
+  </Signal>
+  <Signal name="awvalid" width="1">
+    <Child name="awvalid" />
+  </Signal>
+  <Signal name="awready" width="1">
+    <Child name="awready" />
+  </Signal>
+  <Signal name="awaddr" width="12">
+    <Child name="awaddr" />
+  </Signal>
+  <Signal name="wvalid" width="1">
+    <Child name="wvalid" />
+  </Signal>
+  <Signal name="wready" width="1">
+    <Child name="wready" />
+  </Signal>
+  <Signal name="wdata" width="32">
+    <Child name="wdata" />
+  </Signal>
+  <Signal name="wstrb" width="4">
+    <Child name="wstrb" />
+  </Signal>
+  <Signal name="bvalid" width="1">
+    <Child name="bvalid" />
+  </Signal>
+  <Signal name="bready" width="1">
+    <Child name="bready" />
+  </Signal>
+  <Signal name="bresp" width="2">
+    <Child name="bresp" />
+  </Signal>
+  <Signal name="arvalid" width="1">
+    <Child name="arvalid" />
+  </Signal>
+  <Signal name="arready" width="1">
+    <Child name="arready" />
+  </Signal>
+  <Signal name="araddr" width="12">
+    <Child name="araddr" />
+  </Signal>
+  <Signal name="rvalid" width="1">
+    <Child name="rvalid" />
+  </Signal>
+  <Signal name="rready" width="1">
+    <Child name="rready" />
+  </Signal>
+  <Signal name="rdata" width="32">
+    <Child name="rdata" />
+  </Signal>
+  <Signal name="rresp" width="2">
+    <Child name="rresp" />
+  </Signal>
+  <Signal name="stall_aw" width="1">
+    <Child name="stall_aw" />
+  </Signal>
+  <Signal name="stall_w" width="1">
+    <Child name="stall_w" />
+  </Signal>
+  <Signal name="stall_ar" width="1">
+    <Child name="stall_ar" />
+  </Signal>
+  <Signal name="fault" width="2">
+    <Child name="fault" />
+  </Signal>
+</Bindings>
