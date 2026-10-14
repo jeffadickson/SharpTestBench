@@ -89,10 +89,12 @@ See `tests/Integration/Tests.cs` for complete examples, including a randomized
 Prerequisites: .NET 10 SDK, Python 3.12+, GCC/G++, and a supported simulator.
 Pin cocotb to commit `5fa952e92c46fd9cb58f55a8655312a4bf02e7de`.
 The source snapshot is included in `third_party/cocotb-source.tar.gz`.
+Preparation verifies its checksum and sets the recorded package version; native
+adapter sources are unchanged. This avoids malformed Git-version labels in archives.
 
 ```sh
-tar -xzf third_party/cocotb-source.tar.gz
-CC=gcc CXX=g++ python -m pip install ./cocotb-source pytest
+python tools/prepare_upstream.py
+CC=gcc CXX=g++ python -m pip install ./build/upstream/cocotb-source pytest
 dotnet run --project tests/SharpTestBench.Tests -c Release
 python tools/run.py --sim icarus
 python tools/run.py --sim verilator

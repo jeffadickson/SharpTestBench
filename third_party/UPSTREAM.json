@@ -12,5 +12,6 @@
     "native/upstream/exports.h",
     "native/upstream/vpi_user.h",
     "native/upstream/vpi_compatibility.h"
-  ]
+  ],
+  "source_sha256": "5ec3193e615dadee30cfe7b922abc33f08e5146376433902b0fa163042602a3f"
 }

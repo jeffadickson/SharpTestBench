@@ -19,8 +19,8 @@ jobs:
       - run: sudo apt-get update && sudo apt-get install -y iverilog gcc g++
       - name: Install pinned cocotb adapters
         run: |
-          tar -xzf third_party/cocotb-source.tar.gz
-          CC=gcc CXX=g++ python -m pip install ./cocotb-source pytest
+          python tools/prepare_upstream.py
+          CC=gcc CXX=g++ python -m pip install ./build/upstream/cocotb-source pytest
       - run: dotnet build SharpTestBench.slnx -c Release
       - run: dotnet run --project tests/SharpTestBench.Tests -c Release --no-build
       - run: python tools/run.py --sim icarus
