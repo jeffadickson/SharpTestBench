@@ -204,3 +204,46 @@ Linux CI job 116071363888 in run 38627816208 passed both DEBUGGER_PASS and
 NATIVE_DEBUGGER_PASS: managed source/local/exception checks and separate GDB
 startup/finish breakpoints with normal simulator exit. The historical fatal
 diagnostic was not reproduced; simultaneous mixed debugging is not claimed.
+
+
+## API audit, AXI workload and release gates — 2026-10-14
+
+[CI run 38636223127](https://github.com/jeffadickson/SharpTestBench/actions/runs/38636223127)
+passed at commit `272e1863a17bd9c8829f15a2c4c3ea2292700694`: Linux x64,
+Windows x64 and macOS ARM64 native jobs, the separate Linux installed-consumer
+container, and the five-package release-bundle gate. Each native job runs the
+128-pair/three-repeat AXI comparison, six fault negatives, 11 tooling cases and
+the installed-package counter with RID/checksum rejection checks. The
+`release-candidate` artifact contains the exact five validated NuGet candidates,
+release-manifest.json and SHA256SUMS; it is not a public NuGet release.
+
+The review now covers 29 of 302 inventoried definitions (273 remain, plus aliases
+and dynamic exports). Native trigger mappings include evidence for phase guards
+and rejection without callback leaks. Explicit gaps include real/string change
+triggers, concrete last-trigger introspection and external custom Trigger
+subclassing. This is a review count, not a conformance percentage.
+
+`examples/AxiMemory` compares independently checked C# and released cocotb 2.1.0
+transaction traces for byte strobes, separated address/data arrival, backpressure,
+invalid accesses and reset during partial/in-flight requests. All six injected
+fault cases must be detected. The fixture is AXI-Lite-shaped with one outstanding
+read/write; bursts, IDs, CPU and DSP workloads remain open.
+
+The committed local Linux measurement uses 1,024 write/read pairs, 2,120 commands
+and 30,353 cycles, with five alternating measured processes per language after
+fresh-process warmups. Median wall time was 1.018 s C# / 2.779 s Python; test-body
+time was 0.736 s / 2.334 s. See benchmarks/axi-memory-linux-20261014.json for
+provenance and raw runs. This development-tree sample is not a release baseline or
+a general speedup claim. C# cumulative allocations and Python traced peak memory
+are different measurements and cannot support a memory-efficiency comparison.
+
+Native import inspection, explicit simulator-host prerequisites, manifest/RID/hash
+validation, and negative consumer checks accompany the packages. The Linux
+container uses digest-pinned SDK/runtime images and runs simulation with no network,
+no SDK and no source checkout in its runtime environment. OS apt dependencies are
+not snapshot-pinned. Windows/macOS checks use hosted CI machines, not a clean-OS
+matrix. Broader adapters and architectures remain unverified.
+
+The release workflow prepares exact validated package bytes and checks provenance
+and hashes before publication. Public NuGet publication has not been attempted;
+trusted-publisher/account configuration remains external. See PACKAGING.md.
