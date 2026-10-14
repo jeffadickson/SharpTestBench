@@ -84,6 +84,8 @@ See `tests/Integration/Tests.cs` for complete examples, including a randomized
 100-transaction stream test with backpressure. Define your own width by implementing
 `IWidth`; e.g. `readonly struct W24 : IWidth { public static int Bits => 24; }`.
 
+For Windows and macOS source setup and the counter example, see [ALPHA.md](docs/ALPHA.md).
+
 ## Build and run (Linux x86-64)
 
 Prerequisites: .NET 10 SDK, Python 3.12+, GCC/G++, and a supported simulator.
@@ -181,8 +183,9 @@ HDL compilation still runs. No NuGet package has been published publicly.
 - Fixed-string NUL and Latin-1 access is verified on NVC/Linux x86-64. Dynamic
   string NUL writes need a length-aware native API and are rejected. HDL strings
   are byte strings; Unicode outside Latin-1 is rejected.
-- CoreCLR hosting is implemented for Linux x86-64 only. Native AOT, Windows/macOS,
-  commercial simulator validation, and mixed-language regression remain open.
+- CoreCLR hosting is implemented for Linux, macOS and Windows. Native Icarus tests
+  pass on Linux x64 and macOS ARM64; see [platform evidence](docs/ALPHA.md) for Windows
+  status. Native AOT, commercial validation and mixed-language regression remain open.
 - This release has no compatibility promise for its API or native GPI ABI.
 
 ## Validation

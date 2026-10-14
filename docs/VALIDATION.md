@@ -129,7 +129,9 @@ still reject conversion; the optimization does not silently turn X/Z into number
 
 ## Remaining validation gaps
 
-Commercial simulators, Windows/macOS, Native AOT,
+The native macOS ARM64 Icarus suite now passes; see ALPHA.md for CI evidence.
+Windows validation and cross-platform packaging remain tracked separately.
+Commercial simulators, Native AOT,
 debugger-based shutdown investigation, broader multi-driver/mixed-language cases,
 full upstream timing conformance and realistic-project performance remain open.
 The local NuGet contains the Linux native host, but not the simulator or pinned

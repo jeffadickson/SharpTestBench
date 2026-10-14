@@ -1,6 +1,6 @@
 # Native ABI v1
 
-Version 0.4 routes every managed simulator call through `libsharptestbench_host.so`.
+Every managed simulator call goes through the platform SharpTestBench host library.
 `native/abi.h` is the public C contract; `native/abi.c` is the adapter to the pinned
 upstream GPI. The managed library no longer imports `libgpi.so` directly.
 
@@ -32,8 +32,9 @@ upstream GPI. The managed library no longer imports `libgpi.so` directly.
 The host has a stable ELF SONAME. The runner also puts the selected host directory
 on the native loader path. This avoids depending on the simulator's working
 directory, and makes a custom `--host` usable with a prebuilt test assembly.
-Only Linux x86-64 has been built and tested. The ABI is groundwork for portability,
-not evidence of Windows or macOS support.
+The host now uses POSIX loading on Linux/macOS and wide-character Windows loading.
+Native Icarus execution is validated on Linux x64 and macOS ARM64; Windows x64 CI
+is tracked separately. See ALPHA.md for current evidence and packaging limitations.
 
 ## Validation
 

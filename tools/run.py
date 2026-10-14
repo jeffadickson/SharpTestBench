@@ -54,7 +54,13 @@ def main():
    helper.write_text('module __sharptestbench_wave_dump; initial if ($test$plusargs("SHARPTESTBENCH_WAVES")) begin $dumpfile("'+literal+'"); $dumpvars(0,'+args.top+'); end endmodule\n')
    wave_options=['-s','__sharptestbench_wave_dump',helper]
   command([os.environ.get('CS_IVERILOG','iverilog'),*ivl,'-g2012','-s',args.top,'-o',build/'top.vvp',*wave_options,*sources])
-  run=[os.environ.get('CS_VVP','vvp'),'-m',config.lib_entry('vpi','icarus'),build/'top.vvp']+(['+SHARPTESTBENCH_WAVES'] if wave else [])
+  bootstrap=Path(config.lib_entry('vpi','icarus'))
+  if sys.platform=='win32':
+   # Windows Icarus appends .vpi unless the supplied module already has it.
+   staged=build/'cocotb_bootstrap.vpi'
+   shutil.copy2(bootstrap,staged)
+   bootstrap=staged
+  run=[os.environ.get('CS_VVP','vvp'),'-m',str(bootstrap),build/'top.vvp']+(['+SHARPTESTBENCH_WAVES'] if wave else [])
  elif args.sim=='ghdl':
   ghdl=os.environ.get('CS_GHDL','ghdl')
   command([ghdl,'-a','--std=08',*sources],cwd=build,env=env)

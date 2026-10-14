@@ -7,6 +7,14 @@ VCD checks and failure/timeout cleanup scenarios. Check actual job outcomes befo
 claiming support for a platform or architecture. Linux's wider simulator matrix
 remains separate; an Icarus pass does not certify every backend on that OS.
 
+## Native execution evidence
+
+[CI run 38620478744](https://github.com/jeffadickson/SharpTestBench/actions/runs/38620478744)
+validates commit `342d9e12a5c9ab476a111ac119eec05c302661f6` on Linux x64 and
+macOS ARM64. Each passed 364 managed tests, 49 Icarus integration tests (one explicit
+skip), waveform checks, the counter example, and six cleanup scenarios. Windows x64
+is pending in that run. Intel Macs and Windows ARM64 are not validated.
+
 ## Build and try the source example
 
 Install .NET SDK **10.0.402** (global.json pins it), Python 3.12, Icarus Verilog and
