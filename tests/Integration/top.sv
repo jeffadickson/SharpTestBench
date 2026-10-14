@@ -39,8 +39,8 @@ module top;
  always @(posedge clk) if(reset) sampled<=0;else sampled<=data;
  reg in_valid=0,out_ready=0;
  reg [7:0] in_data=0;
- wire in_ready=!out_valid||out_ready;
  reg out_valid=0;
+ wire in_ready=!out_valid||out_ready;
  reg [7:0] out_data=0;
  always @(posedge clk) begin
   if(reset) out_valid<=0;
