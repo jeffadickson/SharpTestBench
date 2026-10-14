@@ -318,5 +318,29 @@
     "acceptance": "Test contention cancellation and fairness guarantees for synchronization primitives; document guarantees and limits.",
     "issue": 40,
     "url": "https://github.com/jeffadickson/SharpTestBench/issues/40"
+  },
+  {
+    "title": "Adopt xUnit for managed tests and external simulator orchestration",
+    "priority": "P1",
+    "acceptance": "Migrate the standalone managed assertion program incrementally to named xUnit facts/theories; preserve all 1,916 assertion checks and add per-case discovery/results in CI. Pin compatible packages and analyzers. Keep simulator-thread tests under SimTest; isolate external simulator processes and artifact directories, serializing existing shared build paths. Prove an injected managed failure is individually reported while independent tests continue. Keep native ABI and compiler-negative tests.",
+    "issue": 41,
+    "url": "https://github.com/jeffadickson/SharpTestBench/issues/41",
+    "key": "STB-041"
+  },
+  {
+    "title": "Add targeted NSubstitute tests for managed lifecycle boundaries",
+    "priority": "P1",
+    "acceptance": "During fixture cleanup work (#31), extract only a justified managed cleanup/observer boundary or use existing delegates. Test cleanup exactly once, reverse order, all callbacks attempted, cancellation, and aggregation with the original test failure. Use NSubstitute plus analyzers for call contracts, real objects for value behavior. Retain native fault injection and four-backend integration evidence; do not proxy static P/Invoke or substitute simulator scheduling.",
+    "issue": 42,
+    "url": "https://github.com/jeffadickson/SharpTestBench/issues/42",
+    "key": "STB-042"
+  },
+  {
+    "title": "Pilot Testcontainers for reproducible simulator integration",
+    "priority": "P1",
+    "acceptance": "Build and pin a Linux Icarus image with the required .NET runtime and pinned cocotb native adapters; launch real simulator tests through Testcontainers from an external test process. Assert exit code AND nonempty expected result set with no failed cases. Capture logs/results/waveforms before disposal; test timeout/nonzero/missing-result paths. Isolate workspaces, document Docker prerequisites and explicit unavailable status, then expand to Verilator/GHDL/NVC after a green Docker-enabled CI run. Compare packaging and startup cost against the existing process runner. No claim of Windows/macOS coverage from Linux containers.",
+    "issue": 43,
+    "url": "https://github.com/jeffadickson/SharpTestBench/issues/43",
+    "key": "STB-043"
   }
 ]

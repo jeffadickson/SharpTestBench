@@ -47,3 +47,13 @@ GitHub Issues are the live task tracker. This index enumerates every currently i
 
 See [contribution guide](../CONTRIBUTING.md) for evidence required before closing tasks. Public package publication and commercial/OS validation remain distinct from local build success.
 
+
+## Development testing follow-up (2026-10-14)
+
+See [assessment and adoption boundaries](TEST_TOOLING.md). These are planned, not completed.
+
+| ID | Priority | Task |
+|---|---|---|
+| STB-041 | P1 | [#41 Adopt xUnit for managed tests and external simulator orchestration](https://github.com/jeffadickson/SharpTestBench/issues/41) |
+| STB-042 | P1 | [#42 Add targeted NSubstitute tests for managed lifecycle boundaries](https://github.com/jeffadickson/SharpTestBench/issues/42) |
+| STB-043 | P1 | [#43 Pilot Testcontainers for reproducible simulator integration](https://github.com/jeffadickson/SharpTestBench/issues/43) |

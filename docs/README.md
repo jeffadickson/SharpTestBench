@@ -2,6 +2,7 @@
 
 - [Quick start and installation](../README.md)
 - [Contribution guide and repository layout](../CONTRIBUTING.md)
+- [Development test-tool assessment](TEST_TOOLING.md)
 - [All tracked GitHub tasks](TASKS_INDEX.md)
 - [Remaining work narrative](OPEN_WORK.md)
 - [Simulator capability policy](CAPABILITIES.md)
