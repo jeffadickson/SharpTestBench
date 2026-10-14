@@ -14,8 +14,11 @@ def inspect(native):
                     raise RuntimeError('Unexpected external native dependency: '+resolved)
         elif sys.platform=='darwin':
             output=subprocess.check_output(['otool','-L',str(path)],text=True)
+            identifiers=subprocess.check_output(['otool','-D',str(path)],text=True).splitlines()[1:]
+            install_ids={line.strip() for line in identifiers}
             for line in output.splitlines()[1:]:
                 dependency=line.strip().split(' (')[0]
+                if dependency in install_ids:continue  # LC_ID_DYLIB is identity, not an imported dependency.
                 if dependency.startswith(('/usr/lib/','/System/Library/')):continue
                 if dependency==str(path) or Path(dependency).name==path.name:continue
                 if not (native/Path(dependency).name).is_file():raise RuntimeError('Unpackaged native dependency: '+dependency)

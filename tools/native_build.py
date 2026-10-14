@@ -26,7 +26,7 @@ def build_host(root, sdk, build):
     headers = max(paths, key=lambda p: tuple(map(int, p.parents[2].name.split('-')[0].split('.'))))
     temporary = build / (str(os.getpid()) + '-' + HOST_NAME)
     compiler = os.environ.get('CC', 'clang' if MAC else 'gcc')
-    flags = ['-shared', '-Wl,--export-all-symbols'] if WINDOWS else ['-dynamiclib', '-fPIC'] if MAC else ['-shared', '-fPIC', '-Wl,-soname,' + HOST_NAME]
+    flags = ['-shared', '-Wl,--export-all-symbols'] if WINDOWS else ['-dynamiclib', '-fPIC', '-Wl,-install_name,@rpath/' + HOST_NAME] if MAC else ['-shared', '-fPIC', '-Wl,-soname,' + HOST_NAME]
     try:
         subprocess.run([compiler, *flags, '-Wall', '-Wextra', '-Werror', str(root / 'native/host.c'), str(root / 'native/abi.c'), '-I', str(root / 'native/upstream'), '-I', str(headers), *([] if WINDOWS or MAC else ['-ldl']), '-o', str(temporary)], check=True)
         temporary.replace(build / HOST_NAME)
