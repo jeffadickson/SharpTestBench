@@ -1,9 +1,11 @@
 <Solution>
   <Folder Name="/src/">
     <Project Path="src/SharpTestBench/SharpTestBench.csproj" />
+    <Project Path="src/SharpTestBench.Generators/SharpTestBench.Generators.csproj" />
   </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/Benchmark/Benchmark.csproj" />
+    <Project Path="tests/SharpTestBench.Generators.Tests/SharpTestBench.Generators.Tests.csproj" />
     <Project Path="tests/Integration/Integration.csproj" />
     <Project Path="tests/SharpTestBench.Tests/SharpTestBench.Tests.csproj" />
     <Project Path="tests/StageIntegration/StageIntegration.csproj" />

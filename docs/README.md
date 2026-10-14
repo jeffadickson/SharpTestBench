@@ -1,5 +1,9 @@
 # Documentation
 
+- [Roslyn incremental bindings](GENERATOR.md)
+- [Alpha packages and installed consumers](PACKAGING.md)
+- [Concurrent simulator workspaces](WORKSPACES.md)
+
 - [Alpha backlog and parity priorities](ALPHA_BACKLOG.md)
 - [cocotb 2.1 concurrency comparison](CONCURRENCY_COMPARISON.md)
 

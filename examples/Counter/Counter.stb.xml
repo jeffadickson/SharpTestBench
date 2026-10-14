@@ -1,0 +1,6 @@
+<Bindings namespace="Generated" class="CounterPorts">
+  <Signal name="Clock" width="1"><Child name="clk" /></Signal>
+  <Signal name="Reset" width="1"><Child name="reset" /></Signal>
+  <Signal name="Enable" width="1"><Child name="enable" /></Signal>
+  <Signal name="Count" width="8"><Child name="count" /></Signal>
+</Bindings>

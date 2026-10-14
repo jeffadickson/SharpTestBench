@@ -41,19 +41,19 @@ writes JSON/JUnit results, logs and a VCD under build/. The driver has a wall-cl
 timeout as well as the simulation-step test timeout. Doctor is read-only; it reports
 missing prerequisites and does not install OS packages. Dependency installation
 is not yet a one-command bootstrap; Python build dependencies remain a release
-reproducibility gap. Native NuGet packaging is still Linux-only until the platform
-artifacts and clean-consumer checks are completed. These source instructions do
+reproducibility gap. Native NuGet candidates now have per-platform build and installed-consumer checks;
+see PACKAGING.md for the current supported scope and CI evidence. These source instructions do
 not imply a published cross-platform NuGet release.
 
 ## Roslyn's role
 
-Roslyn is the compiler platform used to compile C#. The proposed incremental source
-generator (#20) would consume an authoritative HDL interface description and produce
+Roslyn is the compiler platform used to compile C#. The incremental source
+generator (#20) consumes an explicit HDL interface manifest and produces
 strongly typed DUT bindings at build time, with diagnostics for invalid mappings.
 For example, an 8-bit HDL port could appear as Signal<W8>, making width mismatches
-visible during C# compilation. It would not simulate HDL, synthesize circuits, or
+visible during C# compilation. It does not simulate HDL, synthesize circuits, or
 recover missing simulator metadata by guessing. Existing runtime-generated binding
-files remain available while this generator is pending.
+files remain available alongside this build-time generator; see GENERATOR.md.
 
 ## Remaining alpha gates
 

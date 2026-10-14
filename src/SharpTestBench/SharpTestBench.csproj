@@ -18,9 +18,6 @@
     <None Include="../../native/*.*" Pack="true" PackagePath="native/" />
     <None Include="../../native/upstream/*.h" Pack="true" PackagePath="native/upstream/" />
     <None Include="../../third_party/UPSTREAM.json" Pack="true" PackagePath="native/" />
-    <None Include="../../build/libsharptestbench_host.so" Pack="true" PackagePath="runtimes/linux-x64/native/" />
   </ItemGroup>
-  <Target Name="RequireNativeHost" BeforeTargets="GenerateNuspec">
-    <Error Condition="!Exists('../../build/libsharptestbench_host.so')" Text="Build the Linux native host using tools/package.py before packing." />
-  </Target>
+
 </Project>

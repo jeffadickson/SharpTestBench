@@ -1,4 +1,5 @@
 using SharpTestBench;
+using W1 = Generated.CounterPorts.Width1;
 using System.Runtime.InteropServices;
 
 public static class Entry
@@ -9,10 +10,11 @@ public static class Entry
     [SimTest]
     public static async Task ResetAndCount(TestContext c)
     {
-        var clock = c.Dut.Child("clk").Signal<W1>();
-        var reset = c.Dut.Child("reset").Signal<W1>();
-        var enable = c.Dut.Child("enable").Signal<W1>();
-        var count = c.Dut.Child("count").Signal<W8>();
+        var ports = new Generated.CounterPorts(c.Dut);
+        var clock = ports.Clock;
+        var reset = ports.Reset;
+        var enable = ports.Enable;
+        var count = ports.Count;
         clock.Write(new UInt<W1>(0));
         reset.Write(new UInt<W1>(1));
         enable.Write(new UInt<W1>(1));

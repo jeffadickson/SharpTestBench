@@ -6,4 +6,4 @@
     <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
   </PropertyGroup>
   <ItemGroup><ProjectReference Include="../../src/SharpTestBench/SharpTestBench.csproj" /></ItemGroup>
-</Project>
+<ItemGroup><ProjectReference Include="../../src/SharpTestBench.Generators/SharpTestBench.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" /><AdditionalFiles Include="Counter.stb.xml" /></ItemGroup></Project>
