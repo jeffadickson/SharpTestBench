@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<testsuite tests="9" failures="0" skipped="0">
+  <testcase name="VhdlArraysRecordsAndGenerics" time="0.0125486" />
+  <testcase name="VhdlClockTasks" time="0.0098431" />
+  <testcase name="VhdlForceReleaseGuard" time="0.001945" />
+  <testcase name="VhdlIntegerRealStringEnum" time="0.0060065" />
+  <testcase name="VhdlNineStatesAndRange" time="0.0016916" />
+  <testcase name="VhdlNullRangeAndBindings" time="0.0247417" />
+  <testcase name="VhdlSignalAndDeltaCycle" time="0.0016082" />
+  <testcase name="VhdlStringBytes" time="0.0022515" />
+  <testcase name="VhdlUnknowns" time="0.0021668" />
+</testsuite>

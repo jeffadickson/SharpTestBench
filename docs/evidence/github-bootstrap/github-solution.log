@@ -1,0 +1,17 @@
+  Determining projects to restore...
+  Restored /workspace/scratch/d13ee848099b/SharpTestBench/src/SharpTestBench/SharpTestBench.csproj (in 108 ms).
+  Restored /workspace/scratch/d13ee848099b/SharpTestBench/tests/Benchmark/Benchmark.csproj (in 121 ms).
+  Restored /workspace/scratch/d13ee848099b/SharpTestBench/tests/SharpTestBench.Tests/SharpTestBench.Tests.csproj (in 121 ms).
+  Restored /workspace/scratch/d13ee848099b/SharpTestBench/tests/Integration/Integration.csproj (in 121 ms).
+  Restored /workspace/scratch/d13ee848099b/SharpTestBench/tests/VhdlIntegration/VhdlIntegration.csproj (in 121 ms).
+  SharpTestBench -> /workspace/scratch/d13ee848099b/SharpTestBench/src/SharpTestBench/bin/Release/net10.0/SharpTestBench.dll
+  Benchmark -> /workspace/scratch/d13ee848099b/SharpTestBench/tests/Benchmark/bin/Release/net10.0/Benchmark.dll
+  Integration -> /workspace/scratch/d13ee848099b/SharpTestBench/tests/Integration/bin/Release/net10.0/Integration.dll
+  SharpTestBench.Tests -> /workspace/scratch/d13ee848099b/SharpTestBench/tests/SharpTestBench.Tests/bin/Release/net10.0/SharpTestBench.Tests.dll
+  VhdlIntegration -> /workspace/scratch/d13ee848099b/SharpTestBench/tests/VhdlIntegration/bin/Release/net10.0/VhdlIntegration.dll
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:01.81

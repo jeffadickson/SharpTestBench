@@ -1,0 +1,17 @@
+{
+  "simulator": "NVC 1.23.0 / VHPI",
+  "probe": "VhdlForceRelease",
+  "observed_error": "System.Exception: VHPI force holds",
+  "sequence": [
+    "deposit 11",
+    "wait 1 step",
+    "force 77",
+    "wait 1 step",
+    "deposit 12",
+    "wait 1 step",
+    "assert read value is 77"
+  ],
+  "result": "Assertion failed. The actual value was not included in the original assertion output.",
+  "disposition": "Force/release disabled on NVC; final VhdlForceReleaseGuard verifies rejection.",
+  "record_kind": "Summary of observed development probe; not the original overwritten run log."
+}

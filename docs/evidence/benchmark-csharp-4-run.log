@@ -1,0 +1,5 @@
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:74   in gpi_print_registered_impl       GPI: VPI support registered
+MEASURE timer 0.0412532
+MEASURE rw32 0.1588366 checksum=694140833
+CS_TEST passed Benchmark steps=210001 seed=1
+CS_SUMMARY 1 passed 0 failed 0 skipped

@@ -1,0 +1,2 @@
+NATIVE_HOST_NEGATIVE_PASS
+With CS_HOSTFXR, CS_CONFIG, CS_ASSEMBLY and CS_ENTRY_TYPE absent: cocotbsharp_initialize returned 10; process exited normally.

@@ -1,0 +1,11 @@
+[
+  {
+    "Name": "Z_LeakCannotMatchExpectedException",
+    "Status": "failed",
+    "Seed": 1,
+    "StartStep": 1,
+    "EndStep": 2,
+    "Seconds": 0.0066425,
+    "Error": "System.InvalidOperationException: Test leaked tasks or callbacks; regression aborted to avoid contamination\n ---\u003E System.InvalidOperationException: expected assertion, but leaked work must still fail\n   at Tests.Z_LeakCannotMatchExpectedException(TestContext c) in /workspace/scratch/d13ee848099b/CocotbSharp/tests/Integration/Tests.cs:line 609\n   at CocotbSharp.Regression.Run(Assembly assembly) in /workspace/scratch/d13ee848099b/CocotbSharp/src/CocotbSharp/Regression.cs:line 279\n   --- End of inner exception stack trace ---"
+  }
+]

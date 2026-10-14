@@ -1,0 +1,9 @@
++ /tmp/cocotb-iverilog/usr/bin/iverilog -B /tmp/cocotb-iverilog/usr/lib/x86_64-linux-gnu/ivl -g2012 -s top -o /workspace/scratch/d13ee848099b/CocotbSharp/build/top.vvp /workspace/scratch/d13ee848099b/CocotbSharp/tests/Integration/top.sv
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:74   in gpi_print_registered_impl       GPI: VPI support registered
+PACKED_MEASURE {"width":256,"mode":"string","count":500,"seconds":0.1044866,"managedBytes":21644288}
+PACKED_MEASURE {"width":256,"mode":"packed","count":500,"seconds":0.003913,"managedBytes":168040}
+PACKED_MEASURE {"width":4096,"mode":"string","count":500,"seconds":1.2822581,"managedBytes":2339101400}
+PACKED_MEASURE {"width":4096,"mode":"packed","count":500,"seconds":0.036025,"managedBytes":2148040}
+CS_TEST passed PackedVectorBenchmark steps=1 seed=1
+CS_SUMMARY 1 passed 0 failed 0 skipped
+

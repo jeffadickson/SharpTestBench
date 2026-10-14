@@ -1,0 +1,42 @@
+Generated bindings + valid typed call: PASS
+width: correctly rejected by compiler
+  Determining projects to restore...
+  All projects are up-to-date for restore.
+  CocotbSharp -> /workspace/scratch/d13ee848099b/CocotbSharp/src/CocotbSharp/bin/Release/net10.0/CocotbSharp.dll
+/workspace/scratch/d13ee848099b/CocotbSharp/build/typecheck/Wrong.cs(1,90): error CS1503: Argument 1: cannot convert from 'CocotbSharp.UInt<CocotbSharp.W16>' to 'CocotbSharp.UInt<CocotbSharp.W8>' [/workspace/scratch/d13ee848099b/CocotbSharp/build/typecheck/Check.csproj]
+
+Build FAILED.
+
+/workspace/scratch/d13ee848099b/CocotbSharp/build/typecheck/Wrong.cs(1,90): error CS1503: Argument 1: cannot convert from 'CocotbSharp.UInt<CocotbSharp.W16>' to 'CocotbSharp.UInt<CocotbSharp.W8>' [/workspace/scratch/d13ee848099b/CocotbSharp/build/typecheck/Check.csproj]
+    0 Warning(s)
+    1 Error(s)
+
+Time Elapsed 00:00:02.35
+
+signedness: correctly rejected by compiler
+  Determining projects to restore...
+  All projects are up-to-date for restore.
+  CocotbSharp -> /workspace/scratch/d13ee848099b/CocotbSharp/src/CocotbSharp/bin/Release/net10.0/CocotbSharp.dll
+/workspace/scratch/d13ee848099b/CocotbSharp/build/typecheck/Wrong.cs(1,90): error CS1503: Argument 1: cannot convert from 'CocotbSharp.SInt<CocotbSharp.W8>' to 'CocotbSharp.UInt<CocotbSharp.W8>' [/workspace/scratch/d13ee848099b/CocotbSharp/build/typecheck/Check.csproj]
+
+Build FAILED.
+
+/workspace/scratch/d13ee848099b/CocotbSharp/build/typecheck/Wrong.cs(1,90): error CS1503: Argument 1: cannot convert from 'CocotbSharp.SInt<CocotbSharp.W8>' to 'CocotbSharp.UInt<CocotbSharp.W8>' [/workspace/scratch/d13ee848099b/CocotbSharp/build/typecheck/Check.csproj]
+    0 Warning(s)
+    1 Error(s)
+
+Time Elapsed 00:00:02.49
+
+packed field width: correctly rejected by compiler
+  Determining projects to restore...
+  All projects are up-to-date for restore.
+  CocotbSharp -> /workspace/scratch/d13ee848099b/CocotbSharp/src/CocotbSharp/bin/Release/net10.0/CocotbSharp.dll
+/workspace/scratch/d13ee848099b/CocotbSharp/build/typecheck/Wrong.cs(1,99): error CS1503: Argument 1: cannot convert from 'CocotbSharp.UInt<CocotbSharp.W8>' to 'CocotbSharp.UInt<CocotbSharp.W4>' [/workspace/scratch/d13ee848099b/CocotbSharp/build/typecheck/Check.csproj]
+
+Build FAILED.
+
+/workspace/scratch/d13ee848099b/CocotbSharp/build/typecheck/Wrong.cs(1,99): error CS1503: Argument 1: cannot convert from 'CocotbSharp.UInt<CocotbSharp.W8>' to 'CocotbSharp.UInt<CocotbSharp.W4>' [/workspace/scratch/d13ee848099b/CocotbSharp/build/typecheck/Check.csproj]
+    0 Warning(s)
+    1 Error(s)
+
+Time Elapsed 00:00:02.60

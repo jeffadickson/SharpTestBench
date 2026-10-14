@@ -1,0 +1,272 @@
+[
+  {
+    "Name": "AA_TypedJobResults",
+    "Status": "passed",
+    "Seed": 1,
+    "StartStep": 1,
+    "EndStep": 5,
+    "Seconds": 0.0205378,
+    "Error": null
+  },
+  {
+    "Name": "AB_AggregateAndNestedGroups",
+    "Status": "passed",
+    "Seed": 2,
+    "StartStep": 6,
+    "EndStep": 9,
+    "Seconds": 0.0165627,
+    "Error": null
+  },
+  {
+    "Name": "AC_Constants",
+    "Status": "passed",
+    "Seed": 3,
+    "StartStep": 10,
+    "EndStep": 12,
+    "Seconds": 0.0040111,
+    "Error": null
+  },
+  {
+    "Name": "A_TypesAndSignals",
+    "Status": "passed",
+    "Seed": 4,
+    "StartStep": 13,
+    "EndStep": 14,
+    "Seconds": 0.0184188,
+    "Error": null
+  },
+  {
+    "Name": "B_TimingAndNba",
+    "Status": "passed",
+    "Seed": 5,
+    "StartStep": 15,
+    "EndStep": 19,
+    "Seconds": 0.0064136,
+    "Error": null
+  },
+  {
+    "Name": "C_CancellationAndCombinators",
+    "Status": "passed",
+    "Seed": 6,
+    "StartStep": 20,
+    "EndStep": 33,
+    "Seconds": 0.0042278,
+    "Error": null
+  },
+  {
+    "Name": "D_ConcurrentTasks",
+    "Status": "passed",
+    "Seed": 7,
+    "StartStep": 34,
+    "EndStep": 135,
+    "Seconds": 0.0130111,
+    "Error": null
+  },
+  {
+    "Name": "E_EventsAndQueues",
+    "Status": "passed",
+    "Seed": 8,
+    "StartStep": 136,
+    "EndStep": 167,
+    "Seconds": 0.0130082,
+    "Error": null
+  },
+  {
+    "Name": "F_ForceReleaseAndHierarchy",
+    "Status": "passed",
+    "Seed": 9,
+    "StartStep": 168,
+    "EndStep": 172,
+    "Seconds": 0.037249,
+    "Error": null
+  },
+  {
+    "Name": "G_ParameterizedClock[0]",
+    "Status": "passed",
+    "Seed": 10,
+    "StartStep": 173,
+    "EndStep": 200,
+    "Seconds": 0.0058533,
+    "Error": null
+  },
+  {
+    "Name": "G_ParameterizedClock[1]",
+    "Status": "passed",
+    "Seed": 11,
+    "StartStep": 201,
+    "EndStep": 268,
+    "Seconds": 0.0025678,
+    "Error": null
+  },
+  {
+    "Name": "H_WriteCoalescing",
+    "Status": "passed",
+    "Seed": 12,
+    "StartStep": 269,
+    "EndStep": 271,
+    "Seconds": 0.0021088,
+    "Error": null
+  },
+  {
+    "Name": "I_NextTimeStep",
+    "Status": "passed",
+    "Seed": 13,
+    "StartStep": 272,
+    "EndStep": 283,
+    "Seconds": 0.0031418,
+    "Error": null
+  },
+  {
+    "Name": "J_BackgroundFailure",
+    "Status": "passed",
+    "Seed": 14,
+    "StartStep": 284,
+    "EndStep": 287,
+    "Seconds": 0.0029656,
+    "Error": null
+  },
+  {
+    "Name": "K_Deadline",
+    "Status": "passed",
+    "Seed": 15,
+    "StartStep": 288,
+    "EndStep": 294,
+    "Seconds": 0.0015327,
+    "Error": null
+  },
+  {
+    "Name": "L_StreamBackpressure",
+    "Status": "passed",
+    "Seed": 16,
+    "StartStep": 295,
+    "EndStep": 2237,
+    "Seconds": 0.0069747,
+    "Error": null
+  },
+  {
+    "Name": "M_ThreadGuard",
+    "Status": "passed",
+    "Seed": 17,
+    "StartStep": 2238,
+    "EndStep": 2240,
+    "Seconds": 0.0027044,
+    "Error": null
+  },
+  {
+    "Name": "N_TimeUnits",
+    "Status": "passed",
+    "Seed": 18,
+    "StartStep": 2241,
+    "EndStep": 2243,
+    "Seconds": 0.0024854,
+    "Error": null
+  },
+  {
+    "Name": "O_Skip",
+    "Status": "skipped",
+    "Seed": 19,
+    "StartStep": 2243,
+    "EndStep": 2243,
+    "Seconds": 0,
+    "Error": "Explicit skip"
+  },
+  {
+    "Name": "P_ExitStatus",
+    "Status": "passed",
+    "Seed": 20,
+    "StartStep": 2244,
+    "EndStep": 2246,
+    "Seconds": 0.0012671,
+    "Error": null
+  },
+  {
+    "Name": "Q_ValueChangeFanoutAndYield",
+    "Status": "passed",
+    "Seed": 21,
+    "StartStep": 2247,
+    "EndStep": 2249,
+    "Seconds": 0.0035381,
+    "Error": null
+  },
+  {
+    "Name": "R_CancelledQueueWait",
+    "Status": "passed",
+    "Seed": 22,
+    "StartStep": 2250,
+    "EndStep": 2251,
+    "Seconds": 0.0035235,
+    "Error": null
+  },
+  {
+    "Name": "S_ChildCancellationScope",
+    "Status": "passed",
+    "Seed": 23,
+    "StartStep": 2252,
+    "EndStep": 2254,
+    "Seconds": 0.0028623,
+    "Error": null
+  },
+  {
+    "Name": "T_NestedCancellationAndSuppression",
+    "Status": "passed",
+    "Seed": 24,
+    "StartStep": 2255,
+    "EndStep": 2258,
+    "Seconds": 0.0051265,
+    "Error": null
+  },
+  {
+    "Name": "U_TaskCombinators",
+    "Status": "passed",
+    "Seed": 25,
+    "StartStep": 2259,
+    "EndStep": 2272,
+    "Seconds": 0.0051422,
+    "Error": null
+  },
+  {
+    "Name": "V_TaskTimeoutOwnership",
+    "Status": "passed",
+    "Seed": 26,
+    "StartStep": 2273,
+    "EndStep": 2288,
+    "Seconds": 0.0061373,
+    "Error": null
+  },
+  {
+    "Name": "W_ClockCyclesDefaultCancellation",
+    "Status": "passed",
+    "Seed": 27,
+    "StartStep": 2289,
+    "EndStep": 2290,
+    "Seconds": 0.0023343,
+    "Error": null
+  },
+  {
+    "Name": "X_StructuredGroup",
+    "Status": "passed",
+    "Seed": 28,
+    "StartStep": 2291,
+    "EndStep": 2295,
+    "Seconds": 0.008312,
+    "Error": null
+  },
+  {
+    "Name": "Y_SameTimeCancellationStress",
+    "Status": "passed",
+    "Seed": 29,
+    "StartStep": 2296,
+    "EndStep": 2397,
+    "Seconds": 0.0044571,
+    "Error": null
+  },
+  {
+    "Name": "Z_LeakCannotMatchExpectedException",
+    "Status": "passed",
+    "Seed": 30,
+    "StartStep": 2398,
+    "EndStep": 2399,
+    "Seconds": 0.0017311,
+    "Error": null
+  }
+]

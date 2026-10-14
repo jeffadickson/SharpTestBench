@@ -1,0 +1,60 @@
++ /tmp/cocotb-dotnet/dotnet build /workspace/scratch/d13ee848099b/SharpTestBench/tests/Integration/Integration.csproj -c Release --nologo
+  Determining projects to restore...
+  All projects are up-to-date for restore.
+  SharpTestBench -> /workspace/scratch/d13ee848099b/SharpTestBench/src/SharpTestBench/bin/Release/net10.0/SharpTestBench.dll
+  Integration -> /workspace/scratch/d13ee848099b/SharpTestBench/tests/Integration/bin/Release/net10.0/Integration.dll
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:03.41
++ gcc -shared -fPIC -Wall -Wextra -Werror -Wl,-soname,libsharptestbench_host.so /workspace/scratch/d13ee848099b/SharpTestBench/native/host.c /workspace/scratch/d13ee848099b/SharpTestBench/native/abi.c -I /workspace/scratch/d13ee848099b/SharpTestBench/native/upstream -I /tmp/cocotb-dotnet/packs/Microsoft.NETCore.App.Host.linux-x64/10.0.13/runtimes/linux-x64/native -ldl -o /workspace/scratch/d13ee848099b/SharpTestBench/build/host-6.so
++ /tmp/cocotb-iverilog/usr/bin/iverilog -B /tmp/cocotb-iverilog/usr/lib/x86_64-linux-gnu/ivl -g2012 -s top -o /workspace/scratch/d13ee848099b/SharpTestBench/build/top.vvp /workspace/scratch/d13ee848099b/SharpTestBench/tests/Integration/top.sv
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:74   in gpi_print_registered_impl       GPI: VPI support registered
+CS_TEST passed AA_TypedJobResults steps=4 seed=1
+CS_TEST passed AB_AggregateAndNestedGroups steps=3 seed=2
+CS_TEST passed AC_Constants steps=2 seed=3
+CS_METADATA top.unit0.local_data type=GPI_PACKED definition= file=
+CS_TEST passed AD_ObjectMetadata steps=1 seed=4
+CS_TEST passed AE_PackedPlanes steps=76 seed=5
+CS_TEST passed AF_PackedArrayAndStruct steps=3 seed=6
+CS_TEST passed AG_DeltaChain steps=22 seed=7
+     -.--ns WARNING  gpi                                ../vpi/./VpiImpl.hpp:272  in VpiPackageIterator              vpi_iterate returned NULL for type vpiInstance for object NULL
+DISCOVERY Observed: top; Objects returned by the backend; completeness and mixed-language coverage are not guaranteed.
+DISCOVERY Unavailable: ; No objects returned; GPI cannot distinguish an empty relation from unavailable metadata.
+DISCOVERY Unavailable: ; No objects returned; GPI cannot distinguish an empty relation from unavailable metadata.
+DISCOVERY Unavailable: ; No objects returned; GPI cannot distinguish an empty relation from unavailable metadata.
+LAYOUT GpiBitRange: HdlRange { Left = 47, Right = 0, Ascending = False, IsNull = False, Length = 48 }
+CS_TEST passed AH_Discovery steps=1 seed=8
+CS_TEST passed AI_NamedStruct steps=1 seed=9
+CS_TEST passed AJ_AdjustableClock steps=18 seed=10
+CS_TEST passed AK_TaskNames steps=4 seed=11
+CS_TEST passed A_TypesAndSignals steps=1 seed=12
+CS_TEST passed B_TimingAndNba steps=4 seed=13
+CS_TEST passed C_CancellationAndCombinators steps=13 seed=14
+CS_TEST passed D_ConcurrentTasks steps=101 seed=15
+CS_TEST passed E_EventsAndQueues steps=31 seed=16
+CS_TEST passed F_ForceReleaseAndHierarchy steps=7 seed=17
+CS_TEST passed G_ParameterizedClock[0] steps=27 seed=18
+CS_TEST passed G_ParameterizedClock[1] steps=67 seed=19
+CS_TEST passed H_WriteCoalescing steps=2 seed=20
+CS_TEST passed I_NextTimeStep steps=11 seed=21
+CS_TEST passed J_BackgroundFailure steps=3 seed=22
+CS_TEST passed K_Deadline steps=6 seed=23
+CS_TEST passed L_StreamBackpressure steps=1892 seed=24
+CS_TEST passed M_ThreadGuard steps=2 seed=25
+CS_TEST passed N_TimeUnits steps=2 seed=26
+CS_TEST passed P_ExitStatus steps=2 seed=28
+CS_TEST passed Q_ValueChangeFanoutAndYield steps=2 seed=29
+CS_TEST passed R_CancelledQueueWait steps=1 seed=30
+CS_TEST passed S_ChildCancellationScope steps=2 seed=31
+CS_TEST passed T_NestedCancellationAndSuppression steps=3 seed=32
+CS_TEST passed U_TaskCombinators steps=13 seed=33
+CS_TEST passed V_TaskTimeoutOwnership steps=15 seed=34
+CS_TEST passed W_ClockCyclesDefaultCancellation steps=1 seed=35
+CS_TEST passed X_StructuredGroup steps=4 seed=36
+CS_TEST passed Y_SameTimeCancellationStress steps=101 seed=37
+CS_TEST passed Z_LeakCannotMatchExpectedException steps=1 seed=38
+CS_SUMMARY 37 passed 0 failed 1 skipped
+

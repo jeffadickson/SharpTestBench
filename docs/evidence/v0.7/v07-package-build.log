@@ -1,0 +1,14 @@
+  Determining projects to restore...
+  All projects are up-to-date for restore.
+  CocotbSharp -> /workspace/scratch/d13ee848099b/CocotbSharp/src/CocotbSharp/bin/Release/net10.0/CocotbSharp.dll
+  Successfully created package '/workspace/scratch/d13ee848099b/CocotbSharp/build/packages/CocotbSharp.0.7.0-alpha.nupkg'.
+  Determining projects to restore...
+  Restored /workspace/scratch/d13ee848099b/CocotbSharp/build/package-consumer/PackageCheck.csproj (in 226 ms).
+  PackageCheck -> /workspace/scratch/d13ee848099b/CocotbSharp/build/package-consumer/bin/Release/net10.0/PackageCheck.dll
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:02.48
+PACKAGE_BUILD_PASS: isolated NuGet consumer and both generated binding trees compile

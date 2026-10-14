@@ -1,0 +1,127 @@
+{
+  "description": "500 immediate known-value write/read round trips; 100 warmups per mode; 3 fresh Icarus processes; alternate mode order. Native allocation excluded from managed byte counts. Not a Python or full-project benchmark.",
+  "measurements": [
+    {
+      "trial": 0,
+      "width": 256,
+      "mode": "string",
+      "count": 500,
+      "seconds": 0.0824784,
+      "managedBytes": 21644288
+    },
+    {
+      "trial": 0,
+      "width": 256,
+      "mode": "packed",
+      "count": 500,
+      "seconds": 0.0025088,
+      "managedBytes": 168040
+    },
+    {
+      "trial": 0,
+      "width": 4096,
+      "mode": "string",
+      "count": 500,
+      "seconds": 1.3188838,
+      "managedBytes": 2339101000
+    },
+    {
+      "trial": 0,
+      "width": 4096,
+      "mode": "packed",
+      "count": 500,
+      "seconds": 0.0344859,
+      "managedBytes": 2148040
+    },
+    {
+      "trial": 1,
+      "width": 256,
+      "mode": "packed",
+      "count": 500,
+      "seconds": 0.0039649,
+      "managedBytes": 168040
+    },
+    {
+      "trial": 1,
+      "width": 256,
+      "mode": "string",
+      "count": 500,
+      "seconds": 0.0868532,
+      "managedBytes": 21644288
+    },
+    {
+      "trial": 1,
+      "width": 4096,
+      "mode": "packed",
+      "count": 500,
+      "seconds": 0.0358208,
+      "managedBytes": 2148040
+    },
+    {
+      "trial": 1,
+      "width": 4096,
+      "mode": "string",
+      "count": 500,
+      "seconds": 1.30566,
+      "managedBytes": 2339100240
+    },
+    {
+      "trial": 2,
+      "width": 256,
+      "mode": "string",
+      "count": 500,
+      "seconds": 0.1044866,
+      "managedBytes": 21644288
+    },
+    {
+      "trial": 2,
+      "width": 256,
+      "mode": "packed",
+      "count": 500,
+      "seconds": 0.003913,
+      "managedBytes": 168040
+    },
+    {
+      "trial": 2,
+      "width": 4096,
+      "mode": "string",
+      "count": 500,
+      "seconds": 1.2822581,
+      "managedBytes": 2339101400
+    },
+    {
+      "trial": 2,
+      "width": 4096,
+      "mode": "packed",
+      "count": 500,
+      "seconds": 0.036025,
+      "managedBytes": 2148040
+    }
+  ],
+  "summary": [
+    {
+      "width": 256,
+      "medianSeconds": {
+        "string": 0.0868532,
+        "packed": 0.003913
+      },
+      "managedBytesPerRoundTrip": {
+        "string": 43288.576,
+        "packed": 336.08
+      },
+      "speedRatio": 22.196064400715567
+    },
+    {
+      "width": 4096,
+      "medianSeconds": {
+        "string": 1.30566,
+        "packed": 0.0358208
+      },
+      "managedBytesPerRoundTrip": {
+        "string": 4678202.0,
+        "packed": 4296.08
+      },
+      "speedRatio": 36.449772199392534
+    }
+  ]
+}

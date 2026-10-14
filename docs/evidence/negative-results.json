@@ -1,0 +1,11 @@
+[
+  {
+    "Name": "P_ExitStatus",
+    "Status": "failed",
+    "Seed": 1,
+    "StartStep": 1,
+    "EndStep": 3,
+    "Seconds": 0.0028032,
+    "Error": "System.Exception: intentional runner failure\n   at Tests.P_ExitStatus(TestContext c) in /workspace/scratch/d13ee848099b/CocotbSharp/tests/Integration/Tests.cs:line 66\n   at CocotbSharp.Regression.Run(Assembly assembly) in /workspace/scratch/d13ee848099b/CocotbSharp/src/CocotbSharp/Regression.cs:line 49"
+  }
+]

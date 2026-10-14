@@ -1,0 +1,12 @@
+loading VPI module '/root/.local/lib/python3.12/site-packages/cocotb/libs/libcocotb_bootstrap.so'
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:74   in gpi_print_registered_impl       GPI: VPI support registered
+VPI module loaded!
+[1 step] HDL clk Logic constant=False
+[1 step] HDL data LogicArray constant=False
+[1 step] HDL sampled LogicArray constant=False
+[1 step] HDL logic_data LogicArray constant=False
+[1 step] HDL nine LogicArray constant=False
+[1 step] HDL integer_data LogicArray constant=False
+[1 step] HDL mode_data LogicArray constant=False
+CS_TEST failed VhdlIntegerRealStringEnum steps=1 seed=1
+CS_SUMMARY 0 passed 1 failed 0 skipped

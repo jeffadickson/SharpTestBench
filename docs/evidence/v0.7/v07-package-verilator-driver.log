@@ -1,0 +1,11 @@
+- V e r i l a t i o n   R e p o r t: Verilator 5.048 2026-04-26 rev vUNKNOWN-built20260429
+- Verilator: Built from 0.000 MB sources in 0 modules, into 0.000 MB in 0 C++ files needing 0.000 MB
+- Verilator: Walltime 0.001 s (elab=0.000, cvt=0.000, bld=0.000); cpu 0.001 s on 1 threads; allocated 19.719 MB
+make: Entering directory '/workspace/scratch/d13ee848099b/CocotbSharp/build/verilator'
+make: Nothing to be done for 'default'.
+make: Leaving directory '/workspace/scratch/d13ee848099b/CocotbSharp/build/verilator'
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:74   in gpi_print_registered_impl       GPI: VPI support registered
+CS_TEST passed InstalledPackage steps=1 seed=1
+CS_SUMMARY 1 passed 0 failed 0 skipped
+- :0: Verilog $finish
+

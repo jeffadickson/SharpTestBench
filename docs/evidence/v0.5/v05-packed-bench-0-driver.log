@@ -1,0 +1,22 @@
++ /tmp/cocotb-dotnet/dotnet build /workspace/scratch/d13ee848099b/CocotbSharp/tests/Benchmark/Benchmark.csproj -c Release --nologo
+  Determining projects to restore...
+  Restored /workspace/scratch/d13ee848099b/CocotbSharp/tests/Benchmark/Benchmark.csproj (in 128 ms).
+  1 of 2 projects are up-to-date for restore.
+  CocotbSharp -> /workspace/scratch/d13ee848099b/CocotbSharp/src/CocotbSharp/bin/Release/net10.0/CocotbSharp.dll
+  Benchmark -> /workspace/scratch/d13ee848099b/CocotbSharp/tests/Benchmark/bin/Release/net10.0/Benchmark.dll
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:03.25
++ gcc -shared -fPIC -Wall -Wextra -Werror -Wl,-soname,libcocotbsharp_host.so /workspace/scratch/d13ee848099b/CocotbSharp/native/host.c /workspace/scratch/d13ee848099b/CocotbSharp/native/abi.c -I /workspace/scratch/d13ee848099b/CocotbSharp/native/upstream -I /tmp/cocotb-dotnet/packs/Microsoft.NETCore.App.Host.linux-x64/10.0.13/runtimes/linux-x64/native -ldl -o /workspace/scratch/d13ee848099b/CocotbSharp/build/host-6.so
++ /tmp/cocotb-iverilog/usr/bin/iverilog -B /tmp/cocotb-iverilog/usr/lib/x86_64-linux-gnu/ivl -g2012 -s top -o /workspace/scratch/d13ee848099b/CocotbSharp/build/top.vvp /workspace/scratch/d13ee848099b/CocotbSharp/tests/Integration/top.sv
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:74   in gpi_print_registered_impl       GPI: VPI support registered
+PACKED_MEASURE {"width":256,"mode":"string","count":500,"seconds":0.0824784,"managedBytes":21644288}
+PACKED_MEASURE {"width":256,"mode":"packed","count":500,"seconds":0.0025088,"managedBytes":168040}
+PACKED_MEASURE {"width":4096,"mode":"string","count":500,"seconds":1.3188838,"managedBytes":2339101000}
+PACKED_MEASURE {"width":4096,"mode":"packed","count":500,"seconds":0.0344859,"managedBytes":2148040}
+CS_TEST passed PackedVectorBenchmark steps=1 seed=1
+CS_SUMMARY 1 passed 0 failed 0 skipped
+

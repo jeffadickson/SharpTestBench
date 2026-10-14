@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<testsuite tests="1" failures="1" skipped="0">
+  <testcase name="P_ExitStatus" time="0.0028032">
+    <failure>System.Exception: intentional runner failure
+   at Tests.P_ExitStatus(TestContext c) in /workspace/scratch/d13ee848099b/CocotbSharp/tests/Integration/Tests.cs:line 66
+   at CocotbSharp.Regression.Run(Assembly assembly) in /workspace/scratch/d13ee848099b/CocotbSharp/src/CocotbSharp/Regression.cs:line 49</failure>
+  </testcase>
+</testsuite>

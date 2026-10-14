@@ -1,0 +1,41 @@
+name: Build and Icarus tests
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  linux:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: sudo apt-get update && sudo apt-get install -y iverilog gcc g++
+      - name: Install pinned cocotb adapters
+        run: |
+          tar -xzf third_party/cocotb-source.tar.gz
+          CC=gcc CXX=g++ python -m pip install ./cocotb-source pytest
+      - run: dotnet build SharpTestBench.slnx -c Release
+      - run: dotnet run --project tests/SharpTestBench.Tests -c Release --no-build
+      - run: python tools/run.py --sim icarus
+      - run: python tools/typecheck.py
+      - run: python tools/parity.py --label icarus
+      - run: python tools/native_faults.py
+        env:
+          CS_DOTNET_ROOT: ${{ env.DOTNET_ROOT }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: linux-test-results
+          path: |
+            build/*results.*
+            build/*run.log
+            build/*trace.txt*
+            build/typecheck.log
+            build/native-faults.json

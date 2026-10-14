@@ -1,0 +1,50 @@
+- V e r i l a t i o n   R e p o r t: Verilator 5.048 2026-04-26 rev vUNKNOWN-built20260429
+- Verilator: Built from 0.000 MB sources in 0 modules, into 0.000 MB in 0 C++ files needing 0.000 MB
+- Verilator: Walltime 0.001 s (elab=0.000, cvt=0.000, bld=0.000); cpu 0.001 s on 1 threads; allocated 19.719 MB
+make: Entering directory '/workspace/scratch/d13ee848099b/CocotbSharp/build/verilator'
+make: Nothing to be done for 'default'.
+make: Leaving directory '/workspace/scratch/d13ee848099b/CocotbSharp/build/verilator'
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:74   in gpi_print_registered_impl       GPI: VPI support registered
+CS_TEST passed AA_TypedJobResults steps=4 seed=1
+CS_TEST passed AB_AggregateAndNestedGroups steps=3 seed=2
+CS_TEST passed AC_Constants steps=2 seed=3
+CS_METADATA top.unit0.local_data type=GPI_PACKED definition= file=
+CS_TEST passed AD_ObjectMetadata steps=1 seed=4
+CS_TEST passed AE_PackedPlanes steps=76 seed=5
+CS_TEST passed AF_PackedArrayAndStruct steps=3 seed=6
+CS_TEST passed AG_DeltaChain steps=22 seed=7
+DISCOVERY Observed: top; Objects returned by the backend; completeness and mixed-language coverage are not guaranteed.
+DISCOVERY Observed: discovery_pkg::; Objects returned by the backend; completeness and mixed-language coverage are not guaranteed.
+DISCOVERY Unsupported: ; The tested Verilator VPI implementation does not implement driver/load iteration.
+DISCOVERY Unsupported: ; The tested Verilator VPI implementation does not implement driver/load iteration.
+LAYOUT NativePackedRanges: HdlRange { Left = 1, Right = 0, Ascending = False, IsNull = False, Length = 2 },HdlRange { Left = 2, Right = 0, Ascending = False, IsNull = False, Length = 3 },HdlRange { Left = 7, Right = 0, Ascending = False, IsNull = False, Length = 8 }
+CS_TEST passed AH_Discovery steps=1 seed=8
+CS_TEST passed A_TypesAndSignals steps=1 seed=9
+CS_TEST passed B_TimingAndNba steps=4 seed=10
+CS_TEST passed C_CancellationAndCombinators steps=13 seed=11
+CS_TEST passed D_ConcurrentTasks steps=101 seed=12
+CS_TEST passed E_EventsAndQueues steps=31 seed=13
+CS_TEST passed F_ForceReleaseAndHierarchy steps=4 seed=14
+CS_TEST passed G_ParameterizedClock[0] steps=27 seed=15
+CS_TEST passed G_ParameterizedClock[1] steps=67 seed=16
+CS_TEST passed H_WriteCoalescing steps=2 seed=17
+CS_TEST passed I_NextTimeStep steps=11 seed=18
+CS_TEST passed J_BackgroundFailure steps=3 seed=19
+CS_TEST passed K_Deadline steps=6 seed=20
+CS_TEST passed L_StreamBackpressure steps=1782 seed=21
+CS_TEST passed M_ThreadGuard steps=2 seed=22
+CS_TEST passed N_TimeUnits steps=2 seed=23
+CS_TEST passed P_ExitStatus steps=2 seed=25
+CS_TEST passed Q_ValueChangeFanoutAndYield steps=2 seed=26
+CS_TEST passed R_CancelledQueueWait steps=1 seed=27
+CS_TEST passed S_ChildCancellationScope steps=2 seed=28
+CS_TEST passed T_NestedCancellationAndSuppression steps=3 seed=29
+CS_TEST passed U_TaskCombinators steps=13 seed=30
+CS_TEST passed V_TaskTimeoutOwnership steps=15 seed=31
+CS_TEST passed W_ClockCyclesDefaultCancellation steps=1 seed=32
+CS_TEST passed X_StructuredGroup steps=4 seed=33
+CS_TEST passed Y_SameTimeCancellationStress steps=101 seed=34
+CS_TEST passed Z_LeakCannotMatchExpectedException steps=1 seed=35
+CS_SUMMARY 34 passed 0 failed 1 skipped
+- :0: Verilog $finish
+

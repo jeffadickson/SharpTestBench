@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<testsuite tests="9" failures="0" skipped="5">
+  <testcase name="VhdlArraysRecordsAndGenerics" time="0">
+    <skipped>Requires simulator: nvc</skipped>
+  </testcase>
+  <testcase name="VhdlClockTasks" time="0.0217298" />
+  <testcase name="VhdlForceReleaseGuard" time="0">
+    <skipped>Requires simulator: nvc</skipped>
+  </testcase>
+  <testcase name="VhdlIntegerRealStringEnum" time="0">
+    <skipped>Requires simulator: nvc</skipped>
+  </testcase>
+  <testcase name="VhdlNineStatesAndRange" time="0.0050585" />
+  <testcase name="VhdlNullRangeAndBindings" time="0">
+    <skipped>Requires simulator: nvc</skipped>
+  </testcase>
+  <testcase name="VhdlSignalAndDeltaCycle" time="0.0038746" />
+  <testcase name="VhdlStringBytes" time="0">
+    <skipped>Requires simulator: nvc</skipped>
+  </testcase>
+  <testcase name="VhdlUnknowns" time="0.0030273" />
+</testsuite>

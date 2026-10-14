@@ -1,0 +1,7 @@
+{
+  "simulator": "NVC",
+  "version": "1.23.0 (1.23.0.r0.gcba10a2), LLVM 14.0.0",
+  "source": "https://github.com/nickg/nvc/releases/download/r1.23.0/nvc_1.23.0-1_amd64_ubuntu-22.04.deb",
+  "sha256": "20cc0f88b6ec3b74c5cd0a33e3788ce7c8f1b7d00d198415307170a70bf27d31",
+  "note": "Extracted locally with LLVM14/libdw/libtcl/libz3 dependencies. Simulator binaries are not redistributed in this source release."
+}

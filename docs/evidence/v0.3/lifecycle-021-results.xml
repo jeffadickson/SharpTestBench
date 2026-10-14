@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<testsuite tests="1" failures="1" skipped="0">
+  <testcase name="simulator-termination" time="0">
+    <failure>Simulator ended before the regression completed</failure>
+  </testcase>
+</testsuite>

@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<testsuite tests="34" failures="0" skipped="1">
+  <testcase name="AA_TypedJobResults" time="0.0188751" />
+  <testcase name="AB_AggregateAndNestedGroups" time="0.0138557" />
+  <testcase name="AC_Constants" time="0.0041176" />
+  <testcase name="AD_ObjectMetadata" time="0.0006086" />
+  <testcase name="AE_PackedPlanes" time="0.1417773" />
+  <testcase name="AF_PackedArrayAndStruct" time="0.0108286" />
+  <testcase name="AG_DeltaChain" time="0.0050486" />
+  <testcase name="A_TypesAndSignals" time="0.0062361" />
+  <testcase name="B_TimingAndNba" time="0.0046901" />
+  <testcase name="C_CancellationAndCombinators" time="0.0033529" />
+  <testcase name="D_ConcurrentTasks" time="0.0050443" />
+  <testcase name="E_EventsAndQueues" time="0.0104498" />
+  <testcase name="F_ForceReleaseAndHierarchy" time="0.0275105" />
+  <testcase name="G_ParameterizedClock[0]" time="0.0037738" />
+  <testcase name="G_ParameterizedClock[1]" time="0.0017587" />
+  <testcase name="H_WriteCoalescing" time="0.0015174" />
+  <testcase name="I_NextTimeStep" time="0.002113" />
+  <testcase name="J_BackgroundFailure" time="0.0019495" />
+  <testcase name="K_Deadline" time="0.0012115" />
+  <testcase name="L_StreamBackpressure" time="0.00415" />
+  <testcase name="M_ThreadGuard" time="0.0069016" />
+  <testcase name="N_TimeUnits" time="0.0018558" />
+  <testcase name="O_Skip" time="0">
+    <skipped>Explicit skip</skipped>
+  </testcase>
+  <testcase name="P_ExitStatus" time="0.0009799" />
+  <testcase name="Q_ValueChangeFanoutAndYield" time="0.0026721" />
+  <testcase name="R_CancelledQueueWait" time="0.0033323" />
+  <testcase name="S_ChildCancellationScope" time="0.002267" />
+  <testcase name="T_NestedCancellationAndSuppression" time="0.0048033" />
+  <testcase name="U_TaskCombinators" time="0.0047814" />
+  <testcase name="V_TaskTimeoutOwnership" time="0.0042713" />
+  <testcase name="W_ClockCyclesDefaultCancellation" time="0.0020396" />
+  <testcase name="X_StructuredGroup" time="0.0080588" />
+  <testcase name="Y_SameTimeCancellationStress" time="0.0039735" />
+  <testcase name="Z_LeakCannotMatchExpectedException" time="0.0010849" />
+</testsuite>

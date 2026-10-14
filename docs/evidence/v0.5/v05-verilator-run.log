@@ -1,0 +1,35 @@
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:74   in gpi_print_registered_impl       GPI: VPI support registered
+CS_TEST passed AA_TypedJobResults steps=4 seed=1
+CS_TEST passed AB_AggregateAndNestedGroups steps=3 seed=2
+CS_TEST passed AC_Constants steps=2 seed=3
+CS_METADATA top.unit0.local_data type=GPI_PACKED definition= file=
+CS_TEST passed AD_ObjectMetadata steps=1 seed=4
+CS_TEST passed AE_PackedPlanes steps=76 seed=5
+CS_TEST passed A_TypesAndSignals steps=1 seed=6
+CS_TEST passed B_TimingAndNba steps=4 seed=7
+CS_TEST passed C_CancellationAndCombinators steps=13 seed=8
+CS_TEST passed D_ConcurrentTasks steps=101 seed=9
+CS_TEST passed E_EventsAndQueues steps=31 seed=10
+CS_TEST passed F_ForceReleaseAndHierarchy steps=4 seed=11
+CS_TEST passed G_ParameterizedClock[0] steps=27 seed=12
+CS_TEST passed G_ParameterizedClock[1] steps=67 seed=13
+CS_TEST passed H_WriteCoalescing steps=2 seed=14
+CS_TEST passed I_NextTimeStep steps=11 seed=15
+CS_TEST passed J_BackgroundFailure steps=3 seed=16
+CS_TEST passed K_Deadline steps=6 seed=17
+CS_TEST passed L_StreamBackpressure steps=1802 seed=18
+CS_TEST passed M_ThreadGuard steps=2 seed=19
+CS_TEST passed N_TimeUnits steps=2 seed=20
+CS_TEST passed P_ExitStatus steps=2 seed=22
+CS_TEST passed Q_ValueChangeFanoutAndYield steps=2 seed=23
+CS_TEST passed R_CancelledQueueWait steps=1 seed=24
+CS_TEST passed S_ChildCancellationScope steps=2 seed=25
+CS_TEST passed T_NestedCancellationAndSuppression steps=3 seed=26
+CS_TEST passed U_TaskCombinators steps=13 seed=27
+CS_TEST passed V_TaskTimeoutOwnership steps=15 seed=28
+CS_TEST passed W_ClockCyclesDefaultCancellation steps=1 seed=29
+CS_TEST passed X_StructuredGroup steps=4 seed=30
+CS_TEST passed Y_SameTimeCancellationStress steps=101 seed=31
+CS_TEST passed Z_LeakCannotMatchExpectedException steps=1 seed=32
+CS_SUMMARY 31 passed 0 failed 1 skipped
+- :0: Verilog $finish

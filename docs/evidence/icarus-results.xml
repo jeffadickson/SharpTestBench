@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<testsuite tests="19" failures="0" skipped="1">
+  <testcase name="A_TypesAndSignals" time="0.0188455" />
+  <testcase name="B_TimingAndNba" time="0.0072423" />
+  <testcase name="C_CancellationAndCombinators" time="0.0037479" />
+  <testcase name="D_ConcurrentTasks" time="0.0048812" />
+  <testcase name="E_EventsAndQueues" time="0.0095939" />
+  <testcase name="F_ForceReleaseAndHierarchy" time="0.029551" />
+  <testcase name="G_ParameterizedClock[0]" time="0.0038635" />
+  <testcase name="G_ParameterizedClock[1]" time="0.0016525" />
+  <testcase name="H_WriteCoalescing" time="0.001329" />
+  <testcase name="I_NextTimeStep" time="0.0023704" />
+  <testcase name="J_BackgroundFailure" time="0.0021346" />
+  <testcase name="K_Deadline" time="0.0012305" />
+  <testcase name="L_StreamBackpressure" time="0.0040634" />
+  <testcase name="M_ThreadGuard" time="0.0016116" />
+  <testcase name="N_TimeUnits" time="0.0017811" />
+  <testcase name="O_Skip" time="0">
+    <skipped />
+  </testcase>
+  <testcase name="P_ExitStatus" time="0.0009514" />
+  <testcase name="Q_ValueChangeFanoutAndYield" time="0.0028134" />
+  <testcase name="R_CancelledQueueWait" time="0.0033656" />
+</testsuite>

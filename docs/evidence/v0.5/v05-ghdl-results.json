@@ -1,0 +1,92 @@
+[
+  {
+    "Name": "VhdlArraysRecordsAndGenerics",
+    "Status": "skipped",
+    "Seed": 1,
+    "StartStep": 0,
+    "EndStep": 0,
+    "Seconds": 0,
+    "Error": "Requires simulator: nvc"
+  },
+  {
+    "Name": "VhdlClockTasks",
+    "Status": "passed",
+    "Seed": 2,
+    "StartStep": 1,
+    "EndStep": 98,
+    "Seconds": 0.0195993,
+    "Error": null
+  },
+  {
+    "Name": "VhdlForceReleaseGuard",
+    "Status": "skipped",
+    "Seed": 3,
+    "StartStep": 98,
+    "EndStep": 98,
+    "Seconds": 0,
+    "Error": "Requires simulator: nvc"
+  },
+  {
+    "Name": "VhdlIntegerRealStringEnum",
+    "Status": "skipped",
+    "Seed": 4,
+    "StartStep": 98,
+    "EndStep": 98,
+    "Seconds": 0,
+    "Error": "Requires simulator: nvc"
+  },
+  {
+    "Name": "VhdlNineStatesAndRange",
+    "Status": "passed",
+    "Seed": 5,
+    "StartStep": 99,
+    "EndStep": 100,
+    "Seconds": 0.0055793,
+    "Error": null
+  },
+  {
+    "Name": "VhdlNullRangeAndBindings",
+    "Status": "skipped",
+    "Seed": 6,
+    "StartStep": 100,
+    "EndStep": 100,
+    "Seconds": 0,
+    "Error": "Requires simulator: nvc"
+  },
+  {
+    "Name": "VhdlObjectMetadata",
+    "Status": "passed",
+    "Seed": 7,
+    "StartStep": 101,
+    "EndStep": 102,
+    "Seconds": 0.0007013,
+    "Error": null
+  },
+  {
+    "Name": "VhdlSignalAndDeltaCycle",
+    "Status": "passed",
+    "Seed": 8,
+    "StartStep": 103,
+    "EndStep": 106,
+    "Seconds": 0.003541,
+    "Error": null
+  },
+  {
+    "Name": "VhdlStringBytes",
+    "Status": "skipped",
+    "Seed": 9,
+    "StartStep": 106,
+    "EndStep": 106,
+    "Seconds": 0,
+    "Error": "Requires simulator: nvc"
+  },
+  {
+    "Name": "VhdlUnknowns",
+    "Status": "passed",
+    "Seed": 10,
+    "StartStep": 107,
+    "EndStep": 108,
+    "Seconds": 0.0039521,
+    "Error": null
+  }
+]

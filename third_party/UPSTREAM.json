@@ -1,0 +1,16 @@
+{
+  "repository": "https://github.com/cocotb/cocotb",
+  "commit": "5fa952e92c46fd9cb58f55a8655312a4bf02e7de",
+  "version": "2.2.0.dev0+r5fa952e9",
+  "source_archive": "cocotb-source.tar.gz",
+  "native_adapters": "unmodified GPI C++ libraries",
+  "derived_managed_source": [
+    "src/SharpTestBench/NineState.cs"
+  ],
+  "vendored_headers": [
+    "native/upstream/gpi.h",
+    "native/upstream/exports.h",
+    "native/upstream/vpi_user.h",
+    "native/upstream/vpi_compatibility.h"
+  ]
+}

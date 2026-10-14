@@ -1,0 +1,7 @@
+{
+  "kind": "summary of development failure, not original run log",
+  "backend": "NVC 1.23.0",
+  "test": "VhdlPackedFields",
+  "observed": "VHDL ReadWrite field composition assertion failed before phase-local submitted-value retention",
+  "final_result": "pass; see v06-nvc-results.json"
+}

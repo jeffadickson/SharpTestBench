@@ -1,0 +1,11 @@
+[
+  {
+    "Name": "VhdlIntegerRealStringEnum",
+    "Status": "failed",
+    "Seed": 1,
+    "StartStep": 1,
+    "EndStep": 2,
+    "Seconds": 0.0074516,
+    "Error": "System.ArgumentException: Expected HDL integer or enumeration\n   at CocotbSharp.IntegerSignal..ctor(SimRuntime runtime, IntPtr handle) in /workspace/scratch/d13ee848099b/CocotbSharp/src/CocotbSharp/AdditionalSignals.cs:line 9\n   at CocotbSharp.HdlObject.Integer() in /workspace/scratch/d13ee848099b/CocotbSharp/src/CocotbSharp/Signals.cs:line 111\n   at Entry.VhdlIntegerRealStringEnum(TestContext c) in /workspace/scratch/d13ee848099b/CocotbSharp/tests/VhdlIntegration/Tests.cs:line 63\n   at CocotbSharp.Regression.Run(Assembly assembly) in /workspace/scratch/d13ee848099b/CocotbSharp/src/CocotbSharp/Regression.cs:line 265"
+  }
+]

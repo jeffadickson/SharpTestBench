@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<testsuite tests="32" failures="0" skipped="1">
+  <testcase name="AA_TypedJobResults" time="0.0185531" />
+  <testcase name="AB_AggregateAndNestedGroups" time="0.0134643" />
+  <testcase name="AC_Constants" time="0.0034562" />
+  <testcase name="AD_ObjectMetadata" time="0.0005212" />
+  <testcase name="AE_PackedPlanes" time="0.1411924" />
+  <testcase name="A_TypesAndSignals" time="0.0071001" />
+  <testcase name="B_TimingAndNba" time="0.0051765" />
+  <testcase name="C_CancellationAndCombinators" time="0.0036969" />
+  <testcase name="D_ConcurrentTasks" time="0.0038349" />
+  <testcase name="E_EventsAndQueues" time="0.0082842" />
+  <testcase name="F_ForceReleaseAndHierarchy" time="0.0266748" />
+  <testcase name="G_ParameterizedClock[0]" time="0.0038783" />
+  <testcase name="G_ParameterizedClock[1]" time="0.0020638" />
+  <testcase name="H_WriteCoalescing" time="0.0013585" />
+  <testcase name="I_NextTimeStep" time="0.0021307" />
+  <testcase name="J_BackgroundFailure" time="0.0019194" />
+  <testcase name="K_Deadline" time="0.0009489" />
+  <testcase name="L_StreamBackpressure" time="0.0038684" />
+  <testcase name="M_ThreadGuard" time="0.0135294" />
+  <testcase name="N_TimeUnits" time="0.0017014" />
+  <testcase name="O_Skip" time="0">
+    <skipped>Explicit skip</skipped>
+  </testcase>
+  <testcase name="P_ExitStatus" time="0.0009574" />
+  <testcase name="Q_ValueChangeFanoutAndYield" time="0.0024956" />
+  <testcase name="R_CancelledQueueWait" time="0.0034018" />
+  <testcase name="S_ChildCancellationScope" time="0.0022704" />
+  <testcase name="T_NestedCancellationAndSuppression" time="0.0044636" />
+  <testcase name="U_TaskCombinators" time="0.004621" />
+  <testcase name="V_TaskTimeoutOwnership" time="0.0038647" />
+  <testcase name="W_ClockCyclesDefaultCancellation" time="0.0023101" />
+  <testcase name="X_StructuredGroup" time="0.0093693" />
+  <testcase name="Y_SameTimeCancellationStress" time="0.00406" />
+  <testcase name="Z_LeakCannotMatchExpectedException" time="0.00102" />
+</testsuite>

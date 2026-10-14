@@ -1,0 +1,7 @@
++ /tmp/cocotbsharp-nvc/usr/bin/nvc --std=2008 --work=work:/workspace/scratch/d13ee848099b/SharpTestBench/build/nvc-work -a /workspace/scratch/d13ee848099b/SharpTestBench/tests/VhdlIntegration/top.vhd --preserve-case
+** Note: loading plugin /root/.local/lib/python3.12/site-packages/cocotb/libs/libcocotb_bootstrap.so
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:74   in gpi_print_registered_impl       GPI: VHPI support registered
+CS_TEST passed InstalledPackage steps=1 seed=1
+CS_SUMMARY 1 passed 0 failed 0 skipped
+** Note: 2fs+0: VHPI plugin requested end of simulation
+

@@ -1,0 +1,18 @@
+** Note: loading plugin /root/.local/lib/python3.12/site-packages/cocotb/libs/libcocotb_bootstrap.so
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:74   in gpi_print_registered_impl       GPI: VHPI support registered
+CS_TEST passed VhdlArraysRecordsAndGenerics steps=1 seed=1
+CS_TEST passed VhdlClockTasks steps=97 seed=2
+CS_TEST passed VhdlDeltaChain steps=22 seed=3
+CS_TEST passed VhdlForceReleaseGuard steps=2 seed=4
+CS_TEST passed VhdlIntegerRealStringEnum steps=1 seed=5
+CS_TEST passed VhdlNineStatesAndRange steps=1 seed=6
+CS_TEST passed VhdlNullRangeAndBindings steps=3 seed=7
+CS_METADATA TOP.DATA type=GPI_LOGIC_ARRAY definition=top file=/workspace/scratch/d13ee848099b/CocotbSharp/tests/VhdlIntegration/top.vhd
+CS_TEST passed VhdlObjectMetadata steps=1 seed=8
+CS_TEST passed VhdlPackedFields steps=2 seed=9
+CS_TEST passed VhdlResolvedDrivers steps=82 seed=10
+CS_TEST passed VhdlSignalAndDeltaCycle steps=3 seed=11
+CS_TEST passed VhdlStringBytes steps=2 seed=12
+CS_TEST passed VhdlUnknowns steps=1 seed=13
+CS_SUMMARY 13 passed 0 failed 0 skipped
+** Note: 231fs+0: VHPI plugin requested end of simulation

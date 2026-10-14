@@ -1,0 +1,11 @@
+[
+  {
+    "Name": "InstalledPackage",
+    "Status": "passed",
+    "Seed": 1,
+    "StartStep": 1,
+    "EndStep": 2,
+    "Seconds": 0.0153674,
+    "Error": null
+  }
+]

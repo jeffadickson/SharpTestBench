@@ -1,0 +1,11 @@
+[
+  {
+    "Name": "simulator-termination",
+    "Status": "failed",
+    "Seed": 0,
+    "StartStep": 0,
+    "EndStep": 0,
+    "Seconds": 0,
+    "Error": "Simulator ended before the regression completed"
+  }
+]

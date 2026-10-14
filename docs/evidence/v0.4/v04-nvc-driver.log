@@ -1,0 +1,29 @@
++ /tmp/cocotb-dotnet/dotnet build /workspace/scratch/d13ee848099b/CocotbSharp/tests/VhdlIntegration/VhdlIntegration.csproj -c Release --nologo
+  Determining projects to restore...
+  All projects are up-to-date for restore.
+  CocotbSharp -> /workspace/scratch/d13ee848099b/CocotbSharp/src/CocotbSharp/bin/Release/net10.0/CocotbSharp.dll
+  VhdlIntegration -> /workspace/scratch/d13ee848099b/CocotbSharp/tests/VhdlIntegration/bin/Release/net10.0/VhdlIntegration.dll
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:02.97
++ gcc -shared -fPIC -Wall -Wextra -Werror -Wl,-soname,libcocotbsharp_host.so /workspace/scratch/d13ee848099b/CocotbSharp/native/host.c /workspace/scratch/d13ee848099b/CocotbSharp/native/abi.c -I /workspace/scratch/d13ee848099b/CocotbSharp/native/upstream -I /tmp/cocotb-dotnet/packs/Microsoft.NETCore.App.Host.linux-x64/10.0.13/runtimes/linux-x64/native -ldl -o /workspace/scratch/d13ee848099b/CocotbSharp/build/host-6.so
++ /tmp/cocotbsharp-nvc/usr/bin/nvc --std=2008 --work=work:/workspace/scratch/d13ee848099b/CocotbSharp/build/nvc-work -a /workspace/scratch/d13ee848099b/CocotbSharp/tests/VhdlIntegration/top.vhd --preserve-case
+** Note: loading plugin /root/.local/lib/python3.12/site-packages/cocotb/libs/libcocotb_bootstrap.so
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:74   in gpi_print_registered_impl       GPI: VHPI support registered
+CS_TEST passed VhdlArraysRecordsAndGenerics steps=1 seed=1
+CS_TEST passed VhdlClockTasks steps=97 seed=2
+CS_TEST passed VhdlForceReleaseGuard steps=2 seed=3
+CS_TEST passed VhdlIntegerRealStringEnum steps=1 seed=4
+CS_TEST passed VhdlNineStatesAndRange steps=1 seed=5
+CS_TEST passed VhdlNullRangeAndBindings steps=3 seed=6
+CS_METADATA TOP.DATA type=GPI_LOGIC_ARRAY definition=top file=/workspace/scratch/d13ee848099b/CocotbSharp/tests/VhdlIntegration/top.vhd
+CS_TEST passed VhdlObjectMetadata steps=1 seed=7
+CS_TEST passed VhdlSignalAndDeltaCycle steps=3 seed=8
+CS_TEST passed VhdlStringBytes steps=2 seed=9
+CS_TEST passed VhdlUnknowns steps=1 seed=10
+CS_SUMMARY 10 passed 0 failed 0 skipped
+** Note: 122fs+0: VHPI plugin requested end of simulation
+

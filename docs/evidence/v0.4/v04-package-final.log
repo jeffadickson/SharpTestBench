@@ -1,0 +1,4 @@
+  Determining projects to restore...
+  All projects are up-to-date for restore.
+  CocotbSharp -> /workspace/scratch/d13ee848099b/CocotbSharp/src/CocotbSharp/bin/Release/net10.0/CocotbSharp.dll
+  Successfully created package '/workspace/scratch/d13ee848099b/CocotbSharp/build/packages/CocotbSharp.0.4.0-alpha.nupkg'.

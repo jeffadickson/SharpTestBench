@@ -1,0 +1,76 @@
+{
+  "records": [
+    {
+      "language": "python",
+      "repeat": 0,
+      "timer": 0.3379342420012108,
+      "rw32": 0.9297124529985012
+    },
+    {
+      "language": "csharp",
+      "repeat": 0,
+      "timer": 0.0383163,
+      "rw32": 1.4096323
+    },
+    {
+      "language": "csharp",
+      "repeat": 1,
+      "timer": 0.0378394,
+      "rw32": 1.2802445
+    },
+    {
+      "language": "python",
+      "repeat": 1,
+      "timer": 0.29159843800152885,
+      "rw32": 0.8834324880008353
+    },
+    {
+      "language": "python",
+      "repeat": 2,
+      "timer": 0.3214076739968732,
+      "rw32": 0.9362059519989998
+    },
+    {
+      "language": "csharp",
+      "repeat": 2,
+      "timer": 0.0400905,
+      "rw32": 1.4054768
+    },
+    {
+      "language": "csharp",
+      "repeat": 3,
+      "timer": 0.0401633,
+      "rw32": 1.322783
+    },
+    {
+      "language": "python",
+      "repeat": 3,
+      "timer": 0.31307909499446396,
+      "rw32": 0.9327755180056556
+    },
+    {
+      "language": "python",
+      "repeat": 4,
+      "timer": 0.30120644999988144,
+      "rw32": 0.9621615799987921
+    },
+    {
+      "language": "csharp",
+      "repeat": 4,
+      "timer": 0.0424004,
+      "rw32": 1.2903132
+    }
+  ],
+  "summary": {
+    "timer": {
+      "python": 0.31307909499446396,
+      "csharp": 0.0400905,
+      "python_over_csharp": 7.809308813670669
+    },
+    "rw32": {
+      "python": 0.9327755180056556,
+      "csharp": 1.322783,
+      "python_over_csharp": 0.7051614044069628
+    }
+  }
+}

@@ -1,0 +1,39 @@
++ /tmp/cocotb-dotnet/dotnet build /workspace/scratch/d13ee848099b/SharpTestBench/tests/VhdlIntegration/VhdlIntegration.csproj -c Release --nologo
+  Determining projects to restore...
+  Restored /workspace/scratch/d13ee848099b/SharpTestBench/tests/VhdlIntegration/VhdlIntegration.csproj (in 136 ms).
+  1 of 2 projects are up-to-date for restore.
+  SharpTestBench -> /workspace/scratch/d13ee848099b/SharpTestBench/src/SharpTestBench/bin/Release/net10.0/SharpTestBench.dll
+  VhdlIntegration -> /workspace/scratch/d13ee848099b/SharpTestBench/tests/VhdlIntegration/bin/Release/net10.0/VhdlIntegration.dll
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:03.27
++ gcc -shared -fPIC -Wall -Wextra -Werror -Wl,-soname,libsharptestbench_host.so /workspace/scratch/d13ee848099b/SharpTestBench/native/host.c /workspace/scratch/d13ee848099b/SharpTestBench/native/abi.c -I /workspace/scratch/d13ee848099b/SharpTestBench/native/upstream -I /tmp/cocotb-dotnet/packs/Microsoft.NETCore.App.Host.linux-x64/10.0.13/runtimes/linux-x64/native -ldl -o /workspace/scratch/d13ee848099b/SharpTestBench/build/host-5.so
++ /tmp/cocotbsharp-nvc/usr/bin/nvc --std=2008 --work=work:/workspace/scratch/d13ee848099b/SharpTestBench/build/nvc-work -a /workspace/scratch/d13ee848099b/SharpTestBench/tests/VhdlIntegration/top.vhd --preserve-case
+** Note: loading plugin /root/.local/lib/python3.12/site-packages/cocotb/libs/libcocotb_bootstrap.so
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:74   in gpi_print_registered_impl       GPI: VHPI support registered
+CS_TEST passed VhdlArraysRecordsAndGenerics steps=1 seed=1
+CS_TEST passed VhdlClockTasks steps=97 seed=2
+CS_TEST passed VhdlDeltaChain steps=22 seed=3
+DISCOVERY Unsupported: ; The pinned VHPI adapter does not implement this iterator.
+DISCOVERY Unsupported: ; The pinned VHPI adapter does not implement this iterator.
+DISCOVERY Unsupported: ; The pinned VHPI adapter does not implement this iterator.
+DISCOVERY Unsupported: ; The pinned VHPI adapter does not implement this iterator.
+CS_TEST passed VhdlDiscovery steps=1 seed=4
+CS_TEST passed VhdlForceReleaseGuard steps=2 seed=5
+CS_TEST passed VhdlIntegerRealStringEnum steps=1 seed=6
+CS_TEST passed VhdlNamedStruct steps=1 seed=7
+CS_TEST passed VhdlNineStatesAndRange steps=1 seed=8
+CS_TEST passed VhdlNullRangeAndBindings steps=3 seed=9
+CS_METADATA TOP.DATA type=GPI_LOGIC_ARRAY definition=top file=/workspace/scratch/d13ee848099b/SharpTestBench/tests/VhdlIntegration/top.vhd
+CS_TEST passed VhdlObjectMetadata steps=1 seed=10
+CS_TEST passed VhdlPackedFields steps=2 seed=11
+CS_TEST passed VhdlResolvedDrivers steps=82 seed=12
+CS_TEST passed VhdlSignalAndDeltaCycle steps=3 seed=13
+CS_TEST passed VhdlStringBytes steps=2 seed=14
+CS_TEST passed VhdlUnknowns steps=1 seed=15
+CS_SUMMARY 15 passed 0 failed 0 skipped
+** Note: 235fs+0: VHPI plugin requested end of simulation
+

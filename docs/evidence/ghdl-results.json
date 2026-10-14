@@ -1,0 +1,29 @@
+[
+  {
+    "Name": "VhdlClockTasks",
+    "Status": "passed",
+    "Seed": 1,
+    "StartStep": 1,
+    "EndStep": 98,
+    "Seconds": 0.0137544,
+    "Error": null
+  },
+  {
+    "Name": "VhdlSignalAndDeltaCycle",
+    "Status": "passed",
+    "Seed": 2,
+    "StartStep": 99,
+    "EndStep": 102,
+    "Seconds": 0.0040579,
+    "Error": null
+  },
+  {
+    "Name": "VhdlUnknowns",
+    "Status": "passed",
+    "Seed": 3,
+    "StartStep": 103,
+    "EndStep": 104,
+    "Seconds": 0.0021056,
+    "Error": null
+  }
+]

@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<testsuite tests="30" failures="0" skipped="1">
+  <testcase name="AA_TypedJobResults" time="0.0299424" />
+  <testcase name="AB_AggregateAndNestedGroups" time="0.0157152" />
+  <testcase name="AC_Constants" time="0.0048896" />
+  <testcase name="A_TypesAndSignals" time="0.0128417" />
+  <testcase name="B_TimingAndNba" time="0.0071256" />
+  <testcase name="C_CancellationAndCombinators" time="0.0038928" />
+  <testcase name="D_ConcurrentTasks" time="0.0054853" />
+  <testcase name="E_EventsAndQueues" time="0.0090392" />
+  <testcase name="F_ForceReleaseAndHierarchy" time="0.0288343" />
+  <testcase name="G_ParameterizedClock[0]" time="0.0043641" />
+  <testcase name="G_ParameterizedClock[1]" time="0.0016808" />
+  <testcase name="H_WriteCoalescing" time="0.0013492" />
+  <testcase name="I_NextTimeStep" time="0.002141" />
+  <testcase name="J_BackgroundFailure" time="0.0020061" />
+  <testcase name="K_Deadline" time="0.0009557" />
+  <testcase name="L_StreamBackpressure" time="0.0042555" />
+  <testcase name="M_ThreadGuard" time="0.0018096" />
+  <testcase name="N_TimeUnits" time="0.0021526" />
+  <testcase name="O_Skip" time="0">
+    <skipped>Explicit skip</skipped>
+  </testcase>
+  <testcase name="P_ExitStatus" time="0.0011891" />
+  <testcase name="Q_ValueChangeFanoutAndYield" time="0.0027524" />
+  <testcase name="R_CancelledQueueWait" time="0.0034609" />
+  <testcase name="S_ChildCancellationScope" time="0.0024057" />
+  <testcase name="T_NestedCancellationAndSuppression" time="0.0052703" />
+  <testcase name="U_TaskCombinators" time="0.004993" />
+  <testcase name="V_TaskTimeoutOwnership" time="0.0040158" />
+  <testcase name="W_ClockCyclesDefaultCancellation" time="0.0024702" />
+  <testcase name="X_StructuredGroup" time="0.0082845" />
+  <testcase name="Y_SameTimeCancellationStress" time="0.0046192" />
+  <testcase name="Z_LeakCannotMatchExpectedException" time="0.0010848" />
+</testsuite>

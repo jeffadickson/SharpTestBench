@@ -1,0 +1,16 @@
++ /tmp/cocotb-iverilog/usr/bin/iverilog -B /tmp/cocotb-iverilog/usr/lib/x86_64-linux-gnu/ivl -g2012 -s top -o /workspace/scratch/d13ee848099b/CocotbSharp/build/top.vvp /workspace/scratch/d13ee848099b/CocotbSharp/tests/Integration/top.sv
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:74   in gpi_print_registered_impl       GPI: VPI support registered
+CS_TEST failed Z_LeakCannotMatchExpectedException steps=1 seed=1
+CS_SUMMARY 0 passed 1 failed 0 skipped
+
+[
+  {
+    "Name": "Z_LeakCannotMatchExpectedException",
+    "Status": "failed",
+    "Seed": 1,
+    "StartStep": 1,
+    "EndStep": 2,
+    "Seconds": 0.0067261,
+    "Error": "System.InvalidOperationException: Test leaked tasks or callbacks; regression aborted to avoid contamination\n ---> System.InvalidOperationException: expected assertion, but leaked work must still fail\n   at Tests.Z_LeakCannotMatchExpectedException(TestContext c) in /workspace/scratch/d13ee848099b/CocotbSharp/tests/Integration/Tests.cs:line 599\n   at CocotbSharp.Regression.Run(Assembly assembly) in /workspace/scratch/d13ee848099b/CocotbSharp/src/CocotbSharp/Regression.cs:line 246\n   --- End of inner exception stack trace ---"
+  }
+]

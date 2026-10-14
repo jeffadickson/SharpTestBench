@@ -1,0 +1,178 @@
+[
+  {
+    "label": "lifecycle-000",
+    "negative": false,
+    "early": false,
+    "exit_code": 0,
+    "fatal_diagnostic": false,
+    "passed": true
+  },
+  {
+    "label": "lifecycle-001",
+    "negative": false,
+    "early": false,
+    "exit_code": 0,
+    "fatal_diagnostic": false,
+    "passed": true
+  },
+  {
+    "label": "lifecycle-002",
+    "negative": false,
+    "early": false,
+    "exit_code": 0,
+    "fatal_diagnostic": false,
+    "passed": true
+  },
+  {
+    "label": "lifecycle-003",
+    "negative": false,
+    "early": false,
+    "exit_code": 0,
+    "fatal_diagnostic": false,
+    "passed": true
+  },
+  {
+    "label": "lifecycle-004",
+    "negative": false,
+    "early": false,
+    "exit_code": 0,
+    "fatal_diagnostic": false,
+    "passed": true
+  },
+  {
+    "label": "lifecycle-005",
+    "negative": false,
+    "early": false,
+    "exit_code": 0,
+    "fatal_diagnostic": false,
+    "passed": true
+  },
+  {
+    "label": "lifecycle-006",
+    "negative": false,
+    "early": false,
+    "exit_code": 0,
+    "fatal_diagnostic": false,
+    "passed": true
+  },
+  {
+    "label": "lifecycle-007",
+    "negative": false,
+    "early": false,
+    "exit_code": 0,
+    "fatal_diagnostic": false,
+    "passed": true
+  },
+  {
+    "label": "lifecycle-008",
+    "negative": false,
+    "early": false,
+    "exit_code": 0,
+    "fatal_diagnostic": false,
+    "passed": true
+  },
+  {
+    "label": "lifecycle-009",
+    "negative": false,
+    "early": false,
+    "exit_code": 0,
+    "fatal_diagnostic": false,
+    "passed": true
+  },
+  {
+    "label": "lifecycle-010",
+    "negative": false,
+    "early": false,
+    "exit_code": 0,
+    "fatal_diagnostic": false,
+    "passed": true
+  },
+  {
+    "label": "lifecycle-011",
+    "negative": false,
+    "early": false,
+    "exit_code": 0,
+    "fatal_diagnostic": false,
+    "passed": true
+  },
+  {
+    "label": "lifecycle-012",
+    "negative": false,
+    "early": false,
+    "exit_code": 0,
+    "fatal_diagnostic": false,
+    "passed": true
+  },
+  {
+    "label": "lifecycle-013",
+    "negative": false,
+    "early": false,
+    "exit_code": 0,
+    "fatal_diagnostic": false,
+    "passed": true
+  },
+  {
+    "label": "lifecycle-014",
+    "negative": false,
+    "early": false,
+    "exit_code": 0,
+    "fatal_diagnostic": false,
+    "passed": true
+  },
+  {
+    "label": "lifecycle-015",
+    "negative": false,
+    "early": false,
+    "exit_code": 0,
+    "fatal_diagnostic": false,
+    "passed": true
+  },
+  {
+    "label": "lifecycle-016",
+    "negative": false,
+    "early": false,
+    "exit_code": 0,
+    "fatal_diagnostic": false,
+    "passed": true
+  },
+  {
+    "label": "lifecycle-017",
+    "negative": false,
+    "early": false,
+    "exit_code": 0,
+    "fatal_diagnostic": false,
+    "passed": true
+  },
+  {
+    "label": "lifecycle-018",
+    "negative": false,
+    "early": false,
+    "exit_code": 0,
+    "fatal_diagnostic": false,
+    "passed": true
+  },
+  {
+    "label": "lifecycle-019",
+    "negative": false,
+    "early": false,
+    "exit_code": 0,
+    "fatal_diagnostic": false,
+    "passed": true
+  },
+  {
+    "label": "lifecycle-020",
+    "negative": true,
+    "early": false,
+    "exit_code": 1,
+    "fatal_diagnostic": false,
+    "passed": true
+  },
+  {
+    "label": "lifecycle-021",
+    "negative": false,
+    "early": true,
+    "exit_code": 1,
+    "fatal_diagnostic": false,
+    "passed": true
+  }
+]

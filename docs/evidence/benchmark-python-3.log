@@ -1,0 +1,18 @@
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:74   in gpi_print_registered_impl       GPI: VPI support registered
+     -.--ns INFO     pygpi                              ..ib/pygpi/embed.cpp:113  in pygpi_initialize                Using Python 3.12.14 interpreter at /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python
+     0.00ns INFO     cocotb.initialize                  Seeding Python random module with 1791956082
+     0.00ns WARNING  gpi                                vpi_iterate returned NULL for type vpiInstance for object NULL
+     0.00ns INFO     cocotb.initialize                  Initialized cocotb v2.2.0.dev0+r5fa952e9 from /root/.local/lib/python3.12/site-packages/cocotb
+     0.00ns INFO     cocotb.initialize                  Running on Icarus Verilog version 11.0 (stable)
+     0.00ns INFO     cocotb.regression                  Running tests
+     0.00ns INFO     cocotb.regression                  running python_bench.benchmark (1/1)
+MEASURE timer 0.30849119699996663
+MEASURE rw32 0.9589379120006924 checksum=694140833
+   210.00ns INFO     cocotb.regression                  python_bench.benchmark passed
+   210.00ns INFO     cocotb.regression                  **************************************************************************************
+                                                        ** TEST                          STATUS  SIM TIME (ns)  REAL TIME (s)  RATIO (ns/s) **
+                                                        **************************************************************************************
+                                                        ** python_bench.benchmark         PASS         210.00           1.30        161.67  **
+                                                        **************************************************************************************
+                                                        ** TESTS=1 PASS=1 FAIL=0 SKIP=0                210.00           1.30        161.60  **
+                                                        **************************************************************************************

@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<testsuite tests="3" failures="0" skipped="0">
+  <testcase name="VhdlClockTasks" time="0.0120344" />
+  <testcase name="VhdlSignalAndDeltaCycle" time="0.0034812" />
+  <testcase name="VhdlUnknowns" time="0.0020218" />
+</testsuite>

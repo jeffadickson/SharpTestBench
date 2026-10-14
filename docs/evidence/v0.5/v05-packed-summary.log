@@ -1,0 +1,26 @@
+[
+  {
+    "width": 256,
+    "medianSeconds": {
+      "string": 0.0868532,
+      "packed": 0.003913
+    },
+    "managedBytesPerRoundTrip": {
+      "string": 43288.576,
+      "packed": 336.08
+    },
+    "speedRatio": 22.196064400715567
+  },
+  {
+    "width": 4096,
+    "medianSeconds": {
+      "string": 1.30566,
+      "packed": 0.0358208
+    },
+    "managedBytesPerRoundTrip": {
+      "string": 4678202.0,
+      "packed": 4296.08
+    },
+    "speedRatio": 36.449772199392534
+  }
+]

@@ -1,0 +1,5 @@
+PASS version: CocotbSharp native ABI 99; expected 1
+PASS legacy: Native host predates packed-plane support; upgrade the host
+PASS missing: Incompatible GPI: missing GPI symbol: gpi_register_start_of_sim_time_callback
+PASS registration: 7 callback kinds cleanly rejected; 100 failed timer tasks settled; signed 64-bit transport passed
+PASS packed-boundary: 18 checks

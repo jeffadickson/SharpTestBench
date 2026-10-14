@@ -1,0 +1,11 @@
+  Determining projects to restore...
+  Restored /workspace/scratch/d13ee848099b/CocotbSharp/src/CocotbSharp/CocotbSharp.csproj (in 109 ms).
+  Restored /workspace/scratch/d13ee848099b/CocotbSharp/tests/Integration/Integration.csproj (in 116 ms).
+  CocotbSharp -> /workspace/scratch/d13ee848099b/CocotbSharp/src/CocotbSharp/bin/Release/net10.0/CocotbSharp.dll
+  Integration -> /workspace/scratch/d13ee848099b/CocotbSharp/tests/Integration/bin/Release/net10.0/Integration.dll
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:05.40

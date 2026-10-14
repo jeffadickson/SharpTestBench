@@ -1,0 +1,32 @@
+[
+  {
+    "case": "version",
+    "stdout": "PASS version: CocotbSharp native ABI 99; expected 1",
+    "stderr": "",
+    "exit": 0
+  },
+  {
+    "case": "legacy",
+    "stdout": "PASS legacy: Native host predates packed-plane support; upgrade the host",
+    "stderr": "",
+    "exit": 0
+  },
+  {
+    "case": "missing",
+    "stdout": "PASS missing: Incompatible GPI: missing GPI symbol: gpi_register_start_of_sim_time_callback",
+    "stderr": "",
+    "exit": 0
+  },
+  {
+    "case": "registration",
+    "stdout": "PASS registration: 7 callback kinds cleanly rejected; 100 failed timer tasks settled; failed write leaves no state; signed 64-bit transport passed",
+    "stderr": "",
+    "exit": 0
+  },
+  {
+    "case": "packed-boundary",
+    "stdout": "PASS packed-boundary: 18 checks",
+    "stderr": "",
+    "exit": 0
+  }
+]

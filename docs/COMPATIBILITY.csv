@@ -1,0 +1,31 @@
+ID,Area,Requirement,Status,Evidence
+CS001,Types,Checked fixed-width unsigned and signed values,verified,1846 unit assertions plus compile-fail and native type tests
+CS002,Types,Four-state packed vectors and unknown propagation,verified-core,Unit truth tables; Icarus/GHDL XZ tests; unknown integer conversion fails
+CS003,Types,Nine-state VHDL logic preservation,verified-core,Native nine-state transport on GHDL and NVC; upstream operator tables
+CS004,Types,HDL range direction and indexing,verified-core,Explicit directions and null ranges; native NVC null vector; HDL-indexed arrays
+CS005,Scheduler,Concurrent simulator-thread tasks,verified-core,100 concurrent tasks; 10 value-change listeners; Icarus and Verilator
+CS006,Scheduler,Cancellation and callback deregistration,verified-core,Child-scoped and nested cancellation; explicit opt-out; 100 same-time cancellation rounds
+CS007,Timing,Timer edge ReadOnly ReadWrite NextTimeStep,verified-core,Icarus/Verilator suite; narrower GHDL smoke tests
+CS008,Timing,Deferred deposit write order and phase guards,verified-core,ReadOnly guard; deferred writes; downstream settling; Python parity probe
+CS009,Timing,First Combine timeout semantics,partial,Trigger combinators plus non-owning SimTasks First/Combine/typed timeout; upstream semantic mapping open
+CS010,Primitives,Event lock semaphore queue,verified-core,Events semaphore lock bounded queue; fairness stress still open
+CS011,Signals,Discovery typed signal width validation hierarchy arrays,partial,Recursive scopes and records; nested arrays; cached handles; explicit packed views; Verilator native packed ranges and package member access; status-bearing driver/load queries; remaining backend metadata gaps
+CS012,Signals,Deposit immediate force release,partial,Icarus force/release verified; NVC and Verilator force hold contract rejected
+CS013,Signals,Real string and integer signal adapters,verified-core,NVC integer enum real fixed-string transport including Latin-1 and NUL; dynamic-string NUL open
+CS014,Regression,Discovery parameterization seeds timeouts JUnit,verified-core,Attributes parameter cases seeds skips expected exceptions JSON JUnit
+CS015,Regression,Background failure propagation and task cleanup,verified-core,Typed jobs; aggregate nested failures; leak and early-termination negatives
+CS016,Drivers,Clock reset and stream backpressure example,verified-core,Managed clock and 100 transaction randomized stream backpressure test
+CS017,Codegen,Generate C# interface from elaborated hierarchy,partial,Recursive elaborated scopes records and nested arrays; generated consumer runs; Roslyn generator open
+CS018,Interop,Reuse pinned GPI and contain native callback exceptions,partial,Working native host and callback containment; versioned C ABI and injected registration failures; intermittent shutdown message unresolved
+CS019,Validation,Icarus semantic trace parity with Python,partial,Edge/NBA/ReadOnly and 20 multi-NBA transitions match Python; full timing equivalence open
+CS020,Validation,Verilator conformance,verified-core,Verilator 5.048 suite with explicit known unsupported capabilities
+CS021,Validation,GHDL VHDL conformance,partial,GHDL eight cases; NVC thirteen; all 81 two-driver resolution pairs checked
+CS022,Validation,Commercial simulator and mixed-language coverage,open,No licensed commercial simulator available in this run
+CS023,Tools,Cross-platform build packaging and CLI,partial,Local managed/native NuGet consumer runs on two simulators; arbitrary test DLL CLI; other OS ports open
+CS024,Debug,Managed debugger and logging integration,partial,Simulation-time console logging; debugger workflow not verified
+CS025,Parity,Audit all upstream public APIs deprecations and previews,inventoried,302 definitions inventoried; per-item semantic review remains open
+CS026,Performance,Full-framework vs cocotb representative benchmarks,partial,Full-runtime timer and uint32 probe measured; real project workloads pending
+CS027,Interop,Native packed vector extension,partial,Packed managed/native value X Z planes verified; GPI still uses binary strings; direct simulator packed API open
+CS028,Python,Python bridge external-thread helpers and IPython,open,No Python source compatibility or bridge/IPython equivalent
+CS029,Parity,Native clock dynamically adjustable period,open,Managed clock only; native adjustable clock not ported
+CS030,Parity,Full object type coverage multidimensional packed handles,partial,NVC nested arrays and records; explicit packed array and struct-field views; inferred layout and backend matrix open

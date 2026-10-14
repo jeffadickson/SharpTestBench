@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/SharpTestBench/SharpTestBench.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Benchmark/Benchmark.csproj" />
+    <Project Path="tests/Integration/Integration.csproj" />
+    <Project Path="tests/SharpTestBench.Tests/SharpTestBench.Tests.csproj" />
+    <Project Path="tests/VhdlIntegration/VhdlIntegration.csproj" />
+  </Folder>
+</Solution>

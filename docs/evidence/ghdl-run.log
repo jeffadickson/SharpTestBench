@@ -1,0 +1,7 @@
+loading VPI module '/root/.local/lib/python3.12/site-packages/cocotb/libs/libcocotb_bootstrap.so'
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:74   in gpi_print_registered_impl       GPI: VPI support registered
+VPI module loaded!
+CS_TEST passed VhdlClockTasks steps=97 seed=1
+CS_TEST passed VhdlSignalAndDeltaCycle steps=3 seed=2
+CS_TEST passed VhdlUnknowns steps=1 seed=3
+CS_SUMMARY 3 passed 0 failed 0 skipped

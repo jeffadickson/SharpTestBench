@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<testsuite tests="37" failures="0" skipped="1">
+  <testcase name="AA_TypedJobResults" time="0.019256" />
+  <testcase name="AB_AggregateAndNestedGroups" time="0.0157007" />
+  <testcase name="AC_Constants" time="0.0036956" />
+  <testcase name="AD_ObjectMetadata" time="0.0005926" />
+  <testcase name="AE_PackedPlanes" time="0.1451953" />
+  <testcase name="AF_PackedArrayAndStruct" time="0.0104267" />
+  <testcase name="AG_DeltaChain" time="0.0049036" />
+  <testcase name="AH_Discovery" time="0.0122226" />
+  <testcase name="AI_NamedStruct" time="0.0029202" />
+  <testcase name="AJ_AdjustableClock" time="0.003398" />
+  <testcase name="A_TypesAndSignals" time="0.0051145" />
+  <testcase name="B_TimingAndNba" time="0.0032571" />
+  <testcase name="C_CancellationAndCombinators" time="0.0025358" />
+  <testcase name="D_ConcurrentTasks" time="0.0042054" />
+  <testcase name="E_EventsAndQueues" time="0.008302" />
+  <testcase name="F_ForceReleaseAndHierarchy" time="0.0255288" />
+  <testcase name="G_ParameterizedClock[0]" time="0.0027592" />
+  <testcase name="G_ParameterizedClock[1]" time="0.0019257" />
+  <testcase name="H_WriteCoalescing" time="0.0016959" />
+  <testcase name="I_NextTimeStep" time="0.0021762" />
+  <testcase name="J_BackgroundFailure" time="0.0025902" />
+  <testcase name="K_Deadline" time="0.0011956" />
+  <testcase name="L_StreamBackpressure" time="0.0046838" />
+  <testcase name="M_ThreadGuard" time="0.0120184" />
+  <testcase name="N_TimeUnits" time="0.001861" />
+  <testcase name="O_Skip" time="0">
+    <skipped>Explicit skip</skipped>
+  </testcase>
+  <testcase name="P_ExitStatus" time="0.0010699" />
+  <testcase name="Q_ValueChangeFanoutAndYield" time="0.0026296" />
+  <testcase name="R_CancelledQueueWait" time="0.0032546" />
+  <testcase name="S_ChildCancellationScope" time="0.0023095" />
+  <testcase name="T_NestedCancellationAndSuppression" time="0.0051359" />
+  <testcase name="U_TaskCombinators" time="0.0049543" />
+  <testcase name="V_TaskTimeoutOwnership" time="0.0038553" />
+  <testcase name="W_ClockCyclesDefaultCancellation" time="0.0021407" />
+  <testcase name="X_StructuredGroup" time="0.0083915" />
+  <testcase name="Y_SameTimeCancellationStress" time="0.0037719" />
+  <testcase name="Z_LeakCannotMatchExpectedException" time="0.0010441" />
+</testsuite>

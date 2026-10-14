@@ -1,0 +1,322 @@
+[
+  {
+    "key": "STB-001",
+    "priority": "P0",
+    "title": "Audit every upstream public API",
+    "acceptance": "Review all 302 inventory entries plus aliases and dynamic exports. Record implemented, intentionally different, unsupported or pending status with evidence.",
+    "issue": 1,
+    "url": "https://github.com/jeffadickson/SharpTestBench/issues/1"
+  },
+  {
+    "key": "STB-002",
+    "priority": "P0",
+    "title": "Complete task cancellation and abrupt-kill semantic mapping",
+    "acceptance": "Document cancellation-message policy and why abrupt Python kill has no direct safe C# equivalent; add conformance tests and link individual task API gaps.",
+    "issue": 2,
+    "url": "https://github.com/jeffadickson/SharpTestBench/issues/2"
+  },
+  {
+    "key": "STB-003",
+    "priority": "P0",
+    "title": "Support mutable simulation task names",
+    "acceptance": "Add simulator-thread-checked SetName for typed and untyped jobs; test observable names and invalid values; update TASK_API_MAP.md.",
+    "issue": 3,
+    "url": "https://github.com/jeffadickson/SharpTestBench/issues/3"
+  },
+  {
+    "key": "STB-004",
+    "priority": "P0",
+    "title": "Add task completion waits usable with triggers",
+    "acceptance": "Define completion-only versus result/failure propagation semantics; support mixed task/trigger waits with deterministic cleanup and cancellation tests.",
+    "issue": 4,
+    "url": "https://github.com/jeffadickson/SharpTestBench/issues/4"
+  },
+  {
+    "key": "STB-005",
+    "priority": "P0",
+    "title": "Define public task-local and introspection APIs",
+    "acceptance": "Decide task-local storage and .NET stack/introspection equivalents; document intentional Python differences and test chosen APIs.",
+    "issue": 5,
+    "url": "https://github.com/jeffadickson/SharpTestBench/issues/5"
+  },
+  {
+    "key": "STB-006",
+    "priority": "P0",
+    "title": "Expand scheduler cancellation and teardown stress",
+    "acceptance": "Extend simultaneous failure/reentrancy/leak scenarios beyond existing 100-race runs; retain failing seeds and verify native callback cleanup.",
+    "issue": 6,
+    "url": "https://github.com/jeffadickson/SharpTestBench/issues/6"
+  },
+  {
+    "key": "STB-007",
+    "priority": "P0",
+    "title": "Expand timing and force/deposit conformance",
+    "acceptance": "Add force/deposit ordering, same-time ties and VHDL timing cases with reference traces; retain existing delta and resolution tests.",
+    "issue": 7,
+    "url": "https://github.com/jeffadickson/SharpTestBench/issues/7"
+  },
+  {
+    "key": "STB-008",
+    "priority": "P0",
+    "title": "Broaden VHDL type and construct coverage",
+    "acceptance": "Add missing VHDL constructs and backend-specific test matrix; distinguish unsupported handles from verified behavior.",
+    "issue": 8,
+    "url": "https://github.com/jeffadickson/SharpTestBench/issues/8"
+  },
+  {
+    "key": "STB-009",
+    "priority": "P0",
+    "title": "Validate mixed-language simulation and traversal",
+    "acceptance": "Exercise VHDL/Verilog boundaries and global discovery with multiple adapters; establish supported configurations and ordering.",
+    "issue": 9,
+    "url": "https://github.com/jeffadickson/SharpTestBench/issues/9"
+  },
+  {
+    "key": "STB-010",
+    "priority": "P0",
+    "title": "Infer named packed-struct fields from HDL metadata",
+    "acceptance": "Recover field names widths order and offsets from authoritative elaborated metadata; handle nested fields; validate against independent HDL selections.",
+    "issue": 10,
+    "url": "https://github.com/jeffadickson/SharpTestBench/issues/10"
+  },
+  {
+    "key": "STB-011",
+    "priority": "P0",
+    "title": "Infer multidimensional packed layouts beyond Verilator",
+    "acceptance": "Implement backend metadata providers where information exists; retain explicit unavailable results for flattened declarations.",
+    "issue": 11,
+    "url": "https://github.com/jeffadickson/SharpTestBench/issues/11"
+  },
+  {
+    "key": "STB-012",
+    "priority": "P0",
+    "title": "Implement backend driver/load connectivity discovery",
+    "acceptance": "Add missing adapter support and verify known driver/load fixtures; never interpret an unavailable iterator as no connections.",
+    "issue": 12,
+    "url": "https://github.com/jeffadickson/SharpTestBench/issues/12"
+  },
+  {
+    "key": "STB-013",
+    "priority": "P0",
+    "title": "Expand package and structure discovery matrix",
+    "acceptance": "Test package members structures and arrays on each backend; document kind differences and completeness limits.",
+    "issue": 13,
+    "url": "https://github.com/jeffadickson/SharpTestBench/issues/13"
+  },
+  {
+    "key": "STB-014",
+    "priority": "P0",
+    "title": "Support embedded NUL in dynamic HDL strings",
+    "acceptance": "Implement length-aware native access where supported; test embedded NUL and bytes without silent truncation.",
+    "issue": 14,
+    "url": "https://github.com/jeffadickson/SharpTestBench/issues/14"
+  },
+  {
+    "key": "STB-015",
+    "priority": "P0",
+    "title": "Make simulator capabilities comprehensive",
+    "acceptance": "Replace scattered product assumptions with documented capabilities and tested evidence; reject unsupported operations explicitly.",
+    "issue": 15,
+    "url": "https://github.com/jeffadickson/SharpTestBench/issues/15"
+  },
+  {
+    "key": "STB-016",
+    "priority": "P0",
+    "title": "Investigate intermittent native shutdown diagnostic",
+    "acceptance": "Run debugger/fault-injection teardown investigation for historical fatal library error lookup self; identify root cause or preserve unresolved status with evidence.",
+    "issue": 16,
+    "url": "https://github.com/jeffadickson/SharpTestBench/issues/16"
+  },
+  {
+    "key": "STB-017",
+    "priority": "P1",
+    "title": "Transfer packed values directly inside native adapters",
+    "acceptance": "Avoid remaining GPI binary-string conversion; preserve value X/Z planes and validate width and allocation boundaries.",
+    "issue": 17,
+    "url": "https://github.com/jeffadickson/SharpTestBench/issues/17"
+  },
+  {
+    "key": "STB-018",
+    "priority": "P1",
+    "title": "Benchmark representative CPU DSP and AXI designs",
+    "acceptance": "Measure end-to-end workloads against pinned cocotb with warmup repeated processes allocation/GC and reproducible inputs.",
+    "issue": 18,
+    "url": "https://github.com/jeffadickson/SharpTestBench/issues/18"
+  },
+  {
+    "key": "STB-019",
+    "priority": "P1",
+    "title": "Add native simulator clock option",
+    "acceptance": "Implement native clock lifecycle cancellation and timing tests; compare performance and semantics with adjustable managed clock.",
+    "issue": 19,
+    "url": "https://github.com/jeffadickson/SharpTestBench/issues/19"
+  },
+  {
+    "key": "STB-020",
+    "priority": "P1",
+    "title": "Add Roslyn incremental binding generator",
+    "acceptance": "Generate typed bindings incrementally with diagnostics deterministic output and compile-positive/negative tests.",
+    "issue": 20,
+    "url": "https://github.com/jeffadickson/SharpTestBench/issues/20"
+  },
+  {
+    "key": "STB-021",
+    "priority": "P1",
+    "title": "Annotate HDL direction and interface roles",
+    "acceptance": "Expose authoritative input/output/inout metadata and validate typed interface roles without guessing from names.",
+    "issue": 21,
+    "url": "https://github.com/jeffadickson/SharpTestBench/issues/21"
+  },
+  {
+    "key": "STB-022",
+    "priority": "P1",
+    "title": "Distribute native GPI dependencies reproducibly",
+    "acceptance": "Package supported native dependencies with license provenance and clean-machine installation tests.",
+    "issue": 22,
+    "url": "https://github.com/jeffadickson/SharpTestBench/issues/22"
+  },
+  {
+    "key": "STB-023",
+    "priority": "P1",
+    "title": "Publish versioned NuGet releases",
+    "acceptance": "Define release/version policy and CI packing; validate clean consumers before public publication. Publication is a separate release action.",
+    "issue": 23,
+    "url": "https://github.com/jeffadickson/SharpTestBench/issues/23"
+  },
+  {
+    "key": "STB-024",
+    "priority": "P1",
+    "title": "Support Windows native hosting and simulators",
+    "acceptance": "Implement Windows host/loader and supported architecture packaging; execute native integration tests on Windows.",
+    "issue": 24,
+    "url": "https://github.com/jeffadickson/SharpTestBench/issues/24"
+  },
+  {
+    "key": "STB-025",
+    "priority": "P1",
+    "title": "Support macOS native hosting and simulators",
+    "acceptance": "Implement macOS host/loader and architecture packaging; execute native integration tests on macOS.",
+    "issue": 25,
+    "url": "https://github.com/jeffadickson/SharpTestBench/issues/25"
+  },
+  {
+    "key": "STB-026",
+    "priority": "P1",
+    "title": "Validate commercial simulator adapters",
+    "acceptance": "Run licensed Questa Xcelium VCS and Riviera fixtures where available; record versions capabilities and failures. Requires installations/licenses.",
+    "issue": 26,
+    "url": "https://github.com/jeffadickson/SharpTestBench/issues/26"
+  },
+  {
+    "key": "STB-027",
+    "priority": "P1",
+    "title": "Document and validate debugger attachment",
+    "acceptance": "Provide runnable managed/native debugger instructions and prove breakpoint/exception handling in a simulator process.",
+    "issue": 27,
+    "url": "https://github.com/jeffadickson/SharpTestBench/issues/27"
+  },
+  {
+    "key": "STB-028",
+    "priority": "P1",
+    "title": "Add structured simulation logging and source mapping",
+    "acceptance": "Include simulation time test/task identities exception stack/source locations and machine-readable output with bounded overhead.",
+    "issue": 28,
+    "url": "https://github.com/jeffadickson/SharpTestBench/issues/28"
+  },
+  {
+    "key": "STB-029",
+    "priority": "P1",
+    "title": "Add coverage reporting integration",
+    "acceptance": "Define functional/code coverage scope; implement export and verify coverage results with known fixtures.",
+    "issue": 29,
+    "url": "https://github.com/jeffadickson/SharpTestBench/issues/29"
+  },
+  {
+    "key": "STB-030",
+    "priority": "P1",
+    "title": "Add waveform controls and artifacts",
+    "acceptance": "Expose supported waveform enable/path controls and link generated artifacts to test results; verify backend limitations.",
+    "issue": 30,
+    "url": "https://github.com/jeffadickson/SharpTestBench/issues/30"
+  },
+  {
+    "key": "STB-031",
+    "priority": "P1",
+    "title": "Add test fixtures and cleanup lifecycle",
+    "acceptance": "Implement setup/teardown scopes with cancellation and failure aggregation; guarantee cleanup on failed and timed-out tests.",
+    "issue": 31,
+    "url": "https://github.com/jeffadickson/SharpTestBench/issues/31"
+  },
+  {
+    "key": "STB-032",
+    "priority": "P1",
+    "title": "Add regression stages",
+    "acceptance": "Define stable stage ordering and failure policies; test parameterized cases and stage selection.",
+    "issue": 32,
+    "url": "https://github.com/jeffadickson/SharpTestBench/issues/32"
+  },
+  {
+    "key": "STB-033",
+    "priority": "P1",
+    "title": "Expand regression selection and reporting",
+    "acceptance": "Add explicit selection/discovery controls and richer reports while retaining stable seeds and machine-readable failures.",
+    "issue": 33,
+    "url": "https://github.com/jeffadickson/SharpTestBench/issues/33"
+  },
+  {
+    "key": "STB-034",
+    "priority": "P1",
+    "title": "Assess Native AOT and reflection trimming",
+    "acceptance": "Prototype hosting and test discovery under trimming/AOT; document blockers and verify process lifecycle before support claims.",
+    "issue": 34,
+    "url": "https://github.com/jeffadickson/SharpTestBench/issues/34"
+  },
+  {
+    "key": "STB-035",
+    "priority": "P2",
+    "title": "Define Python test reuse boundary",
+    "acceptance": "Choose interoperability scope and prove a minimal bridge or document deliberate non-support; C# is not Python source compatible.",
+    "issue": 35,
+    "url": "https://github.com/jeffadickson/SharpTestBench/issues/35"
+  },
+  {
+    "key": "STB-036",
+    "priority": "P2",
+    "title": "Implement deterministic external-thread wakeups",
+    "acceptance": "Bridge external/background work to simulator-thread scheduling with cancellation timeout and shutdown tests.",
+    "issue": 36,
+    "url": "https://github.com/jeffadickson/SharpTestBench/issues/36"
+  },
+  {
+    "key": "STB-037",
+    "priority": "P2",
+    "title": "Map Python-only convenience APIs",
+    "acceptance": "Decide equivalents or documented exclusions for IPython assertion rewriting decorators/previews object protocols and environment options.",
+    "issue": 37,
+    "url": "https://github.com/jeffadickson/SharpTestBench/issues/37"
+  },
+  {
+    "key": "STB-038",
+    "priority": "P2",
+    "title": "Build protocol-driver ecosystem separately from core",
+    "acceptance": "Prioritize reusable AXI/UART/other drivers with versioned packages and independent hardware-backed test fixtures.",
+    "issue": 38,
+    "url": "https://github.com/jeffadickson/SharpTestBench/issues/38"
+  },
+  {
+    "key": "STB-039",
+    "priority": "P1",
+    "title": "Establish repository structure contribution docs and CI",
+    "acceptance": "Add solution docs index contributor guide issue templates and unit/build CI; retain pinned upstream provenance and historical evidence.",
+    "issue": 39,
+    "url": "https://github.com/jeffadickson/SharpTestBench/issues/39"
+  },
+  {
+    "key": "STB-040",
+    "priority": "P1",
+    "title": "Expand lock semaphore queue fairness stress",
+    "acceptance": "Test contention cancellation and fairness guarantees for synchronization primitives; document guarantees and limits.",
+    "issue": 40,
+    "url": "https://github.com/jeffadickson/SharpTestBench/issues/40"
+  }
+]

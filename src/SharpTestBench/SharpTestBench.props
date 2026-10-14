@@ -1,0 +1,6 @@
+<Project>
+  <PropertyGroup Condition="'$(SharpTestBenchCopyRuntimeAssets)' != 'false'">
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
+  </PropertyGroup>
+</Project>
