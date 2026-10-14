@@ -56,6 +56,7 @@ differences = {
     'selection': ([0, 11, 5, 1], [0, 11, 2, 0]),
     'failure_after_cleanup': (5, 2),
     'parent_cleanup': (4, 2),
+    'cleanup_failure': ('propagated', 'ignored'),
 }
 for key, (managed, python) in differences.items():
     if actual.get(key) != managed or expected.get(key) != python:

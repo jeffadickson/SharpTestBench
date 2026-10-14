@@ -69,4 +69,15 @@ async def structured_reference(dut):
         await gather(cancel_child(), value(2, 100))
     except CancelledError:
         trace['child_cancel'] = True
+    async def cleanup_failure():
+        try:
+            await Timer(100, unit='step')
+            return 2
+        finally:
+            raise ValueError('cleanup')
+    try:
+        await select(value(1, 1), cleanup_failure())
+        trace['cleanup_failure'] = 'ignored'
+    except Exception:
+        trace['cleanup_failure'] = 'propagated'
     Path(os.environ['STRUCTURED_TRACE']).write_text(json.dumps(trace, sort_keys=True))

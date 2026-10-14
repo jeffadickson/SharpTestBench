@@ -52,6 +52,15 @@ public static class StructuredWaitTests
             await Gather(c, Owned<int>(_ => Task.FromCanceled<int>(new CancellationToken(true))), Owned(_ => Value(2, 100)));
         }
         catch (OperationCanceledException) { trace["child_cancel"] = true; }
+        try
+        {
+            await Select(c, Owned(_ => Value(1, 1)), Owned<int>(async _ =>
+            {
+                try { await Timer(100); return 2; } finally { throw new FormatException("cleanup"); }
+            }));
+            trace["cleanup_failure"] = "ignored";
+        }
+        catch (FormatException) { trace["cleanup_failure"] = "propagated"; }
         File.WriteAllText((Environment.GetEnvironmentVariable("CS_TRACE") ?? "trace.txt") + ".structured.json",
             System.Text.Json.JsonSerializer.Serialize(trace));
     }

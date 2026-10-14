@@ -69,6 +69,7 @@ async-finally scenarios therefore deliberately have different outcomes.
 | Select wins at step 2; loser finally awaits 3 steps | Returns at step 5, cleanup finished | Returns at step 2, cleanup unfinished |
 | Gather fails at step 2; sibling finally awaits 3 steps | Raises at step 5 | Raises at step 2 |
 | Parent cancelled at step 1, repeated at step 2; child finally awaits 3 | Observed at step 4 | Observed at step 2 |
+| Losing select operation throws during finally | Cleanup error propagated | Selected value returned; cleanup error not propagated |
 
 The comparison script asserts both sides of these differences explicitly; it does
 not normalize timestamps or claim equivalence. SharpTestBench preserves bounded
