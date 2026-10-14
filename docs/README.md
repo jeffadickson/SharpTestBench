@@ -38,3 +38,5 @@ entry point. The C ABI shim forwards handle/value/callback calls to pinned cocot
 GPI adapters. The managed runtime schedules tasks on the simulator thread and
 coordinates deferred writes and simulation phases. Python scripts orchestrate
 builds and reference comparisons; they are not embedded in the C# test process.
+
+- [Debugger investigation](DEBUGGING.md) — opt-in reproducer and unresolved attachment result.

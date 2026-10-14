@@ -15,13 +15,13 @@ CS013,Signals,Real string and integer signal adapters,verified-core,NVC integer 
 CS014,Regression,Discovery parameterization seeds timeouts JUnit,verified-core,Attributes parameter cases seeds skips expected exceptions JSON JUnit; selected stages and stop-after-stage policy; exact names; discovery-only; stable filtered seeds
 CS015,Regression,Background failure propagation and task cleanup,verified-core,Typed jobs; aggregate nested failures; leak and early-termination negatives
 CS016,Drivers,Clock reset and stream backpressure example,verified-core,Managed clock and 100 transaction randomized stream backpressure test
-CS017,Codegen,Generate C# interface from elaborated hierarchy,partial,Recursive elaborated scopes records and nested arrays; generated consumer runs; Roslyn generator open
+CS017,Codegen,Generate C# interface from elaborated hierarchy,partial,Recursive elaborated scopes records and nested arrays; generated consumer runs; incremental manifest generator with diagnostics and compiler-positive/negative tests; automatic HDL metadata inference remains open
 CS018,Interop,Reuse pinned GPI and contain native callback exceptions,partial,Working native host and callback containment; versioned C ABI and injected registration failures; intermittent shutdown message unresolved
 CS019,Validation,Icarus semantic trace parity with Python,partial,Edge/NBA/ReadOnly and 20 multi-NBA transitions; four-backend scheduled-write/timer traces; Icarus force/deposit reference; full timing equivalence open
 CS020,Validation,Verilator conformance,verified-core,Verilator 5.048 suite with explicit known unsupported capabilities
 CS021,Validation,GHDL VHDL conformance,partial,GHDL eight cases; NVC thirteen; all 81 two-driver resolution pairs checked
 CS022,Validation,Commercial simulator and mixed-language coverage,open,No licensed commercial simulator available in this run
-CS023,Tools,Cross-platform build packaging and CLI,partial,Local managed/native NuGet consumer runs on two simulators; arbitrary test DLL CLI; other OS ports open
+CS023,Tools,Cross-platform build packaging and CLI,partial,Installed Icarus NuGet consumers pass on Linux x64 Windows x64 and Mac ARM64; isolated workspaces; public publication and wider binary adapter distribution open
 CS024,Debug,Managed debugger and logging integration,partial,Structured JSONL time/test/job identity and managed source/exception detail; debugger attachment still unverified
 CS025,Parity,Audit all upstream public APIs deprecations and previews,inventoried,302 definitions inventoried; per-item semantic review remains open
 CS026,Performance,Full-framework vs cocotb representative benchmarks,partial,Full-runtime timer and uint32 probe measured; real project workloads pending

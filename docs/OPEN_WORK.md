@@ -70,11 +70,13 @@ is made. Native simulator adapters are reused, not reimplemented in C#.
 - [ ] Native clock option; the current driver is managed.
 - [x] Recursive elaborated hierarchy generation with nested typed arrays, native
       compilation and execution of generated Verilog/VHDL bindings.
-- [ ] Roslyn incremental generator and HDL direction/interface-role annotations.
-- [x] Local NuGet package with managed library/native host; isolated package consumer
-      compiles and runs on Icarus and NVC. GPI dependencies remain externally installed.
+- [x] Roslyn incremental manifest generator with deterministic typed output and diagnostics (#20).
+- [ ] HDL direction/interface-role annotations and automatic metadata inference (#21).
+- [x] Managed, generator and native NuGet candidates; fresh-cache consumers outside
+      the checkout run packaged Icarus adapters on Linux x64, Windows x64 and Mac ARM64.
 - [ ] Self-contained native dependency distribution and public package publication.
-- [ ] Windows/macOS and simulator architecture support; current host is Linux x86-64.
+- [x] Native Windows x64 and Mac ARM64 source builds and installed Icarus packages.
+- [ ] Other architectures and broader OS/backend binary distribution.
 - [ ] Commercial Questa/Xcelium/VCS/Riviera checks when installations/licenses exist.
 - [ ] Debugger attachment instructions and actual debugger integration validation.
 - [x] Regression stages, explicit stage selection and continue/stop-after-stage policies.

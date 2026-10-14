@@ -171,3 +171,17 @@ The managed clock test verifies edge times before and after a duty/period change
 and checks invalid updates leave timing intact. Its first fixture used the DUT
 functional clock and disturbed a later test's initial sampled value; it now uses
 a dedicated HDL signal. This was test isolation, not a scheduler timing change.
+
+## Incremental generator and platform packages — 2026-10-14
+
+[CI run 38626020220](https://github.com/jeffadickson/SharpTestBench/actions/runs/38626020220)
+passed on Linux x64, Windows x64 and macOS ARM64. Each job ran 364 managed cases,
+10 generator cases, native Icarus integration, the generated counter, concurrent
+workspace success/failure isolation and occupied-directory rejection, and a fresh
+NuGet-cache consumer outside the checkout using packaged host/GPI/Icarus files.
+See GENERATOR.md, PACKAGING.md and WORKSPACES.md. Packages remain alpha candidates,
+not published releases or proof of other simulator/architecture combinations.
+
+A separate local lifecycle run passed 22/22 including two intentional failure
+cases. Debugger attachment remains blocked as documented in DEBUGGING.md; no
+debugger success or shutdown root-cause fix is claimed.
