@@ -95,7 +95,7 @@ adapter sources are unchanged. This avoids malformed Git-version labels in archi
 ```sh
 python tools/prepare_upstream.py
 CC=gcc CXX=g++ python -m pip install ./build/upstream/cocotb-source pytest
-dotnet run --project tests/SharpTestBench.Tests -c Release
+dotnet run --project tests/SharpTestBench.Tests -c Release -- -xml build/managed-results.xml
 python tools/run.py --sim icarus
 python tools/run.py --sim verilator
 python tools/run.py --sim ghdl

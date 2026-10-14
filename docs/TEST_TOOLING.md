@@ -4,14 +4,17 @@ Assessment: 2026-10-14. Decision: adopt xUnit for managed development tests,
 use NSubstitute selectively for managed interaction contracts, pilot Testcontainers
 for reproducible simulator processes, and defer WireMock.Net until an HTTP client
 exists. These are development dependencies, not dependencies of the shipped runtime.
-This assessment does not claim package installation or container validation.
+Update: xUnit v3 3.2.2 is now installed in the managed test project, with a dependency lock file. Container and mocking integrations remain planned.
 
 ## Repository evidence
 
-`tests/SharpTestBench.Tests/Program.cs` is a standalone program whose Check/Throws
-helpers abort on the first failed assertion. The current successful run executes
-1,916 assertions; that number is not a count of independently discovered test cases.
-Named cases would improve failure localization, selection and reporting.
+`tests/SharpTestBench.Tests/Program.cs` now exposes 361 xUnit cases, preserving the
+previous 1,916 checks. Byte round trips and four-/nine-state truth tables are
+individually discovered theories. Other checks are grouped into named behavioral
+facts. `tools/managed_tests.py` verifies the result count and builds a disposable
+copy with one broken boundary assertion: that case fails and the other 360 pass.
+The native xUnit executable runner is used directly via dotnet run; no solution-wide
+MTP/VSTest configuration or simulator synchronization context is changed.
 
 `SimRuntime` is sealed and tied to the simulator thread; `Native.cs` exposes static
 P/Invoke. `tools/native_faults.py` supplies fake native libraries in fresh processes
@@ -91,9 +94,10 @@ there is no approved HTTP feature; revisit this decision when one exists.
    matrix. Record startup/build costs and compare with the process runner.
 
 Do not remove native fault injection, compiler-negative type checks, Python timing
-comparisons, or real four-backend integration tests during this migration. Package
-restore, analyzer configuration, lock files and license/dependency review belong
-to implementation; this investigation did not restore or benchmark these tools.
+comparisons, or real four-backend integration tests during this migration. The managed project pins xUnit v3 3.2.2 and locks its transitive dependencies;
+its included analyzers run with warnings treated as errors. CI restores in locked
+mode. The package is confined to the test project (PrivateAssets=all); xUnit is
+Apache-2.0 licensed. Remaining tool packages have not been restored or benchmarked.
 
 ## Primary sources consulted
 

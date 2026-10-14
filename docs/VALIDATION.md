@@ -1,5 +1,9 @@
 # Unreleased validation update
 
+Managed test migration: xUnit v3 3.2.2 runs 361 named cases preserving the
+previous 1,916 checks. The isolated mutation probe reports exactly one named
+failure and 360 passing cases. Run `python tools/managed_tests.py` after building.
+
 Capability checkpoint: 1,916 unit assertions; Icarus 47 passed/1 skipped;
 Verilator 46 passed/2 skipped; GHDL 12 passed/6 skipped; NVC 17 passed/1 skipped.
 The native fault suite additionally rejects five raw/typed nonbinary and force/release

@@ -21,8 +21,8 @@ jobs:
         run: |
           python tools/prepare_upstream.py
           CC=gcc CXX=g++ python -m pip install ./build/upstream/cocotb-source pytest
-      - run: dotnet build SharpTestBench.slnx -c Release
-      - run: dotnet run --project tests/SharpTestBench.Tests -c Release --no-build
+      - run: dotnet build SharpTestBench.slnx -c Release -p:RestoreLockedMode=true
+      - run: python tools/managed_tests.py
       - run: python tools/run.py --sim icarus --log-json build/icarus-events.jsonl --waves build/icarus.vcd
       - run: python tools/logging_check.py --label icarus
       - run: python tools/coverage_check.py --label icarus
@@ -41,6 +41,7 @@ jobs:
           name: linux-test-results
           path: |
             build/*results.*
+            build/managed-injected-failure.xml
             build/*events.jsonl
             build/*artifacts.json
             build/*.vcd

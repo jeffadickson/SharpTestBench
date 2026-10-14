@@ -1,5 +1,7 @@
 # Unreleased
 
+- Migrated managed checks to 361 xUnit cases with locked dependencies and an isolated failure-reporting probe (#41).
+
 - Centralized 20 simulator capabilities with conservative unknown-product guards and per-feature evidence (#15).
 
 - Added four-backend Python timing comparisons for scheduled writes and same-time timers, plus Icarus force/deposit ordering (#7).
