@@ -1,6 +1,6 @@
 namespace SharpTestBench;
-/// <summary>Non-owning task waits. Cancelling a wait never cancels the supplied tasks.</summary>
-public static class SimTasks
+/// <summary>Simulator task combinators with explicit ownership.</summary>
+public static partial class SimTasks
 {
     static CancellationToken Token(CancellationToken? token)
     {

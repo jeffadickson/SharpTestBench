@@ -24,6 +24,7 @@ jobs:
       - run: dotnet build SharpTestBench.slnx -c Release -p:RestoreLockedMode=true
       - run: python tools/managed_tests.py
       - run: python tools/run.py --sim icarus --log-json build/icarus-events.jsonl --waves build/icarus.vcd
+      - run: python tools/structured_reference_env.py --label icarus
       - run: python tools/logging_check.py --label icarus
       - run: python tools/coverage_check.py --label icarus
       - run: python tools/timing_parity.py --sim icarus --label icarus
@@ -44,6 +45,10 @@ jobs:
           name: linux-test-results
           path: |
             build/*results.*
+            build/*structured.json
+            build/structured-*.json
+            build/structured-*.log
+            build/structured-*.xml
             build/managed-injected-failure.xml
             build/*events.jsonl
             build/*artifacts.json
@@ -91,6 +96,7 @@ jobs:
       - run: dotnet build SharpTestBench.slnx -c Release -p:RestoreLockedMode=true
       - run: python tools/managed_tests.py
       - run: python tools/run.py --sim icarus --label platform-icarus --waves build/platform-icarus.vcd
+      - run: python tools/structured_reference_env.py --label platform-icarus
       - run: python tools/wave_check.py --label platform-icarus
       - run: dotnet build examples/Counter -c Release
       - run: python tools/run.py --sim icarus --no-build --assembly examples/Counter/bin/Release/net10.0/Counter.dll --source examples/Counter/counter.sv --top counter --entry-type "Entry, Counter" --label counter --waves build/counter.vcd
@@ -101,6 +107,10 @@ jobs:
           name: platform-results-${{ matrix.os }}
           path: |
             build/*results.*
+            build/*structured.json
+            build/structured-*.json
+            build/structured-*.log
+            build/structured-*.xml
             build/*run.log
             build/*driver.log
             build/*.vcd

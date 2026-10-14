@@ -116,3 +116,6 @@
 Initial runnable managed runtime, typed values/signals, simulator triggers,
 primitives, regression runner, generated bindings, pinned native GPI host,
 three-simulator checks, Python timing parity probe and performance experiments.
+
+- Add typed owned/borrowed Gather and Select with joined asynchronous cleanup,
+  aggregate failure retention and a released cocotb 2.1 executable oracle (#44).

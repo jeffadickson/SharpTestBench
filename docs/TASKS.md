@@ -188,3 +188,9 @@ checking cleanup exactly once, four distinct retained errors, no duplicate body
 failure and zero child native registrations after every round. This supplements
 native_faults.py registration-failure tests and the regression's leak/early-end
 fixtures; the historical native shutdown diagnostic remains tracked in issue #16.
+
+## Typed structured combinators
+
+Gather and Select now accept explicitly Owned factories/triggers and Borrowed typed
+tasks/jobs. See [contracts, examples and executed cocotb 2.1 comparison](CONCURRENCY_COMPARISON.md).
+Unlike First/Combine they cancel their owned work and join asynchronous cleanup.

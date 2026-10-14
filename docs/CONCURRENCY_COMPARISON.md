@@ -1,67 +1,96 @@
-# Concurrency comparison: cocotb 2.1 and SharpTestBench
+# Structured concurrency: cocotb 2.1 and SharpTestBench
 
-This is a contract review, not a completed differential conformance claim.
-Reference: [cocotb 2.1 library reference](https://docs.cocotb.org/en/v2.1.0/library_reference.html#cocotb.triggers.gather).
-The pinned upstream `_concurrent_waiters.py` was also inspected; it is not a
-substitute for executing the released 2.1 reference cases.
+Issue #44 adds typed `SimTasks.Gather` and `SimTasks.Select`. Existing First,
+Combine and WithTimeout retain their non-owning contracts.
 
-| Contract | cocotb 2.1 | SharpTestBench today |
+```csharp
+using static SharpTestBench.SimTasks;
+
+int[] values = await Gather(ctx,
+    Owned(async token => { await Triggers.Timer(5); return 10; }),
+    Owned(async token => { await Triggers.Timer(2); return 20; }));
+// values is [10, 20], in argument order.
+
+var (index, value) = await Select(ctx,
+    Borrowed(existingJob),
+    Owned(async token => { await Triggers.Timer(50); return -1; }));
+```
+
+`Owned` takes a deferred `Func<CancellationToken, Task<T>>`; it starts on the
+simulator scheduler and inherits the child cancellation scope. `Owned(trigger)`
+owns a trigger subscription and returns that trigger. `Borrowed(Task<T>)` and
+`Borrowed(SimJob<T>)` own only the observation, never the supplied operation.
+Factories may adapt void-returning operations to a typed sentinel result. Inputs
+share T; heterogeneous values can use an explicit application result type.
+
+## Contracts
+
+- Gather returns T[] in input order; empty input returns an empty array. A failed
+  or cancelled child ends the wait promptly and cancels unfinished owned work.
+- Select returns `(int Index, T Value)`; empty input is rejected. First observed
+  completion wins, including failure/cancellation. Avoid depending on same-time
+  ordering. Selection cancels unfinished owned losers.
+- Both accept an optional cancellation token after ctx. The default is the caller's
+  simulation scope. Pre-cancellation prevents factories from starting. All inputs
+  are validated before work starts; the input array is snapshotted.
+- All owned jobs are joined before return/throw, including asynchronous finally
+  work. Parent cancellation is requested once per pending child; repeated requests
+  do not interrupt joining. Cleanup that needs simulation time must explicitly use
+  CancellationToken.None for bounded waits. Completed jobs are not cancelled.
+- Borrowed waiters detach on cancellation; underlying tasks survive. Existing
+  StartSoon jobs retain their original test/group failure supervision.
+- The original single error is rethrown. Distinct operation, cancellation-handler
+  and cleanup errors are aggregated without duplicating the same exception object.
+  A cleanup failure can turn successful selection into failure.
+- Cancellation suppression is permitted; the combinator still joins that child.
+  A noncooperative operation can prevent return. Regression deadlines, tracked-job
+  leak checks and the simulator-process watchdog remain the outer bounds.
+
+Factories must return the Task representing all their work. Detached jobs started
+with ctx.StartSoon retain their separate owner; they are not silently adopted.
+External-thread completion/wakeup remains outside this simulator-thread contract.
+No public low-level wait(return_when) API is introduced in this issue; First,
+Combine and the new structured APIs expose the supported high-level policies.
+
+## Executed comparison
+
+The oracle uses **released cocotb 2.1.0 in a separate environment**, not the pinned
+native-adapter development checkout. Reference documentation:
+https://docs.cocotb.org/en/v2.1.0/library_reference.html#cocotb.triggers.gather
+
+The common cases verify ordered results, empty gather, borrowed-task survival,
+child cancellation and selected result identity. However, real cancellation tests
+show a significant difference that the earlier documentation-only review missed:
+2.1's Task._resume rejects a cancelled coroutine that yields again. The following
+async-finally scenarios therefore deliberately have different outcomes.
+
+| Fixture | SharpTestBench | Released cocotb 2.1 |
 |---|---|---|
-| Gather results | Input-ordered tuple | Combine returns no values; typed tasks retain their results |
-| Select result | Winning input index and value | First returns the winning Task after propagating its outcome |
-| Failure during gather | Cancel owned siblings, then join cleanup | Combine waits for all supplied tasks; no sibling cancellation |
-| Selection cleanup | Cancel owned losers, join cleanup | First leaves supplied tasks running |
-| Existing tasks supplied | Borrowed; cancellation affects waiters, not tasks | First/Combine also borrow supplied tasks |
-| Awaitable inputs | Coroutines, triggers, tasks and other awaitables | First/Combine accept Task; triggers require AsTask |
-| Cancellation of outer wait | Owned cleanup finishes before propagation | First/Combine stop waiting; RunGroup joins owned children |
-| Low-level wait | FIRST_COMPLETED, FIRST_EXCEPTION, ALL_COMPLETED | No single corresponding public API |
-| Simultaneous completion | Do not depend on same-time winner order | Already-complete First ties use input order |
+| Select wins at step 2; loser finally awaits 3 steps | Returns at step 5, cleanup finished | Returns at step 2, cleanup unfinished |
+| Gather fails at step 2; sibling finally awaits 3 steps | Raises at step 5 | Raises at step 2 |
+| Parent cancelled at step 1, repeated at step 2; child finally awaits 3 | Observed at step 4 | Observed at step 2 |
 
-The pinned Python implementation returns an empty tuple for empty gather; select
-and wait reject empty inputs. SharpTestBench First and Combine both reject empty
-inputs. This is an API difference to cover in the released-version oracle.
+The comparison script asserts both sides of these differences explicitly; it does
+not normalize timestamps or claim equivalence. SharpTestBench preserves bounded
+asynchronous cleanup and cleanup failures as intentional stronger guarantees.
+Python cancellation suppression and cleanup-error policies must not be inferred
+from matching only the selected result. Same-time tie ordering is not compared.
 
-## Why the distinction matters
+## Reproduction and coverage
 
-Suppose a scoreboard fails at simulation step 2 while a stimulus generator is
-scheduled to run until step 100. Our Combine observes the failure only after the
-other task settles. That delay can obscure the first failure and prolong a run.
-Putting both jobs in RunGroup cancels the stimulus promptly and waits for its
-cleanup before returning. Simply renaming Combine to Gather would preserve the
-wrong failure behavior and still omit typed result collection.
+Run the managed integration suite with label `owned-icarus`, then:
 
-C# async methods generally start when invoked. Ownership must therefore be explicit:
-planned owned inputs should be deferred `Func<CancellationToken, Task<T>>`
-factories, while existing Task/SimJob inputs remain borrowed. AsTask alone does
-not transfer ownership of its cancellation source. These are proposed API design
-constraints, not APIs already shipped.
+```sh
+python tools/structured_reference_env.py --label owned-icarus
+```
 
-## Characterization tests
+The helper provisions build/reference-python with cocotb==2.1.0 and
+find_libpython==0.5.1, leaving development adapters untouched. It runs an actual
+Icarus process and compares JSON traces. Build artifacts include the Python log,
+JUnit report, both traces and structured-comparison.json. CI runs this on Linux,
+Windows and macOS immediately after native integration, before another HDL build.
 
-The shared TimingTests file runs in Verilog and VHDL integration projects:
-
-- CombinatorBorrowedCancellation: cancelling First preserves a borrowed timer;
-  joining it removes the native callback.
-- CombinatorFailureIsNotFailFast: failure and child cancellation both leave Combine
-  waiting until the other borrowed task settles; original failure identity survives.
-- CombinatorGroupJoinsAsyncCleanup: a failure at step 2 cancels an owned sibling;
-  its three-step asynchronous finally completes before the group throws at step 5.
-
-Existing U_TaskCombinators covers result identity and completed ties;
-AL_CompletionTriggers covers detached observers; AP_MultipleFailureTeardownStress
-covers aggregation. None proves full gather/select equivalence.
-
-Local validation on 2026-10-14: solution build succeeded with zero warnings;
-Icarus passed 52 tests (one skip) and NVC passed 22 (one skip), including all three
-new cases on each backend. Windows/macOS execution of these new cases is pending
-the next CI run; the earlier platform matrix predates them.
-
-## Remaining implementation and evidence
-
-Tracked in [#44](https://github.com/jeffadickson/SharpTestBench/issues/44): typed
-aggregation and indexed selection; mixed owned/borrowed inputs; fail-fast
-observation; parent and repeated cancellation; cancellation suppression; cleanup
-failure policy; empty inputs; released cocotb differential traces; native platform
-and backend coverage. Preserve the existing non-owning APIs to avoid changing
-caller ownership silently. Prefer an explicit aggregate-error policy over silently
-losing cleanup failures, and document any difference from the Python oracle.
+StructuredWaitTests covers validation, results, trigger inputs, mixed ownership,
+nested calls, parent and child cancellation, suppression, asynchronous cleanup,
+cleanup faults, cancellation-handler faults and native callback conservation.
+The older shared characterization tests preserve First/Combine behavior.
