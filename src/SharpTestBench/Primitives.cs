@@ -194,7 +194,7 @@ public sealed class SimQueue<T>
     /// <summary>Remove immediately if an unreserved item exists; never steals from a pending consumer.</summary>
     /// <param name="value">The removed item, or default when no item is available.</param>
     /// <returns>True when an item was removed. False may occur with Count greater than zero during handoff.</returns>
-    public bool TryGet(out T value)
+    public bool TryGet([System.Diagnostics.CodeAnalysis.MaybeNullWhen(false)] out T value)
     {
         if (!items.TryAcquire()) { value = default!; return false; }
         value = queue.Dequeue();
