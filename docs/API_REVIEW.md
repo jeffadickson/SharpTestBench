@@ -76,3 +76,14 @@ has TryPut/TryGet and capacity/occupancy properties with real-scheduler tests fo
 reserved waiter handoff and cancellation. Boolean results, positive capacity and
 reservation protection are explicit differences from Python. Priority/LIFO queues and comparison support are implemented with explicit .NET
 semantics. External storage customization is intentionally unsupported; see QUEUES.md.
+
+
+## Range and value-array review
+
+All 20 inventoried definitions in cocotb.types._range, _abstract_array and _array
+are reviewed: **64 decisions; 238 inventoried definitions remain**, plus aliases
+and dynamic exports. ValueArray now supports same-length range reassignment,
+HDL-index search, occurrence counting and transactional slice writes. HdlRange
+supports membership and safe lazy enumeration. See VALUE_ARRAYS.md for explicit
+Int32, equality, null-slice and Python protocol differences and 98 pinned oracle
+cases. These review counts are not a parity percentage.

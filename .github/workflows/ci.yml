@@ -23,6 +23,7 @@ jobs:
           CC=gcc CXX=g++ python -m pip install ./build/upstream/cocotb-source pytest
       - run: python -m unittest discover -s tests/Tooling -v
       - run: python tools/audit_reviews.py --source build/upstream/cocotb-source
+      - run: python tools/array_reference.py --check
       - run: dotnet build SharpTestBench.slnx -c Release -p:RestoreLockedMode=true
       - run: python tools/managed_tests.py
       - run: dotnet run --project tests/SharpTestBench.Generators.Tests -c Release --no-build -- -xml build/generator-results.xml
@@ -125,6 +126,7 @@ jobs:
           python -m pip install ./build/upstream/cocotb-source pytest
       - run: python -m unittest discover -s tests/Tooling -v
       - run: python tools/audit_reviews.py --source build/upstream/cocotb-source
+      - run: python tools/array_reference.py --check
       - run: dotnet build SharpTestBench.slnx -c Release -p:RestoreLockedMode=true
       - run: python tools/managed_tests.py
       - run: dotnet run --project tests/SharpTestBench.Generators.Tests -c Release --no-build -- -xml build/generator-results.xml

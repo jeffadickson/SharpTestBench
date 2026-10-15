@@ -348,3 +348,14 @@ Linux, Windows 2022, macOS 14, isolated installed-Linux container and release-bu
 validation all succeeded. Issue #46 acceptance criteria are complete. This closes
 queue-family implementation, not the remaining upstream API audit or large-queue
 performance characterization.
+
+### HDL value arrays and ranges (#47)
+
+Local Release build succeeds with zero warnings/errors. All 368 managed xUnit
+cases pass; the injected-failure probe correctly fails only IntegerBoundaries,
+with the other 367 cases passing. The pinned cocotb oracle checks 98 directed
+range/value-array cases; separate negative tests cover transactional slice writes,
+aliasing, null values, negative HDL indices and Int32 boundaries. Tooling tests:
+11 passed. Native regression: Icarus 72 passed / 2 capability skips; NVC 43 passed /
+1 capability skip. API audit now records 64 reviewed definitions and 238 remaining
+plus aliases/dynamic exports. These counts are not a full-parity percentage.

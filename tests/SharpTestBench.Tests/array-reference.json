@@ -1,0 +1,2956 @@
+[
+  {
+    "left": -3,
+    "right": -3,
+    "ascending": true,
+    "indices": [
+      -3
+    ],
+    "values": [
+      0
+    ],
+    "found": [
+      -3,
+      null,
+      null,
+      null
+    ],
+    "counts": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "after_slice": [
+      0
+    ],
+    "reindexed": [
+      0
+    ]
+  },
+  {
+    "left": -3,
+    "right": -3,
+    "ascending": false,
+    "indices": [
+      -3
+    ],
+    "values": [
+      0
+    ],
+    "found": [
+      -3,
+      null,
+      null,
+      null
+    ],
+    "counts": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "after_slice": [
+      0
+    ],
+    "reindexed": [
+      0
+    ]
+  },
+  {
+    "left": -3,
+    "right": -2,
+    "ascending": true,
+    "indices": [
+      -3,
+      -2
+    ],
+    "values": [
+      0,
+      1
+    ],
+    "found": [
+      -3,
+      -2,
+      null,
+      null
+    ],
+    "counts": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "after_slice": [
+      7,
+      8
+    ],
+    "reindexed": [
+      7,
+      8
+    ]
+  },
+  {
+    "left": -3,
+    "right": -2,
+    "ascending": false,
+    "indices": [],
+    "values": [],
+    "found": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "counts": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "after_slice": [],
+    "reindexed": []
+  },
+  {
+    "left": -3,
+    "right": -1,
+    "ascending": true,
+    "indices": [
+      -3,
+      -2,
+      -1
+    ],
+    "values": [
+      0,
+      1,
+      2
+    ],
+    "found": [
+      -3,
+      -2,
+      -1,
+      null
+    ],
+    "counts": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "after_slice": [
+      7,
+      8,
+      2
+    ],
+    "reindexed": [
+      7,
+      8,
+      2
+    ]
+  },
+  {
+    "left": -3,
+    "right": -1,
+    "ascending": false,
+    "indices": [],
+    "values": [],
+    "found": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "counts": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "after_slice": [],
+    "reindexed": []
+  },
+  {
+    "left": -3,
+    "right": 0,
+    "ascending": true,
+    "indices": [
+      -3,
+      -2,
+      -1,
+      0
+    ],
+    "values": [
+      0,
+      1,
+      2,
+      0
+    ],
+    "found": [
+      -3,
+      -2,
+      -1,
+      null
+    ],
+    "counts": [
+      2,
+      1,
+      1,
+      0
+    ],
+    "after_slice": [
+      7,
+      8,
+      2,
+      0
+    ],
+    "reindexed": [
+      7,
+      8,
+      2,
+      0
+    ]
+  },
+  {
+    "left": -3,
+    "right": 0,
+    "ascending": false,
+    "indices": [],
+    "values": [],
+    "found": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "counts": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "after_slice": [],
+    "reindexed": []
+  },
+  {
+    "left": -3,
+    "right": 1,
+    "ascending": true,
+    "indices": [
+      -3,
+      -2,
+      -1,
+      0,
+      1
+    ],
+    "values": [
+      0,
+      1,
+      2,
+      0,
+      1
+    ],
+    "found": [
+      -3,
+      -2,
+      -1,
+      null
+    ],
+    "counts": [
+      2,
+      2,
+      1,
+      0
+    ],
+    "after_slice": [
+      7,
+      8,
+      2,
+      0,
+      1
+    ],
+    "reindexed": [
+      7,
+      8,
+      2,
+      0,
+      1
+    ]
+  },
+  {
+    "left": -3,
+    "right": 1,
+    "ascending": false,
+    "indices": [],
+    "values": [],
+    "found": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "counts": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "after_slice": [],
+    "reindexed": []
+  },
+  {
+    "left": -3,
+    "right": 2,
+    "ascending": true,
+    "indices": [
+      -3,
+      -2,
+      -1,
+      0,
+      1,
+      2
+    ],
+    "values": [
+      0,
+      1,
+      2,
+      0,
+      1,
+      2
+    ],
+    "found": [
+      -3,
+      -2,
+      -1,
+      null
+    ],
+    "counts": [
+      2,
+      2,
+      2,
+      0
+    ],
+    "after_slice": [
+      7,
+      8,
+      2,
+      0,
+      1,
+      2
+    ],
+    "reindexed": [
+      7,
+      8,
+      2,
+      0,
+      1,
+      2
+    ]
+  },
+  {
+    "left": -3,
+    "right": 2,
+    "ascending": false,
+    "indices": [],
+    "values": [],
+    "found": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "counts": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "after_slice": [],
+    "reindexed": []
+  },
+  {
+    "left": -3,
+    "right": 3,
+    "ascending": true,
+    "indices": [
+      -3,
+      -2,
+      -1,
+      0,
+      1,
+      2,
+      3
+    ],
+    "values": [
+      0,
+      1,
+      2,
+      0,
+      1,
+      2,
+      0
+    ],
+    "found": [
+      -3,
+      -2,
+      -1,
+      null
+    ],
+    "counts": [
+      3,
+      2,
+      2,
+      0
+    ],
+    "after_slice": [
+      7,
+      8,
+      2,
+      0,
+      1,
+      2,
+      0
+    ],
+    "reindexed": [
+      7,
+      8,
+      2,
+      0,
+      1,
+      2,
+      0
+    ]
+  },
+  {
+    "left": -3,
+    "right": 3,
+    "ascending": false,
+    "indices": [],
+    "values": [],
+    "found": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "counts": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "after_slice": [],
+    "reindexed": []
+  },
+  {
+    "left": -2,
+    "right": -3,
+    "ascending": true,
+    "indices": [],
+    "values": [],
+    "found": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "counts": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "after_slice": [],
+    "reindexed": []
+  },
+  {
+    "left": -2,
+    "right": -3,
+    "ascending": false,
+    "indices": [
+      -2,
+      -3
+    ],
+    "values": [
+      0,
+      1
+    ],
+    "found": [
+      -2,
+      -3,
+      null,
+      null
+    ],
+    "counts": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "after_slice": [
+      7,
+      8
+    ],
+    "reindexed": [
+      7,
+      8
+    ]
+  },
+  {
+    "left": -2,
+    "right": -2,
+    "ascending": true,
+    "indices": [
+      -2
+    ],
+    "values": [
+      0
+    ],
+    "found": [
+      -2,
+      null,
+      null,
+      null
+    ],
+    "counts": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "after_slice": [
+      0
+    ],
+    "reindexed": [
+      0
+    ]
+  },
+  {
+    "left": -2,
+    "right": -2,
+    "ascending": false,
+    "indices": [
+      -2
+    ],
+    "values": [
+      0
+    ],
+    "found": [
+      -2,
+      null,
+      null,
+      null
+    ],
+    "counts": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "after_slice": [
+      0
+    ],
+    "reindexed": [
+      0
+    ]
+  },
+  {
+    "left": -2,
+    "right": -1,
+    "ascending": true,
+    "indices": [
+      -2,
+      -1
+    ],
+    "values": [
+      0,
+      1
+    ],
+    "found": [
+      -2,
+      -1,
+      null,
+      null
+    ],
+    "counts": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "after_slice": [
+      7,
+      8
+    ],
+    "reindexed": [
+      7,
+      8
+    ]
+  },
+  {
+    "left": -2,
+    "right": -1,
+    "ascending": false,
+    "indices": [],
+    "values": [],
+    "found": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "counts": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "after_slice": [],
+    "reindexed": []
+  },
+  {
+    "left": -2,
+    "right": 0,
+    "ascending": true,
+    "indices": [
+      -2,
+      -1,
+      0
+    ],
+    "values": [
+      0,
+      1,
+      2
+    ],
+    "found": [
+      -2,
+      -1,
+      0,
+      null
+    ],
+    "counts": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "after_slice": [
+      7,
+      8,
+      2
+    ],
+    "reindexed": [
+      7,
+      8,
+      2
+    ]
+  },
+  {
+    "left": -2,
+    "right": 0,
+    "ascending": false,
+    "indices": [],
+    "values": [],
+    "found": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "counts": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "after_slice": [],
+    "reindexed": []
+  },
+  {
+    "left": -2,
+    "right": 1,
+    "ascending": true,
+    "indices": [
+      -2,
+      -1,
+      0,
+      1
+    ],
+    "values": [
+      0,
+      1,
+      2,
+      0
+    ],
+    "found": [
+      -2,
+      -1,
+      0,
+      null
+    ],
+    "counts": [
+      2,
+      1,
+      1,
+      0
+    ],
+    "after_slice": [
+      7,
+      8,
+      2,
+      0
+    ],
+    "reindexed": [
+      7,
+      8,
+      2,
+      0
+    ]
+  },
+  {
+    "left": -2,
+    "right": 1,
+    "ascending": false,
+    "indices": [],
+    "values": [],
+    "found": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "counts": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "after_slice": [],
+    "reindexed": []
+  },
+  {
+    "left": -2,
+    "right": 2,
+    "ascending": true,
+    "indices": [
+      -2,
+      -1,
+      0,
+      1,
+      2
+    ],
+    "values": [
+      0,
+      1,
+      2,
+      0,
+      1
+    ],
+    "found": [
+      -2,
+      -1,
+      0,
+      null
+    ],
+    "counts": [
+      2,
+      2,
+      1,
+      0
+    ],
+    "after_slice": [
+      7,
+      8,
+      2,
+      0,
+      1
+    ],
+    "reindexed": [
+      7,
+      8,
+      2,
+      0,
+      1
+    ]
+  },
+  {
+    "left": -2,
+    "right": 2,
+    "ascending": false,
+    "indices": [],
+    "values": [],
+    "found": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "counts": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "after_slice": [],
+    "reindexed": []
+  },
+  {
+    "left": -2,
+    "right": 3,
+    "ascending": true,
+    "indices": [
+      -2,
+      -1,
+      0,
+      1,
+      2,
+      3
+    ],
+    "values": [
+      0,
+      1,
+      2,
+      0,
+      1,
+      2
+    ],
+    "found": [
+      -2,
+      -1,
+      0,
+      null
+    ],
+    "counts": [
+      2,
+      2,
+      2,
+      0
+    ],
+    "after_slice": [
+      7,
+      8,
+      2,
+      0,
+      1,
+      2
+    ],
+    "reindexed": [
+      7,
+      8,
+      2,
+      0,
+      1,
+      2
+    ]
+  },
+  {
+    "left": -2,
+    "right": 3,
+    "ascending": false,
+    "indices": [],
+    "values": [],
+    "found": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "counts": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "after_slice": [],
+    "reindexed": []
+  },
+  {
+    "left": -1,
+    "right": -3,
+    "ascending": true,
+    "indices": [],
+    "values": [],
+    "found": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "counts": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "after_slice": [],
+    "reindexed": []
+  },
+  {
+    "left": -1,
+    "right": -3,
+    "ascending": false,
+    "indices": [
+      -1,
+      -2,
+      -3
+    ],
+    "values": [
+      0,
+      1,
+      2
+    ],
+    "found": [
+      -1,
+      -2,
+      -3,
+      null
+    ],
+    "counts": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "after_slice": [
+      7,
+      8,
+      2
+    ],
+    "reindexed": [
+      7,
+      8,
+      2
+    ]
+  },
+  {
+    "left": -1,
+    "right": -2,
+    "ascending": true,
+    "indices": [],
+    "values": [],
+    "found": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "counts": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "after_slice": [],
+    "reindexed": []
+  },
+  {
+    "left": -1,
+    "right": -2,
+    "ascending": false,
+    "indices": [
+      -1,
+      -2
+    ],
+    "values": [
+      0,
+      1
+    ],
+    "found": [
+      -1,
+      -2,
+      null,
+      null
+    ],
+    "counts": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "after_slice": [
+      7,
+      8
+    ],
+    "reindexed": [
+      7,
+      8
+    ]
+  },
+  {
+    "left": -1,
+    "right": -1,
+    "ascending": true,
+    "indices": [
+      -1
+    ],
+    "values": [
+      0
+    ],
+    "found": [
+      -1,
+      null,
+      null,
+      null
+    ],
+    "counts": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "after_slice": [
+      0
+    ],
+    "reindexed": [
+      0
+    ]
+  },
+  {
+    "left": -1,
+    "right": -1,
+    "ascending": false,
+    "indices": [
+      -1
+    ],
+    "values": [
+      0
+    ],
+    "found": [
+      -1,
+      null,
+      null,
+      null
+    ],
+    "counts": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "after_slice": [
+      0
+    ],
+    "reindexed": [
+      0
+    ]
+  },
+  {
+    "left": -1,
+    "right": 0,
+    "ascending": true,
+    "indices": [
+      -1,
+      0
+    ],
+    "values": [
+      0,
+      1
+    ],
+    "found": [
+      -1,
+      0,
+      null,
+      null
+    ],
+    "counts": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "after_slice": [
+      7,
+      8
+    ],
+    "reindexed": [
+      7,
+      8
+    ]
+  },
+  {
+    "left": -1,
+    "right": 0,
+    "ascending": false,
+    "indices": [],
+    "values": [],
+    "found": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "counts": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "after_slice": [],
+    "reindexed": []
+  },
+  {
+    "left": -1,
+    "right": 1,
+    "ascending": true,
+    "indices": [
+      -1,
+      0,
+      1
+    ],
+    "values": [
+      0,
+      1,
+      2
+    ],
+    "found": [
+      -1,
+      0,
+      1,
+      null
+    ],
+    "counts": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "after_slice": [
+      7,
+      8,
+      2
+    ],
+    "reindexed": [
+      7,
+      8,
+      2
+    ]
+  },
+  {
+    "left": -1,
+    "right": 1,
+    "ascending": false,
+    "indices": [],
+    "values": [],
+    "found": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "counts": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "after_slice": [],
+    "reindexed": []
+  },
+  {
+    "left": -1,
+    "right": 2,
+    "ascending": true,
+    "indices": [
+      -1,
+      0,
+      1,
+      2
+    ],
+    "values": [
+      0,
+      1,
+      2,
+      0
+    ],
+    "found": [
+      -1,
+      0,
+      1,
+      null
+    ],
+    "counts": [
+      2,
+      1,
+      1,
+      0
+    ],
+    "after_slice": [
+      7,
+      8,
+      2,
+      0
+    ],
+    "reindexed": [
+      7,
+      8,
+      2,
+      0
+    ]
+  },
+  {
+    "left": -1,
+    "right": 2,
+    "ascending": false,
+    "indices": [],
+    "values": [],
+    "found": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "counts": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "after_slice": [],
+    "reindexed": []
+  },
+  {
+    "left": -1,
+    "right": 3,
+    "ascending": true,
+    "indices": [
+      -1,
+      0,
+      1,
+      2,
+      3
+    ],
+    "values": [
+      0,
+      1,
+      2,
+      0,
+      1
+    ],
+    "found": [
+      -1,
+      0,
+      1,
+      null
+    ],
+    "counts": [
+      2,
+      2,
+      1,
+      0
+    ],
+    "after_slice": [
+      7,
+      8,
+      2,
+      0,
+      1
+    ],
+    "reindexed": [
+      7,
+      8,
+      2,
+      0,
+      1
+    ]
+  },
+  {
+    "left": -1,
+    "right": 3,
+    "ascending": false,
+    "indices": [],
+    "values": [],
+    "found": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "counts": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "after_slice": [],
+    "reindexed": []
+  },
+  {
+    "left": 0,
+    "right": -3,
+    "ascending": true,
+    "indices": [],
+    "values": [],
+    "found": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "counts": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "after_slice": [],
+    "reindexed": []
+  },
+  {
+    "left": 0,
+    "right": -3,
+    "ascending": false,
+    "indices": [
+      0,
+      -1,
+      -2,
+      -3
+    ],
+    "values": [
+      0,
+      1,
+      2,
+      0
+    ],
+    "found": [
+      0,
+      -1,
+      -2,
+      null
+    ],
+    "counts": [
+      2,
+      1,
+      1,
+      0
+    ],
+    "after_slice": [
+      7,
+      8,
+      2,
+      0
+    ],
+    "reindexed": [
+      7,
+      8,
+      2,
+      0
+    ]
+  },
+  {
+    "left": 0,
+    "right": -2,
+    "ascending": true,
+    "indices": [],
+    "values": [],
+    "found": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "counts": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "after_slice": [],
+    "reindexed": []
+  },
+  {
+    "left": 0,
+    "right": -2,
+    "ascending": false,
+    "indices": [
+      0,
+      -1,
+      -2
+    ],
+    "values": [
+      0,
+      1,
+      2
+    ],
+    "found": [
+      0,
+      -1,
+      -2,
+      null
+    ],
+    "counts": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "after_slice": [
+      7,
+      8,
+      2
+    ],
+    "reindexed": [
+      7,
+      8,
+      2
+    ]
+  },
+  {
+    "left": 0,
+    "right": -1,
+    "ascending": true,
+    "indices": [],
+    "values": [],
+    "found": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "counts": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "after_slice": [],
+    "reindexed": []
+  },
+  {
+    "left": 0,
+    "right": -1,
+    "ascending": false,
+    "indices": [
+      0,
+      -1
+    ],
+    "values": [
+      0,
+      1
+    ],
+    "found": [
+      0,
+      -1,
+      null,
+      null
+    ],
+    "counts": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "after_slice": [
+      7,
+      8
+    ],
+    "reindexed": [
+      7,
+      8
+    ]
+  },
+  {
+    "left": 0,
+    "right": 0,
+    "ascending": true,
+    "indices": [
+      0
+    ],
+    "values": [
+      0
+    ],
+    "found": [
+      0,
+      null,
+      null,
+      null
+    ],
+    "counts": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "after_slice": [
+      0
+    ],
+    "reindexed": [
+      0
+    ]
+  },
+  {
+    "left": 0,
+    "right": 0,
+    "ascending": false,
+    "indices": [
+      0
+    ],
+    "values": [
+      0
+    ],
+    "found": [
+      0,
+      null,
+      null,
+      null
+    ],
+    "counts": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "after_slice": [
+      0
+    ],
+    "reindexed": [
+      0
+    ]
+  },
+  {
+    "left": 0,
+    "right": 1,
+    "ascending": true,
+    "indices": [
+      0,
+      1
+    ],
+    "values": [
+      0,
+      1
+    ],
+    "found": [
+      0,
+      1,
+      null,
+      null
+    ],
+    "counts": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "after_slice": [
+      7,
+      8
+    ],
+    "reindexed": [
+      7,
+      8
+    ]
+  },
+  {
+    "left": 0,
+    "right": 1,
+    "ascending": false,
+    "indices": [],
+    "values": [],
+    "found": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "counts": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "after_slice": [],
+    "reindexed": []
+  },
+  {
+    "left": 0,
+    "right": 2,
+    "ascending": true,
+    "indices": [
+      0,
+      1,
+      2
+    ],
+    "values": [
+      0,
+      1,
+      2
+    ],
+    "found": [
+      0,
+      1,
+      2,
+      null
+    ],
+    "counts": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "after_slice": [
+      7,
+      8,
+      2
+    ],
+    "reindexed": [
+      7,
+      8,
+      2
+    ]
+  },
+  {
+    "left": 0,
+    "right": 2,
+    "ascending": false,
+    "indices": [],
+    "values": [],
+    "found": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "counts": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "after_slice": [],
+    "reindexed": []
+  },
+  {
+    "left": 0,
+    "right": 3,
+    "ascending": true,
+    "indices": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "values": [
+      0,
+      1,
+      2,
+      0
+    ],
+    "found": [
+      0,
+      1,
+      2,
+      null
+    ],
+    "counts": [
+      2,
+      1,
+      1,
+      0
+    ],
+    "after_slice": [
+      7,
+      8,
+      2,
+      0
+    ],
+    "reindexed": [
+      7,
+      8,
+      2,
+      0
+    ]
+  },
+  {
+    "left": 0,
+    "right": 3,
+    "ascending": false,
+    "indices": [],
+    "values": [],
+    "found": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "counts": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "after_slice": [],
+    "reindexed": []
+  },
+  {
+    "left": 1,
+    "right": -3,
+    "ascending": true,
+    "indices": [],
+    "values": [],
+    "found": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "counts": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "after_slice": [],
+    "reindexed": []
+  },
+  {
+    "left": 1,
+    "right": -3,
+    "ascending": false,
+    "indices": [
+      1,
+      0,
+      -1,
+      -2,
+      -3
+    ],
+    "values": [
+      0,
+      1,
+      2,
+      0,
+      1
+    ],
+    "found": [
+      1,
+      0,
+      -1,
+      null
+    ],
+    "counts": [
+      2,
+      2,
+      1,
+      0
+    ],
+    "after_slice": [
+      7,
+      8,
+      2,
+      0,
+      1
+    ],
+    "reindexed": [
+      7,
+      8,
+      2,
+      0,
+      1
+    ]
+  },
+  {
+    "left": 1,
+    "right": -2,
+    "ascending": true,
+    "indices": [],
+    "values": [],
+    "found": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "counts": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "after_slice": [],
+    "reindexed": []
+  },
+  {
+    "left": 1,
+    "right": -2,
+    "ascending": false,
+    "indices": [
+      1,
+      0,
+      -1,
+      -2
+    ],
+    "values": [
+      0,
+      1,
+      2,
+      0
+    ],
+    "found": [
+      1,
+      0,
+      -1,
+      null
+    ],
+    "counts": [
+      2,
+      1,
+      1,
+      0
+    ],
+    "after_slice": [
+      7,
+      8,
+      2,
+      0
+    ],
+    "reindexed": [
+      7,
+      8,
+      2,
+      0
+    ]
+  },
+  {
+    "left": 1,
+    "right": -1,
+    "ascending": true,
+    "indices": [],
+    "values": [],
+    "found": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "counts": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "after_slice": [],
+    "reindexed": []
+  },
+  {
+    "left": 1,
+    "right": -1,
+    "ascending": false,
+    "indices": [
+      1,
+      0,
+      -1
+    ],
+    "values": [
+      0,
+      1,
+      2
+    ],
+    "found": [
+      1,
+      0,
+      -1,
+      null
+    ],
+    "counts": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "after_slice": [
+      7,
+      8,
+      2
+    ],
+    "reindexed": [
+      7,
+      8,
+      2
+    ]
+  },
+  {
+    "left": 1,
+    "right": 0,
+    "ascending": true,
+    "indices": [],
+    "values": [],
+    "found": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "counts": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "after_slice": [],
+    "reindexed": []
+  },
+  {
+    "left": 1,
+    "right": 0,
+    "ascending": false,
+    "indices": [
+      1,
+      0
+    ],
+    "values": [
+      0,
+      1
+    ],
+    "found": [
+      1,
+      0,
+      null,
+      null
+    ],
+    "counts": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "after_slice": [
+      7,
+      8
+    ],
+    "reindexed": [
+      7,
+      8
+    ]
+  },
+  {
+    "left": 1,
+    "right": 1,
+    "ascending": true,
+    "indices": [
+      1
+    ],
+    "values": [
+      0
+    ],
+    "found": [
+      1,
+      null,
+      null,
+      null
+    ],
+    "counts": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "after_slice": [
+      0
+    ],
+    "reindexed": [
+      0
+    ]
+  },
+  {
+    "left": 1,
+    "right": 1,
+    "ascending": false,
+    "indices": [
+      1
+    ],
+    "values": [
+      0
+    ],
+    "found": [
+      1,
+      null,
+      null,
+      null
+    ],
+    "counts": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "after_slice": [
+      0
+    ],
+    "reindexed": [
+      0
+    ]
+  },
+  {
+    "left": 1,
+    "right": 2,
+    "ascending": true,
+    "indices": [
+      1,
+      2
+    ],
+    "values": [
+      0,
+      1
+    ],
+    "found": [
+      1,
+      2,
+      null,
+      null
+    ],
+    "counts": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "after_slice": [
+      7,
+      8
+    ],
+    "reindexed": [
+      7,
+      8
+    ]
+  },
+  {
+    "left": 1,
+    "right": 2,
+    "ascending": false,
+    "indices": [],
+    "values": [],
+    "found": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "counts": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "after_slice": [],
+    "reindexed": []
+  },
+  {
+    "left": 1,
+    "right": 3,
+    "ascending": true,
+    "indices": [
+      1,
+      2,
+      3
+    ],
+    "values": [
+      0,
+      1,
+      2
+    ],
+    "found": [
+      1,
+      2,
+      3,
+      null
+    ],
+    "counts": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "after_slice": [
+      7,
+      8,
+      2
+    ],
+    "reindexed": [
+      7,
+      8,
+      2
+    ]
+  },
+  {
+    "left": 1,
+    "right": 3,
+    "ascending": false,
+    "indices": [],
+    "values": [],
+    "found": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "counts": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "after_slice": [],
+    "reindexed": []
+  },
+  {
+    "left": 2,
+    "right": -3,
+    "ascending": true,
+    "indices": [],
+    "values": [],
+    "found": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "counts": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "after_slice": [],
+    "reindexed": []
+  },
+  {
+    "left": 2,
+    "right": -3,
+    "ascending": false,
+    "indices": [
+      2,
+      1,
+      0,
+      -1,
+      -2,
+      -3
+    ],
+    "values": [
+      0,
+      1,
+      2,
+      0,
+      1,
+      2
+    ],
+    "found": [
+      2,
+      1,
+      0,
+      null
+    ],
+    "counts": [
+      2,
+      2,
+      2,
+      0
+    ],
+    "after_slice": [
+      7,
+      8,
+      2,
+      0,
+      1,
+      2
+    ],
+    "reindexed": [
+      7,
+      8,
+      2,
+      0,
+      1,
+      2
+    ]
+  },
+  {
+    "left": 2,
+    "right": -2,
+    "ascending": true,
+    "indices": [],
+    "values": [],
+    "found": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "counts": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "after_slice": [],
+    "reindexed": []
+  },
+  {
+    "left": 2,
+    "right": -2,
+    "ascending": false,
+    "indices": [
+      2,
+      1,
+      0,
+      -1,
+      -2
+    ],
+    "values": [
+      0,
+      1,
+      2,
+      0,
+      1
+    ],
+    "found": [
+      2,
+      1,
+      0,
+      null
+    ],
+    "counts": [
+      2,
+      2,
+      1,
+      0
+    ],
+    "after_slice": [
+      7,
+      8,
+      2,
+      0,
+      1
+    ],
+    "reindexed": [
+      7,
+      8,
+      2,
+      0,
+      1
+    ]
+  },
+  {
+    "left": 2,
+    "right": -1,
+    "ascending": true,
+    "indices": [],
+    "values": [],
+    "found": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "counts": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "after_slice": [],
+    "reindexed": []
+  },
+  {
+    "left": 2,
+    "right": -1,
+    "ascending": false,
+    "indices": [
+      2,
+      1,
+      0,
+      -1
+    ],
+    "values": [
+      0,
+      1,
+      2,
+      0
+    ],
+    "found": [
+      2,
+      1,
+      0,
+      null
+    ],
+    "counts": [
+      2,
+      1,
+      1,
+      0
+    ],
+    "after_slice": [
+      7,
+      8,
+      2,
+      0
+    ],
+    "reindexed": [
+      7,
+      8,
+      2,
+      0
+    ]
+  },
+  {
+    "left": 2,
+    "right": 0,
+    "ascending": true,
+    "indices": [],
+    "values": [],
+    "found": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "counts": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "after_slice": [],
+    "reindexed": []
+  },
+  {
+    "left": 2,
+    "right": 0,
+    "ascending": false,
+    "indices": [
+      2,
+      1,
+      0
+    ],
+    "values": [
+      0,
+      1,
+      2
+    ],
+    "found": [
+      2,
+      1,
+      0,
+      null
+    ],
+    "counts": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "after_slice": [
+      7,
+      8,
+      2
+    ],
+    "reindexed": [
+      7,
+      8,
+      2
+    ]
+  },
+  {
+    "left": 2,
+    "right": 1,
+    "ascending": true,
+    "indices": [],
+    "values": [],
+    "found": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "counts": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "after_slice": [],
+    "reindexed": []
+  },
+  {
+    "left": 2,
+    "right": 1,
+    "ascending": false,
+    "indices": [
+      2,
+      1
+    ],
+    "values": [
+      0,
+      1
+    ],
+    "found": [
+      2,
+      1,
+      null,
+      null
+    ],
+    "counts": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "after_slice": [
+      7,
+      8
+    ],
+    "reindexed": [
+      7,
+      8
+    ]
+  },
+  {
+    "left": 2,
+    "right": 2,
+    "ascending": true,
+    "indices": [
+      2
+    ],
+    "values": [
+      0
+    ],
+    "found": [
+      2,
+      null,
+      null,
+      null
+    ],
+    "counts": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "after_slice": [
+      0
+    ],
+    "reindexed": [
+      0
+    ]
+  },
+  {
+    "left": 2,
+    "right": 2,
+    "ascending": false,
+    "indices": [
+      2
+    ],
+    "values": [
+      0
+    ],
+    "found": [
+      2,
+      null,
+      null,
+      null
+    ],
+    "counts": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "after_slice": [
+      0
+    ],
+    "reindexed": [
+      0
+    ]
+  },
+  {
+    "left": 2,
+    "right": 3,
+    "ascending": true,
+    "indices": [
+      2,
+      3
+    ],
+    "values": [
+      0,
+      1
+    ],
+    "found": [
+      2,
+      3,
+      null,
+      null
+    ],
+    "counts": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "after_slice": [
+      7,
+      8
+    ],
+    "reindexed": [
+      7,
+      8
+    ]
+  },
+  {
+    "left": 2,
+    "right": 3,
+    "ascending": false,
+    "indices": [],
+    "values": [],
+    "found": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "counts": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "after_slice": [],
+    "reindexed": []
+  },
+  {
+    "left": 3,
+    "right": -3,
+    "ascending": true,
+    "indices": [],
+    "values": [],
+    "found": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "counts": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "after_slice": [],
+    "reindexed": []
+  },
+  {
+    "left": 3,
+    "right": -3,
+    "ascending": false,
+    "indices": [
+      3,
+      2,
+      1,
+      0,
+      -1,
+      -2,
+      -3
+    ],
+    "values": [
+      0,
+      1,
+      2,
+      0,
+      1,
+      2,
+      0
+    ],
+    "found": [
+      3,
+      2,
+      1,
+      null
+    ],
+    "counts": [
+      3,
+      2,
+      2,
+      0
+    ],
+    "after_slice": [
+      7,
+      8,
+      2,
+      0,
+      1,
+      2,
+      0
+    ],
+    "reindexed": [
+      7,
+      8,
+      2,
+      0,
+      1,
+      2,
+      0
+    ]
+  },
+  {
+    "left": 3,
+    "right": -2,
+    "ascending": true,
+    "indices": [],
+    "values": [],
+    "found": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "counts": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "after_slice": [],
+    "reindexed": []
+  },
+  {
+    "left": 3,
+    "right": -2,
+    "ascending": false,
+    "indices": [
+      3,
+      2,
+      1,
+      0,
+      -1,
+      -2
+    ],
+    "values": [
+      0,
+      1,
+      2,
+      0,
+      1,
+      2
+    ],
+    "found": [
+      3,
+      2,
+      1,
+      null
+    ],
+    "counts": [
+      2,
+      2,
+      2,
+      0
+    ],
+    "after_slice": [
+      7,
+      8,
+      2,
+      0,
+      1,
+      2
+    ],
+    "reindexed": [
+      7,
+      8,
+      2,
+      0,
+      1,
+      2
+    ]
+  },
+  {
+    "left": 3,
+    "right": -1,
+    "ascending": true,
+    "indices": [],
+    "values": [],
+    "found": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "counts": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "after_slice": [],
+    "reindexed": []
+  },
+  {
+    "left": 3,
+    "right": -1,
+    "ascending": false,
+    "indices": [
+      3,
+      2,
+      1,
+      0,
+      -1
+    ],
+    "values": [
+      0,
+      1,
+      2,
+      0,
+      1
+    ],
+    "found": [
+      3,
+      2,
+      1,
+      null
+    ],
+    "counts": [
+      2,
+      2,
+      1,
+      0
+    ],
+    "after_slice": [
+      7,
+      8,
+      2,
+      0,
+      1
+    ],
+    "reindexed": [
+      7,
+      8,
+      2,
+      0,
+      1
+    ]
+  },
+  {
+    "left": 3,
+    "right": 0,
+    "ascending": true,
+    "indices": [],
+    "values": [],
+    "found": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "counts": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "after_slice": [],
+    "reindexed": []
+  },
+  {
+    "left": 3,
+    "right": 0,
+    "ascending": false,
+    "indices": [
+      3,
+      2,
+      1,
+      0
+    ],
+    "values": [
+      0,
+      1,
+      2,
+      0
+    ],
+    "found": [
+      3,
+      2,
+      1,
+      null
+    ],
+    "counts": [
+      2,
+      1,
+      1,
+      0
+    ],
+    "after_slice": [
+      7,
+      8,
+      2,
+      0
+    ],
+    "reindexed": [
+      7,
+      8,
+      2,
+      0
+    ]
+  },
+  {
+    "left": 3,
+    "right": 1,
+    "ascending": true,
+    "indices": [],
+    "values": [],
+    "found": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "counts": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "after_slice": [],
+    "reindexed": []
+  },
+  {
+    "left": 3,
+    "right": 1,
+    "ascending": false,
+    "indices": [
+      3,
+      2,
+      1
+    ],
+    "values": [
+      0,
+      1,
+      2
+    ],
+    "found": [
+      3,
+      2,
+      1,
+      null
+    ],
+    "counts": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "after_slice": [
+      7,
+      8,
+      2
+    ],
+    "reindexed": [
+      7,
+      8,
+      2
+    ]
+  },
+  {
+    "left": 3,
+    "right": 2,
+    "ascending": true,
+    "indices": [],
+    "values": [],
+    "found": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "counts": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "after_slice": [],
+    "reindexed": []
+  },
+  {
+    "left": 3,
+    "right": 2,
+    "ascending": false,
+    "indices": [
+      3,
+      2
+    ],
+    "values": [
+      0,
+      1
+    ],
+    "found": [
+      3,
+      2,
+      null,
+      null
+    ],
+    "counts": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "after_slice": [
+      7,
+      8
+    ],
+    "reindexed": [
+      7,
+      8
+    ]
+  },
+  {
+    "left": 3,
+    "right": 3,
+    "ascending": true,
+    "indices": [
+      3
+    ],
+    "values": [
+      0
+    ],
+    "found": [
+      3,
+      null,
+      null,
+      null
+    ],
+    "counts": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "after_slice": [
+      0
+    ],
+    "reindexed": [
+      0
+    ]
+  },
+  {
+    "left": 3,
+    "right": 3,
+    "ascending": false,
+    "indices": [
+      3
+    ],
+    "values": [
+      0
+    ],
+    "found": [
+      3,
+      null,
+      null,
+      null
+    ],
+    "counts": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "after_slice": [
+      0
+    ],
+    "reindexed": [
+      0
+    ]
+  }
+]

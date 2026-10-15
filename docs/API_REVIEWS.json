@@ -4,7 +4,10 @@
   "source_hashes": {
     "cocotb._base_triggers": "f4c4b9476114f0e37000a05e36078449be301f1251eb99c6633e6d9f6fb1c6f9",
     "cocotb._gpi_triggers": "9ba67c51a80e7eb74904584d0907143c32eceee516f50337f08b403b3db414f7",
-    "cocotb.queue": "681590ff41ab04f41365c4c0d852ae3e7c1ce8b7506332b80725fadbe5552650"
+    "cocotb.queue": "681590ff41ab04f41365c4c0d852ae3e7c1ce8b7506332b80725fadbe5552650",
+    "cocotb.types._range": "dad4581985172d88cb93108bfd2739f8553430e30173202b78075bcdabaec6fd",
+    "cocotb.types._abstract_array": "9b07510df7749579772f104a56de215a68da11bf59dc3a4268fe41c704ca2604",
+    "cocotb.types._array": "93a8937c00e1610d2bffb2a1b57bb3a79042a25294629094307176e6736f7fda"
   },
   "reviews": [
     {
@@ -900,6 +903,426 @@
         {
           "path": "tools/queue_reference.py",
           "contains": "expected"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.types._abstract_array",
+      "definition": "AbstractArray",
+      "source_line": 16,
+      "classification": "intentional-difference",
+      "reason": "ValueArray<T> provides built-in value-array operations and IEnumerable<T>; external abstract storage subclassing and Python object protocols are unsupported.",
+      "evidence": [
+        {
+          "path": "docs/VALUE_ARRAYS.md",
+          "contains": "Range"
+        },
+        {
+          "path": "tests/SharpTestBench.Tests/ArrayTests.cs",
+          "contains": "PinnedRangeAndArrayReference"
+        },
+        {
+          "path": "tools/array_reference.py",
+          "contains": "hashlib.sha256"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.types._abstract_array",
+      "definition": "AbstractArray.left",
+      "source_line": 39,
+      "classification": "idiomatic-equivalent",
+      "reason": "ValueArray.Range.Left supplies declared left bound without a forwarding property.",
+      "evidence": [
+        {
+          "path": "docs/VALUE_ARRAYS.md",
+          "contains": "Range"
+        },
+        {
+          "path": "tests/SharpTestBench.Tests/ArrayTests.cs",
+          "contains": "PinnedRangeAndArrayReference"
+        },
+        {
+          "path": "tools/array_reference.py",
+          "contains": "hashlib.sha256"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.types._abstract_array",
+      "definition": "AbstractArray.direction",
+      "source_line": 44,
+      "classification": "intentional-difference",
+      "reason": "ValueArray.Range.Ascending supplies declared direction as a boolean.",
+      "evidence": [
+        {
+          "path": "docs/VALUE_ARRAYS.md",
+          "contains": "Range"
+        },
+        {
+          "path": "tests/SharpTestBench.Tests/ArrayTests.cs",
+          "contains": "PinnedRangeAndArrayReference"
+        },
+        {
+          "path": "tools/array_reference.py",
+          "contains": "hashlib.sha256"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.types._abstract_array",
+      "definition": "AbstractArray.right",
+      "source_line": 49,
+      "classification": "idiomatic-equivalent",
+      "reason": "ValueArray.Range.Right supplies declared inclusive right bound without a forwarding property.",
+      "evidence": [
+        {
+          "path": "docs/VALUE_ARRAYS.md",
+          "contains": "Range"
+        },
+        {
+          "path": "tests/SharpTestBench.Tests/ArrayTests.cs",
+          "contains": "PinnedRangeAndArrayReference"
+        },
+        {
+          "path": "tools/array_reference.py",
+          "contains": "hashlib.sha256"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.types._abstract_array",
+      "definition": "AbstractArray.range",
+      "source_line": 55,
+      "classification": "idiomatic-equivalent",
+      "reason": "ValueArray.Range exposes and reassigns the indexing scheme only when length matches, preserving stored order.",
+      "evidence": [
+        {
+          "path": "docs/VALUE_ARRAYS.md",
+          "contains": "Range"
+        },
+        {
+          "path": "tests/SharpTestBench.Tests/ArrayTests.cs",
+          "contains": "PinnedRangeAndArrayReference"
+        },
+        {
+          "path": "tools/array_reference.py",
+          "contains": "hashlib.sha256"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.types._abstract_array",
+      "definition": "AbstractArray.range",
+      "source_line": 60,
+      "classification": "idiomatic-equivalent",
+      "reason": "ValueArray.Range exposes and reassigns the indexing scheme only when length matches, preserving stored order.",
+      "evidence": [
+        {
+          "path": "docs/VALUE_ARRAYS.md",
+          "contains": "Range"
+        },
+        {
+          "path": "tests/SharpTestBench.Tests/ArrayTests.cs",
+          "contains": "PinnedRangeAndArrayReference"
+        },
+        {
+          "path": "tools/array_reference.py",
+          "contains": "hashlib.sha256"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.types._abstract_array",
+      "definition": "AbstractArray.index",
+      "source_line": 89,
+      "classification": "intentional-difference",
+      "reason": "TryIndexOf returns boolean plus HDL index, with optional inclusive searchRange and .NET equality comparer; missing results do not throw and -1 remains a valid index.",
+      "evidence": [
+        {
+          "path": "docs/VALUE_ARRAYS.md",
+          "contains": "Range"
+        },
+        {
+          "path": "tests/SharpTestBench.Tests/ArrayTests.cs",
+          "contains": "PinnedRangeAndArrayReference"
+        },
+        {
+          "path": "tools/array_reference.py",
+          "contains": "hashlib.sha256"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.types._abstract_array",
+      "definition": "AbstractArray.count",
+      "source_line": 117,
+      "classification": "intentional-difference",
+      "reason": "CountOf counts values using EqualityComparer<T>.Default or a custom comparer rather than Python equality.",
+      "evidence": [
+        {
+          "path": "docs/VALUE_ARRAYS.md",
+          "contains": "Range"
+        },
+        {
+          "path": "tests/SharpTestBench.Tests/ArrayTests.cs",
+          "contains": "PinnedRangeAndArrayReference"
+        },
+        {
+          "path": "tools/array_reference.py",
+          "contains": "hashlib.sha256"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.types._abstract_array",
+      "definition": "AbstractMutableArray",
+      "source_line": 133,
+      "classification": "intentional-difference",
+      "reason": "ValueArray<T> indexer and transactional SetSlice provide fixed-size mutation; external abstract storage hooks are unsupported.",
+      "evidence": [
+        {
+          "path": "docs/VALUE_ARRAYS.md",
+          "contains": "Range"
+        },
+        {
+          "path": "tests/SharpTestBench.Tests/ArrayTests.cs",
+          "contains": "PinnedRangeAndArrayReference"
+        },
+        {
+          "path": "tools/array_reference.py",
+          "contains": "hashlib.sha256"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.types._array",
+      "definition": "Array",
+      "source_line": 18,
+      "classification": "intentional-difference",
+      "reason": "ValueArray<T> copies input, indexes by HDL bounds and supports reindexing, slicing and transactional slice assignment. Explicit constructor bounds, null slices, reference equality and lack of Python protocols are documented differences.",
+      "evidence": [
+        {
+          "path": "docs/VALUE_ARRAYS.md",
+          "contains": "Range"
+        },
+        {
+          "path": "tests/SharpTestBench.Tests/ArrayTests.cs",
+          "contains": "PinnedRangeAndArrayReference"
+        },
+        {
+          "path": "tools/array_reference.py",
+          "contains": "hashlib.sha256"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.types._array",
+      "definition": "Array.range",
+      "source_line": 173,
+      "classification": "idiomatic-equivalent",
+      "reason": "ValueArray.Range gets/sets same-size declared bounds without reordering stored values; failed length validation preserves original bounds.",
+      "evidence": [
+        {
+          "path": "docs/VALUE_ARRAYS.md",
+          "contains": "Range"
+        },
+        {
+          "path": "tests/SharpTestBench.Tests/ArrayTests.cs",
+          "contains": "PinnedRangeAndArrayReference"
+        },
+        {
+          "path": "tools/array_reference.py",
+          "contains": "hashlib.sha256"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.types._array",
+      "definition": "Array.range",
+      "source_line": 178,
+      "classification": "idiomatic-equivalent",
+      "reason": "ValueArray.Range gets/sets same-size declared bounds without reordering stored values; failed length validation preserves original bounds.",
+      "evidence": [
+        {
+          "path": "docs/VALUE_ARRAYS.md",
+          "contains": "Range"
+        },
+        {
+          "path": "tests/SharpTestBench.Tests/ArrayTests.cs",
+          "contains": "PinnedRangeAndArrayReference"
+        },
+        {
+          "path": "tools/array_reference.py",
+          "contains": "hashlib.sha256"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.types._range",
+      "definition": "Direction",
+      "source_line": 14,
+      "classification": "intentional-difference",
+      "reason": "HdlRange.Ascending uses a boolean rather than a string enum; both declared directions and null ranges are retained.",
+      "evidence": [
+        {
+          "path": "docs/VALUE_ARRAYS.md",
+          "contains": "Range"
+        },
+        {
+          "path": "tests/SharpTestBench.Tests/ArrayTests.cs",
+          "contains": "PinnedRangeAndArrayReference"
+        },
+        {
+          "path": "tools/array_reference.py",
+          "contains": "hashlib.sha256"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.types._range",
+      "definition": "Range",
+      "source_line": 19,
+      "classification": "intentional-difference",
+      "reason": "HdlRange has inclusive directed bounds, null ranges, membership and iteration. Int32 bounds, structural equality, nonnegative positions and explicit construction differ from Python protocols.",
+      "evidence": [
+        {
+          "path": "docs/VALUE_ARRAYS.md",
+          "contains": "Range"
+        },
+        {
+          "path": "tests/SharpTestBench.Tests/ArrayTests.cs",
+          "contains": "PinnedRangeAndArrayReference"
+        },
+        {
+          "path": "tools/array_reference.py",
+          "contains": "hashlib.sha256"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.types._range",
+      "definition": "Range.from_range",
+      "source_line": 110,
+      "classification": "intentional-difference",
+      "reason": "Python range conversion is not exposed; System.Range cannot represent descending/negative HDL ranges. Construct HdlRange explicitly.",
+      "evidence": [
+        {
+          "path": "docs/VALUE_ARRAYS.md",
+          "contains": "Range"
+        },
+        {
+          "path": "tests/SharpTestBench.Tests/ArrayTests.cs",
+          "contains": "PinnedRangeAndArrayReference"
+        },
+        {
+          "path": "tools/array_reference.py",
+          "contains": "hashlib.sha256"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.types._range",
+      "definition": "Range.to_range",
+      "source_line": 118,
+      "classification": "intentional-difference",
+      "reason": "HdlRange implements IEnumerable<int> instead of returning a Python range or incompatible half-open System.Range.",
+      "evidence": [
+        {
+          "path": "docs/VALUE_ARRAYS.md",
+          "contains": "Range"
+        },
+        {
+          "path": "tests/SharpTestBench.Tests/ArrayTests.cs",
+          "contains": "PinnedRangeAndArrayReference"
+        },
+        {
+          "path": "tools/array_reference.py",
+          "contains": "hashlib.sha256"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.types._range",
+      "definition": "Range.left",
+      "source_line": 123,
+      "classification": "idiomatic-equivalent",
+      "reason": "HdlRange.Left retains the declared left bound, including null ranges, within Int32 limits.",
+      "evidence": [
+        {
+          "path": "docs/VALUE_ARRAYS.md",
+          "contains": "Range"
+        },
+        {
+          "path": "tests/SharpTestBench.Tests/ArrayTests.cs",
+          "contains": "PinnedRangeAndArrayReference"
+        },
+        {
+          "path": "tools/array_reference.py",
+          "contains": "hashlib.sha256"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.types._range",
+      "definition": "Range.direction",
+      "source_line": 128,
+      "classification": "intentional-difference",
+      "reason": "HdlRange.Ascending retains declared direction as a boolean instead of a string.",
+      "evidence": [
+        {
+          "path": "docs/VALUE_ARRAYS.md",
+          "contains": "Range"
+        },
+        {
+          "path": "tests/SharpTestBench.Tests/ArrayTests.cs",
+          "contains": "PinnedRangeAndArrayReference"
+        },
+        {
+          "path": "tools/array_reference.py",
+          "contains": "hashlib.sha256"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.types._range",
+      "definition": "Range.right",
+      "source_line": 133,
+      "classification": "idiomatic-equivalent",
+      "reason": "HdlRange.Right retains the inclusive right bound, including null ranges, within Int32 limits.",
+      "evidence": [
+        {
+          "path": "docs/VALUE_ARRAYS.md",
+          "contains": "Range"
+        },
+        {
+          "path": "tests/SharpTestBench.Tests/ArrayTests.cs",
+          "contains": "PinnedRangeAndArrayReference"
+        },
+        {
+          "path": "tools/array_reference.py",
+          "contains": "hashlib.sha256"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.types._range",
+      "definition": "Range.index",
+      "source_line": 175,
+      "classification": "intentional-difference",
+      "reason": "HdlRange.Offset maps an HDL index to its position; missing indices throw IndexOutOfRangeException. Optional Python positional search windows and arbitrary-size offsets are not exposed.",
+      "evidence": [
+        {
+          "path": "docs/VALUE_ARRAYS.md",
+          "contains": "Range"
+        },
+        {
+          "path": "tests/SharpTestBench.Tests/ArrayTests.cs",
+          "contains": "PinnedRangeAndArrayReference"
+        },
+        {
+          "path": "tools/array_reference.py",
+          "contains": "hashlib.sha256"
         }
       ]
     }

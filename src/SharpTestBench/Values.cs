@@ -275,30 +275,60 @@ public readonly record struct LogicVector<W>
     public static LogicVector<W> From(SInt<W> value) => new(value.RawBits.Value);
 }
 
-public readonly record struct HdlRange(int Left, int Right, bool Ascending)
+/// <summary>Inclusive HDL bounds with explicit direction and structural equality.</summary>
+/// <param name="Left">Declared left bound.</param>
+/// <param name="Right">Declared inclusive right bound.</param>
+/// <param name="Ascending">True for to, false for downto; inconsistent bounds form a null range.</param>
+public readonly record struct HdlRange(int Left, int Right, bool Ascending) : IEnumerable<int>
 {
+    /// <summary>Create a range with direction inferred from its bounds.</summary>
     public HdlRange(int left, int right) : this(left, right, left <= right)
     {
     }
 
+    /// <summary>Create an ascending range, including a null range when left exceeds right.</summary>
     public static HdlRange To(int left, int right) => new(left, right, true);
+    /// <summary>Create a descending range, including a null range when left is below right.</summary>
     public static HdlRange DownTo(int left, int right) => new(left, right, false);
+    /// <summary>True when the bounds cannot be traversed in the declared direction.</summary>
     public bool IsNull => Ascending ? Left > Right : Left < Right;
+    /// <summary>Element count; throws OverflowException if it exceeds Int32.MaxValue.</summary>
     public int Length => IsNull ? 0 : checked((int)(Math.Abs((long)Left - Right) + 1));
 
+    /// <summary>Extract the declared bounds without discarding the stored direction.</summary>
     public void Deconstruct(out int left, out int right)
     {
         left = Left;
         right = Right;
     }
 
+    /// <summary>Test membership without computing length, including ranges longer than Int32.MaxValue.</summary>
+    public bool Contains(int index) => !IsNull && index >= Math.Min(Left, Right) && index <= Math.Max(Left, Right);
+
+    /// <summary>Enumerate declared indices without overflowing at either Int32 boundary.</summary>
+    /// <remarks>Enumeration is lazy and supports all Int32 endpoints, even if Length overflows.</remarks>
+    public IEnumerator<int> GetEnumerator()
+    {
+        if (IsNull) yield break;
+        int current = Left;
+        while (true)
+        {
+            yield return current;
+            if (current == Right) yield break;
+            current += Ascending ? 1 : -1;
+        }
+    }
+    System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
+
+    /// <summary>Convert an HDL index to a zero-based position; throws on absence or Int32 offset overflow.</summary>
     public int Offset(int index)
     {
-        if (IsNull || index < Math.Min(Left, Right) || index > Math.Max(Left, Right))
+        if (!Contains(index))
             throw new IndexOutOfRangeException();
         return checked(Ascending ? index - Left : Left - index);
     }
 
+    /// <summary>Convert a nonnegative position to an HDL index; requires Length to fit in Int32.</summary>
     public int Index(int offset)
     {
         if (offset < 0 || offset >= Length)

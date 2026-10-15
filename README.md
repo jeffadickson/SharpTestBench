@@ -210,3 +210,5 @@ path; this is not a whole-simulation or Python-comparison speedup.
 Version 0.6 adds [typed packed views and timing checks](docs/PACKED_VIEWS_AND_TIMING.md):
 explicit multidimensional indexing, struct-field deposits, phase-aware write
 composition, delta-chain parity with Python, and 81 VHDL driver-resolution pairs.
+
+HDL-indexed managed arrays: see [range and value-array contracts](docs/VALUE_ARRAYS.md) for search, slice assignment and reindexing.
