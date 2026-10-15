@@ -59,3 +59,4 @@ See [assessment and adoption boundaries](TEST_TOOLING.md). Issue state is author
 | STB-043 | P1 | [#43 Pilot Testcontainers for reproducible simulator integration](https://github.com/jeffadickson/SharpTestBench/issues/43) |
 | STB-044 | P0 | [#44 Compare and implement owned gather/select semantics](https://github.com/jeffadickson/SharpTestBench/issues/44) |
 | STB-045 | P1 | [#45 Extend debugger validation across platforms and mixed sessions](https://github.com/jeffadickson/SharpTestBench/issues/45) |
+| STB-046 | P1 | [#46 Add simulation priority/LIFO queues and decide storage extensibility](https://github.com/jeffadickson/SharpTestBench/issues/46) |

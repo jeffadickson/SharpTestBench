@@ -62,3 +62,5 @@ QueueCancellationHandoffContract run in both the Verilog and VHDL integration
 assemblies. They cover FIFO payloads, null/default distinction, capacity boundaries,
 reservation protection and cancellation races. Existing queue/stream and
 semaphore fairness tests provide additional coverage.
+
+Remaining queue families and storage customization are tracked in [issue #46](https://github.com/jeffadickson/SharpTestBench/issues/46).

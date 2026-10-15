@@ -303,3 +303,30 @@ and the five-package release bundle. All four new extension/introspection cases
 pass in the native suites. Managed/native debugger checks, AXI reference/fault
 checks, and native fault injection also remain green. No public NuGet publication
 was performed.
+
+
+## Queue audit and nonblocking operations — 2026-10-15
+
+SimQueue now exposes Capacity/IsEmpty/IsFull and immediate TryPut/TryGet. TryGet
+has nullable-flow metadata for its false result. Existing waiter reservations are
+preserved: immediate callers cannot steal an item or slot promised to a queued
+task. The new tests cover FIFO/null payloads, empty/full boundaries, zero simulated
+time/native callback allocation for immediate operations, pre-cancelled tokens,
+and cancellation before consumer/producer handoff cleanup. They check that items
+and capacity are conserved. These are explicit .NET semantics, not a claim of
+identical cocotb wake-and-recheck behavior.
+
+The pinned queue source adds 15 reviewed definitions: 44/302 inventoried definitions
+reviewed, 258 remaining, plus aliases/dynamic exports. PriorityQueue, LifoQueue,
+priority comparison support and AbstractQueue storage customization remain gaps.
+See QUEUES.md and API_REVIEWS.json for decisions and source/evidence anchors.
+
+Local full build: zero warnings/errors. Icarus 12.0: 69 passed / 2 explicit skips.
+NVC 1.23.0: 40 passed / 1 explicit skip. The three new queue contract tests run in
+both integration assemblies.
+
+[CI run 38810864615](https://github.com/jeffadickson/SharpTestBench/actions/runs/38810864615)
+passed at `91e12fd9cdd4f20260d3e6df28fcbd94f87b5b9d`: Linux x64, Windows x64,
+macOS ARM64, isolated Linux package consumer and the five-package release bundle.
+Linux includes the NVC suite; all three platforms run the Icarus queue tests.
+Remaining priority/LIFO/comparison/storage work is tracked in issue #46.
