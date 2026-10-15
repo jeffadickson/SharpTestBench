@@ -408,5 +408,20 @@ explicit C exports. The pinned adapters use a checked CMake-only overlay with
 C++20, Release and mandatory IPO; implementation files and licenses are unchanged.
 Local Linux: all 44 exports resolve, a C11 consumer links and runs, all six native
 fault/boundary cases pass (including 18 packed boundary checks), and Icarus passes
-72 tests with two capability skips. Tooling tests: 11 passed. Cross-platform CI and
-optimized debugger/package evidence are required before closing #50.
+72 tests with two capability skips; NVC passes 43 with one capability skip. Tooling
+tests: 11 passed. All 45 upstream C++ source/header files were checked byte-for-byte
+against the pinned archive and remain unchanged.
+
+Commit `cfb69586423d9c5e8b2be4a5ca9f2da195abbe41` passed all five jobs in
+[CI run 38819996695](https://github.com/jeffadickson/SharpTestBench/actions/runs/38819996695):
+Linux, Windows x64, macOS ARM64, clean installed Linux consumer and release bundle.
+This includes the C11 link/run and export checks on all three native platforms,
+real simulator suites, managed/native debugger checks on Linux, optimized native
+fault injection and installed native-package consumers.
+
+Cross-platform validation exposed and resolved two Windows build defects: CMake's
+auto-export scanner crashed on MSVC IPO objects (use existing explicit upstream
+exports), and temporary DLL filenames leaked into the PE export-table identity
+(build the final basename inside a temporary directory before atomic replacement).
+No optimization was disabled to pass these checks. Issue #50 acceptance is complete;
+performance gains remain unmeasured, and commercial backend validation remains open.
