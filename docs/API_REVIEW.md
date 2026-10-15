@@ -87,3 +87,14 @@ HDL-index search, occurrence counting and transactional slice writes. HdlRange
 supports membership and safe lazy enumeration. See VALUE_ARRAYS.md for explicit
 Int32, equality, null-slice and Python protocol differences and 98 pinned oracle
 cases. These review counts are not a parity percentage.
+
+
+## Logic conversion review
+
+All 24 inventoried definitions in types._logic, _logic_array and _resolve are now
+reviewed: **88 decisions; 214 inventoried definitions remain**, plus aliases and
+dynamic exports. Resolution and BigInteger/byte conversions have pinned-oracle
+evidence. The LogicArray class-level gap remains tracked by #49. See
+LOGIC_CONVERSIONS.md for strict unknown rejection, the upstream leading-don't-care
+parser discrepancy, explicit RNG policy, immutable range semantics and deprecated
+alias omissions. Counts represent review coverage, not full semantic parity.

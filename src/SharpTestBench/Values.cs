@@ -128,7 +128,7 @@ public enum Logic
     DontCare
 }
 
-public static class LogicOps
+public static partial class LogicOps
 {
     public static Logic Parse(char c) => char.ToUpperInvariant(c) switch
     {
@@ -151,18 +151,19 @@ public static class LogicOps
 }
 
 /// <summary>Immutable nine-state values, in displayed MSB-to-LSB order.</summary>
-public sealed class LogicArray
+public sealed partial class LogicArray
 {
     readonly string bits;
     public int Length => bits.Length;
     public HdlRange Range { get; }
 
-    public LogicArray(string value) : this(value, new HdlRange(value.Length - 1, 0, false))
+    public LogicArray(string value) : this(value, new HdlRange((value ?? throw new ArgumentNullException(nameof(value))).Length - 1, 0, false))
     {
     }
 
     public LogicArray(string value, HdlRange range)
     {
+        ArgumentNullException.ThrowIfNull(value);
         if (value.Length != range.Length)
             throw new ArgumentException("Range length mismatch");
         Range = range;

@@ -364,3 +364,15 @@ Cross-platform confirmation: commit `25c9dd8bb1b3690f6be4647f965f8fba40440448`
 passed [CI run 38813563204](https://github.com/jeffadickson/SharpTestBench/actions/runs/38813563204).
 All five jobs succeeded: Linux, Windows 2022, macOS 14, installed Linux container
 and release-bundle validation. Issue #47 acceptance criteria are complete.
+
+### Nine-state resolution and conversions (#48)
+
+Local Release build succeeds without warnings/errors; all 372 managed tests pass.
+The injected-failure probe isolates its expected IntegerBoundaries failure while
+371 other cases pass. The new oracle records 9 scalar, 86 vector and 256 integer
+cases from hash-verified pinned cocotb. Managed tests compare numeric/byte and
+resolution results, with explicit rejection of the upstream leading-don't-care
+sign-parsing discrepancy. Additional tests cover injected random draw order,
+empty input, invalid policies, preserved width/range and >64-bit values. All 11
+tooling tests pass. Audit: 88 reviewed / 214 remaining definitions plus aliases
+and dynamic exports; LogicArray's class-level transform/collection gap remains #49.

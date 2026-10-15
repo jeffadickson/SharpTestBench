@@ -7,7 +7,10 @@
     "cocotb.queue": "681590ff41ab04f41365c4c0d852ae3e7c1ce8b7506332b80725fadbe5552650",
     "cocotb.types._range": "dad4581985172d88cb93108bfd2739f8553430e30173202b78075bcdabaec6fd",
     "cocotb.types._abstract_array": "9b07510df7749579772f104a56de215a68da11bf59dc3a4268fe41c704ca2604",
-    "cocotb.types._array": "93a8937c00e1610d2bffb2a1b57bb3a79042a25294629094307176e6736f7fda"
+    "cocotb.types._array": "93a8937c00e1610d2bffb2a1b57bb3a79042a25294629094307176e6736f7fda",
+    "cocotb.types._logic": "622a8856a6f60693218cc54e8f46f4e73dc9024a61e4dcc0cdcc6a43bf483ba7",
+    "cocotb.types._logic_array": "1b0e9f23ebc0666a5ba1098eeaab74d448b0730f98e238380fec7f1407200d9d",
+    "cocotb.types._resolve": "7c2a1087a6e791306f73a323f7e1aa5f9216dd440b8eee6110d831b13ee59935"
   },
   "reviews": [
     {
@@ -1322,6 +1325,510 @@
         },
         {
           "path": "tools/array_reference.py",
+          "contains": "hashlib.sha256"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.types._logic",
+      "definition": "Logic",
+      "source_line": 63,
+      "classification": "intentional-difference",
+      "reason": "Nine-state enum plus LogicOps and NineState truth tables replace Python dynamic scalar construction, operators and object protocols.",
+      "evidence": [
+        {
+          "path": "docs/LOGIC_CONVERSIONS.md",
+          "contains": "LogicArray"
+        },
+        {
+          "path": "tests/SharpTestBench.Tests/LogicConversionTests.cs",
+          "contains": "PinnedScalarAndVectorResolution"
+        },
+        {
+          "path": "tools/logic_reference.py",
+          "contains": "hashlib.sha256"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.types._logic",
+      "definition": "Logic.resolve",
+      "source_line": 272,
+      "classification": "intentional-difference",
+      "reason": "Explicit LogicResolution matches default weak/zeros/ones mapping; Random requires caller-supplied .NET RNG. No strict-preview or Python PRNG stream equivalence.",
+      "evidence": [
+        {
+          "path": "docs/LOGIC_CONVERSIONS.md",
+          "contains": "LogicArray"
+        },
+        {
+          "path": "tests/SharpTestBench.Tests/LogicConversionTests.cs",
+          "contains": "PinnedScalarAndVectorResolution"
+        },
+        {
+          "path": "tools/logic_reference.py",
+          "contains": "hashlib.sha256"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.types._logic",
+      "definition": "Logic.is_resolvable",
+      "source_line": 311,
+      "classification": "idiomatic-equivalent",
+      "reason": "LogicOps.IsResolvable recognizes 0, 1, L and H; all nine states are compared with the pinned source.",
+      "evidence": [
+        {
+          "path": "docs/LOGIC_CONVERSIONS.md",
+          "contains": "LogicArray"
+        },
+        {
+          "path": "tests/SharpTestBench.Tests/LogicConversionTests.cs",
+          "contains": "PinnedScalarAndVectorResolution"
+        },
+        {
+          "path": "tools/logic_reference.py",
+          "contains": "hashlib.sha256"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.types._logic",
+      "definition": "Bit",
+      "source_line": 325,
+      "classification": "intentional-difference",
+      "reason": "Use .NET bool for binary-only values; no Python Logic subclass, dynamic coercion or implicit object protocol is introduced.",
+      "evidence": [
+        {
+          "path": "docs/LOGIC_CONVERSIONS.md",
+          "contains": "LogicArray"
+        },
+        {
+          "path": "tests/SharpTestBench.Tests/LogicConversionTests.cs",
+          "contains": "PinnedScalarAndVectorResolution"
+        },
+        {
+          "path": "tools/logic_reference.py",
+          "contains": "hashlib.sha256"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.types._logic_array",
+      "definition": "LogicArray",
+      "source_line": 31,
+      "classification": "gap",
+      "reason": "Numeric and resolution APIs now exist, but vector bitwise transforms, slice replacement and collection operations remain tracked in #49. Immutable storage and Python protocol differences are documented.",
+      "evidence": [
+        {
+          "path": "docs/LOGIC_CONVERSIONS.md",
+          "contains": "LogicArray"
+        },
+        {
+          "path": "tests/SharpTestBench.Tests/LogicConversionTests.cs",
+          "contains": "PinnedScalarAndVectorResolution"
+        },
+        {
+          "path": "tools/logic_reference.py",
+          "contains": "hashlib.sha256"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.types._logic_array",
+      "definition": "LogicArray.from_unsigned",
+      "source_line": 353,
+      "classification": "intentional-difference",
+      "reason": "FromUnsigned implements checked or explicit wrap BigInteger conversion with declared nonempty range; .NET exception classes and explicit range differ.",
+      "evidence": [
+        {
+          "path": "docs/LOGIC_CONVERSIONS.md",
+          "contains": "LogicArray"
+        },
+        {
+          "path": "tests/SharpTestBench.Tests/LogicConversionTests.cs",
+          "contains": "PinnedScalarAndVectorResolution"
+        },
+        {
+          "path": "tools/logic_reference.py",
+          "contains": "hashlib.sha256"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.types._logic_array",
+      "definition": "LogicArray.from_signed",
+      "source_line": 431,
+      "classification": "intentional-difference",
+      "reason": "FromSigned implements checked or explicit wrap twos-complement BigInteger conversion, including values wider than 64 bits; .NET exception classes differ.",
+      "evidence": [
+        {
+          "path": "docs/LOGIC_CONVERSIONS.md",
+          "contains": "LogicArray"
+        },
+        {
+          "path": "tests/SharpTestBench.Tests/LogicConversionTests.cs",
+          "contains": "PinnedScalarAndVectorResolution"
+        },
+        {
+          "path": "tools/logic_reference.py",
+          "contains": "hashlib.sha256"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.types._logic_array",
+      "definition": "LogicArray.from_bytes",
+      "source_line": 512,
+      "classification": "intentional-difference",
+      "reason": "FromBytes uses ReadOnlySpan<byte>, explicit ByteOrder and optional exactly matching range; empty inputs fail and .NET exceptions differ.",
+      "evidence": [
+        {
+          "path": "docs/LOGIC_CONVERSIONS.md",
+          "contains": "LogicArray"
+        },
+        {
+          "path": "tests/SharpTestBench.Tests/LogicConversionTests.cs",
+          "contains": "PinnedScalarAndVectorResolution"
+        },
+        {
+          "path": "tools/logic_reference.py",
+          "contains": "hashlib.sha256"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.types._logic_array",
+      "definition": "LogicArray.range",
+      "source_line": 561,
+      "classification": "intentional-difference",
+      "reason": "Range is immutable metadata; WithRange creates a same-length reindexed copy instead of mutating the existing value.",
+      "evidence": [
+        {
+          "path": "docs/LOGIC_CONVERSIONS.md",
+          "contains": "LogicArray"
+        },
+        {
+          "path": "tests/SharpTestBench.Tests/LogicConversionTests.cs",
+          "contains": "PinnedScalarAndVectorResolution"
+        },
+        {
+          "path": "tools/logic_reference.py",
+          "contains": "hashlib.sha256"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.types._logic_array",
+      "definition": "LogicArray.range",
+      "source_line": 566,
+      "classification": "intentional-difference",
+      "reason": "Range is immutable metadata; WithRange creates a same-length reindexed copy instead of mutating the existing value.",
+      "evidence": [
+        {
+          "path": "docs/LOGIC_CONVERSIONS.md",
+          "contains": "LogicArray"
+        },
+        {
+          "path": "tests/SharpTestBench.Tests/LogicConversionTests.cs",
+          "contains": "PinnedScalarAndVectorResolution"
+        },
+        {
+          "path": "tools/logic_reference.py",
+          "contains": "hashlib.sha256"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.types._logic_array",
+      "definition": "LogicArray.binstr",
+      "source_line": 648,
+      "classification": "deprecated-omission",
+      "reason": "Deprecated Python property aliases and setters are omitted; use ToString, typed numeric/byte methods and immutable factories.",
+      "evidence": [
+        {
+          "path": "docs/LOGIC_CONVERSIONS.md",
+          "contains": "LogicArray"
+        },
+        {
+          "path": "tests/SharpTestBench.Tests/LogicConversionTests.cs",
+          "contains": "PinnedScalarAndVectorResolution"
+        },
+        {
+          "path": "tools/logic_reference.py",
+          "contains": "hashlib.sha256"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.types._logic_array",
+      "definition": "LogicArray.binstr",
+      "source_line": 669,
+      "classification": "deprecated-omission",
+      "reason": "Deprecated Python property aliases and setters are omitted; use ToString, typed numeric/byte methods and immutable factories.",
+      "evidence": [
+        {
+          "path": "docs/LOGIC_CONVERSIONS.md",
+          "contains": "LogicArray"
+        },
+        {
+          "path": "tests/SharpTestBench.Tests/LogicConversionTests.cs",
+          "contains": "PinnedScalarAndVectorResolution"
+        },
+        {
+          "path": "tools/logic_reference.py",
+          "contains": "hashlib.sha256"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.types._logic_array",
+      "definition": "LogicArray.is_resolvable",
+      "source_line": 673,
+      "classification": "idiomatic-equivalent",
+      "reason": "IsResolvable checks all elements against 0/1/L/H and returns true on the empty vector; oracle compares all two-state combinations.",
+      "evidence": [
+        {
+          "path": "docs/LOGIC_CONVERSIONS.md",
+          "contains": "LogicArray"
+        },
+        {
+          "path": "tests/SharpTestBench.Tests/LogicConversionTests.cs",
+          "contains": "PinnedScalarAndVectorResolution"
+        },
+        {
+          "path": "tools/logic_reference.py",
+          "contains": "hashlib.sha256"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.types._logic_array",
+      "definition": "LogicArray.integer",
+      "source_line": 681,
+      "classification": "deprecated-omission",
+      "reason": "Deprecated Python property aliases and setters are omitted; use ToString, typed numeric/byte methods and immutable factories.",
+      "evidence": [
+        {
+          "path": "docs/LOGIC_CONVERSIONS.md",
+          "contains": "LogicArray"
+        },
+        {
+          "path": "tests/SharpTestBench.Tests/LogicConversionTests.cs",
+          "contains": "PinnedScalarAndVectorResolution"
+        },
+        {
+          "path": "tools/logic_reference.py",
+          "contains": "hashlib.sha256"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.types._logic_array",
+      "definition": "LogicArray.integer",
+      "source_line": 706,
+      "classification": "deprecated-omission",
+      "reason": "Deprecated Python property aliases and setters are omitted; use ToString, typed numeric/byte methods and immutable factories.",
+      "evidence": [
+        {
+          "path": "docs/LOGIC_CONVERSIONS.md",
+          "contains": "LogicArray"
+        },
+        {
+          "path": "tests/SharpTestBench.Tests/LogicConversionTests.cs",
+          "contains": "PinnedScalarAndVectorResolution"
+        },
+        {
+          "path": "tools/logic_reference.py",
+          "contains": "hashlib.sha256"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.types._logic_array",
+      "definition": "LogicArray.signed_integer",
+      "source_line": 713,
+      "classification": "deprecated-omission",
+      "reason": "Deprecated Python property aliases and setters are omitted; use ToString, typed numeric/byte methods and immutable factories.",
+      "evidence": [
+        {
+          "path": "docs/LOGIC_CONVERSIONS.md",
+          "contains": "LogicArray"
+        },
+        {
+          "path": "tests/SharpTestBench.Tests/LogicConversionTests.cs",
+          "contains": "PinnedScalarAndVectorResolution"
+        },
+        {
+          "path": "tools/logic_reference.py",
+          "contains": "hashlib.sha256"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.types._logic_array",
+      "definition": "LogicArray.signed_integer",
+      "source_line": 739,
+      "classification": "deprecated-omission",
+      "reason": "Deprecated Python property aliases and setters are omitted; use ToString, typed numeric/byte methods and immutable factories.",
+      "evidence": [
+        {
+          "path": "docs/LOGIC_CONVERSIONS.md",
+          "contains": "LogicArray"
+        },
+        {
+          "path": "tests/SharpTestBench.Tests/LogicConversionTests.cs",
+          "contains": "PinnedScalarAndVectorResolution"
+        },
+        {
+          "path": "tools/logic_reference.py",
+          "contains": "hashlib.sha256"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.types._logic_array",
+      "definition": "LogicArray.buff",
+      "source_line": 747,
+      "classification": "deprecated-omission",
+      "reason": "Deprecated Python property aliases and setters are omitted; use ToString, typed numeric/byte methods and immutable factories.",
+      "evidence": [
+        {
+          "path": "docs/LOGIC_CONVERSIONS.md",
+          "contains": "LogicArray"
+        },
+        {
+          "path": "tests/SharpTestBench.Tests/LogicConversionTests.cs",
+          "contains": "PinnedScalarAndVectorResolution"
+        },
+        {
+          "path": "tools/logic_reference.py",
+          "contains": "hashlib.sha256"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.types._logic_array",
+      "definition": "LogicArray.buff",
+      "source_line": 773,
+      "classification": "deprecated-omission",
+      "reason": "Deprecated Python property aliases and setters are omitted; use ToString, typed numeric/byte methods and immutable factories.",
+      "evidence": [
+        {
+          "path": "docs/LOGIC_CONVERSIONS.md",
+          "contains": "LogicArray"
+        },
+        {
+          "path": "tests/SharpTestBench.Tests/LogicConversionTests.cs",
+          "contains": "PinnedScalarAndVectorResolution"
+        },
+        {
+          "path": "tools/logic_reference.py",
+          "contains": "hashlib.sha256"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.types._logic_array",
+      "definition": "LogicArray.to_unsigned",
+      "source_line": 776,
+      "classification": "intentional-difference",
+      "reason": "ToUnsigned maps L/H to 0/1, rejects empty/unresolved values, ignores global resolution, and rejects the upstream leading-dont-care numeric-sign accident.",
+      "evidence": [
+        {
+          "path": "docs/LOGIC_CONVERSIONS.md",
+          "contains": "LogicArray"
+        },
+        {
+          "path": "tests/SharpTestBench.Tests/LogicConversionTests.cs",
+          "contains": "PinnedScalarAndVectorResolution"
+        },
+        {
+          "path": "tools/logic_reference.py",
+          "contains": "hashlib.sha256"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.types._logic_array",
+      "definition": "LogicArray.to_signed",
+      "source_line": 790,
+      "classification": "intentional-difference",
+      "reason": "ToSigned uses leftmost-MSB twos-complement interpretation with strict unknown rejection; no global resolution or leading-dont-care sign parsing.",
+      "evidence": [
+        {
+          "path": "docs/LOGIC_CONVERSIONS.md",
+          "contains": "LogicArray"
+        },
+        {
+          "path": "tests/SharpTestBench.Tests/LogicConversionTests.cs",
+          "contains": "PinnedScalarAndVectorResolution"
+        },
+        {
+          "path": "tools/logic_reference.py",
+          "contains": "hashlib.sha256"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.types._logic_array",
+      "definition": "LogicArray.to_bytes",
+      "source_line": 808,
+      "classification": "intentional-difference",
+      "reason": "ToBytes preserves ceil(Length/8) width and explicit endian ordering; empty/unresolved values always fail without global resolver policy.",
+      "evidence": [
+        {
+          "path": "docs/LOGIC_CONVERSIONS.md",
+          "contains": "LogicArray"
+        },
+        {
+          "path": "tests/SharpTestBench.Tests/LogicConversionTests.cs",
+          "contains": "PinnedScalarAndVectorResolution"
+        },
+        {
+          "path": "tools/logic_reference.py",
+          "contains": "hashlib.sha256"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.types._logic_array",
+      "definition": "LogicArray.resolve",
+      "source_line": 975,
+      "classification": "intentional-difference",
+      "reason": "Resolve returns an immutable value with preserved range, explicit weak/zeros/ones or injected random policy. Strict preview and global Python RNG behavior are not emulated.",
+      "evidence": [
+        {
+          "path": "docs/LOGIC_CONVERSIONS.md",
+          "contains": "LogicArray"
+        },
+        {
+          "path": "tests/SharpTestBench.Tests/LogicConversionTests.cs",
+          "contains": "PinnedScalarAndVectorResolution"
+        },
+        {
+          "path": "tools/logic_reference.py",
+          "contains": "hashlib.sha256"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.types._resolve",
+      "definition": "get_str_resolver",
+      "source_line": 53,
+      "classification": "internal-adapter",
+      "reason": "LogicOps.Resolve and LogicArray.Resolve replace internal cached string resolvers with explicit typed per-call policy; no exported delegate cache or global environment policy.",
+      "evidence": [
+        {
+          "path": "docs/LOGIC_CONVERSIONS.md",
+          "contains": "LogicArray"
+        },
+        {
+          "path": "tests/SharpTestBench.Tests/LogicConversionTests.cs",
+          "contains": "PinnedScalarAndVectorResolution"
+        },
+        {
+          "path": "tools/logic_reference.py",
           "contains": "hashlib.sha256"
         }
       ]
