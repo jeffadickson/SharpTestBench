@@ -84,7 +84,9 @@ Windows loader cleanup preserves its original error and checks UTF-8 conversion.
 `CXX` selects the compiler. All owned host builds use `-std=c++20 -O3 -flto -g
 -DNDEBUG`, warnings as errors, and explicit export visibility. Windows statically
 links the compiler runtimes; macOS/Linux retain their platform loader conventions.
-LTO failure fails the build. Debug information remains available for native
+Builds use the final library basename inside a temporary directory, then atomically
+replace the output. This also keeps the Windows PE export-table DLL name stable
+for linked native consumers. LTO failure fails the build. Debug information remains available for native
 breakpoints, although optimized locals may be unavailable or reordered.
 `build/native-build.json` records compiler identity, command, source and output hashes.
 

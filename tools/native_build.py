@@ -7,6 +7,7 @@ import platform
 import shutil
 import subprocess
 import sys
+import tempfile
 
 WINDOWS = sys.platform == 'win32'
 MAC = sys.platform == 'darwin'
@@ -26,7 +27,10 @@ def build_host(root, sdk, build):
     paths = list((sdk / ('packs/Microsoft.NETCore.App.Host.' + rid)).glob('*/runtimes/' + rid + '/native'))
     if not paths: raise RuntimeError('Missing .NET native host headers for ' + rid)
     headers = max(paths, key=lambda p: tuple(map(int, p.parents[2].name.split('-')[0].split('.'))))
-    temporary = build / (str(os.getpid()) + '-' + HOST_NAME)
+    # PE import consumers use the DLL's embedded name. Keep the final basename
+    # while isolating the build in a temporary directory for atomic replacement.
+    staging = tempfile.TemporaryDirectory(prefix='native-build-', dir=build)
+    temporary = Path(staging.name) / HOST_NAME
     compiler = os.environ.get('CXX', 'clang++' if MAC else 'g++')
     flags = ['-shared', '-static-libgcc', '-static-libstdc++'] if WINDOWS else ['-dynamiclib', '-fPIC', '-Wl,-install_name,@rpath/' + HOST_NAME] if MAC else ['-shared', '-fPIC', '-Wl,-soname,' + HOST_NAME]
     # No fast-math or host-specific ISA: preserve HDL real values and portable packages.
@@ -39,7 +43,7 @@ def build_host(root, sdk, build):
         subprocess.run(command, check=True)
         temporary.replace(build / HOST_NAME)
     finally:
-        temporary.unlink(missing_ok=True)
+        staging.cleanup()
     output = build / HOST_NAME
     manifest = {'rid': rid, 'language': 'C++20', 'profile': profile, 'command': command,
                 'compiler': subprocess.check_output([compiler, '--version'], text=True).splitlines()[0],
