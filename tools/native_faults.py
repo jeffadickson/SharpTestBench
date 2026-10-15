@@ -15,7 +15,13 @@ BUILD = ROOT / 'build/native-faults'
 
 
 def run(args, **kw):
-    return subprocess.run([str(x) for x in args], check=True, text=True, capture_output=True, **kw)
+    try:
+        return subprocess.run([str(x) for x in args], check=True, text=True, capture_output=True, **kw)
+    except subprocess.CalledProcessError as error:
+        # Preserve the child diagnostic when a fresh-process probe fails in CI.
+        print(error.stdout or '', end='')
+        print(error.stderr or '', end='')
+        raise
 
 
 def main():
@@ -84,10 +90,11 @@ var register = typeof(SimRuntime).GetMethod("Register", BindingFlags.NonPublic |
 int count = 0;
 foreach (object kind in Enum.GetValues(kindType)) {
  try {
-  register.Invoke(r, new object[] { kind, (Action)(() => throw new Exception("Unexpected callback")), 1UL, (nint)1, 0 });
+  register.Invoke(r, new object[] { kind, (Action)(() => throw new Exception("Unexpected callback")), 1UL, (nint)1, 0, null! });
   throw new Exception("Failed native registration was accepted");
  } catch (TargetInvocationException e) when (e.InnerException is InvalidOperationException error && error.Message.StartsWith("Cannot register ")) { }
  if (r.PendingCallbacks != 0) throw new Exception("Registration leaked");
+ if (r.LastSimulatorCallback != null) throw new Exception("Failed registration fabricated callback history");
  count++;
 }
 // Check the actual table too: PendingCallbacks intentionally excludes the End callback.
