@@ -287,3 +287,19 @@ skips. NVC 1.23.0: 37 passed / 1 explicit skip. These resolve the two previously
 recorded trigger extension/introspection gaps with explicit .NET semantics. The
 manual audit remains 29/302 definitions; 273 plus aliases/dynamic exports are still
 unreviewed. See CUSTOM_TRIGGERS.md for contracts and deliberate differences.
+
+
+The native fault harness now supplies the optional trigger-origin argument when
+reflecting into Register and verifies that failed registrations leave callback
+history null. The first CI attempt caught that stale reflection call; after the
+harness fix, all seven native registration failures and 100 failed timer waits
+pass, alongside write-state rollback and packed-boundary checks. Child-process
+failure diagnostics are retained in CI output.
+
+[CI run 38694608964](https://github.com/jeffadickson/SharpTestBench/actions/runs/38694608964)
+passed at `b3eec6bfdcdcf85a753a885f826295f52cb104af`: Linux x64 (Icarus and NVC),
+Windows x64 and macOS ARM64 Icarus, the separate Linux installed-package container,
+and the five-package release bundle. All four new extension/introspection cases
+pass in the native suites. Managed/native debugger checks, AXI reference/fault
+checks, and native fault injection also remain green. No public NuGet publication
+was performed.
