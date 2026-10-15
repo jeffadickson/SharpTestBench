@@ -29,7 +29,7 @@ See [migration and examples](docs/MIGRATION_0_8.md).
 - Cancellable native registrations; deferred deposits; ReadOnly write guards.
 - Named test jobs, task-scoped cancellation, structured task groups, and task combinators.
 - Background failure propagation, test timeouts, and leak checks that cannot be waived by expected exceptions.
-- Manual-reset events, FIFO semaphore/lock, bounded queues with immediate TryPut/TryGet, clock driver.
+- Manual-reset events, FIFO semaphore/lock, bounded FIFO, LIFO and priority queues with immediate TryPut/TryGet, clock driver.
   See [queue contracts](docs/QUEUES.md) for capacity, cancellation and reserved-waiter semantics.
 - Checked fixed-width signed/unsigned types, four-state bit vectors, nine-state
   logic operators and immutable logic arrays, HDL range-aware value arrays.

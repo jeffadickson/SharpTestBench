@@ -330,3 +330,14 @@ passed at `91e12fd9cdd4f20260d3e6df28fcbd94f87b5b9d`: Linux x64, Windows x64,
 macOS ARM64, isolated Linux package consumer and the five-package release bundle.
 Linux includes the NVC suite; all three platforms run the Icarus queue tests.
 Remaining priority/LIFO/comparison/storage work is tracked in issue #46.
+
+### Queue families (#46)
+
+Added shared queue coordination, SimLifoQueue and SimPriorityQueue with stable ties,
+transactional comparison failures, FIFO waiter permits and reentrancy protection.
+Local Release build has zero warnings/errors. Full native suites: Icarus 72 passed,
+2 capability skips; NVC 43 passed, 1 capability skip. Queue reference comparison
+matches all 32 ordering/occupancy rows on both backends against hash-verified
+pinned cocotb queue source. New tests include timeout ownership and cancellation
+handoffs; external custom storage is explicitly unsupported. Cross-platform CI
+runs the same integration cases and reference comparison.

@@ -23,7 +23,7 @@ Capacity must be positive. The default is `int.MaxValue`; cocotb instead uses
 nonpositive maxsize to mean unbounded. Count reports physically stored items;
 IsEmpty and IsFull describe that count, not the availability of reserved permits.
 
-A blocked consumer reserves the next item assigned to it. Until that consumer
+A blocked consumer reserves an item permit. Until that consumer
 resumes, Count may be positive while TryGet returns false. Similarly, a queued
 producer can reserve a free slot: IsFull can be false while TryPut returns false.
 This prevents immediate callers from bypassing existing waiters. It deliberately
@@ -38,7 +38,7 @@ Already-cancelled tokens reject Put/Get even if they could otherwise complete
 immediately. Cancellation after a wait has already successfully completed does
 not retroactively undo that transfer.
 
-## Upstream review and remaining gaps
+## Queue families and upstream review
 
 All 15 inventoried definitions in pinned `cocotb.queue` are reviewed in
 API_REVIEWS.json, with the source hash checked by tools/audit_reviews.py.
@@ -48,12 +48,10 @@ API_REVIEWS.json, with the source hash checked by tools/audit_reviews.py.
 | Queue / put / get | FIFO transfer with explicit reserved-waiter and cancellation semantics |
 | qsize / maxsize / empty / full | Count / Capacity / IsEmpty / IsFull; positive-capacity policy differs |
 | put_nowait / get_nowait | TryPut / TryGet; boolean status, no QueueFull/QueueEmpty exception types |
-| AbstractQueue | Gap: SimQueue is sealed; pluggable queue storage is not exposed |
-| PriorityQueue / SupportsRichComparison | Gap: no simulation-aware priority queue/comparer API yet |
-| LifoQueue | Gap: no simulation-aware LIFO queue yet |
+| AbstractQueue | Intentional difference: shared SimQueueBase coordinates built-in queues; external storage subclasses are unsupported |
+| PriorityQueue / SupportsRichComparison | SimPriorityQueue uses IComparer<T> or Comparer<T>.Default; smallest first, stable ties, transactional insertion |
+| LifoQueue | SimLifoQueue removes the newest stored item; waiter permits remain FIFO |
 
-The standard .NET PriorityQueue and Stack do not themselves supply simulation
-waiting/cancellation semantics, so their availability does not close these gaps.
 Python string/repr formatting and exception inheritance are not .NET compatibility
 claims. The inventory review is not a full parity percentage.
 
@@ -63,4 +61,43 @@ assemblies. They cover FIFO payloads, null/default distinction, capacity boundar
 reservation protection and cancellation races. Existing queue/stream and
 semaphore fairness tests provide additional coverage.
 
-Remaining queue families and storage customization are tracked in [issue #46](https://github.com/jeffadickson/SharpTestBench/issues/46).
+Queue family implementation and the storage decision are tracked in [issue #46](https://github.com/jeffadickson/SharpTestBench/issues/46).
+
+```csharp
+var undo = new SimLifoQueue<string>(capacity: 8);
+var work = new SimPriorityQueue<(int Priority, string Payload)>(capacity: 16,
+    comparer: Comparer<(int Priority, string Payload)>.Create(
+        (a, b) => a.Priority.CompareTo(b.Priority)));
+await work.Put((2, "later"));
+await work.Put((1, "first"));
+var next = await work.Get(); // (1, "first")
+```
+
+The default priority comparer compares the whole payload. Supply a comparer to
+compare only a priority field. Equal priorities preserve insertion order; Python
+heap ordering does not promise this stability. Null ordering follows the selected
+.NET comparer. Comparers must be consistent, leave queued sort keys unchanged,
+and never reenter queue operations. A comparison exception leaves contents intact
+and returns the insertion's slot, including when a blocked producer resumes.
+Reentrant queue operations throw InvalidOperationException before taking permits.
+
+Priority storage performs O(log n) comparisons and O(n) element movement per
+insertion/removal. It is deliberately a sorted list so all comparisons finish
+before storage changes. This is not a heap-performance claim; large-queue
+benchmarks may justify a transactional heap implementation later.
+
+SimQueueBase provides a common consumer-facing API, but its constructor and
+storage hooks are private protected. Arbitrary external storage hooks are
+intentionally unsupported: storage exceptions and reentrancy must not invalidate
+permit accounting. All built-in queues share cancellation and handoff behavior.
+Reservations cover item counts, not payload identity; the next resumed consumer
+removes the then-current head according to the queue's ordering.
+
+QueueFamiliesContract and PriorityQueueFailureContract exercise both native
+backends, including FIFO waiter handoffs, cancellation races, null payloads,
+stable ties, comparer failure, reentrancy, capacity reuse and callback counts.
+QueueOrderingReference also verifies timeout ownership: a task-combinator timeout
+leaves a caller-owned queue wait alive and able to receive a later item.
+`tools/queue_reference.py` compares 32 ordering/occupancy rows from each native
+backend with hash-verified pinned cocotb source, including reverse priority.
+This immediate-operation comparison does not claim scheduling or tie stability parity.

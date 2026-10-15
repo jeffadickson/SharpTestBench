@@ -133,16 +133,31 @@ public sealed class SimLock
     }
 }
 
-/// <summary>FIFO simulation queue with reserved permits for pending producers and consumers.</summary>
+/// <summary>Shared simulation queue coordination; custom storage subclasses are not supported.</summary>
 /// <typeparam name="T">Type of item transferred between simulation tasks.</typeparam>
-public sealed class SimQueue<T>
+public abstract class SimQueueBase<T>
 {
-    readonly Queue<T> queue = new();
+    bool inserting;
+    private protected abstract void Insert(T value);
+    private protected abstract T Remove();
+    void CheckOperation()
+    {
+        (SimRuntime.Active ?? throw new InvalidOperationException("No active simulation")).CheckThread();
+        if (inserting) throw new InvalidOperationException("Queue operations cannot reenter a priority comparer");
+    }
+    void InsertReserved(T value)
+    {
+        inserting = true;
+        try { Insert(value); }
+        catch { slots.Release(); throw; }
+        finally { inserting = false; }
+        items.Release();
+    }
     readonly SimSemaphore items = new(0);
     readonly SimSemaphore slots;
     /// <summary>Create a queue with a strictly positive capacity; the default is int.MaxValue.</summary>
     /// <param name="capacity">Maximum number of stored items.</param>
-    public SimQueue(int capacity = int.MaxValue)
+    private protected SimQueueBase(int capacity)
     {
         if (capacity <= 0)
             throw new ArgumentOutOfRangeException(nameof(capacity));
@@ -153,29 +168,30 @@ public sealed class SimQueue<T>
     /// <summary>Maximum number of stored items.</summary>
     public int Capacity { get; }
     /// <summary>Stored item count, including items reserved for pending consumers.</summary>
-    public int Count => queue.Count;
+    public abstract int Count { get; }
     /// <summary>True when no items are physically stored; does not describe reserved permits.</summary>
     public bool IsEmpty => Count == 0;
     /// <summary>True when stored item count reaches Capacity; pending producers may reserve free slots.</summary>
     public bool IsFull => Count == Capacity;
 
-    /// <summary>Wait for an available slot, then append an item in FIFO order.</summary>
+    /// <summary>Wait for an available slot, then insert an item in queue order.</summary>
     /// <param name="value">Item to append.</param>
     /// <param name="token">Cancellation token, or null to inherit the simulation task's token.</param>
     public async Task Put(T value, CancellationToken? token = null)
     {
+        CheckOperation();
         await slots.Acquire(token);
-        queue.Enqueue(value);
-        items.Release();
+        InsertReserved(value);
     }
 
-    /// <summary>Wait for an available item, then remove the oldest stored item.</summary>
+    /// <summary>Wait for an available item, then remove the next stored item.</summary>
     /// <param name="token">Cancellation token, or null to inherit the simulation task's token.</param>
-    /// <returns>The oldest available item.</returns>
+    /// <returns>The next available item.</returns>
     public async Task<T> Get(CancellationToken? token = null)
     {
+        CheckOperation();
         await items.Acquire(token);
-        var result = queue.Dequeue();
+        var result = Remove();
         slots.Release();
         return result;
     }
@@ -185,9 +201,9 @@ public sealed class SimQueue<T>
     /// <returns>False when all slots are occupied or reserved by pending producers.</returns>
     public bool TryPut(T value)
     {
+        CheckOperation();
         if (!slots.TryAcquire()) return false;
-        queue.Enqueue(value);
-        items.Release();
+        InsertReserved(value);
         return true;
     }
 
@@ -196,10 +212,68 @@ public sealed class SimQueue<T>
     /// <returns>True when an item was removed. False may occur with Count greater than zero during handoff.</returns>
     public bool TryGet([System.Diagnostics.CodeAnalysis.MaybeNullWhen(false)] out T value)
     {
+        CheckOperation();
         if (!items.TryAcquire()) { value = default!; return false; }
-        value = queue.Dequeue();
+        value = Remove();
         slots.Release();
         return true;
+    }
+}
+
+/// <summary>FIFO simulation queue. Pending waiters receive permits in arrival order.</summary>
+public sealed class SimQueue<T> : SimQueueBase<T>
+{
+    readonly Queue<T> queue = new();
+    /// <summary>Create a FIFO queue with strictly positive capacity.</summary>
+    public SimQueue(int capacity = int.MaxValue) : base(capacity) { }
+    /// <inheritdoc/>
+    public override int Count => queue.Count;
+    private protected override void Insert(T value) => queue.Enqueue(value);
+    private protected override T Remove() => queue.Dequeue();
+}
+
+/// <summary>Last-in-first-out simulation queue. Waiter permits remain FIFO.</summary>
+public sealed class SimLifoQueue<T> : SimQueueBase<T>
+{
+    readonly Stack<T> stack = new();
+    /// <summary>Create a LIFO queue with strictly positive capacity.</summary>
+    public SimLifoQueue(int capacity = int.MaxValue) : base(capacity) { }
+    /// <inheritdoc/>
+    public override int Count => stack.Count;
+    private protected override void Insert(T value) => stack.Push(value);
+    private protected override T Remove() => stack.Pop();
+}
+
+/// <summary>Smallest-first simulation queue, with insertion order preserved for equal priorities.</summary>
+/// <remarks>Comparison uses the whole payload unless a comparer is supplied. Comparers must be
+/// consistent and must not mutate queued sort keys or reenter queue operations. Comparer exceptions
+/// leave contents and capacity unchanged. Sorted storage uses O(log n) comparisons and O(n) movement.</remarks>
+public sealed class SimPriorityQueue<T> : SimQueueBase<T>
+{
+    readonly List<T> values = new();
+    readonly IComparer<T> comparer;
+    /// <summary>Create a priority queue with strictly positive capacity and an optional payload comparer.</summary>
+    public SimPriorityQueue(int capacity = int.MaxValue, IComparer<T>? comparer = null) : base(capacity)
+        => this.comparer = comparer ?? Comparer<T>.Default;
+    /// <inheritdoc/>
+    public override int Count => values.Count;
+    private protected override void Insert(T value)
+    {
+        // Find the upper bound before mutating storage: comparison failure is transactional.
+        int low = 0, high = values.Count;
+        while (low < high)
+        {
+            int middle = low + (high - low) / 2;
+            if (comparer.Compare(value, values[middle]) < 0) high = middle;
+            else low = middle + 1;
+        }
+        values.Insert(low, value);
+    }
+    private protected override T Remove()
+    {
+        T value = values[0];
+        values.RemoveAt(0);
+        return value;
     }
 }
 

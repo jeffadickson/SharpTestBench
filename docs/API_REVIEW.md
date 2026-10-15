@@ -74,5 +74,5 @@ All 15 inventoried cocotb.queue definitions are now reviewed: 44 total decisions
 258 inventory definitions remaining, plus aliases/dynamic exports. SimQueue now
 has TryPut/TryGet and capacity/occupancy properties with real-scheduler tests for
 reserved waiter handoff and cancellation. Boolean results, positive capacity and
-reservation protection are explicit differences from Python. Priority/LIFO queues,
-comparison support and abstract storage customization remain gaps; see QUEUES.md.
+reservation protection are explicit differences from Python. Priority/LIFO queues and comparison support are implemented with explicit .NET
+semantics. External storage customization is intentionally unsupported; see QUEUES.md.

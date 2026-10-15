@@ -546,12 +546,24 @@
       "module": "cocotb.queue",
       "definition": "AbstractQueue",
       "source_line": 43,
-      "classification": "gap",
-      "reason": "SimQueue is sealed and does not expose upstream abstract storage hooks; custom FIFO/LIFO/priority implementations cannot subclass it.",
+      "classification": "intentional-difference",
+      "reason": "SimQueueBase shares built-in coordination but intentionally does not expose external storage hooks; private protected construction protects transactional permit accounting.",
       "evidence": [
         {
           "path": "docs/QUEUES.md",
           "contains": "AbstractQueue"
+        },
+        {
+          "path": "src/SharpTestBench/Primitives.cs",
+          "contains": "SimQueueBase"
+        },
+        {
+          "path": "tests/Integration/QueueContractTests.cs",
+          "contains": "QueueFamiliesContract"
+        },
+        {
+          "path": "tools/queue_reference.py",
+          "contains": "expected"
         }
       ]
     },
@@ -820,12 +832,24 @@
       "module": "cocotb.queue",
       "definition": "SupportsRichComparison",
       "source_line": 192,
-      "classification": "gap",
-      "reason": "No simulation priority queue currently consumes an ordering protocol/comparer. Standard .NET comparison interfaces alone do not establish the queue feature.",
+      "classification": "intentional-difference",
+      "reason": "SimPriorityQueue consumes IComparer<T>/Comparer<T>.Default instead of Python rich comparison; payload and null ordering follow the selected comparer.",
       "evidence": [
         {
           "path": "docs/QUEUES.md",
           "contains": "SupportsRichComparison"
+        },
+        {
+          "path": "src/SharpTestBench/Primitives.cs",
+          "contains": "SimQueueBase"
+        },
+        {
+          "path": "tests/Integration/QueueContractTests.cs",
+          "contains": "QueueFamiliesContract"
+        },
+        {
+          "path": "tools/queue_reference.py",
+          "contains": "expected"
         }
       ]
     },
@@ -833,12 +857,24 @@
       "module": "cocotb.queue",
       "definition": "PriorityQueue",
       "source_line": 205,
-      "classification": "gap",
-      "reason": "Only FIFO SimQueue is implemented; no simulation-aware smallest-first priority queue or comparer API is available.",
+      "classification": "intentional-difference",
+      "reason": "SimPriorityQueue implements smallest-first bounded waits and immediate operations. Stable equal priorities, transactional comparer failures and reserved waiters are explicit differences from Python heap/wake-and-recheck semantics.",
       "evidence": [
         {
           "path": "docs/QUEUES.md",
           "contains": "PriorityQueue"
+        },
+        {
+          "path": "src/SharpTestBench/Primitives.cs",
+          "contains": "SimQueueBase"
+        },
+        {
+          "path": "tests/Integration/QueueContractTests.cs",
+          "contains": "QueueFamiliesContract"
+        },
+        {
+          "path": "tools/queue_reference.py",
+          "contains": "expected"
         }
       ]
     },
@@ -846,12 +882,24 @@
       "module": "cocotb.queue",
       "definition": "LifoQueue",
       "source_line": 228,
-      "classification": "gap",
-      "reason": "Only FIFO SimQueue is implemented; no simulation-aware newest-first LIFO queue is available.",
+      "classification": "intentional-difference",
+      "reason": "SimLifoQueue implements newest-first storage with shared cancellation and reserved FIFO waiter permits; pinned immediate ordering and occupancy are compared automatically.",
       "evidence": [
         {
           "path": "docs/QUEUES.md",
           "contains": "LifoQueue"
+        },
+        {
+          "path": "src/SharpTestBench/Primitives.cs",
+          "contains": "SimQueueBase"
+        },
+        {
+          "path": "tests/Integration/QueueContractTests.cs",
+          "contains": "QueueFamiliesContract"
+        },
+        {
+          "path": "tools/queue_reference.py",
+          "contains": "expected"
         }
       ]
     }

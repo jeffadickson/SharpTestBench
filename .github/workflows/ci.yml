@@ -33,6 +33,8 @@ jobs:
           echo '33d65eafb83d83352716895e44c116002f94d8a198a9486a3cee6df3e4fdfb89  build/nvc.deb' | sha256sum --check
           sudo apt-get install -y ./build/nvc.deb
       - run: python tools/run.py --sim nvc --label nvc
+      - run: python tools/queue_reference.py --label icarus
+      - run: python tools/queue_reference.py --label nvc
       - run: python tools/structured_reference_env.py --label icarus
       - run: python tools/logging_check.py --label icarus
       - run: python tools/coverage_check.py --label icarus
@@ -127,6 +129,7 @@ jobs:
       - run: python tools/managed_tests.py
       - run: dotnet run --project tests/SharpTestBench.Generators.Tests -c Release --no-build -- -xml build/generator-results.xml
       - run: python tools/run.py --sim icarus --label platform-icarus --waves build/platform-icarus.vcd
+      - run: python tools/queue_reference.py --label platform-icarus
       - run: python tools/structured_reference_env.py --label platform-icarus
       - run: python tools/wave_check.py --label platform-icarus
       - run: dotnet build examples/Counter -c Release
