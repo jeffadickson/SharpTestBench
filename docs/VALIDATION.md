@@ -341,3 +341,10 @@ matches all 32 ordering/occupancy rows on both backends against hash-verified
 pinned cocotb queue source. New tests include timeout ownership and cancellation
 handoffs; external custom storage is explicitly unsupported. Cross-platform CI
 runs the same integration cases and reference comparison.
+
+Cross-platform confirmation: commit `c6a001bb76eb028cf51864b0645f0d72cb8cb214`
+passed [CI run 38812361331](https://github.com/jeffadickson/SharpTestBench/actions/runs/38812361331):
+Linux, Windows 2022, macOS 14, isolated installed-Linux container and release-bundle
+validation all succeeded. Issue #46 acceptance criteria are complete. This closes
+queue-family implementation, not the remaining upstream API audit or large-queue
+performance characterization.
