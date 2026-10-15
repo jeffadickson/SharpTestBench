@@ -376,3 +376,9 @@ sign-parsing discrepancy. Additional tests cover injected random draw order,
 empty input, invalid policies, preserved width/range and >64-bit values. All 11
 tooling tests pass. Audit: 88 reviewed / 214 remaining definitions plus aliases
 and dynamic exports; LogicArray's class-level transform/collection gap remains #49.
+
+Cross-platform confirmation: commit `03371bb63479bdf2e34aaead8c8d361d6cfec1aa`
+passed [CI run 38815043818](https://github.com/jeffadickson/SharpTestBench/actions/runs/38815043818).
+All five jobs succeeded: Linux, Windows 2022, macOS 14, installed Linux container
+and release-bundle validation. Issue #48 acceptance criteria are complete; #49
+retains the LogicArray class-level transform/collection gap.
