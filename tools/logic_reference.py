@@ -53,11 +53,34 @@ for width in [1, 2, 7, 8, 9, 16, 65, 128]:
                 except ValueError:
                     row['bits'] = None
                 integers.append(row)
-content = json.dumps(dict(scalar=scalar, vectors=vectors, integers=integers), separators=(",", ":")) + '\n'
+transforms = []
+for a in states:
+    for b in states:
+        left = LogicArray(a + states, Range(-4, 'to', 5))
+        right = LogicArray(b + states[::-1], Range(20, 'downto', 11))
+        transforms.append(dict(left=str(left), right=str(right),
+                               and_bits=str(left & right), or_bits=str(left | right),
+                               xor_bits=str(left ^ right), not_bits=str(~left),
+                               result_bounds=[(left & right).range.left, (left & right).range.right]))
+collections = []
+text = states + '0L1HX'
+for span in [Range(-3, 'to', len(text)-4), Range(8, 'downto', 9-len(text))]:
+    value = LogicArray(text, span)
+    indices = list(span)
+    row = dict(bits=text, left=span.left, right=span.right, ascending=span.direction == 'to',
+               found=[value.index(Logic(c)) for c in states], counts=[value.count(Logic(c)) for c in states],
+               reversed=''.join(str(v) for v in reversed(value)), slices=[])
+    for start, stop, replacement in [(0, 2, '10X'), (3, 5, 'ZLH'), (len(text)-1, len(text)-1, '-')]:
+        changed = LogicArray(text, span)
+        changed[indices[start]:indices[stop]] = LogicArray(replacement)
+        row['slices'].append(dict(left=indices[start], right=indices[stop], replacement=replacement,
+                                 extracted=str(value[indices[start]:indices[stop]]), result=str(changed)))
+    collections.append(row)
+content = json.dumps(dict(scalar=scalar, vectors=vectors, integers=integers, transforms=transforms, collections=collections), separators=(",", ":")) + '\n'
 path = root / 'tests/SharpTestBench.Tests/logic-reference.json'
 if args.check:
     if path.read_text() != content:
         raise SystemExit('Logic reference drift; regenerate and review')
 else:
     path.write_text(content)
-print(f'Logic reference: {len(scalar)} scalar, {len(vectors)} vector, {len(integers)} integer cases recorded from pinned cocotb')
+print(f'Logic reference: {len(scalar)} scalar, {len(vectors)} vector, {len(integers)} integer cases; {len(transforms)} transforms and {len(collections)} collection cases recorded from pinned cocotb')

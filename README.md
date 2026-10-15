@@ -214,3 +214,5 @@ composition, delta-chain parity with Python, and 81 VHDL driver-resolution pairs
 HDL-indexed managed arrays: see [range and value-array contracts](docs/VALUE_ARRAYS.md) for search, slice assignment and reindexing.
 
 Nine-state conversion: see [explicit resolution and numeric/byte contracts](docs/LOGIC_CONVERSIONS.md).
+
+[Logic-array transforms](docs/LOGIC_TRANSFORMS.md) cover bitwise operators, immutable slice replacement and HDL-indexed search.

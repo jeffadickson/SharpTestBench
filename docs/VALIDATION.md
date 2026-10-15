@@ -382,3 +382,16 @@ passed [CI run 38815043818](https://github.com/jeffadickson/SharpTestBench/actio
 All five jobs succeeded: Linux, Windows 2022, macOS 14, installed Linux container
 and release-bundle validation. Issue #48 acceptance criteria are complete; #49
 retains the LogicArray class-level transform/collection gap.
+
+### Logic-array transforms and collections (#49)
+
+Local Release build has zero warnings/errors. All 376 managed tests pass;
+the injected-failure probe reports only its expected failure, with 375 other cases
+passing. Added pinned-oracle coverage for 81 vector operator cases and two directed
+collection cases with six slice replacements. Tests explicitly verify preserved
+left-operand bounds versus cocotb's normalized bounds, immutable self/overlap
+replacement, throwing sources, invalid enum values, null/mismatched operands and
+negative HDL search indices. All 11 tooling tests pass. Full native regressions:
+Icarus 72 passed / 2 capability skips; NVC 43 passed / 1 capability skip.
+The LogicArray class-level review becomes intentional-difference with evidence;
+review totals remain 88 reviewed / 214 unreviewed definitions plus aliases/exports.

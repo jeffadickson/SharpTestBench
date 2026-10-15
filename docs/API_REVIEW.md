@@ -98,3 +98,15 @@ evidence. The LogicArray class-level gap remains tracked by #49. See
 LOGIC_CONVERSIONS.md for strict unknown rejection, the upstream leading-don't-care
 parser discrepancy, explicit RNG policy, immutable range semantics and deprecated
 alias omissions. Counts represent review coverage, not full semantic parity.
+
+
+## Logic-array transforms follow-up
+
+Issue #49 adds nine-state bitwise operators, immutable element/slice replacement
+and IReadOnlyList iteration with explicit HDL search/count. The class-level
+LogicArray decision changes from gap to intentional-difference, supported by 81
+operator cases and directed collection/slice comparisons against pinned cocotb.
+Result bounds deliberately preserve the left operand; Python's operators instead
+normalize to default descending bounds. See LOGIC_TRANSFORMS.md for this and
+other explicit immutable/collection/protocol decisions. Review counts remain
+88 reviewed / 214 unreviewed definitions plus aliases/dynamic exports.

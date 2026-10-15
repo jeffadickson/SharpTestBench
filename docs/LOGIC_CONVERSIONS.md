@@ -80,8 +80,7 @@ explicitly rejects all four as unresolved; tests assert that safer contract rath
 than reproducing the parser accident. This is an intentional semantic difference.
 
 Issue [#48](https://github.com/jeffadickson/SharpTestBench/issues/48) tracks conversions.
-The LogicArray class-level review remains a gap for vector bitwise transforms,
-slice replacement and collection operations, tracked in
-[#49](https://github.com/jeffadickson/SharpTestBench/issues/49). Numeric-method
-coverage is not full LogicArray parity; Python equality/formatting protocols and
-preview behavior are not claimed equivalent.
+The transform/collection follow-up [#49](https://github.com/jeffadickson/SharpTestBench/issues/49)
+adds vector operators, immutable replacement and collection access; see
+[LOGIC_TRANSFORMS.md](LOGIC_TRANSFORMS.md). Its class-level audit records intentional
+C# differences, not Python equality/formatting/preview protocol equivalence.

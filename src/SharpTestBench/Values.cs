@@ -154,13 +154,17 @@ public static partial class LogicOps
 public sealed partial class LogicArray
 {
     readonly string bits;
+    /// <summary>Number of displayed logic states.</summary>
     public int Length => bits.Length;
+    /// <summary>Immutable inclusive HDL bounds and direction.</summary>
     public HdlRange Range { get; }
 
+    /// <summary>Parse a nine-state string with default descending Length-1 downto 0 bounds.</summary>
     public LogicArray(string value) : this(value, new HdlRange((value ?? throw new ArgumentNullException(nameof(value))).Length - 1, 0, false))
     {
     }
 
+    /// <summary>Parse a nine-state string whose length must match the declared range.</summary>
     public LogicArray(string value, HdlRange range)
     {
         ArgumentNullException.ThrowIfNull(value);
@@ -172,15 +176,18 @@ public sealed partial class LogicArray
             LogicOps.Parse(c);
     }
 
+    /// <summary>Read by zero-based displayed position; use At for an HDL index.</summary>
     public Logic this[int offset] => LogicOps.Parse(bits[offset]);
+    /// <summary>Read by declared HDL index, including negative indices.</summary>
     public Logic At(int hdlIndex) => this[Range.Offset(hdlIndex)];
+    /// <summary>Copy an inclusive same-direction HDL slice; explicit null slices produce empty values.</summary>
     public LogicArray Slice(HdlRange range)
     {
-        if (range.Ascending != Range.Ascending)
-            throw new ArgumentException("Slice direction differs");
-        return new(new string (Enumerable.Range(0, range.Length).Select(i => At(range.Index(i)).Symbol()).ToArray()), range);
+        var (offset, length) = ValidateSlice(range);
+        return new(bits.Substring(offset, length), range);
     }
 
+    /// <summary>Return uppercase states in displayed MSB-to-LSB order.</summary>
     public override string ToString() => bits;
 }
 

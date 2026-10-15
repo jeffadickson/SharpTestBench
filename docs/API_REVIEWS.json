@@ -1417,8 +1417,8 @@
       "module": "cocotb.types._logic_array",
       "definition": "LogicArray",
       "source_line": 31,
-      "classification": "gap",
-      "reason": "Numeric and resolution APIs now exist, but vector bitwise transforms, slice replacement and collection operations remain tracked in #49. Immutable storage and Python protocol differences are documented.",
+      "classification": "intentional-difference",
+      "reason": "Immutable nine-state values now provide numeric/byte conversion, resolution, bitwise transforms, slice replacement and positional collection/HDL search APIs. Preserved left-operand bounds, null slices, reference equality, explicit conversion and omission of Python rich protocols are documented differences.",
       "evidence": [
         {
           "path": "docs/LOGIC_CONVERSIONS.md",
@@ -1431,6 +1431,18 @@
         {
           "path": "tools/logic_reference.py",
           "contains": "hashlib.sha256"
+        },
+        {
+          "path": "docs/LOGIC_TRANSFORMS.md",
+          "contains": "Operators and bounds"
+        },
+        {
+          "path": "src/SharpTestBench/LogicTransforms.cs",
+          "contains": "WithSlice"
+        },
+        {
+          "path": "tests/SharpTestBench.Tests/LogicTransformTests.cs",
+          "contains": "PinnedNineStateVectorTransforms"
         }
       ]
     },

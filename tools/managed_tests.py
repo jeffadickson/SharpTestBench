@@ -14,10 +14,10 @@ BUILD = ROOT / 'build'
 
 def verify(report, failed):
     cases = ET.parse(report).findall('.//test')
-    assert len(cases) == 372, f'Expected 372 discovered cases, got {len(cases)}'
+    assert len(cases) == 376, f'Expected 376 discovered cases, got {len(cases)}'
     failures = [case for case in cases if case.attrib['result'] == 'Fail']
     assert len(failures) == failed, failures
-    assert sum(case.attrib['result'] == 'Pass' for case in cases) == 372 - failed
+    assert sum(case.attrib['result'] == 'Pass' for case in cases) == 376 - failed
     if failed:
         assert failures[0].attrib['name'] == 'ManagedTests.IntegerBoundaries'
         assert any(c.attrib['name'] == 'ManagedTests.FunctionalCoverage' and c.attrib['result'] == 'Pass' for c in cases)
@@ -37,7 +37,7 @@ def main():
     original = 'new UInt<W8>(255).Value == 255'
     assert source.count(original) == 1
     (probe / 'Program.cs').write_text(source.replace(original, 'new UInt<W8>(255).Value == 254'))
-    for name in ('CleanupTests.cs', 'ArrayTests.cs', 'array-reference.json', 'LogicConversionTests.cs', 'logic-reference.json'):
+    for name in ('CleanupTests.cs', 'ArrayTests.cs', 'array-reference.json', 'LogicConversionTests.cs', 'LogicTransformTests.cs', 'logic-reference.json'):
         shutil.copyfile(PROJECT / name, probe / name)
     shutil.copyfile(PROJECT / 'nine-state-reference.txt', probe / 'nine-state-reference.txt')
     shutil.copyfile(PROJECT / 'packages.lock.json', probe / 'packages.lock.json')
@@ -47,7 +47,7 @@ def main():
     result = subprocess.run([SDK, str(probe / 'bin/Release/net10.0/FailureProbe.dll'), '-xml', str(report)])
     assert result.returncode != 0, 'Injected failure must fail the process'
     verify(report, 1)
-    print('MANAGED_PASS 372 cases; injected failure named correctly; remaining 371 cases passed')
+    print('MANAGED_PASS 376 cases; injected failure named correctly; remaining 375 cases passed')
 
 
 if __name__ == '__main__':
