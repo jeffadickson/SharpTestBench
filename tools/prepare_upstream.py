@@ -15,6 +15,9 @@ def configure_native_build(source):
     original = cmake.read_text()
     text = original
     replacements = {
+        # MSVC /GL objects are not ordinary COFF for CMake's auto-export scanner.
+        # Upstream already declares public GPI/classes/bootstrap exports explicitly.
+        'set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)': 'set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS OFF)',
         'set(CMAKE_CXX_STANDARD 11)': 'set(CMAKE_CXX_STANDARD 20)',
         '"-std=c++11"': '"-std=c++20"',
         '"/MD /O2 /Ob2 /DNDEBUG"': '"/MD /O2 /Ob2 /Zi /Zo /DNDEBUG"',

@@ -91,6 +91,8 @@ breakpoints, although optimized locals may be unavailable or reordered.
 `tools/prepare_upstream.py` verifies the pinned archive, then applies a checked,
 build-only CMake overlay: C++20, Release, required interprocedural optimization,
 GCC/Clang `-O3 -g` or MSVC `/O2 /Ob2 /Zi /Zo` with release linker optimization.
+It uses upstream explicit Windows export annotations instead of CMake automatic
+export scanning, which cannot process the MSVC IPO objects in the tested toolchain.
 It disables wheel install stripping and records original/configured CMake hashes
 in `build/upstream/native-profile.json`. Upstream implementation files, comments,
 licenses and checked-in headers remain unchanged. This is an explicitly modified
