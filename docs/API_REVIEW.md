@@ -66,3 +66,13 @@ This deliberately differs from Python startup/cached-identity behavior; see
 CUSTOM_TRIGGERS.md and the callback introspection tests.
 Cached Python trigger identity and X-to-edge backend matrices are not claimed
 equivalent. See API_REVIEWS.json for each definition's evidence and limitations.
+
+
+## Queue review
+
+All 15 inventoried cocotb.queue definitions are now reviewed: 44 total decisions,
+258 inventory definitions remaining, plus aliases/dynamic exports. SimQueue now
+has TryPut/TryGet and capacity/occupancy properties with real-scheduler tests for
+reserved waiter handoff and cancellation. Boolean results, positive capacity and
+reservation protection are explicit differences from Python. Priority/LIFO queues,
+comparison support and abstract storage customization remain gaps; see QUEUES.md.

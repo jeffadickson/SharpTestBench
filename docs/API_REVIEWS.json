@@ -3,7 +3,8 @@
   "source_revision": "5fa952e92c46fd9cb58f55a8655312a4bf02e7de",
   "source_hashes": {
     "cocotb._base_triggers": "f4c4b9476114f0e37000a05e36078449be301f1251eb99c6633e6d9f6fb1c6f9",
-    "cocotb._gpi_triggers": "9ba67c51a80e7eb74904584d0907143c32eceee516f50337f08b403b3db414f7"
+    "cocotb._gpi_triggers": "9ba67c51a80e7eb74904584d0907143c32eceee516f50337f08b403b3db414f7",
+    "cocotb.queue": "681590ff41ab04f41365c4c0d852ae3e7c1ce8b7506332b80725fadbe5552650"
   },
   "reviews": [
     {
@@ -480,6 +481,377 @@
         {
           "path": "tests/Integration/TriggerExtensionTests.cs",
           "contains": "InternalDeadlineCallbackIntrospection"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.queue",
+      "definition": "QueueFull",
+      "source_line": 32,
+      "classification": "intentional-difference",
+      "reason": "TryPut returns false for occupied or reserved capacity instead of raising QueueFull; no Python exception inheritance is provided.",
+      "evidence": [
+        {
+          "path": "docs/QUEUES.md",
+          "contains": "Capacity and reserved handoffs"
+        },
+        {
+          "path": "src/SharpTestBench/Primitives.cs",
+          "contains": "public sealed class SimQueue<T>"
+        },
+        {
+          "path": "tests/Integration/QueueContractTests.cs",
+          "contains": "QueueCancellationHandoffContract"
+        },
+        {
+          "path": "tests/Integration/QueueContractTests.cs",
+          "contains": "QueueReservedHandoffContract"
+        },
+        {
+          "path": "tests/Integration/QueueContractTests.cs",
+          "contains": "QueueImmediateContract"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.queue",
+      "definition": "QueueEmpty",
+      "source_line": 36,
+      "classification": "intentional-difference",
+      "reason": "TryGet returns false and default(T) when no unreserved item exists; a true result may contain null. No QueueEmpty exception type.",
+      "evidence": [
+        {
+          "path": "docs/QUEUES.md",
+          "contains": "Capacity and reserved handoffs"
+        },
+        {
+          "path": "src/SharpTestBench/Primitives.cs",
+          "contains": "public sealed class SimQueue<T>"
+        },
+        {
+          "path": "tests/Integration/QueueContractTests.cs",
+          "contains": "QueueCancellationHandoffContract"
+        },
+        {
+          "path": "tests/Integration/QueueContractTests.cs",
+          "contains": "QueueReservedHandoffContract"
+        },
+        {
+          "path": "tests/Integration/QueueContractTests.cs",
+          "contains": "QueueImmediateContract"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.queue",
+      "definition": "AbstractQueue",
+      "source_line": 43,
+      "classification": "gap",
+      "reason": "SimQueue is sealed and does not expose upstream abstract storage hooks; custom FIFO/LIFO/priority implementations cannot subclass it.",
+      "evidence": [
+        {
+          "path": "docs/QUEUES.md",
+          "contains": "AbstractQueue"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.queue",
+      "definition": "AbstractQueue.qsize",
+      "source_line": 101,
+      "classification": "idiomatic-equivalent",
+      "reason": "Count reports physical FIFO occupancy, including values reserved for a pending consumer. Tested during immediate operations and reserved handoffs.",
+      "evidence": [
+        {
+          "path": "docs/QUEUES.md",
+          "contains": "Capacity and reserved handoffs"
+        },
+        {
+          "path": "src/SharpTestBench/Primitives.cs",
+          "contains": "public sealed class SimQueue<T>"
+        },
+        {
+          "path": "tests/Integration/QueueContractTests.cs",
+          "contains": "QueueCancellationHandoffContract"
+        },
+        {
+          "path": "tests/Integration/QueueContractTests.cs",
+          "contains": "QueueReservedHandoffContract"
+        },
+        {
+          "path": "tests/Integration/QueueContractTests.cs",
+          "contains": "QueueImmediateContract"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.queue",
+      "definition": "AbstractQueue.maxsize",
+      "source_line": 106,
+      "classification": "intentional-difference",
+      "reason": "Capacity is immutable and strictly positive, default int.MaxValue; nonpositive sizes do not mean unbounded as in Python.",
+      "evidence": [
+        {
+          "path": "docs/QUEUES.md",
+          "contains": "Capacity and reserved handoffs"
+        },
+        {
+          "path": "src/SharpTestBench/Primitives.cs",
+          "contains": "public sealed class SimQueue<T>"
+        },
+        {
+          "path": "tests/Integration/QueueContractTests.cs",
+          "contains": "QueueCancellationHandoffContract"
+        },
+        {
+          "path": "tests/Integration/QueueContractTests.cs",
+          "contains": "QueueReservedHandoffContract"
+        },
+        {
+          "path": "tests/Integration/QueueContractTests.cs",
+          "contains": "QueueImmediateContract"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.queue",
+      "definition": "AbstractQueue.empty",
+      "source_line": 110,
+      "classification": "idiomatic-equivalent",
+      "reason": "IsEmpty describes physical occupancy, not whether another caller may consume a reserved item. Handoff tests distinguish these states.",
+      "evidence": [
+        {
+          "path": "docs/QUEUES.md",
+          "contains": "Capacity and reserved handoffs"
+        },
+        {
+          "path": "src/SharpTestBench/Primitives.cs",
+          "contains": "public sealed class SimQueue<T>"
+        },
+        {
+          "path": "tests/Integration/QueueContractTests.cs",
+          "contains": "QueueCancellationHandoffContract"
+        },
+        {
+          "path": "tests/Integration/QueueContractTests.cs",
+          "contains": "QueueReservedHandoffContract"
+        },
+        {
+          "path": "tests/Integration/QueueContractTests.cs",
+          "contains": "QueueImmediateContract"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.queue",
+      "definition": "AbstractQueue.full",
+      "source_line": 114,
+      "classification": "intentional-difference",
+      "reason": "IsFull reports Count == Capacity with positive finite capacity; there is no Python nonpositive-unbounded mode. A free physical slot may be reserved.",
+      "evidence": [
+        {
+          "path": "docs/QUEUES.md",
+          "contains": "Capacity and reserved handoffs"
+        },
+        {
+          "path": "src/SharpTestBench/Primitives.cs",
+          "contains": "public sealed class SimQueue<T>"
+        },
+        {
+          "path": "tests/Integration/QueueContractTests.cs",
+          "contains": "QueueCancellationHandoffContract"
+        },
+        {
+          "path": "tests/Integration/QueueContractTests.cs",
+          "contains": "QueueReservedHandoffContract"
+        },
+        {
+          "path": "tests/Integration/QueueContractTests.cs",
+          "contains": "QueueImmediateContract"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.queue",
+      "definition": "AbstractQueue.put",
+      "source_line": 126,
+      "classification": "intentional-difference",
+      "reason": "Put uses FIFO reserved slots and cancellable semaphore acquisition rather than wake-and-recheck occupancy. Tests cover blocked producers, cancellation before handoff cleanup and pre-cancelled tokens.",
+      "evidence": [
+        {
+          "path": "docs/QUEUES.md",
+          "contains": "Capacity and reserved handoffs"
+        },
+        {
+          "path": "src/SharpTestBench/Primitives.cs",
+          "contains": "public sealed class SimQueue<T>"
+        },
+        {
+          "path": "tests/Integration/QueueContractTests.cs",
+          "contains": "QueueCancellationHandoffContract"
+        },
+        {
+          "path": "tests/Integration/QueueContractTests.cs",
+          "contains": "QueueReservedHandoffContract"
+        },
+        {
+          "path": "tests/Integration/QueueContractTests.cs",
+          "contains": "QueueImmediateContract"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.queue",
+      "definition": "AbstractQueue.put_nowait",
+      "source_line": 138,
+      "classification": "intentional-difference",
+      "reason": "TryPut is immediate and boolean; it refuses to steal slots reserved for queued producers even if the physical queue is not full.",
+      "evidence": [
+        {
+          "path": "docs/QUEUES.md",
+          "contains": "Capacity and reserved handoffs"
+        },
+        {
+          "path": "src/SharpTestBench/Primitives.cs",
+          "contains": "public sealed class SimQueue<T>"
+        },
+        {
+          "path": "tests/Integration/QueueContractTests.cs",
+          "contains": "QueueCancellationHandoffContract"
+        },
+        {
+          "path": "tests/Integration/QueueContractTests.cs",
+          "contains": "QueueReservedHandoffContract"
+        },
+        {
+          "path": "tests/Integration/QueueContractTests.cs",
+          "contains": "QueueImmediateContract"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.queue",
+      "definition": "AbstractQueue.get",
+      "source_line": 148,
+      "classification": "intentional-difference",
+      "reason": "Get transfers oldest FIFO items using reserved item permits. Cancellation returns granted-but-unconsumed permits to surviving waiters; unlike Python occupancy loops, newcomers cannot steal a reservation.",
+      "evidence": [
+        {
+          "path": "docs/QUEUES.md",
+          "contains": "Capacity and reserved handoffs"
+        },
+        {
+          "path": "src/SharpTestBench/Primitives.cs",
+          "contains": "public sealed class SimQueue<T>"
+        },
+        {
+          "path": "tests/Integration/QueueContractTests.cs",
+          "contains": "QueueCancellationHandoffContract"
+        },
+        {
+          "path": "tests/Integration/QueueContractTests.cs",
+          "contains": "QueueReservedHandoffContract"
+        },
+        {
+          "path": "tests/Integration/QueueContractTests.cs",
+          "contains": "QueueImmediateContract"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.queue",
+      "definition": "AbstractQueue.get_nowait",
+      "source_line": 159,
+      "classification": "intentional-difference",
+      "reason": "TryGet returns boolean/out value and refuses to steal reserved items even if Count is positive; tests verify null payloads and default on failure.",
+      "evidence": [
+        {
+          "path": "docs/QUEUES.md",
+          "contains": "Capacity and reserved handoffs"
+        },
+        {
+          "path": "src/SharpTestBench/Primitives.cs",
+          "contains": "public sealed class SimQueue<T>"
+        },
+        {
+          "path": "tests/Integration/QueueContractTests.cs",
+          "contains": "QueueCancellationHandoffContract"
+        },
+        {
+          "path": "tests/Integration/QueueContractTests.cs",
+          "contains": "QueueReservedHandoffContract"
+        },
+        {
+          "path": "tests/Integration/QueueContractTests.cs",
+          "contains": "QueueImmediateContract"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.queue",
+      "definition": "Queue",
+      "source_line": 172,
+      "classification": "intentional-difference",
+      "reason": "SimQueue<T> provides FIFO payload ordering and bounded waiting with positive-capacity, explicit cancellation and reservation semantics. Those differences are documented and tested rather than claimed exact Python behavior.",
+      "evidence": [
+        {
+          "path": "docs/QUEUES.md",
+          "contains": "Capacity and reserved handoffs"
+        },
+        {
+          "path": "src/SharpTestBench/Primitives.cs",
+          "contains": "public sealed class SimQueue<T>"
+        },
+        {
+          "path": "tests/Integration/QueueContractTests.cs",
+          "contains": "QueueCancellationHandoffContract"
+        },
+        {
+          "path": "tests/Integration/QueueContractTests.cs",
+          "contains": "QueueReservedHandoffContract"
+        },
+        {
+          "path": "tests/Integration/QueueContractTests.cs",
+          "contains": "QueueImmediateContract"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.queue",
+      "definition": "SupportsRichComparison",
+      "source_line": 192,
+      "classification": "gap",
+      "reason": "No simulation priority queue currently consumes an ordering protocol/comparer. Standard .NET comparison interfaces alone do not establish the queue feature.",
+      "evidence": [
+        {
+          "path": "docs/QUEUES.md",
+          "contains": "SupportsRichComparison"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.queue",
+      "definition": "PriorityQueue",
+      "source_line": 205,
+      "classification": "gap",
+      "reason": "Only FIFO SimQueue is implemented; no simulation-aware smallest-first priority queue or comparer API is available.",
+      "evidence": [
+        {
+          "path": "docs/QUEUES.md",
+          "contains": "PriorityQueue"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.queue",
+      "definition": "LifoQueue",
+      "source_line": 228,
+      "classification": "gap",
+      "reason": "Only FIFO SimQueue is implemented; no simulation-aware newest-first LIFO queue is available.",
+      "evidence": [
+        {
+          "path": "docs/QUEUES.md",
+          "contains": "LifoQueue"
         }
       ]
     }

@@ -67,6 +67,15 @@ public sealed class SimSemaphore
 
     public int CurrentCount => count;
 
+    // Reserved permits belong to queued acquirers; immediate callers cannot steal them.
+    internal bool TryAcquire()
+    {
+        (SimRuntime.Active ?? throw new InvalidOperationException("No runtime")).CheckThread();
+        if (count == 0) return false;
+        count--;
+        return true;
+    }
+
     public async Task Acquire(CancellationToken? token = null)
     {
         var r = SimRuntime.Active ?? throw new InvalidOperationException("No runtime");
@@ -124,20 +133,35 @@ public sealed class SimLock
     }
 }
 
+/// <summary>FIFO simulation queue with reserved permits for pending producers and consumers.</summary>
+/// <typeparam name="T">Type of item transferred between simulation tasks.</typeparam>
 public sealed class SimQueue<T>
 {
     readonly Queue<T> queue = new();
     readonly SimSemaphore items = new(0);
     readonly SimSemaphore slots;
+    /// <summary>Create a queue with a strictly positive capacity; the default is int.MaxValue.</summary>
+    /// <param name="capacity">Maximum number of stored items.</param>
     public SimQueue(int capacity = int.MaxValue)
     {
         if (capacity <= 0)
             throw new ArgumentOutOfRangeException(nameof(capacity));
         slots = new(capacity, capacity);
+        Capacity = capacity;
     }
 
+    /// <summary>Maximum number of stored items.</summary>
+    public int Capacity { get; }
+    /// <summary>Stored item count, including items reserved for pending consumers.</summary>
     public int Count => queue.Count;
+    /// <summary>True when no items are physically stored; does not describe reserved permits.</summary>
+    public bool IsEmpty => Count == 0;
+    /// <summary>True when stored item count reaches Capacity; pending producers may reserve free slots.</summary>
+    public bool IsFull => Count == Capacity;
 
+    /// <summary>Wait for an available slot, then append an item in FIFO order.</summary>
+    /// <param name="value">Item to append.</param>
+    /// <param name="token">Cancellation token, or null to inherit the simulation task's token.</param>
     public async Task Put(T value, CancellationToken? token = null)
     {
         await slots.Acquire(token);
@@ -145,12 +169,37 @@ public sealed class SimQueue<T>
         items.Release();
     }
 
+    /// <summary>Wait for an available item, then remove the oldest stored item.</summary>
+    /// <param name="token">Cancellation token, or null to inherit the simulation task's token.</param>
+    /// <returns>The oldest available item.</returns>
     public async Task<T> Get(CancellationToken? token = null)
     {
         await items.Acquire(token);
         var result = queue.Dequeue();
         slots.Release();
         return result;
+    }
+
+    /// <summary>Append immediately if an unreserved slot exists; never waits or advances simulation time.</summary>
+    /// <param name="value">Item to append.</param>
+    /// <returns>False when all slots are occupied or reserved by pending producers.</returns>
+    public bool TryPut(T value)
+    {
+        if (!slots.TryAcquire()) return false;
+        queue.Enqueue(value);
+        items.Release();
+        return true;
+    }
+
+    /// <summary>Remove immediately if an unreserved item exists; never steals from a pending consumer.</summary>
+    /// <param name="value">The removed item, or default when no item is available.</param>
+    /// <returns>True when an item was removed. False may occur with Count greater than zero during handoff.</returns>
+    public bool TryGet(out T value)
+    {
+        if (!items.TryAcquire()) { value = default!; return false; }
+        value = queue.Dequeue();
+        slots.Release();
+        return true;
     }
 }
 
