@@ -74,6 +74,8 @@ jobs:
             build/*results.*
             build/native-build*.json
             build/upstream/native-profile.json
+            build/upstream/cocotb-source/build/**/CMakeCache.txt
+            build/upstream/cocotb-source/build/**/compile_commands.json
             build/packages-*/*.nupkg
             build/package-evidence-*/**
             build/workspace-check/**
@@ -155,6 +157,8 @@ jobs:
             build/*results.*
             build/native-build*.json
             build/upstream/native-profile.json
+            build/upstream/cocotb-source/build/**/CMakeCache.txt
+            build/upstream/cocotb-source/build/**/compile_commands.json
             build/packages-*/*.nupkg
             build/package-evidence-*/**
             build/workspace-check/**

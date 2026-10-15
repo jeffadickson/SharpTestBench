@@ -46,7 +46,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
     cmake.write_text(text)
     evidence = {'language': 'C++20', 'configuration': 'Release', 'ipo_required': True,
                 'original_cmake_sha256': hashlib.sha256(original.encode()).hexdigest(),
-                'configured_cmake_sha256': hashlib.sha256(text.encode()).hexdigest(),
+                'configured_cmake_sha256': hashlib.sha256(cmake.read_bytes()).hexdigest(),
                 'implementation_sources_modified': False}
     (source.parent / 'native-profile.json').write_text(json.dumps(evidence, indent=2) + '\n')
 
