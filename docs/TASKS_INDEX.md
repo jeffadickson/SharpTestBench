@@ -61,4 +61,4 @@ See [assessment and adoption boundaries](TEST_TOOLING.md). Issue state is author
 | STB-045 | P1 | [#45 Extend debugger validation across platforms and mixed sessions](https://github.com/jeffadickson/SharpTestBench/issues/45) |
 | STB-046 | P1 | [#46 Completed: simulation priority/LIFO queues and storage decision](https://github.com/jeffadickson/SharpTestBench/issues/46) |
 
-| STB-047 | P1 | [#47 Complete HDL value-array operations and range API review](https://github.com/jeffadickson/SharpTestBench/issues/47) |
+| STB-047 | P1 | [#47 Completed: HDL value-array operations and range API review](https://github.com/jeffadickson/SharpTestBench/issues/47) |

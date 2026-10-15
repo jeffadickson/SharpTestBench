@@ -359,3 +359,8 @@ aliasing, null values, negative HDL indices and Int32 boundaries. Tooling tests:
 11 passed. Native regression: Icarus 72 passed / 2 capability skips; NVC 43 passed /
 1 capability skip. API audit now records 64 reviewed definitions and 238 remaining
 plus aliases/dynamic exports. These counts are not a full-parity percentage.
+
+Cross-platform confirmation: commit `25c9dd8bb1b3690f6be4647f965f8fba40440448`
+passed [CI run 38813563204](https://github.com/jeffadickson/SharpTestBench/actions/runs/38813563204).
+All five jobs succeeded: Linux, Windows 2022, macOS 14, installed Linux container
+and release-bundle validation. Issue #47 acceptance criteria are complete.
