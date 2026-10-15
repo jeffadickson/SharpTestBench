@@ -45,7 +45,7 @@ def adapters():
 
 
 check('dotnet SDK', dotnet)
-check('C compiler', lambda: executable('clang' if sys.platform == 'darwin' else 'gcc', 'CC'))
+check('C++20 compiler', lambda: executable('clang++' if sys.platform == 'darwin' else 'g++', 'CXX'))
 check('Icarus compiler', lambda: executable('iverilog', 'CS_IVERILOG'))
 check('Icarus runtime', lambda: executable('vvp', 'CS_VVP'))
 check('native adapters', adapters)

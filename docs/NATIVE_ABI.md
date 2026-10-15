@@ -1,7 +1,7 @@
 # Native ABI v1
 
 Every managed simulator call goes through the platform SharpTestBench host library.
-`native/abi.h` is the public C contract; `native/abi.c` is the adapter to the pinned
+`native/abi.h` is the public C contract; `native/abi.cpp` is the adapter to the pinned
 upstream GPI. The managed library no longer imports `libgpi.so` directly.
 
 - `cs_abi_version()` returns 1. Managed runtime construction rejects other versions
@@ -69,3 +69,38 @@ Managed calls are gated to tested Verilator and require the simulator thread.
 Other backends and older hosts retain GPI bit-range discovery. ABI version stays 1;
 the packed transport feature bit 0 remains required. Native adapters are unchanged.
 Pinned VPI declarations and compatibility header come from the cocotb source archive.
+
+## C++20 release build and source documentation
+
+The owned bridge (`host.cpp`, `abi.cpp`, `abi.h`, `platform.h`) documents every
+function plus callback, loader, handle, buffer, error and simulator-thread contracts.
+C++20 implementation types use `decltype` from the pinned GPI declarations; the
+public header remains C-compatible and exports retain explicit C linkage.
+Hostfxr function-address outputs use actual `void*` slots before conversion, avoiding
+pointer-to-pointer aliasing. Failed initialization closes any returned host context.
+Windows loader cleanup preserves its original error and checks UTF-8 conversion.
+
+`tools/native_build.py` requires GCC/G++ or Clang with C++20 and LTO support.
+`CXX` selects the compiler. All owned host builds use `-std=c++20 -O3 -flto -g
+-DNDEBUG`, warnings as errors, and explicit export visibility. Windows statically
+links the compiler runtimes; macOS/Linux retain their platform loader conventions.
+LTO failure fails the build. Debug information remains available for native
+breakpoints, although optimized locals may be unavailable or reordered.
+`build/native-build.json` records compiler identity, command, source and output hashes.
+
+`tools/prepare_upstream.py` verifies the pinned archive, then applies a checked,
+build-only CMake overlay: C++20, Release, required interprocedural optimization,
+GCC/Clang `-O3 -g` or MSVC `/O2 /Ob2 /Zi /Zo` with release linker optimization.
+It disables wheel install stripping and records original/configured CMake hashes
+in `build/upstream/native-profile.json`. Upstream implementation files, comments,
+licenses and checked-in headers remain unchanged. This is an explicitly modified
+build configuration, not a claim that the upstream source itself was rewritten.
+
+Neither profile enables fast-math or machine-specific instruction sets. This
+preserves real-value semantics and package portability. These flags enable release
+optimization; they do not establish a measured performance improvement. PGO and
+backend-specific packed transfer remain separate work requiring representative data.
+
+`tools/native_build_check.py` resolves every public export by literal name and links
+and runs a C11 consumer against the actual optimized C++20 binary. CI runs this on
+Linux, Windows and macOS alongside simulator, debugger and package-consumer checks.

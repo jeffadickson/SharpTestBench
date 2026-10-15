@@ -65,3 +65,5 @@ See [assessment and adoption boundaries](TEST_TOOLING.md). Issue state is author
 
 | STB-048 | P1 | [#48 Completed: nine-state logic resolution and vector conversions](https://github.com/jeffadickson/SharpTestBench/issues/48) |
 | STB-049 | P1 | [#49 Completed: logic-array transforms and collection operations](https://github.com/jeffadickson/SharpTestBench/issues/49) |
+
+- [#50 Modernize simulator bridge to documented optimized C++20](https://github.com/jeffadickson/SharpTestBench/issues/50): owned bridge conversion, build-only adapter overlay, C ABI and cross-platform release validation.

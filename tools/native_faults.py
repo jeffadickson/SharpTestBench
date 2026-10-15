@@ -27,7 +27,7 @@ def run(args, **kw):
 def main():
     BUILD.mkdir(parents=True, exist_ok=True)
     host = ROOT / 'build/libsharptestbench_host.so'
-    declarations = re.findall(r'^(.+?) cs_v1_(\w+)\((.*?)\);$', (ROOT / 'native/abi.h').read_text(), re.M)
+    declarations = re.findall(r'^CS_EXPORT (.+?) cs_v1_(\w+)\((.*?)\);$', (ROOT / 'native/abi.h').read_text(), re.M)
     fake = '#include "abi.h"\n#include <stdlib.h>\n'
     for ret, name, args in declarations:
         if name == 'gpi_get_signal_value_long':

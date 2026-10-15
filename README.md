@@ -89,7 +89,8 @@ For Windows and macOS source setup and the counter example, see [ALPHA.md](docs/
 
 ## Build and run (Linux x86-64)
 
-Prerequisites: .NET 10 SDK, Python 3.12+, GCC/G++, and a supported simulator.
+Prerequisites: .NET 10 SDK, Python 3.12+, a C++20-capable GCC/G++ or Clang toolchain with LTO, and a supported simulator.
+The native bridge uses an optimized C++20 release profile; see [native build details](docs/NATIVE_ABI.md#c20-release-build-and-source-documentation).
 Pin cocotb to commit `5fa952e92c46fd9cb58f55a8655312a4bf02e7de`.
 The source snapshot is included in `third_party/cocotb-source.tar.gz`.
 Preparation verifies its checksum and sets the recorded package version; native

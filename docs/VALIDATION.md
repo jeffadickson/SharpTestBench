@@ -400,3 +400,13 @@ Cross-platform confirmation: commit `65bd4da2ef00656ed9e7e0ef4037dbe8fa42719c`
 passed [CI run 38816180142](https://github.com/jeffadickson/SharpTestBench/actions/runs/38816180142).
 All five jobs succeeded: Linux, Windows 2022, macOS 14, installed Linux container
 and release-bundle validation. Issue #49 acceptance criteria are complete.
+
+### Optimized C++20 native bridge (#50)
+
+Owned host/ABI code now compiles as C++20 with `-O3 -flto -g -DNDEBUG` and
+explicit C exports. The pinned adapters use a checked CMake-only overlay with
+C++20, Release and mandatory IPO; implementation files and licenses are unchanged.
+Local Linux: all 44 exports resolve, a C11 consumer links and runs, all six native
+fault/boundary cases pass (including 18 packed boundary checks), and Icarus passes
+72 tests with two capability skips. Tooling tests: 11 passed. Cross-platform CI and
+optimized debugger/package evidence are required before closing #50.

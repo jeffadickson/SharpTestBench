@@ -1,5 +1,7 @@
-"""Platform-aware native host build; C compiler must support GNU typeof (GCC/Clang)."""
+"""Portable C++20 release build with mandatory LTO and retained debugger symbols."""
 import os
+import hashlib
+import json
 from pathlib import Path
 import platform
 import shutil
@@ -25,11 +27,24 @@ def build_host(root, sdk, build):
     if not paths: raise RuntimeError('Missing .NET native host headers for ' + rid)
     headers = max(paths, key=lambda p: tuple(map(int, p.parents[2].name.split('-')[0].split('.'))))
     temporary = build / (str(os.getpid()) + '-' + HOST_NAME)
-    compiler = os.environ.get('CC', 'clang' if MAC else 'gcc')
-    flags = ['-shared', '-Wl,--export-all-symbols'] if WINDOWS else ['-dynamiclib', '-fPIC', '-Wl,-install_name,@rpath/' + HOST_NAME] if MAC else ['-shared', '-fPIC', '-Wl,-soname,' + HOST_NAME]
+    compiler = os.environ.get('CXX', 'clang++' if MAC else 'g++')
+    flags = ['-shared', '-static-libgcc', '-static-libstdc++'] if WINDOWS else ['-dynamiclib', '-fPIC', '-Wl,-install_name,@rpath/' + HOST_NAME] if MAC else ['-shared', '-fPIC', '-Wl,-soname,' + HOST_NAME]
+    # No fast-math or host-specific ISA: preserve HDL real values and portable packages.
+    profile = ['-std=c++20', '-O3', '-flto', '-g', '-DNDEBUG', '-DSTB_HOST_BUILD', '-fvisibility=hidden']
+    sources = [root / 'native/host.cpp', root / 'native/abi.cpp']
+    command = [compiler, *flags, *profile, '-Wall', '-Wextra', '-Werror', *map(str, sources),
+               '-I', str(root / 'native/upstream'), '-I', str(headers),
+               *([] if WINDOWS or MAC else ['-ldl']), '-o', str(temporary)]
     try:
-        subprocess.run([compiler, *flags, '-Wall', '-Wextra', '-Werror', str(root / 'native/host.c'), str(root / 'native/abi.c'), '-I', str(root / 'native/upstream'), '-I', str(headers), *([] if WINDOWS or MAC else ['-ldl']), '-o', str(temporary)], check=True)
+        subprocess.run(command, check=True)
         temporary.replace(build / HOST_NAME)
     finally:
         temporary.unlink(missing_ok=True)
-    return build / HOST_NAME
+    output = build / HOST_NAME
+    manifest = {'rid': rid, 'language': 'C++20', 'profile': profile, 'command': command,
+                'compiler': subprocess.check_output([compiler, '--version'], text=True).splitlines()[0],
+                'sources': {str(p.relative_to(root)): hashlib.sha256(p.read_bytes()).hexdigest()
+                            for p in [*sources, root / 'native/abi.h', root / 'native/platform.h']},
+                'output_sha256': hashlib.sha256(output.read_bytes()).hexdigest()}
+    (build / 'native-build.json').write_text(json.dumps(manifest, indent=2) + '\n')
+    return output
