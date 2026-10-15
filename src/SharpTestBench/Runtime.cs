@@ -17,7 +17,8 @@ public enum WriteAction
     Immediate = 3
 }
 
-internal enum CallbackKind
+/// <summary>Kind of native simulator callback dispatched by the runtime.</summary>
+public enum CallbackKind
 {
     Start,
     End,
@@ -27,6 +28,12 @@ internal enum CallbackKind
     ReadOnly,
     NextStep
 }
+
+/// <summary>An immutable snapshot of an actual native callback; Time is in simulator steps.</summary>
+/// <param name="Kind">Native callback category.</param>
+/// <param name="Time">Simulator time when the callback fired.</param>
+/// <param name="Trigger">Original native trigger object, or null for an internal runtime callback.</param>
+public readonly record struct SimulatorCallbackInfo(CallbackKind Kind, ulong Time, Trigger? Trigger);
 
 public sealed class SimRuntime
 {
@@ -43,6 +50,17 @@ public sealed class SimRuntime
     bool draining;
     Registration? writeCallback;
     public SimPhase Phase { get; private set; } = SimPhase.Beginning;
+    SimulatorCallbackInfo? lastSimulatorCallback;
+
+    /// <summary>
+    /// Last dispatched native callback, including internal deadline/write callbacks.
+    /// Null before the first native callback. Managed events and Yield do not change
+    /// this snapshot. Read it on the simulator thread; it is runtime-wide, not job-local.
+    /// </summary>
+    public SimulatorCallbackInfo? LastSimulatorCallback
+    {
+        get { CheckThread(); return lastSimulatorCallback; }
+    }
 
     string? simulator;
     public string Simulator
@@ -187,6 +205,7 @@ public sealed class SimRuntime
             if (!registrations.Remove(id, out var r))
                 return 0;
             r.Handle = 0;
+            lastSimulatorCallback = new(r.Kind, Now, r.Trigger);
             if (r.Kind == CallbackKind.End)
             {
                 r.Action();
@@ -215,13 +234,13 @@ public sealed class SimRuntime
         }
     }
 
-    internal Registration Register(CallbackKind kind, Action action, ulong delay = 0, nint signal = 0, int edge = 0)
+    internal Registration Register(CallbackKind kind, Action action, ulong delay = 0, nint signal = 0, int edge = 0, Trigger? trigger = null)
     {
         CheckThread();
         if ((kind == CallbackKind.ReadOnly || kind == CallbackKind.ReadWrite) && Phase == SimPhase.ReadOnly)
             throw new InvalidOperationException("Cannot reenter this time step from ReadOnly");
         nint id = checked((nint)(++nextId));
-        var r = new Registration(this, id, kind, action);
+        var r = new Registration(this, id, kind, action, trigger);
         registrations.Add(id, r);
         r.Handle = kind switch
         {
@@ -309,13 +328,15 @@ public sealed class SimRuntime
         readonly nint id;
         internal readonly CallbackKind Kind;
         internal readonly Action Action;
+        internal readonly Trigger? Trigger;
         internal nint Handle;
-        internal Registration(SimRuntime r, nint i, CallbackKind k, Action a)
+        internal Registration(SimRuntime r, nint i, CallbackKind k, Action a, Trigger? trigger)
         {
             runtime = r;
             id = i;
             Kind = k;
             Action = a;
+            Trigger = trigger;
         }
 
         public void Dispose()

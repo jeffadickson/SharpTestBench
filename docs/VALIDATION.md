@@ -270,3 +270,20 @@ passed at `23aa543379a0bc3a22739f4b441ba60f0ae704f9`: Linux (including the
 new NVC suite), Windows x64, macOS ARM64, the isolated Linux package consumer,
 and the five-package release-bundle gate. Real callbacks pass on all three Icarus
 platforms; NVC fixed-string evidence is Linux-only. No public packages were published.
+
+
+## External triggers and callback diagnostics — 2026-10-15
+
+External-assembly Trigger subclasses now compile through protected Subscribe and
+SubscribeTo. Per-subscription guards prevent duplicate completion from prematurely
+satisfying Combine. Tests cover fanout, cancellation, reuse, synchronous completion,
+errors, First/timeout cleanup and partial-registration rollback. LastSimulatorCallback
+records actual kind/time/origin identity, including null origins for internal deadlines.
+Timer/NextStep, phase callbacks, value changes, custom wrappers and unchanged snapshots
+after managed waits/rejected or cancelled registration are tested.
+
+Local full .NET build has zero warnings/errors. Icarus 12.0: 66 passed / 2 explicit
+skips. NVC 1.23.0: 37 passed / 1 explicit skip. These resolve the two previously
+recorded trigger extension/introspection gaps with explicit .NET semantics. The
+manual audit remains 29/302 definitions; 273 plus aliases/dynamic exports are still
+unreviewed. See CUSTOM_TRIGGERS.md for contracts and deliberate differences.

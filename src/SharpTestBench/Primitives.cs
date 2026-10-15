@@ -27,7 +27,7 @@ public sealed class SimEvent
     public Trigger Wait() => new EventTrigger(this);
     sealed class EventTrigger(SimEvent ev) : Trigger
     {
-        internal override IDisposable Subscribe(SimRuntime runtime, Action<Exception?> complete)
+        protected internal override IDisposable Subscribe(SimRuntime runtime, Action<Exception?> complete)
         {
             runtime.CheckThread();
             if (ev.set)

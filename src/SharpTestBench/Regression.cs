@@ -80,7 +80,7 @@ public class SimJob
 
     sealed class CompletionTrigger(SimJob job) : Trigger
     {
-        internal override IDisposable Subscribe(SimRuntime runtime, Action<Exception?> complete)
+        protected internal override IDisposable Subscribe(SimRuntime runtime, Action<Exception?> complete)
         {
             runtime.CheckThread();
             if (job.IsCompleted)

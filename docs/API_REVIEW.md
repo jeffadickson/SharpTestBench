@@ -28,9 +28,10 @@ Event docstring's removal wording. No automatic claim of exact parity is made.
   caller variables. This is an explicit compatibility difference, not full parity.
 - TriggerCallback is upstream callback-registration machinery: C# internally uses
   IDisposable subscriptions and cancellation tokens rather than exposing it.
-- Custom Trigger subclassing remains a gap: Subscribe is internal abstract, so an
-  external assembly cannot implement a trigger. Composing Task/Trigger waits is
-  available, but is not a replacement claim for user-defined scheduler triggers.
+- Custom Trigger subclassing is supported through protected Subscribe and SubscribeTo.
+  External-assembly tests cover independent waiter ownership, cancellation, reuse,
+  synchronous/duplicate completion and composite rollback. This contract is confined
+  to the simulator thread; see CUSTOM_TRIGGERS.md.
 - NullTrigger maps to Yield only as a zero-time cooperative scheduling operation;
   ordering and immediate-completion internals differ. Use events for coordination.
 
@@ -59,6 +60,9 @@ passes on Icarus and NVC; StringValueChangeContract covers NVC fixed strings.
 These check unchanged writes, cancellation, trigger reuse, two waiters and cleanup.
 Scopes and null targets reject before callback registration. Dynamic-string change
 notifications and other backend/type combinations remain unverified.
-Runtime.Phase still does not return the last concrete GPI trigger object.
+LastSimulatorCallback now reports the actual callback kind/time and native trigger
+identity. Internal callbacks have null Trigger; managed waits do not change it.
+This deliberately differs from Python startup/cached-identity behavior; see
+CUSTOM_TRIGGERS.md and the callback introspection tests.
 Cached Python trigger identity and X-to-edge backend matrices are not claimed
 equivalent. See API_REVIEWS.json for each definition's evidence and limitations.

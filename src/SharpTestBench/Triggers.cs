@@ -3,7 +3,49 @@ using System.Runtime.CompilerServices;
 namespace SharpTestBench;
 public abstract class Trigger
 {
-    internal abstract IDisposable Subscribe(SimRuntime runtime, Action<Exception?> complete);
+    /// <summary>
+    /// Register one wait on the simulator thread. Complete with null for success or
+    /// an exception for failure; return a non-null, idempotent, nonthrowing detach
+    /// handle. Completion may be synchronous. Each call owns independent state.
+    /// Completion and disposal must run on the simulator thread. If registration
+    /// throws, the implementation must undo any resources it already acquired.
+    /// </summary>
+    protected internal abstract IDisposable Subscribe(SimRuntime runtime, Action<Exception?> complete);
+
+    /// <summary>Subscribe to a child trigger when implementing a custom trigger.</summary>
+    /// <remarks>The caller owns the returned subscription, including on failure or cancellation.</remarks>
+    protected static IDisposable SubscribeTo(Trigger trigger, SimRuntime runtime, Action<Exception?> complete)
+    {
+        ArgumentNullException.ThrowIfNull(trigger);
+        ArgumentNullException.ThrowIfNull(runtime);
+        ArgumentNullException.ThrowIfNull(complete);
+        runtime.CheckThread();
+        return trigger.SubscribeOnce(runtime, complete);
+    }
+
+    // Enforce one completion per subscription for custom triggers in every consumer,
+    // including combinators. Disposal also silences a producer's stale notification.
+    internal IDisposable SubscribeOnce(SimRuntime runtime, Action<Exception?> complete)
+    {
+        runtime.CheckThread();
+        bool finished = false;
+        try
+        {
+            var subscription = Subscribe(runtime, error =>
+            {
+                runtime.CheckThread();
+                if (finished) return;
+                finished = true;
+                complete(error);
+            }) ?? throw new InvalidOperationException("Trigger returned a null subscription");
+            return new ActionDisposable(() => { runtime.CheckThread(); finished = true; subscription.Dispose(); });
+        }
+        catch
+        {
+            finished = true;
+            throw;
+        }
+    }
     public TriggerAwaiter GetAwaiter() => new(this, SimRuntime.Active ?? throw new InvalidOperationException("No runtime"), null);
     public TriggerAwaiter WithCancellation(CancellationToken token) => new(this, SimRuntime.Active ?? throw new InvalidOperationException("No runtime"), token);
     public async Task AsTask(CancellationToken? token = null)
@@ -51,7 +93,7 @@ public sealed class TriggerAwaiter : INotifyCompletion
 
         try
         {
-            subscription = trigger.Subscribe(runtime, Complete);
+            subscription = trigger.SubscribeOnce(runtime, Complete);
             if (done)
             {
                 subscription.Dispose();
@@ -92,7 +134,7 @@ public static class Triggers
     public static Trigger Yield() => new YieldTrigger();
     sealed class YieldTrigger : Trigger
     {
-        internal override IDisposable Subscribe(SimRuntime runtime, Action<Exception?> complete)
+        protected internal override IDisposable Subscribe(SimRuntime runtime, Action<Exception?> complete)
         {
             bool cancelled = false;
             runtime.Enqueue(() =>
@@ -155,7 +197,7 @@ public static class Triggers
 
     sealed class NativeTrigger(CallbackKind kind, ulong steps = 0, nint signal = 0, int edge = 0) : Trigger
     {
-        internal override IDisposable Subscribe(SimRuntime r, Action<Exception?> complete) => r.Register(kind, () => complete(null), steps, signal, edge);
+        protected internal override IDisposable Subscribe(SimRuntime r, Action<Exception?> complete) => r.Register(kind, () => complete(null), steps, signal, edge, this);
     }
 
     sealed class CompositeTrigger : Trigger
@@ -172,7 +214,7 @@ public static class Triggers
                 throw new ArgumentException("Null trigger");
         }
 
-        internal override IDisposable Subscribe(SimRuntime r, Action<Exception?> complete)
+        protected internal override IDisposable Subscribe(SimRuntime r, Action<Exception?> complete)
         {
             var bag = new SubscriptionBag();
             int left = items.Length;
@@ -183,7 +225,7 @@ public static class Triggers
                     break;
                 try
                 {
-                    bag.Add(t.Subscribe(r, e =>
+                    bag.Add(t.SubscribeOnce(r, e =>
                     {
                         if (done)
                             return;
@@ -208,7 +250,7 @@ public static class Triggers
 
     sealed class TimeoutTrigger(Trigger trigger, Trigger timer) : Trigger
     {
-        internal override IDisposable Subscribe(SimRuntime r, Action<Exception?> complete)
+        protected internal override IDisposable Subscribe(SimRuntime r, Action<Exception?> complete)
         {
             var bag = new SubscriptionBag();
             bool done = false;
@@ -223,9 +265,9 @@ public static class Triggers
 
             try
             {
-                bag.Add(trigger.Subscribe(r, Finish));
+                bag.Add(trigger.SubscribeOnce(r, Finish));
                 if (!done)
-                    bag.Add(timer.Subscribe(r, e => Finish(e ?? new TimeoutException("Simulation deadline expired"))));
+                    bag.Add(timer.SubscribeOnce(r, e => Finish(e ?? new TimeoutException("Simulation deadline expired"))));
                 return bag;
             }
             catch

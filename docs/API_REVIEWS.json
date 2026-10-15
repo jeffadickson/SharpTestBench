@@ -36,12 +36,20 @@
       "module": "cocotb._base_triggers",
       "definition": "Trigger",
       "source_line": 51,
-      "classification": "gap",
-      "reason": "Await/cancellation/composition exist, but external custom subclasses cannot implement internal abstract Subscribe. Python private override hooks permit such customization.",
+      "classification": "idiomatic-equivalent",
+      "reason": "External assemblies can override protected Subscribe and compose child registrations with SubscribeTo. IDisposable owns per-wait cleanup; synchronous completion, duplicate completion guards, cancellation, reuse, fanout, combinator timeout and partial registration rollback have native simulator tests. This is a simulator-thread-only .NET extension contract, not Python private-hook or external-thread parity.",
       "evidence": [
         {
           "path": "src/SharpTestBench/Triggers.cs",
-          "contains": "internal abstract IDisposable Subscribe"
+          "contains": "protected internal abstract IDisposable Subscribe"
+        },
+        {
+          "path": "tests/Integration/TriggerExtensionTests.cs",
+          "contains": "ExternalTriggerLifecycle"
+        },
+        {
+          "path": "tests/Integration/TriggerExtensionTests.cs",
+          "contains": "ExternalTriggerComposition"
         }
       ]
     },
@@ -458,12 +466,20 @@
       "module": "cocotb._gpi_triggers",
       "definition": "current_gpi_trigger",
       "source_line": 413,
-      "classification": "gap",
-      "reason": "Runtime.Phase exposes a phase category, not the last concrete trigger object. Timer/NextTimeStep are not distinguishable through it. No exact introspection equivalent.",
+      "classification": "intentional-difference",
+      "reason": "LastSimulatorCallback exposes actual callback kind, time and original native Trigger identity; runtime-owned callbacks have null Trigger. Tests distinguish Timer/NextStep/synchronization/value-change, internal deadlines, wrapper origin and unchanged snapshots after managed waits or rejected/cancelled registration. Unlike Python, this includes internal callbacks and is null before any actual callback rather than fabricating a startup Timer. Runtime-wide rather than task-local.",
       "evidence": [
         {
           "path": "src/SharpTestBench/Runtime.cs",
-          "contains": "public SimPhase Phase"
+          "contains": "public SimulatorCallbackInfo? LastSimulatorCallback"
+        },
+        {
+          "path": "tests/Integration/TriggerExtensionTests.cs",
+          "contains": "SimulatorCallbackIntrospection"
+        },
+        {
+          "path": "tests/Integration/TriggerExtensionTests.cs",
+          "contains": "InternalDeadlineCallbackIntrospection"
         }
       ]
     }
