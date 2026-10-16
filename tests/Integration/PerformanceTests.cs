@@ -38,6 +38,16 @@ public static class PerformanceTests
             try { snapshot.Read(values); throw new Exception("Unresolved batch read accepted"); }
             catch (FormatException) { }
         }
+        if (c.Runtime.SupportsForceRelease)
+        {
+            // Exercise Release through the packed ABI itself, not Signal.Release's text path.
+            b.Write(new LogicVector<W8>(77), WriteAction.Force);
+            b.Write(new LogicVector<W8>(33), WriteAction.Immediate);
+            Check(b.Read().ToUInt().Value == 77, "Direct force did not hold");
+            b.Write(new LogicVector<W8>(0), WriteAction.Release);
+            b.Write(new LogicVector<W8>(33), WriteAction.Immediate);
+            Check(b.Read().ToUInt().Value == 33, "Direct release did not end force");
+        }
         var empty = new SignalReadBatch(); empty.Read(Span<uint>.Empty);
         try { snapshot.Read(new uint[2]); throw new Exception("Short snapshot accepted"); }
         catch (ArgumentException) { }
