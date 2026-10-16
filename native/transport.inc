@@ -149,19 +149,28 @@ int32_t cs_v1_write_u32_batch(const cs_u32_write *items, uint32_t count) {
 int32_t cs_v1_read_u32_batch(void *const *signals, const uint32_t *widths, uint32_t *values, uint32_t count) {
     if ((!signals || !widths || !values) && count) return 1;
     if (count > 1048576) return 1;
+    // Preserve the documented all-or-nothing output contract. Most protocol
+    // snapshots fit on the stack; large batches use an owned temporary buffer.
+    uint32_t small[32]{};
+    uint32_t *scratch = count <= 32 ? small : static_cast<uint32_t *>(malloc(static_cast<size_t>(count) * sizeof(uint32_t)));
+    if (!scratch) return 4;
+    int32_t result = 0;
     for (uint32_t i = 0; i < count; ++i) {
         const uint32_t bits = widths[i];
-        if (bits < 1 || bits > 32) return 2;
+        if (bits < 1 || bits > 32) { result = 2; break; }
         const uint32_t n = (bits + 7) / 8;
         uint8_t planes[12]{};
         const int status = cs_v1_read_planes(signals[i], bits, planes, 3 * n);
-        if (status) return status;
+        if (status) { result = status; break; }
         uint32_t value = 0;
         for (uint32_t j = 0; j < n; ++j) {
-            if (planes[n + j]) return 3;
+            if (planes[n + j] || planes[2 * n + j]) { result = 3; break; }
             value |= static_cast<uint32_t>(planes[j]) << (j * 8);
         }
-        values[i] = value;
+        if (result) break;
+        scratch[i] = value;
     }
-    return 0;
+    if (!result && count) memcpy(values, scratch, static_cast<size_t>(count) * sizeof(uint32_t));
+    if (scratch != small) free(scratch);
+    return result;
 }
