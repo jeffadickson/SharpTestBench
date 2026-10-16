@@ -4,6 +4,9 @@ on:
     branches: [feature/native-dotnet-consumer-runner]
     paths:
       - 'tools/SharpTestBench.Runner/**'
+      - 'native/abi.cpp'
+      - 'native/independent/**'
+      - 'tools/native_build.py'
       - '.github/workflows/native-runner-integration.yml'
   pull_request:
     paths:
@@ -35,7 +38,7 @@ jobs:
           dotnet build examples/Counter/Counter.csproj -c Release
       - name: Build native host using current provisioning path
         run: |
-          python tools/run.py --sim icarus --assembly examples/Counter/bin/Release/net10.0/Counter.dll --source examples/Counter/counter.sv --top counter --entry-type 'Entry, Counter' --label baseline-counter
+          STB_NATIVE_VPI_TIME=1 python tools/run.py --sim icarus --assembly examples/Counter/bin/Release/net10.0/Counter.dll --source examples/Counter/counter.sv --top counter --entry-type 'Entry, Counter' --label baseline-counter
       - name: Generate adapter manifest from installed cocotb-derived bridge
         shell: bash
         run: |
@@ -62,6 +65,8 @@ jobs:
           PY
       - name: Verify counter through standalone .NET runner
         run: dotnet run --project tools/SharpTestBench.Runner -c Release --no-build -- run native-consumer.json
+        env:
+          STB_NATIVE_VPI_TIME: '1'
       - name: Mutation control must fail C# verification
         shell: bash
         run: |
