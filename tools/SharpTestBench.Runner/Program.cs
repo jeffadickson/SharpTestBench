@@ -19,6 +19,10 @@ try
         ?? throw new InvalidDataException("Empty manifest");
     if (config.SchemaVersion != 1 || config.Simulator != "icarus")
         throw new InvalidDataException("Runner v1 supports schemaVersion=1 and simulator=icarus only.");
+    if (config.ExpectedTests is null || config.ExpectedTests <= 0)
+        throw new InvalidDataException("expectedTests must be a positive count for CI attestation.");
+    if (config.ExpectedNames is { Length: > 0 } && (config.ExpectedNames.Length != config.ExpectedTests || config.ExpectedNames.Any(string.IsNullOrWhiteSpace) || config.ExpectedNames.Distinct(StringComparer.Ordinal).Count() != config.ExpectedNames.Length))
+        throw new InvalidDataException("expectedNames must contain unique, nonempty identities matching expectedTests.");
     if (config.Sources is not { Length: > 0 } || string.IsNullOrWhiteSpace(config.Top))
         throw new InvalidDataException("At least one source and a top module are required.");
     if (!System.Text.RegularExpressions.Regex.IsMatch(config.Top, @"^[A-Za-z_][A-Za-z0-9_$]*$"))
@@ -35,7 +39,7 @@ try
     var work = Resolve(config.OutputDirectory);
     foreach (var required in sources.Concat([assembly, host, bootstrap, gpi]))
         if (!File.Exists(required)) throw new FileNotFoundException("Required input not found", required);
-    var runtimeConfig = Path.ChangeExtension(assembly, ".runtimeconfig.json");
+    var runtimeConfig = Path.Combine(Path.GetDirectoryName(assembly)!, Path.GetFileNameWithoutExtension(assembly) + ".runtimeconfig.json");
     if (!File.Exists(runtimeConfig)) throw new FileNotFoundException("Missing runtimeconfig", runtimeConfig);
     var fxrDir = Path.Combine(sdk, "host", "fxr");
     if (!Directory.Exists(fxrDir)) throw new DirectoryNotFoundException(fxrDir);
@@ -100,8 +104,6 @@ try
             throw new InvalidDataException($"Test identities differ. Missing: {string.Join(", ", expected.Except(observedNames))}; unexpected: {string.Join(", ", observedNames.Except(expected))}");
     }
     if (passed == 0) throw new InvalidDataException("No passing tests; all-skipped regressions cannot qualify CI.");
-    if (config.ExpectedTests is null || config.ExpectedTests <= 0)
-        throw new InvalidDataException("expectedTests must be a positive count for CI attestation.");
     if (doc.RootElement.GetArrayLength() != config.ExpectedTests.Value)
         throw new InvalidDataException($"Expected {config.ExpectedTests} test results, observed {doc.RootElement.GetArrayLength()}.");
     if (passed + failed != config.ExpectedTests.Value)
