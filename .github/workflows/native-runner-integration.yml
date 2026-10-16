@@ -73,8 +73,8 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          STB_DIRECT_PACKED=0 STB_BATCH_TRANSFERS=0 python tools/run.py --sim icarus --no-build --filter H_WriteCoalescing --label write-legacy
-          STB_DIRECT_PACKED=1 STB_BATCH_TRANSFERS=1 python tools/run.py --sim icarus --no-build --filter H_WriteCoalescing --label write-direct
+          STB_DIRECT_PACKED=0 STB_BATCH_TRANSFERS=0 python tools/run.py --sim icarus --no-build --filter H_NativeBatchWriteParity --label write-legacy
+          STB_DIRECT_PACKED=1 STB_BATCH_TRANSFERS=1 python tools/run.py --sim icarus --no-build --filter H_NativeBatchWriteParity --label write-direct
           python - <<'PY'
           import json
           from pathlib import Path
