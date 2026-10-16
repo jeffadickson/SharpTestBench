@@ -4,12 +4,14 @@ on:
     branches: [feature/native-dotnet-consumer-runner]
     paths:
       - 'native/independent/**'
+      - 'tools/benchmark_independent_vpi.py'
       - 'tests/rtl/independent_vpi_counter.sv'
       - '.github/workflows/independent-vpi-probe.yml'
   pull_request:
     paths:
       - 'native/independent/**'
       - 'tests/rtl/independent_vpi_counter.sv'
+      - 'tools/benchmark_independent_vpi.py'
       - '.github/workflows/independent-vpi-probe.yml'
   workflow_dispatch:
 permissions:
@@ -32,6 +34,8 @@ jobs:
           vvp -M build/independent-vpi -m icarus_probe build/independent-vpi/top.vvp | tee build/independent-vpi/probe.log
           grep -q '^STB_VPI_PASS ' build/independent-vpi/probe.log
           ! grep -q 'STB_VPI_FAIL' build/independent-vpi/probe.log
+      - name: Benchmark matched HDL-only and native VPI runs
+        run: python3 tools/benchmark_independent_vpi.py --cycles 20000 --repeats 7 --warmups 2 --output build/independent-vpi/benchmark.json
       - uses: actions/upload-artifact@v4
         if: always()
         with:
