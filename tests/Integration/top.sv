@@ -3,7 +3,9 @@ package discovery_pkg;
  parameter integer constant_marker=37;
  integer marker=37;
 endpackage
-module top;
+module top(input wire incoming, output wire outgoing, inout wire bidirectional);
+ assign outgoing = incoming;
+ assign bidirectional = 1'bz;
  reg adjustable_clk=0;
  reg [31:0] perf_a=0, perf_clock_count=0;
  reg [7:0] perf_b=0;
@@ -42,6 +44,9 @@ module top;
  reg [0:7] ascending=0;
  real real_data=0.0;
  leaf unit0();
+ wire direction_out;
+ tri direction_io;
+ direction_leaf directions(.incoming(clk), .outgoing(direction_out), .bidirectional(direction_io));
  always @(posedge clk) if(reset) sampled<=0;else sampled<=data;
  reg in_valid=0,out_ready=0;
  reg [7:0] in_data=0;
@@ -55,4 +60,10 @@ module top;
 endmodule
 module leaf;
  reg [7:0] local_data=7;
+endmodule
+
+module direction_leaf(input wire incoming, output wire outgoing, inout wire bidirectional);
+ assign outgoing = incoming;
+ assign bidirectional = 1'bz;
+ reg internal_value=0;
 endmodule

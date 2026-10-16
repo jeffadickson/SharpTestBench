@@ -4,6 +4,8 @@ namespace SharpTestBench;
 internal static class Native
 {
     const string Lib = "sharptestbench_host";
+    [DllImport(Lib, CallingConvention = CallingConvention.Cdecl)]
+    internal static extern int cs_v1_port_direction([MarshalAs(UnmanagedType.LPUTF8Str)] string name);
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     internal delegate int Callback(nint data);
     [DllImport(Lib, EntryPoint = "cs_v1_gpi_register_start_of_sim_time_callback", CallingConvention = CallingConvention.Cdecl)]

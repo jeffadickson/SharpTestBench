@@ -246,8 +246,8 @@ const char * cs_v1_gpi_get_definition_file(void * signal) { return p_gpi_get_def
    The pinned GPI still uses binary strings; no simulator-private handles used. */
 #include <stdlib.h>
 #include <string.h>
-/** @brief Advertise packed planes (bit 0) and optional VPI packed metadata (bit 1). */
-uint64_t cs_abi_features(void) { return 31; }
+/** @brief Advertise ABI-v1 extensions: packed transport/metadata, batches, clocks and port directions (bit 6). */
+uint64_t cs_abi_features(void) { return 95; }
 
 #include "transport.inc"
 
@@ -392,3 +392,55 @@ int32_t cs_v1_write_planes(void *signal, uint32_t bits, const uint8_t *buffer, u
 }
 
 #include "clocks.inc"
+
+/** @brief Read authoritative VPI direction metadata; never infer direction from names or drivers.
+ * Only known VPI families are queried. Temporary VPI handles are released before
+ * returning, including non-port objects. Unsupported backends/properties return
+ * unknown, not a guessed input/output. No simulator-private layout is inspected.
+ */
+int32_t cs_v1_port_direction(const char *name) {
+    if (!name || !*name) return 0;
+    const char *product = p_gpi_get_simulator_product();
+    if (!direct_product_is(product, "Icarus Verilog", 14) &&
+        !direct_product_is(product, "Verilator", 9)) return 0;
+    auto by_name = reinterpret_cast<decltype(&vpi_handle_by_name)>(dlsym(RTLD_DEFAULT, "vpi_handle_by_name"));
+    auto get = reinterpret_cast<decltype(&vpi_get)>(dlsym(RTLD_DEFAULT, "vpi_get"));
+    auto release = reinterpret_cast<decltype(&vpi_free_object)>(dlsym(RTLD_DEFAULT, "vpi_free_object"));
+    if (!by_name || !get || !release) return 0;
+    vpiHandle object = by_name(const_cast<PLI_BYTE8 *>(name), nullptr);
+    if (!object) return 0;
+    const int kind = get(vpiType, object);
+    int direction = 0;
+    if (direct_product_is(product, "Verilator", 9)) {
+        if (kind == vpiNet || kind == vpiReg || kind == vpiIntegerVar || kind == vpiPort)
+            direction = get(vpiDirection, object);
+    } else if (kind == vpiNet || kind == vpiReg || kind == vpiIntegerVar) {
+        // Icarus stores direction on vpiPort rather than its connected net/reg.
+        // Compare declared port names only within the object's actual VPI scope.
+        auto handle = reinterpret_cast<decltype(&vpi_handle)>(dlsym(RTLD_DEFAULT, "vpi_handle"));
+        auto iterate = reinterpret_cast<decltype(&vpi_iterate)>(dlsym(RTLD_DEFAULT, "vpi_iterate"));
+        auto scan = reinterpret_cast<decltype(&vpi_scan)>(dlsym(RTLD_DEFAULT, "vpi_scan"));
+        auto get_str = reinterpret_cast<decltype(&vpi_get_str)>(dlsym(RTLD_DEFAULT, "vpi_get_str"));
+        if (handle && iterate && scan && get_str) {
+            vpiHandle scope = handle(vpiScope, object);
+            const char *local = get_str(vpiName, object);
+            // VPI strings are scratch storage: copy before the next simulator call.
+            char *copy = local ? static_cast<char *>(malloc(strlen(local) + 1)) : nullptr;
+            if (copy) strcpy(copy, local);
+            if (scope && copy && get(vpiType, scope) == vpiModule) {
+                vpiHandle ports = iterate(vpiPort, scope);
+                vpiHandle port;
+                while (ports && (port = scan(ports)) != nullptr) {
+                    const char *port_name = get_str(vpiName, port);
+                    if (port_name && strcmp(copy, port_name) == 0) direction = get(vpiDirection, port);
+                    release(port);
+                }
+                // Exhaustion releases the iterator; do not free it a second time.
+            }
+            free(copy);
+            if (scope) release(scope);
+        }
+    }
+    release(object);
+    return direction >= vpiInput && direction <= vpiInout ? direction : 0;
+}

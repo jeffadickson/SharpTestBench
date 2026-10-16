@@ -1,0 +1,4 @@
+<Bindings namespace="DirectionBindings" class="Ports">
+  <Signal name="Incoming" width="1" direction="Input"><Child name="incoming"/></Signal>
+  <Signal name="Outgoing" width="1" direction="Output"><Child name="outgoing"/></Signal>
+</Bindings>

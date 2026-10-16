@@ -33,7 +33,7 @@ def main():
     for ret, name, args in declarations:
         if name == 'gpi_get_signal_value_long':
             ret = 'long'
-        value = {'gpi_get_root_handle': '(void *)1', 'gpi_get_object_type': '10',
+        value = {'gpi_get_root_handle': '(void *)1', 'gpi_get_signal_fullname_str': '"fake.signal"', 'gpi_get_object_type': '10',
                  'gpi_get_signal_value_long': '-2147483649L', 'gpi_get_num_elems': 'getenv("CS_FAKE_WIDTH") ? atoi(getenv("CS_FAKE_WIDTH")) : 9', 'gpi_get_simulator_product': 'getenv("CS_FAKE_PRODUCT") ? getenv("CS_FAKE_PRODUCT") : "Icarus Verilog fault fixture"',
                  'gpi_get_signal_value_binstr': 'getenv("CS_FAKE_LOGIC") ? getenv("CS_FAKE_LOGIC") : "10XZ01XZ1"',
                  'gpi_is_constant': 'getenv("CS_FAKE_CONSTANT") != NULL'}.get(name, '0')
@@ -75,6 +75,9 @@ if (mode != "registration" && mode != "unknown") {
 var r = new SimRuntime();
 if (mode == "unknown") {
  if (r.SupportsFourState || r.SupportsNineState || r.SupportsForceRelease) throw new Exception("Optimistic unknown support");
+ if (HdlObject.Root().Direction != PortDirection.Unknown) throw new Exception("Unknown backend direction inferred");
+ try { HdlObject.Root().RequireDirection(PortDirection.Input); throw new Exception("Unknown direction accepted"); }
+ catch (NotSupportedException) { }
  var signal = HdlObject.Root().Signal();
  var typed = HdlObject.Root().Signal<W8>();
  Action[] writes = {

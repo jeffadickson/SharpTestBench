@@ -49,4 +49,20 @@ public sealed class GeneratorTests
         Assert.Contains("Width16", driver.GetRunResult().GeneratedTrees.Single().ToString());
         Assert.DoesNotContain("Width8", driver.GetRunResult().GeneratedTrees.Single().ToString());
     }
+    [Theory]
+    [InlineData("Input")][InlineData("Output")][InlineData("InOut")]
+    public void DirectionEmitsRuntimeGuard(string direction)
+    {
+        var driver = Driver(Valid.Replace("width='8'", $"width='8' direction='{direction}'"))
+            .RunGeneratorsAndUpdateCompilation(Compilation(), out var output, out var diagnostics, Cancellation);
+        Assert.Empty(diagnostics);
+        Assert.DoesNotContain(output.GetDiagnostics(Cancellation), d => d.Severity == DiagnosticSeverity.Error);
+        Assert.Contains("RequireDirection(global::SharpTestBench.PortDirection." + direction + ")",
+            driver.GetRunResult().GeneratedTrees.Single().ToString());
+    }
+    [Theory]
+    [InlineData("Unknown")][InlineData("Driver")][InlineData("input")][InlineData("")]
+    public void InvalidDirectionRejected(string direction)
+        => Assert.Contains(Driver(Valid.Replace("width='8'", $"width='8' direction='{direction}'"))
+            .RunGenerators(Compilation(), Cancellation).GetRunResult().Diagnostics, d => d.Id == "STBGEN001");
 }

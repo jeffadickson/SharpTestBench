@@ -131,6 +131,9 @@ CS_EXPORT void *cs_v1_clock_start(void *signal, uint64_t high, uint64_t low, cs_
 CS_EXPORT int32_t cs_v1_clock_update(void *handle, uint64_t high, uint64_t low);
 /** @brief Stop pending edges; 0 consumes the handle, nonzero retains it for safe retry. */
 CS_EXPORT int32_t cs_v1_clock_stop(void *handle);
+/** @brief Query VPI port direction by exact qualified name: 0 unknown, 1 input, 2 output, 3 inout.
+ * Feature bit 6; simulator-thread-only. Borrows name and retains no handle. */
+CS_EXPORT int32_t cs_v1_port_direction(const char *name);
 #ifdef __cplusplus
 } // extern "C"
 #endif

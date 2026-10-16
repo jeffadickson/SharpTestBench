@@ -52,7 +52,10 @@ public sealed class BindingGenerator : IIncrementalGenerator
             {
                 context.CancellationToken.ThrowIfCancellationRequested();
                 if (signal.Name != "Signal") throw new FormatException("Only Signal entries are supported");
-                Attributes(signal, "name", "width");
+                Attributes(signal, "name", "width", "direction");
+                var direction = (string?)signal.Attribute("direction");
+                if (direction != null && direction != "Input" && direction != "Output" && direction != "InOut")
+                    throw new FormatException("Direction must be Input, Output or InOut");
                 var member = Required(signal, "name");
                 if (!Identifier(member) || !names.Add(member) || member.StartsWith("Width", StringComparison.Ordinal))
                     throw new FormatException("Invalid, duplicate or reserved member name: " + member);
@@ -78,6 +81,7 @@ public sealed class BindingGenerator : IIncrementalGenerator
                     else throw new FormatException("Hierarchy steps must be Child or Index");
                 }
                 if (depth == 0) throw new FormatException("Signal requires an explicit hierarchy path");
+                if (direction != null) expression += ".RequireDirection(global::SharpTestBench.PortDirection." + direction + ")";
                 members.Add((member, width, expression));
                 if (members.Count > 10000) throw new FormatException("Too many signals");
             }

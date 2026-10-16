@@ -89,3 +89,9 @@ and subsequent deposit satisfy the tested contract. NVC and Verilator did not ho
 the forced value through the deposit test; these calls are rejected. GHDL force
 semantics remain unverified. Passing the other tests does not imply force support.
 GHDL's five skipped tests have simulator requirements recorded in JSON/JUnit.
+
+## Explicit port-direction guards
+
+`HdlObject.Direction` and `RequireDirection` expose checked simulator metadata.
+Roslyn manifests can require a direction; runtime `Bindings.Generate` does not
+automatically add those guards. See [port directions](PORT_DIRECTIONS.md).

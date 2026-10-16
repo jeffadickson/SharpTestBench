@@ -8,7 +8,7 @@ connected, so a stale manifest fails instead of silently truncating data.
 
 ```xml
 <Bindings namespace="Generated" class="DutPorts">
-  <Signal name="Data" width="8"><Child name="data" /></Signal>
+  <Signal name="Data" width="8" direction="Input"><Child name="data" /></Signal>
   <Signal name="Memory2" width="32"><Child name="memory" /><Index value="2" /></Signal>
 </Bindings>
 ```
@@ -40,3 +40,7 @@ inside the compiler.
 
 The counter example uses the generator. CI builds it from project references and
 from NuGet packages outside the checkout, then executes it on a real simulator.
+
+Optional `direction="Input|Output|InOut"` adds a runtime metadata guard before
+the typed signal is constructed. Unknown metadata fails explicitly. See
+[port directions](PORT_DIRECTIONS.md) for backend limitations and exception behavior.
