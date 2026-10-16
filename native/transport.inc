@@ -136,8 +136,27 @@ int32_t cs_v1_write_u32_batch(const cs_u32_write *items, uint32_t count) {
         if (bits < 1 || bits > 32) return 2;
         if (bits < 32 && item.value >> bits) return 1;
     }
-    for (uint32_t i = 0; i < count; ++i)
-        p_gpi_set_signal_value_int(static_cast<gpi_sim_hdl>(items[i].signal), static_cast<int32_t>(items[i].value), static_cast<gpi_set_action>(items[i].action));
+    // Preserve caller order and the prevalidation boundary. Reuse checked cached
+    // VPI handles without converting numeric values through packed byte planes.
+    for (uint32_t i = 0; i < count; ++i) {
+        const auto &item = items[i];
+        const auto cached = direct_vpi.handles.find(item.signal);
+        if (cached == direct_vpi.handles.end() || !direct_vpi.write) {
+            p_gpi_set_signal_value_int(static_cast<gpi_sim_hdl>(item.signal),
+                                       static_cast<int32_t>(item.value),
+                                       static_cast<gpi_set_action>(item.action));
+            continue;
+        }
+        s_vpi_value value{};
+        value.format = vpiIntVal;
+        value.value.integer = static_cast<PLI_INT32>(item.value);
+        s_vpi_time when{};
+        when.type = vpiSimTime;
+        const int flags = item.action == GPI_DEPOSIT ? vpiInertialDelay : vpiNoDelay;
+        if (direct_vpi.error) direct_vpi.error(nullptr);
+        direct_vpi.write(cached->second, &value, flags == vpiNoDelay ? nullptr : &when, flags);
+        if (direct_vpi.error && direct_vpi.error(nullptr)) return 7;
+    }
     return 0;
 }
 
