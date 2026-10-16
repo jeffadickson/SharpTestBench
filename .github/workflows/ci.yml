@@ -186,14 +186,15 @@ jobs:
         if: runner.os == 'Windows'
         with:
           msystem: UCRT64
-          install: mingw-w64-ucrt-x86_64-gcc
-      - name: Install Windows simulator
+          install: mingw-w64-ucrt-x86_64-gcc mingw-w64-ucrt-x86_64-iverilog
+      - name: Select matching Windows simulator and target SDK
         if: runner.os == 'Windows'
-        shell: pwsh
+        shell: msys2 {0}
         run: |
-          choco install iverilog --yes --no-progress
-          'C:\iverilog\bin' | Out-File -FilePath $env:GITHUB_PATH -Append
-          'C:\msys64\ucrt64\bin' | Out-File -FilePath $env:GITHUB_PATH -Append
+          cygpath -w /ucrt64/bin >> "$GITHUB_PATH"
+          echo "STB_IVL_ROOT=$(cygpath -w /ucrt64/lib/ivl)" >> "$GITHUB_ENV"
+          echo "STB_IVL_INCLUDE=$(cygpath -w /ucrt64/include/iverilog)" >> "$GITHUB_ENV"
+          pacman -Q > windows-toolchain.txt
       - name: Install pinned native adapters
         run: |
           python tools/prepare_upstream.py
@@ -218,12 +219,7 @@ jobs:
         env:
           CS_DOTNET_ROOT: ${{ env.DOTNET_ROOT }}
         run: |
-          $headers = @(Get-ChildItem C:/iverilog -Recurse -Filter ivl_target.h)
-          $compilers = @(Get-ChildItem C:/iverilog -Recurse -Filter ivl.exe)
-          if ($headers.Count -ne 1 -or $compilers.Count -ne 1) {
-            throw 'Expected one matching installed Icarus target SDK and compiler'
-          }
-          python tools/icarus_layouts_check.py --ivl-root $compilers[0].DirectoryName --include $headers[0].DirectoryName
+          python tools/icarus_layouts_check.py --ivl-root "$env:STB_IVL_ROOT" --include "$env:STB_IVL_INCLUDE"
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - run: python tools/queue_reference.py --label platform-icarus
       - run: python tools/structured_reference_env.py --label platform-icarus
@@ -246,6 +242,7 @@ jobs:
         with:
           name: platform-results-${{ matrix.os }}
           path: |
+            windows-toolchain.txt
             build/*results.*
             build/native-build*.json
             build/native-vectorization.txt

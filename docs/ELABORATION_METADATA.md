@@ -49,8 +49,8 @@ python tools/icarus_layouts_check.py \
 On Windows, pass the directory containing the installed `ivl.exe` as
 `--ivl-root`, and the directory containing its `ivl_target.h` as `--include`.
 Put the matching MinGW `g++` and `dlltool`, Icarus `bin`, and .NET on PATH.
-The CI job locates these two SDK files within `C:/iverilog` and rejects ambiguous
-installations. This is a source-built optional helper, not a prebuilt plugin
+The Windows CI jobs select the matching compiler and target SDK from the same
+MSYS2 UCRT64 (x64) or CLANGARM64 (ARM64) prefix and retain the package versions. This is a source-built optional helper, not a prebuilt plugin
 package. The current
 CLI accepts explicit SystemVerilog source files and a top name, using `-g2012`;
 it does not reproduce arbitrary defines, include paths or parameter overrides.

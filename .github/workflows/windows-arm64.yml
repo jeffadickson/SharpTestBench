@@ -40,6 +40,8 @@ jobs:
           cygpath -w /clangarm64/bin >> "$GITHUB_PATH"
           echo "STB_IVL_ROOT=$(cygpath -w /clangarm64/lib/ivl)" >> "$GITHUB_ENV"
           echo "STB_IVL_INCLUDE=$(cygpath -w /clangarm64/include/iverilog)" >> "$GITHUB_ENV"
+          # MSVC's Platform=arm64 is a native-build setting, not a .NET solution configuration.
+          echo 'Platform=' >> "$GITHUB_ENV"
           echo 'CC=clang' >> "$GITHUB_ENV"
           echo 'CXX=clang++' >> "$GITHUB_ENV"
           echo 'DLLTOOL=llvm-dlltool' >> "$GITHUB_ENV"
