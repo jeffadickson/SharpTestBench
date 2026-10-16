@@ -434,3 +434,21 @@ inconclusive; AXI body median changes only about 0.3%. See
 [NATIVE_PERFORMANCE.md](NATIVE_PERFORMANCE.md) for paired intervals, source/binary
 hashes, raw samples and reproduction. This measures part of #18; CPU/DSP and
 broader platform/simulator performance coverage remain open.
+
+### Packed buffer and SIMD follow-up (#51)
+
+Code commit `55ca47cd41c22c1569897be088b0083ecca6ee3d` passed all five jobs in
+[CI run 38848163459](https://github.com/jeffadickson/SharpTestBench/actions/runs/38848163459):
+Linux, Windows, macOS, installed Linux container, and release bundle. Local Icarus
+integration passed 72 cases with two existing capability skips; all 47 packed
+boundary checks passed, including 4096/4097/8193-bit buffer thresholds. GCC reports
+8-byte and 16-byte vectorization of canonical-plane validation.
+
+The nine-round comparison against the already optimized bridge reduced managed
+allocation by 28.6% at 256 bits and 71.0% at 4096 bits. Timing intervals include
+no change; no additional speedup is established. See NATIVE_PERFORMANCE.md.
+
+This follow-up was benchmarked on Linux/Icarus only. The current CI workflow
+runs Icarus across the three operating systems and NVC on Linux; it does not
+run Verilator. Earlier Verilator 5.048 evidence does not validate this revision.
+A fresh Verilator regression and paired benchmark remain outstanding.

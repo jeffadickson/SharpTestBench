@@ -167,8 +167,8 @@ def main():
                'records': records,
                'comparisons': {name: {metric: comparison(records, name, metric) for metric in records[0]['metrics']}
                                for name in ['bridge_only', 'full']},
-               'adapter_increment': {metric: comparison(records, 'full', metric, 'bridge_only') for metric in records[0]['metrics']},
-               'scope': 'Same managed/HDL code, Icarus, Linux x64; fresh processes; one warmup/configuration; interleaved rounds. Wall includes startup and HDL compile; body metrics exclude them. Bootstrap intervals describe these samples, not machine-to-machine guarantees. Packed microbenchmarks are synthetic; AXI fixture is single-outstanding AXI4-Lite-shaped traffic.'}
+               ('managed_increment' if args.baseline_managed else 'adapter_increment'): {metric: comparison(records, 'full', metric, 'bridge_only') for metric in records[0]['metrics']},
+               'scope': ('Same HDL/adapters; baseline and bridge_only use preserved managed assemblies; full uses current managed assemblies. ' if args.baseline_managed else 'Same managed/HDL code. ') + 'Icarus, Linux x64; fresh processes; one warmup/configuration; interleaved rounds. Wall includes startup and HDL compile; body metrics exclude them. Bootstrap intervals describe these samples, not machine-to-machine guarantees. Packed microbenchmarks are synthetic; AXI fixture is single-outstanding AXI4-Lite-shaped traffic.'}
     (output / 'summary.json').write_text(json.dumps(summary, indent=2) + '\n')
     print('NATIVE_PERFORMANCE_COMPLETE', output / 'summary.json')
 

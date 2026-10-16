@@ -88,3 +88,38 @@ settings: [measurement evidence](evidence/native-performance-2026-10-16.json).
 
 Scope remains Linux/Icarus and these workloads. Windows/macOS performance, other
 simulators, and substantial CPU/DSP workloads still need separate measurements.
+
+## Buffer/SIMD follow-up (#51)
+
+This second run compares against the already-optimized C++20 release at
+`870b21e64a6c5eff98504b8351cf86ba219a7c3f`, not the original unoptimized C bridge.
+Both configurations use identical adapter binaries. Preserved managed assemblies
+also allow a native-only intermediate configuration. The same nine-round method,
+workload sizes and correctness checks apply.
+
+| Metric | Previous optimized build | New buffers/SIMD | Finding |
+|---|---:|---:|---|
+| 1,000 packed 256-bit round trips | 3.723 ms | 3.619 ms | 1.029×; 95% interval 0.931–1.118× |
+| 1,000 packed 4096-bit round trips | 51.880 ms | 50.970 ms | 1.018×; 95% interval 0.944–1.130× |
+| AXI body | 909.055 ms | 890.139 ms | 1.021×; 95% interval 0.966–1.072× |
+| 256-bit managed bytes / 1,000 round trips | 448,040 | 320,040 | 28.6% reduction |
+| 4096-bit managed bytes / 1,000 round trips | 4,408,040 | 1,280,040 | 71.0% reduction |
+
+Timing intervals include 1, so no additional speedup is established. Allocation
+reductions are measured cumulative bytes allocated on the simulator thread, not
+peak memory, total process memory, or native allocation counts. All 30 AXI runs
+and all checked microbenchmark values matched. Native-only allocation counts are
+unchanged, confirming that the managed buffer changes account for this reduction.
+
+GCC's actual build diagnostic reports 16-byte and 8-byte vectorization of the
+canonical-plane validation reduction. It does not claim the branch-heavy string
+conversion is SIMD. Compiler switches and diagnostics are retained in the
+[raw evidence](evidence/bridge-buffers-2026-10-16.json).
+
+To reproduce this before/after comparison, preserve the prior host and complete
+Benchmark/AxiMemory output directories before rebuilding. Pass them as
+`--baseline-host <library>` and `--baseline-managed <directory>` (containing
+`Benchmark/` and `AxiMemory/`), and set `--baseline-python` to the current adapter
+installation's site-packages directory so both variants use the same adapters.
+Direct backend vector access remains #17; GPI binary-string conversion is still
+present in this implementation.
