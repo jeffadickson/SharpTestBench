@@ -522,6 +522,14 @@ public static class Tests
         await CheckPacked<W73>(c, "odd_wide");
         await CheckPacked<W256>(c, "wide");
         await CheckPacked<W4096>(c, "huge");
+        await CheckPacked<W8193>(c, "pooled_wide");
+    }
+
+    /// <summary>Exercises pooled transport and partial-byte padding above the native stack threshold.</summary>
+    public readonly struct W8193 : IWidth
+    {
+        /// <summary>Vector width in bits.</summary>
+        public static int Bits => 8193;
     }
 
     static async Task CheckPacked<W>(TestContext c, string name)

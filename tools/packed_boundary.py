@@ -48,4 +48,24 @@ check(read(1, 9, p, 6), 3)
 os.environ['CS_FAKE_LOGIC'] = '101'
 check(read(1, 9, p, 6), 5)
 check((guarded[0], guarded[7]), (0xAA, 0xAA))
+# Length errors must retain precedence even when unsupported symbols occur first.
+for text in ['U01', 'U' + '0' * 9]:
+    os.environ['CS_FAKE_LOGIC'] = text
+    check(read(1, 9, p, 6), 5)
+# Exercise SIMD full chunks, tails, stack/heap boundary and mixed 01XZ symbols.
+for width in [1, 7, 8, 127, 128, 129, 4096, 4097, 8193]:
+    os.environ['CS_FAKE_WIDTH'] = str(width)
+    text = ('01xZ' * ((width + 3) // 4))[:width]
+    os.environ['CS_FAKE_LOGIC'] = text
+    n = (width + 7) // 8
+    storage = (c.c_ubyte * (3*n + 2))(*([0xAA] * (3*n + 2)))
+    address = c.cast(c.byref(storage, 1), c.c_void_p)
+    check(read(1, width, address, 3*n), 0)
+    expected = [0] * (3*n)
+    for i, symbol in enumerate(reversed(text)):
+        if symbol == '1': expected[i//8] |= 1 << (i%8)
+        if symbol in 'xZ': expected[n+i//8] |= 1 << (i%8)
+        if symbol == 'Z': expected[2*n+i//8] |= 1 << (i%8)
+    check(list(storage), [0xAA] + expected + [0xAA])
+    check(write(1, width, address, 3*n, 0), 0)
 print(f'PASS packed-boundary: {checks} checks')

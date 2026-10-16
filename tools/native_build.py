@@ -35,18 +35,26 @@ def build_host(root, sdk, build):
     flags = ['-shared', '-static-libgcc', '-static-libstdc++'] if WINDOWS else ['-dynamiclib', '-fPIC', '-Wl,-install_name,@rpath/' + HOST_NAME] if MAC else ['-shared', '-fPIC', '-Wl,-soname,' + HOST_NAME]
     # No fast-math or host-specific ISA: preserve HDL real values and portable packages.
     profile = ['-std=c++20', '-O3', '-flto', '-g', '-DNDEBUG', '-DSTB_HOST_BUILD', '-fvisibility=hidden']
+    compiler_version = subprocess.check_output([compiler, '--version'], text=True).splitlines()[0]
+    vector_flags = ['-fvectorize', '-fslp-vectorize'] if 'clang' in compiler_version.lower() else ['-ftree-loop-vectorize', '-ftree-slp-vectorize']
+    diagnostics = ['-Rpass=loop-vectorize', '-Rpass=slp-vectorizer'] if 'clang' in compiler_version.lower() else ['-fopt-info-vec-optimized']
+    profile += vector_flags
     sources = [root / 'native/host.cpp', root / 'native/abi.cpp']
-    command = [compiler, *flags, *profile, '-Wall', '-Wextra', '-Werror', *map(str, sources),
+    command = [compiler, *flags, *profile, *diagnostics, '-Wall', '-Wextra', '-Werror', *map(str, sources),
                '-I', str(root / 'native/upstream'), '-I', str(headers),
                *([] if WINDOWS or MAC else ['-ldl']), '-o', str(temporary)]
     try:
-        subprocess.run(command, check=True)
+        result = subprocess.run(command, text=True, capture_output=True)
+        (build / 'native-vectorization.txt').write_text(result.stdout + result.stderr)
+        if result.returncode:
+            raise RuntimeError('Native build failed:\n' + result.stdout + result.stderr)
         temporary.replace(build / HOST_NAME)
     finally:
         staging.cleanup()
     output = build / HOST_NAME
     manifest = {'rid': rid, 'language': 'C++20', 'profile': profile, 'command': command,
-                'compiler': subprocess.check_output([compiler, '--version'], text=True).splitlines()[0],
+                'compiler': compiler_version, 'vectorization': vector_flags,
+                'vectorization_diagnostics': result.stderr,
                 'sources': {str(p.relative_to(root)): hashlib.sha256(p.read_bytes()).hexdigest()
                             for p in [*sources, root / 'native/abi.h', root / 'native/platform.h']},
                 'output_sha256': hashlib.sha256(output.read_bytes()).hexdigest()}

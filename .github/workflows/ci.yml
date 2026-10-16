@@ -73,6 +73,7 @@ jobs:
           path: |
             build/*results.*
             build/native-build*.json
+            build/native-vectorization.txt
             build/upstream/native-profile.json
             build/upstream/cocotb-source/build/**/CMakeCache.txt
             build/upstream/cocotb-source/build/**/compile_commands.json
@@ -156,6 +157,7 @@ jobs:
           path: |
             build/*results.*
             build/native-build*.json
+            build/native-vectorization.txt
             build/upstream/native-profile.json
             build/upstream/cocotb-source/build/**/CMakeCache.txt
             build/upstream/cocotb-source/build/**/compile_commands.json

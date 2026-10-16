@@ -323,30 +323,34 @@ int32_t cs_v1_read_planes(void *signal, uint32_t bits, uint8_t *buffer, uint32_t
     if (error) return error;
     const char *text = p_gpi_get_signal_value_binstr(static_cast<gpi_sim_hdl>(signal));
     if (!text) return 5;
-    // A bounded scan rejects truncated/oversized transport without unbounded strlen.
-    size_t text_length = 0;
-    while (text_length <= bits && text[text_length]) ++text_length;
-    if (text_length != bits) return 5;
+    // Decode in display order while checking length. Continue after unsupported
+    // symbols so malformed-length status retains precedence over unsupported state.
     memset(buffer, 0, length);
     uint32_t n = (bits + 7) / 8;
-    for (uint32_t i = 0; i < bits; i++) {
+    bool unsupported = false;
+    for (uint32_t pos = 0; pos < bits; pos++) {
+        const char symbol = text[pos];
+        if (!symbol) return 5;
+        uint32_t i = bits - 1 - pos;
         uint32_t offset = i / 8;
         uint8_t mask = (uint8_t)(1u << (i % 8));
-        switch (text[bits - 1 - i]) {
+        switch (symbol) {
             case '0': break;
             case '1': buffer[offset] |= mask; break;
             case 'x': case 'X': buffer[n + offset] |= mask; break;
             case 'z': case 'Z': buffer[n + offset] |= mask; buffer[2*n + offset] |= mask; break;
-            default: return 3;
+            default: unsupported = true; break;
         }
     }
+    if (text[bits]) return 5;
+    if (unsupported) return 3;
     return 0;
 }
 /** @brief Validate planes completely, then issue one GPI string write.
  * @return 0 submitted, 1 invalid planes/action, 2 width mismatch, 4 allocation
  * failure, 6 constant object. GPI setters cannot report backend errors.
  * @details Unknown/high-Z bits cannot carry known value bits. Padding must be zero.
- * The temporary string is owned here and freed after GPI consumes it synchronously.
+ * The temporary string is owned by this call; heap fallback is freed after GPI consumes it synchronously.
  */
 int32_t cs_v1_write_planes(void *signal, uint32_t bits, const uint8_t *buffer, uint32_t length, int32_t action) {
     int32_t error = plane_size(signal, bits, buffer, length);
@@ -355,14 +359,20 @@ int32_t cs_v1_write_planes(void *signal, uint32_t bits, const uint8_t *buffer, u
     if (p_gpi_is_constant(static_cast<gpi_sim_hdl>(signal))) return 6;
     uint32_t n = (bits + 7) / 8;
     // Reject noncanonical planes before allocation or any simulator side effect.
-    for (uint32_t i = 0; i < n; i++) {
-        if ((buffer[i] & buffer[n+i]) || (buffer[2*n+i] & ~buffer[n+i])) return 1;
-    }
+    // A reduction permits SIMD validation without changing error precedence or
+    // issuing a partial write. Only the supplied, exact-length planes are read.
+    uint32_t invalid = 0;
+    for (uint32_t i = 0; i < n; i++)
+        invalid |= (buffer[i] & buffer[n+i]) | (buffer[2*n+i] & ~buffer[n+i]);
+    if (invalid) return 1;
     if (bits % 8) {
         uint8_t unused = (uint8_t)(0xffu << (bits % 8));
         if ((buffer[n-1] | buffer[2*n-1] | buffer[3*n-1]) & unused) return 1;
     }
-    char *text = static_cast<char *>(malloc((size_t)bits + 1));
+    // Per-call stack storage is reentrant: synchronous simulator callbacks cannot
+    // overwrite another write's scratch buffer. Large vectors retain a bounded heap fallback.
+    char local_text[4097];
+    char *text = bits < sizeof(local_text) ? local_text : static_cast<char *>(malloc((size_t)bits + 1));
     if (!text) return 4;
     for (uint32_t i = 0; i < bits; i++) {
         uint32_t offset = i / 8;
@@ -371,6 +381,6 @@ int32_t cs_v1_write_planes(void *signal, uint32_t bits, const uint8_t *buffer, u
     }
     text[bits] = 0;
     p_gpi_set_signal_value_binstr(static_cast<gpi_sim_hdl>(signal), text, static_cast<gpi_set_action>(action));
-    free(text);
+    if (text != local_text) free(text);
     return 0;
 }

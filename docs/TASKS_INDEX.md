@@ -67,3 +67,5 @@ See [assessment and adoption boundaries](TEST_TOOLING.md). Issue state is author
 | STB-049 | P1 | [#49 Completed: logic-array transforms and collection operations](https://github.com/jeffadickson/SharpTestBench/issues/49) |
 
 - [#50 Modernize simulator bridge to documented optimized C++20](https://github.com/jeffadickson/SharpTestBench/issues/50): complete: documented C++20 bridge, optimized adapter build overlay, C ABI and five-job cross-platform release validation (run 38819996695).
+
+- [#51 Reduce packed bridge allocations and verify portable SIMD](https://github.com/jeffadickson/SharpTestBench/issues/51): buffer lifetime, vectorized validation, boundary regressions, and paired performance/three-platform validation.

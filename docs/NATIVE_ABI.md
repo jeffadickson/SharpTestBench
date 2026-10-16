@@ -108,3 +108,31 @@ backend-specific packed transfer remain separate work requiring representative d
 `tools/native_build_check.py` resolves every public export by literal name and links
 and runs a C11 consumer against the actual optimized C++20 binary. CI runs this on
 Linux, Windows and macOS alongside simulator, debugger and package-consumer checks.
+
+## Packed-buffer and vectorization increment
+
+Managed packed writes capture immutable `LogicVector` values and encode only when
+applied. Replaced/discarded deferred writes own no pooled buffers. Read/write calls
+use stack storage up to 1,536 bytes (4,096 bits across three planes), then rent an
+exact logical slice from `ArrayPool<byte>` and return it in `finally`. Encoding clears
+the entire logical span before `BigInteger.TryWriteBytes`, including padding and
+unused unknown/high-Z planes. Immutable integers copy read data before pool return.
+
+The native string fallback uses per-call stack storage through 4,096 bits, retaining
+heap allocation for larger vectors. Per-call ownership is safe for reentrant callbacks.
+Read conversion combines length validation with decoding while preserving malformed
+length error precedence. Canonical write-plane validation uses a reduction that permits
+SIMD without issuing writes before all input is checked.
+
+Release builds explicitly enable loop and SLP vectorization: GCC
+`-ftree-loop-vectorize -ftree-slp-vectorize`, Clang `-fvectorize -fslp-vectorize`.
+The upstream build overlay applies the same switches; MSVC's `/O2` enables its
+auto-vectorizer and `/Qvec-report:1` reports successful vectorization. No host-specific
+ISA or fast-math is enabled. Owned-bridge compiler diagnostics are saved in
+`native-vectorization.txt` and the compiler manifest. GCC confirms 16-byte and
+8-byte vectorization of the plane-validation loop; enabling vectorization does not
+imply that every conversion loop is vectorized.
+
+Direct packed access inside backend adapters (#17) and multi-signal batching remain
+separate changes. This increment preserves the existing GPI string fallback and all
+simulation-phase ordering.

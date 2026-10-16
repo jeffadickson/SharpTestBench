@@ -52,6 +52,8 @@ def main():
     """Build both hosts, warm up each configuration, then interleave checked samples."""
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument('--baseline-python', type=Path, required=True)
+    p.add_argument('--baseline-host', type=Path, help='Use a preserved native host instead of reconstructing historical C')
+    p.add_argument('--baseline-managed', type=Path, help='Preserved Benchmark/ and AxiMemory/ assembly directories')
     p.add_argument('--repeat', type=int, default=9)
     p.add_argument('--transactions', type=int, default=2048)
     p.add_argument('--packed-count', type=int, default=1000)
@@ -73,10 +75,10 @@ def main():
         target.write_bytes(subprocess.check_output(['git', 'show', BASELINE + ':' + name], cwd=ROOT))
     spec = importlib.util.spec_from_file_location('historical_native_build', old / 'tools/native_build.py')
     previous = importlib.util.module_from_spec(spec); spec.loader.exec_module(previous)
-    previous.build_host(old, sdk_root(), old)
+    if args.baseline_host is None: previous.build_host(old, sdk_root(), old)
     new = output / 'optimized-host'; new.mkdir(exist_ok=True)
     build_host(ROOT, sdk_root(), new)
-    variants = {'baseline': (old / HOST_NAME, baseline_python),
+    variants = {'baseline': (args.baseline_host.resolve() if args.baseline_host else old / HOST_NAME, baseline_python),
                 'bridge_only': (new / HOST_NAME, baseline_python),
                 'full': (new / HOST_NAME, None)}
     # Keep every measured process on one available logical CPU. This is a
@@ -96,13 +98,18 @@ def main():
         if python_path is not None: env['PYTHONPATH'] = str(python_path)
         else: env.pop('PYTHONPATH', None)
         metrics = {}
+        allocations = {}
         for workload in ['micro', 'axi']:
             work = output / f'{round_number}-{variant}-{workload}'; work.mkdir(exist_ok=True)
             command = [sys.executable, str(ROOT / 'tools/run.py'), '--sim', 'icarus', '--no-build',
                        '--host', str(host), '--work-dir', str(work), '--label', 'perf']
-            if workload == 'micro': command += ['--project', 'Benchmark']
+            managed = args.baseline_managed.resolve() if args.baseline_managed and variant != 'full' else None
+            if workload == 'micro':
+                command += ['--project', 'Benchmark']
+                if managed: command += ['--assembly', str(managed / 'Benchmark/Benchmark.dll')]
+
             else:
-                command += ['--assembly', str(ROOT / 'examples/AxiMemory/bin/Release/net10.0/AxiMemory.dll'),
+                command += ['--assembly', str(managed / 'AxiMemory/AxiMemory.dll' if managed else ROOT / 'examples/AxiMemory/bin/Release/net10.0/AxiMemory.dll'),
                             '--source', str(ROOT / 'examples/AxiMemory/axi_memory.sv'),
                             '--top', 'axi_memory', '--entry-type', 'Entry, AxiMemory']
                 env.update(AXI_PLAN=str(plan_file), AXI_REPORT=str(work / 'metrics.json'), AXI_FAULT='0')
@@ -119,6 +126,7 @@ def main():
                         data = json.loads(line.removeprefix('PACKED_MEASURE '))
                         if data['count'] != args.packed_count: raise RuntimeError('Rebuild Benchmark with CS_PACKED_COUNT support')
                         metrics[f"{data['mode']}_{data['width']}"] = data['seconds']
+                        allocations[f"{data['mode']}_{data['width']}"] = data['managedBytes']
                 if len(metrics) != 7: raise RuntimeError('Missing benchmark metrics')
             else:
                 data = json.loads((work / 'metrics.json').read_text())
@@ -127,7 +135,7 @@ def main():
                 if trace != expected_trace: raise RuntimeError('AXI correctness/trace mismatch')
                 metrics['axi_body'] = data['seconds']
         print(json.dumps({'round': round_number, 'variant': variant, 'metrics': metrics}), flush=True)
-        return {'round': round_number, 'variant': variant, 'metrics': metrics}
+        return {'round': round_number, 'variant': variant, 'metrics': metrics, 'managed_allocated_bytes': allocations}
 
     for variant in variants: execute(variant, -1)
     # Rotate all three orders evenly (Latin-square schedule) instead of timing
@@ -139,7 +147,8 @@ def main():
     from cocotb_tools import config
     library_hashes = {name: {p.name: digest(p) for p in directory.glob('*.so')}
                       for name, directory in [('baseline', baseline_python / 'cocotb/libs'), ('full', Path(config.libs_dir))]}
-    summary = {'schema': 1, 'baseline_revision': BASELINE,
+    summary = {'schema': 1, 'baseline_revision': BASELINE if args.baseline_host is None else 'preserved binary; see host hashes',
+               'baseline_managed_sha256': {str(p.relative_to(args.baseline_managed)): digest(p) for p in args.baseline_managed.rglob('*.dll')} if args.baseline_managed else None,
                'candidate_revision': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip(),
                'working_tree_dirty': bool(subprocess.check_output(['git', 'status', '--porcelain'], cwd=ROOT, text=True)),
                'native_upstream': json.loads((ROOT / 'third_party/UPSTREAM.json').read_text()),

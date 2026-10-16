@@ -27,6 +27,8 @@ module top;
  reg [255:0] wide=0;
  reg [72:0] odd_wide=0;
  reg [4095:0] huge=0;
+ // Crosses managed pooling/native stack thresholds and has partial-byte padding.
+ reg [8192:0] pooled_wide=0;
  reg signed [15:0] signed_data=0;
  reg [3:0] logic_data=0;
  wire [7:0] doubled=data<<1;

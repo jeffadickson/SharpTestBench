@@ -306,8 +306,8 @@ public sealed class Signal<W> : Signal where W : struct, IWidth
         Runtime.CheckWrite();
         if (!value.IsKnown)
             Runtime.Capabilities.Require(SimulatorFeature.FourStateWrites);
-        byte[] buffer = PackedTransport.Encode(value);
-        Runtime.Write(Handle, () => PackedTransport.Write<W>(Handle, buffer, action), action, () => value.ToString());
+        // Capture immutable planes; temporary encoding storage is acquired only when applied.
+        Runtime.Write(Handle, () => PackedTransport.Write(Handle, value, action), action, () => value.ToString());
     }
 
     public PackedField<W, F> Field<F>(int lsb)
