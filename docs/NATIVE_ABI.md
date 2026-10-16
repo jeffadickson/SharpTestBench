@@ -211,3 +211,15 @@ CMake build creates and installs its Verilator GPI adapter only under `UNIX`,
 and its Python model runner uses Unix linker options. Availability of an ARM64
 Verilator executable alone does not supply that adapter. Linux ARM64 Verilator
 and Windows ARM64 Icarus are distinct validation paths.
+
+## Batched 32-bit snapshot failure atomicity (2026-10-16)
+
+`cs_v1_read_u32_batch` retains its existing ABI and signal-phase behavior. It now
+stages values in a 32-entry stack scratch buffer (heap storage only for larger
+batches), checks both unknown and high-impedance planes, and copies to the caller
+only after every signal succeeds. Invalid widths, unavailable transport, or X/Z
+on any signal leave the destination unchanged. This fixes partial writes in a
+failed batch and avoids a heap allocation for common AXI/control snapshots.
+It does not remove the underlying GPI transport yet and does not constitute
+an independently measured throughput improvement. Native runner, managed
+regressions, and integration CI must pass before accepting this change.
