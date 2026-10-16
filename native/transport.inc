@@ -159,13 +159,31 @@ int32_t cs_v1_read_u32_batch(void *const *signals, const uint32_t *widths, uint3
         const uint32_t bits = widths[i];
         if (bits < 1 || bits > 32) { result = 2; break; }
         const uint32_t n = (bits + 7) / 8;
-        uint8_t planes[12]{};
-        const int status = cs_v1_read_planes(signals[i], bits, planes, 3 * n);
-        if (status) { result = status; break; }
         uint32_t value = 0;
-        for (uint32_t j = 0; j < n; ++j) {
-            if (planes[n + j] || planes[2 * n + j]) { result = 3; break; }
-            value |= static_cast<uint32_t>(planes[j]) << (j * 8);
+        // Cached direct-VPI handles already have checked object type and width.
+        // Read one aval/bval word without constructing three byte planes.
+        const auto cached = direct_vpi.handles.find(signals[i]);
+        if (cached != direct_vpi.handles.end() && direct_vpi.read) {
+            s_vpi_value v{};
+            v.format = vpiVectorVal;
+            if (direct_vpi.error) direct_vpi.error(nullptr);
+            direct_vpi.read(cached->second, &v);
+            if ((direct_vpi.error && direct_vpi.error(nullptr)) || !v.value.vector) {
+                result = 7; break;
+            }
+            const uint32_t mask = bits == 32 ? 0xffffffffu : (1u << bits) - 1u;
+            if ((static_cast<uint32_t>(v.value.vector[0].bval) & mask) != 0) {
+                result = 3; break;
+            }
+            value = static_cast<uint32_t>(v.value.vector[0].aval) & mask;
+        } else {
+            uint8_t planes[12]{};
+            const int status = cs_v1_read_planes(signals[i], bits, planes, 3 * n);
+            if (status) { result = status; break; }
+            for (uint32_t j = 0; j < n; ++j) {
+                if (planes[n + j] || planes[2 * n + j]) { result = 3; break; }
+                value |= static_cast<uint32_t>(planes[j]) << (j * 8);
+            }
         }
         if (result) break;
         scratch[i] = value;
