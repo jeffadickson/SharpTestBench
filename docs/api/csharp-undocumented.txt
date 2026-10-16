@@ -1,0 +1,447 @@
+Bindings.Generate(HdlObject, string, int, int, string)
+CallbackKind.Edge
+CallbackKind.End
+CallbackKind.NextStep
+CallbackKind.ReadOnly
+CallbackKind.ReadWrite
+CallbackKind.Start
+CallbackKind.Timer
+CapabilityStatus
+CapabilityStatus.Conditional
+CapabilityStatus.Supported
+CapabilityStatus.Unsupported
+CapabilityStatus.Unverified
+CleanupScope.CleanupScope()
+CleanupScope.CloseAsync(CancellationToken)
+CleanupScope.CreateScope()
+CleanupScope.Defer(Action)
+CleanupScope.Defer(Func<CancellationToken, Task>)
+CleanupScope.Own<T>(T)
+CleanupScope.OwnAsync<T>(T)
+ClockImplementation.Auto
+ClockImplementation.Managed
+ClockImplementation.Native
+CoverageBin<T>
+CoverageBin<T>.CoverageBin(string, Func<T, bool>, ulong)
+CoverageBin<T>.Goal
+CoverageBin<T>.Matches
+CoverageBin<T>.Name
+CoverageBinSnapshot
+CoverageBinSnapshot.CoverageBinSnapshot(string, ulong, ulong)
+CoverageBinSnapshot.Covered
+CoverageBinSnapshot.Goal
+CoverageBinSnapshot.Hits
+CoverageBinSnapshot.Name
+CoveragePoint<T>
+CoveragePoint<T>.Snapshot()
+CoveragePointSnapshot
+CoveragePointSnapshot.Bins
+CoveragePointSnapshot.CoveragePointSnapshot(string, ulong, ulong, CoverageBinSnapshot[])
+CoveragePointSnapshot.Name
+CoveragePointSnapshot.Percent
+CoveragePointSnapshot.Samples
+CoveragePointSnapshot.Unmatched
+CoverageSnapshot
+CoverageSnapshot.CoverageSnapshot(CoveragePointSnapshot[])
+CoverageSnapshot.Percent
+CoverageSnapshot.Points
+DiscoveryStatus.Observed
+DiscoveryStatus.Unavailable
+DiscoveryStatus.Unsupported
+EnumSignal<T>.Raw
+EnumSignal<T>.Read()
+EnumSignal<T>.Write(T, WriteAction)
+FunctionalCoverage.AddPoint<T>(string, params CoverageBin<T>[])
+FunctionalCoverage.Snapshot()
+HdlArray<T>.ByOffset(int)
+HdlArray<T>.Count
+HdlArray<T>.GetEnumerator()
+HdlArray<T>.HdlArray(HdlObject, Func<HdlObject, T>)
+HdlArray<T>.Range
+HdlArray<T>.this[int]
+HdlObject.Array<T>(Func<HdlObject, T>)
+HdlObject.At(int)
+HdlObject.Child(string)
+HdlObject.Children()
+HdlObject.DeclaredSignedness
+HdlObject.DefinitionFile
+HdlObject.Drivers()
+HdlObject.Enum<T>()
+HdlObject.Integer()
+HdlObject.IsConstant
+HdlObject.IsSigned
+HdlObject.Kind
+HdlObject.Loads()
+HdlObject.Logic<W>()
+HdlObject.Range
+HdlObject.Real()
+HdlObject.Root(string?)
+HdlObject.Signal()
+HdlObject.Signal<W>()
+HdlObject.Signed<W>()
+HdlObject.String()
+HdlObject.Unsigned<W>()
+IWidth
+IWidth.Bits
+IntegerSignal.Read()
+IntegerSignal.Write(int, WriteAction)
+Logic
+Logic.DontCare
+Logic.H
+Logic.L
+Logic.One
+Logic.U
+Logic.W
+Logic.X
+Logic.Z
+Logic.Zero
+LogicOps
+LogicOps.Parse(char)
+LogicOps.Symbol(Logic)
+LogicOps.ToBool(Logic)
+LogicSignal<W>.Raw
+LogicSignal<W>.Read()
+LogicSignal<W>.Write(LogicArray, WriteAction)
+LogicVector<W>.Bits
+LogicVector<W>.From(SInt<W>)
+LogicVector<W>.From(UInt<W>)
+LogicVector<W>.HighZ
+LogicVector<W>.IsKnown
+LogicVector<W>.LogicVector(BigInteger, BigInteger, BigInteger)
+LogicVector<W>.Slice<V>(int)
+LogicVector<W>.ToSInt()
+LogicVector<W>.ToUInt()
+LogicVector<W>.Unknown
+LogicVector<W>.Value
+LogicVector<W>.operator &(LogicVector<W>, LogicVector<W>)
+LogicVector<W>.operator ^(LogicVector<W>, LogicVector<W>)
+LogicVector<W>.operator |(LogicVector<W>, LogicVector<W>)
+LogicVector<W>.operator ~(LogicVector<W>)
+NineState
+NineState.And(Logic, Logic)
+NineState.Not(Logic)
+NineState.Or(Logic, Logic)
+NineState.Xor(Logic, Logic)
+ObjectDiscovery
+ObjectDiscovery.Explanation
+ObjectDiscovery.ObjectDiscovery(DiscoveryStatus, IReadOnlyList<HdlObject>, string)
+ObjectDiscovery.Objects
+ObjectDiscovery.Status
+ObjectKind
+ObjectKind.Array
+ObjectKind.Enum
+ObjectKind.FixedString
+ObjectKind.GenerateArray
+ObjectKind.Integer
+ObjectKind.Logic
+ObjectKind.LogicArray
+ObjectKind.Memory
+ObjectKind.Module
+ObjectKind.Package
+ObjectKind.Packed
+ObjectKind.Real
+ObjectKind.String
+ObjectKind.Structure
+ObjectKind.Unknown
+PackedArray<Total, Element>.Layout
+PackedArray<Total, Element>.this[params int[]]
+PackedField<Total, Field>.BitOffset
+PackedField<Total, Field>.Read()
+PackedField<Total, Field>.ReadSInt()
+PackedField<Total, Field>.ReadUInt()
+PackedField<Total, Field>.Write(LogicVector<Field>)
+PackedField<Total, Field>.Write(SInt<Field>)
+PackedField<Total, Field>.Write(UInt<Field>)
+PackedLayout.BitOffset(params int[])
+PackedLayout.Dimensions
+PackedLayout.ElementBits
+PackedLayout.ElementCount
+PackedLayout.PackedLayout(int, params HdlRange[])
+PackedLayout.TotalBits
+PackedLayoutDiscovery
+PackedLayoutDiscovery.Available
+PackedLayoutDiscovery.Explanation
+PackedLayoutDiscovery.Layout
+PackedLayoutDiscovery.PackedLayoutDiscovery(PackedLayout?, string, PackedLayoutSource)
+PackedLayoutDiscovery.Source
+PackedLayoutSource.GpiBitRange
+PackedLayoutSource.NativePackedRanges
+PackedLayoutSource.Unavailable
+PackedMemberPosition
+PackedMemberPosition.BitOffset
+PackedMemberPosition.Bits
+PackedMemberPosition.Name
+PackedMemberPosition.PackedMemberPosition(string, int, int)
+PackedStruct<Total>.Field<Field>(string)
+PackedStruct<Total>.Layout
+PackedStructLayout.Members
+PackedStructLayout.PackedStructLayout(params PackedMember[])
+PackedStructLayout.TotalBits
+PackedStructLayout.this[string]
+RealSignal
+RealSignal.Read()
+RealSignal.Write(double, WriteAction)
+Regression
+Regression.Initialize(Assembly)
+SInt<W>
+SInt<W>.AddWrap(SInt<W>)
+SInt<W>.Bits
+SInt<W>.FromBits(UInt<W>)
+SInt<W>.RawBits
+SInt<W>.SInt(BigInteger)
+SInt<W>.Value
+SInt<W>.operator +(SInt<W>, SInt<W>)
+SInt<W>.operator -(SInt<W>, SInt<W>)
+Signal
+Signal.ReadBit()
+Signal.ReadBits()
+Signal.ReadLogic()
+Signal.Release()
+Signal.Width
+Signal.WriteBit(bool, WriteAction)
+Signal.WriteBits(string, WriteAction)
+Signal<W>
+Signal<W>.Field<F>(int)
+Signal<W>.Force(LogicVector<W>)
+Signal<W>.Packed<E>(params HdlRange[])
+Signal<W>.Read()
+Signal<W>.ReadSInt()
+Signal<W>.ReadUInt()
+Signal<W>.Struct(PackedStructLayout)
+Signal<W>.Write(LogicVector<W>, WriteAction)
+Signal<W>.Write(SInt<W>, WriteAction)
+Signal<W>.Write(UInt<W>, WriteAction)
+SignedSignal<W>.Raw
+SignedSignal<W>.Read()
+SignedSignal<W>.Write(SInt<W>, WriteAction)
+SimCaseAttribute
+SimCaseAttribute.Arguments
+SimCaseAttribute.SimCaseAttribute(params object[])
+SimEvent.Clear()
+SimEvent.IsSet
+SimEvent.Set()
+SimEvent.Wait()
+SimJob
+SimJob.Cancel()
+SimJob.Exception
+SimJob.GetAwaiter()
+SimJob.IsCompleted
+SimJob.Name
+SimJob.Status
+SimJob.Task
+SimJob<T>
+SimJob<T>.GetAwaiter()
+SimJob<T>.Result
+SimJob<T>.Task
+SimLock
+SimLock.Acquire(CancellationToken?)
+SimLogLevel
+SimLogLevel.Debug
+SimLogLevel.Error
+SimLogLevel.Info
+SimLogLevel.Warning
+SimPhase
+SimPhase.Beginning
+SimPhase.ReadOnly
+SimPhase.ReadWrite
+SimPhase.ValueChange
+SimRandom
+SimRandom.Next(int)
+SimRandom.NextUInt64()
+SimRandom.SimRandom(ulong)
+SimRuntime
+SimRuntime.Capabilities
+SimRuntime.CheckThread()
+SimRuntime.FatalError
+SimRuntime.Finish()
+SimRuntime.Now
+SimRuntime.PendingCallbacks
+SimRuntime.Phase
+SimRuntime.Precision
+SimRuntime.SimRuntime()
+SimRuntime.Simulator
+SimRuntime.Steps(decimal, TimeUnit, TimeRounding)
+SimRuntime.SupportsForceRelease
+SimRuntime.SupportsFourState
+SimRuntime.SupportsNineState
+SimSemaphore.Acquire(CancellationToken?)
+SimSemaphore.CurrentCount
+SimSemaphore.Release()
+SimSemaphore.SimSemaphore(int, int)
+SimTaskGroup.StartSoon(Func<CancellationToken, Task>, string?)
+SimTaskGroup.StartSoon<T>(Func<CancellationToken, Task<T>>, string?)
+SimTaskLocal<T>.Clear()
+SimTaskLocal<T>.TryGetValue(out T)
+SimTaskLocal<T>.Value
+SimTasks.Borrowed<T>(SimJob<T>)
+SimTasks.Combine(CancellationToken?, params Task[])
+SimTasks.First(CancellationToken?, params Task[])
+SimTasks.Gather<T>(TestContext, CancellationToken?, params SimAwaitable<T>[])
+SimTasks.Gather<T>(TestContext, params SimAwaitable<T>[])
+SimTasks.Select<T>(TestContext, CancellationToken?, params SimAwaitable<T>[])
+SimTasks.Select<T>(TestContext, params SimAwaitable<T>[])
+SimTasks.WithTimeout<T>(Task<T>, ulong, CancellationToken?)
+SimTestAttribute
+SimTestAttribute.CleanupTimeoutSteps
+SimTestAttribute.ExpectedException
+SimTestAttribute.Simulators
+SimTestAttribute.Skip
+SimTestAttribute.Stage
+SimTestAttribute.TimeoutSteps
+SimulatorCapabilities.All
+SimulatorCapabilities.Describe(string, ulong)
+SimulatorCapabilities.Family
+SimulatorCapabilities.NativeFeatures
+SimulatorCapabilities.Product
+SimulatorCapabilities.Require(SimulatorFeature)
+SimulatorCapabilities.this[SimulatorFeature]
+SimulatorCapability
+SimulatorCapability.Evidence
+SimulatorCapability.Explanation
+SimulatorCapability.Feature
+SimulatorCapability.IsSupported
+SimulatorCapability.SimulatorCapability(SimulatorFeature, CapabilityStatus, string, string)
+SimulatorCapability.Status
+SimulatorFamily
+SimulatorFamily.Ghdl
+SimulatorFamily.Icarus
+SimulatorFamily.Nvc
+SimulatorFamily.Unknown
+SimulatorFamily.Verilator
+SimulatorFeature
+SimulatorFeature.DriverDiscovery
+SimulatorFeature.DynamicStringNul
+SimulatorFeature.ExternalThreadWakeup
+SimulatorFeature.FixedStringNul
+SimulatorFeature.ForceRelease
+SimulatorFeature.FourStateWrites
+SimulatorFeature.ImmediateSignalVisibility
+SimulatorFeature.LoadDiscovery
+SimulatorFeature.MixedLanguageTraversal
+SimulatorFeature.NamedStructInference
+SimulatorFeature.NativeClock
+SimulatorFeature.NativePackedRanges
+SimulatorFeature.NineStateWrites
+SimulatorFeature.PackageDiscovery
+SimulatorFeature.PackageVariables
+SimulatorFeature.PackedPlaneTransport
+SimulatorFeature.RootDiscovery
+SimulatorFeature.SignednessMetadata
+SimulatorFeature.VcdCapture
+SimulatorFeature.VhdlObjects
+StringSignal
+StringSignal.Read()
+StringSignal.Write(string, WriteAction)
+TestContext
+TestContext.Cancellation
+TestContext.Cleanup
+TestContext.Coverage
+TestContext.Dut
+TestContext.Log(string, SimLogLevel, Exception?, string?, int, string?)
+TestContext.Random
+TestContext.RunGroup(Func<SimTaskGroup, Task>)
+TestContext.Runtime
+TestContext.Seed
+TestContext.Stage
+TestContext.StartSoon(Func<CancellationToken, Task>, string?)
+TestContext.StartSoon<T>(Func<CancellationToken, Task<T>>, string?)
+TestContext.TestName
+TestDescriptor
+TestDescriptor.CaseIndex
+TestDescriptor.Name
+TestDescriptor.QualifiedName
+TestDescriptor.Seed
+TestDescriptor.Simulators
+TestDescriptor.Skip
+TestDescriptor.Stage
+TestDescriptor.TestDescriptor(string, string, int, int, ulong, ulong, bool, string[])
+TestDescriptor.TimeoutSteps
+TestResult
+TestResult.CaseIndex
+TestResult.EndStep
+TestResult.Error
+TestResult.Name
+TestResult.QualifiedName
+TestResult.Seconds
+TestResult.Seed
+TestResult.Stage
+TestResult.StartStep
+TestResult.Status
+TestResult.TestResult(string, string, ulong, ulong, ulong, double, string?)
+TimeRounding
+TimeRounding.Ceiling
+TimeRounding.Error
+TimeRounding.Floor
+TimeRounding.Nearest
+TimeUnit
+TimeUnit.Femtoseconds
+TimeUnit.Microseconds
+TimeUnit.Milliseconds
+TimeUnit.Nanoseconds
+TimeUnit.Picoseconds
+TimeUnit.Seconds
+TimeUnit.Step
+Trigger
+Trigger.AsTask(CancellationToken?)
+Trigger.GetAwaiter()
+Trigger.WithCancellation(CancellationToken)
+TriggerAwaiter
+TriggerAwaiter.GetAwaiter()
+TriggerAwaiter.GetResult()
+TriggerAwaiter.IsCompleted
+TriggerAwaiter.OnCompleted(Action)
+Triggers
+Triggers.ClockCycles(Signal, int, CancellationToken?)
+Triggers.Combine(params Trigger[])
+Triggers.FallingEdge(Signal)
+Triggers.First(params Trigger[])
+Triggers.NextTimeStep()
+Triggers.ReadOnly()
+Triggers.ReadWrite()
+Triggers.RisingEdge(Signal)
+Triggers.Timer(decimal, TimeUnit, TimeRounding)
+Triggers.Timer(ulong)
+Triggers.WithTimeout(Trigger, ulong)
+Triggers.Yield()
+UInt<W>
+UInt<W>.AddWrap(UInt<W>)
+UInt<W>.Bits
+UInt<W>.ResizeChecked<V>()
+UInt<W>.SubtractWrap(UInt<W>)
+UInt<W>.ToString()
+UInt<W>.UInt(BigInteger)
+UInt<W>.Value
+UInt<W>.Wrap(BigInteger)
+UInt<W>.operator &(UInt<W>, UInt<W>)
+UInt<W>.operator *(UInt<W>, UInt<W>)
+UInt<W>.operator +(UInt<W>, UInt<W>)
+UInt<W>.operator -(UInt<W>, UInt<W>)
+UInt<W>.operator ^(UInt<W>, UInt<W>)
+UInt<W>.operator |(UInt<W>, UInt<W>)
+UInt<W>.operator ~(UInt<W>)
+UnsignedSignal<W>.Raw
+UnsignedSignal<W>.Read()
+UnsignedSignal<W>.Write(UInt<W>, WriteAction)
+W1
+W1.Bits
+W1024
+W1024.Bits
+W128
+W128.Bits
+W16
+W16.Bits
+W256
+W256.Bits
+W32
+W32.Bits
+W4
+W4.Bits
+W64
+W64.Bits
+W8
+W8.Bits
+WriteAction
+WriteAction.Deposit
+WriteAction.Force
+WriteAction.Immediate
+WriteAction.Release

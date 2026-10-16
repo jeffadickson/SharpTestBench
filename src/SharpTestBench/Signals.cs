@@ -18,6 +18,7 @@ public enum ObjectKind
     LogicArray = 17
 }
 
+/// <summary>A simulator-owned HDL object; access requires the owning simulation thread.</summary>
 public partial class HdlObject
 {
     internal readonly nint Handle;
@@ -33,6 +34,7 @@ public partial class HdlObject
         Handle = handle;
     }
 
+    /// <summary>Local object name reported by the simulator, without its parent hierarchy.</summary>
     public string Name
     {
         get
@@ -52,6 +54,7 @@ public partial class HdlObject
         }
     }
 
+    /// <summary>HDL type name reported by the backend; spelling is simulator-specific.</summary>
     public string TypeName
     {
         get

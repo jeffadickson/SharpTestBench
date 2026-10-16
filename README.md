@@ -223,3 +223,5 @@ with matching C#/cocotb scoreboards and injected arithmetic/backpressure faults.
 
 The [CpuCore example](examples/CpuCore/README.md) compares instruction retirement
 and stalled memory traffic using independent C# and cocotb scoreboards.
+
+API documentation uses [Sphinx + Breathe for C++ and XMLdoc for C#](docs/DOCUMENTATION.md).

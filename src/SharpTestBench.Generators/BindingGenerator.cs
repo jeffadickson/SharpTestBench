@@ -11,12 +11,15 @@ using Microsoft.CodeAnalysis.Text;
 
 namespace SharpTestBench.Generators;
 
+/// <summary>Generates typed HDL bindings from validated .stb.xml additional files.</summary>
 [Generator(LanguageNames.CSharp)]
 public sealed class BindingGenerator : IIncrementalGenerator
 {
     static readonly DiagnosticDescriptor Invalid = new("STBGEN001", "Invalid HDL binding manifest",
         "{0}", "SharpTestBench", DiagnosticSeverity.Error, true);
 
+    /// <summary>Registers incremental manifest parsing and binding source generation.</summary>
+    /// <param name="context">Roslyn pipeline registration context.</param>
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {
         var files = context.AdditionalTextsProvider.Where(file => file.Path.EndsWith(".stb.xml", StringComparison.OrdinalIgnoreCase))

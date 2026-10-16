@@ -7,6 +7,6 @@
     <PackageReadmeFile>GENERATOR.md</PackageReadmeFile><PackageLicenseExpression>MIT</PackageLicenseExpression><Description>Incremental typed HDL bindings for SharpTestBench.</Description>
   </PropertyGroup>
   <ItemGroup><PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.14.0" PrivateAssets="all" /></ItemGroup>
-  <ItemGroup><None Include="$(OutputPath)$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" /></ItemGroup>
+  <ItemGroup><None Include="$(OutputPath)$(AssemblyName).xml" Pack="true" PackagePath="analyzers/dotnet/cs" /><None Include="$(OutputPath)$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" /></ItemGroup>
 <ItemGroup><None Include="../../docs/GENERATOR.md" Pack="true" PackagePath="/" /><None Include="../../LICENSE" Pack="true" PackagePath="licenses/" /></ItemGroup>
 <ItemGroup><AdditionalFiles Include="AnalyzerReleases.Shipped.md" /><AdditionalFiles Include="AnalyzerReleases.Unshipped.md" /></ItemGroup></Project>

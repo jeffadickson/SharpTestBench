@@ -5,6 +5,10 @@
     <RepositoryType>git</RepositoryType>
     <PackageProjectUrl>https://github.com/jeffadickson/SharpTestBench</PackageProjectUrl>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <!-- Emit standard C# XML documentation beside every assembly. Existing missing
+         comments remain visible warnings; tools/documentation.py gates library debt. -->
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <WarningsNotAsErrors>$(WarningsNotAsErrors);CS1591</WarningsNotAsErrors>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
 </Project>
