@@ -75,6 +75,8 @@ jobs:
           set -euo pipefail
           STB_DIRECT_PACKED=0 STB_BATCH_TRANSFERS=0 python tools/run.py --sim icarus --no-build --filter H_NativeBatchWriteParity --label write-legacy
           STB_DIRECT_PACKED=1 STB_BATCH_TRANSFERS=1 python tools/run.py --sim icarus --no-build --filter H_NativeBatchWriteParity --label write-direct
+          STB_DIRECT_PACKED=0 STB_BATCH_TRANSFERS=0 python tools/run.py --sim icarus --no-build --filter H_BatchedWritesBeforeClockEdge --label edge-legacy
+          STB_DIRECT_PACKED=1 STB_BATCH_TRANSFERS=1 python tools/run.py --sim icarus --no-build --filter H_BatchedWritesBeforeClockEdge --label edge-direct
           python - <<'PY'
           import json
           from pathlib import Path
@@ -88,7 +90,8 @@ jobs:
           legacy = signature('write-legacy')
           direct = signature('write-direct')
           assert legacy == direct, f'Phase/identity differences: legacy={legacy}, direct={direct}'
-          print(f'Parity confirmed for {len(legacy)} matching tests (identity/status/steps)')
+          assert signature('edge-legacy') == signature('edge-direct'), 'Active-edge capture parity mismatch'
+          print(f'Parity confirmed for {len(legacy)} multi-signal tests and same-edge capture fixture')
           PY
       - name: Mutation control must fail C# verification
         shell: bash
@@ -127,6 +130,8 @@ jobs:
             build/native-mutant/**
             build/write-legacy-*
             build/write-direct-*
+            build/edge-legacy-*
+            build/edge-direct-*
             mutant-consumer.json
             build/baseline-counter-*.json
             build/baseline-counter-*.log
