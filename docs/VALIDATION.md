@@ -452,3 +452,23 @@ This follow-up was benchmarked on Linux/Icarus only. The current CI workflow
 runs Icarus across the three operating systems and NVC on Linux; it does not
 run Verilator. Earlier Verilator 5.048 evidence does not validate this revision.
 A fresh Verilator regression and paired benchmark remain outstanding.
+
+### Current Verilator regression and benchmark (#52)
+
+The Verilator gap noted above is now covered for Linux x64 / pinned 5.048.
+Code `307cfca81e78326d4b1ff85eee189b4893241ba9` passed all six jobs in
+[CI run 38849578307](https://github.com/jeffadickson/SharpTestBench/actions/runs/38849578307):
+Linux, Windows, macOS, installed Linux container, the new Verilator job, and
+release-bundle validation. The permanent Verilator job compiles pinned source,
+runs integration/queue/waveform checks and benchmark-value smoke tests.
+
+Local optimized Verilator regression: 70 passed, zero failed, four documented
+skips. Nine interleaved benchmark rounds against pre-#51 optimized binaries show
+1.020×/1.053× median packed throughput at 256/4096 bits, but both paired intervals
+include no change (4096-bit lower bound 0.9999574×). No extra timing benefit is
+established; managed allocations decrease 28.6%/71.0%. All 30 AXI runs including
+warmups have identical complete traces/cycles/stalls. Models use C++20/O3/LTO and
+explicit vectorization, compile once, and are identical across variants. See
+[NATIVE_PERFORMANCE.md](NATIVE_PERFORMANCE.md#verilator-5048-follow-up-52) for
+methods, bounds, reproduction and raw evidence. This does not establish
+Windows/macOS Verilator support or full AXI/CPU/DSP performance coverage.

@@ -123,3 +123,95 @@ Benchmark/AxiMemory output directories before rebuilding. Pass them as
 installation's site-packages directory so both variants use the same adapters.
 Direct backend vector access remains #17; GPI binary-string conversion is still
 present in this implementation.
+
+## Verilator 5.048 follow-up (#52)
+
+Measured code: `307cfca81e78326d4b1ff85eee189b4893241ba9`, clean working tree.
+Baseline: `870b21e64a6c5eff98504b8351cf86ba219a7c3f`, the **already optimized**
+pre-#51 host and managed binaries preserved for the preceding Icarus comparison.
+This measures the buffer/SIMD increment, not the original C-to-C++ modernization
+and not C# versus Python/cocotb.
+
+The Linux x64/AMD EPYC 9V74/.NET 10.0.402 experiment uses one CPU, disabled tiered
+compilation, one fresh-process warmup per variant and nine interleaved measured
+rounds. Each sample runs 100,000 timers, 100,000 32-bit round trips, 1,000 string
+and packed round trips at each width, and 2,048 AXI write/read pairs plus reset
+cases. All 27 measured samples were retained. The three configurations are the
+preserved baseline, new native bridge with preserved managed assemblies, and full
+new implementation. Adapter binaries are identical across these configurations.
+
+Each HDL model was compiled **once**, with portable C++20, effective `-O3`, LTO,
+and explicit loop/SLP vectorization, then reused unchanged in all variants.
+`-O3` is passed in user CFLAGS, after Verilator's default `-Os`; the Python runner
+invokes make itself and does not apply Verilator's `-MAKEFLAGS`. Actual compiler
+commands and model executable hashes are retained. No host-specific ISA or
+fast-math is enabled. Wall times include runner/runtime startup but exclude model
+compilation; body times exclude both. This differs from the Icarus wall metric,
+which includes its HDL compilation, so those wall times should not be compared
+as simulator speed ratios.
+
+| Workload | Before median | After median | Throughput ratio | Paired 95% interval |
+|---|---:|---:|---:|---:|
+| 100,000 timers | 75.773 ms | 76.467 ms | 0.991× | 0.938–1.096× |
+| 100,000 32-bit round trips | 197.561 ms | 201.404 ms | 0.981× | 0.943–1.053× |
+| 1,000 packed 256-bit round trips | 2.724 ms | 2.671 ms | 1.020× | 0.949–1.063× |
+| 1,000 packed 4,096-bit round trips | 35.720 ms | 33.924 ms | 1.053× | 0.99996–1.35485× |
+| AXI test body | 819.714 ms | 833.926 ms | 0.983× | 0.913–1.039× |
+| AXI process wall | 1,137.306 ms | 1,173.680 ms | 0.969× | 0.902–1.037× |
+
+Every interval includes no change. The 4,096-bit lower bound is 0.9999574×,
+so even that borderline result does **not** establish an additional speedup.
+Intervals use 10,000 paired bootstrap resamples; they describe this run, not a
+machine-to-machine guarantee. The native-only configuration also shows no
+resolved speed change.
+
+| Managed allocation per 1,000 packed round trips | Before | After | Reduction |
+|---|---:|---:|---:|
+| 256 bits | 448,040 bytes | 320,040 bytes | 28.6% |
+| 4,096 bits | 4,408,040 bytes | 1,280,040 bytes | 71.0% |
+
+These are cumulative simulator-thread managed bytes, not peak memory or native
+allocation counts. Native-only allocation figures equal the baseline, confirming
+that the reduction comes from the managed buffer change. Known-bit round trips
+passed; all 30 AXI runs (including warmups) matched complete traces, cycles and
+stall counts. This is a single-outstanding AXI4-Lite-shaped fixture, not full AXI
+compliance or a CPU/DSP workload.
+
+The optimized full regression passed **70 tests, 0 failures, 4 explicit skips**:
+one deliberate skip and the existing simulator restrictions for force ordering,
+real callbacks and string callbacks. The 8,193-bit pooled-buffer case passed,
+as did 32 queue reference rows and waveform/JUnit-link validation. Four-state
+writes and force-hold remain unsupported by our Verilator capability policy.
+
+Evidence:
+- [Raw performance samples, hashes, flags and intervals](evidence/verilator-2026-10-16/performance.json)
+- [Regression results, skips and build metadata](evidence/verilator-2026-10-16/regression.json)
+- [Actual model compiler commands](evidence/verilator-2026-10-16/compiler-commands.txt)
+
+Reproduce after building Verilator 5.048 and the current solution/AxiMemory, with
+its `bin` on PATH and VERILATOR_ROOT set to its source/build directory:
+
+```sh
+CS_DOTNET_ROOT=/path/to/dotnet python tools/native_performance.py \
+  --sim verilator \
+  --baseline-revision 870b21e64a6c5eff98504b8351cf86ba219a7c3f \
+  --baseline-python /path/to/current/site-packages \
+  --baseline-host build/bridge-before/libsharptestbench_host.so \
+  --baseline-managed build/bridge-before/managed \
+  --output build/verilator-performance --repeat 9 \
+  --packed-count 1000 --transactions 2048
+```
+
+Preserve the baseline host and full Benchmark/AxiMemory managed output directories
+before rebuilding the current revision, as in the buffer follow-up above. The
+harness records both sets of hashes. Fresh-process execution of a prebuilt model
+is also available through `tools/run.py --sim verilator --no-build
+--sim-executable /absolute/path/to/model`; callers must supply a model built for
+the requested HDL/top and wave mode. The permanent CI job builds pinned 5.048,
+runs the full regression, queue/wave checks and benchmark correctness smoke;
+shared-runner timing is not a pass/fail gate.
+
+CI acceptance: all six jobs passed in
+[run 38849578307](https://github.com/jeffadickson/SharpTestBench/actions/runs/38849578307)
+for code `307cfca81e78326d4b1ff85eee189b4893241ba9`, including the new Verilator
+job. Windows/macOS Verilator and broader CPU/DSP benchmarks remain unverified.

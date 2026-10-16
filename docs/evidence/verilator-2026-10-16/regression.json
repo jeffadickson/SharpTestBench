@@ -1,0 +1,1624 @@
+{
+  "revision": "307cfca81e78326d4b1ff85eee189b4893241ba9",
+  "counts": {
+    "passed": 70,
+    "skipped": 4
+  },
+  "skips": [
+    {
+      "name": "Tests.O_Skip",
+      "reason": "Explicit skip"
+    },
+    {
+      "name": "TimingTests.ForceDepositOrdering",
+      "reason": "Requires simulator: Icarus"
+    },
+    {
+      "name": "TimingTests.RealValueChangeContract",
+      "reason": "Requires simulator: icarus, nvc"
+    },
+    {
+      "name": "TimingTests.StringValueChangeContract",
+      "reason": "Requires simulator: nvc"
+    }
+  ],
+  "queue_reference_rows": 32,
+  "wave_check": "passed",
+  "model_build": {
+    "compiler": "c++ (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0",
+    "build_args": [
+      "--Wno-fatal",
+      "--timing",
+      "-CFLAGS",
+      "-std=c++20 -O3 -flto -ftree-loop-vectorize -ftree-slp-vectorize",
+      "-LDFLAGS",
+      "-O3 -flto"
+    ],
+    "simulator": "Verilator 5.048 2026-04-26 rev vUNKNOWN-built20261016-1040db5",
+    "waves": true,
+    "top": "top",
+    "sources": {
+      "/workspace/scratch/d13ee848099b/SharpTestBench/tests/Integration/top.sv": "af66e3df748b41a0000bd1235e5e149ecd76dd9d29ab236f20e4e9c7bed6d112"
+    },
+    "executable_sha256": "1c0c4851f6e08314859e6f18edb1c19e7ee2c9f82e0b913612f5a59edff52edd"
+  },
+  "verilator_source_archive_sha256": "02d934b3f972c6d9b792350634d81eadfc9e61f347e3f3bdcaad40960b9fcb53",
+  "files": {
+    "results": {
+      "path": "build/verilator-current-results.json",
+      "sha256": "d1dfa0d408b38f7219d5f3308cb323f3b3d5df3c81681b732e94a5efa839fd67"
+    },
+    "junit": {
+      "path": "build/verilator-current-results.xml",
+      "sha256": "80bb1d65e3e65638a40dc478d2fde17b430adf965322123a058fb2158e1f370b"
+    },
+    "trace": {
+      "path": "build/verilator-current-trace.txt",
+      "sha256": "4d693781ce4b8c92affc0fed25a3af7d8605d4d5a07f87f727c0c944cb4064ed"
+    },
+    "wave": {
+      "path": "build/verilator-current.vcd",
+      "sha256": "179cc5ecae5d1197a913471c67312e8eacda03bc2bc8f63b08b14f1bd7d74232"
+    },
+    "driver_log": {
+      "path": "/tmp/stb-verilator-regression.log",
+      "sha256": "1370bd45e36d0de34deeb5c331981b6ea469463a8d949b0bac65dba90483f6ae"
+    }
+  },
+  "results": [
+    {
+      "Name": "Cleanup_A_Run",
+      "Status": "passed",
+      "Seed": 1,
+      "StartStep": 1,
+      "EndStep": 4,
+      "Seconds": 0.0060586,
+      "Error": null,
+      "QualifiedName": "FixtureTests.Cleanup_A_Run",
+      "Stage": 0,
+      "CaseIndex": 0,
+      "Artifacts": [
+        {
+          "Kind": "waveform",
+          "Format": "vcd",
+          "Path": "verilator-current.vcd",
+          "Exists": true,
+          "Bytes": 127468
+        }
+      ]
+    },
+    {
+      "Name": "Cleanup_B_Verify",
+      "Status": "passed",
+      "Seed": 2,
+      "StartStep": 5,
+      "EndStep": 6,
+      "Seconds": 0.0012778,
+      "Error": null,
+      "QualifiedName": "FixtureTests.Cleanup_B_Verify",
+      "Stage": 0,
+      "CaseIndex": 0,
+      "Artifacts": [
+        {
+          "Kind": "waveform",
+          "Format": "vcd",
+          "Path": "verilator-current.vcd",
+          "Exists": true,
+          "Bytes": 127468
+        }
+      ]
+    },
+    {
+      "Name": "PrimitiveEventContract",
+      "Status": "passed",
+      "Seed": 3,
+      "StartStep": 7,
+      "EndStep": 10,
+      "Seconds": 0.0122148,
+      "Error": null,
+      "QualifiedName": "PrimitiveContractTests.PrimitiveEventContract",
+      "Stage": 0,
+      "CaseIndex": 0,
+      "Artifacts": [
+        {
+          "Kind": "waveform",
+          "Format": "vcd",
+          "Path": "verilator-current.vcd",
+          "Exists": true,
+          "Bytes": 127468
+        }
+      ]
+    },
+    {
+      "Name": "PrimitiveLockContract",
+      "Status": "passed",
+      "Seed": 4,
+      "StartStep": 11,
+      "EndStep": 14,
+      "Seconds": 0.0070621,
+      "Error": null,
+      "QualifiedName": "PrimitiveContractTests.PrimitiveLockContract",
+      "Stage": 0,
+      "CaseIndex": 0,
+      "Artifacts": [
+        {
+          "Kind": "waveform",
+          "Format": "vcd",
+          "Path": "verilator-current.vcd",
+          "Exists": true,
+          "Bytes": 127468
+        }
+      ]
+    },
+    {
+      "Name": "PriorityQueueFailureContract",
+      "Status": "passed",
+      "Seed": 5,
+      "StartStep": 15,
+      "EndStep": 16,
+      "Seconds": 0.0077969,
+      "Error": null,
+      "QualifiedName": "QueueContractTests.PriorityQueueFailureContract",
+      "Stage": 0,
+      "CaseIndex": 0,
+      "Artifacts": [
+        {
+          "Kind": "waveform",
+          "Format": "vcd",
+          "Path": "verilator-current.vcd",
+          "Exists": true,
+          "Bytes": 127468
+        }
+      ]
+    },
+    {
+      "Name": "QueueCancellationHandoffContract",
+      "Status": "passed",
+      "Seed": 6,
+      "StartStep": 17,
+      "EndStep": 18,
+      "Seconds": 0.0030196,
+      "Error": null,
+      "QualifiedName": "QueueContractTests.QueueCancellationHandoffContract",
+      "Stage": 0,
+      "CaseIndex": 0,
+      "Artifacts": [
+        {
+          "Kind": "waveform",
+          "Format": "vcd",
+          "Path": "verilator-current.vcd",
+          "Exists": true,
+          "Bytes": 127468
+        }
+      ]
+    },
+    {
+      "Name": "QueueFamiliesContract",
+      "Status": "passed",
+      "Seed": 7,
+      "StartStep": 19,
+      "EndStep": 20,
+      "Seconds": 0.0054583,
+      "Error": null,
+      "QualifiedName": "QueueContractTests.QueueFamiliesContract",
+      "Stage": 0,
+      "CaseIndex": 0,
+      "Artifacts": [
+        {
+          "Kind": "waveform",
+          "Format": "vcd",
+          "Path": "verilator-current.vcd",
+          "Exists": true,
+          "Bytes": 127468
+        }
+      ]
+    },
+    {
+      "Name": "QueueImmediateContract",
+      "Status": "passed",
+      "Seed": 8,
+      "StartStep": 21,
+      "EndStep": 23,
+      "Seconds": 0.0014037,
+      "Error": null,
+      "QualifiedName": "QueueContractTests.QueueImmediateContract",
+      "Stage": 0,
+      "CaseIndex": 0,
+      "Artifacts": [
+        {
+          "Kind": "waveform",
+          "Format": "vcd",
+          "Path": "verilator-current.vcd",
+          "Exists": true,
+          "Bytes": 127468
+        }
+      ]
+    },
+    {
+      "Name": "QueueOrderingReference",
+      "Status": "passed",
+      "Seed": 9,
+      "StartStep": 24,
+      "EndStep": 29,
+      "Seconds": 0.026751,
+      "Error": null,
+      "QualifiedName": "QueueContractTests.QueueOrderingReference",
+      "Stage": 0,
+      "CaseIndex": 0,
+      "Artifacts": [
+        {
+          "Kind": "waveform",
+          "Format": "vcd",
+          "Path": "verilator-current.vcd",
+          "Exists": true,
+          "Bytes": 127468
+        }
+      ]
+    },
+    {
+      "Name": "QueueReservedHandoffContract",
+      "Status": "passed",
+      "Seed": 10,
+      "StartStep": 30,
+      "EndStep": 31,
+      "Seconds": 0.0014707,
+      "Error": null,
+      "QualifiedName": "QueueContractTests.QueueReservedHandoffContract",
+      "Stage": 0,
+      "CaseIndex": 0,
+      "Artifacts": [
+        {
+          "Kind": "waveform",
+          "Format": "vcd",
+          "Path": "verilator-current.vcd",
+          "Exists": true,
+          "Bytes": 127468
+        }
+      ]
+    },
+    {
+      "Name": "StructuredCancellationAndFailures",
+      "Status": "passed",
+      "Seed": 11,
+      "StartStep": 32,
+      "EndStep": 46,
+      "Seconds": 0.0258694,
+      "Error": null,
+      "QualifiedName": "StructuredWaitTests.StructuredCancellationAndFailures",
+      "Stage": 0,
+      "CaseIndex": 0,
+      "Artifacts": [
+        {
+          "Kind": "waveform",
+          "Format": "vcd",
+          "Path": "verilator-current.vcd",
+          "Exists": true,
+          "Bytes": 127468
+        }
+      ]
+    },
+    {
+      "Name": "StructuredOwnershipAndCleanup",
+      "Status": "passed",
+      "Seed": 12,
+      "StartStep": 47,
+      "EndStep": 74,
+      "Seconds": 0.0061346,
+      "Error": null,
+      "QualifiedName": "StructuredWaitTests.StructuredOwnershipAndCleanup",
+      "Stage": 0,
+      "CaseIndex": 0,
+      "Artifacts": [
+        {
+          "Kind": "waveform",
+          "Format": "vcd",
+          "Path": "verilator-current.vcd",
+          "Exists": true,
+          "Bytes": 127468
+        }
+      ]
+    },
+    {
+      "Name": "StructuredReferenceTrace",
+      "Status": "passed",
+      "Seed": 13,
+      "StartStep": 75,
+      "EndStep": 107,
+      "Seconds": 0.048262,
+      "Error": null,
+      "QualifiedName": "StructuredWaitTests.StructuredReferenceTrace",
+      "Stage": 0,
+      "CaseIndex": 0,
+      "Artifacts": [
+        {
+          "Kind": "waveform",
+          "Format": "vcd",
+          "Path": "verilator-current.vcd",
+          "Exists": true,
+          "Bytes": 127468
+        }
+      ]
+    },
+    {
+      "Name": "StructuredResults",
+      "Status": "passed",
+      "Seed": 14,
+      "StartStep": 108,
+      "EndStep": 115,
+      "Seconds": 0.0110472,
+      "Error": null,
+      "QualifiedName": "StructuredWaitTests.StructuredResults",
+      "Stage": 0,
+      "CaseIndex": 0,
+      "Artifacts": [
+        {
+          "Kind": "waveform",
+          "Format": "vcd",
+          "Path": "verilator-current.vcd",
+          "Exists": true,
+          "Bytes": 127468
+        }
+      ]
+    },
+    {
+      "Name": "AA_TypedJobResults",
+      "Status": "passed",
+      "Seed": 15,
+      "StartStep": 116,
+      "EndStep": 120,
+      "Seconds": 0.0093555,
+      "Error": null,
+      "QualifiedName": "Tests.AA_TypedJobResults",
+      "Stage": 0,
+      "CaseIndex": 0,
+      "Artifacts": [
+        {
+          "Kind": "waveform",
+          "Format": "vcd",
+          "Path": "verilator-current.vcd",
+          "Exists": true,
+          "Bytes": 127468
+        }
+      ]
+    },
+    {
+      "Name": "AB_AggregateAndNestedGroups",
+      "Status": "passed",
+      "Seed": 16,
+      "StartStep": 121,
+      "EndStep": 124,
+      "Seconds": 0.0088967,
+      "Error": null,
+      "QualifiedName": "Tests.AB_AggregateAndNestedGroups",
+      "Stage": 0,
+      "CaseIndex": 0,
+      "Artifacts": [
+        {
+          "Kind": "waveform",
+          "Format": "vcd",
+          "Path": "verilator-current.vcd",
+          "Exists": true,
+          "Bytes": 127468
+        }
+      ]
+    },
+    {
+      "Name": "AC_Constants",
+      "Status": "passed",
+      "Seed": 17,
+      "StartStep": 125,
+      "EndStep": 127,
+      "Seconds": 0.0039475,
+      "Error": null,
+      "QualifiedName": "Tests.AC_Constants",
+      "Stage": 0,
+      "CaseIndex": 0,
+      "Artifacts": [
+        {
+          "Kind": "waveform",
+          "Format": "vcd",
+          "Path": "verilator-current.vcd",
+          "Exists": true,
+          "Bytes": 127468
+        }
+      ]
+    },
+    {
+      "Name": "AD_ObjectMetadata",
+      "Status": "passed",
+      "Seed": 18,
+      "StartStep": 128,
+      "EndStep": 129,
+      "Seconds": 0.000752,
+      "Error": null,
+      "QualifiedName": "Tests.AD_ObjectMetadata",
+      "Stage": 0,
+      "CaseIndex": 0,
+      "Artifacts": [
+        {
+          "Kind": "waveform",
+          "Format": "vcd",
+          "Path": "verilator-current.vcd",
+          "Exists": true,
+          "Bytes": 127468
+        }
+      ]
+    },
+    {
+      "Name": "AE_PackedPlanes",
+      "Status": "passed",
+      "Seed": 19,
+      "StartStep": 130,
+      "EndStep": 231,
+      "Seconds": 0.243399,
+      "Error": null,
+      "QualifiedName": "Tests.AE_PackedPlanes",
+      "Stage": 0,
+      "CaseIndex": 0,
+      "Artifacts": [
+        {
+          "Kind": "waveform",
+          "Format": "vcd",
+          "Path": "verilator-current.vcd",
+          "Exists": true,
+          "Bytes": 127468
+        }
+      ]
+    },
+    {
+      "Name": "AF_PackedArrayAndStruct",
+      "Status": "passed",
+      "Seed": 20,
+      "StartStep": 232,
+      "EndStep": 235,
+      "Seconds": 0.0097197,
+      "Error": null,
+      "QualifiedName": "Tests.AF_PackedArrayAndStruct",
+      "Stage": 0,
+      "CaseIndex": 0,
+      "Artifacts": [
+        {
+          "Kind": "waveform",
+          "Format": "vcd",
+          "Path": "verilator-current.vcd",
+          "Exists": true,
+          "Bytes": 127468
+        }
+      ]
+    },
+    {
+      "Name": "AG_DeltaChain",
+      "Status": "passed",
+      "Seed": 21,
+      "StartStep": 236,
+      "EndStep": 258,
+      "Seconds": 0.004942,
+      "Error": null,
+      "QualifiedName": "Tests.AG_DeltaChain",
+      "Stage": 0,
+      "CaseIndex": 0,
+      "Artifacts": [
+        {
+          "Kind": "waveform",
+          "Format": "vcd",
+          "Path": "verilator-current.vcd",
+          "Exists": true,
+          "Bytes": 127468
+        }
+      ]
+    },
+    {
+      "Name": "AH_Discovery",
+      "Status": "passed",
+      "Seed": 22,
+      "StartStep": 259,
+      "EndStep": 260,
+      "Seconds": 0.0204541,
+      "Error": null,
+      "QualifiedName": "Tests.AH_Discovery",
+      "Stage": 0,
+      "CaseIndex": 0,
+      "Artifacts": [
+        {
+          "Kind": "waveform",
+          "Format": "vcd",
+          "Path": "verilator-current.vcd",
+          "Exists": true,
+          "Bytes": 127468
+        }
+      ]
+    },
+    {
+      "Name": "AI_NamedStruct",
+      "Status": "passed",
+      "Seed": 23,
+      "StartStep": 261,
+      "EndStep": 262,
+      "Seconds": 0.0032038,
+      "Error": null,
+      "QualifiedName": "Tests.AI_NamedStruct",
+      "Stage": 0,
+      "CaseIndex": 0,
+      "Artifacts": [
+        {
+          "Kind": "waveform",
+          "Format": "vcd",
+          "Path": "verilator-current.vcd",
+          "Exists": true,
+          "Bytes": 127468
+        }
+      ]
+    },
+    {
+      "Name": "AJ_AdjustableClock",
+      "Status": "passed",
+      "Seed": 24,
+      "StartStep": 263,
+      "EndStep": 281,
+      "Seconds": 0.0044281,
+      "Error": null,
+      "QualifiedName": "Tests.AJ_AdjustableClock",
+      "Stage": 0,
+      "CaseIndex": 0,
+      "Artifacts": [
+        {
+          "Kind": "waveform",
+          "Format": "vcd",
+          "Path": "verilator-current.vcd",
+          "Exists": true,
+          "Bytes": 127468
+        }
+      ]
+    },
+    {
+      "Name": "AK_TaskNames",
+      "Status": "passed",
+      "Seed": 25,
+      "StartStep": 282,
+      "EndStep": 286,
+      "Seconds": 0.0049917,
+      "Error": null,
+      "QualifiedName": "Tests.AK_TaskNames",
+      "Stage": 0,
+      "CaseIndex": 0,
+      "Artifacts": [
+        {
+          "Kind": "waveform",
+          "Format": "vcd",
+          "Path": "verilator-current.vcd",
+          "Exists": true,
+          "Bytes": 127468
+        }
+      ]
+    },
+    {
+      "Name": "AL_CompletionTriggers",
+      "Status": "passed",
+      "Seed": 26,
+      "StartStep": 287,
+      "EndStep": 550,
+      "Seconds": 0.0081357,
+      "Error": null,
+      "QualifiedName": "Tests.AL_CompletionTriggers",
+      "Stage": 0,
+      "CaseIndex": 0,
+      "Artifacts": [
+        {
+          "Kind": "waveform",
+          "Format": "vcd",
+          "Path": "verilator-current.vcd",
+          "Exists": true,
+          "Bytes": 127468
+        }
+      ]
+    },
+    {
+      "Name": "AM_CancellationContract",
+      "Status": "passed",
+      "Seed": 27,
+      "StartStep": 551,
+      "EndStep": 555,
+      "Seconds": 0.002843,
+      "Error": null,
+      "QualifiedName": "Tests.AM_CancellationContract",
+      "Stage": 0,
+      "CaseIndex": 0,
+      "Artifacts": [
+        {
+          "Kind": "waveform",
+          "Format": "vcd",
+          "Path": "verilator-current.vcd",
+          "Exists": true,
+          "Bytes": 127468
+        }
+      ]
+    },
+    {
+      "Name": "AN_TaskLocalsAndIntrospection",
+      "Status": "passed",
+      "Seed": 28,
+      "StartStep": 556,
+      "EndStep": 560,
+      "Seconds": 0.0148946,
+      "Error": null,
+      "QualifiedName": "Tests.AN_TaskLocalsAndIntrospection",
+      "Stage": 0,
+      "CaseIndex": 0,
+      "Artifacts": [
+        {
+          "Kind": "waveform",
+          "Format": "vcd",
+          "Path": "verilator-current.vcd",
+          "Exists": true,
+          "Bytes": 127468
+        }
+      ]
+    },
+    {
+      "Name": "AO_PrimitiveFairnessStress",
+      "Status": "passed",
+      "Seed": 29,
+      "StartStep": 561,
+      "EndStep": 626,
+      "Seconds": 0.0751602,
+      "Error": null,
+      "QualifiedName": "Tests.AO_PrimitiveFairnessStress",
+      "Stage": 0,
+      "CaseIndex": 0,
+      "Artifacts": [
+        {
+          "Kind": "waveform",
+          "Format": "vcd",
+          "Path": "verilator-current.vcd",
+          "Exists": true,
+          "Bytes": 127468
+        }
+      ]
+    },
+    {
+      "Name": "AP_MultipleFailureTeardownStress",
+      "Status": "passed",
+      "Seed": 30,
+      "StartStep": 627,
+      "EndStep": 1191,
+      "Seconds": 0.0248633,
+      "Error": null,
+      "QualifiedName": "Tests.AP_MultipleFailureTeardownStress",
+      "Stage": 0,
+      "CaseIndex": 0,
+      "Artifacts": [
+        {
+          "Kind": "waveform",
+          "Format": "vcd",
+          "Path": "verilator-current.vcd",
+          "Exists": true,
+          "Bytes": 127468
+        }
+      ]
+    },
+    {
+      "Name": "AQ_FunctionalCoverage",
+      "Status": "passed",
+      "Seed": 31,
+      "StartStep": 1192,
+      "EndStep": 1197,
+      "Seconds": 0.0033936,
+      "Error": null,
+      "QualifiedName": "Tests.AQ_FunctionalCoverage",
+      "Stage": 0,
+      "CaseIndex": 0,
+      "Artifacts": [
+        {
+          "Kind": "waveform",
+          "Format": "vcd",
+          "Path": "verilator-current.vcd",
+          "Exists": true,
+          "Bytes": 127468
+        }
+      ]
+    },
+    {
+      "Name": "AR_StructuredLogging",
+      "Status": "passed",
+      "Seed": 32,
+      "StartStep": 1198,
+      "EndStep": 1200,
+      "Seconds": 0.0023874,
+      "Error": null,
+      "QualifiedName": "Tests.AR_StructuredLogging",
+      "Stage": 0,
+      "CaseIndex": 0,
+      "Artifacts": [
+        {
+          "Kind": "waveform",
+          "Format": "vcd",
+          "Path": "verilator-current.vcd",
+          "Exists": true,
+          "Bytes": 127468
+        }
+      ]
+    },
+    {
+      "Name": "A_TypesAndSignals",
+      "Status": "passed",
+      "Seed": 33,
+      "StartStep": 1201,
+      "EndStep": 1202,
+      "Seconds": 0.0059875,
+      "Error": null,
+      "QualifiedName": "Tests.A_TypesAndSignals",
+      "Stage": 0,
+      "CaseIndex": 0,
+      "Artifacts": [
+        {
+          "Kind": "waveform",
+          "Format": "vcd",
+          "Path": "verilator-current.vcd",
+          "Exists": true,
+          "Bytes": 127468
+        }
+      ]
+    },
+    {
+      "Name": "B_TimingAndNba",
+      "Status": "passed",
+      "Seed": 34,
+      "StartStep": 1203,
+      "EndStep": 1207,
+      "Seconds": 0.002816,
+      "Error": null,
+      "QualifiedName": "Tests.B_TimingAndNba",
+      "Stage": 0,
+      "CaseIndex": 0,
+      "Artifacts": [
+        {
+          "Kind": "waveform",
+          "Format": "vcd",
+          "Path": "verilator-current.vcd",
+          "Exists": true,
+          "Bytes": 127468
+        }
+      ]
+    },
+    {
+      "Name": "C_CancellationAndCombinators",
+      "Status": "passed",
+      "Seed": 35,
+      "StartStep": 1208,
+      "EndStep": 1221,
+      "Seconds": 0.0023365,
+      "Error": null,
+      "QualifiedName": "Tests.C_CancellationAndCombinators",
+      "Stage": 0,
+      "CaseIndex": 0,
+      "Artifacts": [
+        {
+          "Kind": "waveform",
+          "Format": "vcd",
+          "Path": "verilator-current.vcd",
+          "Exists": true,
+          "Bytes": 127468
+        }
+      ]
+    },
+    {
+      "Name": "D_ConcurrentTasks",
+      "Status": "passed",
+      "Seed": 36,
+      "StartStep": 1222,
+      "EndStep": 1323,
+      "Seconds": 0.0029209,
+      "Error": null,
+      "QualifiedName": "Tests.D_ConcurrentTasks",
+      "Stage": 0,
+      "CaseIndex": 0,
+      "Artifacts": [
+        {
+          "Kind": "waveform",
+          "Format": "vcd",
+          "Path": "verilator-current.vcd",
+          "Exists": true,
+          "Bytes": 127468
+        }
+      ]
+    },
+    {
+      "Name": "E_EventsAndQueues",
+      "Status": "passed",
+      "Seed": 37,
+      "StartStep": 1324,
+      "EndStep": 1355,
+      "Seconds": 0.0035807,
+      "Error": null,
+      "QualifiedName": "Tests.E_EventsAndQueues",
+      "Stage": 0,
+      "CaseIndex": 0,
+      "Artifacts": [
+        {
+          "Kind": "waveform",
+          "Format": "vcd",
+          "Path": "verilator-current.vcd",
+          "Exists": true,
+          "Bytes": 127468
+        }
+      ]
+    },
+    {
+      "Name": "F_ForceReleaseAndHierarchy",
+      "Status": "passed",
+      "Seed": 38,
+      "StartStep": 1356,
+      "EndStep": 1360,
+      "Seconds": 0.0107036,
+      "Error": null,
+      "QualifiedName": "Tests.F_ForceReleaseAndHierarchy",
+      "Stage": 0,
+      "CaseIndex": 0,
+      "Artifacts": [
+        {
+          "Kind": "waveform",
+          "Format": "vcd",
+          "Path": "verilator-current.vcd",
+          "Exists": true,
+          "Bytes": 127468
+        }
+      ]
+    },
+    {
+      "Name": "G_ParameterizedClock[0]",
+      "Status": "passed",
+      "Seed": 39,
+      "StartStep": 1361,
+      "EndStep": 1388,
+      "Seconds": 0.0026726,
+      "Error": null,
+      "QualifiedName": "Tests.G_ParameterizedClock[0]",
+      "Stage": 0,
+      "CaseIndex": 0,
+      "Artifacts": [
+        {
+          "Kind": "waveform",
+          "Format": "vcd",
+          "Path": "verilator-current.vcd",
+          "Exists": true,
+          "Bytes": 127468
+        }
+      ]
+    },
+    {
+      "Name": "G_ParameterizedClock[1]",
+      "Status": "passed",
+      "Seed": 40,
+      "StartStep": 1389,
+      "EndStep": 1456,
+      "Seconds": 0.0004674,
+      "Error": null,
+      "QualifiedName": "Tests.G_ParameterizedClock[1]",
+      "Stage": 0,
+      "CaseIndex": 1,
+      "Artifacts": [
+        {
+          "Kind": "waveform",
+          "Format": "vcd",
+          "Path": "verilator-current.vcd",
+          "Exists": true,
+          "Bytes": 127468
+        }
+      ]
+    },
+    {
+      "Name": "H_WriteCoalescing",
+      "Status": "passed",
+      "Seed": 41,
+      "StartStep": 1457,
+      "EndStep": 1459,
+      "Seconds": 0.0017364,
+      "Error": null,
+      "QualifiedName": "Tests.H_WriteCoalescing",
+      "Stage": 0,
+      "CaseIndex": 0,
+      "Artifacts": [
+        {
+          "Kind": "waveform",
+          "Format": "vcd",
+          "Path": "verilator-current.vcd",
+          "Exists": true,
+          "Bytes": 127468
+        }
+      ]
+    },
+    {
+      "Name": "I_NextTimeStep",
+      "Status": "passed",
+      "Seed": 42,
+      "StartStep": 1460,
+      "EndStep": 1471,
+      "Seconds": 0.0020947,
+      "Error": null,
+      "QualifiedName": "Tests.I_NextTimeStep",
+      "Stage": 0,
+      "CaseIndex": 0,
+      "Artifacts": [
+        {
+          "Kind": "waveform",
+          "Format": "vcd",
+          "Path": "verilator-current.vcd",
+          "Exists": true,
+          "Bytes": 127468
+        }
+      ]
+    },
+    {
+      "Name": "J_BackgroundFailure",
+      "Status": "passed",
+      "Seed": 43,
+      "StartStep": 1472,
+      "EndStep": 1475,
+      "Seconds": 0.0020699,
+      "Error": null,
+      "QualifiedName": "Tests.J_BackgroundFailure",
+      "Stage": 0,
+      "CaseIndex": 0,
+      "Artifacts": [
+        {
+          "Kind": "waveform",
+          "Format": "vcd",
+          "Path": "verilator-current.vcd",
+          "Exists": true,
+          "Bytes": 127468
+        }
+      ]
+    },
+    {
+      "Name": "K_Deadline",
+      "Status": "passed",
+      "Seed": 44,
+      "StartStep": 1476,
+      "EndStep": 1482,
+      "Seconds": 0.0010287,
+      "Error": null,
+      "QualifiedName": "Tests.K_Deadline",
+      "Stage": 0,
+      "CaseIndex": 0,
+      "Artifacts": [
+        {
+          "Kind": "waveform",
+          "Format": "vcd",
+          "Path": "verilator-current.vcd",
+          "Exists": true,
+          "Bytes": 127468
+        }
+      ]
+    },
+    {
+      "Name": "L_StreamBackpressure",
+      "Status": "passed",
+      "Seed": 45,
+      "StartStep": 1483,
+      "EndStep": 3245,
+      "Seconds": 0.0041269,
+      "Error": null,
+      "QualifiedName": "Tests.L_StreamBackpressure",
+      "Stage": 0,
+      "CaseIndex": 0,
+      "Artifacts": [
+        {
+          "Kind": "waveform",
+          "Format": "vcd",
+          "Path": "verilator-current.vcd",
+          "Exists": true,
+          "Bytes": 127468
+        }
+      ]
+    },
+    {
+      "Name": "M_ThreadGuard",
+      "Status": "passed",
+      "Seed": 46,
+      "StartStep": 3246,
+      "EndStep": 3248,
+      "Seconds": 0.0014325,
+      "Error": null,
+      "QualifiedName": "Tests.M_ThreadGuard",
+      "Stage": 0,
+      "CaseIndex": 0,
+      "Artifacts": [
+        {
+          "Kind": "waveform",
+          "Format": "vcd",
+          "Path": "verilator-current.vcd",
+          "Exists": true,
+          "Bytes": 127468
+        }
+      ]
+    },
+    {
+      "Name": "N_TimeUnits",
+      "Status": "passed",
+      "Seed": 47,
+      "StartStep": 3249,
+      "EndStep": 3251,
+      "Seconds": 0.001832,
+      "Error": null,
+      "QualifiedName": "Tests.N_TimeUnits",
+      "Stage": 0,
+      "CaseIndex": 0,
+      "Artifacts": [
+        {
+          "Kind": "waveform",
+          "Format": "vcd",
+          "Path": "verilator-current.vcd",
+          "Exists": true,
+          "Bytes": 127468
+        }
+      ]
+    },
+    {
+      "Name": "O_Skip",
+      "Status": "skipped",
+      "Seed": 48,
+      "StartStep": 3251,
+      "EndStep": 3251,
+      "Seconds": 0,
+      "Error": "Explicit skip",
+      "QualifiedName": "Tests.O_Skip",
+      "Stage": 0,
+      "CaseIndex": 0,
+      "Artifacts": [
+        {
+          "Kind": "waveform",
+          "Format": "vcd",
+          "Path": "verilator-current.vcd",
+          "Exists": true,
+          "Bytes": 127468
+        }
+      ]
+    },
+    {
+      "Name": "P_ExitStatus",
+      "Status": "passed",
+      "Seed": 49,
+      "StartStep": 3252,
+      "EndStep": 3254,
+      "Seconds": 0.0011223,
+      "Error": null,
+      "QualifiedName": "Tests.P_ExitStatus",
+      "Stage": 0,
+      "CaseIndex": 0,
+      "Artifacts": [
+        {
+          "Kind": "waveform",
+          "Format": "vcd",
+          "Path": "verilator-current.vcd",
+          "Exists": true,
+          "Bytes": 127468
+        }
+      ]
+    },
+    {
+      "Name": "Q_ValueChangeFanoutAndYield",
+      "Status": "passed",
+      "Seed": 50,
+      "StartStep": 3255,
+      "EndStep": 3257,
+      "Seconds": 0.0029935,
+      "Error": null,
+      "QualifiedName": "Tests.Q_ValueChangeFanoutAndYield",
+      "Stage": 0,
+      "CaseIndex": 0,
+      "Artifacts": [
+        {
+          "Kind": "waveform",
+          "Format": "vcd",
+          "Path": "verilator-current.vcd",
+          "Exists": true,
+          "Bytes": 127468
+        }
+      ]
+    },
+    {
+      "Name": "R_CancelledQueueWait",
+      "Status": "passed",
+      "Seed": 51,
+      "StartStep": 3258,
+      "EndStep": 3259,
+      "Seconds": 0.0021451,
+      "Error": null,
+      "QualifiedName": "Tests.R_CancelledQueueWait",
+      "Stage": 0,
+      "CaseIndex": 0,
+      "Artifacts": [
+        {
+          "Kind": "waveform",
+          "Format": "vcd",
+          "Path": "verilator-current.vcd",
+          "Exists": true,
+          "Bytes": 127468
+        }
+      ]
+    },
+    {
+      "Name": "S_ChildCancellationScope",
+      "Status": "passed",
+      "Seed": 52,
+      "StartStep": 3260,
+      "EndStep": 3262,
+      "Seconds": 0.0020925,
+      "Error": null,
+      "QualifiedName": "Tests.S_ChildCancellationScope",
+      "Stage": 0,
+      "CaseIndex": 0,
+      "Artifacts": [
+        {
+          "Kind": "waveform",
+          "Format": "vcd",
+          "Path": "verilator-current.vcd",
+          "Exists": true,
+          "Bytes": 127468
+        }
+      ]
+    },
+    {
+      "Name": "T_NestedCancellationAndSuppression",
+      "Status": "passed",
+      "Seed": 53,
+      "StartStep": 3263,
+      "EndStep": 3266,
+      "Seconds": 0.0035971,
+      "Error": null,
+      "QualifiedName": "Tests.T_NestedCancellationAndSuppression",
+      "Stage": 0,
+      "CaseIndex": 0,
+      "Artifacts": [
+        {
+          "Kind": "waveform",
+          "Format": "vcd",
+          "Path": "verilator-current.vcd",
+          "Exists": true,
+          "Bytes": 127468
+        }
+      ]
+    },
+    {
+      "Name": "U_TaskCombinators",
+      "Status": "passed",
+      "Seed": 54,
+      "StartStep": 3267,
+      "EndStep": 3280,
+      "Seconds": 0.003177,
+      "Error": null,
+      "QualifiedName": "Tests.U_TaskCombinators",
+      "Stage": 0,
+      "CaseIndex": 0,
+      "Artifacts": [
+        {
+          "Kind": "waveform",
+          "Format": "vcd",
+          "Path": "verilator-current.vcd",
+          "Exists": true,
+          "Bytes": 127468
+        }
+      ]
+    },
+    {
+      "Name": "V_TaskTimeoutOwnership",
+      "Status": "passed",
+      "Seed": 55,
+      "StartStep": 3281,
+      "EndStep": 3296,
+      "Seconds": 0.0014412,
+      "Error": null,
+      "QualifiedName": "Tests.V_TaskTimeoutOwnership",
+      "Stage": 0,
+      "CaseIndex": 0,
+      "Artifacts": [
+        {
+          "Kind": "waveform",
+          "Format": "vcd",
+          "Path": "verilator-current.vcd",
+          "Exists": true,
+          "Bytes": 127468
+        }
+      ]
+    },
+    {
+      "Name": "W_ClockCyclesDefaultCancellation",
+      "Status": "passed",
+      "Seed": 56,
+      "StartStep": 3297,
+      "EndStep": 3298,
+      "Seconds": 0.0019939,
+      "Error": null,
+      "QualifiedName": "Tests.W_ClockCyclesDefaultCancellation",
+      "Stage": 0,
+      "CaseIndex": 0,
+      "Artifacts": [
+        {
+          "Kind": "waveform",
+          "Format": "vcd",
+          "Path": "verilator-current.vcd",
+          "Exists": true,
+          "Bytes": 127468
+        }
+      ]
+    },
+    {
+      "Name": "X_StructuredGroup",
+      "Status": "passed",
+      "Seed": 57,
+      "StartStep": 3299,
+      "EndStep": 3303,
+      "Seconds": 0.0076154,
+      "Error": null,
+      "QualifiedName": "Tests.X_StructuredGroup",
+      "Stage": 0,
+      "CaseIndex": 0,
+      "Artifacts": [
+        {
+          "Kind": "waveform",
+          "Format": "vcd",
+          "Path": "verilator-current.vcd",
+          "Exists": true,
+          "Bytes": 127468
+        }
+      ]
+    },
+    {
+      "Name": "Y_SameTimeCancellationStress",
+      "Status": "passed",
+      "Seed": 58,
+      "StartStep": 3304,
+      "EndStep": 3405,
+      "Seconds": 0.0077743,
+      "Error": null,
+      "QualifiedName": "Tests.Y_SameTimeCancellationStress",
+      "Stage": 0,
+      "CaseIndex": 0,
+      "Artifacts": [
+        {
+          "Kind": "waveform",
+          "Format": "vcd",
+          "Path": "verilator-current.vcd",
+          "Exists": true,
+          "Bytes": 127468
+        }
+      ]
+    },
+    {
+      "Name": "Z_LeakCannotMatchExpectedException",
+      "Status": "passed",
+      "Seed": 59,
+      "StartStep": 3406,
+      "EndStep": 3407,
+      "Seconds": 0.0012023,
+      "Error": null,
+      "QualifiedName": "Tests.Z_LeakCannotMatchExpectedException",
+      "Stage": 0,
+      "CaseIndex": 0,
+      "Artifacts": [
+        {
+          "Kind": "waveform",
+          "Format": "vcd",
+          "Path": "verilator-current.vcd",
+          "Exists": true,
+          "Bytes": 127468
+        }
+      ]
+    },
+    {
+      "Name": "CapabilityCatalogue",
+      "Status": "passed",
+      "Seed": 60,
+      "StartStep": 3408,
+      "EndStep": 3409,
+      "Seconds": 0.0192862,
+      "Error": null,
+      "QualifiedName": "TimingTests.CapabilityCatalogue",
+      "Stage": 0,
+      "CaseIndex": 0,
+      "Artifacts": [
+        {
+          "Kind": "waveform",
+          "Format": "vcd",
+          "Path": "verilator-current.vcd",
+          "Exists": true,
+          "Bytes": 127468
+        }
+      ]
+    },
+    {
+      "Name": "CombinatorBorrowedCancellation",
+      "Status": "passed",
+      "Seed": 61,
+      "StartStep": 3410,
+      "EndStep": 3416,
+      "Seconds": 0.0013996,
+      "Error": null,
+      "QualifiedName": "TimingTests.CombinatorBorrowedCancellation",
+      "Stage": 0,
+      "CaseIndex": 0,
+      "Artifacts": [
+        {
+          "Kind": "waveform",
+          "Format": "vcd",
+          "Path": "verilator-current.vcd",
+          "Exists": true,
+          "Bytes": 127468
+        }
+      ]
+    },
+    {
+      "Name": "CombinatorFailureIsNotFailFast",
+      "Status": "passed",
+      "Seed": 62,
+      "StartStep": 3417,
+      "EndStep": 3428,
+      "Seconds": 0.0012479,
+      "Error": null,
+      "QualifiedName": "TimingTests.CombinatorFailureIsNotFailFast",
+      "Stage": 0,
+      "CaseIndex": 0,
+      "Artifacts": [
+        {
+          "Kind": "waveform",
+          "Format": "vcd",
+          "Path": "verilator-current.vcd",
+          "Exists": true,
+          "Bytes": 127468
+        }
+      ]
+    },
+    {
+      "Name": "CombinatorGroupJoinsAsyncCleanup",
+      "Status": "passed",
+      "Seed": 63,
+      "StartStep": 3429,
+      "EndStep": 3435,
+      "Seconds": 0.0038522,
+      "Error": null,
+      "QualifiedName": "TimingTests.CombinatorGroupJoinsAsyncCleanup",
+      "Stage": 0,
+      "CaseIndex": 0,
+      "Artifacts": [
+        {
+          "Kind": "waveform",
+          "Format": "vcd",
+          "Path": "verilator-current.vcd",
+          "Exists": true,
+          "Bytes": 127468
+        }
+      ]
+    },
+    {
+      "Name": "ForceDepositOrdering",
+      "Status": "skipped",
+      "Seed": 64,
+      "StartStep": 3435,
+      "EndStep": 3435,
+      "Seconds": 0,
+      "Error": "Requires simulator: Icarus",
+      "QualifiedName": "TimingTests.ForceDepositOrdering",
+      "Stage": 0,
+      "CaseIndex": 0,
+      "Artifacts": [
+        {
+          "Kind": "waveform",
+          "Format": "vcd",
+          "Path": "verilator-current.vcd",
+          "Exists": true,
+          "Bytes": 127468
+        }
+      ]
+    },
+    {
+      "Name": "ReadOnlyTransitionContract",
+      "Status": "passed",
+      "Seed": 65,
+      "StartStep": 3436,
+      "EndStep": 3439,
+      "Seconds": 0.0011767,
+      "Error": null,
+      "QualifiedName": "TimingTests.ReadOnlyTransitionContract",
+      "Stage": 0,
+      "CaseIndex": 0,
+      "Artifacts": [
+        {
+          "Kind": "waveform",
+          "Format": "vcd",
+          "Path": "verilator-current.vcd",
+          "Exists": true,
+          "Bytes": 127468
+        }
+      ]
+    },
+    {
+      "Name": "RealValueChangeContract",
+      "Status": "skipped",
+      "Seed": 66,
+      "StartStep": 3439,
+      "EndStep": 3439,
+      "Seconds": 0,
+      "Error": "Requires simulator: icarus, nvc",
+      "QualifiedName": "TimingTests.RealValueChangeContract",
+      "Stage": 0,
+      "CaseIndex": 0,
+      "Artifacts": [
+        {
+          "Kind": "waveform",
+          "Format": "vcd",
+          "Path": "verilator-current.vcd",
+          "Exists": true,
+          "Bytes": 127468
+        }
+      ]
+    },
+    {
+      "Name": "ScheduledWriteOrdering",
+      "Status": "passed",
+      "Seed": 67,
+      "StartStep": 3440,
+      "EndStep": 3448,
+      "Seconds": 0.0019511,
+      "Error": null,
+      "QualifiedName": "TimingTests.ScheduledWriteOrdering",
+      "Stage": 0,
+      "CaseIndex": 0,
+      "Artifacts": [
+        {
+          "Kind": "waveform",
+          "Format": "vcd",
+          "Path": "verilator-current.vcd",
+          "Exists": true,
+          "Bytes": 127468
+        }
+      ]
+    },
+    {
+      "Name": "StringValueChangeContract",
+      "Status": "skipped",
+      "Seed": 68,
+      "StartStep": 3448,
+      "EndStep": 3448,
+      "Seconds": 0,
+      "Error": "Requires simulator: nvc",
+      "QualifiedName": "TimingTests.StringValueChangeContract",
+      "Stage": 0,
+      "CaseIndex": 0,
+      "Artifacts": [
+        {
+          "Kind": "waveform",
+          "Format": "vcd",
+          "Path": "verilator-current.vcd",
+          "Exists": true,
+          "Bytes": 127468
+        }
+      ]
+    },
+    {
+      "Name": "TimerRoundingMinimum",
+      "Status": "passed",
+      "Seed": 69,
+      "StartStep": 3449,
+      "EndStep": 3457,
+      "Seconds": 0.001436,
+      "Error": null,
+      "QualifiedName": "TimingTests.TimerRoundingMinimum",
+      "Stage": 0,
+      "CaseIndex": 0,
+      "Artifacts": [
+        {
+          "Kind": "waveform",
+          "Format": "vcd",
+          "Path": "verilator-current.vcd",
+          "Exists": true,
+          "Bytes": 127468
+        }
+      ]
+    },
+    {
+      "Name": "ValueChangeTargetGuards",
+      "Status": "passed",
+      "Seed": 70,
+      "StartStep": 3458,
+      "EndStep": 3460,
+      "Seconds": 0.0010961,
+      "Error": null,
+      "QualifiedName": "TimingTests.ValueChangeTargetGuards",
+      "Stage": 0,
+      "CaseIndex": 0,
+      "Artifacts": [
+        {
+          "Kind": "waveform",
+          "Format": "vcd",
+          "Path": "verilator-current.vcd",
+          "Exists": true,
+          "Bytes": 127468
+        }
+      ]
+    },
+    {
+      "Name": "ExternalTriggerComposition",
+      "Status": "passed",
+      "Seed": 71,
+      "StartStep": 3461,
+      "EndStep": 3469,
+      "Seconds": 0.0022537,
+      "Error": null,
+      "QualifiedName": "TriggerExtensionTests.ExternalTriggerComposition",
+      "Stage": 0,
+      "CaseIndex": 0,
+      "Artifacts": [
+        {
+          "Kind": "waveform",
+          "Format": "vcd",
+          "Path": "verilator-current.vcd",
+          "Exists": true,
+          "Bytes": 127468
+        }
+      ]
+    },
+    {
+      "Name": "ExternalTriggerLifecycle",
+      "Status": "passed",
+      "Seed": 72,
+      "StartStep": 3470,
+      "EndStep": 3471,
+      "Seconds": 0.0020308,
+      "Error": null,
+      "QualifiedName": "TriggerExtensionTests.ExternalTriggerLifecycle",
+      "Stage": 0,
+      "CaseIndex": 0,
+      "Artifacts": [
+        {
+          "Kind": "waveform",
+          "Format": "vcd",
+          "Path": "verilator-current.vcd",
+          "Exists": true,
+          "Bytes": 127468
+        }
+      ]
+    },
+    {
+      "Name": "InternalDeadlineCallbackIntrospection",
+      "Status": "passed",
+      "Seed": 73,
+      "StartStep": 3472,
+      "EndStep": 3476,
+      "Seconds": 0.0013138,
+      "Error": null,
+      "QualifiedName": "TriggerExtensionTests.InternalDeadlineCallbackIntrospection",
+      "Stage": 0,
+      "CaseIndex": 0,
+      "Artifacts": [
+        {
+          "Kind": "waveform",
+          "Format": "vcd",
+          "Path": "verilator-current.vcd",
+          "Exists": true,
+          "Bytes": 127468
+        }
+      ]
+    },
+    {
+      "Name": "SimulatorCallbackIntrospection",
+      "Status": "passed",
+      "Seed": 74,
+      "StartStep": 3477,
+      "EndStep": 3484,
+      "Seconds": 0.0028101,
+      "Error": null,
+      "QualifiedName": "TriggerExtensionTests.SimulatorCallbackIntrospection",
+      "Stage": 0,
+      "CaseIndex": 0,
+      "Artifacts": [
+        {
+          "Kind": "waveform",
+          "Format": "vcd",
+          "Path": "verilator-current.vcd",
+          "Exists": true,
+          "Bytes": 127468
+        }
+      ]
+    }
+  ]
+}

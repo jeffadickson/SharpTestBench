@@ -68,6 +68,6 @@ See [assessment and adoption boundaries](TEST_TOOLING.md). Issue state is author
 
 - [#50 Modernize simulator bridge to documented optimized C++20](https://github.com/jeffadickson/SharpTestBench/issues/50): complete: documented C++20 bridge, optimized adapter build overlay, C ABI and five-job cross-platform release validation (run 38819996695).
 
-- [#51 Reduce packed bridge allocations and verify portable SIMD](https://github.com/jeffadickson/SharpTestBench/issues/51): complete: buffer lifetime, vectorized validation, 47 boundary checks, paired Icarus performance and five-job platform validation (38848163459). Fresh Verilator regression/performance coverage remains outstanding under simulator/benchmark work.
+- [#51 Reduce packed bridge allocations and verify portable SIMD](https://github.com/jeffadickson/SharpTestBench/issues/51): complete: buffer lifetime, vectorized validation, 47 boundary checks, paired Icarus performance and five-job platform validation (38848163459). Fresh Linux Verilator regression/performance coverage is recorded in #52.
 
-- [#52 Benchmark current bridge on Verilator and restore recurring regression coverage](https://github.com/jeffadickson/SharpTestBench/issues/52): in progress; pinned 5.048 regression, reusable optimized models, nine-round before/after measurement, permanent CI.
+- [#52 Benchmark current bridge on Verilator and restore recurring regression coverage](https://github.com/jeffadickson/SharpTestBench/issues/52): complete; 70-pass/4-skip pinned 5.048 regression, reusable optimized models, nine-round measurement and six-job CI run 38849578307. Timing remains inconclusive; allocation reduction measured.
