@@ -89,6 +89,12 @@ try
         }
     }
     if (passed == 0) throw new InvalidDataException("No passing tests; all-skipped regressions cannot qualify CI.");
+    if (config.ExpectedTests is null || config.ExpectedTests <= 0)
+        throw new InvalidDataException("expectedTests must be a positive count for CI attestation.");
+    if (doc.RootElement.GetArrayLength() != config.ExpectedTests.Value)
+        throw new InvalidDataException($"Expected {config.ExpectedTests} test results, observed {doc.RootElement.GetArrayLength()}.");
+    if (passed + failed != config.ExpectedTests.Value)
+        throw new InvalidDataException("Skipped test cases cannot satisfy the required CI manifest.");
     var evidence = new
     {
         SchemaVersion = 1, config.Simulator, config.Top, config.Seed,
@@ -130,4 +136,4 @@ sealed record RunManifest(
     string Assembly, string NativeHost, string IcarusBootstrap, string GpiLibrary,
     string DotnetRoot, string OutputDirectory, int Seed = 1,
     string? EntryType = null, string GpiEntryPoint = "entry_point", string? GpiImpl = null,
-    string? Iverilog = null, string? Vvp = null);
+    string? Iverilog = null, string? Vvp = null, int? ExpectedTests = null);
