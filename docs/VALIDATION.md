@@ -425,3 +425,12 @@ exports), and temporary DLL filenames leaked into the PE export-table identity
 (build the final basename inside a temporary directory before atomic replacement).
 No optimization was disabled to pass these checks. Issue #50 acceptance is complete;
 performance gains remain unmeasured, and commercial backend validation remains open.
+
+### Measured native optimization benefit
+
+The controlled nine-round Linux/Icarus comparison now resolves 1.186× and 1.251×
+throughput for 256/4096-bit packed round trips. Timer, 32-bit and AXI changes are
+inconclusive; AXI body median changes only about 0.3%. See
+[NATIVE_PERFORMANCE.md](NATIVE_PERFORMANCE.md) for paired intervals, source/binary
+hashes, raw samples and reproduction. This measures part of #18; CPU/DSP and
+broader platform/simulator performance coverage remain open.

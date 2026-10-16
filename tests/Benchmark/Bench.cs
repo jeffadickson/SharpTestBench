@@ -23,7 +23,9 @@ public static class Entry
     static void MeasurePacked<W>(Signal<W> signal)
         where W : struct, IWidth
     {
-        const int count = 500;
+        // Longer native A/B samples can be requested without changing normal CI cost.
+        int count = int.TryParse(Environment.GetEnvironmentVariable("CS_PACKED_COUNT"), out int requested)
+            && requested > 0 ? requested : 500;
         var value = new LogicVector<W>((System.Numerics.BigInteger.One << (W.Bits - 1)) | 123);
         void RoundTrip(bool packed)
         {
