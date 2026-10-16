@@ -38,6 +38,8 @@ try
         throw new InvalidDataException("gpiImpl must specify the simulator-specific GPI implementation string.");
     var sdk = Resolve(config.DotnetRoot);
     var work = Resolve(config.OutputDirectory);
+    Directory.CreateDirectory(work);
+    failureArtifactDirectory = work;
     foreach (var required in sources.Concat([assembly, host, bootstrap, gpi]))
         if (!File.Exists(required)) throw new FileNotFoundException("Required input not found", required);
     var runtimeConfig = Path.Combine(Path.GetDirectoryName(assembly)!, Path.GetFileNameWithoutExtension(assembly) + ".runtimeconfig.json");
@@ -49,8 +51,6 @@ try
         ?? throw new InvalidDataException("No hostfxr found");
     var fxrFile = Directory.EnumerateFiles(fxr, OperatingSystem.IsWindows() ? "hostfxr.dll" : OperatingSystem.IsMacOS() ? "libhostfxr.dylib" : "libhostfxr.so").FirstOrDefault()
         ?? throw new InvalidDataException("No hostfxr library found");
-    Directory.CreateDirectory(work);
-    failureArtifactDirectory = work;
     var compiled = Path.Combine(work, "top.vvp");
     await Run(config.Iverilog ?? "iverilog", ["-g2012", "-s", config.Top, "-o", compiled, ..sources], work, null, "compile");
     var results = Path.Combine(work, "icarus-results.json");
