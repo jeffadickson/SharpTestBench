@@ -29,6 +29,8 @@ try
     var host = Resolve(config.NativeHost);
     var bootstrap = Resolve(config.IcarusBootstrap);
     var gpi = Resolve(config.GpiLibrary);
+    if (string.IsNullOrWhiteSpace(config.GpiImpl))
+        throw new InvalidDataException("gpiImpl must specify the simulator-specific GPI implementation string.");
     var sdk = Resolve(config.DotnetRoot);
     var work = Resolve(config.OutputDirectory);
     foreach (var required in sources.Concat([assembly, host, bootstrap, gpi]))
@@ -40,7 +42,7 @@ try
     var fxr = Directory.GetDirectories(fxrDir).OrderByDescending(x =>
         Version.TryParse(Path.GetFileName(x), out var v) ? v : new Version(0, 0)).FirstOrDefault()
         ?? throw new InvalidDataException("No hostfxr found");
-    var fxrFile = Directory.EnumerateFiles(fxr, "*hostfxr*").FirstOrDefault()
+    var fxrFile = Directory.EnumerateFiles(fxr, OperatingSystem.IsWindows() ? "hostfxr.dll" : OperatingSystem.IsMacOS() ? "libhostfxr.dylib" : "libhostfxr.so").FirstOrDefault()
         ?? throw new InvalidDataException("No hostfxr library found");
     Directory.CreateDirectory(work);
     var compiled = Path.Combine(work, "top.vvp");
@@ -58,16 +60,14 @@ try
         ["CS_TRACE"] = Path.Combine(work, "icarus-trace.txt"),
         ["CS_BINDINGS"] = Path.Combine(work, "DutBindings.cs"),
         ["CS_GPI_LIBRARY"] = gpi,
-        ["COCOTB_BOOTSTRAP"] = gpi + ",entry_point" + Path.PathSeparator + host + ",sharptestbench_initialize",
-        ["GPI_IMPL"] = gpi + ":vpi",
+        ["COCOTB_BOOTSTRAP"] = gpi + "," + config.GpiEntryPoint + Path.PathSeparator + host + ",sharptestbench_initialize",
+        ["GPI_IMPL"] = config.GpiImpl,
         ["DOTNET_ROOT"] = sdk,
         ["CS_SEED"] = config.Seed.ToString(),
     };
-    // The native upstream entry symbol is environment-specific; explicitly configured here.
-    env["COCOTB_BOOTSTRAP"] = gpi + "," + config.GpiEntryPoint + Path.PathSeparator + host + ",sharptestbench_initialize";
     var searchPath = Path.GetDirectoryName(host)! + Path.PathSeparator + Path.GetDirectoryName(gpi);
-    foreach (var key in new[] { "LD_LIBRARY_PATH", "DYLD_LIBRARY_PATH", "PATH" })
-        env[key] = searchPath + Path.PathSeparator + Environment.GetEnvironmentVariable(key);
+    var loaderKey = OperatingSystem.IsWindows() ? "PATH" : OperatingSystem.IsMacOS() ? "DYLD_LIBRARY_PATH" : "LD_LIBRARY_PATH";
+    env[loaderKey] = searchPath + Path.PathSeparator + Environment.GetEnvironmentVariable(loaderKey);
     var command = config.Vvp ?? "vvp";
     await Run(command, ["-m", bootstrap, compiled], work, env);
     if (!File.Exists(results)) throw new InvalidDataException("Simulator did not produce a result JSON file");
@@ -75,8 +75,20 @@ try
     if (doc.RootElement.ValueKind != JsonValueKind.Array || doc.RootElement.GetArrayLength() == 0)
         throw new InvalidDataException("No test results");
     int failed = 0;
+    int passed = 0;
     foreach (var item in doc.RootElement.EnumerateArray())
-        if (item.TryGetProperty("Status", out var status) && status.GetString() == "failed") failed++;
+    {
+        if (!item.TryGetProperty("Status", out var status) || status.ValueKind != JsonValueKind.String)
+            throw new InvalidDataException("Test result without Status.");
+        switch (status.GetString())
+        {
+            case "passed": passed++; break;
+            case "failed": failed++; break;
+            case "skipped": break;
+            default: throw new InvalidDataException($"Unknown test status: {status.GetString()}");
+        }
+    }
+    if (passed == 0) throw new InvalidDataException("No passing tests; all-skipped regressions cannot qualify CI.");
     var evidence = new
     {
         SchemaVersion = 1, config.Simulator, config.Top, config.Seed,
@@ -117,5 +129,5 @@ sealed record RunManifest(
     int SchemaVersion, string Simulator, string Top, string[] Sources,
     string Assembly, string NativeHost, string IcarusBootstrap, string GpiLibrary,
     string DotnetRoot, string OutputDirectory, int Seed = 1,
-    string? EntryType = null, string GpiEntryPoint = "entry_point",
+    string? EntryType = null, string GpiEntryPoint = "entry_point", string? GpiImpl = null,
     string? Iverilog = null, string? Vvp = null);
