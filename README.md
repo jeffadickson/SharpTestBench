@@ -220,3 +220,6 @@ Nine-state conversion: see [explicit resolution and numeric/byte contracts](docs
 
 A realistic DSP verification example is available in [DspFir](examples/DspFir/README.md),
 with matching C#/cocotb scoreboards and injected arithmetic/backpressure faults.
+
+The [CpuCore example](examples/CpuCore/README.md) compares instruction retirement
+and stalled memory traffic using independent C# and cocotb scoreboards.
