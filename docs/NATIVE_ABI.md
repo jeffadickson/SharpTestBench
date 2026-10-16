@@ -223,3 +223,19 @@ failed batch and avoids a heap allocation for common AXI/control snapshots.
 It does not remove the underlying GPI transport yet and does not constitute
 an independently measured throughput improvement. Native runner, managed
 regressions, and integration CI must pass before accepting this change.
+
+## Cached direct-VPI numeric batch writes (experimental)
+
+The existing `cs_v1_write_u32_batch` ABI now uses a cached, independently
+name-validated VPI object when direct transport is enabled for that signal.
+It retains the two-pass input validation and caller ordering. Deposits use
+`vpiInertialDelay` at zero simulator delay; immediate writes use
+`vpiNoDelay`. Non-cached objects retain the legacy GPI path. VPI errors
+return status 7 rather than silently falling back after attempting a write.
+
+This is not a transactional rollback API: validation occurs before any writes,
+but a simulator error after earlier writes cannot undo those writes. The
+managed scheduler must continue issuing deposits in the correct ReadWrite
+phase, and tests must compare resulting clock/delta behavior across both
+backends. This is a partial migration; `cs_v1_enable_direct` still requires
+GPI object metadata. Performance gains require matched benchmark evidence.
