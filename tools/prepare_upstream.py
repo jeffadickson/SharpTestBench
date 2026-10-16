@@ -19,6 +19,9 @@ def configure_native_build(source):
         # Upstream already declares public GPI/classes/bootstrap exports explicitly.
         'set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)': 'set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS OFF)',
         'set(CMAKE_CXX_STANDARD 11)': 'set(CMAKE_CXX_STANDARD 20)',
+        # Pointer width alone cannot distinguish Windows x64 from ARM64.
+        '/machine:$<IF:$<EQUAL:${CMAKE_SIZEOF_VOID_P},8>,X64,X86>': '/machine:${STB_IMPORT_MACHINE}',
+
         '"-std=c++11"': '"-std=c++20"',
         '"/MD /O2 /Ob2 /DNDEBUG"': '"/MD /O2 /Ob2 /Zi /Zo /DNDEBUG"',
     }
@@ -28,6 +31,15 @@ def configure_native_build(source):
         text = text.replace(before, after)
     anchor = 'set(CMAKE_CXX_STANDARD_REQUIRED ON)'
     overlay = r'''set(CMAKE_CXX_EXTENSIONS OFF)
+if(CMAKE_GENERATOR_PLATFORM MATCHES "^[Aa][Rr][Mm]64$" OR
+   CMAKE_SYSTEM_PROCESSOR MATCHES "^([Aa][Rr][Mm]64|[Aa][Aa][Rr][Cc][Hh]64)$" OR
+   CMAKE_CXX_COMPILER_ARCHITECTURE_ID STREQUAL "ARM64")
+    set(STB_IMPORT_MACHINE ARM64)
+elseif(CMAKE_SIZEOF_VOID_P EQUAL 8)
+    set(STB_IMPORT_MACHINE X64)
+else()
+    set(STB_IMPORT_MACHINE X86)
+endif()
 # SharpTestBench release profile: require IPO, retain debugging, preserve real semantics.
 set(CMAKE_BUILD_TYPE Release CACHE STRING "SharpTestBench native configuration" FORCE)
 include(CheckIPOSupported)

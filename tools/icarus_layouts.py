@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Export elaborated packed ranges with an optional C++20 Icarus target on Linux, macOS and Windows."""
-import argparse, hashlib, json, os, platform, re, shutil, subprocess, sys, tempfile
+import argparse, ctypes, hashlib, json, os, platform, re, shutil, subprocess, sys, tempfile
 from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -25,6 +25,9 @@ def export(sources, top, output, base, include):
     """Stage a private compiler target, validate its output, then atomically publish metadata."""
     if sys.platform not in ('linux', 'darwin', 'win32'):
         raise RuntimeError('Unsupported Icarus target platform: ' + sys.platform)
+    # Suppress inherited Windows loader error dialogs in unattended builds.
+    # Missing DLLs must return diagnostics/exit status rather than wait for UI.
+    if sys.platform == 'win32': ctypes.windll.kernel32.SetErrorMode(0x0001 | 0x0002 | 0x8000)
     sources = [Path(p).resolve() for p in sources]
     output = Path(output).resolve(); output.parent.mkdir(parents=True, exist_ok=True)
     base = Path(base).resolve(); include = Path(include).resolve()
@@ -52,16 +55,17 @@ def export(sources, top, output, base, include):
                 (ROOT/'native/icarus_layouts.cpp').read_text())))
             definition.write_text('LIBRARY ivl.exe\nEXPORTS\n' + '\n'.join(names) + '\n')
             library = stage/'stb_ivl.a'
-            subprocess.run([os.environ.get('DLLTOOL', 'dlltool'), '-d', str(definition),
-                            '-l', str(library)], check=True)
+            machine = 'arm64' if platform.machine().lower() in ('arm64', 'aarch64') else 'i386:x86-64'
+            subprocess.run([os.environ.get('DLLTOOL', 'dlltool'), '-m', machine, '-d', str(definition),
+                            '-l', str(library)], check=True, timeout=60)
             imports = [str(library)]
         command = [compiler_cxx, *flags, '-Wall', '-Wextra', '-Werror',
             '-I', str(include), str(ROOT/'native/icarus_layouts.cpp'), *imports, '-o', str(helper)]
-        subprocess.run(command, check=True)
+        subprocess.run(command, check=True, timeout=120)
         (stage/'stb_layouts.conf').write_text('flag:DLL='+helper.as_posix()+'\n')
         raw = stage/'layouts.json'
         compiler = os.environ.get('CS_IVERILOG','iverilog')
-        subprocess.run([compiler,'-B',str(stage),'-g2012','-s',top,'-t','stb_layouts','-o',str(raw),*map(str,sources)],check=True)
+        subprocess.run([compiler,'-B',str(stage),'-g2012','-s',top,'-t','stb_layouts','-o',str(raw),*map(str,sources)],check=True,timeout=120)
         data = json.loads(raw.read_text())
         if data.get('schema') != 1 or not data.get('signals'): raise RuntimeError('No packed metadata exported')
         paths = [tuple(row['path']) for row in data['signals']]

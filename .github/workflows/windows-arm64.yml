@@ -1,0 +1,82 @@
+name: Windows ARM64 native validation
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  windows-arm64:
+    runs-on: windows-11-arm
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.402'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+          architecture: arm64
+      - uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: arm64
+      - uses: msys2/setup-msys2@v2
+        with:
+          msystem: CLANGARM64
+          install: >-
+            mingw-w64-clang-aarch64-clang
+            mingw-w64-clang-aarch64-llvm
+            mingw-w64-clang-aarch64-lld
+            mingw-w64-clang-aarch64-iverilog
+      - name: Build pinned adapters with ARM64 MSVC import libraries
+        run: |
+          python tools/prepare_upstream.py
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          python -m pip install ./build/upstream/cocotb-source pytest
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Select native ARM64 simulator and bridge toolchain
+        shell: msys2 {0}
+        run: |
+          cygpath -w /clangarm64/bin >> "$GITHUB_PATH"
+          echo "STB_IVL_ROOT=$(cygpath -w /clangarm64/lib/ivl)" >> "$GITHUB_ENV"
+          echo "STB_IVL_INCLUDE=$(cygpath -w /clangarm64/include/iverilog)" >> "$GITHUB_ENV"
+          echo 'CC=clang' >> "$GITHUB_ENV"
+          echo 'CXX=clang++' >> "$GITHUB_ENV"
+          echo 'DLLTOOL=llvm-dlltool' >> "$GITHUB_ENV"
+          echo 'OBJDUMP=llvm-objdump' >> "$GITHUB_ENV"
+          pacman -Q > arm64-toolchain.txt
+      - name: Require a native ARM64 Python and .NET runtime
+        run: |
+          python -c "import platform; assert platform.machine().lower() in ('arm64', 'aarch64'), platform.machine()"
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          dotnet --info
+      - run: dotnet build SharpTestBench.slnx -c Release -p:RestoreLockedMode=true
+      - run: python -m unittest discover -s tests/Tooling -v
+      - run: python tools/managed_tests.py
+      - run: python tools/run.py --sim icarus --label windows-arm64 --waves build/windows-arm64.vcd
+      - run: python tools/native_build_check.py
+      - name: Verify actual ARM64 PE binaries
+        run: python tools/windows_arm64_check.py
+      - name: Check elaboration metadata and rejected documents
+        env:
+          CS_DOTNET_ROOT: ${{ env.DOTNET_ROOT }}
+        run: python tools/icarus_layouts_check.py --ivl-root "$env:STB_IVL_ROOT" --include "$env:STB_IVL_INCLUDE"
+      - run: python tools/queue_reference.py --label windows-arm64
+      - run: python tools/wave_check.py --label windows-arm64
+      - run: python tools/native_package.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: windows-arm64-evidence
+          path: |
+            arm64-toolchain.txt
+            build/*results.*
+            build/*run.log
+            build/native-build*.json
+            build/windows-arm64*.json
+            build/native-vectorization.txt
+            build/icarus-layout-check/**
+            build/packages-win-arm64/*.nupkg
+            build/package-evidence-win-arm64/**
+            build/upstream/native-profile.json
+            build/upstream/cocotb-source/build/**/CMakeCache.txt

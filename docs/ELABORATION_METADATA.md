@@ -26,7 +26,7 @@ existing output document intact.
 
 The exporter supports Linux, macOS and Windows source builds and is not required
 by the normal simulator runner. Linux x64 has local execution evidence; Windows
-x64 and macOS ARM64 are exercised by platform CI. Do not treat configured jobs as
+x64, Windows ARM64 and macOS ARM64 are exercised by platform CI. Do not treat configured jobs as
 successful validation until their results are green.
 
 macOS uses Apple Clang and a Mach-O bundle with dynamic lookup of the loading
@@ -94,3 +94,9 @@ length-aware native value access where supported, and the already implemented
 packed-vector transport/native clocks. Typed APIs, scoreboards and schema checks
 remain managed. Moving managed arithmetic into C++ without evidence of a bottleneck
 is not part of this change.
+
+
+Windows ARM64 uses the MSYS2 CLANGARM64 installation: pass its `lib/ivl` and
+`include/iverilog` directories, set `CXX=clang++`, `DLLTOOL=llvm-dlltool`, and use
+ARM64 Python and .NET. The tool selects ARM64 imports and the CI job verifies
+actual PE architecture tags rather than accepting emulated x64 execution.

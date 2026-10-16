@@ -190,6 +190,24 @@ Verilator CI now includes Linux x64 and Linux ARM64, compiling the pinned
 Verilator version, model and bridge natively and running integration, scheduling,
 wave and benchmark-value checks. `model-build.json` records host architecture
 and OS alongside compiler flags. macOS ARM64 has its separate Icarus platform
-job. Cross-compilation, universal macOS binaries and Windows ARM64 validation
-are not provided by this change. An ARM64 Verilator CI job does not by itself
+job. Cross-compilation and universal macOS binaries are not provided. An ARM64 Verilator CI job does not by itself
 validate a distributable Linux ARM64 NuGet release bundle.
+
+
+Windows ARM64 uses a dedicated `windows-11-arm` job with ARM64 Python/.NET,
+MSVC-built pinned adapters, and the MSYS2 CLANGARM64 Icarus/LLVM toolchain.
+The checked CMake overlay selects ARM64 import libraries explicitly instead of
+assuming every 64-bit process is x64. The exporter likewise passes ARM64 to
+`llvm-dlltool`. PE machine tags for the simulator, compiler, bridge, adapters,
+Python and .NET launcher/hostfxr must all be `0xaa64`; emulation does not satisfy
+this gate. The job runs integration, elaboration positive/negative cases,
+C ABI consumer, queue/wave tests and an installed `win-arm64` NuGet consumer.
+Artifacts remain separate from the existing three-RID release bundle until its
+promotion requirements are expanded. CI configuration is not itself evidence
+that a new platform has passed.
+
+**Windows Verilator remains a separate compatibility gap:** the pinned upstream
+CMake build creates and installs its Verilator GPI adapter only under `UNIX`,
+and its Python model runner uses Unix linker options. Availability of an ARM64
+Verilator executable alone does not supply that adapter. Linux ARM64 Verilator
+and Windows ARM64 Icarus are distinct validation paths.
