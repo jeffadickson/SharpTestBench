@@ -784,6 +784,25 @@ public static class Tests
     }
 
     [SimTest]
+    public static async Task H_NativeBatchWriteParity(TestContext c)
+    {
+        // Two distinct scalar/numeric targets guarantee a real multi-item batch
+        // when STB_BATCH_TRANSFERS=1; same-target writes may coalesce to one.
+        var a = c.Dut.Child("perf_a").Signal<W32>();
+        var b = c.Dut.Child("perf_b").Signal<W8>();
+        for (uint i = 0; i < 32; i++)
+        {
+            a.Write(new UInt<W32>(i * 31337u));
+            b.Write(new UInt<W8>(i % 251u));
+            await ReadWrite();
+            await ReadOnly();
+            Check(a.ReadUInt().Value == i * 31337u, $"32-bit batch parity cycle={i}");
+            Check(b.ReadUInt().Value == i % 251u, $"8-bit batch parity cycle={i}");
+            await Timer(1);
+        }
+    }
+
+    [SimTest]
     public static async Task H_WriteCoalescing(TestContext c)
     {
         var d = c.Dut.Child("data").Signal<W8>();
