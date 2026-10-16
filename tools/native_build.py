@@ -56,7 +56,7 @@ def build_host(root, sdk, build):
                 'compiler': compiler_version, 'vectorization': vector_flags,
                 'vectorization_diagnostics': result.stderr,
                 'sources': {str(p.relative_to(root)): hashlib.sha256(p.read_bytes()).hexdigest()
-                            for p in [*sources, root / 'native/abi.h', root / 'native/platform.h']},
+                            for p in [*sources, root / 'native/transport.inc', root / 'native/clocks.inc', root / 'native/abi.h', root / 'native/platform.h']},
                 'output_sha256': hashlib.sha256(output.read_bytes()).hexdigest()}
     (build / 'native-build.json').write_text(json.dumps(manifest, indent=2) + '\n')
     return output

@@ -21,9 +21,34 @@ public static class Entry
     static void Write<W>(Signal<W> signal, uint value) where W : struct, IWidth => signal.Write(new UInt<W>(value));
     static uint Read<W>(Signal<W> signal) where W : struct, IWidth => (uint)signal.ReadUInt().Value;
 
-    sealed class Bus(TestContext context)
+    sealed class Bus
     {
-        readonly AxiPorts p = new(context.Dut);
+        readonly AxiPorts p;
+        readonly SignalReadBatch snapshot;
+        readonly uint[] sampled = new uint[8];
+        readonly bool batch = Environment.GetEnvironmentVariable("AXI_BATCH") != "0";
+        readonly bool independentClock;
+        /// <summary>Bind bus snapshots once; optional native/managed clocks keep the same four-step cycle.</summary>
+        public Bus(TestContext context)
+        {
+            p = new(context.Dut);
+            snapshot = new(p.awready, p.wready, p.arready, p.bvalid, p.bresp, p.rvalid, p.rdata, p.rresp);
+            string mode = Environment.GetEnvironmentVariable("AXI_CLOCK_MODE") ?? "manual";
+            if (mode is not ("manual" or "native" or "managed")) throw new ArgumentException("Unknown AXI_CLOCK_MODE");
+            independentClock = mode != "manual";
+            if (independentClock)
+                context.StartSoon(new SimClock(p.clk, 4, 2,
+                    mode == "native" ? ClockImplementation.Native : ClockImplementation.Managed).Run);
+        }
+        /// <summary>Read one stable output snapshot; the scalar path remains available for attribution.</summary>
+        Outputs Sample()
+        {
+            if (!batch) return new(p.awready.ReadBit(), p.wready.ReadBit(), p.arready.ReadBit(),
+                p.bvalid.ReadBit(), Read(p.bresp), p.rvalid.ReadBit(), Read(p.rdata), Read(p.rresp));
+            snapshot.Read(sampled);
+            return new(sampled[0] != 0, sampled[1] != 0, sampled[2] != 0, sampled[3] != 0,
+                sampled[4], sampled[5] != 0, sampled[6], sampled[7]);
+        }
         uint random = 0x12345678;
         readonly uint fault = uint.Parse(Environment.GetEnvironmentVariable("AXI_FAULT") ?? "0");
         public int Cycles;
@@ -31,7 +56,8 @@ public static class Entry
         public async Task<Outputs> Step(Inputs input)
         {
             random = unchecked(random * 1664525 + 1013904223);
-            p.clk.WriteBit(false); p.reset_n.WriteBit(input.Reset);
+            if (!independentClock) p.clk.WriteBit(false);
+            p.reset_n.WriteBit(input.Reset);
             p.awvalid.WriteBit(input.Aw); p.wvalid.WriteBit(input.W); p.arvalid.WriteBit(input.Ar);
             p.bready.WriteBit(input.BReady); p.rready.WriteBit(input.RReady);
             Write(p.awaddr, input.Address); Write(p.araddr, input.Address);
@@ -40,12 +66,12 @@ public static class Entry
             Write(p.fault, fault);
             // Sample stable READY/VALID before the active edge; these are the transfers at that edge.
             await Timer(1); await ReadOnly();
-            var result = input.Reset ? new Outputs(p.awready.ReadBit(), p.wready.ReadBit(), p.arready.ReadBit(),
-                p.bvalid.ReadBit(), Read(p.bresp), p.rvalid.ReadBit(), Read(p.rdata), Read(p.rresp)) : default;
+            var result = input.Reset ? Sample() : default;
             if (result.BValid && !input.BReady) WriteStalls++;
             if (result.RValid && !input.RReady) ReadStalls++;
-            await Timer(1); p.clk.WriteBit(true);
-            await Timer(1); await ReadOnly();
+            if (independentClock) await Timer(2);
+            else { await Timer(1); p.clk.WriteBit(true); await Timer(1); }
+            await ReadOnly();
             await Timer(1); Cycles++;
             return result;
         }

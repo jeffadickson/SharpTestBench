@@ -24,11 +24,11 @@ def main():
         getattr(library, name)  # Literal lookup detects C++ mangling or hidden exports.
     library.cs_abi_version.restype = ctypes.c_uint32
     library.cs_abi_features.restype = ctypes.c_uint64
-    assert library.cs_abi_version() == 1 and library.cs_abi_features() == 3
+    assert library.cs_abi_version() == 1 and library.cs_abi_features() == 31
     folder = BUILD / 'native-build-check'
     folder.mkdir(exist_ok=True)
     source = folder / 'consumer.c'
-    source.write_text('#include "abi.h"\nint main(void) { return cs_abi_version() != 1 || cs_abi_features() != 3; }\n')
+    source.write_text('#include "abi.h"\nint main(void) { return cs_abi_version() != 1 || cs_abi_features() != 31; }\n')
     executable = folder / ('consumer.exe' if WINDOWS else 'consumer')
     cc = os.environ.get('CC', 'clang' if MAC else 'gcc')
     subprocess.run([cc, '-std=c11', '-Wall', '-Wextra', '-Werror', '-I', str(ROOT / 'native'),

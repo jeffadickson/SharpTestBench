@@ -54,7 +54,7 @@ internal static class PackedTransport
     }
 
     /// <summary>Translates the frozen native packed-transport status codes into managed exceptions.</summary>
-    static void Check(int status)
+    internal static void Check(int status)
     {
         if (status == 0)
             return;
@@ -66,6 +66,8 @@ internal static class PackedTransport
             4 => new OutOfMemoryException("Native vector conversion allocation failed"),
             5 => new InvalidOperationException("Native vector value is null or has an unexpected length"),
             6 => new InvalidOperationException("Cannot write an HDL constant"),
+            7 => new InvalidOperationException("Simulator VPI vector operation failed"),
+            8 => new InvalidOperationException("Native clock callback registration/removal failed"),
             _ => new InvalidOperationException($"Unknown packed transport status {status}")};
     }
 }

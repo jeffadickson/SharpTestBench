@@ -41,7 +41,25 @@ public sealed class SimRuntime
     readonly int owner = Environment.CurrentManagedThreadId;
     readonly ConcurrentQueue<Action> ready = new();
     readonly Dictionary<nint, Registration> registrations = new();
-    readonly Dictionary<nint, Action> writes = new();
+    readonly record struct PendingWrite(Action Apply, int? Numeric);
+    readonly Dictionary<nint, PendingWrite> writes = new();
+    readonly HashSet<IDisposable> nativeResources = new();
+    internal readonly ulong NativeFeatures;
+    internal bool BatchTransfers => PerformanceOptions.BatchTransfers && (NativeFeatures & 8) != 0;
+    /// <summary>Root native owners until explicit cancellation/disposal; used in leak detection.</summary>
+    internal void OwnNative(IDisposable resource) { CheckThread(); nativeResources.Add(resource); }
+    internal void ReleaseNative(IDisposable resource) { CheckThread(); nativeResources.Remove(resource); }
+    /// <summary>Dispatch a rare native clock failure in timer context without crossing an exception through C.</summary>
+    internal void NativeNotification(Action action)
+    {
+        CheckThread(); Phase = SimPhase.Beginning; appliedPreviews.Clear(); action(); Drain();
+    }
+    /// <summary>Stop native timers and release owned VPI handles while the simulator is still alive.</summary>
+    void ReleaseNativeResources()
+    {
+        foreach (var resource in nativeResources.ToArray()) resource.Dispose();
+        if ((NativeFeatures & 4) != 0) Native.cs_v1_clear_direct();
+    }
     readonly Dictionary<nint, Func<string>> writePreviews = new();
     readonly Dictionary<nint, Func<string>> appliedPreviews = new();
     readonly Native.Callback callback;
@@ -80,7 +98,7 @@ public sealed class SimRuntime
     public bool SupportsFourState => Capabilities[SimulatorFeature.FourStateWrites].IsSupported;
     public bool SupportsForceRelease => Capabilities[SimulatorFeature.ForceRelease].IsSupported;
     public bool SupportsNineState => Capabilities[SimulatorFeature.NineStateWrites].IsSupported;
-    public int PendingCallbacks => registrations.Values.Count(r => r.Kind != CallbackKind.End);
+    public int PendingCallbacks => registrations.Values.Count(r => r.Kind != CallbackKind.End) + nativeResources.Count;
 
     public int Precision
     {
@@ -102,6 +120,7 @@ public sealed class SimRuntime
         if (Active != null)
             throw new InvalidOperationException("One simulator runtime per process");
         Native.VerifyAbi();
+        NativeFeatures = Native.cs_abi_features();
         Active = this;
         callback = Dispatch;
         context = new(this);
@@ -208,6 +227,7 @@ public sealed class SimRuntime
             lastSimulatorCallback = new(r.Kind, Now, r.Trigger);
             if (r.Kind == CallbackKind.End)
             {
+                ReleaseNativeResources();
                 r.Action();
                 return 0;
             }
@@ -268,7 +288,7 @@ public sealed class SimRuntime
         return writePreviews.TryGetValue(handle, out var preview) || appliedPreviews.TryGetValue(handle, out preview) ? preview() : null;
     }
 
-    internal void Write(nint handle, Action apply, WriteAction action, Func<string>? preview = null)
+    internal void Write(nint handle, Action apply, WriteAction action, Func<string>? preview = null, int? numeric = null)
     {
         CheckWrite();
         if (Native.gpi_is_constant(handle) != 0)
@@ -288,22 +308,39 @@ public sealed class SimRuntime
 
         writeCallback ??= Register(CallbackKind.ReadWrite, () => writeCallback = null);
         writes.Remove(handle);
-        writes.Add(handle, apply);
+        writes.Add(handle, new(apply, numeric));
         writePreviews.Remove(handle);
         if (preview != null)
             writePreviews.Add(handle, preview);
     }
 
-    void FlushWrites()
+    /// <summary>Flush in last-write order, batching only consecutive eligible numeric deposits.</summary>
+    unsafe void FlushWrites()
     {
-        var items = writes.Values.ToArray();
+        var items = writes.ToArray();
         var previews = writePreviews.ToArray();
         writes.Clear();
         writePreviews.Clear();
-        foreach (var a in items)
-            a();
-        foreach (var entry in previews)
-            appliedPreviews[entry.Key] = entry.Value;
+        // Fixed-size chunks bound stack use. Non-numeric writes remain ordering barriers.
+        Span<Native.U32Write> batch = stackalloc Native.U32Write[64];
+        int index = 0;
+        while (index < items.Length)
+        {
+            if (!BatchTransfers || items[index].Value.Numeric is null)
+            {
+                items[index++].Value.Apply();
+                continue;
+            }
+            int first = index, count = 0;
+            while (index < items.Length && count < batch.Length && items[index].Value.Numeric is int raw)
+            {
+                batch[count++] = new() { Signal = items[index].Key, Value = unchecked((uint)raw), Action = (int)WriteAction.Deposit };
+                index++;
+            }
+            if (count == 1) items[first].Value.Apply();
+            else fixed (Native.U32Write* p = batch) PackedTransport.Check(Native.cs_v1_write_u32_batch(p, (uint)count));
+        }
+        foreach (var entry in previews) appliedPreviews[entry.Key] = entry.Value;
     }
 
     internal void DiscardWrites()
@@ -319,6 +356,7 @@ public sealed class SimRuntime
     public void Finish()
     {
         CheckThread();
+        ReleaseNativeResources();
         Native.gpi_finish();
     }
 

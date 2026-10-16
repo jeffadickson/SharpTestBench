@@ -5,6 +5,10 @@ package discovery_pkg;
 endpackage
 module top;
  reg adjustable_clk=0;
+ reg [31:0] perf_a=0, perf_clock_count=0;
+ reg [7:0] perf_b=0;
+ reg perf_clock=0;
+ always @(posedge perf_clock) perf_clock_count <= perf_clock_count + 1;
  wire [31:0] package_marker=discovery_pkg::marker;
  initial if ($test$plusargs("CS_EARLY_FINISH")) begin #0.002; $finish; end
  parameter [7:0] PARAMETER=37;

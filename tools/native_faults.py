@@ -29,6 +29,7 @@ def main():
     host = ROOT / 'build/libsharptestbench_host.so'
     declarations = re.findall(r'^CS_EXPORT (.+?) cs_v1_(\w+)\((.*?)\);$', (ROOT / 'native/abi.h').read_text(), re.M)
     fake = '#include "abi.h"\n#include <stdlib.h>\n'
+    fake += (ROOT / 'tests/Native/clock_fixture.h').read_text()
     for ret, name, args in declarations:
         if name == 'gpi_get_signal_value_long':
             ret = 'long'
@@ -36,7 +37,13 @@ def main():
                  'gpi_get_signal_value_long': '-2147483649L', 'gpi_get_num_elems': 'getenv("CS_FAKE_WIDTH") ? atoi(getenv("CS_FAKE_WIDTH")) : 9', 'gpi_get_simulator_product': 'getenv("CS_FAKE_PRODUCT") ? getenv("CS_FAKE_PRODUCT") : "Icarus Verilog fault fixture"',
                  'gpi_get_signal_value_binstr': 'getenv("CS_FAKE_LOGIC") ? getenv("CS_FAKE_LOGIC") : "10XZ01XZ1"',
                  'gpi_is_constant': 'getenv("CS_FAKE_CONSTANT") != NULL'}.get(name, '0')
-        fake += f'{ret} {name}({args}) {{' + (f'return {value};' if ret != 'void' else '') + '}\n'
+        body = {
+            'gpi_register_timed_callback': 'return fake_register(cb, data, delay, 1);',
+            'gpi_register_readwrite_callback': 'return fake_register(cb, data, 0, 0);',
+            'gpi_remove_cb': 'return fake_remove(cb);',
+            'gpi_set_signal_value_int': '++fake_write_count; fake_value=value; if(fake_on_write) fake_on_write(NULL);'
+        }.get(name, f'return {value};' if ret != 'void' else '')
+        fake += f'{ret} {name}({args}) {{' + body + '}\n'
     for case, source, filename in [
         ('registration', fake, 'libgpi.so'),
         ('missing', 'void unrelated(void) {}', 'libgpi.so'),
@@ -129,6 +136,10 @@ Console.WriteLine($"PASS registration: {count} callback kinds cleanly rejected; 
             env=dict(os.environ, LD_LIBRARY_PATH=str(BUILD / 'registration')))
     print(p.stdout.strip())
     results.append({'case': 'packed-boundary', 'stdout': p.stdout.strip(), 'stderr': p.stderr.strip(), 'exit': p.returncode})
+    p = run([shutil.which('python3'), ROOT / 'tools/clock_boundary.py', BUILD / 'registration' / host.name],
+            env=dict(os.environ, LD_LIBRARY_PATH=str(BUILD / 'registration')))
+    print(p.stdout.strip())
+    results.append({'case': 'native-clock-boundary', 'stdout': p.stdout.strip(), 'stderr': p.stderr.strip(), 'exit': p.returncode})
     (ROOT / 'build/native-faults.json').write_text(json.dumps(results, indent=2) + '\n')
 
 

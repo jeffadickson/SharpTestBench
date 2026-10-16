@@ -96,7 +96,10 @@ public sealed class SimulatorCapabilities
             Set(SimulatorFeature.FixedStringNul, CapabilityStatus.Conditional, "NUL-preserving indexed-character transport is verified when fixed-string character handles are available.", "tests/VhdlIntegration/Tests.cs");
         Unsupported(SimulatorFeature.DynamicStringNul, "Current dynamic-string ABI is NUL terminated, not length aware.", "GitHub #14");
         Unsupported(SimulatorFeature.NamedStructInference, "Only explicit caller-provided packed-struct schemas are available.", "GitHub #10");
-        Unsupported(SimulatorFeature.NativeClock, "Only managed SimClock is implemented.", "GitHub #19");
+        Set(SimulatorFeature.NativeClock,
+            (nativeFeatures & 16) == 0 ? CapabilityStatus.Unsupported :
+            Family is SimulatorFamily.Icarus or SimulatorFamily.Verilator ? CapabilityStatus.Supported : CapabilityStatus.Unverified,
+            "Native clock requires ABI bit 4; pulse/cancellation equivalence is validated on Icarus and Verilator. Other families use managed clocks.", "GitHub #19; tests/Integration/PerformanceTests.cs");
         Unsupported(SimulatorFeature.ExternalThreadWakeup, "External work has no deterministic native simulator wakeup bridge.", "GitHub #36");
         entries = new System.Collections.ObjectModel.ReadOnlyDictionary<SimulatorFeature, SimulatorCapability>(map);
         All = Array.AsReadOnly(Enum.GetValues<SimulatorFeature>().Select(f => map[f]).ToArray());

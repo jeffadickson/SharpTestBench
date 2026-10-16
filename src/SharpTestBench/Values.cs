@@ -210,10 +210,14 @@ public readonly record struct LogicVector<W>
         HighZ = highZ;
     }
 
+    /// <summary>Parse exactly the declared number of MSB-first 0/1/X/Z characters.</summary>
     public static LogicVector<W> Parse(string s)
     {
+        ArgumentNullException.ThrowIfNull(s);
         if (s.Length != Bits)
             throw new ArgumentException($"Expected {Bits} bits, got {s.Length}");
+        if (PerformanceOptions.LinearText) return VectorText.Parse<W>(s);
+        // Retained reference implementation for controlled performance comparisons.
         BigInteger v = 0, x = 0, z = 0;
         foreach (char ch in s)
         {
@@ -253,8 +257,11 @@ public readonly record struct LogicVector<W>
         return new((Value >> lsb) & m, (Unknown >> lsb) & m, (HighZ >> lsb) & m);
     }
 
+    /// <summary>Format every bit, preserving leading zeroes and unresolved X/Z states.</summary>
     public override string ToString()
     {
+        if (PerformanceOptions.LinearText) return VectorText.Format(this);
+        // Retained reference implementation for controlled performance comparisons.
         var s = new char[Bits];
         for (int i = 0; i < Bits; i++)
             s[Bits - 1 - i] = HighZ.TestBit(i) ? 'Z' : Unknown.TestBit(i) ? 'X' : Value.TestBit(i) ? '1' : '0';

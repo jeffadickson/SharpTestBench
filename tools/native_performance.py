@@ -51,6 +51,7 @@ def comparison(records, variant, metric, baseline_variant='baseline'):
 def main():
     """Build both hosts, warm up each configuration, then interleave checked samples."""
     p = argparse.ArgumentParser(description=__doc__)
+    p.add_argument('--ablation', action='store_true', help='Same current binaries: disable all features, enable each alone, then all')
     p.add_argument('--sim', choices=['icarus', 'verilator'], default='icarus')
     p.add_argument('--baseline-revision', help='Source revision of a preserved baseline host/managed build')
     p.add_argument('--baseline-python', type=Path, required=True)
@@ -83,6 +84,17 @@ def main():
     variants = {'baseline': (args.baseline_host.resolve() if args.baseline_host else old / HOST_NAME, baseline_python),
                 'bridge_only': (new / HOST_NAME, baseline_python),
                 'full': (new / HOST_NAME, None)}
+    feature_sets = {}
+    if args.ablation:
+        if args.baseline_managed or args.baseline_host:
+            p.error('--ablation uses current binaries throughout; do not supply preserved baseline artifacts')
+        variants = {name: (new / HOST_NAME, None) for name in ['baseline', 'direct', 'batch', 'clock', 'text', 'full']}
+        for name in variants:
+            feature_sets[name] = {key: str(int(name in (feature, 'full'))) for key, feature in
+                [('STB_DIRECT_PACKED', 'direct'), ('STB_BATCH_TRANSFERS', 'batch'),
+                 ('STB_NATIVE_CLOCK', 'clock'), ('STB_LINEAR_TEXT', 'text')]}
+            feature_sets[name].update(AXI_BATCH=str(int(name in ('batch', 'full'))),
+                                     AXI_CLOCK_MODE='native' if name in ('clock', 'full') else 'manual')
     models = {}
     if args.sim == 'verilator':
         from verilator_build import build_model
@@ -104,6 +116,8 @@ def main():
         nonlocal expected_trace
         host, python_path = variants[variant]
         env = dict(os.environ, DOTNET_TieredCompilation='0', CS_PACKED_COUNT=str(args.packed_count))
+        env.update(feature_sets.get(variant, {}))
+        env['CS_BENCH_CLOCKS'] = '1' if args.ablation else '0'
         env['CS_PACKED_REVERSE'] = str(int(round_number % 2 == 1))
         if python_path is not None: env['PYTHONPATH'] = str(python_path)
         else: env.pop('PYTHONPATH', None)
@@ -139,6 +153,14 @@ def main():
                         metrics[f"{data['mode']}_{data['width']}"] = data['seconds']
                         allocations[f"{data['mode']}_{data['width']}"] = data['managedBytes']
                 if len(metrics) != 7: raise RuntimeError('Missing benchmark metrics')
+                if args.ablation:
+                    for line in result.stdout.splitlines():
+                        if line.startswith('CLOCK_MEASURE '):
+                            data = json.loads(line.removeprefix('CLOCK_MEASURE '))
+                            if data['cycles'] != 10000: raise RuntimeError('Clock workload mismatch')
+                            metrics['clock_' + data['mode']] = data['seconds']
+                            allocations['clock_' + data['mode']] = data['managedBytes']
+                    if len(metrics) != 9: raise RuntimeError('Missing clock benchmark metrics')
             else:
                 data = json.loads((work / 'metrics.json').read_text())
                 trace = {k: data[k] for k in ['trace', 'cycles', 'write_stalls', 'read_stalls']}
@@ -149,7 +171,7 @@ def main():
         return {'round': round_number, 'variant': variant, 'metrics': metrics, 'managed_allocated_bytes': allocations}
 
     for variant in variants: execute(variant, -1)
-    # Rotate all three orders evenly (Latin-square schedule) instead of timing
+    # Rotate variant orders instead of timing
     # one complete configuration before another; pair statistics by round.
     for round_number in range(args.repeat):
         names = list(variants); offset = round_number % len(names)
@@ -158,7 +180,7 @@ def main():
     from cocotb_tools import config
     library_hashes = {name: {p.name: digest(p) for p in directory.glob('*.so')}
                       for name, directory in [('baseline', baseline_python / 'cocotb/libs'), ('full', Path(config.libs_dir))]}
-    summary = {'schema': 1, 'baseline_revision': args.baseline_revision or (BASELINE if args.baseline_host is None else 'preserved binary; see host hashes'),
+    summary = {'schema': 1, 'baseline_revision': ('current code with all four features disabled' if args.ablation else args.baseline_revision) or (BASELINE if args.baseline_host is None else 'preserved binary; see host hashes'),
                'baseline_managed_sha256': {str(p.relative_to(args.baseline_managed)): digest(p) for p in args.baseline_managed.rglob('*.dll')} if args.baseline_managed else None,
                'candidate_revision': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip(),
                'working_tree_dirty': bool(subprocess.check_output(['git', 'status', '--porcelain'], cwd=ROOT, text=True)),
@@ -179,11 +201,12 @@ def main():
                'adapter_sha256': library_hashes, 'plan_sha256': digest(plan_file),
                'axi_trace_sha256': hashlib.sha256(json.dumps(expected_trace, sort_keys=True).encode()).hexdigest(),
                'managed_sha256': {str(p.relative_to(ROOT)): digest(p) for p in [ROOT / 'tests/Benchmark/bin/Release/net10.0/Benchmark.dll', ROOT / 'examples/AxiMemory/bin/Release/net10.0/AxiMemory.dll', ROOT / 'src/SharpTestBench/bin/Release/net10.0/SharpTestBench.dll']},
+               'feature_sets': feature_sets,
                'records': records,
                'comparisons': {name: {metric: comparison(records, name, metric) for metric in records[0]['metrics']}
-                               for name in ['bridge_only', 'full']},
-               ('managed_increment' if args.baseline_managed else 'adapter_increment'): {metric: comparison(records, 'full', metric, 'bridge_only') for metric in records[0]['metrics']},
-               'scope': ('Same HDL/adapters; baseline and bridge_only use preserved managed assemblies; full uses current managed assemblies. ' if args.baseline_managed else 'Same managed/HDL code. ') + args.sim + ', Linux x64; fresh processes; one warmup/configuration; interleaved rounds. ' + ('Wall includes runner/runtime startup but excludes the shared precompiled model build. ' if models else 'Wall includes startup and HDL compile. ') + 'Body metrics exclude startup/build. Bootstrap intervals describe these samples, not machine-to-machine guarantees. Packed microbenchmarks are synthetic; AXI fixture is single-outstanding AXI4-Lite-shaped traffic.'}
+                               for name in variants if name != 'baseline'},
+               ('managed_increment' if args.baseline_managed else 'adapter_increment'): None if args.ablation else {metric: comparison(records, 'full', metric, 'bridge_only') for metric in records[0]['metrics']},
+               'scope': ('Feature ablation uses identical current host/adapters/managed assemblies with explicit per-process switches. ' if args.ablation else '') + ('Same HDL/adapters; baseline and bridge_only use preserved managed assemblies; full uses current managed assemblies. ' if args.baseline_managed else 'Same managed/HDL code. ') + args.sim + ', Linux x64; fresh processes; one warmup/configuration; interleaved rounds. ' + ('Wall includes runner/runtime startup but excludes the shared precompiled model build. ' if models else 'Wall includes startup and HDL compile. ') + 'Body metrics exclude startup/build. Bootstrap intervals describe these samples, not machine-to-machine guarantees. Packed microbenchmarks are synthetic; AXI fixture is single-outstanding AXI4-Lite-shaped traffic.'}
     (output / 'summary.json').write_text(json.dumps(summary, indent=2) + '\n')
     print('NATIVE_PERFORMANCE_COMPLETE', output / 'summary.json')
 

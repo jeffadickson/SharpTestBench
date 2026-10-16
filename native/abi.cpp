@@ -247,7 +247,9 @@ const char * cs_v1_gpi_get_definition_file(void * signal) { return p_gpi_get_def
 #include <stdlib.h>
 #include <string.h>
 /** @brief Advertise packed planes (bit 0) and optional VPI packed metadata (bit 1). */
-uint64_t cs_abi_features(void) { return 3; }
+uint64_t cs_abi_features(void) { return 31; }
+
+#include "transport.inc"
 
 /** @brief Discover optional VPI packed-range metadata. No GPI C++ object layout assumptions.
  * Call only for a packed handle from a known VPI implementation.
@@ -321,6 +323,8 @@ static int32_t plane_size(void *signal, uint32_t bits, const void *buffer, uint3
 int32_t cs_v1_read_planes(void *signal, uint32_t bits, uint8_t *buffer, uint32_t length) {
     int32_t error = plane_size(signal, bits, buffer, length);
     if (error) return error;
+    if (auto found = direct_vpi.handles.find(signal); found != direct_vpi.handles.end())
+        return direct_read(found->second, bits, buffer);
     const char *text = p_gpi_get_signal_value_binstr(static_cast<gpi_sim_hdl>(signal));
     if (!text) return 5;
     // Decode in display order while checking length. Continue after unsupported
@@ -369,6 +373,8 @@ int32_t cs_v1_write_planes(void *signal, uint32_t bits, const uint8_t *buffer, u
         uint8_t unused = (uint8_t)(0xffu << (bits % 8));
         if ((buffer[n-1] | buffer[2*n-1] | buffer[3*n-1]) & unused) return 1;
     }
+    if (auto found = direct_vpi.handles.find(signal); found != direct_vpi.handles.end())
+        return direct_write(found->second, bits, buffer, action);
     // Per-call stack storage is reentrant: synchronous simulator callbacks cannot
     // overwrite another write's scratch buffer. Large vectors retain a bounded heap fallback.
     char local_text[4097];
@@ -384,3 +390,5 @@ int32_t cs_v1_write_planes(void *signal, uint32_t bits, const uint8_t *buffer, u
     if (text != local_text) free(text);
     return 0;
 }
+
+#include "clocks.inc"

@@ -49,6 +49,8 @@ jobs:
       - run: python tools/cleanup_tests.py
       - run: dotnet build examples/AxiMemory -c Release -p:RestoreLockedMode=true
       - run: python tools/axi_workload.py --transactions 128 --repeat 3
+        env:
+          AXI_CLOCK_MODE: native
       - run: python tools/workspace_tests.py
       - run: python tools/native_package.py
       - run: python tools/stage_tests.py
@@ -195,6 +197,8 @@ jobs:
       - run: python tools/cleanup_tests.py
       - run: dotnet build examples/AxiMemory -c Release -p:RestoreLockedMode=true
       - run: python tools/axi_workload.py --transactions 128 --repeat 3
+        env:
+          AXI_CLOCK_MODE: native
       - run: python tools/workspace_tests.py
       - run: python tools/native_package.py
       - uses: actions/upload-artifact@v4

@@ -31,11 +31,12 @@ static inline void *stb_open(const char *path, int flags) {
     return (void *)module;
 }
 /** @brief Resolve a borrowed export address from a loaded DLL.
- * @details A null module means optional global lookup, unsupported on Windows.
+ * @details A null module probes exports of the simulator executable; absence means optional fallback.
  */
 static inline void *stb_symbol(void *module, const char *name) {
-    // Optional global VPI lookup is unavailable on this Windows implementation.
-    return module ? (void *)GetProcAddress((HMODULE)module, name) : NULL;
+    // VPI may be exported by the simulator executable. Never guess DLL object layouts.
+    HMODULE target = module ? (HMODULE)module : GetModuleHandleW(NULL);
+    return target ? (void *)GetProcAddress(target, name) : NULL;
 }
 /** @brief Format the last Windows loader error; overwritten by the next call. */
 static inline const char *stb_error(void) {

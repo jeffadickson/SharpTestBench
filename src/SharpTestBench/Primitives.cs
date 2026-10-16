@@ -277,15 +277,27 @@ public sealed class SimPriorityQueue<T> : SimQueueBase<T>
     }
 }
 
+/// <summary>Clock engine selection. Auto uses validated native support when available.</summary>
+public enum ClockImplementation { Auto, Managed, Native }
+
+/// <summary>Adjustable one-bit clock with equivalent managed and native pulse timing.</summary>
+/// <remarks>Run begins low, deposits edges at ReadWrite, and stops without an extra
+/// edge on cancellation. Period updates affect the next complete low/high pair.</remarks>
 public sealed class SimClock
 {
     readonly Signal signal;
+    readonly ClockImplementation implementation;
     ulong high, low;
-    public SimClock(Signal signal, ulong period, ulong? highSteps = null)
+    bool running;
+    NativeClockSession? native;
+    /// <summary>Create an idle clock. Native explicitly requires a validated backend and ABI support.</summary>
+    public SimClock(Signal signal, ulong period, ulong? highSteps = null, ClockImplementation implementation = ClockImplementation.Auto)
     {
-        if (signal.Width != 1)
-            throw new ArgumentException("Clock must be one bit");
+        ArgumentNullException.ThrowIfNull(signal);
+        if (signal.Width != 1) throw new ArgumentException("Clock must be one bit");
+        if (!Enum.IsDefined(implementation)) throw new ArgumentOutOfRangeException(nameof(implementation));
         this.signal = signal;
+        this.implementation = implementation;
         SetPeriod(period, highSteps);
     }
 
@@ -293,25 +305,48 @@ public sealed class SimClock
     public void SetPeriod(ulong period, ulong? highSteps = null)
     {
         signal.Runtime.CheckThread();
-        if (period < 2)
-            throw new ArgumentOutOfRangeException(nameof(period));
+        if (period < 2) throw new ArgumentOutOfRangeException(nameof(period));
         ulong nextHigh = highSteps ?? period / 2;
-        if (nextHigh == 0 || nextHigh >= period)
-            throw new ArgumentOutOfRangeException(nameof(highSteps));
-        high = nextHigh;
-        low = period - high;
+        if (nextHigh == 0 || nextHigh >= period) throw new ArgumentOutOfRangeException(nameof(highSteps));
+        native?.Update(nextHigh, period - nextHigh);
+        high = nextHigh; low = period - high;
     }
 
+    /// <summary>Run until cancellation; only one run may own this clock instance at a time.</summary>
     public async Task Run(CancellationToken token)
     {
-        signal.WriteBit(false);
-        while (true)
+        signal.Runtime.CheckWrite();
+        token.ThrowIfCancellationRequested();
+        if (running) throw new InvalidOperationException("Clock is already running");
+        bool supported = signal.Runtime.Capabilities[SimulatorFeature.NativeClock].IsSupported;
+        if (implementation == ClockImplementation.Native && !supported)
+            signal.Runtime.Capabilities.Require(SimulatorFeature.NativeClock);
+        bool useNative = implementation == ClockImplementation.Native ||
+            (implementation == ClockImplementation.Auto && PerformanceOptions.NativeClock && supported);
+        running = true;
+        try
         {
-            ulong cycleLow = low, cycleHigh = high;
-            await Triggers.Timer(cycleLow).WithCancellation(token);
-            signal.WriteBit(true);
-            await Triggers.Timer(cycleHigh).WithCancellation(token);
             signal.WriteBit(false);
+            if (useNative)
+            {
+                native = new(signal, high, low);
+                await native.Wait(token);
+            }
+            else
+            {
+                while (true)
+                {
+                    ulong cycleLow = low, cycleHigh = high;
+                    await Triggers.Timer(cycleLow).WithCancellation(token);
+                    signal.WriteBit(true);
+                    await Triggers.Timer(cycleHigh).WithCancellation(token);
+                    signal.WriteBit(false);
+                }
+            }
+        }
+        finally
+        {
+            native?.Dispose(); native = null; running = false;
         }
     }
 }

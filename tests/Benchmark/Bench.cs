@@ -69,6 +69,36 @@ public static class Entry
         }
     }
 
+    /// <summary>Measure a clock both with only an HDL counter and with a managed edge observer.</summary>
+    [SimTest(TimeoutSteps = 10000000)]
+    public static async Task ClockBenchmark(TestContext c)
+    {
+        if (Environment.GetEnvironmentVariable("CS_BENCH_CLOCKS") == "0") return;
+        const int cycles = 10000;
+        var signal = c.Dut.Child("perf_clock").Signal<W1>();
+        var counter = c.Dut.Child("perf_clock_count").Signal<W32>();
+        foreach (string mode in new[] { "idle", "observed" })
+        {
+            signal.WriteBit(false, WriteAction.Immediate); await Timer(1);
+            counter.Write(new UInt<W32>(0), WriteAction.Immediate);
+            ulong start = c.Runtime.Now;
+            long bytes = GC.GetAllocatedBytesForCurrentThread();
+            var sw = Stopwatch.StartNew();
+            var job = c.StartSoon(new SimClock(signal, 4, 2).Run);
+            if (mode == "idle") await Timer((ulong)(cycles * 4 + 1));
+            else { await ClockCycles(signal, cycles); await Timer(1); }
+            job.Cancel();
+            try { await job; } catch (OperationCanceledException) { }
+            sw.Stop();
+            long allocated = GC.GetAllocatedBytesForCurrentThread() - bytes;
+            ulong expected = (ulong)(mode == "idle" ? cycles * 4 + 1 : cycles * 4 - 1);
+            if (counter.ReadUInt().Value != cycles || c.Runtime.Now - start != expected)
+                throw new Exception("Clock benchmark edge-count/timing mismatch");
+            Console.WriteLine("CLOCK_MEASURE " + System.Text.Json.JsonSerializer.Serialize(new
+                { mode, cycles, seconds = sw.Elapsed.TotalSeconds, managedBytes = allocated }));
+        }
+    }
+
     [SimTest(TimeoutSteps = 1000000)]
     public static async Task Benchmark(TestContext c)
     {

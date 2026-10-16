@@ -109,12 +109,28 @@ CS_EXPORT const char * cs_v1_gpi_get_signal_type_str(void * signal);
 CS_EXPORT const char * cs_v1_gpi_get_definition_name(void * signal);
 /** @brief Return a borrowed source filename, or null when unavailable. */
 CS_EXPORT const char * cs_v1_gpi_get_definition_file(void * signal);
-/** @brief Return feature bits: 0 packed planes, 1 optional VPI packed metadata; safe before binding. */
+/** @brief Return feature bits: 0 packed planes, 1 VPI metadata, 2 direct VPI probe, 3 numeric batches, 4 native clocks; safe before binding. */
 CS_EXPORT uint64_t cs_abi_features(void);
 /** @brief Read value/unknown/high-Z planes into length bytes. Status 0 success, 1 arguments, 2 width, 3 unsupported state, 5 malformed text; discard buffer on failure. */
 CS_EXPORT int32_t cs_v1_read_planes(void *signal, uint32_t bits, uint8_t *buffer, uint32_t length);
 /** @brief Validate planes then submit a write. Status 0 submitted, 1 arguments, 2 width, 4 allocation, 6 constant; no write occurs on validation failure. */
 CS_EXPORT int32_t cs_v1_write_planes(void *signal, uint32_t bits, const uint8_t *buffer, uint32_t length, int32_t action);
+/** @brief ABI numeric write descriptor: pointer plus fixed-width value/action (sequential layout). */
+typedef struct cs_u32_write { void *signal; uint32_t value; int32_t action; } cs_u32_write;
+/** @brief Enable checked direct VPI vector access for a known signal; 0 enabled, 1 unavailable, 2 invalid, 4 allocation. */
+CS_EXPORT int32_t cs_v1_enable_direct(void *signal);
+/** @brief Release owned direct VPI cache handles before simulator shutdown. */
+CS_EXPORT void cs_v1_clear_direct(void);
+/** @brief Validate then write ordered numeric entries; statuses match packed transport. */
+CS_EXPORT int32_t cs_v1_write_u32_batch(const cs_u32_write *items, uint32_t count);
+/** @brief Read ordered known unsigned values; discard all output on nonzero status. */
+CS_EXPORT int32_t cs_v1_read_u32_batch(void *const *signals, const uint32_t *widths, uint32_t *values, uint32_t count);
+/** @brief Start a native clock; caller owns failure callback/data until successful stop. Status 8 means callback registration/removal failure. */
+CS_EXPORT void *cs_v1_clock_start(void *signal, uint64_t high, uint64_t low, cs_callback failure, void *data, int32_t *status);
+/** @brief Update timing at the next full-cycle boundary. */
+CS_EXPORT int32_t cs_v1_clock_update(void *handle, uint64_t high, uint64_t low);
+/** @brief Stop pending edges; 0 consumes the handle, nonzero retains it for safe retry. */
+CS_EXPORT int32_t cs_v1_clock_stop(void *handle);
 #ifdef __cplusplus
 } // extern "C"
 #endif

@@ -102,8 +102,7 @@ build configuration, not a claim that the upstream source itself was rewritten.
 
 Neither profile enables fast-math or machine-specific instruction sets. This
 preserves real-value semantics and package portability. These flags enable release
-optimization; they do not establish a measured performance improvement. PGO and
-backend-specific packed transfer remain separate work requiring representative data.
+optimization; they do not establish a measured performance improvement. PGO remains separate work requiring representative data.
 
 `tools/native_build_check.py` resolves every public export by literal name and links
 and runs a C11 consumer against the actual optimized C++20 binary. CI runs this on
@@ -133,6 +132,37 @@ ISA or fast-math is enabled. Owned-bridge compiler diagnostics are saved in
 8-byte vectorization of the plane-validation loop; enabling vectorization does not
 imply that every conversion loop is vectorized.
 
-Direct packed access inside backend adapters (#17) and multi-signal batching remain
-separate changes. This increment preserves the existing GPI string fallback and all
-simulation-phase ordering.
+## Direct vectors, batches and native clocks
+
+Feature bit 2 (value 4) advertises `cs_v1_enable_direct` and `cs_v1_clear_direct`.
+Known Icarus/Verilator signals can resolve a separate, owned VPI handle by qualified
+name. Exact width and supported object kind are checked before caching. Packed reads
+and writes then transfer VPI aval/bval words directly; no intermediate binary string
+or private GPI layout is used. Unavailable symbols or objects retain the existing
+string fallback. Operational errors after enabling direct transport are reported,
+not silently retried. Runtime shutdown releases cached VPI handles.
+
+Feature bit 3 (value 8) advertises ordered uint32 write/read batches. Writes validate
+the complete input before mutation, then apply in order. Managed deferred deposits
+retain last-write-wins ordering and ReadWrite flushing; nonnumeric writes are barriers.
+`SignalReadBatch` reads an immutable list of 1..32-bit signals into a caller span,
+rejecting X/Z. On any error discard the entire output. Neither operation advances
+simulation time or promises HDL-atomic visibility; sample stable values in ReadOnly.
+
+Feature bit 4 (value 16) advertises owned native clocks. Timer and ReadWrite callbacks
+stay native for each edge; only registration failures call back into managed code.
+`SimClock` Auto selects this path on validated Icarus/Verilator families. Explicit
+Managed/Native modes support comparisons. Period updates start at the next complete
+cycle. Stop removes both timer and queued write callbacks before releasing storage.
+Failed callback removal retains stopped storage for a safe retry or late callback.
+
+All extensions retain ABI version 1; the current feature mask is 31. Older hosts
+use managed clock/scalar/string fallbacks. Calls remain simulator-thread-only.
+`transport.inc` and `clocks.inc` document ownership, timing, failure and buffer contracts.
+Native failure injection includes 62 packed/batch boundary checks and 43 clock checks.
+
+The process-level controls `STB_DIRECT_PACKED=0`, `STB_BATCH_TRANSFERS=0`,
+`STB_NATIVE_CLOCK=0`, and `STB_LINEAR_TEXT=0` independently disable each optimization
+for regression and attribution runs. They are read once; defaults enable all four.
+Linear managed text conversion builds byte planes in one pass and constructs each
+BigInteger once, retaining width checks, X/Z semantics and pool cleanup.

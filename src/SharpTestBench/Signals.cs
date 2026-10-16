@@ -208,10 +208,15 @@ public partial class HdlObject
 
 public class Signal : HdlObject
 {
+    /// <summary>True when this object uses checked direct VPI vector transport instead of binary text.</summary>
+    public bool UsesDirectPackedTransport { get; }
     internal Signal(SimRuntime r, nint h) : base(r, h)
     {
         if (Kind is not (ObjectKind.Logic or ObjectKind.LogicArray or ObjectKind.Integer or ObjectKind.Enum or ObjectKind.Packed))
             throw new ArgumentException($"{Name} is not a logic/integer signal: {Kind}");
+        if (PerformanceOptions.DirectPacked && (r.NativeFeatures & 4) != 0
+            && r.Capabilities.Family is SimulatorFamily.Icarus or SimulatorFamily.Verilator)
+            UsesDirectPackedTransport = Native.cs_v1_enable_direct(h) == 0;
     }
 
     public int Width
@@ -254,7 +259,13 @@ public class Signal : HdlObject
     {
         if (Width != 1)
             throw new InvalidOperationException("Not a scalar");
-        WriteBits(value ? "1" : "0", action);
+        if (Runtime.BatchTransfers && Runtime.Capabilities.Family is SimulatorFamily.Icarus or SimulatorFamily.Verilator)
+        {
+            int raw = value ? 1 : 0;
+            Runtime.Write(Handle, () => Native.gpi_set_signal_value_int(Handle, raw, (int)action), action,
+                () => value ? "1" : "0", raw);
+        }
+        else WriteBits(value ? "1" : "0", action);
     }
 
     public void Release() => WriteBits(new string ('0', Width), WriteAction.Release);
@@ -294,7 +305,7 @@ public sealed class Signal<W> : Signal where W : struct, IWidth
         if (Width<W>.Bits <= 32)
         {
             int raw = unchecked((int)(uint)value.Value);
-            Runtime.Write(Handle, () => Native.gpi_set_signal_value_int(Handle, raw, (int)action), action, () => LogicVector<W>.From(value).ToString());
+            Runtime.Write(Handle, () => Native.gpi_set_signal_value_int(Handle, raw, (int)action), action, () => LogicVector<W>.From(value).ToString(), raw);
         }
         else
             Write(LogicVector<W>.From(value), action);

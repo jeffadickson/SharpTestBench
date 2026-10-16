@@ -95,6 +95,28 @@ internal static class Native
     internal static extern unsafe int cs_v1_read_planes(nint signal, uint bits, byte* buffer, uint length);
     [DllImport(Lib, CallingConvention = CallingConvention.Cdecl)]
     internal static extern unsafe int cs_v1_write_planes(nint signal, uint bits, byte* buffer, uint length, int action);
+    /// <summary>Sequential descriptor matching cs_u32_write on 32- and 64-bit hosts.</summary>
+    [StructLayout(LayoutKind.Sequential)]
+    internal struct U32Write
+    {
+        internal nint Signal;
+        internal uint Value;
+        internal int Action;
+    }
+    [DllImport(Lib, CallingConvention = CallingConvention.Cdecl)]
+    internal static extern int cs_v1_enable_direct(nint signal);
+    [DllImport(Lib, CallingConvention = CallingConvention.Cdecl)]
+    internal static extern void cs_v1_clear_direct();
+    [DllImport(Lib, CallingConvention = CallingConvention.Cdecl)]
+    internal static extern unsafe int cs_v1_write_u32_batch(U32Write* items, uint count);
+    [DllImport(Lib, CallingConvention = CallingConvention.Cdecl)]
+    internal static extern unsafe int cs_v1_read_u32_batch(nint* handles, uint* widths, uint* values, uint count);
+    [DllImport(Lib, CallingConvention = CallingConvention.Cdecl)]
+    internal static extern nint cs_v1_clock_start(nint signal, ulong high, ulong low, Callback failure, nint data, out int status);
+    [DllImport(Lib, CallingConvention = CallingConvention.Cdecl)]
+    internal static extern int cs_v1_clock_update(nint handle, ulong high, ulong low);
+    [DllImport(Lib, CallingConvention = CallingConvention.Cdecl)]
+    internal static extern int cs_v1_clock_stop(nint handle);
     internal static void VerifyAbi()
     {
         uint actual = cs_abi_version();
