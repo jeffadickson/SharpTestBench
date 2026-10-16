@@ -46,7 +46,7 @@ try
         ?? throw new InvalidDataException("No hostfxr library found");
     Directory.CreateDirectory(work);
     var compiled = Path.Combine(work, "top.vvp");
-    await Run(config.Iverilog ?? "iverilog", ["-g2012", "-s", config.Top, "-o", compiled, ..sources], work, null);
+    await Run(config.Iverilog ?? "iverilog", ["-g2012", "-s", config.Top, "-o", compiled, ..sources], work, null, "compile");
     var results = Path.Combine(work, "icarus-results.json");
     if (File.Exists(results)) File.Delete(results);
     var env = new Dictionary<string, string>
@@ -69,15 +69,20 @@ try
     var loaderKey = OperatingSystem.IsWindows() ? "PATH" : OperatingSystem.IsMacOS() ? "DYLD_LIBRARY_PATH" : "LD_LIBRARY_PATH";
     env[loaderKey] = searchPath + Path.PathSeparator + Environment.GetEnvironmentVariable(loaderKey);
     var command = config.Vvp ?? "vvp";
-    await Run(command, ["-m", bootstrap, compiled], work, env);
+    await Run(command, ["-m", bootstrap, compiled], work, env, "simulate");
     if (!File.Exists(results)) throw new InvalidDataException("Simulator did not produce a result JSON file");
     using var doc = JsonDocument.Parse(File.ReadAllText(results));
     if (doc.RootElement.ValueKind != JsonValueKind.Array || doc.RootElement.GetArrayLength() == 0)
         throw new InvalidDataException("No test results");
     int failed = 0;
     int passed = 0;
+    var observedNames = new HashSet<string>(StringComparer.Ordinal);
     foreach (var item in doc.RootElement.EnumerateArray())
     {
+        var identity = item.TryGetProperty("QualifiedName", out var qualified) && qualified.ValueKind == JsonValueKind.String && !string.IsNullOrWhiteSpace(qualified.GetString())
+            ? qualified.GetString()! : item.TryGetProperty("Name", out var shortName) && shortName.ValueKind == JsonValueKind.String
+            ? shortName.GetString()! : throw new InvalidDataException("Test result missing name.");
+        if (!observedNames.Add(identity)) throw new InvalidDataException($"Duplicate test identity: {identity}");
         if (!item.TryGetProperty("Status", out var status) || status.ValueKind != JsonValueKind.String)
             throw new InvalidDataException("Test result without Status.");
         switch (status.GetString())
@@ -87,6 +92,12 @@ try
             case "skipped": break;
             default: throw new InvalidDataException($"Unknown test status: {status.GetString()}");
         }
+    }
+    if (config.ExpectedNames is { Length: > 0 })
+    {
+        var expected = new HashSet<string>(config.ExpectedNames, StringComparer.Ordinal);
+        if (expected.Count != config.ExpectedNames.Length || !expected.SetEquals(observedNames))
+            throw new InvalidDataException($"Test identities differ. Missing: {string.Join(", ", expected.Except(observedNames))}; unexpected: {string.Join(", ", observedNames.Except(expected))}");
     }
     if (passed == 0) throw new InvalidDataException("No passing tests; all-skipped regressions cannot qualify CI.");
     if (config.ExpectedTests is null || config.ExpectedTests <= 0)
@@ -114,13 +125,19 @@ catch (Exception ex)
     return 1;
 }
 
-static async Task Run(string executable, IEnumerable<string> arguments, string cwd, Dictionary<string,string>? environment)
+static async Task Run(string executable, IEnumerable<string> arguments, string cwd, Dictionary<string,string>? environment, string phase)
 {
-    var psi = new ProcessStartInfo(executable) { WorkingDirectory = cwd, UseShellExecute = false };
+    var psi = new ProcessStartInfo(executable) { WorkingDirectory = cwd, UseShellExecute = false, RedirectStandardOutput = true, RedirectStandardError = true };
     foreach (var argument in arguments) psi.ArgumentList.Add(argument);
     if (environment != null)
         foreach (var (key, value) in environment) psi.Environment[key] = value;
     using var p = Process.Start(psi) ?? throw new InvalidOperationException($"Cannot start {executable}");
+    var stdoutPath = Path.Combine(cwd, phase + ".stdout.log");
+    var stderrPath = Path.Combine(cwd, phase + ".stderr.log");
+    using var stdoutFile = File.Create(stdoutPath);
+    using var stderrFile = File.Create(stderrPath);
+    var outTask = p.StandardOutput.BaseStream.CopyToAsync(stdoutFile);
+    var errTask = p.StandardError.BaseStream.CopyToAsync(stderrFile);
     using var timeout = new CancellationTokenSource(TimeSpan.FromSeconds(120));
     try { await p.WaitForExitAsync(timeout.Token); }
     catch (OperationCanceledException)
@@ -128,7 +145,8 @@ static async Task Run(string executable, IEnumerable<string> arguments, string c
         if (!p.HasExited) p.Kill(entireProcessTree: true);
         throw new TimeoutException($"Process exceeded 120 seconds: {executable}");
     }
-    if (p.ExitCode != 0) throw new InvalidOperationException($"{executable} exited with {p.ExitCode}");
+    await Task.WhenAll(outTask, errTask);
+    if (p.ExitCode != 0) throw new InvalidOperationException($"{executable} exited with {p.ExitCode}. Logs: {stdoutPath}, {stderrPath}");
 }
 
 sealed record RunManifest(
@@ -136,4 +154,5 @@ sealed record RunManifest(
     string Assembly, string NativeHost, string IcarusBootstrap, string GpiLibrary,
     string DotnetRoot, string OutputDirectory, int Seed = 1,
     string? EntryType = null, string GpiEntryPoint = "entry_point", string? GpiImpl = null,
-    string? Iverilog = null, string? Vvp = null, int? ExpectedTests = null);
+    string? Iverilog = null, string? Vvp = null, int? ExpectedTests = null,
+    string[]? ExpectedNames = null);
