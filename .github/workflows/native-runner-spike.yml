@@ -40,6 +40,33 @@ jobs:
           actual=$?
           if [ "$actual" -eq 0 ]; then echo "Missing manifest was accepted"; exit 1; fi
           echo "Invalid manifest correctly rejected (exit code $actual)"
+      - name: Reject invalid test attestation before simulator launch
+        shell: bash
+        run: |
+          cat > invalid-attestation.json <<'JSON'
+          {
+            "schemaVersion": 1,
+            "simulator": "icarus",
+            "top": "top",
+            "sources": ["does-not-exist.sv"],
+            "assembly": "does-not-exist.dll",
+            "nativeHost": "does-not-exist.so",
+            "icarusBootstrap": "does-not-exist.vpi",
+            "gpiLibrary": "does-not-exist.so",
+            "dotnetRoot": ".",
+            "outputDirectory": "build",
+            "seed": 1,
+            "expectedTests": 2,
+            "expectedNames": ["same", "same"]
+          }
+          JSON
+          set +e
+          dotnet run --project tools/SharpTestBench.Runner -c Release --no-build -- run invalid-attestation.json > invalid-attestation.log 2>&1
+          result=$?
+          set -e
+          cat invalid-attestation.log
+          test "$result" -ne 0
+          grep -q "expectedNames must contain unique" invalid-attestation.log
       - uses: actions/upload-artifact@v4
         if: always()
         with:
