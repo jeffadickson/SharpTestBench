@@ -62,12 +62,42 @@ jobs:
           PY
       - name: Verify counter through standalone .NET runner
         run: dotnet run --project tools/SharpTestBench.Runner -c Release --no-build -- run native-consumer.json
+      - name: Mutation control must fail C# verification
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          original = Path('examples/Counter/counter.sv').read_text()
+          assert 'count + 1' in original
+          Path('build/counter-mutated.sv').write_text(original.replace('count + 1', 'count + 2'))
+          manifest = json.loads(Path('native-consumer.json').read_text())
+          manifest['sources'] = ['build/counter-mutated.sv']
+          manifest['outputDirectory'] = 'build/native-mutant'
+          Path('mutant-consumer.json').write_text(json.dumps(manifest, indent=2))
+          PY
+          set +e
+          dotnet run --project tools/SharpTestBench.Runner -c Release --no-build -- run mutant-consumer.json
+          rc=$?
+          set -e
+          if [ "$rc" -eq 0 ]; then echo "ERROR: corrupted RTL passed SharpTestBench"; exit 1; fi
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p = Path('build/native-mutant/icarus-results.json')
+          assert p.is_file(), 'Mutated RTL did not produce test results (infrastructure failure)'
+          rows = json.loads(p.read_text())
+          assert len(rows)==1 and rows[0]['Status']=='failed', f'Expected assertion failure, got {rows}'
+          print('Verified: mutant compiled and executed, C# test detected wrong counter behavior')
+          PY
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: native-runner-icarus-consumer
           path: |
             build/native-consumer/**
+            build/native-mutant/**
+            mutant-consumer.json
             build/baseline-counter-*.json
             build/baseline-counter-*.log
             native-consumer.json
