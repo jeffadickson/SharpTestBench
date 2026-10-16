@@ -20,7 +20,8 @@ def workspace_lock(build):
   yield
  finally: lock.unlink(missing_ok=True)
 def main():
- parser=argparse.ArgumentParser();parser.add_argument('--work-dir',type=Path,help='Isolated simulator workspace; requires prebuilt managed/native assets via --no-build');parser.add_argument('--waves',type=Path,help='Enable run-wide VCD output at this path');parser.add_argument('--host',type=Path,help='Use an existing native host library');parser.add_argument('--assembly',type=Path,help='Prebuilt test DLL with adjacent runtimeconfig.json');parser.add_argument('--source',type=Path,action='append');parser.add_argument('--top',default='top');parser.add_argument('--entry-type');parser.add_argument('--no-build',action='store_true');parser.add_argument('--project',default='Integration',choices=['Integration','Benchmark']);parser.add_argument('--stage',type=int,action='append',help='Run selected regression stages (repeatable)');parser.add_argument('--stage-failure-policy',choices=['continue','stop-after-stage']);parser.add_argument('--log-json',type=Path,help='Write structured JSON Lines logs to this path');parser.add_argument('--list',action='store_true',help='List selected test metadata without executing test bodies');parser.add_argument('--exact',action='append',help='Select an exact short or qualified case name (repeatable)');parser.add_argument('--seed',type=int);parser.add_argument('--filter');parser.add_argument('--label');parser.add_argument('--sim',choices=['icarus','verilator','ghdl','nvc'],default='icarus');args=parser.parse_args()
+ parser=argparse.ArgumentParser();parser.add_argument('--sim-executable',type=Path,help='Reuse a prebuilt Verilator model; requires --sim verilator --no-build');parser.add_argument('--work-dir',type=Path,help='Isolated simulator workspace; requires prebuilt managed/native assets via --no-build');parser.add_argument('--waves',type=Path,help='Enable run-wide VCD output at this path');parser.add_argument('--host',type=Path,help='Use an existing native host library');parser.add_argument('--assembly',type=Path,help='Prebuilt test DLL with adjacent runtimeconfig.json');parser.add_argument('--source',type=Path,action='append');parser.add_argument('--top',default='top');parser.add_argument('--entry-type');parser.add_argument('--no-build',action='store_true');parser.add_argument('--project',default='Integration',choices=['Integration','Benchmark']);parser.add_argument('--stage',type=int,action='append',help='Run selected regression stages (repeatable)');parser.add_argument('--stage-failure-policy',choices=['continue','stop-after-stage']);parser.add_argument('--log-json',type=Path,help='Write structured JSON Lines logs to this path');parser.add_argument('--list',action='store_true',help='List selected test metadata without executing test bodies');parser.add_argument('--exact',action='append',help='Select an exact short or qualified case name (repeatable)');parser.add_argument('--seed',type=int);parser.add_argument('--filter');parser.add_argument('--label');parser.add_argument('--sim',choices=['icarus','verilator','ghdl','nvc'],default='icarus');args=parser.parse_args()
+ if args.sim_executable and (args.sim!='verilator' or not args.no_build):parser.error('--sim-executable requires --sim verilator --no-build')
  if args.work_dir and not args.no_build:parser.error('--work-dir requires --no-build; build managed/native assets once before concurrent runs')
  build=args.work_dir.resolve() if args.work_dir else root/'build';build.mkdir(parents=True,exist_ok=True)
  host=args.host.resolve() if args.host else root/'build'/HOST_NAME
@@ -85,10 +86,11 @@ def main():
    command([nvc,'--std=2008',work,'-a',*sources,'--preserve-case'],cwd=build,env=env)
    run=[nvc,'--std=2008',work,'-e',args.top,'--no-save','--jit','-r','--load='+str(config.lib_entry('vhpi','nvc'))]+(['--wave='+str(wave),'--format=vcd'] if wave else [])
   else:
-   from cocotb_tools.runner import get_runner
-   # Build with upstream's simulator-specific driver; run it with the C# bootstrap.
-   runner=get_runner('verilator');runner.build(sources=sources,hdl_toplevel=args.top,build_dir=build/'verilator',always=True,waves=bool(wave),build_args=['--Wno-fatal','--timing'])
-   run=[build/'verilator'/args.top]+(['--trace','--trace-file',str(wave)] if wave else [])
+   from verilator_build import build_model
+   # A benchmark can reuse one model while selecting its bridge per process.
+   executable=args.sim_executable.resolve() if args.sim_executable else build_model(sources,args.top,build/'verilator',bool(wave))
+   if not executable.is_file():raise SystemExit('Prebuilt Verilator executable is missing: '+str(executable))
+   run=[executable]+(['--trace','--trace-file',str(wave)] if wave else [])
   if env.get('CS_INJECT_EARLY')=='1' and args.sim in ('icarus','verilator'):run.append('+CS_EARLY_FINISH')
   result=Path(env['CS_RESULTS']);result.unlink(missing_ok=True)
   p=subprocess.run(list(map(str,run)),env=env,cwd=build,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True,timeout=int(env.get('CS_WALL_TIMEOUT','120')))

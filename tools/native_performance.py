@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Linux native A/B measurement with identical managed code, HDL, and checked traces.
+"""Linux native A/B measurement with checked HDL values and transaction traces.
 
 Provision the historical adapters in --baseline-python first. Each sample is a
-fresh simulator process; only native host/adapters vary. No CI pass/fail threshold
+fresh simulator process; preserved managed assemblies may also be compared. No CI pass/fail threshold
 is inferred from noisy shared-host timings. Raw samples and build hashes are saved.
 """
 import argparse
@@ -51,6 +51,8 @@ def comparison(records, variant, metric, baseline_variant='baseline'):
 def main():
     """Build both hosts, warm up each configuration, then interleave checked samples."""
     p = argparse.ArgumentParser(description=__doc__)
+    p.add_argument('--sim', choices=['icarus', 'verilator'], default='icarus')
+    p.add_argument('--baseline-revision', help='Source revision of a preserved baseline host/managed build')
     p.add_argument('--baseline-python', type=Path, required=True)
     p.add_argument('--baseline-host', type=Path, help='Use a preserved native host instead of reconstructing historical C')
     p.add_argument('--baseline-managed', type=Path, help='Preserved Benchmark/ and AxiMemory/ assembly directories')
@@ -81,6 +83,14 @@ def main():
     variants = {'baseline': (args.baseline_host.resolve() if args.baseline_host else old / HOST_NAME, baseline_python),
                 'bridge_only': (new / HOST_NAME, baseline_python),
                 'full': (new / HOST_NAME, None)}
+    models = {}
+    if args.sim == 'verilator':
+        from verilator_build import build_model
+        # The same model and driver must be used in every variant. Build before
+        # affinity pinning and timing; retain compiler output with the evidence.
+        for workload, top, source in [('micro', 'top', ROOT / 'tests/Integration/top.sv'),
+                                      ('axi', 'axi_memory', ROOT / 'examples/AxiMemory/axi_memory.sv')]:
+            models[workload] = build_model([source], top, output / ('model-' + workload))
     # Keep every measured process on one available logical CPU. This is a
     # single-simulator-thread benchmark, not a parallel throughput measurement.
     affinity = sorted(os.sched_getaffinity(0)); os.sched_setaffinity(0, {affinity[0]})
@@ -101,8 +111,9 @@ def main():
         allocations = {}
         for workload in ['micro', 'axi']:
             work = output / f'{round_number}-{variant}-{workload}'; work.mkdir(exist_ok=True)
-            command = [sys.executable, str(ROOT / 'tools/run.py'), '--sim', 'icarus', '--no-build',
+            command = [sys.executable, str(ROOT / 'tools/run.py'), '--sim', args.sim, '--no-build',
                        '--host', str(host), '--work-dir', str(work), '--label', 'perf']
+            if models: command += ['--sim-executable', str(models[workload])]
             managed = args.baseline_managed.resolve() if args.baseline_managed and variant != 'full' else None
             if workload == 'micro':
                 command += ['--project', 'Benchmark']
@@ -147,7 +158,7 @@ def main():
     from cocotb_tools import config
     library_hashes = {name: {p.name: digest(p) for p in directory.glob('*.so')}
                       for name, directory in [('baseline', baseline_python / 'cocotb/libs'), ('full', Path(config.libs_dir))]}
-    summary = {'schema': 1, 'baseline_revision': BASELINE if args.baseline_host is None else 'preserved binary; see host hashes',
+    summary = {'schema': 1, 'baseline_revision': args.baseline_revision or (BASELINE if args.baseline_host is None else 'preserved binary; see host hashes'),
                'baseline_managed_sha256': {str(p.relative_to(args.baseline_managed)): digest(p) for p in args.baseline_managed.rglob('*.dll')} if args.baseline_managed else None,
                'candidate_revision': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip(),
                'working_tree_dirty': bool(subprocess.check_output(['git', 'status', '--porcelain'], cwd=ROOT, text=True)),
@@ -158,8 +169,12 @@ def main():
                'environment': {'platform': platform.platform(), 'cpu_affinity': [affinity[0]],
                                'cpu_model': next((x for x in Path('/proc/cpuinfo').read_text().splitlines() if x.startswith('model name')), ''),
                                'dotnet': subprocess.check_output([sdk_root() / 'dotnet', '--version'], text=True).strip(),
-                               'simulator': subprocess.run([os.environ.get('CS_VVP', 'vvp'), '-V'], text=True, capture_output=True).stderr.splitlines()[:2],
+                               'simulator': (subprocess.check_output(['verilator', '--version'], text=True).splitlines() if args.sim == 'verilator' else subprocess.run([os.environ.get('CS_VVP', 'vvp'), '-V'], text=True, capture_output=True).stderr.splitlines()[:2]),
                                'tiered_compilation': False},
+               'model_sha256': {name: digest(path) for name, path in models.items()},
+               'model_builds': {name: json.loads((path.parent / 'model-build.json').read_text()) for name, path in models.items()},
+               'harness_sha256': {name: digest(ROOT / 'tools' / name) for name in ['native_performance.py', 'run.py', 'verilator_build.py']},
+               'hdl_sha256': {name: digest(ROOT / name) for name in ['tests/Integration/top.sv', 'examples/AxiMemory/axi_memory.sv']},
                'host_sha256': {name: digest(host) for name, (host, _) in variants.items()},
                'adapter_sha256': library_hashes, 'plan_sha256': digest(plan_file),
                'axi_trace_sha256': hashlib.sha256(json.dumps(expected_trace, sort_keys=True).encode()).hexdigest(),
@@ -168,7 +183,7 @@ def main():
                'comparisons': {name: {metric: comparison(records, name, metric) for metric in records[0]['metrics']}
                                for name in ['bridge_only', 'full']},
                ('managed_increment' if args.baseline_managed else 'adapter_increment'): {metric: comparison(records, 'full', metric, 'bridge_only') for metric in records[0]['metrics']},
-               'scope': ('Same HDL/adapters; baseline and bridge_only use preserved managed assemblies; full uses current managed assemblies. ' if args.baseline_managed else 'Same managed/HDL code. ') + 'Icarus, Linux x64; fresh processes; one warmup/configuration; interleaved rounds. Wall includes startup and HDL compile; body metrics exclude them. Bootstrap intervals describe these samples, not machine-to-machine guarantees. Packed microbenchmarks are synthetic; AXI fixture is single-outstanding AXI4-Lite-shaped traffic.'}
+               'scope': ('Same HDL/adapters; baseline and bridge_only use preserved managed assemblies; full uses current managed assemblies. ' if args.baseline_managed else 'Same managed/HDL code. ') + args.sim + ', Linux x64; fresh processes; one warmup/configuration; interleaved rounds. ' + ('Wall includes runner/runtime startup but excludes the shared precompiled model build. ' if models else 'Wall includes startup and HDL compile. ') + 'Body metrics exclude startup/build. Bootstrap intervals describe these samples, not machine-to-machine guarantees. Packed microbenchmarks are synthetic; AXI fixture is single-outstanding AXI4-Lite-shaped traffic.'}
     (output / 'summary.json').write_text(json.dumps(summary, indent=2) + '\n')
     print('NATIVE_PERFORMANCE_COMPLETE', output / 'summary.json')
 

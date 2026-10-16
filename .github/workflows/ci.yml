@@ -1,4 +1,4 @@
-name: Build and Icarus tests
+name: Build and simulator tests
 on:
   push:
   pull_request:
@@ -97,6 +97,53 @@ jobs:
             build/debugger-check/**
             build/native-debugger-check/**
 
+  verilator:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.402'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: sudo apt-get update && sudo apt-get install -y autoconf flex bison libfl-dev g++ make
+      - name: Build pinned Verilator 5.048
+        run: |
+          mkdir -p build
+          curl --fail --location --retry 3 https://github.com/verilator/verilator/archive/refs/tags/v5.048.tar.gz -o build/verilator.tar.gz
+          echo '02d934b3f972c6d9b792350634d81eadfc9e61f347e3f3bdcaad40960b9fcb53  build/verilator.tar.gz' | sha256sum --check
+          tar -xzf build/verilator.tar.gz -C build
+          cd build/verilator-5.048
+          autoconf
+          ./configure
+          make -C src -j2 opt
+          echo "VERILATOR_ROOT=$PWD" >> "$GITHUB_ENV"
+          echo "$PWD/bin" >> "$GITHUB_PATH"
+      - name: Install pinned native adapters
+        run: |
+          python tools/prepare_upstream.py
+          CC=gcc CXX=g++ python -m pip install ./build/upstream/cocotb-source pytest
+      - run: dotnet build SharpTestBench.slnx -c Release -p:RestoreLockedMode=true
+      - run: python tools/run.py --sim verilator --label verilator --waves build/verilator.vcd
+      - run: python tools/queue_reference.py --label verilator
+      - run: python tools/wave_check.py --label verilator
+      - name: Check benchmark values using the same compiled model
+        run: python tools/run.py --sim verilator --no-build --project Benchmark --sim-executable build/verilator/top --label verilator-benchmark
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: verilator-results
+          path: |
+            build/verilator*results.*
+            build/verilator*run.log
+            build/verilator*trace.txt*
+            build/verilator.vcd
+            build/verilator/model-build.json
+            build/native-build.json
+            build/native-vectorization.txt
+
   native-platforms:
     strategy:
       fail-fast: false
@@ -194,7 +241,7 @@ jobs:
           path: build/container-evidence/
 
   release-bundle:
-    needs: [linux, native-platforms, installed-linux-container]
+    needs: [linux, native-platforms, installed-linux-container, verilator]
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
