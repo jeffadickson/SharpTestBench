@@ -2,6 +2,7 @@
 import os
 import hashlib
 import json
+import platform
 from pathlib import Path
 import subprocess
 
@@ -29,7 +30,7 @@ def build_model(sources, top, directory, waves=False):
                  always=True, waves=waves,
                  build_args=flags)
     executable = Path(directory) / top
-    manifest = {'compiler': version.splitlines()[0], 'build_args': flags,
+    manifest = {'architecture': platform.machine(), 'platform': platform.system(), 'compiler': version.splitlines()[0], 'build_args': flags,
                 'simulator': subprocess.check_output(['verilator', '--version'], text=True).strip(),
                 'waves': waves, 'top': top,
                 'sources': {str(p): hashlib.sha256(Path(p).read_bytes()).hexdigest() for p in sources},

@@ -17,7 +17,7 @@ def main():
     assert rows['top','packed_mixed']['dimensions']==[[-1,0],[3,1],[7,0]]
     # A flattened packed struct does not establish field names or boundaries.
     assert rows['top','packed_packet']['dimensions']==[[15,0]]
-    sdk=Path(os.environ['CS_DOTNET_ROOT'])/'dotnet' if 'CS_DOTNET_ROOT' in os.environ else 'dotnet'
+    sdk=Path(os.environ['CS_DOTNET_ROOT'])/('dotnet.exe' if sys.platform == 'win32' else 'dotnet') if 'CS_DOTNET_ROOT' in os.environ else 'dotnet'
     subprocess.run([str(sdk),'build',str(ROOT/'tests/LayoutMetadata'),'-c','Release'],check=True)
     def run(label, path, expected=None):
         """Retain diagnostics and distinguish scoreboard rejection from unrelated setup failures."""

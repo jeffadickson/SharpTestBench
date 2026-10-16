@@ -89,6 +89,7 @@ jobs:
             build/packages-*/*.nupkg
             build/package-evidence-*/**
             build/workspace-check/**
+            build/icarus-layout-check/**
             build/axi-workload/**
             build/dsp-workload/**
             build/cpu-workload/**
@@ -105,12 +106,19 @@ jobs:
             build/*trace.txt*
             build/typecheck.log
             build/native-faults.json
-            build/icarus-layout-check/**
             build/debugger-check/**
             build/native-debugger-check/**
 
   verilator:
-    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-24.04
+            artifact: verilator-results
+          - os: ubuntu-24.04-arm
+            artifact: verilator-results-arm64
+    runs-on: ${{ matrix.os }}
     timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
@@ -146,7 +154,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: verilator-results
+          name: ${{ matrix.artifact }}
           path: |
             build/verilator*results.*
             build/verilator*run.log
@@ -199,6 +207,24 @@ jobs:
       - run: dotnet run --project tests/SharpTestBench.Generators.Tests -c Release --no-build -- -xml build/generator-results.xml
       - run: python tools/run.py --sim icarus --label platform-icarus --waves build/platform-icarus.vcd
       - run: python tools/native_build_check.py
+      - name: Check macOS elaboration metadata (native ARM64)
+        if: runner.os == 'macOS'
+        env:
+          CS_DOTNET_ROOT: ${{ env.DOTNET_ROOT }}
+        run: python tools/icarus_layouts_check.py --ivl-root "$(brew --prefix icarus-verilog)/lib/ivl" --include "$(brew --prefix icarus-verilog)/include/iverilog"
+      - name: Check Windows elaboration metadata
+        if: runner.os == 'Windows'
+        shell: pwsh
+        env:
+          CS_DOTNET_ROOT: ${{ env.DOTNET_ROOT }}
+        run: |
+          $headers = @(Get-ChildItem C:/iverilog -Recurse -Filter ivl_target.h)
+          $compilers = @(Get-ChildItem C:/iverilog -Recurse -Filter ivl.exe)
+          if ($headers.Count -ne 1 -or $compilers.Count -ne 1) {
+            throw 'Expected one matching installed Icarus target SDK and compiler'
+          }
+          python tools/icarus_layouts_check.py --ivl-root $compilers[0].DirectoryName --include $headers[0].DirectoryName
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - run: python tools/queue_reference.py --label platform-icarus
       - run: python tools/structured_reference_env.py --label platform-icarus
       - run: python tools/wave_check.py --label platform-icarus
@@ -229,6 +255,7 @@ jobs:
             build/packages-*/*.nupkg
             build/package-evidence-*/**
             build/workspace-check/**
+            build/icarus-layout-check/**
             build/axi-workload/**
             build/dsp-workload/**
             build/cpu-workload/**

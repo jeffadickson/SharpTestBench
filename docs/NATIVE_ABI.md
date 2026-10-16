@@ -171,3 +171,25 @@ BigInteger once, retaining width checks, X/Z semantics and pool cleanup.
 Feature bit 6 (value 64) advertises `cs_v1_port_direction`, returning 0 unknown,
 1 input, 2 output or 3 inout. ABI version remains 1. See
 [port directions](PORT_DIRECTIONS.md) for ownership and backend contracts.
+
+## ARM64 simulator processes
+
+The native bridge, cocotb adapters, simulator executable and .NET runtime must
+all have the same process architecture. The managed SharpTestBench assembly is
+architecture-neutral and is JIT compiled by the selected runtime. Do not load an
+x64 bridge or x64 adapter into an ARM64 Verilator process.
+
+`tools/native_build.py` already selects the native `linux-arm64` or `osx-arm64`
+.NET host pack and `tools/native_package.py` selects the matching package RID.
+Build on the target architecture with its native C++ compiler; the same C++20
+source uses O3, LTO and loop/SLP vectorization without x86-specific ISA flags.
+Compiler auto-vectorization can target ARM SIMD where profitable; this is not a
+claim that every loop vectorizes or that ARM64 is faster than x64.
+
+Verilator CI now includes Linux x64 and Linux ARM64, compiling the pinned
+Verilator version, model and bridge natively and running integration, scheduling,
+wave and benchmark-value checks. `model-build.json` records host architecture
+and OS alongside compiler flags. macOS ARM64 has its separate Icarus platform
+job. Cross-compilation, universal macOS binaries and Windows ARM64 validation
+are not provided by this change. An ARM64 Verilator CI job does not by itself
+validate a distributable Linux ARM64 NuGet release bundle.
