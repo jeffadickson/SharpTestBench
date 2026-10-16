@@ -157,7 +157,7 @@ Managed/Native modes support comparisons. Period updates start at the next compl
 cycle. Stop removes both timer and queued write callbacks before releasing storage.
 Failed callback removal retains stopped storage for a safe retry or late callback.
 
-All extensions retain ABI version 1; the current feature mask is 31. Older hosts
+All extensions retain ABI version 1; the current feature mask is 63. Older hosts
 use managed clock/scalar/string fallbacks. Calls remain simulator-thread-only.
 `transport.inc` and `clocks.inc` document ownership, timing, failure and buffer contracts.
 Native failure injection includes 62 packed/batch boundary checks and 43 clock checks.
@@ -167,3 +167,7 @@ The process-level controls `STB_DIRECT_PACKED=0`, `STB_BATCH_TRANSFERS=0`,
 for regression and attribution runs. They are read once; defaults enable all four.
 Linear managed text conversion builds byte planes in one pass and constructs each
 BigInteger once, retaining width checks, X/Z semantics and pool cleanup.
+
+Feature bit 5 (value 32) advertises caller-owned packed transfer groups. See
+[typed transfer groups](TRANSFER_GROUPS.md) for descriptor ownership, ordering,
+older-host fallback and experimental performance results. ABI version remains 1.

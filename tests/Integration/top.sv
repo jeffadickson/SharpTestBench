@@ -37,6 +37,8 @@ module top;
  reg [3:0] logic_data=0;
  wire [7:0] doubled=data<<1;
  reg [7:0] sampled=0;
+ reg [7:0] group_slots[0:69];
+ initial for (integer i=0;i<70;i=i+1) group_slots[i]=0;
  reg [7:0] memory[0:3];
  initial begin memory[0]=0;memory[1]=0;memory[2]=0;memory[3]=0;end
  reg [0:7] ascending=0;

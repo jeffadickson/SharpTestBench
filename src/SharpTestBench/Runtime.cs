@@ -41,7 +41,7 @@ public sealed class SimRuntime
     readonly int owner = Environment.CurrentManagedThreadId;
     readonly ConcurrentQueue<Action> ready = new();
     readonly Dictionary<nint, Registration> registrations = new();
-    readonly record struct PendingWrite(Action Apply, int? Numeric);
+    readonly record struct PendingWrite(Action Apply, int? Numeric, PackedDeposit? Packed);
     readonly Dictionary<nint, PendingWrite> writes = new();
     readonly HashSet<IDisposable> nativeResources = new();
     internal readonly ulong NativeFeatures;
@@ -288,7 +288,15 @@ public sealed class SimRuntime
         return writePreviews.TryGetValue(handle, out var preview) || appliedPreviews.TryGetValue(handle, out preview) ? preview() : null;
     }
 
-    internal void Write(nint handle, Action apply, WriteAction action, Func<string>? preview = null, int? numeric = null)
+    /// <summary>Reserve the normal write callback before a group inserts any members.</summary>
+    internal void PrepareDeposits()
+    {
+        CheckWrite();
+        if (Phase != SimPhase.ReadWrite)
+            writeCallback ??= Register(CallbackKind.ReadWrite, () => writeCallback = null);
+    }
+
+    internal void Write(nint handle, Action apply, WriteAction action, Func<string>? preview = null, int? numeric = null, PackedDeposit? packed = null)
     {
         CheckWrite();
         if (Native.gpi_is_constant(handle) != 0)
@@ -308,24 +316,29 @@ public sealed class SimRuntime
 
         writeCallback ??= Register(CallbackKind.ReadWrite, () => writeCallback = null);
         writes.Remove(handle);
-        writes.Add(handle, new(apply, numeric));
+        writes.Add(handle, new(apply, numeric, packed));
         writePreviews.Remove(handle);
         if (preview != null)
             writePreviews.Add(handle, preview);
     }
 
-    /// <summary>Flush in last-write order, batching only consecutive eligible numeric deposits.</summary>
+    /// <summary>Flush in last-write order, batching consecutive eligible numeric or packed deposits.</summary>
     unsafe void FlushWrites()
     {
         var items = writes.ToArray();
         var previews = writePreviews.ToArray();
         writes.Clear();
         writePreviews.Clear();
-        // Fixed-size chunks bound stack use. Non-numeric writes remain ordering barriers.
+        // Fixed-size chunks bound stack use. Unrelated submissions and scalar writes remain ordering barriers.
         Span<Native.U32Write> batch = stackalloc Native.U32Write[64];
         int index = 0;
         while (index < items.Length)
         {
+            if (items[index].Value.Packed is { } packed)
+            {
+                index = FlushPacked(items, index, packed.Owner);
+                continue;
+            }
             if (!BatchTransfers || items[index].Value.Numeric is null)
             {
                 items[index++].Value.Apply();
@@ -341,6 +354,21 @@ public sealed class SimRuntime
             else fixed (Native.U32Write* p = batch) PackedTransport.Check(Native.cs_v1_write_u32_batch(p, (uint)count));
         }
         foreach (var entry in previews) appliedPreviews[entry.Key] = entry.Value;
+    }
+
+    /// <summary>Batch only adjacent surviving members of one immutable submission; scalar writes are barriers.</summary>
+    static int FlushPacked(KeyValuePair<nint, PendingWrite>[] items, int index, PackedSubmission owner)
+    {
+        Span<Native.PlaneTransfer> descriptors = stackalloc Native.PlaneTransfer[64];
+        int count = 0;
+        while (index < items.Length && count < descriptors.Length && items[index].Value.Packed is { } entry
+            && ReferenceEquals(entry.Owner, owner))
+        {
+            descriptors[count++] = entry.Item;
+            index++;
+        }
+        owner.Apply(descriptors[..count]);
+        return index;
     }
 
     internal void DiscardWrites()

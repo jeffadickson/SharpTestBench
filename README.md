@@ -217,3 +217,6 @@ HDL-indexed managed arrays: see [range and value-array contracts](docs/VALUE_ARR
 Nine-state conversion: see [explicit resolution and numeric/byte contracts](docs/LOGIC_CONVERSIONS.md).
 
 [Logic-array transforms](docs/LOGIC_TRANSFORMS.md) cover bitwise operators, immutable slice replacement and HDL-indexed search.
+
+Experimental API: [typed transfer groups](docs/TRANSFER_GROUPS.md), including
+compatibility guarantees and initial cross-simulator measurements.

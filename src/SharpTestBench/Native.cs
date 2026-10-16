@@ -117,6 +117,18 @@ internal static class Native
     internal static extern int cs_v1_clock_update(nint handle, ulong high, ulong low);
     [DllImport(Lib, CallingConvention = CallingConvention.Cdecl)]
     internal static extern int cs_v1_clock_stop(nint handle);
+    /// <summary>Blittable descriptor matching cs_plane_transfer; pointers are borrowed only during calls.</summary>
+    [StructLayout(LayoutKind.Sequential)]
+    internal struct PlaneTransfer
+    {
+        internal nint Signal;
+        internal uint Bits;
+        internal uint Offset;
+    }
+    [DllImport(Lib, CallingConvention = CallingConvention.Cdecl)]
+    internal static extern unsafe int cs_v1_read_plane_batch(PlaneTransfer* items, uint count, byte* buffer, uint length);
+    [DllImport(Lib, CallingConvention = CallingConvention.Cdecl)]
+    internal static extern unsafe int cs_v1_write_plane_batch(PlaneTransfer* items, uint count, byte* buffer, uint length);
     internal static void VerifyAbi()
     {
         uint actual = cs_abi_version();

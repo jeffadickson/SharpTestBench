@@ -247,7 +247,7 @@ const char * cs_v1_gpi_get_definition_file(void * signal) { return p_gpi_get_def
 #include <stdlib.h>
 #include <string.h>
 /** @brief Advertise packed planes (bit 0) and optional VPI packed metadata (bit 1). */
-uint64_t cs_abi_features(void) { return 31; }
+uint64_t cs_abi_features(void) { return 63; }
 
 #include "transport.inc"
 
@@ -356,7 +356,7 @@ int32_t cs_v1_read_planes(void *signal, uint32_t bits, uint8_t *buffer, uint32_t
  * @details Unknown/high-Z bits cannot carry known value bits. Padding must be zero.
  * The temporary string is owned by this call; heap fallback is freed after GPI consumes it synchronously.
  */
-int32_t cs_v1_write_planes(void *signal, uint32_t bits, const uint8_t *buffer, uint32_t length, int32_t action) {
+static int32_t validate_write_planes(void *signal, uint32_t bits, const uint8_t *buffer, uint32_t length, int32_t action) {
     int32_t error = plane_size(signal, bits, buffer, length);
     if (error) return error;
     if (action < 0 || action > 3) return 1;
@@ -373,6 +373,13 @@ int32_t cs_v1_write_planes(void *signal, uint32_t bits, const uint8_t *buffer, u
         uint8_t unused = (uint8_t)(0xffu << (bits % 8));
         if ((buffer[n-1] | buffer[2*n-1] | buffer[3*n-1]) & unused) return 1;
     }
+    return 0;
+}
+/** @brief Validate and submit one packed value using direct VPI or the unchanged GPI fallback. */
+int32_t cs_v1_write_planes(void *signal, uint32_t bits, const uint8_t *buffer, uint32_t length, int32_t action) {
+    const int32_t error = validate_write_planes(signal, bits, buffer, length, action);
+    if (error) return error;
+    const uint32_t n = (bits + 7) / 8;
     if (auto found = direct_vpi.handles.find(signal); found != direct_vpi.handles.end())
         return direct_write(found->second, bits, buffer, action);
     // Per-call stack storage is reentrant: synchronous simulator callbacks cannot
@@ -392,3 +399,5 @@ int32_t cs_v1_write_planes(void *signal, uint32_t bits, const uint8_t *buffer, u
 }
 
 #include "clocks.inc"
+
+#include "groups.inc"

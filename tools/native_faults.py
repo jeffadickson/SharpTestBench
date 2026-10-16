@@ -41,6 +41,7 @@ def main():
             'gpi_register_timed_callback': 'return fake_register(cb, data, delay, 1);',
             'gpi_register_readwrite_callback': 'return fake_register(cb, data, 0, 0);',
             'gpi_remove_cb': 'return fake_remove(cb);',
+            'gpi_set_signal_value_binstr': '++fake_write_count;',
             'gpi_set_signal_value_int': '++fake_write_count; fake_value=value; if(fake_on_write) fake_on_write(NULL);'
         }.get(name, f'return {value};' if ret != 'void' else '')
         fake += f'{ret} {name}({args}) {{' + body + '}\n'
@@ -136,6 +137,10 @@ Console.WriteLine($"PASS registration: {count} callback kinds cleanly rejected; 
             env=dict(os.environ, LD_LIBRARY_PATH=str(BUILD / 'registration')))
     print(p.stdout.strip())
     results.append({'case': 'packed-boundary', 'stdout': p.stdout.strip(), 'stderr': p.stderr.strip(), 'exit': p.returncode})
+    p = run([shutil.which('python3'), ROOT / 'tools/group_boundary.py', BUILD / 'registration' / host.name],
+            env=dict(os.environ, LD_LIBRARY_PATH=str(BUILD / 'registration')))
+    print(p.stdout.strip())
+    results.append({'case': 'group-boundary', 'stdout': p.stdout.strip(), 'stderr': p.stderr.strip(), 'exit': p.returncode})
     p = run([shutil.which('python3'), ROOT / 'tools/clock_boundary.py', BUILD / 'registration' / host.name],
             env=dict(os.environ, LD_LIBRARY_PATH=str(BUILD / 'registration')))
     print(p.stdout.strip())

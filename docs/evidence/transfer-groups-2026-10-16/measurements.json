@@ -1,0 +1,402 @@
+[
+  {
+    "sim": "icarus",
+    "repeat": 0,
+    "operation": "read",
+    "grouped": false,
+    "native": true,
+    "count": 50000,
+    "seconds": 1.3088144,
+    "managedBytes": 59200664
+  },
+  {
+    "sim": "icarus",
+    "repeat": 0,
+    "operation": "read",
+    "grouped": true,
+    "native": true,
+    "count": 50000,
+    "seconds": 1.0056123,
+    "managedBytes": 59200040
+  },
+  {
+    "sim": "icarus",
+    "repeat": 0,
+    "operation": "write",
+    "grouped": false,
+    "native": true,
+    "count": 5000,
+    "seconds": 0.2021297,
+    "managedBytes": 19561648
+  },
+  {
+    "sim": "icarus",
+    "repeat": 0,
+    "operation": "write",
+    "grouped": true,
+    "native": true,
+    "count": 5000,
+    "seconds": 0.2022146,
+    "managedBytes": 28240944
+  },
+  {
+    "sim": "icarus",
+    "repeat": 1,
+    "operation": "read",
+    "grouped": false,
+    "native": true,
+    "count": 50000,
+    "seconds": 1.219406,
+    "managedBytes": 59200664
+  },
+  {
+    "sim": "icarus",
+    "repeat": 1,
+    "operation": "read",
+    "grouped": true,
+    "native": true,
+    "count": 50000,
+    "seconds": 0.9963387,
+    "managedBytes": 59200040
+  },
+  {
+    "sim": "icarus",
+    "repeat": 1,
+    "operation": "write",
+    "grouped": false,
+    "native": true,
+    "count": 5000,
+    "seconds": 0.1969994,
+    "managedBytes": 19561648
+  },
+  {
+    "sim": "icarus",
+    "repeat": 1,
+    "operation": "write",
+    "grouped": true,
+    "native": true,
+    "count": 5000,
+    "seconds": 0.1999662,
+    "managedBytes": 28240944
+  },
+  {
+    "sim": "icarus",
+    "repeat": 2,
+    "operation": "read",
+    "grouped": false,
+    "native": true,
+    "count": 50000,
+    "seconds": 1.0714929,
+    "managedBytes": 59200664
+  },
+  {
+    "sim": "icarus",
+    "repeat": 2,
+    "operation": "read",
+    "grouped": true,
+    "native": true,
+    "count": 50000,
+    "seconds": 1.0314543,
+    "managedBytes": 59200040
+  },
+  {
+    "sim": "icarus",
+    "repeat": 2,
+    "operation": "write",
+    "grouped": false,
+    "native": true,
+    "count": 5000,
+    "seconds": 0.2096128,
+    "managedBytes": 19561648
+  },
+  {
+    "sim": "icarus",
+    "repeat": 2,
+    "operation": "write",
+    "grouped": true,
+    "native": true,
+    "count": 5000,
+    "seconds": 0.2268049,
+    "managedBytes": 28240944
+  },
+  {
+    "sim": "icarus",
+    "repeat": 3,
+    "operation": "read",
+    "grouped": false,
+    "native": true,
+    "count": 50000,
+    "seconds": 1.0945257,
+    "managedBytes": 59200664
+  },
+  {
+    "sim": "icarus",
+    "repeat": 3,
+    "operation": "read",
+    "grouped": true,
+    "native": true,
+    "count": 50000,
+    "seconds": 1.0212378,
+    "managedBytes": 59200040
+  },
+  {
+    "sim": "icarus",
+    "repeat": 3,
+    "operation": "write",
+    "grouped": false,
+    "native": true,
+    "count": 5000,
+    "seconds": 0.2221774,
+    "managedBytes": 19561648
+  },
+  {
+    "sim": "icarus",
+    "repeat": 3,
+    "operation": "write",
+    "grouped": true,
+    "native": true,
+    "count": 5000,
+    "seconds": 0.2205222,
+    "managedBytes": 28240944
+  },
+  {
+    "sim": "icarus",
+    "repeat": 4,
+    "operation": "read",
+    "grouped": false,
+    "native": true,
+    "count": 50000,
+    "seconds": 1.2015916,
+    "managedBytes": 59200664
+  },
+  {
+    "sim": "icarus",
+    "repeat": 4,
+    "operation": "read",
+    "grouped": true,
+    "native": true,
+    "count": 50000,
+    "seconds": 1.0561239,
+    "managedBytes": 59200040
+  },
+  {
+    "sim": "icarus",
+    "repeat": 4,
+    "operation": "write",
+    "grouped": false,
+    "native": true,
+    "count": 5000,
+    "seconds": 0.2390547,
+    "managedBytes": 19561648
+  },
+  {
+    "sim": "icarus",
+    "repeat": 4,
+    "operation": "write",
+    "grouped": true,
+    "native": true,
+    "count": 5000,
+    "seconds": 0.2426969,
+    "managedBytes": 28240944
+  },
+  {
+    "sim": "verilator",
+    "repeat": 0,
+    "operation": "read",
+    "grouped": false,
+    "native": true,
+    "count": 50000,
+    "seconds": 0.2241312,
+    "managedBytes": 59200664
+  },
+  {
+    "sim": "verilator",
+    "repeat": 0,
+    "operation": "read",
+    "grouped": true,
+    "native": true,
+    "count": 50000,
+    "seconds": 0.3162333,
+    "managedBytes": 59200040
+  },
+  {
+    "sim": "verilator",
+    "repeat": 0,
+    "operation": "write",
+    "grouped": false,
+    "native": true,
+    "count": 5000,
+    "seconds": 0.1005933,
+    "managedBytes": 19561648
+  },
+  {
+    "sim": "verilator",
+    "repeat": 0,
+    "operation": "write",
+    "grouped": true,
+    "native": true,
+    "count": 5000,
+    "seconds": 0.1035692,
+    "managedBytes": 28240944
+  },
+  {
+    "sim": "verilator",
+    "repeat": 1,
+    "operation": "read",
+    "grouped": false,
+    "native": true,
+    "count": 50000,
+    "seconds": 0.242172,
+    "managedBytes": 59200664
+  },
+  {
+    "sim": "verilator",
+    "repeat": 1,
+    "operation": "read",
+    "grouped": true,
+    "native": true,
+    "count": 50000,
+    "seconds": 0.3468161,
+    "managedBytes": 59200040
+  },
+  {
+    "sim": "verilator",
+    "repeat": 1,
+    "operation": "write",
+    "grouped": false,
+    "native": true,
+    "count": 5000,
+    "seconds": 0.1022476,
+    "managedBytes": 19561648
+  },
+  {
+    "sim": "verilator",
+    "repeat": 1,
+    "operation": "write",
+    "grouped": true,
+    "native": true,
+    "count": 5000,
+    "seconds": 0.1267448,
+    "managedBytes": 28240944
+  },
+  {
+    "sim": "verilator",
+    "repeat": 2,
+    "operation": "read",
+    "grouped": false,
+    "native": true,
+    "count": 50000,
+    "seconds": 0.2514007,
+    "managedBytes": 59200664
+  },
+  {
+    "sim": "verilator",
+    "repeat": 2,
+    "operation": "read",
+    "grouped": true,
+    "native": true,
+    "count": 50000,
+    "seconds": 0.3357442,
+    "managedBytes": 59200040
+  },
+  {
+    "sim": "verilator",
+    "repeat": 2,
+    "operation": "write",
+    "grouped": false,
+    "native": true,
+    "count": 5000,
+    "seconds": 0.1059356,
+    "managedBytes": 19561648
+  },
+  {
+    "sim": "verilator",
+    "repeat": 2,
+    "operation": "write",
+    "grouped": true,
+    "native": true,
+    "count": 5000,
+    "seconds": 0.111785,
+    "managedBytes": 28240944
+  },
+  {
+    "sim": "verilator",
+    "repeat": 3,
+    "operation": "read",
+    "grouped": false,
+    "native": true,
+    "count": 50000,
+    "seconds": 0.245049,
+    "managedBytes": 59200664
+  },
+  {
+    "sim": "verilator",
+    "repeat": 3,
+    "operation": "read",
+    "grouped": true,
+    "native": true,
+    "count": 50000,
+    "seconds": 0.3382763,
+    "managedBytes": 59200040
+  },
+  {
+    "sim": "verilator",
+    "repeat": 3,
+    "operation": "write",
+    "grouped": false,
+    "native": true,
+    "count": 5000,
+    "seconds": 0.1025586,
+    "managedBytes": 19561648
+  },
+  {
+    "sim": "verilator",
+    "repeat": 3,
+    "operation": "write",
+    "grouped": true,
+    "native": true,
+    "count": 5000,
+    "seconds": 0.1181959,
+    "managedBytes": 28240944
+  },
+  {
+    "sim": "verilator",
+    "repeat": 4,
+    "operation": "read",
+    "grouped": false,
+    "native": true,
+    "count": 50000,
+    "seconds": 0.2678426,
+    "managedBytes": 59200664
+  },
+  {
+    "sim": "verilator",
+    "repeat": 4,
+    "operation": "read",
+    "grouped": true,
+    "native": true,
+    "count": 50000,
+    "seconds": 0.3454627,
+    "managedBytes": 59200040
+  },
+  {
+    "sim": "verilator",
+    "repeat": 4,
+    "operation": "write",
+    "grouped": false,
+    "native": true,
+    "count": 5000,
+    "seconds": 0.0749224,
+    "managedBytes": 19561648
+  },
+  {
+    "sim": "verilator",
+    "repeat": 4,
+    "operation": "write",
+    "grouped": true,
+    "native": true,
+    "count": 5000,
+    "seconds": 0.1027939,
+    "managedBytes": 28240944
+  }
+]

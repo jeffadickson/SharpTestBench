@@ -29,6 +29,12 @@ extern "C" {
 /** @brief Query optional VPI packed bounds into 2*capacity endpoints. Status 0 success, 1 unavailable, 2 arguments, 3 width, 4 capacity; discard pairs on failure. */
 CS_EXPORT int32_t cs_v1_vpi_packed_ranges(const char *name, uint32_t bits,
                               int32_t *pairs, uint32_t capacity, uint32_t *count);
+/** @brief Borrowed signal and byte offset into a caller-owned group buffer; three planes per member. */
+typedef struct cs_plane_transfer { void *signal; uint32_t bits; uint32_t offset; } cs_plane_transfer;
+/** @brief Read ordered members; validate all descriptors first. Discard all output on error. Feature bit 5. */
+CS_EXPORT int32_t cs_v1_read_plane_batch(const cs_plane_transfer *items, uint32_t count, uint8_t *buffer, uint32_t length);
+/** @brief Validate all descriptors/planes before ordered deposits. Caller invokes at ReadWrite. No rollback on backend failure. */
+CS_EXPORT int32_t cs_v1_write_plane_batch(const cs_plane_transfer *items, uint32_t count, const uint8_t *buffer, uint32_t length);
 /** @brief C-calling-convention callback receiving unchanged caller-owned data. */
 typedef int32_t (*cs_callback)(void *);
 /** @brief Return public ABI generation 1; safe before binding. */
