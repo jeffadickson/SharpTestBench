@@ -27,7 +27,7 @@ jobs:
         run: |
           mkdir -p build/independent-vpi
           cd build/independent-vpi
-          CXX=g++ CXXFLAGS="-std=c++20 -O2 -Wall -Wextra -Werror" iverilog-vpi ../../native/independent/icarus_probe.cpp
+          CXX=g++ CXXFLAGS="-std=c++20 -O3 -Wall -Wextra -Werror" iverilog-vpi ../../native/independent/icarus_probe.cpp
       - name: Execute VPI fixture without cocotb
         run: |
           iverilog -g2012 -s top -o build/independent-vpi/top.vvp examples/Counter/counter.sv tests/rtl/independent_vpi_counter.sv
@@ -35,7 +35,7 @@ jobs:
           grep -q '^STB_VPI_PASS ' build/independent-vpi/probe.log
           ! grep -q 'STB_VPI_FAIL' build/independent-vpi/probe.log
       - name: Benchmark matched HDL-only and native VPI runs
-        run: python3 tools/benchmark_independent_vpi.py --cycles 20000 --repeats 7 --warmups 2 --output build/independent-vpi/benchmark.json
+        run: CXX=g++ CXXFLAGS='-std=c++20 -O3 -Wall -Wextra -Werror' python3 tools/benchmark_independent_vpi.py --cycles 20000 --repeats 7 --warmups 2 --output build/independent-vpi/benchmark.json
       - uses: actions/upload-artifact@v5
         if: always()
         with:
