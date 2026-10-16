@@ -41,7 +41,7 @@ def build_host(root, sdk, build):
     vector_flags = ['-fvectorize', '-fslp-vectorize'] if 'clang' in compiler_version.lower() else ['-ftree-loop-vectorize', '-ftree-slp-vectorize']
     diagnostics = ['-Rpass=loop-vectorize', '-Rpass=slp-vectorizer'] if 'clang' in compiler_version.lower() else ['-fopt-info-vec-optimized']
     profile += vector_flags
-    sources = [root / 'native/host.cpp', root / 'native/abi.cpp']
+    sources = [root / 'native/host.cpp', root / 'native/abi.cpp', root / 'native/independent/vpi_time.cpp']
     command = [compiler, *flags, *profile, *diagnostics, '-Wall', '-Wextra', '-Werror', *map(str, sources),
                '-I', str(root / 'native/upstream'), '-I', str(headers),
                *([] if WINDOWS or MAC else ['-ldl']), '-o', str(temporary)]
@@ -58,7 +58,7 @@ def build_host(root, sdk, build):
                 'compiler': compiler_version, 'vectorization': vector_flags,
                 'vectorization_diagnostics': result.stderr,
                 'sources': {str(p.relative_to(root)): hashlib.sha256(p.read_bytes()).hexdigest()
-                            for p in [*sources, root / 'native/transport.inc', root / 'native/clocks.inc', root / 'native/abi.h', root / 'native/platform.h']},
+                            for p in [*sources, root / 'native/transport.inc', root / 'native/clocks.inc', root / 'native/abi.h', root / 'native/platform.h', root / 'native/independent/vpi_time.h']},
                 'output_sha256': hashlib.sha256(output.read_bytes()).hexdigest()}
     (build / 'native-build.json').write_text(json.dumps(manifest, indent=2) + '\n')
     return output
