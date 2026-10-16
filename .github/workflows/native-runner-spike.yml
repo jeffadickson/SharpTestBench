@@ -1,0 +1,32 @@
+name: Native .NET runner spike
+on:
+  push:
+    paths:
+      - 'tools/SharpTestBench.Runner/**'
+      - 'docs/NATIVE_RUNNER_SPIKE.md'
+      - '.github/workflows/native-runner-spike.yml'
+  pull_request:
+    paths:
+      - 'tools/SharpTestBench.Runner/**'
+      - '.github/workflows/native-runner-spike.yml'
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-24.04, windows-2022, macos-14]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.402'
+      - name: Compile standalone runner
+        run: dotnet build tools/SharpTestBench.Runner/SharpTestBench.Runner.csproj -c Release -warnaserror
+      - name: Reject absent manifest
+        shell: bash
+        run: |
+          set +e
+          dotnet run --project tools/SharpTestBench.Runner --no-build -c Release -- run nonexistent-manifest.json
+          actual=$?
+          if [ "$actual" -eq 0 ]; then echo "Missing manifest was accepted"; exit 1; fi
