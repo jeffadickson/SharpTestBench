@@ -1,6 +1,6 @@
 PROJECT_NAME = SharpTestBench
 OUTPUT_DIRECTORY = build/docs/doxygen
-INPUT = native/abi.h native/abi.cpp native/host.cpp native/platform.h native/icarus_layouts.cpp
+INPUT = native/abi.h native/abi.cpp native/host.cpp native/platform.h native/icarus_layouts.cpp native/independent/vpi_time.h native/independent/vpi_time.cpp
 RECURSIVE = NO
 EXTRACT_ALL = YES
 EXTRACT_STATIC = YES
