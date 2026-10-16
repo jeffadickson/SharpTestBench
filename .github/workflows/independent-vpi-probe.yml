@@ -20,7 +20,7 @@ jobs:
   icarus-direct-vpi:
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Install simulator and compiler
         run: sudo apt-get update && sudo apt-get install -y iverilog g++
       - name: Build independent C++20 VPI module
@@ -36,7 +36,7 @@ jobs:
           ! grep -q 'STB_VPI_FAIL' build/independent-vpi/probe.log
       - name: Benchmark matched HDL-only and native VPI runs
         run: python3 tools/benchmark_independent_vpi.py --cycles 20000 --repeats 7 --warmups 2 --output build/independent-vpi/benchmark.json
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         if: always()
         with:
           name: independent-icarus-vpi-probe
