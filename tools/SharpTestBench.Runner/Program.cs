@@ -10,6 +10,7 @@ if (args.Length != 2 || args[0] != "run")
     return 2;
 }
 
+string? failureArtifactDirectory = null;
 try
 {
     var manifestPath = Path.GetFullPath(args[1]);
@@ -49,6 +50,7 @@ try
     var fxrFile = Directory.EnumerateFiles(fxr, OperatingSystem.IsWindows() ? "hostfxr.dll" : OperatingSystem.IsMacOS() ? "libhostfxr.dylib" : "libhostfxr.so").FirstOrDefault()
         ?? throw new InvalidDataException("No hostfxr library found");
     Directory.CreateDirectory(work);
+    failureArtifactDirectory = work;
     var compiled = Path.Combine(work, "top.vvp");
     await Run(config.Iverilog ?? "iverilog", ["-g2012", "-s", config.Top, "-o", compiled, ..sources], work, null, "compile");
     var results = Path.Combine(work, "icarus-results.json");
@@ -123,7 +125,36 @@ try
 }
 catch (Exception ex)
 {
-    Console.Error.WriteLine($"SharpTestBench runner failed: {ex.GetType().Name}: {ex.Message}");
+    var kind = ex switch
+    {
+        TimeoutException => "timeout",
+        FileNotFoundException or DirectoryNotFoundException or InvalidDataException or JsonException => "configuration_error",
+        InvalidOperationException when ex.Message.Contains("iverilog", StringComparison.OrdinalIgnoreCase) => "build_failure",
+        InvalidOperationException when ex.Message.Contains("vvp", StringComparison.OrdinalIgnoreCase) => "simulator_failure",
+        _ => "infrastructure_failure"
+    };
+    Console.Error.WriteLine($"SharpTestBench runner {kind}: {ex.GetType().Name}: {ex.Message}");
+    if (failureArtifactDirectory is not null)
+    {
+        try
+        {
+            var evidence = new
+            {
+                SchemaVersion = 1, Status = "failed", Kind = kind,
+                ErrorType = ex.GetType().FullName, Error = ex.Message,
+                RecordedAtUtc = DateTimeOffset.UtcNow,
+                LogFiles = new[] { "compile.stdout.log", "compile.stderr.log", "simulate.stdout.log", "simulate.stderr.log" }
+                    .Where(p => File.Exists(Path.Combine(failureArtifactDirectory, p))).ToArray()
+            };
+            var target = Path.Combine(failureArtifactDirectory, "failure-manifest.json");
+            File.WriteAllText(target, JsonSerializer.Serialize(evidence, new JsonSerializerOptions { WriteIndented = true }));
+            Console.Error.WriteLine($"Failure evidence: {target}");
+        }
+        catch (Exception evidenceError)
+        {
+            Console.Error.WriteLine($"Could not write failure evidence: {evidenceError.Message}");
+        }
+    }
     return 1;
 }
 
