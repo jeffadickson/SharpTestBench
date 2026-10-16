@@ -1,6 +1,9 @@
-name: Native .NET runner spike
+name: Native .NET runner branch build
 on:
+  workflow_dispatch:
   push:
+    branches:
+      - feature/native-dotnet-consumer-runner
     paths:
       - 'tools/SharpTestBench.Runner/**'
       - 'docs/NATIVE_RUNNER_SPIKE.md'
@@ -8,9 +11,13 @@ on:
   pull_request:
     paths:
       - 'tools/SharpTestBench.Runner/**'
+      - 'docs/NATIVE_RUNNER_SPIKE.md'
       - '.github/workflows/native-runner-spike.yml'
+permissions:
+  contents: read
 jobs:
-  build:
+  runner-build:
+    name: .NET 10 runner build (${{ matrix.os }})
     strategy:
       fail-fast: false
       matrix:
@@ -21,12 +28,22 @@ jobs:
       - uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '10.0.402'
+      - name: Show .NET environment
+        run: dotnet --info
       - name: Compile standalone runner
-        run: dotnet build tools/SharpTestBench.Runner/SharpTestBench.Runner.csproj -c Release -warnaserror
-      - name: Reject absent manifest
+        run: dotnet build tools/SharpTestBench.Runner/SharpTestBench.Runner.csproj -c Release --warnaserror
+      - name: Verify invalid manifest fails
         shell: bash
         run: |
           set +e
-          dotnet run --project tools/SharpTestBench.Runner --no-build -c Release -- run nonexistent-manifest.json
+          dotnet run --project tools/SharpTestBench.Runner -c Release --no-build -- run nonexistent-manifest.json
           actual=$?
           if [ "$actual" -eq 0 ]; then echo "Missing manifest was accepted"; exit 1; fi
+          echo "Invalid manifest correctly rejected (exit code $actual)"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: native-runner-${{ matrix.os }}
+          path: |
+            tools/SharpTestBench.Runner/bin/Release/net10.0/**
+            tools/SharpTestBench.Runner/obj/project.assets.json
