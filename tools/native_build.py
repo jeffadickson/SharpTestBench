@@ -32,7 +32,9 @@ def build_host(root, sdk, build):
     staging = tempfile.TemporaryDirectory(prefix='native-build-', dir=build)
     temporary = Path(staging.name) / HOST_NAME
     compiler = os.environ.get('CXX', 'clang++' if MAC else 'g++')
-    flags = ['-shared', '-static-libgcc', '-static-libstdc++'] if WINDOWS else ['-dynamiclib', '-fPIC', '-Wl,-install_name,@rpath/' + HOST_NAME] if MAC else ['-shared', '-fPIC', '-Wl,-soname,' + HOST_NAME]
+    # MinGW's C++ containers can introduce winpthread through libstdc++; keep
+    # all compiler runtimes static so isolated DLL consumers need no compiler PATH.
+    flags = ['-shared', '-static'] if WINDOWS else ['-dynamiclib', '-fPIC', '-Wl,-install_name,@rpath/' + HOST_NAME] if MAC else ['-shared', '-fPIC', '-Wl,-soname,' + HOST_NAME]
     # No fast-math or host-specific ISA: preserve HDL real values and portable packages.
     profile = ['-std=c++20', '-O3', '-flto', '-g', '-DNDEBUG', '-DSTB_HOST_BUILD', '-fvisibility=hidden']
     compiler_version = subprocess.check_output([compiler, '--version'], text=True).splitlines()[0]

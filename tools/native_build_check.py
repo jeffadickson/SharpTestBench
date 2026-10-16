@@ -15,6 +15,11 @@ BUILD = ROOT / 'build'
 
 def main():
     host = BUILD / HOST_NAME
+    if WINDOWS:
+        imports = re.findall(r'DLL Name:\s*(\S+)', subprocess.check_output(['objdump', '-p', str(host)], text=True))
+        print('NATIVE_IMPORTS', json.dumps(imports), flush=True)
+        unexpected = [name for name in imports if name.lower().startswith(('libwinpthread', 'libstdc++', 'libgcc'))]
+        if unexpected: raise RuntimeError('Compiler runtime must be statically linked: ' + ', '.join(unexpected))
     library = ctypes.CDLL(str(host))
     header = (ROOT / 'native/abi.h').read_text()
     exports = re.findall(r'^CS_EXPORT .*?\b(cs_\w+)\(', header, re.M)

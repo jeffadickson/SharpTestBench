@@ -47,7 +47,7 @@ def main():
     result = subprocess.run([SDK, str(probe / 'bin/Release/net10.0/FailureProbe.dll'), '-xml', str(report)])
     assert result.returncode != 0, 'Injected failure must fail the process'
     verify(report, 1)
-    print('MANAGED_PASS 378 cases; injected failure named correctly; remaining 375 cases passed')
+    print('MANAGED_PASS 378 cases; injected failure named correctly; remaining 377 cases passed')
 
 
 if __name__ == '__main__':
