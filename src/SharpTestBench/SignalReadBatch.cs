@@ -1,4 +1,5 @@
 using System.Globalization;
+using System.Buffers;
 
 namespace SharpTestBench;
 
@@ -45,8 +46,21 @@ public sealed class SignalReadBatch
         }
         else
         {
-            for (int i = 0; i < Count; i++)
-                destination[i] = uint.Parse(signals[i].ReadBits(), NumberStyles.AllowBinarySpecifier, CultureInfo.InvariantCulture);
+            // Match the native batch all-or-nothing contract even when batching is
+            // disabled: never expose a partially updated destination after X/Z.
+            uint[]? rented = null;
+            Span<uint> scratch = Count <= 32 ? stackalloc uint[Count] :
+                (rented = ArrayPool<uint>.Shared.Rent(Count)).AsSpan(0, Count);
+            try
+            {
+                for (int i = 0; i < Count; i++)
+                    scratch[i] = uint.Parse(signals[i].ReadBits(), NumberStyles.AllowBinarySpecifier, CultureInfo.InvariantCulture);
+                scratch.CopyTo(destination);
+            }
+            finally
+            {
+                if (rented is not null) ArrayPool<uint>.Shared.Return(rented);
+            }
         }
     }
 }
