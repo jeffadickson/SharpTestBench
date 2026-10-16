@@ -84,3 +84,7 @@ name lookup did not resolve the package variable. The pinned VPI package iterato
 enumerates parameters only. Child access now falls back to that enumeration,
 and a separate constant-member fixture checks this path; Verilator retains its
 variable-member assertion. Package-variable access on Icarus remains open in #13.
+
+An optional [Icarus elaboration metadata helper](ELABORATION_METADATA.md) now
+exports original packed dimensions before runtime flattening. It is explicitly
+separate from automatic runtime discovery and does not infer packed-struct fields.

@@ -1,0 +1,459 @@
+{
+  "schema": 1,
+  "provider": "icarus-target",
+  "signals": [
+    {
+      "path": [
+        "discovery_pkg",
+        "marker"
+      ],
+      "width": 32,
+      "dimensions": [
+        [
+          31,
+          0
+        ]
+      ]
+    },
+    {
+      "path": [
+        "top",
+        "ascending"
+      ],
+      "width": 8,
+      "dimensions": [
+        [
+          0,
+          7
+        ]
+      ]
+    },
+    {
+      "path": [
+        "top",
+        "bench32"
+      ],
+      "width": 32,
+      "dimensions": [
+        [
+          31,
+          0
+        ]
+      ]
+    },
+    {
+      "path": [
+        "top",
+        "data"
+      ],
+      "width": 8,
+      "dimensions": [
+        [
+          7,
+          0
+        ]
+      ]
+    },
+    {
+      "path": [
+        "top",
+        "delta1"
+      ],
+      "width": 8,
+      "dimensions": [
+        [
+          7,
+          0
+        ]
+      ]
+    },
+    {
+      "path": [
+        "top",
+        "delta2"
+      ],
+      "width": 8,
+      "dimensions": [
+        [
+          7,
+          0
+        ]
+      ]
+    },
+    {
+      "path": [
+        "top",
+        "delta3"
+      ],
+      "width": 8,
+      "dimensions": [
+        [
+          7,
+          0
+        ]
+      ]
+    },
+    {
+      "path": [
+        "top",
+        "delta_source"
+      ],
+      "width": 8,
+      "dimensions": [
+        [
+          7,
+          0
+        ]
+      ]
+    },
+    {
+      "path": [
+        "top",
+        "doubled"
+      ],
+      "width": 8,
+      "dimensions": [
+        [
+          7,
+          0
+        ]
+      ]
+    },
+    {
+      "path": [
+        "top",
+        "huge"
+      ],
+      "width": 4096,
+      "dimensions": [
+        [
+          4095,
+          0
+        ]
+      ]
+    },
+    {
+      "path": [
+        "top",
+        "in_data"
+      ],
+      "width": 8,
+      "dimensions": [
+        [
+          7,
+          0
+        ]
+      ]
+    },
+    {
+      "path": [
+        "top",
+        "logic_data"
+      ],
+      "width": 4,
+      "dimensions": [
+        [
+          3,
+          0
+        ]
+      ]
+    },
+    {
+      "path": [
+        "top",
+        "matrix_middle"
+      ],
+      "width": 8,
+      "dimensions": [
+        [
+          7,
+          0
+        ]
+      ]
+    },
+    {
+      "path": [
+        "top",
+        "matrix_right"
+      ],
+      "width": 8,
+      "dimensions": [
+        [
+          7,
+          0
+        ]
+      ]
+    },
+    {
+      "path": [
+        "top",
+        "memory"
+      ],
+      "width": 8,
+      "dimensions": [
+        [
+          7,
+          0
+        ]
+      ]
+    },
+    {
+      "path": [
+        "top",
+        "mixed_first"
+      ],
+      "width": 8,
+      "dimensions": [
+        [
+          7,
+          0
+        ]
+      ]
+    },
+    {
+      "path": [
+        "top",
+        "mixed_last"
+      ],
+      "width": 8,
+      "dimensions": [
+        [
+          7,
+          0
+        ]
+      ]
+    },
+    {
+      "path": [
+        "top",
+        "odd_wide"
+      ],
+      "width": 73,
+      "dimensions": [
+        [
+          72,
+          0
+        ]
+      ]
+    },
+    {
+      "path": [
+        "top",
+        "out_data"
+      ],
+      "width": 8,
+      "dimensions": [
+        [
+          7,
+          0
+        ]
+      ]
+    },
+    {
+      "path": [
+        "top",
+        "package_marker"
+      ],
+      "width": 32,
+      "dimensions": [
+        [
+          31,
+          0
+        ]
+      ]
+    },
+    {
+      "path": [
+        "top",
+        "packed_matrix"
+      ],
+      "width": 48,
+      "dimensions": [
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          0
+        ],
+        [
+          7,
+          0
+        ]
+      ]
+    },
+    {
+      "path": [
+        "top",
+        "packed_mixed"
+      ],
+      "width": 48,
+      "dimensions": [
+        [
+          -1,
+          0
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          7,
+          0
+        ]
+      ]
+    },
+    {
+      "path": [
+        "top",
+        "packed_packet"
+      ],
+      "width": 16,
+      "dimensions": [
+        [
+          15,
+          0
+        ]
+      ]
+    },
+    {
+      "path": [
+        "top",
+        "packet_payload"
+      ],
+      "width": 8,
+      "dimensions": [
+        [
+          7,
+          0
+        ]
+      ]
+    },
+    {
+      "path": [
+        "top",
+        "perf_a"
+      ],
+      "width": 32,
+      "dimensions": [
+        [
+          31,
+          0
+        ]
+      ]
+    },
+    {
+      "path": [
+        "top",
+        "perf_b"
+      ],
+      "width": 8,
+      "dimensions": [
+        [
+          7,
+          0
+        ]
+      ]
+    },
+    {
+      "path": [
+        "top",
+        "perf_clock_count"
+      ],
+      "width": 32,
+      "dimensions": [
+        [
+          31,
+          0
+        ]
+      ]
+    },
+    {
+      "path": [
+        "top",
+        "pooled_wide"
+      ],
+      "width": 8193,
+      "dimensions": [
+        [
+          8192,
+          0
+        ]
+      ]
+    },
+    {
+      "path": [
+        "top",
+        "sampled"
+      ],
+      "width": 8,
+      "dimensions": [
+        [
+          7,
+          0
+        ]
+      ]
+    },
+    {
+      "path": [
+        "top",
+        "signed_data"
+      ],
+      "width": 16,
+      "dimensions": [
+        [
+          15,
+          0
+        ]
+      ]
+    },
+    {
+      "path": [
+        "top",
+        "wide"
+      ],
+      "width": 256,
+      "dimensions": [
+        [
+          255,
+          0
+        ]
+      ]
+    },
+    {
+      "path": [
+        "top",
+        "unit0",
+        "local_data"
+      ],
+      "width": 8,
+      "dimensions": [
+        [
+          7,
+          0
+        ]
+      ]
+    }
+  ],
+  "provenance": {
+    "top": "top",
+    "sources": {
+      "/workspace/scratch/d13ee848099b/SharpTestBench/tests/Integration/top.sv": "662a7b05414db0e9f1d80eb903362b237d9e7432a655966c2d64a8a64ce04d32"
+    },
+    "helper_sha256": "c6f0024c1407ab077039e7343eda2ad4148f5f4b105eb863112f28c0eb3df3be",
+    "header_sha256": "33428c43621b0458a1d58ed83fdda0d12c37b347d4b6212ce58655ab82421016",
+    "compiler_profile": [
+      "-std=c++20",
+      "-O3",
+      "-flto",
+      "-ftree-loop-vectorize",
+      "-ftree-slp-vectorize",
+      "-shared",
+      "-fPIC",
+      "-Wall",
+      "-Wextra"
+    ],
+    "limitation": "Separate elaboration; not authenticated against a simulation binary. No automatic runtime import."
+  }
+}

@@ -72,6 +72,9 @@ jobs:
       - run: python tools/native_faults.py
         env:
           CS_DOTNET_ROOT: ${{ env.DOTNET_ROOT }}
+      - run: python tools/icarus_layouts_check.py --ivl-root /usr/lib/x86_64-linux-gnu/ivl --include /usr/include/iverilog
+        env:
+          CS_DOTNET_ROOT: ${{ env.DOTNET_ROOT }}
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -102,6 +105,7 @@ jobs:
             build/*trace.txt*
             build/typecheck.log
             build/native-faults.json
+            build/icarus-layout-check/**
             build/debugger-check/**
             build/native-debugger-check/**
 
