@@ -71,3 +71,5 @@ See [assessment and adoption boundaries](TEST_TOOLING.md). Issue state is author
 - [#51 Reduce packed bridge allocations and verify portable SIMD](https://github.com/jeffadickson/SharpTestBench/issues/51): complete: buffer lifetime, vectorized validation, 47 boundary checks, paired Icarus performance and five-job platform validation (38848163459). Fresh Linux Verilator regression/performance coverage is recorded in #52.
 
 - [#52 Benchmark current bridge on Verilator and restore recurring regression coverage](https://github.com/jeffadickson/SharpTestBench/issues/52): complete; 70-pass/4-skip pinned 5.048 regression, reusable optimized models, nine-round measurement and six-job CI run 38849578307. Timing remains inconclusive; allocation reduction measured.
+
+- [#53 Implement and measure direct vectors, batched transfers, native clocks and linear text conversion](https://github.com/jeffadickson/SharpTestBench/issues/53): implementation and reproducible benchmark evidence in NATIVE_PERFORMANCE.md. Includes #17 and #19; broader CPU/DSP/full-AXI scope remains #18.

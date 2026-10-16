@@ -43,13 +43,19 @@ native feature bit and validated per-object dimension/width checks.
 | Signedness metadata / VCD capture | Conditional | Conditional | Conditional | Conditional |
 | Native packed ranges | Unverified* | Conditional* | Unverified* | Unverified* |
 | Mixed-language traversal | Unverified | Unverified | Unverified | Unverified |
+| Native clocks | Supported** | Supported** | Unverified** | Unverified** |
 
 *Native packed ranges are Unsupported when ABI bit 1 is absent. Packed-plane
 transport is separately Supported only when ABI bit 0 is present; it does not
 promise simulator X/Z support or direct packed adapter transfers. Current native
-ABI initialization also requires bit 0. Dynamic-string NUL, named-struct inference,
-native clocks and external-thread wakeup are Unsupported on every family because
-the framework has not implemented them (#14, #10, #19, #36).
+ABI initialization also requires bit 0. Direct VPI transfers additionally require
+bit 2 and a successful per-object symbol/name/width probe; inspect
+`Signal.UsesDirectPackedTransport`. Unavailable probes retain the string fallback.
+
+**Native clocks are Unsupported when ABI bit 4 is absent. Auto mode selects them
+only for the validated Icarus/Verilator families; other families use managed clocks.
+Dynamic-string NUL, named-struct inference and external-thread wakeup remain
+Unsupported (#14, #10, #36).
 
 Unknown product families default to Unverified except explicit ABI information and
 universal framework limitations. Matching is case insensitive with product-name

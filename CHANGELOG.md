@@ -1,5 +1,8 @@
 # Unreleased
 
+- Added checked direct VPI packed transfers, ordered numeric batches and reusable read snapshots, native adjustable clocks, and linear four-state text conversion (#17, #19, #53). Retained portable C++20/O3/LTO/vectorization and conservative backend fallbacks.
+- Added native clock lifecycle failure injection and managed/native pulse equivalence; platform CI exercises the native-clock AXI workload and isolated DLL dependencies.
+
 - Added platform-aware host loading/building, Windows/macOS native CI gates, an SDK pin, prerequisite doctor and real counter example toward cross-platform alpha.
 
 - Added reverse-order fixture scopes, resource ownership, bounded async teardown and combined failure reporting (#31).

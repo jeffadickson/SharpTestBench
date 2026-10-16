@@ -52,8 +52,10 @@ clock.SetPeriod(6, highSteps: 2);
 
 The current cycle keeps its original durations. The next cycle has four low
 steps and two high steps. Invalid timing does not change the previous settings.
-SetPeriod must run on the simulator thread. This is still a managed clock, not
-an optimized native simulator clock; a native clock implementation remains open.
+SetPeriod must run on the simulator thread. Since #19/#53, SimClock Auto mode
+selects native callbacks on validated Icarus/Verilator hosts; explicit Managed mode
+retains the original implementation. Both preserve these pulse timing semantics.
+See NATIVE_ABI.md for lifecycle and fallback contracts.
 
 ## Validation
 

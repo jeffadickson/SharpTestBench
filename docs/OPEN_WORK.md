@@ -62,14 +62,18 @@ is made. Native simulator adapters are reused, not reimplemented in C#.
       and isolated native registration-failure tests (see NATIVE_ABI.md).
 - [x] Packed value/X/Z transfer across the C# boundary, buffer validation and
       measured wide-vector conversion improvement (see PACKED_TRANSPORT.md).
-- [ ] Direct packed access inside GPI/simulator adapters; the shim still converts
-      to/from native binary strings.
+- [x] Direct packed VPI transfer on validated Icarus/Verilator objects (#17),
+      preserving X/Z, widths and fallback on unavailable handles. Other backends
+      retain the GPI string path; this does not claim direct VHPI support.
 - [ ] Broader CPU/DSP/AXI benchmarks. An AXI-Lite-shaped memory workload now has
       independent C#/Python scoreboards, repeated processes, allocation/GC reporting,
       backpressure/reset coverage and fault negatives. CPU/DSP and full AXI bursts
       and concurrency remain; see examples/AxiMemory and docs/benchmarks.
 - [x] Managed clock period/duty changes at full-cycle boundaries, with edge-time tests.
-- [ ] Native clock option; the current driver is managed.
+- [x] Native adjustable clocks on Icarus/Verilator (#19), with managed fallback,
+      exact pulse/update/cancellation equivalence and callback-failure injection.
+- [x] Ordered numeric write batches, reusable unsigned read snapshots and linear
+      four-state text conversion; independent switches and measured attribution (#53).
 - [x] Recursive elaborated hierarchy generation with nested typed arrays, native
       compilation and execution of generated Verilog/VHDL bindings.
 - [x] Roslyn incremental manifest generator with deterministic typed output and diagnostics (#20).

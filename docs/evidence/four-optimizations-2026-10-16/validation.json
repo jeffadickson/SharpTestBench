@@ -1,0 +1,24 @@
+{
+  "managed_cases": 378,
+  "icarus": {
+    "passed": 74,
+    "failed": 0,
+    "skipped": 2
+  },
+  "verilator": {
+    "passed": 72,
+    "failed": 0,
+    "skipped": 4
+  },
+  "icarus_all_switches_disabled": {
+    "passed": 74,
+    "failed": 0,
+    "skipped": 2
+  },
+  "packed_batch_native_checks": 62,
+  "native_clock_checks": 43,
+  "axi_oracle_fault_checks_per_platform": 6,
+  "checked_axi_benchmark_executions": 216,
+  "ci_run": 38853184587,
+  "runtime_source_commit": "6b51699d5c9c57b11868269a2b0b38f15ec32154"
+}

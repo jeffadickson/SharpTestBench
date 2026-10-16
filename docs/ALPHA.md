@@ -19,8 +19,8 @@ Intel Macs and Windows ARM64 are not validated.
 
 Install .NET SDK **10.0.402** (global.json pins it), Python 3.12, Icarus Verilog and
 an appropriate native compiler. Linux uses GCC; macOS uses Clang from the Xcode
-command-line tools; Windows uses MinGW-w64 GCC for this host (GNU typeof is used in
-the ABI shim). Building the pinned cocotb adapters on Windows also needs the C++
+command-line tools; Windows uses MinGW-w64 GCC for the C++20 host (standard decltype binds
+the pinned GPI signatures). Building the pinned cocotb adapters on Windows also needs the C++
 toolchain selected by CMake, normally Visual Studio Build Tools. Use 64-bit tools
 of matching architecture. Windows/macOS CI records the tested installation recipe.
 
@@ -66,6 +66,24 @@ Completed gates include isolated simulator workspaces (#41), incremental binding
 validation (#27). Windows/Mac and simultaneous mixed debugging remain unverified (#45);
 see DEBUGGING.md for the supported boundary.
 
-Native clocks, AOT and optional mocking/HTTP libraries are not required to try the
+AOT and optional mocking/HTTP libraries are not required to try the
 source alpha. Publication requires the supported platform matrix and installation
 limitations to be explicit. No full cocotb-parity claim is made.
+
+
+## Four-optimization validation (#53)
+
+[CI run 38853184587](https://github.com/jeffadickson/SharpTestBench/actions/runs/38853184587)
+passed all six jobs at `6b51699d5c9c57b11868269a2b0b38f15ec32154`: Linux,
+Windows x64, macOS ARM64, Verilator, isolated Linux package consumption and release
+bundle assembly. Platform Icarus suites passed 74 tests with two explicit skips;
+Verilator passed 72 with four skips. Managed tests passed 378 cases. Native C ABI
+checks resolved 51 unmangled exports and ran a linked C11 consumer. The additional
+packed force/release test passes on supported Icarus platforms.
+
+Native-clock AXI runs match the independent Python oracle and detect six injected
+faults on Linux/Windows/macOS. Windows initially exposed a standalone DLL loading
+failure; statically linking all MinGW compiler runtimes fixed it. PE imports are
+now checked before loading and the installed-package gate passes. These are
+functional/package results; performance numbers in NATIVE_PERFORMANCE.md are Linux
+measurements and must not be presented as Windows/macOS speedups.

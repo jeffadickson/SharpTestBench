@@ -82,8 +82,9 @@ Windows loader cleanup preserves its original error and checks UTF-8 conversion.
 
 `tools/native_build.py` requires GCC/G++ or Clang with C++20 and LTO support.
 `CXX` selects the compiler. All owned host builds use `-std=c++20 -O3 -flto -g
--DNDEBUG`, warnings as errors, and explicit export visibility. Windows statically
-links the compiler runtimes; macOS/Linux retain their platform loader conventions.
+-DNDEBUG`, warnings as errors, and explicit export visibility. Windows uses `-static` to include the compiler and winpthread runtimes in the
+host DLL; its C ABI gate rejects dynamic compiler-runtime imports before loading.
+macOS/Linux retain their platform loader conventions.
 Builds use the final library basename inside a temporary directory, then atomically
 replace the output. This also keeps the Windows PE export-table DLL name stable
 for linked native consumers. LTO failure fails the build. Debug information remains available for native

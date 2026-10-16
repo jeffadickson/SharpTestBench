@@ -11,16 +11,19 @@ Value bits under unknown bits are zero. Unused high bits must be zero. The nativ
 adapter validates the exact buffer length, HDL width, masks, actions and constants.
 It returns explicit status codes. Read buffers must be discarded on failure.
 
-The native adapter still calls pinned GPI binary-string functions. This removes
-managed strings and per-bit BigInteger conversions; it does **not** add a packed
-GPI API or use simulator-private handles. Direct VPI/VHPI packed access remains
-open. Nine-state symbols such as U/W/L/H/- are rejected by four-state reads; use
+Known Icarus/Verilator objects now use optional direct VPI vector words after
+a checked per-object probe. The bridge owns separately name-resolved VPI handles;
+it does not reinterpret private GPI objects or modify upstream adapters. Other
+backends and unavailable objects retain pinned GPI binary-string functions.
+Direct VHPI transfer is not implemented. Nine-state symbols such as U/W/L/H/- are rejected by four-state reads; use
 `ReadLogic()` to preserve them.
 
-Writes own a private packed buffer until the deferred write executes. Deposit
+Deferred writes capture immutable values and encode into stack/pool buffers only
+when applied; no rented buffer survives a scheduler turn. Deposit
 coalescing, constant checks, ReadOnly restrictions, force/release restrictions,
 and Verilator X/Z rejection are unchanged. Native setter success means the shim
 validated and forwarded the request; GPI's void setter cannot report backend errors.
+Direct VPI operations additionally check available VPI error status.
 
 ## ABI extension
 
@@ -43,6 +46,8 @@ Calls remain simulator-thread-only.
 | 4 | Native allocation failed |
 | 5 | Null value or unexpected native string length |
 | 6 | Write to a constant |
+| 7 | Direct VPI operation failed |
+| 8 | Native clock callback registration/removal failed |
 
 ## Measured effect
 
@@ -74,3 +79,7 @@ are in `docs/evidence/v0.5/packed-benchmark.json`.
   nonzero padding, size/width errors, constants and unsupported native values.
 - Installed NuGet consumers exercise packed X/Z on Icarus and NVC, plus a wide
   generated binding on Icarus.
+
+These v0.5 timings are historical. Current direct-vector, linear-string and batch
+results are in [NATIVE_PERFORMANCE.md](NATIVE_PERFORMANCE.md), with independently
+disabled features and preserved-binary comparisons.
