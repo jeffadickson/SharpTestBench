@@ -51,6 +51,8 @@ jobs:
       - run: python tools/axi_workload.py --transactions 128 --repeat 3
         env:
           AXI_CLOCK_MODE: native
+      - run: dotnet build examples/DspFir -c Release
+      - run: python tools/dsp_workload.py --cycles 1024 --repeat 3
       - run: python tools/workspace_tests.py
       - run: python tools/native_package.py
       - run: python tools/stage_tests.py
@@ -83,6 +85,7 @@ jobs:
             build/package-evidence-*/**
             build/workspace-check/**
             build/axi-workload/**
+            build/dsp-workload/**
             build/*structured.json
             build/structured-*.json
             build/structured-*.log
@@ -199,6 +202,8 @@ jobs:
       - run: python tools/axi_workload.py --transactions 128 --repeat 3
         env:
           AXI_CLOCK_MODE: native
+      - run: dotnet build examples/DspFir -c Release
+      - run: python tools/dsp_workload.py --cycles 1024 --repeat 3
       - run: python tools/workspace_tests.py
       - run: python tools/native_package.py
       - uses: actions/upload-artifact@v4
@@ -216,6 +221,7 @@ jobs:
             build/package-evidence-*/**
             build/workspace-check/**
             build/axi-workload/**
+            build/dsp-workload/**
             build/*structured.json
             build/structured-*.json
             build/structured-*.log

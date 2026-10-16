@@ -1,0 +1,278 @@
+{
+  "schema": 1,
+  "seed": 20261016,
+  "plan_sha256": "09718d639db17544bce2d87bdbb6c23a5a63a99fcd6cd3b28c5b6efd8d5ccaf6",
+  "trace_sha256": "2f0cec91696eb29fdf8119325e076fd5b6ab91da895dbade8ad74cec50e97a28",
+  "contract": {
+    "cycles": 16485,
+    "accepted": 10746,
+    "consumed": 10686,
+    "stalls": 3539
+  },
+  "records": [
+    {
+      "language": "csharp",
+      "wall_seconds": 0.7130123780007125,
+      "accepted": 10746,
+      "consumed": 10686,
+      "stalls": 3539,
+      "cycles": 16485,
+      "seconds": 0.2972617,
+      "allocated_bytes": 104118376,
+      "gc_collections": [
+        7,
+        2,
+        1
+      ]
+    },
+    {
+      "language": "python",
+      "wall_seconds": 1.640587638001307,
+      "accepted": 10746,
+      "consumed": 10686,
+      "stalls": 3539,
+      "cycles": 16485,
+      "seconds": 1.0938970329989388,
+      "gc_collections": [
+        22,
+        2,
+        0
+      ]
+    },
+    {
+      "language": "python",
+      "wall_seconds": 1.6284169789978478,
+      "accepted": 10746,
+      "consumed": 10686,
+      "stalls": 3539,
+      "cycles": 16485,
+      "seconds": 1.0738581639998301,
+      "gc_collections": [
+        22,
+        2,
+        0
+      ]
+    },
+    {
+      "language": "csharp",
+      "wall_seconds": 0.6678649909990781,
+      "accepted": 10746,
+      "consumed": 10686,
+      "stalls": 3539,
+      "cycles": 16485,
+      "seconds": 0.2989047,
+      "allocated_bytes": 104103312,
+      "gc_collections": [
+        7,
+        2,
+        1
+      ]
+    },
+    {
+      "language": "csharp",
+      "wall_seconds": 0.6922841949999565,
+      "accepted": 10746,
+      "consumed": 10686,
+      "stalls": 3539,
+      "cycles": 16485,
+      "seconds": 0.3458395,
+      "allocated_bytes": 104103056,
+      "gc_collections": [
+        7,
+        2,
+        1
+      ]
+    },
+    {
+      "language": "python",
+      "wall_seconds": 1.528679810999165,
+      "accepted": 10746,
+      "consumed": 10686,
+      "stalls": 3539,
+      "cycles": 16485,
+      "seconds": 1.01573604800069,
+      "gc_collections": [
+        22,
+        2,
+        0
+      ]
+    },
+    {
+      "language": "python",
+      "wall_seconds": 1.449567487998138,
+      "accepted": 10746,
+      "consumed": 10686,
+      "stalls": 3539,
+      "cycles": 16485,
+      "seconds": 0.9657003370011807,
+      "gc_collections": [
+        22,
+        2,
+        0
+      ]
+    },
+    {
+      "language": "csharp",
+      "wall_seconds": 0.6428687749976234,
+      "accepted": 10746,
+      "consumed": 10686,
+      "stalls": 3539,
+      "cycles": 16485,
+      "seconds": 0.2697002,
+      "allocated_bytes": 104119976,
+      "gc_collections": [
+        7,
+        2,
+        1
+      ]
+    },
+    {
+      "language": "csharp",
+      "wall_seconds": 0.5620439650010667,
+      "accepted": 10746,
+      "consumed": 10686,
+      "stalls": 3539,
+      "cycles": 16485,
+      "seconds": 0.242537,
+      "allocated_bytes": 104107904,
+      "gc_collections": [
+        7,
+        2,
+        1
+      ]
+    },
+    {
+      "language": "python",
+      "wall_seconds": 1.358769852999103,
+      "accepted": 10746,
+      "consumed": 10686,
+      "stalls": 3539,
+      "cycles": 16485,
+      "seconds": 0.9302972730001784,
+      "gc_collections": [
+        22,
+        2,
+        0
+      ]
+    }
+  ],
+  "negative_tests": [
+    {
+      "language": "csharp",
+      "fault": 1,
+      "detected": true
+    },
+    {
+      "language": "python",
+      "fault": 1,
+      "detected": true
+    },
+    {
+      "language": "csharp",
+      "fault": 2,
+      "detected": true
+    },
+    {
+      "language": "python",
+      "fault": 2,
+      "detected": true
+    },
+    {
+      "language": "csharp",
+      "fault": 3,
+      "detected": true
+    },
+    {
+      "language": "python",
+      "fault": 3,
+      "detected": true
+    }
+  ],
+  "source_hashes": {
+    "examples/DspFir/dsp_fir.sv": "2ea23d5a9263836eb7103fb43df0124b8b8c963879452200d34d01e08294f0ba",
+    "examples/DspFir/Tests.cs": "039b3891dd7ae9587544f455d4106517290ef72ee18d0c4fd5c832127e77853a",
+    "examples/DspFir/test_dsp.py": "b92ddf793fc1541fa9ec0489b0524a9caf5e33b35496d6a05ccbcfc3a6969702",
+    "tools/dsp_workload.py": "77a830cd3ab7633f0d8327b0a774b7fe17ac1de847ba1242c01d230ede26d653",
+    "tools/dsp_python.py": "5c4ffe767e2c1008946faecbd727743008512cf1ef0f28504a696a0408cd4d7f"
+  },
+  "medians": {
+    "csharp": {
+      "seconds": 0.2972617,
+      "wall_seconds": 0.6678649909990781
+    },
+    "python": {
+      "seconds": 1.01573604800069,
+      "wall_seconds": 1.528679810999165
+    }
+  },
+  "environment": {
+    "platform": "Linux-6.18.44-x86_64-with-glibc2.39",
+    "cocotb": "2.1.0",
+    "revision": "e72ffe82576830c40d6c4f6744c759d1f61413f2",
+    "dirty": true,
+    "simulator": [
+      "Icarus Verilog runtime version 12.0 (stable) ()",
+      ""
+    ],
+    "native_manifest": {
+      "rid": "linux-x64",
+      "language": "C++20",
+      "profile": [
+        "-std=c++20",
+        "-O3",
+        "-flto",
+        "-g",
+        "-DNDEBUG",
+        "-DSTB_HOST_BUILD",
+        "-fvisibility=hidden",
+        "-ftree-loop-vectorize",
+        "-ftree-slp-vectorize"
+      ],
+      "command": [
+        "g++",
+        "-shared",
+        "-fPIC",
+        "-Wl,-soname,libsharptestbench_host.so",
+        "-std=c++20",
+        "-O3",
+        "-flto",
+        "-g",
+        "-DNDEBUG",
+        "-DSTB_HOST_BUILD",
+        "-fvisibility=hidden",
+        "-ftree-loop-vectorize",
+        "-ftree-slp-vectorize",
+        "-fopt-info-vec-optimized",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "/workspace/scratch/d13ee848099b/SharpTestBench/native/host.cpp",
+        "/workspace/scratch/d13ee848099b/SharpTestBench/native/abi.cpp",
+        "-I",
+        "/workspace/scratch/d13ee848099b/SharpTestBench/native/upstream",
+        "-I",
+        "/tmp/testharbor-dotnet/packs/Microsoft.NETCore.App.Host.linux-x64/10.0.13/runtimes/linux-x64/native",
+        "-ldl",
+        "-o",
+        "/workspace/scratch/d13ee848099b/SharpTestBench/build/native-build-skpjznvx/libsharptestbench_host.so"
+      ],
+      "compiler": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0",
+      "vectorization": [
+        "-ftree-loop-vectorize",
+        "-ftree-slp-vectorize"
+      ],
+      "vectorization_diagnostics": "/workspace/scratch/d13ee848099b/SharpTestBench/native/abi.cpp:369:28: optimized: loop vectorized using 16 byte vectors\n/workspace/scratch/d13ee848099b/SharpTestBench/native/abi.cpp:369:28: optimized: loop vectorized using 8 byte vectors\n/workspace/scratch/d13ee848099b/SharpTestBench/native/clocks.inc:72:119: optimized: basic block part vectorized using 16 byte vectors\n/workspace/scratch/d13ee848099b/SharpTestBench/native/transport.inc:11:8: optimized: basic block part vectorized using 16 byte vectors\n",
+      "sources": {
+        "native/host.cpp": "616d74b17441d615e7a44a4beee411f97b0875fa628a538f84a1063738734d98",
+        "native/abi.cpp": "ee8781ed897293d47e41f2489279075b876f1f1b8e7439360a99f6bbc8b0edb3",
+        "native/transport.inc": "13ec6a1c7e3ac3ff83b546c5b9deaff0c0ce5bed61cd842fe4f04ffc93cf15b4",
+        "native/clocks.inc": "7dc19c700346c21adbac5ac37c33f4ae6fd9d39f7fe9c4b055169a4696d2c5c4",
+        "native/abi.h": "27641080f94383c772bef8365ccbde5bd9e8211ad3796d57c3eafd5302ccf17d",
+        "native/platform.h": "b98e91e1df392147bc173af1fe87fe3909739112e4aec40f95fbe836011d9a7b"
+      },
+      "output_sha256": "06889015f3fe10e40e8a48ee2ad06e0ed58cce4339803f9a54eb811f6221470b"
+    },
+    "assembly_sha256": "62a701ee6da9169e5fdbc664ba7bff1ade3e232082f286d4c44e68f23e6cb478"
+  },
+  "methodology": "One fresh-process warmup per language, alternating measured processes. Wall includes HDL compilation and startup. Body includes driving, scoreboard and trace collection. C# cumulative allocations are recorded; no comparable Python allocation claim. Icarus only, one four-tap elastic signed FIR, not general DSP throughput."
+}
