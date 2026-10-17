@@ -1,0 +1,43 @@
+name: Independent C++20 VPI probe
+on:
+  push:
+    branches: [feature/native-dotnet-consumer-runner]
+    paths:
+      - 'native/independent/**'
+      - 'tools/benchmark_independent_vpi.py'
+      - 'tests/rtl/independent_vpi_counter.sv'
+      - '.github/workflows/independent-vpi-probe.yml'
+  pull_request:
+    paths:
+      - 'native/independent/**'
+      - 'tests/rtl/independent_vpi_counter.sv'
+      - 'tools/benchmark_independent_vpi.py'
+      - '.github/workflows/independent-vpi-probe.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  icarus-direct-vpi:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+      - name: Install simulator and compiler
+        run: sudo apt-get update && sudo apt-get install -y iverilog g++
+      - name: Build independent C++20 VPI module
+        run: |
+          mkdir -p build/independent-vpi
+          cd build/independent-vpi
+          CXX=g++ CXXFLAGS="-std=c++20 -O3 -Wall -Wextra -Werror" iverilog-vpi ../../native/independent/icarus_probe.cpp
+      - name: Execute VPI fixture without cocotb
+        run: |
+          iverilog -g2012 -s top -o build/independent-vpi/top.vvp examples/Counter/counter.sv tests/rtl/independent_vpi_counter.sv
+          vvp -M build/independent-vpi -m icarus_probe build/independent-vpi/top.vvp | tee build/independent-vpi/probe.log
+          grep -q '^STB_VPI_PASS ' build/independent-vpi/probe.log
+          ! grep -q 'STB_VPI_FAIL' build/independent-vpi/probe.log
+      - name: Benchmark matched HDL-only and native VPI runs
+        run: CXX=g++ CXXFLAGS='-std=c++20 -O3 -Wall -Wextra -Werror' python3 tools/benchmark_independent_vpi.py --cycles 20000 --repeats 7 --warmups 2 --output build/independent-vpi/benchmark.json
+      - uses: actions/upload-artifact@v5
+        if: always()
+        with:
+          name: independent-icarus-vpi-probe
+          path: build/independent-vpi/

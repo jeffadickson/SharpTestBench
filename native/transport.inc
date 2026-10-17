@@ -136,8 +136,27 @@ int32_t cs_v1_write_u32_batch(const cs_u32_write *items, uint32_t count) {
         if (bits < 1 || bits > 32) return 2;
         if (bits < 32 && item.value >> bits) return 1;
     }
-    for (uint32_t i = 0; i < count; ++i)
-        p_gpi_set_signal_value_int(static_cast<gpi_sim_hdl>(items[i].signal), static_cast<int32_t>(items[i].value), static_cast<gpi_set_action>(items[i].action));
+    // Preserve caller order and the prevalidation boundary. Reuse checked cached
+    // VPI handles without converting numeric values through packed byte planes.
+    for (uint32_t i = 0; i < count; ++i) {
+        const auto &item = items[i];
+        const auto cached = direct_vpi.handles.find(item.signal);
+        if (cached == direct_vpi.handles.end() || !direct_vpi.write) {
+            p_gpi_set_signal_value_int(static_cast<gpi_sim_hdl>(item.signal),
+                                       static_cast<int32_t>(item.value),
+                                       static_cast<gpi_set_action>(item.action));
+            continue;
+        }
+        s_vpi_value value{};
+        value.format = vpiIntVal;
+        value.value.integer = static_cast<PLI_INT32>(item.value);
+        s_vpi_time when{};
+        when.type = vpiSimTime;
+        const int flags = item.action == GPI_DEPOSIT ? vpiInertialDelay : vpiNoDelay;
+        if (direct_vpi.error) direct_vpi.error(nullptr);
+        direct_vpi.write(cached->second, &value, flags == vpiNoDelay ? nullptr : &when, flags);
+        if (direct_vpi.error && direct_vpi.error(nullptr)) return 7;
+    }
     return 0;
 }
 
@@ -149,19 +168,46 @@ int32_t cs_v1_write_u32_batch(const cs_u32_write *items, uint32_t count) {
 int32_t cs_v1_read_u32_batch(void *const *signals, const uint32_t *widths, uint32_t *values, uint32_t count) {
     if ((!signals || !widths || !values) && count) return 1;
     if (count > 1048576) return 1;
+    // Preserve the documented all-or-nothing output contract. Most protocol
+    // snapshots fit on the stack; large batches use an owned temporary buffer.
+    uint32_t small[32]{};
+    uint32_t *scratch = count <= 32 ? small : static_cast<uint32_t *>(malloc(static_cast<size_t>(count) * sizeof(uint32_t)));
+    if (!scratch) return 4;
+    int32_t result = 0;
     for (uint32_t i = 0; i < count; ++i) {
         const uint32_t bits = widths[i];
-        if (bits < 1 || bits > 32) return 2;
+        if (bits < 1 || bits > 32) { result = 2; break; }
         const uint32_t n = (bits + 7) / 8;
-        uint8_t planes[12]{};
-        const int status = cs_v1_read_planes(signals[i], bits, planes, 3 * n);
-        if (status) return status;
         uint32_t value = 0;
-        for (uint32_t j = 0; j < n; ++j) {
-            if (planes[n + j]) return 3;
-            value |= static_cast<uint32_t>(planes[j]) << (j * 8);
+        // Cached direct-VPI handles already have checked object type and width.
+        // Read one aval/bval word without constructing three byte planes.
+        const auto cached = direct_vpi.handles.find(signals[i]);
+        if (cached != direct_vpi.handles.end() && direct_vpi.read) {
+            s_vpi_value v{};
+            v.format = vpiVectorVal;
+            if (direct_vpi.error) direct_vpi.error(nullptr);
+            direct_vpi.read(cached->second, &v);
+            if ((direct_vpi.error && direct_vpi.error(nullptr)) || !v.value.vector) {
+                result = 7; break;
+            }
+            const uint32_t mask = bits == 32 ? 0xffffffffu : (1u << bits) - 1u;
+            if ((static_cast<uint32_t>(v.value.vector[0].bval) & mask) != 0) {
+                result = 3; break;
+            }
+            value = static_cast<uint32_t>(v.value.vector[0].aval) & mask;
+        } else {
+            uint8_t planes[12]{};
+            const int status = cs_v1_read_planes(signals[i], bits, planes, 3 * n);
+            if (status) { result = status; break; }
+            for (uint32_t j = 0; j < n; ++j) {
+                if (planes[n + j] || planes[2 * n + j]) { result = 3; break; }
+                value |= static_cast<uint32_t>(planes[j]) << (j * 8);
+            }
         }
-        values[i] = value;
+        if (result) break;
+        scratch[i] = value;
     }
-    return 0;
+    if (!result && count) memcpy(values, scratch, static_cast<size_t>(count) * sizeof(uint32_t));
+    if (scratch != small) free(scratch);
+    return result;
 }
