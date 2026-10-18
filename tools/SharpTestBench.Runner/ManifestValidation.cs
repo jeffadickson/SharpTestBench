@@ -49,6 +49,8 @@ internal static class ManifestValidation
         ValidateOptions(config.Defines, "define", allowNull: true);
         if (config.HdlStandard is not ("2012" or "2005-sv" or "2005" or "2001" or "1995"))
             throw new InvalidDataException("Unsupported hdlStandard.");
+        if (config.MaxLogBytes is < 1024 or > 64 * 1024 * 1024)
+            throw new InvalidDataException("maxLogBytes must be between 1024 and 67108864.");
         if (config.TimeoutSeconds is < 1 or > 3600)
             throw new InvalidDataException("timeoutSeconds must be between 1 and 3600.");
     }

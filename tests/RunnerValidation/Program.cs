@@ -3,7 +3,13 @@ try
 {
     var text = Console.In.ReadToEnd();
     var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-    if (args is ["fingerprint"])
+    if (args is ["json-file"])
+    {
+        using var payload = JsonInput.Parse(text);
+        using var document = JsonInput.Parse(JsonInput.Read(payload.RootElement.GetProperty("path").GetString()!));
+        Console.WriteLine(JsonSerializer.Serialize(new { valid = true }));
+    }
+    else if (args is ["fingerprint"])
     {
         using var document = JsonInput.Parse(text);
         var data = document.RootElement;
@@ -37,7 +43,8 @@ try
         var environment = data.TryGetProperty("environment", out var env) ? env.Deserialize<Dictionary<string,string>>() : null;
         await ProcessExecution.Run(data.GetProperty("executable").GetString()!,
             data.GetProperty("arguments").Deserialize<string[]>()!, data.GetProperty("directory").GetString()!,
-            environment, data.GetProperty("phase").GetString()!, data.GetProperty("timeout").GetInt32());
+            environment, data.GetProperty("phase").GetString()!, data.GetProperty("timeout").GetInt32(),
+            data.TryGetProperty("maxLogBytes", out var budget) ? budget.GetInt32() : 16 * 1024 * 1024);
         Console.WriteLine(JsonSerializer.Serialize(new { valid = true }));
     }
     else if (args is ["workspace"])

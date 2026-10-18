@@ -65,11 +65,51 @@ owner has exited. Run separate checkouts for concurrent complete CI invocations,
 because native build assets are shared within one checkout.
 
 `timeoutSeconds` defaults to 120 and accepts 1–3600. Compiler and simulator logs
-are separate, capped at 16 MiB per stream; overflow fails the run. Process reports
+are separate. `maxLogBytes` defaults to 16 MiB per stream and accepts 1024–67108864;
+overflow fails the run. Process reports include observed/retained byte counts,
+truncation flags, and the original failure detail. They
 retain executable, argument list, exit code, elapsed wall time and timeout state.
 Failures are classified by phase rather than executable filename, so custom tool
 paths preserve build/simulator failure distinctions. Timeout cleanup kills a
 running child process tree and observes output-copy tasks before disposing logs.
+
+## Manifest compilation, selection and input evidence
+
+The optional `hdlStandard` accepts `1995`, `2001`, `2005`, `2005-sv`, or the default
+`2012`. `includeDirectories` preserves search order; `defines` and `parameters`
+are maps emitted in ordinal key order. Paths resolve relative to the manifest.
+A null define value emits a bare define. Parameter values are HDL expressions
+passed as single arguments, without shell interpolation. Sources preserve input
+order and duplicate canonical source paths are rejected.
+
+Optional `testNames` selects exact qualified cases. Its unique, nonempty identities
+must match `expectedNames`; selection and the base seed are passed explicitly to
+the child after inherited selection variables are removed. The runtime preserves
+discovery-assigned per-case seeds when selection narrows a multi-case assembly.
+
+JSON readers reject duplicate keys, unknown manifest fields, malformed Unicode,
+nonfinite numeric values, excessive nesting, and inputs larger than 16 MiB.
+Manifest property matching is case insensitive; HDL option-map keys remain case
+sensitive. Files use strict UTF-8, with an optional UTF-8 BOM.
+
+Each invocation records an ID and an atomic `input-manifest.json` before compiling.
+It hashes the manifest, sources, adjacent managed DLLs/configuration, explicit
+native/GPI inputs and hostfxr, plus files beneath explicit include directories.
+Include trees reject symbolic links and are limited to 4096 entries per directory
+tree. Keep generated outputs outside include trees. The same input set is checked
+again before accepting results, detecting observed content changes, additions or
+removals. This is before/after attestation, not a filesystem snapshot or a claim
+that every transitive native dependency has been qualified.
+
+Success, failure, and process reports are written to temporary files, flushed,
+and atomically replaced. The parity orchestrator clears known stale reports before
+building, preserves unrelated files, and refuses cleanup of locked child workspaces.
+
+After provisioning the pinned adapter and building the solution, run
+`python tools/runner_manifest_check.py` to qualify real include/define/parameter
+handling, an intentional parameter-width failure, exact selection from a multi-case
+assembly, parity of selected-case seeds, and retained input provenance. The parity
+workflow runs this check for its Counter/seed-1 case and uploads the evidence.
 
 This remains a focused qualification step for issues #60 and #61. Full native
 shutdown health instrumentation, independent adapter qualification, cancellation

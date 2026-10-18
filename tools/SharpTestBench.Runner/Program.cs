@@ -52,7 +52,7 @@ try
     var inputs = InputEvidence.Capture(root, manifestPath, config, fxrFile);
     EvidenceWriter.Write(Path.Combine(work, "input-manifest.json"), new { SchemaVersion = 1, RunId = runId, Inputs = inputs });
     var compiled = Path.Combine(work, "top.vvp");
-    await ProcessExecution.Run(config.Iverilog ?? "iverilog", CompilePlan.Arguments(root, config, compiled), work, null, "compile", config.TimeoutSeconds);
+    await ProcessExecution.Run(config.Iverilog ?? "iverilog", CompilePlan.Arguments(root, config, compiled), work, null, "compile", config.TimeoutSeconds, config.MaxLogBytes);
     var results = Path.Combine(work, "icarus-results.json");
     if (File.Exists(results)) File.Delete(results);
     var env = new Dictionary<string, string>
@@ -76,7 +76,7 @@ try
     var loaderKey = OperatingSystem.IsWindows() ? "PATH" : OperatingSystem.IsMacOS() ? "DYLD_LIBRARY_PATH" : "LD_LIBRARY_PATH";
     env[loaderKey] = searchPath + Path.PathSeparator + Environment.GetEnvironmentVariable(loaderKey);
     var command = config.Vvp ?? "vvp";
-    await ProcessExecution.Run(command, ["-m", bootstrap, compiled], work, env, "simulate", config.TimeoutSeconds);
+    await ProcessExecution.Run(command, ["-m", bootstrap, compiled], work, env, "simulate", config.TimeoutSeconds, config.MaxLogBytes);
     if (!File.Exists(results)) throw new InvalidDataException("Simulator did not produce a result JSON file");
     using var doc = JsonInput.Parse(JsonInput.Read(results));
     InputEvidence.Verify(inputs, InputEvidence.Capture(root, manifestPath, config, fxrFile));

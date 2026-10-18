@@ -9,12 +9,20 @@ internal sealed class RunnerProcessException(string phase, string executable, in
     internal int? ExitCode { get; } = exitCode;
 }
 
+internal sealed record DrainResult(long ObservedBytes, int RetainedBytes, bool Truncated);
+
 internal static class ProcessExecution
 {
     internal static async Task Run(string executable, IEnumerable<string> arguments, string cwd,
-        Dictionary<string, string>? environment, string phase, int timeoutSeconds = 120)
+        Dictionary<string, string>? environment, string phase, int timeoutSeconds = 120, int maxLogBytes = 16 * 1024 * 1024)
     {
+        if (phase is not ("compile" or "simulate")) throw new InvalidDataException("Unknown process phase.");
+        if (timeoutSeconds is < 1 or > 3600) throw new InvalidDataException("Invalid process timeout.");
+        if (string.IsNullOrWhiteSpace(executable) || executable.Any(char.IsControl)) throw new InvalidDataException("Invalid executable path.");
+        if (!Directory.Exists(cwd)) throw new DirectoryNotFoundException(cwd);
         var argv = arguments.ToArray();
+        if (argv.Any(argument => argument is null || argument.Contains('\0'))) throw new InvalidDataException("Invalid process argument.");
+        if (maxLogBytes is < 1024 or > 64 * 1024 * 1024) throw new InvalidDataException("Invalid process log budget.");
         var psi = new ProcessStartInfo(executable) { WorkingDirectory = cwd, UseShellExecute = false,
             RedirectStandardOutput = true, RedirectStandardError = true };
         foreach (var argument in argv) psi.ArgumentList.Add(argument);
@@ -29,7 +37,8 @@ internal static class ProcessExecution
         var watch = Stopwatch.StartNew();
         bool started = false, timedOut = false;
         int? exitCode = null;
-        Task? outTask = null, errTask = null;
+        string? errorDetail = null;
+        Task<DrainResult>? outTask = null, errTask = null;
         try
         {
             try { started = process.Start(); }
@@ -38,8 +47,8 @@ internal static class ProcessExecution
                 throw new RunnerProcessException(phase, executable, null, error.Message);
             }
             if (!started) throw new RunnerProcessException(phase, executable, null, "Cannot start process");
-            outTask = Drain(process.StandardOutput.BaseStream, stdout);
-            errTask = Drain(process.StandardError.BaseStream, stderr);
+            outTask = Drain(process.StandardOutput.BaseStream, stdout, maxLogBytes);
+            errTask = Drain(process.StandardError.BaseStream, stderr, maxLogBytes);
             using var timeout = new CancellationTokenSource(TimeSpan.FromSeconds(timeoutSeconds));
             try
             {
@@ -51,9 +60,16 @@ internal static class ProcessExecution
                 timedOut = true;
                 throw new TimeoutException($"{phase}: process exceeded {timeoutSeconds} seconds: {executable}");
             }
+            if (outTask.Result.Truncated || errTask.Result.Truncated)
+                throw new RunnerProcessException(phase, executable, process.ExitCode, "Process log exceeded the configured byte limit.");
             exitCode = process.ExitCode;
             if (exitCode != 0)
                 throw new RunnerProcessException(phase, executable, exitCode, $"Exited with {exitCode}");
+        }
+        catch (Exception error)
+        {
+            errorDetail = error.Message;
+            throw;
         }
         finally
         {
@@ -75,29 +91,29 @@ internal static class ProcessExecution
                 try { await Task.WhenAll(outTask, errTask).WaitAsync(TimeSpan.FromSeconds(5)); }
                 catch (Exception error) { drainError = error; }
             var evidence = new { SchemaVersion = 1, Phase = phase, Executable = executable,
-                Arguments = argv, Started = started, ExitCode = exitCode, TimedOut = timedOut,
-                WallMilliseconds = watch.Elapsed.TotalMilliseconds };
-            await File.WriteAllTextAsync(Path.Combine(cwd, phase + "-process.json"),
-                JsonSerializer.Serialize(evidence, new JsonSerializerOptions { WriteIndented = true }));
+                Arguments = argv, Failure = errorDetail ?? drainError?.Message, Started = started, ExitCode = exitCode, TimedOut = timedOut,
+                WallMilliseconds = watch.Elapsed.TotalMilliseconds, MaxLogBytes = maxLogBytes,
+                Stdout = outTask is { IsCompletedSuccessfully: true } ? outTask.Result : null,
+                Stderr = errTask is { IsCompletedSuccessfully: true } ? errTask.Result : null };
+            EvidenceWriter.Write(Path.Combine(cwd, phase + "-process.json"), evidence);
             if (!timedOut && drainError is not null)
                 throw new RunnerProcessException(phase, executable, exitCode, drainError.Message);
         }
     }
 
-    private static async Task Drain(Stream source, Stream destination)
+    private static async Task<DrainResult> Drain(Stream source, Stream destination, int limit)
     {
-        const int limit = 16 * 1024 * 1024;
         var buffer = new byte[8192];
         int written = 0;
-        bool truncated = false;
+        long observed = 0;
         int count;
         while ((count = await source.ReadAsync(buffer)) != 0)
         {
+            observed += count;
             int keep = Math.Min(count, limit - written);
             if (keep > 0) await destination.WriteAsync(buffer.AsMemory(0, keep));
             written += keep;
-            truncated |= keep < count;
         }
-        if (truncated) throw new InvalidDataException("Process log exceeded the 16 MiB per-stream limit.");
+        return new(observed, written, observed > written);
     }
 }

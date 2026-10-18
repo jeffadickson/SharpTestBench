@@ -13,7 +13,7 @@ from dual_runner_parity import compare, expected_identities, write_report
 
 SELECTION_VARIABLES = ('CS_TEST_FILTER', 'CS_TEST_NAMES', 'CS_TEST_STAGES', 'CS_LIST_TESTS',
                        'CS_STAGE_FAILURE_POLICY', 'DSP_FAULT', 'CPU_FAULT', 'DSP_PLAN', 'CPU_PLAN',
-                       'DSP_REPORT', 'CPU_REPORT')
+                       'DSP_REPORT', 'CPU_REPORT', 'CS_INJECT_EARLY', 'CS_WALL_TIMEOUT')
 
 
 def clean_environment(environment):
@@ -64,6 +64,24 @@ def fault_detected(rows, exit_code, expected, marker):
     return observed == expected
 
 
+def clear_case(work):
+    """Clear known old reports without deleting fixture inputs or unrelated files."""
+    for directory in ('legacy', 'native'):
+        folder = work / directory
+        if folder.is_symlink(): raise ValueError('Parity output must not be a symbolic link')
+        if (folder / '.sharptestbench-run.lock').exists(): raise RuntimeError('Child workspace is already in use')
+    for name in ('parity.json', 'negative-control.json', 'case-failure.json', 'manifest.json',
+                 'expected.json', 'plan.json', 'build.log', 'legacy.log', 'native.log'):
+        (work / name).unlink(missing_ok=True)
+    for directory in ('legacy', 'native'):
+        folder = work / directory
+        if folder.is_symlink(): raise ValueError('Parity output must not be a symbolic link')
+        folder.mkdir(exist_ok=True)
+        for name in ('metrics.json', 'legacy-results.json', 'legacy-results.xml', 'icarus-results.json',
+                     'run-manifest.json', 'failure-manifest.json', 'input-manifest.json'):
+            (folder / name).unlink(missing_ok=True)
+
+
 def run_case(root, fixture, seed, negative_control=False):
     root = Path(root).resolve()
     if fixture not in FIXTURES or type(seed) is not int or not 0 <= seed < 2**64:
@@ -82,11 +100,7 @@ def run_case(root, fixture, seed, negative_control=False):
     try:
         with os.fdopen(descriptor, 'w') as output:
             output.write(str(os.getpid()))
-        for name in ('parity.json', 'negative-control.json', 'case-failure.json'):
-            (work / name).unlink(missing_ok=True)
-        for directory in ('legacy', 'native'):
-            (work / directory).mkdir(exist_ok=True)
-            (work / directory / 'metrics.json').unlink(missing_ok=True)
+        clear_case(work)
         env = clean_environment(os.environ)
         env['STB_NATIVE_VPI_TIME'] = '1'
 

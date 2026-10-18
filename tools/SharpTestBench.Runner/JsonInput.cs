@@ -17,10 +17,16 @@ internal static class JsonInput
     {
         using var stream = File.OpenRead(path);
         if (stream.Length > MaximumBytes) throw new InvalidDataException("JSON exceeds the 16 MiB input limit.");
-        using var reader = new StreamReader(stream, new System.Text.UTF8Encoding(false, true), true);
-        var text = reader.ReadToEnd();
-        if (System.Text.Encoding.UTF8.GetByteCount(text) > MaximumBytes) throw new InvalidDataException("JSON grew beyond the input limit.");
-        return text;
+        using var bytes = new MemoryStream();
+        var buffer = new byte[8192];
+        int count;
+        while ((count = stream.Read(buffer)) != 0)
+        {
+            if (bytes.Length + count > MaximumBytes) throw new InvalidDataException("JSON grew beyond the input limit.");
+            bytes.Write(buffer, 0, count);
+        }
+        var text = new System.Text.UTF8Encoding(false, true).GetString(bytes.ToArray());
+        return text.StartsWith('﻿') ? text[1..] : text;
     }
 
     internal static RunManifest Manifest(string text)
@@ -45,6 +51,9 @@ internal static class JsonInput
         }
         else if (element.ValueKind == JsonValueKind.Array)
             foreach (var value in element.EnumerateArray()) Inspect(value, manifest);
+        else if (element.ValueKind == JsonValueKind.Number &&
+                 (!element.TryGetDouble(out var number) || !double.IsFinite(number)))
+            throw new InvalidDataException("Nonfinite JSON number.");
         else if (element.ValueKind == JsonValueKind.String)
         {
             try { _ = element.GetString(); }

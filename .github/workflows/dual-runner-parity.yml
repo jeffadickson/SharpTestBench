@@ -41,6 +41,9 @@ jobs:
       - name: Prove both runners reject an injected scoreboard fault
         if: matrix.fixture != 'counter'
         run: python tools/dual_runner_ci.py --fixture ${{ matrix.fixture }} --seed ${{ matrix.seed }} --negative-control
+      - name: Qualify manifest compiler and selection options
+        if: matrix.fixture == 'counter' && matrix.seed == 1
+        run: python tools/runner_manifest_check.py
       - name: Upload differential evidence
         if: always()
         uses: actions/upload-artifact@v4
@@ -50,3 +53,4 @@ jobs:
             build/dual-${{ matrix.fixture }}-${{ matrix.seed }}/**
             build/dual-${{ matrix.fixture }}-${{ matrix.seed }}-negative/**
             build/native-build*.json
+            build/manifest-check/**
