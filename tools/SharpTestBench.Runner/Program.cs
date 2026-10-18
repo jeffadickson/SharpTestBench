@@ -18,16 +18,8 @@ try
     var config = JsonSerializer.Deserialize<RunManifest>(File.ReadAllText(manifestPath),
         new JsonSerializerOptions { PropertyNameCaseInsensitive = true })
         ?? throw new InvalidDataException("Empty manifest");
-    if (config.SchemaVersion != 1 || config.Simulator != "icarus")
-        throw new InvalidDataException("Runner v1 supports schemaVersion=1 and simulator=icarus only.");
-    if (config.ExpectedTests is null || config.ExpectedTests <= 0)
-        throw new InvalidDataException("expectedTests must be a positive count for CI attestation.");
-    if (config.ExpectedNames is { Length: > 0 } && (config.ExpectedNames.Length != config.ExpectedTests || config.ExpectedNames.Any(string.IsNullOrWhiteSpace) || config.ExpectedNames.Distinct(StringComparer.Ordinal).Count() != config.ExpectedNames.Length))
-        throw new InvalidDataException("expectedNames must contain unique, nonempty identities matching expectedTests.");
-    if (config.Sources is not { Length: > 0 } || string.IsNullOrWhiteSpace(config.Top))
-        throw new InvalidDataException("At least one source and a top module are required.");
-    if (!System.Text.RegularExpressions.Regex.IsMatch(config.Top, @"^[A-Za-z_][A-Za-z0-9_$]*$"))
-        throw new InvalidDataException("Top module must be a simple HDL identifier.");
+    ManifestValidation.Validate(config);
+    var expectedTests = config.ExpectedTests ?? throw new InvalidDataException("expectedTests is required.");
     string Resolve(string name) => Path.GetFullPath(Path.Combine(root, name));
     var sources = config.Sources.Select(Resolve).ToArray();
     var assembly = Resolve(config.Assembly);
@@ -37,7 +29,7 @@ try
     if (string.IsNullOrWhiteSpace(config.GpiImpl))
         throw new InvalidDataException("gpiImpl must specify the simulator-specific GPI implementation string.");
     var sdk = Resolve(config.DotnetRoot);
-    var work = Resolve(config.OutputDirectory);
+    var work = ManifestValidation.ResolveOutput(root, config.OutputDirectory);
     Directory.CreateDirectory(work);
     failureArtifactDirectory = work;
     foreach (var required in sources.Concat([assembly, host, bootstrap, gpi]))
@@ -106,9 +98,9 @@ try
             throw new InvalidDataException($"Test identities differ. Missing: {string.Join(", ", expected.Except(observedNames))}; unexpected: {string.Join(", ", observedNames.Except(expected))}");
     }
     if (passed == 0) throw new InvalidDataException("No passing tests; all-skipped regressions cannot qualify CI.");
-    if (doc.RootElement.GetArrayLength() != config.ExpectedTests.Value)
+    if (doc.RootElement.GetArrayLength() != expectedTests)
         throw new InvalidDataException($"Expected {config.ExpectedTests} test results, observed {doc.RootElement.GetArrayLength()}.");
-    if (passed + failed != config.ExpectedTests.Value)
+    if (passed + failed != expectedTests)
         throw new InvalidDataException("Skipped test cases cannot satisfy the required CI manifest.");
     var evidence = new
     {
@@ -181,11 +173,3 @@ static async Task Run(string executable, IEnumerable<string> arguments, string c
     await Task.WhenAll(outTask, errTask);
     if (p.ExitCode != 0) throw new InvalidOperationException($"{executable} exited with {p.ExitCode}. Logs: {stdoutPath}, {stderrPath}");
 }
-
-sealed record RunManifest(
-    int SchemaVersion, string Simulator, string Top, string[] Sources,
-    string Assembly, string NativeHost, string IcarusBootstrap, string GpiLibrary,
-    string DotnetRoot, string OutputDirectory, int Seed = 1,
-    string? EntryType = null, string GpiEntryPoint = "entry_point", string? GpiImpl = null,
-    string? Iverilog = null, string? Vvp = null, int? ExpectedTests = null,
-    string[]? ExpectedNames = null);

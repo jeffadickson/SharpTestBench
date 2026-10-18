@@ -1,0 +1,7 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><OutputType>Exe</OutputType><TargetFramework>net10.0</TargetFramework><ImplicitUsings>enable</ImplicitUsings><Nullable>enable</Nullable><TreatWarningsAsErrors>true</TreatWarningsAsErrors></PropertyGroup>
+  <ItemGroup>
+    <Compile Include="../../tools/SharpTestBench.Runner/RunManifest.cs" Link="RunManifest.cs" />
+    <Compile Include="../../tools/SharpTestBench.Runner/ManifestValidation.cs" Link="ManifestValidation.cs" />
+  </ItemGroup>
+</Project>
