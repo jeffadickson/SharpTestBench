@@ -40,7 +40,7 @@ internal static class JsonInput
             foreach (var property in element.EnumerateObject())
             {
                 if (!names.Add(property.Name)) throw new InvalidDataException("Duplicate JSON property: " + property.Name);
-                Inspect(property.Value, manifest);
+                Inspect(property.Value, manifest: false);
             }
         }
         else if (element.ValueKind == JsonValueKind.Array)

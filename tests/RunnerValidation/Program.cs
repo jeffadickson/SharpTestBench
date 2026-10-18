@@ -3,7 +3,14 @@ try
 {
     var text = Console.In.ReadToEnd();
     var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-    if (args is ["json"])
+    if (args is ["plan"])
+    {
+        var config = JsonInput.Manifest(text);
+        ManifestValidation.Validate(config);
+        var arguments = CompilePlan.Arguments(Directory.GetCurrentDirectory(), config, "top.vvp");
+        Console.WriteLine(JsonSerializer.Serialize(new { valid = true, arguments, environment = CompilePlan.Environment(config) }));
+    }
+    else if (args is ["json"])
     {
         using var document = JsonInput.Parse(text);
         Console.WriteLine(JsonSerializer.Serialize(new { valid = true }));

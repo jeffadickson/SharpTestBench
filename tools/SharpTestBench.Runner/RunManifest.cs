@@ -4,4 +4,4 @@ sealed record RunManifest(
     string DotnetRoot, string OutputDirectory, ulong Seed = 1,
     string? EntryType = null, string GpiEntryPoint = "entry_point", string? GpiImpl = null,
     string? Iverilog = null, string? Vvp = null, int? ExpectedTests = null,
-    string[]? ExpectedNames = null, int TimeoutSeconds = 120);
+    string[]? ExpectedNames = null, int TimeoutSeconds = 120, string HdlStandard = "2012", string[]? IncludeDirectories = null, Dictionary<string, string?>? Defines = null, Dictionary<string, string>? Parameters = null, string[]? TestNames = null);

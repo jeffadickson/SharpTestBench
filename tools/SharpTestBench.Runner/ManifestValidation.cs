@@ -27,13 +27,43 @@ internal static class ManifestValidation
             ("gpiImpl", config.GpiImpl), ("gpiEntryPoint", config.GpiEntryPoint) })
             Required(name, value);
         foreach (var source in config.Sources) Required("source", source);
+        if (config.IncludeDirectories is { } includes)
+        {
+            if (includes.Length > 256) throw new InvalidDataException("Too many include directories.");
+            foreach (var include in includes) Required("includeDirectory", include);
+        }
         if (!Regex.IsMatch(config.GpiEntryPoint, @"\A[A-Za-z_][A-Za-z0-9_]*\z"))
             throw new InvalidDataException("gpiEntryPoint must be a simple native symbol.");
+        if (config.TestNames is { } selected)
+        {
+            if (selected.Length == 0 || selected.Any(name => !ValidIdentity(name)) ||
+                selected.Distinct(StringComparer.Ordinal).Count() != selected.Length)
+                throw new InvalidDataException("testNames must be unique nonempty identities.");
+            if (config.ExpectedNames is null || !selected.ToHashSet(StringComparer.Ordinal).SetEquals(config.ExpectedNames))
+                throw new InvalidDataException("testNames must match the expectedNames attestation.");
+        }
         if (config.EntryType is not null) Required("entryType", config.EntryType);
         if (config.Iverilog is not null) Required("iverilog", config.Iverilog);
         if (config.Vvp is not null) Required("vvp", config.Vvp);
+        ValidateOptions(config.Parameters, "parameter", allowNull: false);
+        ValidateOptions(config.Defines, "define", allowNull: true);
+        if (config.HdlStandard is not ("2012" or "2005-sv" or "2005" or "2001" or "1995"))
+            throw new InvalidDataException("Unsupported hdlStandard.");
         if (config.TimeoutSeconds is < 1 or > 3600)
             throw new InvalidDataException("timeoutSeconds must be between 1 and 3600.");
+    }
+
+    private static void ValidateOptions<T>(Dictionary<string, T>? options, string kind, bool allowNull)
+    {
+        if (options is null) return;
+        if (options.Count > 256) throw new InvalidDataException("Too many " + kind + " options.");
+        foreach (var (name, raw) in options)
+        {
+            if (!Regex.IsMatch(name, @"\A[A-Za-z_][A-Za-z0-9_$]*\z")) throw new InvalidDataException("Invalid " + kind + " name: " + name);
+            var value = raw as string;
+            if (value is null && allowNull) continue;
+            Required(kind + " value", value);
+        }
     }
 
     private static void Required(string name, string? value)

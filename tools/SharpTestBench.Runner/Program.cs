@@ -18,7 +18,7 @@ try
     var config = JsonInput.Manifest(JsonInput.Read(manifestPath));
     ManifestValidation.Validate(config);
     string Resolve(string name) => Path.GetFullPath(Path.Combine(root, name));
-    var sources = config.Sources.Select(Resolve).ToArray();
+    var sources = CompilePlan.Sources(root, config);
     var assembly = Resolve(config.Assembly);
     var host = Resolve(config.NativeHost);
     var bootstrap = Resolve(config.IcarusBootstrap);
@@ -46,8 +46,10 @@ try
         ?? throw new InvalidDataException("No hostfxr found");
     var fxrFile = Directory.EnumerateFiles(fxr, OperatingSystem.IsWindows() ? "hostfxr.dll" : OperatingSystem.IsMacOS() ? "libhostfxr.dylib" : "libhostfxr.so").FirstOrDefault()
         ?? throw new InvalidDataException("No hostfxr library found");
+    foreach (var include in config.IncludeDirectories ?? [])
+        if (!Directory.Exists(Resolve(include))) throw new DirectoryNotFoundException("Missing include directory: " + Resolve(include));
     var compiled = Path.Combine(work, "top.vvp");
-    await ProcessExecution.Run(config.Iverilog ?? "iverilog", ["-g2012", "-s", config.Top, "-o", compiled, ..sources], work, null, "compile", config.TimeoutSeconds);
+    await ProcessExecution.Run(config.Iverilog ?? "iverilog", CompilePlan.Arguments(root, config, compiled), work, null, "compile", config.TimeoutSeconds);
     var results = Path.Combine(work, "icarus-results.json");
     if (File.Exists(results)) File.Delete(results);
     var env = new Dictionary<string, string>
@@ -66,6 +68,7 @@ try
         ["DOTNET_ROOT"] = sdk,
         ["CS_SEED"] = config.Seed.ToString(),
     };
+    foreach (var (key, value) in CompilePlan.Environment(config)) env[key] = value;
     var searchPath = Path.GetDirectoryName(host)! + Path.PathSeparator + Path.GetDirectoryName(gpi);
     var loaderKey = OperatingSystem.IsWindows() ? "PATH" : OperatingSystem.IsMacOS() ? "DYLD_LIBRARY_PATH" : "LD_LIBRARY_PATH";
     env[loaderKey] = searchPath + Path.PathSeparator + Environment.GetEnvironmentVariable(loaderKey);
