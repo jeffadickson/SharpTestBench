@@ -21,11 +21,11 @@ jobs:
         run: |
           python tools/prepare_upstream.py
           CC=gcc CXX=g++ python -m pip install ./build/upstream/cocotb-source pytest
-      - run: python -m unittest discover -s tests/Tooling -v
       - run: python tools/audit_reviews.py --source build/upstream/cocotb-source
       - run: python tools/array_reference.py --check
       - run: python tools/logic_reference.py --check
       - run: dotnet build SharpTestBench.slnx -c Release -p:RestoreLockedMode=true
+      - run: python -m unittest discover -s tests/Tooling -v
       - run: python tools/managed_tests.py
       - run: dotnet run --project tests/SharpTestBench.Generators.Tests -c Release --no-build -- -xml build/generator-results.xml
       - run: python tools/run.py --sim icarus --log-json build/icarus-events.jsonl --waves build/icarus.vcd
@@ -146,6 +146,7 @@ jobs:
           python tools/prepare_upstream.py
           CC=gcc CXX=g++ python -m pip install ./build/upstream/cocotb-source pytest
       - run: dotnet build SharpTestBench.slnx -c Release -p:RestoreLockedMode=true
+      - run: python -m unittest discover -s tests/Tooling -v
       - run: python tools/run.py --sim verilator --label verilator --waves build/verilator.vcd
       - run: python tools/queue_reference.py --label verilator
       - run: python tools/wave_check.py --label verilator
@@ -199,11 +200,11 @@ jobs:
         run: |
           python tools/prepare_upstream.py
           python -m pip install ./build/upstream/cocotb-source pytest
-      - run: python -m unittest discover -s tests/Tooling -v
       - run: python tools/audit_reviews.py --source build/upstream/cocotb-source
       - run: python tools/array_reference.py --check
       - run: python tools/logic_reference.py --check
       - run: dotnet build SharpTestBench.slnx -c Release -p:RestoreLockedMode=true
+      - run: python -m unittest discover -s tests/Tooling -v
       - run: python tools/managed_tests.py
       - run: dotnet run --project tests/SharpTestBench.Generators.Tests -c Release --no-build -- -xml build/generator-results.xml
       - run: python tools/run.py --sim icarus --label platform-icarus --waves build/platform-icarus.vcd

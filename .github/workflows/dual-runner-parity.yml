@@ -3,23 +3,19 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths:
-      - 'tools/SharpTestBench.Runner/**'
-      - 'tools/run.py'
-      - 'native/**'
-      - 'examples/Counter/**'
-      - '.github/workflows/dual-runner-parity.yml'
   pull_request:
-    paths:
-      - 'tools/SharpTestBench.Runner/**'
-      - 'tools/run.py'
-      - 'native/**'
-      - 'examples/Counter/**'
-      - '.github/workflows/dual-runner-parity.yml'
 permissions:
   contents: read
+concurrency:
+  group: dual-runner-parity-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   parity:
+    strategy:
+      fail-fast: false
+      matrix:
+        fixture: [counter, dsp, cpu]
+        seed: [1, 17]
     runs-on: ubuntu-24.04
     timeout-minutes: 25
     steps:
@@ -32,69 +28,25 @@ jobs:
           python-version: '3.12'
       - name: Install Icarus and native toolchain
         run: sudo apt-get update && sudo apt-get install -y iverilog gcc g++
-      - name: Prepare bridge
+      - name: Prepare pinned development adapter
         run: |
           python tools/prepare_upstream.py
           CC=gcc CXX=g++ python -m pip install ./build/upstream/cocotb-source pytest
-      - name: Build both runner inputs
-        run: |
-          dotnet build tools/SharpTestBench.Runner/SharpTestBench.Runner.csproj -c Release --warnaserror
-          dotnet build examples/Counter/Counter.csproj -c Release
-      - name: Execute existing runner (authoritative)
-        env:
-          STB_NATIVE_VPI_TIME: '1'
-        run: |
-          python tools/run.py --sim icarus --assembly examples/Counter/bin/Release/net10.0/Counter.dll --source examples/Counter/counter.sv --top counter --entry-type 'Entry, Counter' --label dual-legacy
-      - name: Generate independent native manifest
-        run: |
-          python - <<'PY'
-          import json, os, subprocess, sys
-          from pathlib import Path
-          from cocotb_tools import config
-          lib, symbol = config.gpi_entry_point().rsplit(',', 1)
-          impl = subprocess.check_output([sys.executable, '-m', 'cocotb_tools.config', '--gpi-impl', 'icarus', 'vpi'], text=True).strip()
-          manifest = {
-              'schemaVersion': 1, 'simulator': 'icarus', 'top': 'counter',
-              'sources': ['examples/Counter/counter.sv'],
-              'assembly': 'examples/Counter/bin/Release/net10.0/Counter.dll',
-              'nativeHost': 'build/libsharptestbench_host.so',
-              'icarusBootstrap': str(config.lib_entry('vpi', 'icarus')),
-              'gpiLibrary': lib, 'gpiEntryPoint': symbol, 'gpiImpl': impl,
-              'dotnetRoot': os.environ.get('DOTNET_ROOT', '/usr/share/dotnet'),
-              'outputDirectory': 'build/dual-native', 'seed': 1,
-              'expectedTests': 1, 'entryType': 'Entry, Counter'
-          }
-          Path('dual-native.json').write_text(json.dumps(manifest, indent=2))
-          PY
-      - name: Execute standalone native runner (shadow)
-        env:
-          STB_NATIVE_VPI_TIME: '1'
-        run: dotnet run --project tools/SharpTestBench.Runner -c Release --no-build -- run dual-native.json
-      - name: Compare runner outcomes
-        if: success()
-        run: |
-          python - <<'PY'
-          import json
-          from pathlib import Path
-          legacy = json.loads(Path('build/dual-legacy-results.json').read_text())
-          native = json.loads(Path('build/dual-native/icarus-results.json').read_text())
-          def signature(rows):
-              assert rows, 'Runner produced no tests'
-              return sorted((r.get('QualifiedName') or r.get('Name'), r['Status']) for r in rows)
-          a, b = signature(legacy), signature(native)
-          report = {'schemaVersion': 1, 'legacy': a, 'native': b, 'matched': a == b}
-          Path('build/dual-runner-parity.json').write_text(json.dumps(report, indent=2))
-          print(json.dumps(report, indent=2))
-          assert a == b, 'Native and existing runner produced different test results'
-          PY
+      - name: Build solution including standalone runner and validation probe
+        run: dotnet build SharpTestBench.slnx -c Release -p:RestoreLockedMode=true
+      - name: Check runner failure gates
+        run: python -m unittest discover -s tests/Tooling -v
+      - name: Compare independent runner executions
+        run: python tools/dual_runner_ci.py --fixture ${{ matrix.fixture }} --seed ${{ matrix.seed }}
+      - name: Prove both runners reject an injected scoreboard fault
+        if: matrix.fixture != 'counter'
+        run: python tools/dual_runner_ci.py --fixture ${{ matrix.fixture }} --seed ${{ matrix.seed }} --negative-control
       - name: Upload differential evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: dual-runner-parity
+          name: dual-runner-parity-${{ matrix.fixture }}-${{ matrix.seed }}
           path: |
-            build/dual-legacy-results.json
-            build/dual-legacy-run.log
-            build/dual-native/**
-            build/dual-runner-parity.json
-            dual-native.json
+            build/dual-${{ matrix.fixture }}-${{ matrix.seed }}/**
+            build/dual-${{ matrix.fixture }}-${{ matrix.seed }}-negative/**
+            build/native-build*.json
