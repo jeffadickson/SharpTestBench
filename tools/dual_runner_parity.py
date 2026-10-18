@@ -25,3 +25,36 @@ def signature(rows):
             raise ValueError('Required test did not pass: ' + identity)
         result.append((identity, 'passed'))
     return sorted(result)
+
+
+def expected_identities(names):
+    """Validate an explicit expected set, independent of either runner's output."""
+    if not isinstance(names, list) or not names:
+        raise ValueError('Expected identities must be a nonempty array')
+    signature([{'Name': name, 'Status': 'passed'} for name in names])
+    return set(names)
+
+
+def compare(legacy, native, expected_names):
+    """Attest exact selection and seed agreement, without comparing wall time."""
+    expected = expected_identities(expected_names)
+    a, b = signature(legacy), signature(native)
+
+    def seeds(rows):
+        result = {}
+        for row in rows:
+            seed = row.get('Seed')
+            if type(seed) is not int or not 0 <= seed < 2**64:
+                raise ValueError('Each result needs an unsigned 64-bit Seed')
+            identity = row.get('QualifiedName') or row.get('Name')
+            result[identity] = seed
+        return result
+
+    left, right = seeds(legacy), seeds(native)
+    missing = {'legacy': sorted(expected - left.keys()), 'native': sorted(expected - right.keys())}
+    unexpected = {'legacy': sorted(left.keys() - expected), 'native': sorted(right.keys() - expected)}
+    different_seeds = sorted(name for name in left.keys() & right.keys() if left[name] != right[name])
+    return {'schemaVersion': 1, 'legacy': a, 'native': b,
+            'expected': sorted(expected), 'missing': missing, 'unexpected': unexpected,
+            'seedMismatches': different_seeds,
+            'matched': a == b and not any(missing.values()) and not any(unexpected.values()) and not different_seeds}
