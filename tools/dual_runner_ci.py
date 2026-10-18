@@ -6,6 +6,7 @@ import os
 from pathlib import Path
 import subprocess
 import sys
+from strict_json import load as load_json
 
 from dual_runner_manifest import FIXTURES, installed_adapter, make_manifest
 from dual_runner_parity import compare, expected_identities, write_report
@@ -123,8 +124,8 @@ def run_case(root, fixture, seed, negative_control=False):
                                '--work-dir', work / 'legacy', '--label', 'legacy', '--seed', seed], 'legacy', legacy_env)
         native_code = execute(['dotnet', root / 'tools/SharpTestBench.Runner/bin/Release/net10.0/SharpTestBench.Runner.dll',
                                'run', work / 'manifest.json'], 'native', native_env)
-        legacy = json.loads((work / 'legacy/legacy-results.json').read_text(encoding='utf-8'))
-        native = json.loads((work / 'native/icarus-results.json').read_text(encoding='utf-8'))
+        legacy = load_json(work / 'legacy/legacy-results.json')
+        native = load_json(work / 'native/icarus-results.json')
         if negative_control:
             marker = fixture.upper() + '_MISMATCH'
             report = {'schemaVersion': 1, 'negativeControl': True,
@@ -138,7 +139,7 @@ def run_case(root, fixture, seed, negative_control=False):
             report['exitCodes'] = {'legacy': legacy_code, 'native': native_code}
             report['matched'] = report['matched'] and legacy_code == native_code == 0
             if fixture != 'counter':
-                left, right = (json.loads((work / path / 'metrics.json').read_text(encoding='utf-8'))
+                left, right = (load_json(work / path / 'metrics.json')
                                for path in ('legacy', 'native'))
                 report['traceMatched'] = metrics_contract(fixture, left) == metrics_contract(fixture, right)
                 report['matched'] = report['matched'] and report['traceMatched']

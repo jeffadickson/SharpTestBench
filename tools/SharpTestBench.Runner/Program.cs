@@ -15,9 +15,7 @@ try
 {
     var manifestPath = Path.GetFullPath(args[1]);
     var root = Path.GetDirectoryName(manifestPath)!;
-    var config = JsonSerializer.Deserialize<RunManifest>(File.ReadAllText(manifestPath),
-        new JsonSerializerOptions { PropertyNameCaseInsensitive = true })
-        ?? throw new InvalidDataException("Empty manifest");
+    var config = JsonInput.Manifest(JsonInput.Read(manifestPath));
     ManifestValidation.Validate(config);
     string Resolve(string name) => Path.GetFullPath(Path.Combine(root, name));
     var sources = config.Sources.Select(Resolve).ToArray();
@@ -74,7 +72,7 @@ try
     var command = config.Vvp ?? "vvp";
     await ProcessExecution.Run(command, ["-m", bootstrap, compiled], work, env, "simulate", config.TimeoutSeconds);
     if (!File.Exists(results)) throw new InvalidDataException("Simulator did not produce a result JSON file");
-    using var doc = JsonDocument.Parse(File.ReadAllText(results));
+    using var doc = JsonInput.Parse(JsonInput.Read(results));
     var attestation = ResultAttestation.Verify(doc.RootElement, config);
     int failed = attestation.Failed;
     var evidence = new
@@ -98,7 +96,7 @@ catch (Exception ex)
         TimeoutException => "timeout",
         RunnerProcessException processError => processError.Kind,
         WorkspaceInUseException => "workspace_in_use",
-        FileNotFoundException or DirectoryNotFoundException or InvalidDataException or JsonException => "configuration_error",
+        FileNotFoundException or DirectoryNotFoundException or InvalidDataException or JsonException or System.Text.DecoderFallbackException => "configuration_error",
         InvalidOperationException when ex.Message.Contains("iverilog", StringComparison.OrdinalIgnoreCase) => "build_failure",
         InvalidOperationException when ex.Message.Contains("vvp", StringComparison.OrdinalIgnoreCase) => "simulator_failure",
         _ => "infrastructure_failure"

@@ -6,6 +6,7 @@ import os
 from pathlib import Path
 import sys
 import tempfile
+from strict_json import load as load_json
 
 
 def signature(rows):
@@ -92,7 +93,7 @@ def main(argv=None):
         print('Parity report must not overwrite an input', file=sys.stderr)
         return 1
     try:
-        legacy, native, expected = (json.loads(p.read_text(encoding='utf-8'))
+        legacy, native, expected = (load_json(p)
                                     for p in (args.legacy, args.native, args.expected))
         report = compare(legacy, native, expected)
     except (ValueError, OSError, UnicodeError) as error:

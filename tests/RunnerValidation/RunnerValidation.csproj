@@ -6,5 +6,6 @@
     <Compile Include="../../tools/SharpTestBench.Runner/ResultAttestation.cs" Link="ResultAttestation.cs" />
     <Compile Include="../../tools/SharpTestBench.Runner/ProcessExecution.cs" Link="ProcessExecution.cs" />
     <Compile Include="../../tools/SharpTestBench.Runner/RunWorkspace.cs" Link="RunWorkspace.cs" />
+    <Compile Include="../../tools/SharpTestBench.Runner/JsonInput.cs" Link="JsonInput.cs" />
   </ItemGroup>
 </Project>

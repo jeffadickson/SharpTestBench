@@ -3,7 +3,12 @@ try
 {
     var text = Console.In.ReadToEnd();
     var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-    if (args is ["process"])
+    if (args is ["json"])
+    {
+        using var document = JsonInput.Parse(text);
+        Console.WriteLine(JsonSerializer.Serialize(new { valid = true }));
+    }
+    else if (args is ["process"])
     {
         using var doc = JsonDocument.Parse(text);
         var data = doc.RootElement;
@@ -44,7 +49,7 @@ try
     }
     else
     {
-        var config = JsonSerializer.Deserialize<RunManifest>(text, options) ?? throw new InvalidDataException("Empty manifest");
+        var config = JsonInput.Manifest(text);
         ManifestValidation.Validate(config);
         Console.WriteLine(JsonSerializer.Serialize(new { valid = true }));
     }
