@@ -8,6 +8,7 @@
   </Folder>
   <Folder Name="/examples/">
     <Project Path="examples/AxisRegister/AxisRegister.csproj" />
+    <Project Path="examples/Lfsr/Lfsr.csproj" />
   </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/RunnerValidation/RunnerValidation.csproj" />

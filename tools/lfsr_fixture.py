@@ -47,3 +47,11 @@ def plan(settings,seed,count=64):
         expected,output=transition(c,state,data)
         vectors.append(dict(State=state,Data=data,ExpectedState=expected,ExpectedData=output))
     return dict(Config=c,Seed=seed,Vectors=vectors)
+
+CASES = {'crc32': (32, 79764919, 8, 'GALOIS', True, False), 'crc16': (16, 4129, 8, 'GALOIS', False, False), 'crc32c': (32, 517762881, 32, 'GALOIS', True, False), 'prbs7': (7, 65, 8, 'FIBONACCI', False, False), 'scrambler': (58, 549755813889, 64, 'FIBONACCI', True, False), 'descrambler': (58, 549755813889, 64, 'FIBONACCI', True, True), 'galois_ff': (16, 32773, 16, 'GALOIS', True, True), 'minimal': (1, 1, 1, 'FIBONACCI', False, False)}
+STYLES = ('LOOP','REDUCTION')
+
+def fixture(name,style):
+    if not isinstance(name,str) or name not in CASES: raise ValueError('Unknown LFSR fixture')
+    if style not in STYLES: raise ValueError('Unknown LFSR style')
+    return 'lfsr_'+name+'_'+style.lower(),config(*CASES[name])
