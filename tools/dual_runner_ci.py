@@ -12,7 +12,7 @@ from dual_runner_manifest import FIXTURES, installed_adapter, make_manifest
 from dual_runner_parity import compare, expected_identities, write_report
 
 SELECTION_VARIABLES = ('CS_TEST_FILTER', 'CS_TEST_NAMES', 'CS_TEST_STAGES', 'CS_LIST_TESTS',
-                       'CS_STAGE_FAILURE_POLICY', 'DSP_FAULT', 'CPU_FAULT', 'DSP_PLAN', 'CPU_PLAN',
+                       'CS_STAGE_FAILURE_POLICY', 'AXIS_PLAN', 'AXIS_REPORT', 'AXIS_FAULT', 'AXIS_SIDEBANDS', 'DSP_FAULT', 'CPU_FAULT', 'DSP_PLAN', 'CPU_PLAN',
                        'DSP_REPORT', 'CPU_REPORT', 'CS_INJECT_EARLY', 'CS_WALL_TIMEOUT')
 
 
