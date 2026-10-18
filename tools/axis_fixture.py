@@ -19,7 +19,7 @@ def plan(seed, count=64, stall=3, reset_at=None):
              'Last': False, 'Id': 0, 'Dest': 0, 'User': 0}]
     for index in range(count):
         rows.append({'Reset': index == reset_at, 'Ready': index % (stall+1) == stall,
-                     'Offer': True, 'Data': rng.randrange(65536), 'Keep': rng.randrange(4),
+                     'Offer': index % 5 != 2, 'Data': rng.randrange(65536), 'Keep': rng.randrange(4),
                      'Last': index % 7 == 6, 'Id': index % 16, 'Dest': (index*3) % 16,
                      'User': rng.randrange(4)})
     rows.extend(dict(rows[0], Reset=False, Ready=True) for _ in range(12))
@@ -44,9 +44,20 @@ def validate_plan(rows):
 def verify_sources(root):
     folder = Path(root)/'tests/Fixtures/verilog-axis'
     meta = load(folder/'provenance.json')
-    if meta['license'] != 'MIT' or len(meta['revision']) != 40: raise ValueError('Invalid provenance')
+    if (not isinstance(meta,dict) or set(meta)!={'repository','revision','license','files'} or
+        meta.get('repository')!='https://github.com/alexforencich/verilog-axis' or
+        meta.get('revision')!='48ff7a7e2ef782cf778d47910cf85835c64b1bce' or
+        meta.get('license')!='MIT' or not isinstance(meta.get('files'),dict)):
+        raise ValueError('Invalid provenance')
     for name, item in meta['files'].items():
         if name not in ('axis_register.v','COPYING'): raise ValueError('Unexpected upstream file')
+        expected=('rtl/' if name.endswith('.v') else '')+name
+        if not isinstance(item,dict) or set(item)!={'upstream','sha256'} or item.get('upstream')!=expected:
+            raise ValueError('Invalid upstream file metadata')
+        digest=item.get('sha256')
+        if not isinstance(digest,str) or len(digest)!=64 or any(c not in '0123456789abcdef' for c in digest):
+            raise ValueError('Invalid source digest')
+        if (folder/name).is_symlink(): raise ValueError('Linked upstream fixture')
         if hashlib.sha256((folder/name).read_bytes()).hexdigest() != item['sha256']:
             raise ValueError('Upstream fixture changed: '+name)
     if set(meta['files']) != {'axis_register.v','COPYING'}: raise ValueError('Incomplete fixture')
@@ -88,7 +99,7 @@ def metrics(data):
         else:
             if held is not None and (not valid or word!=held): raise ValueError('Unstable stalled output')
             totals['accepted']+=take; backlog+=take
-            if valid and backlog==0: raise ValueError('Unsolicited output')
+            if valid and ready and backlog==0: raise ValueError('Unsolicited output transfer')
             if valid and ready: totals['consumed']+=1; backlog-=1
             if valid and not ready: totals['stalls']+=1
             held=word if valid and not ready else None

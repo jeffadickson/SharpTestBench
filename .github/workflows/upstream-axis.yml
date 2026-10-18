@@ -1,0 +1,41 @@
+name: Upstream AXI Stream parity
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  axis:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        seed: [1, 17]
+        config:
+          - {mode: 0, args: ''}
+          - {mode: 1, args: ''}
+          - {mode: 2, args: ''}
+          - {mode: 2, args: '--disabled-sidebands'}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.402'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: sudo apt-get update && sudo apt-get install -y iverilog gcc g++
+      - name: Install pinned adapters
+        run: |
+          python tools/prepare_upstream.py
+          CC=gcc CXX=g++ python -m pip install ./build/upstream/cocotb-source pytest
+      - run: dotnet build SharpTestBench.slnx -c Release -p:RestoreLockedMode=true
+      - run: python -m unittest discover -s tests/Tooling -q
+      - run: python tools/axis_ci.py --mode ${{ matrix.config.mode }} --seed ${{ matrix.seed }} ${{ matrix.config.args }}
+      - run: python tools/axis_ci.py --mode ${{ matrix.config.mode }} --seed ${{ matrix.seed }} ${{ matrix.config.args }} --negative-control
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: axis-${{ strategy.job-index }}
+          path: build/axis-*/

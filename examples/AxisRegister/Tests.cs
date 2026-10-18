@@ -18,6 +18,7 @@ public static class Entry
         var rows = JsonSerializer.Deserialize<Cycle[]>(File.ReadAllText(Environment.GetEnvironmentVariable("AXIS_PLAN")!))!;
         bool enabled = Environment.GetEnvironmentVariable("AXIS_SIDEBANDS") != "0";
         bool inject = Environment.GetEnvironmentVariable("AXIS_FAULT") == "1";
+        bool bypass = Environment.GetEnvironmentVariable("AXIS_MODE") == "0";
         var clk = c.Dut.Child("clk").Signal<W1>();
         var rst = c.Dut.Child("rst").Signal<W1>();
         var fault = c.Dut.Child("fault").Signal<W1>();
@@ -66,7 +67,9 @@ public static class Entry
                     pending = null; accepted++;
                 }
                 if (held is not null && actual != held) throw new Exception($"AXIS_MISMATCH unstable output cycle={cycle}");
-                if (hasOutput && (queue.Count == 0 || actual != queue.Peek()))
+                Word? expected = queue.Count > 0 ? queue.Peek() : bypass ? pending : null;
+                if (!enabled && expected is not null) expected = expected with { Keep=3, Last=true, Id=0, Dest=0, User=0 };
+                if (hasOutput && (expected is null || actual != expected))
                     throw new Exception($"AXIS_MISMATCH payload cycle={cycle} actual={actual}");
                 if (hasOutput && row.Ready) { queue.Dequeue(); consumed++; }
                 if (hasOutput && !row.Ready) stalls++;

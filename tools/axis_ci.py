@@ -25,7 +25,7 @@ def run_case(root, mode, seed, sidebands=True, negative=False, count=64, stall=3
         with os.fdopen(descriptor,'w') as stream: stream.write(str(os.getpid()))
         clear_case(work)
         env=clean_environment(os.environ)
-        env.update(AXIS_PLAN=str(work/'plan.json'),AXIS_SIDEBANDS='1' if sidebands else '0',
+        env.update(AXIS_MODE=str(mode),AXIS_PLAN=str(work/'plan.json'),AXIS_SIDEBANDS='1' if sidebands else '0',
                    AXIS_FAULT='1' if negative else '0',STB_NATIVE_VPI_TIME='1')
         def execute(command,label,environment=env):
             with (work/(label+'.log')).open('w',encoding='utf-8') as log:
