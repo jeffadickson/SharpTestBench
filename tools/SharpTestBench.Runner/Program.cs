@@ -70,44 +70,15 @@ try
     await Run(command, ["-m", bootstrap, compiled], work, env, "simulate");
     if (!File.Exists(results)) throw new InvalidDataException("Simulator did not produce a result JSON file");
     using var doc = JsonDocument.Parse(File.ReadAllText(results));
-    if (doc.RootElement.ValueKind != JsonValueKind.Array || doc.RootElement.GetArrayLength() == 0)
-        throw new InvalidDataException("No test results");
-    int failed = 0;
-    int passed = 0;
-    var observedNames = new HashSet<string>(StringComparer.Ordinal);
-    foreach (var item in doc.RootElement.EnumerateArray())
-    {
-        var identity = item.TryGetProperty("QualifiedName", out var qualified) && qualified.ValueKind == JsonValueKind.String && !string.IsNullOrWhiteSpace(qualified.GetString())
-            ? qualified.GetString()! : item.TryGetProperty("Name", out var shortName) && shortName.ValueKind == JsonValueKind.String
-            ? shortName.GetString()! : throw new InvalidDataException("Test result missing name.");
-        if (!observedNames.Add(identity)) throw new InvalidDataException($"Duplicate test identity: {identity}");
-        if (!item.TryGetProperty("Status", out var status) || status.ValueKind != JsonValueKind.String)
-            throw new InvalidDataException("Test result without Status.");
-        switch (status.GetString())
-        {
-            case "passed": passed++; break;
-            case "failed": failed++; break;
-            case "skipped": break;
-            default: throw new InvalidDataException($"Unknown test status: {status.GetString()}");
-        }
-    }
-    if (config.ExpectedNames is { Length: > 0 })
-    {
-        var expected = new HashSet<string>(config.ExpectedNames, StringComparer.Ordinal);
-        if (expected.Count != config.ExpectedNames.Length || !expected.SetEquals(observedNames))
-            throw new InvalidDataException($"Test identities differ. Missing: {string.Join(", ", expected.Except(observedNames))}; unexpected: {string.Join(", ", observedNames.Except(expected))}");
-    }
-    if (passed == 0) throw new InvalidDataException("No passing tests; all-skipped regressions cannot qualify CI.");
-    if (doc.RootElement.GetArrayLength() != expectedTests)
-        throw new InvalidDataException($"Expected {config.ExpectedTests} test results, observed {doc.RootElement.GetArrayLength()}.");
-    if (passed + failed != expectedTests)
-        throw new InvalidDataException("Skipped test cases cannot satisfy the required CI manifest.");
+    var attestation = ResultAttestation.Verify(doc.RootElement, config);
+    int failed = attestation.Failed;
     var evidence = new
     {
         SchemaVersion = 1, config.Simulator, config.Top, config.Seed,
         Sources = sources.Select(s => new { Path = s, Sha256 = Convert.ToHexString(SHA256.HashData(File.ReadAllBytes(s))) }),
         AssemblySha256 = Convert.ToHexString(SHA256.HashData(File.ReadAllBytes(assembly))),
-        Results = results, Failed = failed,
+        Results = results, Passed = attestation.Passed, Failed = failed,
+        TestNames = attestation.Names,
         Status = failed == 0 ? "passed" : "failed"
     };
     File.WriteAllText(Path.Combine(work, "run-manifest.json"),
