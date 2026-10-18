@@ -51,3 +51,16 @@ def verify_sources(root):
             raise ValueError('Upstream fixture changed: '+name)
     if set(meta['files']) != {'axis_register.v','COPYING'}: raise ValueError('Incomplete fixture')
     return meta
+
+def configuration(mode, sidebands=True):
+    integer(mode,0,2,'mode')
+    if type(sidebands) is not bool: raise ValueError('Invalid sidebands')
+    if not sidebands and mode != 2: raise ValueError('Disabled sidebands require skid mode')
+    return 'axis_mode'+str(mode) if sidebands else 'axis_disabled'
+
+def project(row, sidebands=True):
+    if type(sidebands) is not bool: raise ValueError('Invalid sidebands')
+    validate_plan([dict(plan(0)[0]),row]+plan(0)[-12:])
+    return [row['Data'],row['Keep'] if sidebands else 3,
+            int(row['Last']) if sidebands else 1,row['Id'] if sidebands else 0,
+            row['Dest'] if sidebands else 0,row['User'] if sidebands else 0]
