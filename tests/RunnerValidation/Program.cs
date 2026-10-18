@@ -3,7 +3,22 @@ try
 {
     var text = Console.In.ReadToEnd();
     var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-    if (args is ["plan"])
+    if (args is ["fingerprint"])
+    {
+        using var document = JsonInput.Parse(text);
+        var data = document.RootElement;
+        var fingerprints = InputEvidence.Files(data.GetProperty("paths").Deserialize<string[]>()!);
+        if (data.TryGetProperty("before", out var before)) InputEvidence.Verify(before.Deserialize<InputFingerprint[]>()!, fingerprints);
+        Console.WriteLine(JsonSerializer.Serialize(new { valid = true, fingerprints }));
+    }
+    else if (args is ["evidence"])
+    {
+        using var document = JsonInput.Parse(text);
+        var data = document.RootElement;
+        EvidenceWriter.Write(data.GetProperty("path").GetString()!, data.GetProperty("value"));
+        Console.WriteLine(JsonSerializer.Serialize(new { valid = true }));
+    }
+    else if (args is ["plan"])
     {
         var config = JsonInput.Manifest(text);
         ManifestValidation.Validate(config);

@@ -11,6 +11,7 @@ if (args.Length != 2 || args[0] != "run")
 
 string? failureArtifactDirectory = null;
 RunWorkspace? workspace = null;
+var runId = Guid.NewGuid().ToString("N");
 try
 {
     var manifestPath = Path.GetFullPath(args[1]);
@@ -48,6 +49,8 @@ try
         ?? throw new InvalidDataException("No hostfxr library found");
     foreach (var include in config.IncludeDirectories ?? [])
         if (!Directory.Exists(Resolve(include))) throw new DirectoryNotFoundException("Missing include directory: " + Resolve(include));
+    var inputs = InputEvidence.Capture(root, manifestPath, config, fxrFile);
+    EvidenceWriter.Write(Path.Combine(work, "input-manifest.json"), new { SchemaVersion = 1, RunId = runId, Inputs = inputs });
     var compiled = Path.Combine(work, "top.vvp");
     await ProcessExecution.Run(config.Iverilog ?? "iverilog", CompilePlan.Arguments(root, config, compiled), work, null, "compile", config.TimeoutSeconds);
     var results = Path.Combine(work, "icarus-results.json");
@@ -76,19 +79,22 @@ try
     await ProcessExecution.Run(command, ["-m", bootstrap, compiled], work, env, "simulate", config.TimeoutSeconds);
     if (!File.Exists(results)) throw new InvalidDataException("Simulator did not produce a result JSON file");
     using var doc = JsonInput.Parse(JsonInput.Read(results));
+    InputEvidence.Verify(inputs, InputEvidence.Capture(root, manifestPath, config, fxrFile));
     var attestation = ResultAttestation.Verify(doc.RootElement, config);
     int failed = attestation.Failed;
     var evidence = new
     {
-        SchemaVersion = 1, config.Simulator, config.Top, config.Seed,
+        SchemaVersion = 1, RunId = runId, config.Simulator, config.Top, config.Seed, Inputs = inputs,
+        Platform = System.Runtime.InteropServices.RuntimeInformation.OSDescription,
+        Architecture = System.Runtime.InteropServices.RuntimeInformation.ProcessArchitecture.ToString(),
+        Framework = System.Runtime.InteropServices.RuntimeInformation.FrameworkDescription,
         Sources = sources.Select(s => new { Path = s, Sha256 = Convert.ToHexString(SHA256.HashData(File.ReadAllBytes(s))) }),
         AssemblySha256 = Convert.ToHexString(SHA256.HashData(File.ReadAllBytes(assembly))),
         Results = results, Passed = attestation.Passed, Failed = failed,
         TestNames = attestation.Names,
         Status = failed == 0 ? "passed" : "failed"
     };
-    File.WriteAllText(Path.Combine(work, "run-manifest.json"),
-        JsonSerializer.Serialize(evidence, new JsonSerializerOptions { WriteIndented = true }));
+    EvidenceWriter.Write(Path.Combine(work, "run-manifest.json"), evidence);
     Console.WriteLine($"SharpTestBench: {doc.RootElement.GetArrayLength()} tests; {failed} failed. {results}");
     return failed == 0 ? 0 : 1;
 }
@@ -111,14 +117,14 @@ catch (Exception ex)
         {
             var evidence = new
             {
-                SchemaVersion = 1, Status = "failed", Kind = kind,
+                SchemaVersion = 1, RunId = runId, Status = "failed", Kind = kind,
                 ErrorType = ex.GetType().FullName, Error = ex.Message,
                 RecordedAtUtc = DateTimeOffset.UtcNow,
                 LogFiles = new[] { "compile.stdout.log", "compile.stderr.log", "simulate.stdout.log", "simulate.stderr.log", "compile-process.json", "simulate-process.json" }
                     .Where(p => File.Exists(Path.Combine(failureArtifactDirectory, p))).ToArray()
             };
             var target = Path.Combine(failureArtifactDirectory, "failure-manifest.json");
-            File.WriteAllText(target, JsonSerializer.Serialize(evidence, new JsonSerializerOptions { WriteIndented = true }));
+            EvidenceWriter.Write(target, evidence);
             Console.Error.WriteLine($"Failure evidence: {target}");
         }
         catch (Exception evidenceError)

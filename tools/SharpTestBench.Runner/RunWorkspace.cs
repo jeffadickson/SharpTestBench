@@ -3,7 +3,7 @@ internal sealed class WorkspaceInUseException(string path, Exception error)
 
 internal sealed class RunWorkspace : IDisposable
 {
-    internal static readonly string[] Artifacts = ["run-manifest.json", "failure-manifest.json",
+    internal static readonly string[] Artifacts = ["run-manifest.json", "failure-manifest.json", "input-manifest.json",
         "icarus-results.json", "icarus-results.xml", "icarus-trace.txt", "icarus-trace.txt.delta", "top.vvp", "DutBindings.cs",
         "compile.stdout.log", "compile.stderr.log", "simulate.stdout.log", "simulate.stderr.log",
         "compile-process.json", "simulate-process.json"];
