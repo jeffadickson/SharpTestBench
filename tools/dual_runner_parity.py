@@ -1,5 +1,11 @@
 #!/usr/bin/env python3
 """Fail-closed comparison of independently produced runner results (issues #60/#61)."""
+import argparse
+import json
+import os
+from pathlib import Path
+import sys
+import tempfile
 
 
 def signature(rows):
@@ -58,3 +64,47 @@ def compare(legacy, native, expected_names):
             'expected': sorted(expected), 'missing': missing, 'unexpected': unexpected,
             'seedMismatches': different_seeds,
             'matched': a == b and not any(missing.values()) and not any(unexpected.values()) and not different_seeds}
+
+
+def write_report(path, report):
+    """Replace a report atomically so a failed comparison cannot leave a stale pass."""
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temporary = None
+    try:
+        with tempfile.NamedTemporaryFile(mode='w', encoding='utf-8', dir=path.parent, delete=False) as output:
+            temporary = Path(output.name)
+            json.dump(report, output, indent=2, allow_nan=False)
+            output.write('\n')
+        os.replace(temporary, path)
+    finally:
+        if temporary is not None:
+            temporary.unlink(missing_ok=True)
+
+
+def main(argv=None):
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--legacy', type=Path, required=True)
+    parser.add_argument('--native', type=Path, required=True)
+    parser.add_argument('--expected', type=Path, required=True, help='JSON array of expected qualified case names')
+    parser.add_argument('--report', type=Path, required=True)
+    args = parser.parse_args(argv)
+    if args.report.resolve() in {p.resolve() for p in (args.legacy, args.native, args.expected)}:
+        print('Parity report must not overwrite an input', file=sys.stderr)
+        return 1
+    try:
+        legacy, native, expected = (json.loads(p.read_text(encoding='utf-8'))
+                                    for p in (args.legacy, args.native, args.expected))
+        report = compare(legacy, native, expected)
+    except (ValueError, OSError, UnicodeError) as error:
+        report = {'schemaVersion': 1, 'matched': False, 'error': str(error)}
+    try:
+        write_report(args.report, report)
+    except (OSError, ValueError) as error:
+        print('Could not write parity report: ' + str(error), file=sys.stderr)
+        return 1
+    print(json.dumps(report, indent=2))
+    return 0 if report['matched'] else 1
+
+
+if __name__ == '__main__':
+    raise SystemExit(main())
