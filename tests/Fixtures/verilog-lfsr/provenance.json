@@ -1,0 +1,15 @@
+{
+  "repository": "https://github.com/alexforencich/verilog-lfsr",
+  "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+  "license": "MIT",
+  "files": {
+    "lfsr.v": {
+      "upstream": "rtl/lfsr.v",
+      "sha256": "5502c8203b0dfc7246c1a2de93e60c199ded3c1d7840b106350d714f72a9a079"
+    },
+    "COPYING": {
+      "upstream": "COPYING",
+      "sha256": "38eab06c306519820a2ab0cf84fc4788ed7c43aa04829c8fcf3104a6307fb1cc"
+    }
+  }
+}

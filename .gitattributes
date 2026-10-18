@@ -1,2 +1,3 @@
 tests/Fixtures/verilog-axis/axis_register.v text eol=lf
 tests/Fixtures/verilog-axis/COPYING text eol=lf
+tests/Fixtures/verilog-lfsr/* text eol=lf
