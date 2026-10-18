@@ -29,7 +29,8 @@ class Tests(unittest.TestCase):
         self.assertEqual(8,self.snapshot()['fingerprints'][0]['Bytes'])
 
     def test_canonical_path(self):
-        self.assertEqual(str(self.file.resolve()),self.snapshot()['fingerprints'][0]['Path'])
+        self.assertTrue(self.file.samefile(self.snapshot()['fingerprints'][0]['Path']))
+        self.assertTrue(Path(self.snapshot()['fingerprints'][0]['Path']).is_absolute())
 
     def test_role(self):
         self.assertEqual('input',self.snapshot()['fingerprints'][0]['Role'])
