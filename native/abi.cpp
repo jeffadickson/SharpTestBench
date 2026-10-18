@@ -8,6 +8,7 @@
  * a second scheduler. Borrowed text must be copied before the next native call.
  */
 #include "abi.h"
+#include "independent/vpi_time.h"
 #include "upstream/gpi.h"
 #include "upstream/vpi_user.h"
 #include <stdlib.h>
@@ -214,9 +215,17 @@ void * cs_v1_gpi_iterate(void * parent, int32_t kind) { return p_gpi_iterate(sta
 /** @brief Advance an iterator until null; exhaustion follows GPI ownership rules, not a managed free. */
 void * cs_v1_gpi_next(void * iterator) { return p_gpi_next(static_cast<gpi_iterator_hdl>(iterator)); }
 /** @brief Write high/low halves of the unsigned simulator-step time into nonnull outputs. */
-void cs_v1_gpi_get_sim_time(uint32_t * hi, uint32_t * lo) { p_gpi_get_sim_time(hi, lo); }
+void cs_v1_gpi_get_sim_time(uint32_t * hi, uint32_t * lo) {
+    const char *direct = getenv("STB_NATIVE_VPI_TIME");
+    if (direct && direct[0] == '1' && direct[1] == '\0' && stb_vpi_read_time(hi, lo)) return;
+    p_gpi_get_sim_time(hi, lo);
+}
 /** @brief Write the base-10 seconds-per-step exponent into a nonnull output. */
-void cs_v1_gpi_get_sim_precision(int32_t * precision) { p_gpi_get_sim_precision(precision); }
+void cs_v1_gpi_get_sim_precision(int32_t * precision) {
+    const char *direct = getenv("STB_NATIVE_VPI_TIME");
+    if (direct && direct[0] == '1' && direct[1] == '\0' && stb_vpi_read_precision(precision)) return;
+    p_gpi_get_sim_precision(precision);
+}
 /** @brief Request simulator termination; must be called on the simulator thread. */
 void cs_v1_gpi_finish(void) { p_gpi_finish(); }
 /** @brief Return the backend signedness flag; no value conversion occurs. */

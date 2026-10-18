@@ -784,6 +784,59 @@ public static class Tests
     }
 
     [SimTest]
+    public static async Task H_NativeBatchWriteParity(TestContext c)
+    {
+        // Two distinct scalar/numeric targets guarantee a real multi-item batch
+        // when STB_BATCH_TRANSFERS=1; same-target writes may coalesce to one.
+        var a = c.Dut.Child("perf_a").Signal<W32>();
+        var b = c.Dut.Child("perf_b").Signal<W8>();
+        for (uint i = 0; i < 32; i++)
+        {
+            a.Write(new UInt<W32>(i * 31337u));
+            b.Write(new UInt<W8>(i % 251u));
+            await ReadWrite();
+            await ReadOnly();
+            Check(a.ReadUInt().Value == i * 31337u, $"32-bit batch parity cycle={i}");
+            Check(b.ReadUInt().Value == i % 251u, $"8-bit batch parity cycle={i}");
+            await Timer(1);
+        }
+    }
+
+    [SimTest]
+    public static async Task H_BatchedWritesBeforeClockEdge(TestContext c)
+    {
+        // Drive two distinct native-batch eligible signals while CLK is low,
+        // settle deposits, then raise CLK. Both registers must capture on THIS edge.
+        var clk = c.Dut.Child("clk").Signal<W1>();
+        var a = c.Dut.Child("perf_a").Signal<W32>();
+        var b = c.Dut.Child("perf_b").Signal<W8>();
+        var sampledA = c.Dut.Child("edge_captured_a").Signal<W32>();
+        var sampledB = c.Dut.Child("edge_captured_b").Signal<W8>();
+        clk.Write(new UInt<W1>(0));
+        await Timer(1);
+        for (uint i = 1; i <= 24; i++)
+        {
+            uint expectedA = i * 7321u;
+            uint expectedB = i % 251u;
+            a.Write(new UInt<W32>(expectedA));
+            b.Write(new UInt<W8>(expectedB));
+            await ReadWrite();
+            await ReadOnly();
+            Check(a.ReadUInt().Value == expectedA && b.ReadUInt().Value == expectedB,
+                $"Inputs must settle before clock edge {i}");
+            await Timer(1);
+            clk.Write(new UInt<W1>(1));
+            await ReadOnly();
+            Check(sampledA.ReadUInt().Value == expectedA, $"32-bit capture late on edge {i}");
+            Check(sampledB.ReadUInt().Value == expectedB, $"8-bit capture late on edge {i}");
+            await Timer(1);
+            clk.Write(new UInt<W1>(0));
+            await ReadOnly();
+            await Timer(1);
+        }
+    }
+
+    [SimTest]
     public static async Task H_WriteCoalescing(TestContext c)
     {
         var d = c.Dut.Child("data").Signal<W8>();

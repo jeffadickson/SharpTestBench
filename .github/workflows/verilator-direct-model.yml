@@ -1,0 +1,42 @@
+name: Direct Verilator C++ model proof
+on:
+  workflow_dispatch:
+  push:
+    branches: [feature/native-dotnet-consumer-runner]
+    paths:
+      - 'examples/VerilatorDirect/**'
+      - '.github/workflows/verilator-direct-model.yml'
+  pull_request:
+    paths:
+      - 'examples/VerilatorDirect/**'
+      - '.github/workflows/verilator-direct-model.yml'
+permissions:
+  contents: read
+jobs:
+  direct-model:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v5
+      - name: Install Verilator C++ toolchain
+        run: sudo apt-get update && sudo apt-get install -y verilator g++ make
+      - name: Build direct model with C++20 and -O3
+        run: |
+          mkdir -p build/verilator-direct
+          verilator --cc --exe --build --top-module counter \
+            --Mdir build/verilator-direct --prefix Vcounter \
+            -CFLAGS "-std=c++20 -O3" -O3 \
+            examples/Counter/counter.sv \
+            examples/VerilatorDirect/main.cpp
+      - name: Execute and validate CPU-side port access
+        run: |
+          build/verilator-direct/Vcounter | tee build/verilator-direct/direct.log
+          grep -q '^STB_VERILATOR_DIRECT_PASS cycles=100000 ' build/verilator-direct/direct.log
+      - uses: actions/upload-artifact@v5
+        if: always()
+        with:
+          name: verilator-direct-model
+          path: |
+            build/verilator-direct/direct.log
+            build/verilator-direct/*.mk
+            build/verilator-direct/*.h

@@ -9,6 +9,8 @@ module top(input wire incoming, output wire outgoing, inout wire bidirectional);
  reg adjustable_clk=0;
  reg [31:0] perf_a=0, perf_clock_count=0;
  reg [7:0] perf_b=0;
+ reg [31:0] edge_captured_a=0;
+ reg [7:0] edge_captured_b=0;
  reg perf_clock=0;
  always @(posedge perf_clock) perf_clock_count <= perf_clock_count + 1;
  wire [31:0] package_marker=discovery_pkg::marker;
@@ -19,6 +21,7 @@ module top(input wire incoming, output wire outgoing, inout wire bidirectional);
  always @(delta1) delta2 <= delta1 ^ 8'h02;
  always @(delta2) delta3 <= delta2 ^ 8'h04;
  reg clk=0, reset=0;
+ always @(posedge clk) begin edge_captured_a <= perf_a; edge_captured_b <= perf_b; end
  reg [7:0] data=0;
  reg [31:0] bench32=0;
  reg [1:0][2:0][7:0] packed_matrix='0;

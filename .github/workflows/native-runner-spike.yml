@@ -1,0 +1,105 @@
+name: Native .NET runner branch build
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - feature/native-dotnet-consumer-runner
+    paths:
+      - 'tools/SharpTestBench.Runner/**'
+      - 'docs/NATIVE_RUNNER_SPIKE.md'
+      - '.github/workflows/native-runner-spike.yml'
+  pull_request:
+    paths:
+      - 'tools/SharpTestBench.Runner/**'
+      - 'docs/NATIVE_RUNNER_SPIKE.md'
+      - '.github/workflows/native-runner-spike.yml'
+permissions:
+  contents: read
+jobs:
+  runner-build:
+    name: .NET 10 runner build (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-24.04, windows-2022]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.402'
+      - name: Show .NET environment
+        run: dotnet --info
+      - name: Compile standalone runner
+        run: dotnet build tools/SharpTestBench.Runner/SharpTestBench.Runner.csproj -c Release --warnaserror
+      - name: Verify invalid manifest fails
+        shell: bash
+        run: |
+          set +e
+          dotnet run --project tools/SharpTestBench.Runner -c Release --no-build -- run nonexistent-manifest.json
+          actual=$?
+          if [ "$actual" -eq 0 ]; then echo "Missing manifest was accepted"; exit 1; fi
+          echo "Invalid manifest correctly rejected (exit code $actual)"
+      - name: Reject invalid test attestation before simulator launch
+        shell: bash
+        run: |
+          cat > invalid-attestation.json <<'JSON'
+          {
+            "schemaVersion": 1,
+            "simulator": "icarus",
+            "top": "top",
+            "sources": ["does-not-exist.sv"],
+            "assembly": "does-not-exist.dll",
+            "nativeHost": "does-not-exist.so",
+            "icarusBootstrap": "does-not-exist.vpi",
+            "gpiLibrary": "does-not-exist.so",
+            "dotnetRoot": ".",
+            "outputDirectory": "build",
+            "seed": 1,
+            "expectedTests": 2,
+            "expectedNames": ["same", "same"]
+          }
+          JSON
+          set +e
+          dotnet run --project tools/SharpTestBench.Runner -c Release --no-build -- run invalid-attestation.json > invalid-attestation.log 2>&1
+          result=$?
+          set -e
+          cat invalid-attestation.log
+          test "$result" -ne 0
+          grep -q "expectedNames must contain unique" invalid-attestation.log
+      - name: Verify missing-input failure evidence
+        shell: bash
+        run: |
+          cat > missing-input.json <<'JSON'
+          {
+            "schemaVersion": 1,
+            "simulator": "icarus",
+            "top": "top",
+            "sources": ["missing-design.sv"],
+            "assembly": "missing-tests.dll",
+            "nativeHost": "missing-host.so",
+            "icarusBootstrap": "missing-bootstrap.vpi",
+            "gpiLibrary": "missing-gpi.so",
+            "gpiImpl": "vpi",
+            "dotnetRoot": ".",
+            "outputDirectory": "build/missing-input-evidence",
+            "seed": 1,
+            "expectedTests": 1,
+            "expectedNames": ["Example.Expected"]
+          }
+          JSON
+          set +e
+          dotnet run --project tools/SharpTestBench.Runner -c Release --no-build -- run missing-input.json
+          rc=$?
+          set -e
+          test "$rc" -ne 0
+          test -f build/missing-input-evidence/failure-manifest.json
+          grep -q 'configuration_error' build/missing-input-evidence/failure-manifest.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: native-runner-${{ matrix.os }}
+          path: |
+            tools/SharpTestBench.Runner/bin/Release/net10.0/**
+            tools/SharpTestBench.Runner/obj/project.assets.json
+            build/missing-input-evidence/**

@@ -53,6 +53,8 @@ jobs:
           AXI_CLOCK_MODE: native
       - run: dotnet build examples/DspFir -c Release
       - run: python tools/dsp_workload.py --cycles 1024 --repeat 3
+      - name: Matched C# FIR framework legacy versus optimized on Icarus
+        run: python tools/benchmark_whole_framework.py --sim icarus --cycles 1024 --repeat 3 --out build/whole-framework-benchmark
       - run: dotnet build examples/CpuCore -c Release
       - run: python tools/cpu_workload.py --iterations 256 --repeat 3
       - run: python tools/workspace_tests.py
@@ -92,6 +94,7 @@ jobs:
             build/icarus-layout-check/**
             build/axi-workload/**
             build/dsp-workload/**
+            build/whole-framework-benchmark/**
             build/cpu-workload/**
             build/*structured.json
             build/structured-*.json
@@ -147,6 +150,10 @@ jobs:
           CC=gcc CXX=g++ python -m pip install ./build/upstream/cocotb-source pytest
       - run: dotnet build SharpTestBench.slnx -c Release -p:RestoreLockedMode=true
       - run: python tools/run.py --sim verilator --label verilator --waves build/verilator.vcd
+      - name: Build C# FIR workload for Verilator A/B comparison
+        run: dotnet build examples/DspFir -c Release
+      - name: Matched C# FIR framework legacy versus optimized on Verilator
+        run: python tools/benchmark_whole_framework.py --sim verilator --cycles 1024 --repeat 3 --out build/whole-framework-benchmark
       - run: python tools/queue_reference.py --label verilator
       - run: python tools/wave_check.py --label verilator
       - name: Check benchmark values using the same compiled model
@@ -161,6 +168,7 @@ jobs:
             build/verilator*trace.txt*
             build/verilator.vcd
             build/verilator/model-build.json
+            build/whole-framework-benchmark/**
             build/native-build.json
             build/native-vectorization.txt
 

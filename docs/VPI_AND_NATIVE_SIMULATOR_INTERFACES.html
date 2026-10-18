@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Beyond VPI — SharpTestBench Simulator Interfaces</title>
+<style>
+:root{color-scheme:dark;--bg:#0b1120;--panel:#162238;--panel2:#1b2b43;--text:#e8edf6;--muted:#aab8ca;--line:#38506a;--accent:#74d6bb;--amber:#ffd17c}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.65 system-ui,-apple-system,Segoe UI,sans-serif}
+a{color:#91d8ff}header{background:radial-gradient(circle at 85% 10%,#16435b,transparent 55%),linear-gradient(130deg,#10263b,#0b1120);padding:5rem max(24px,calc((100% - 1050px)/2)) 4rem;border-bottom:1px solid var(--line)}
+.eyebrow{letter-spacing:.17em;text-transform:uppercase;color:var(--accent);font-weight:700;font-size:.8rem}
+h1{font-size:clamp(2.2rem,5vw,4.3rem);line-height:1.12;letter-spacing:-.045em;max-width:850px;margin:1rem 0}
+.lede{max-width:830px;color:var(--muted);font-size:1.17rem}main{max-width:1080px;margin:auto;padding:2rem 24px 6rem}
+nav{display:flex;gap:.7rem;flex-wrap:wrap;margin:1rem 0 3rem}nav a{border:1px solid var(--line);border-radius:999px;padding:.35rem .9rem;text-decoration:none;color:var(--text);font-size:.87rem}
+section{margin:4rem 0;scroll-margin-top:20px}h2{font-size:1.95rem;letter-spacing:-.035em;margin-bottom:.3rem}h3{font-size:1.22rem;margin-top:1.8rem}
+p,li{color:#cbd7e5}strong{color:#fff}.muted{color:var(--muted)}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(235px,1fr));gap:14px;margin:1.5rem 0}
+.panel{border:1px solid var(--line);border-radius:15px;background:var(--panel);padding:1.25rem}.panel h3{margin:.1rem 0 .5rem}.tag{display:inline-block;color:#081c25;background:var(--accent);border-radius:5px;padding:.1rem .4rem;font-size:.75rem;font-weight:700}
+.diagram{display:flex;gap:10px;align-items:stretch;flex-wrap:wrap}.node{background:var(--panel2);padding:1.2rem;border:1px solid #52718a;border-radius:12px;flex:1;min-width:155px;text-align:center}.arrow{display:grid;place-items:center;color:var(--accent);font-size:1.5rem}
+pre{overflow:auto;padding:1rem 1.2rem;background:#060b14;border:1px solid #2e4259;border-radius:12px;color:#caeadf;font-size:.83rem;line-height:1.55}
+code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace}p code,li code,td code{color:#a8f0d7}
+table{border-collapse:collapse;width:100%;font-size:.92rem}th,td{padding:.75rem .8rem;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}th{color:#fff;background:var(--panel)}td{color:#ccdae7}
+.note{border-left:3px solid var(--amber);background:#28251d;padding:.9rem 1.1rem;color:#ffe7b8;border-radius:4px}
+.num{font-size:2.2rem;font-weight:800;color:var(--accent)}.small{font-size:.85rem;color:var(--muted)}
+footer{border-top:1px solid var(--line);padding:2rem 0;color:var(--muted);font-size:.9rem}
+</style></head><body>
+<header><div class="eyebrow">SharpTestBench Engineering Lesson • v1.0 • 2026-10-16</div>
+<h1>Beyond VPI: direct C++ simulator integration</h1>
+<p class="lede">From standard Verilog Procedural Interface callbacks to generated Verilator model ports and Icarus elaboration extensions. Learn what the interfaces actually do, where time goes, and when bypassing VPI makes sense.</p>
+<p style="color:var(--accent);font-style:italic">A clock wakes the code<br>Signals cross a narrow bridge<br>Measure before speed</p>
+</header><main>
+<nav aria-label="Lesson navigation"><a href="#layers">Architecture</a><a href="#vpi">VPI fundamentals</a><a href="#timeline">Scheduling</a><a href="#verilator">Direct Verilator</a><a href="#icarus">Icarus extensions</a><a href="#comparison">Tradeoffs</a><a href="#bench">Benchmark plan</a><a href="#sources">References</a></nav>
+<section id="layers"><div class="eyebrow">01 / Architecture</div><h2>Four very different integration layers</h2>
+<div class="diagram"><div class="node"><strong>C# tests</strong><br><span class="small">SharpTestBench scheduler, scoreboards, typed APIs</span></div><div class="arrow">→</div><div class="node"><strong>C++20 bridge</strong><br><span class="small">Stable C ABI, buffers, callback ownership</span></div><div class="arrow">→</div><div class="node"><strong>Simulator</strong><br><span class="small">VPI / direct model / compiler target</span></div></div>
+<p>VPI is an IEEE-defined programming interface into an HDL simulator. It is <em>not</em> cocotb. The existing SharpTestBench bridge has owned C++20 ABI functions and direct-packed optimizations, but its full production startup/callback/object layer still loads a cocotb-derived GPI library. The isolated VPI probe and the direct-Verilator example do not, by themselves, prove a complete independent C# runtime.</p>
+<div class="note">Do not claim “cocotb-free full framework” until the complete managed test assembly launches and finishes without libgpi, upstream bootstrap, or cocotb tooling.</div></section>
+<section id="vpi"><div class="eyebrow">02 / Standard interface</div><h2>What VPI actually does</h2>
+<div class="grid"><div class="panel"><h3>Discover objects</h3><p><code>vpi_handle_by_name</code>, <code>vpi_handle</code>, <code>vpi_iterate</code> and <code>vpi_scan</code> locate modules, ports, variables and hierarchy.</p></div><div class="panel"><h3>Inspect or change values</h3><p><code>vpi_get_value</code>/<code>vpi_put_value</code> handle scalar, integer, string, real and packed vector formats. Four-state values use <code>aval</code>/<code>bval</code> encoding.</p></div><div class="panel"><h3>Register simulation events</h3><p><code>vpi_register_cb</code> subscribes to edges, time delays, read/write synchronization and end-of-simulation events. Handle removal/lifetime matters.</p></div></div>
+<pre><code>// Typical VPI shape, error checks omitted for illustration
+vpiHandle signal = vpi_handle_by_name(
+    const_cast&lt;PLI_BYTE8*&gt;("top.data"), nullptr);
+s_vpi_value value{};
+value.format = vpiVectorVal;
+vpi_get_value(signal, &amp;value);
+// Bits are represented in value.value.vector[] (aval/bval).
+</code></pre>
+<p>Why use VPI? It provides a stable conceptual interface across multiple simulators. Why bypass it? Runtime lookups, handle indirection, callback registration, conversions and generic compatibility semantics may cost more than directly reading a generated C++ member. The size of that cost must be measured for the actual test workload.</p></section>
+<section id="timeline"><div class="eyebrow">03 / Timing contract</div><h2>No lost clocks, no collapsed delta cycles</h2>
+<div class="grid"><div class="panel"><h3>Drive</h3><p>Write test inputs at a defined phase. Deposits scheduled for ReadWrite should become visible according to each simulator’s scheduler contract.</p></div><div class="panel"><h3>Evaluate</h3><p>A simulator processes combinational propagation and clocked updates; a Verilated C++ model requires calls to <code>eval()</code> or <code>eval_step()</code>.</p></div><div class="panel"><h3>Sample</h3><p>Read the settled outputs in the appropriate observation phase. A write does not automatically mean all dependent logic has propagated.</p></div></div>
+<p>Verilator is compiled rather than a traditional event-interpreted engine. Its documentation explicitly notes that a VPI write does not necessarily propagate until model evaluation. Direct C++ port writes share that requirement. A replacement driver must preserve each rising edge and all relevant combinational stabilization semantics. Read/write batching is safe only within a compatible simulation phase, not across distinct cycles.</p>
+<div class="note">A fast access path is not semantically interchangeable with another unless edge-capture tests, reset cuts, callback ordering and full cycle traces agree.</div></section>
+<section id="verilator"><div class="eyebrow">04 / Non-VPI execution</div><h2>Direct access to Verilator's generated model</h2>
+<p>Verilator generates a native class such as <code>Vcounter</code>. Top-level ports are accessible as C++ members. Internal signals may be exposed using explicit public pragmas or via <code>rootp</code> and the generated root header. The generated layout is a build artifact, not a stable cross-version ABI.</p>
+<pre><code>#include "Vcounter.h"
+#include "verilated.h"
+Vcounter dut;
+dut.reset = 1;
+dut.clk = 0; dut.eval();
+dut.clk = 1; dut.eval();  // reset edge
+dut.clk = 0; dut.eval();
+dut.reset = 0;
+dut.clk = 1; dut.eval();  // next active edge
+auto observed = dut.count;
+dut.final();
+</code></pre>
+<p>The <a href="../../examples/VerilatorDirect/main.cpp">C++20 direct-model example</a> runs 100,000 counter edges and checks the expected state after every rising edge, without VPI or cocotb. It is intentionally a proof of model-port access—not yet a replacement for all SharpTestBench scheduler callbacks.</p>
+<h3>Access strategies</h3><table><tr><th>Strategy</th><th>Strength</th><th>Cost/risk</th></tr>
+<tr><td>Top-level C++ ports</td><td>Direct compile-time reads and writes</td><td>Requires a generated-model host and explicit <code>eval()</code></td></tr>
+<tr><td><code>/* verilator public_flat_rd */</code></td><td>Read selected internal state</td><td>Can inhibit some optimizations; regenerated names are version-dependent</td></tr>
+<tr><td><code>/* verilator public_flat_rw */</code></td><td>Writable selected internal state</td><td>May affect optimization and clock semantics; avoid exposing every net</td></tr>
+<tr><td>VPI with selective public signals</td><td>Generic API compatible with other simulators</td><td>Lookup/dispatch overhead and evaluation scheduling</td></tr></table>
+<p>Do not blanket-enable <code>--public</code> or <code>--public-flat-rw</code> just to make discovery convenient. Prefer explicit public signals required by the verification contract. For generated designs, SharpTestBench could eventually generate a typed C++20 access shim and a compact metadata manifest mapping stable logical signal IDs to native member accessors.</p>
+<h3>Potential generated accessor</h3><pre><code>// Proposed future ABI; NOT a shipped SharpTestBench API.
+extern "C" int stb_model_read_u32(
+    void* model, uint32_t stable_signal_id, uint32_t* result);
+// A generated switch/member accessor could avoid per-read VPI name lookup.
+// The model must be evaluated at a defined phase before reading.</code></pre></section>
+<section id="icarus"><div class="eyebrow">05 / Icarus-specific tools</div><h2>Not everything is VPI on Icarus either</h2>
+<p>Icarus offers the standard runtime VPI module mechanism (<code>iverilog-vpi</code> and <code>vvp -m</code>) and a separate nonstandard <strong>loadable elaboration-target API</strong> in <code>ivl_target.h</code>. The latter runs during compilation, not simulation, and can inspect the elaborated design.</p>
+<div class="grid"><div class="panel"><h3>Runtime VPI</h3><p>Read/write live signals, attach callbacks, manage simulator time. This is the natural standalone runtime extension for Icarus.</p></div><div class="panel"><h3>Loadable target</h3><p>Extract dimensions, structural metadata and connectivity at elaboration time. SharpTestBench already includes <code>native/icarus_layouts.cpp</code> for related metadata.</p></div></div>
+<p>Potential improvement: generate typed bindings and packed layout metadata once at elaboration, then avoid repeated reflection/hierarchy traversal at runtime. The Icarus target API is not a substitute for runtime VPI callbacks, and its data should not be treated as portable across simulator versions without explicit schema/version checks.</p></section>
+<section id="comparison"><div class="eyebrow">06 / Engineering judgment</div><h2>Use the strongest native interface available</h2>
+<table><tr><th>Need</th><th>Preferred mechanism</th><th>Reason</th></tr>
+<tr><td>Portable third-party HDL verification</td><td>VPI / VHPI</td><td>Broad backend support and semantic compatibility</td></tr>
+<tr><td>Verilator top-level clock/data driving</td><td>Generated C++ model ports</td><td>Simple direct access and explicit evaluation</td></tr>
+<tr><td>Verilator selected internal observability</td><td>Explicit public signal / generated accessor</td><td>Avoid exposing the entire circuit</td></tr>
+<tr><td>Icarus type/packed metadata</td><td>Elaboration target where necessary</td><td>Compiler knows the actual HDL layout</td></tr>
+<tr><td>Wide values, many related ports</td><td>Typed packed buffers, batched native transactions</td><td>Fewer copies and boundary calls</td></tr>
+<tr><td>Coherent time and edge events</td><td>Simulator-native scheduling</td><td>Preserve delta cycles and clock semantics</td></tr></table></section>
+<section id="bench"><div class="eyebrow">07 / Decision experiment</div><h2>Profile a real RISCue program before further optimization</h2>
+<p>RISCue is a five-stage RV32 processor with ECC/TMR, UART, AXI and compiled C programs. A useful comparison should hold the program, RTL, cycle count, observable ports, correctness oracle and trace settings fixed.</p>
+<div class="grid"><div class="panel"><span class="num">A</span><h3>HDL-only</h3><p>Compiled Verilator model with minimal C++ host, same CPU program and correctness digest.</p></div><div class="panel"><span class="num">B</span><h3>VPI managed</h3><p>Full SharpTestBench C# driver and scoreboard, with counters for native transfers and managed work.</p></div><div class="panel"><span class="num">C</span><h3>Direct model</h3><p>Equivalent port-only C++20 host, preserving clock/evaluation contract and comparing architectural trace.</p></div></div>
+<p>Report separate HDL evaluation time, model-build time, test-body time, process wall time, CLR allocations and collections, native calls by type and width, logical versus physical bytes transferred, number of callbacks and retired instructions. Use at least seven alternating timed runs on the same host. A sampling profiler and existing Verilator execution profiling should precede any Verilator fork.</p>
+<div class="note">At present, SharpTestBench’s production managed bridge is hybrid and still requires cocotb GPI. The C++ direct-model sample is independent, but only tests generated ports. Benchmark the full independent backend only after it can run the same C# test assembly.</div></section>
+<section id="sources"><div class="eyebrow">08 / Primary references</div><h2>Further reading</h2><ul>
+<li><a href="https://verilator.org/guide/latest/connecting.html">Verilator — Connecting to Verilated Models</a> (top ports, <code>rootp</code>, <code>eval()</code>, VPI tradeoffs)</li>
+<li><a href="https://verilator.org/guide/latest/extensions.html">Verilator — Language Extensions</a> (public signal pragmas)</li>
+<li><a href="https://verilator.org/guide/latest/exe_verilator.html">Verilator — Command-line Arguments</a> (<code>--vpi</code>, public signal options and profiling)</li>
+<li><a href="https://steveicarus.github.io/iverilog/developer/guide/ivl/ivl_target.html">Icarus — Loadable Target API</a></li>
+<li><a href="https://github.com/steveicarus/iverilog/blob/master/Documentation/usage/vpi.rst">Icarus — Using VPI</a></li>
+<li><a href="../../docs/NATIVE_ABI.md">SharpTestBench — Native ABI v1</a></li>
+</ul></section><footer>SharpTestBench • Engineering reference v1.0 • Examples illustrate specific support boundaries. Verify current simulator versions and CI before relying on performance or semantics.</footer>
+</main></body></html>

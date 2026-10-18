@@ -1,0 +1,138 @@
+name: Native runner Icarus integration
+on:
+  push:
+    branches: [feature/native-dotnet-consumer-runner]
+    paths:
+      - 'tools/SharpTestBench.Runner/**'
+      - 'native/abi.cpp'
+      - 'native/independent/**'
+      - 'tools/native_build.py'
+      - '.github/workflows/native-runner-integration.yml'
+  pull_request:
+    paths:
+      - 'tools/SharpTestBench.Runner/**'
+      - '.github/workflows/native-runner-integration.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  icarus-consumer:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.402'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: sudo apt-get update && sudo apt-get install -y iverilog gcc g++
+      - name: Provision transitional native GPI adapters
+        run: |
+          python tools/prepare_upstream.py
+          CC=gcc CXX=g++ python -m pip install ./build/upstream/cocotb-source pytest
+      - name: Compile managed runner and isolated counter consumer
+        run: |
+          dotnet build tools/SharpTestBench.Runner/SharpTestBench.Runner.csproj -c Release --warnaserror
+          dotnet build examples/Counter/Counter.csproj -c Release
+      - name: Build native host using current provisioning path
+        run: |
+          STB_NATIVE_VPI_TIME=1 python tools/run.py --sim icarus --assembly examples/Counter/bin/Release/net10.0/Counter.dll --source examples/Counter/counter.sv --top counter --entry-type 'Entry, Counter' --label baseline-counter
+      - name: Generate adapter manifest from installed cocotb-derived bridge
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json, os, subprocess, sys
+          from pathlib import Path
+          from cocotb_tools import config
+          root = Path.cwd()
+          gpi_entry = config.gpi_entry_point()
+          library, symbol = gpi_entry.rsplit(',', 1)
+          impl = subprocess.check_output([sys.executable, '-m', 'cocotb_tools.config', '--gpi-impl', 'icarus', 'vpi'], text=True).strip()
+          payload = {
+              'schemaVersion': 1, 'simulator': 'icarus', 'top': 'counter',
+              'sources': ['examples/Counter/counter.sv'],
+              'assembly': 'examples/Counter/bin/Release/net10.0/Counter.dll',
+              'nativeHost': 'build/libsharptestbench_host.so',
+              'icarusBootstrap': str(config.lib_entry('vpi', 'icarus')),
+              'gpiLibrary': library, 'gpiEntryPoint': symbol, 'gpiImpl': impl,
+              'dotnetRoot': os.environ.get('DOTNET_ROOT', '/usr/share/dotnet'),
+              'outputDirectory': 'build/native-consumer', 'seed': 1, 'expectedTests': 1,
+              'entryType': 'Entry, Counter'
+          }
+          (root/'native-consumer.json').write_text(json.dumps(payload, indent=2))
+          PY
+      - name: Verify counter through standalone .NET runner
+        run: dotnet run --project tools/SharpTestBench.Runner -c Release --no-build -- run native-consumer.json
+        env:
+          STB_NATIVE_VPI_TIME: '1'
+      - name: Build existing managed signal-regression assembly
+        run: dotnet build tests/Integration/Integration.csproj -c Release
+      - name: Compare legacy and direct packed transport at identical simulator phases
+        shell: bash
+        run: |
+          set -euo pipefail
+          STB_DIRECT_PACKED=0 STB_BATCH_TRANSFERS=0 python tools/run.py --sim icarus --no-build --filter H_NativeBatchWriteParity --label write-legacy
+          STB_DIRECT_PACKED=1 STB_BATCH_TRANSFERS=1 python tools/run.py --sim icarus --no-build --filter H_NativeBatchWriteParity --label write-direct
+          STB_DIRECT_PACKED=0 STB_BATCH_TRANSFERS=0 python tools/run.py --sim icarus --no-build --filter H_BatchedWritesBeforeClockEdge --label edge-legacy
+          STB_DIRECT_PACKED=1 STB_BATCH_TRANSFERS=1 python tools/run.py --sim icarus --no-build --filter H_BatchedWritesBeforeClockEdge --label edge-direct
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          def signature(label):
+              path = Path('build') / f'{label}-results.json'
+              rows = json.loads(path.read_text())
+              assert rows, f'No cases executed for {label}'
+              assert all(row['Status'] == 'passed' for row in rows), f'Failed {label}: {rows}'
+              return sorted((row.get('QualifiedName') or row['Name'], row['Status'],
+                             row['StartStep'], row['EndStep']) for row in rows)
+          legacy = signature('write-legacy')
+          direct = signature('write-direct')
+          assert legacy == direct, f'Phase/identity differences: legacy={legacy}, direct={direct}'
+          assert signature('edge-legacy') == signature('edge-direct'), 'Active-edge capture parity mismatch'
+          print(f'Parity confirmed for {len(legacy)} multi-signal tests and same-edge capture fixture')
+          PY
+      - name: Mutation control must fail C# verification
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          original = Path('examples/Counter/counter.sv').read_text()
+          assert 'count + 1' in original
+          Path('build/counter-mutated.sv').write_text(original.replace('count + 1', 'count + 2'))
+          manifest = json.loads(Path('native-consumer.json').read_text())
+          manifest['sources'] = ['build/counter-mutated.sv']
+          manifest['outputDirectory'] = 'build/native-mutant'
+          Path('mutant-consumer.json').write_text(json.dumps(manifest, indent=2))
+          PY
+          set +e
+          dotnet run --project tools/SharpTestBench.Runner -c Release --no-build -- run mutant-consumer.json
+          rc=$?
+          set -e
+          if [ "$rc" -eq 0 ]; then echo "ERROR: corrupted RTL passed SharpTestBench"; exit 1; fi
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p = Path('build/native-mutant/icarus-results.json')
+          assert p.is_file(), 'Mutated RTL did not produce test results (infrastructure failure)'
+          rows = json.loads(p.read_text())
+          assert len(rows)==1 and rows[0]['Status']=='failed', f'Expected assertion failure, got {rows}'
+          print('Verified: mutant compiled and executed, C# test detected wrong counter behavior')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: native-runner-icarus-consumer
+          path: |
+            build/native-consumer/**
+            build/native-mutant/**
+            build/write-legacy-*
+            build/write-direct-*
+            build/edge-legacy-*
+            build/edge-direct-*
+            mutant-consumer.json
+            build/baseline-counter-*.json
+            build/baseline-counter-*.log
+            native-consumer.json
