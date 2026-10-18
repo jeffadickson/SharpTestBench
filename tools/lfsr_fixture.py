@@ -108,3 +108,11 @@ def verify_sources(root):
         if path.is_symlink() or path.stat().st_size>1024*1024: raise ValueError('Invalid source file')
         if hashlib.sha256(path.read_bytes()).hexdigest()!=digest: raise ValueError('Upstream source changed')
     return value
+
+def plan_digest(path):
+    import hashlib
+    from strict_json import loads,MAXIMUM_BYTES
+    with path.open('rb') as stream:raw=stream.read(MAXIMUM_BYTES+1)
+    if len(raw)>MAXIMUM_BYTES:raise ValueError('Stimulus exceeds byte limit')
+    validate_plan(loads(raw.decode('utf-8')))
+    return hashlib.sha256(raw).hexdigest()

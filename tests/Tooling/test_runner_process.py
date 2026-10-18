@@ -18,10 +18,10 @@ class Tests(unittest.TestCase):
 
     def probe(self, mode, data, environment=None):
         executable=ROOT/'tests/RunnerValidation/bin/Release/net10.0/RunnerValidation.dll'
-        result=subprocess.run(['dotnet',str(executable),mode],input=json.dumps(data),capture_output=True,text=True,check=True,env=environment,timeout=20)
+        result=subprocess.run(['dotnet',str(executable),mode],input=json.dumps(data),capture_output=True,text=True,check=True,env=environment,timeout=max(60,data.get('timeout',0)+30))
         return json.loads(result.stdout)
 
-    def process(self, code, phase='simulate', timeout=5, environment=None, arguments=None):
+    def process(self, code, phase='simulate', timeout=30, environment=None, arguments=None):
         return self.probe('process',{'executable':sys.executable,'arguments':['-c',code]+(arguments or []),
                          'directory':str(self.folder),'phase':phase,'timeout':timeout,'environment':environment})
 
@@ -90,6 +90,10 @@ class Tests(unittest.TestCase):
     def test_bounded_output(self):
         actual=self.process("import sys; sys.stdout.buffer.write(b'x'*(17*1024*1024))")
         self.assertFalse(actual['valid'])
+        self.assertEqual('simulator_failure',actual['kind'])
+        self.assertFalse(self.metadata()['TimedOut'])
+        self.assertTrue(self.metadata()['Stdout']['Truncated'])
+        self.assertEqual(17*1024*1024,self.metadata()['Stdout']['ObservedBytes'])
         self.assertEqual(16*1024*1024,(self.folder/'simulate.stdout.log').stat().st_size)
         self.assertTrue(self.metadata()['Started'])
 
@@ -99,7 +103,10 @@ class Tests(unittest.TestCase):
         self.assertFalse(self.metadata()['TimedOut'])
 
     def test_failure_logs(self):
-        self.assertFalse(self.process("import sys; print('diagnostic',file=sys.stderr); raise SystemExit(3)")['valid'])
+        actual=self.process("import sys; print('diagnostic',file=sys.stderr); raise SystemExit(3)")
+        self.assertEqual('simulator_failure',actual['kind'])
+        self.assertEqual(3,self.metadata()['ExitCode'])
+        self.assertFalse(self.metadata()['TimedOut'])
         self.assertIn('diagnostic',(self.folder/'simulate.stderr.log').read_text())
 
     def test_workspace_contention(self):

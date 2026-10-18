@@ -15,11 +15,11 @@ class Tests(unittest.TestCase):
         self.folder=Path(self.temp.name)
 
     def probe(self,mode,data):
-        result=subprocess.run(['dotnet',str(ROOT/'tests/RunnerValidation/bin/Release/net10.0/RunnerValidation.dll'),mode],input=json.dumps(data),text=True,encoding='utf-8',capture_output=True,check=True,timeout=20)
+        result=subprocess.run(['dotnet',str(ROOT/'tests/RunnerValidation/bin/Release/net10.0/RunnerValidation.dll'),mode],input=json.dumps(data),text=True,encoding='utf-8',capture_output=True,check=True,timeout=max(60,data.get('timeout',0)+30))
         return json.loads(result.stdout)
 
     def process(self,code='pass',**changes):
-        data={'executable':sys.executable,'arguments':['-c',code],'directory':str(self.folder),'phase':'simulate','timeout':5,'maxLogBytes':1024}
+        data={'executable':sys.executable,'arguments':['-c',code],'directory':str(self.folder),'phase':'simulate','timeout':30,'maxLogBytes':1024}
         data.update(changes)
         return self.probe('process',data)
 

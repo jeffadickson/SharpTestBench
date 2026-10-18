@@ -38,6 +38,8 @@ def run_case(root,name,style,seed,fault=0):
             assembly=str(root/'examples/Lfsr/bin/Release/net10.0/Lfsr.dll'),entryType='Entry, Lfsr',
             expectedNames=['Entry.SerialScoreboard'],testNames=['Entry.SerialScoreboard'])
         write_report(work/'manifest.json',manifest);write_report(work/'plan.json',stimulus)
+        from lfsr_fixture import plan_digest
+        digest=plan_digest(work/'plan.json')
         command=[sys.executable,root/'tools/run.py','--sim','icarus','--no-build',
                  '--assembly',manifest['assembly'],'--top',top,'--entry-type',manifest['entryType'],
                  '--work-dir',work/'legacy','--label','legacy','--seed',seed,'--exact','Entry.SerialScoreboard']
@@ -45,6 +47,8 @@ def run_case(root,name,style,seed,fault=0):
         left_code=execute(command,'legacy',dict(env,LFSR_REPORT=str(work/'legacy/metrics.json')))
         right_code=execute(['dotnet',root/'tools/SharpTestBench.Runner/bin/Release/net10.0/SharpTestBench.Runner.dll',
                             'run',work/'manifest.json'],'native',dict(env,LFSR_REPORT=str(work/'native/metrics.json')))
+        if plan_digest(work/'plan.json')!=digest:raise ValueError('LFSR stimulus changed during execution')
+        verify_sources(root)
         left=load(work/'legacy/legacy-results.json');right=load(work/'native/icarus-results.json')
         if fault:
             report={'matched':fault_detected(left,left_code,manifest['expectedNames'],'LFSR_MISMATCH') and
@@ -56,7 +60,7 @@ def run_case(root,name,style,seed,fault=0):
             report['traceMatched']=a==b
             report['matched']=report['matched'] and a==b and left_code==right_code==0
         report.update(schemaVersion=1,fixture=name,style=style,seed=seed,fault=fault,
-                      revision=provenance['revision'],exitCodes={'legacy':left_code,'native':right_code})
+                      revision=provenance['revision'],planSha256=digest,exitCodes={'legacy':left_code,'native':right_code})
         write_report(work/('negative-control.json' if fault else 'parity.json'),report)
         if not report['matched']:raise ValueError('LFSR parity qualification failed')
         return report
