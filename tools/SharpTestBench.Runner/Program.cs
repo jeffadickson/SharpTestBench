@@ -1,6 +1,5 @@
 // Standalone .NET 10 runner for prebuilt SharpTestBench native host/GPI adapter.
 // This initial slice supports Icarus only. No cocotb Python process is launched.
-using System.Diagnostics;
 using System.Security.Cryptography;
 using System.Text.Json;
 
@@ -11,6 +10,7 @@ if (args.Length != 2 || args[0] != "run")
 }
 
 string? failureArtifactDirectory = null;
+RunWorkspace? workspace = null;
 try
 {
     var manifestPath = Path.GetFullPath(args[1]);
@@ -19,7 +19,6 @@ try
         new JsonSerializerOptions { PropertyNameCaseInsensitive = true })
         ?? throw new InvalidDataException("Empty manifest");
     ManifestValidation.Validate(config);
-    var expectedTests = config.ExpectedTests ?? throw new InvalidDataException("expectedTests is required.");
     string Resolve(string name) => Path.GetFullPath(Path.Combine(root, name));
     var sources = config.Sources.Select(Resolve).ToArray();
     var assembly = Resolve(config.Assembly);
@@ -31,7 +30,13 @@ try
     var sdk = Resolve(config.DotnetRoot);
     var work = ManifestValidation.ResolveOutput(root, config.OutputDirectory);
     Directory.CreateDirectory(work);
+    var artifactPaths = RunWorkspace.Artifacts.Append(".sharptestbench-run.lock").Select(name => Path.Combine(work, name)).ToHashSet(
+        OperatingSystem.IsWindows() ? StringComparer.OrdinalIgnoreCase : StringComparer.Ordinal);
+    if (sources.Concat([assembly, host, bootstrap, gpi]).Any(artifactPaths.Contains))
+        throw new InvalidDataException("An input path collides with a generated runner artifact.");
+    workspace = RunWorkspace.Acquire(work);
     failureArtifactDirectory = work;
+    workspace.ClearArtifacts();
     foreach (var required in sources.Concat([assembly, host, bootstrap, gpi]))
         if (!File.Exists(required)) throw new FileNotFoundException("Required input not found", required);
     var runtimeConfig = Path.Combine(Path.GetDirectoryName(assembly)!, Path.GetFileNameWithoutExtension(assembly) + ".runtimeconfig.json");
@@ -44,7 +49,7 @@ try
     var fxrFile = Directory.EnumerateFiles(fxr, OperatingSystem.IsWindows() ? "hostfxr.dll" : OperatingSystem.IsMacOS() ? "libhostfxr.dylib" : "libhostfxr.so").FirstOrDefault()
         ?? throw new InvalidDataException("No hostfxr library found");
     var compiled = Path.Combine(work, "top.vvp");
-    await Run(config.Iverilog ?? "iverilog", ["-g2012", "-s", config.Top, "-o", compiled, ..sources], work, null, "compile");
+    await ProcessExecution.Run(config.Iverilog ?? "iverilog", ["-g2012", "-s", config.Top, "-o", compiled, ..sources], work, null, "compile", config.TimeoutSeconds);
     var results = Path.Combine(work, "icarus-results.json");
     if (File.Exists(results)) File.Delete(results);
     var env = new Dictionary<string, string>
@@ -67,7 +72,7 @@ try
     var loaderKey = OperatingSystem.IsWindows() ? "PATH" : OperatingSystem.IsMacOS() ? "DYLD_LIBRARY_PATH" : "LD_LIBRARY_PATH";
     env[loaderKey] = searchPath + Path.PathSeparator + Environment.GetEnvironmentVariable(loaderKey);
     var command = config.Vvp ?? "vvp";
-    await Run(command, ["-m", bootstrap, compiled], work, env, "simulate");
+    await ProcessExecution.Run(command, ["-m", bootstrap, compiled], work, env, "simulate", config.TimeoutSeconds);
     if (!File.Exists(results)) throw new InvalidDataException("Simulator did not produce a result JSON file");
     using var doc = JsonDocument.Parse(File.ReadAllText(results));
     var attestation = ResultAttestation.Verify(doc.RootElement, config);
@@ -91,6 +96,8 @@ catch (Exception ex)
     var kind = ex switch
     {
         TimeoutException => "timeout",
+        RunnerProcessException processError => processError.Kind,
+        WorkspaceInUseException => "workspace_in_use",
         FileNotFoundException or DirectoryNotFoundException or InvalidDataException or JsonException => "configuration_error",
         InvalidOperationException when ex.Message.Contains("iverilog", StringComparison.OrdinalIgnoreCase) => "build_failure",
         InvalidOperationException when ex.Message.Contains("vvp", StringComparison.OrdinalIgnoreCase) => "simulator_failure",
@@ -106,7 +113,7 @@ catch (Exception ex)
                 SchemaVersion = 1, Status = "failed", Kind = kind,
                 ErrorType = ex.GetType().FullName, Error = ex.Message,
                 RecordedAtUtc = DateTimeOffset.UtcNow,
-                LogFiles = new[] { "compile.stdout.log", "compile.stderr.log", "simulate.stdout.log", "simulate.stderr.log" }
+                LogFiles = new[] { "compile.stdout.log", "compile.stderr.log", "simulate.stdout.log", "simulate.stderr.log", "compile-process.json", "simulate-process.json" }
                     .Where(p => File.Exists(Path.Combine(failureArtifactDirectory, p))).ToArray()
             };
             var target = Path.Combine(failureArtifactDirectory, "failure-manifest.json");
@@ -120,27 +127,7 @@ catch (Exception ex)
     }
     return 1;
 }
-
-static async Task Run(string executable, IEnumerable<string> arguments, string cwd, Dictionary<string,string>? environment, string phase)
+finally
 {
-    var psi = new ProcessStartInfo(executable) { WorkingDirectory = cwd, UseShellExecute = false, RedirectStandardOutput = true, RedirectStandardError = true };
-    foreach (var argument in arguments) psi.ArgumentList.Add(argument);
-    if (environment != null)
-        foreach (var (key, value) in environment) psi.Environment[key] = value;
-    using var p = Process.Start(psi) ?? throw new InvalidOperationException($"Cannot start {executable}");
-    var stdoutPath = Path.Combine(cwd, phase + ".stdout.log");
-    var stderrPath = Path.Combine(cwd, phase + ".stderr.log");
-    using var stdoutFile = File.Create(stdoutPath);
-    using var stderrFile = File.Create(stderrPath);
-    var outTask = p.StandardOutput.BaseStream.CopyToAsync(stdoutFile);
-    var errTask = p.StandardError.BaseStream.CopyToAsync(stderrFile);
-    using var timeout = new CancellationTokenSource(TimeSpan.FromSeconds(120));
-    try { await p.WaitForExitAsync(timeout.Token); }
-    catch (OperationCanceledException)
-    {
-        if (!p.HasExited) p.Kill(entireProcessTree: true);
-        throw new TimeoutException($"Process exceeded 120 seconds: {executable}");
-    }
-    await Task.WhenAll(outTask, errTask);
-    if (p.ExitCode != 0) throw new InvalidOperationException($"{executable} exited with {p.ExitCode}. Logs: {stdoutPath}, {stderrPath}");
+    workspace?.Dispose();
 }

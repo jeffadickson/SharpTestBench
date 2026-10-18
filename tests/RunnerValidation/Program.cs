@@ -3,7 +3,36 @@ try
 {
     var text = Console.In.ReadToEnd();
     var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-    if (args is ["results"])
+    if (args is ["process"])
+    {
+        using var doc = JsonDocument.Parse(text);
+        var data = doc.RootElement;
+        var environment = data.TryGetProperty("environment", out var env) ? env.Deserialize<Dictionary<string,string>>() : null;
+        await ProcessExecution.Run(data.GetProperty("executable").GetString()!,
+            data.GetProperty("arguments").Deserialize<string[]>()!, data.GetProperty("directory").GetString()!,
+            environment, data.GetProperty("phase").GetString()!, data.GetProperty("timeout").GetInt32());
+        Console.WriteLine(JsonSerializer.Serialize(new { valid = true }));
+    }
+    else if (args is ["workspace"])
+    {
+        using var doc = JsonDocument.Parse(text);
+        var data = doc.RootElement;
+        using var lease = RunWorkspace.Acquire(data.GetProperty("directory").GetString()!);
+        if (data.GetProperty("contend").GetBoolean())
+        {
+            using var second = RunWorkspace.Acquire(data.GetProperty("directory").GetString()!);
+        }
+        else lease.ClearArtifacts();
+        Console.WriteLine(JsonSerializer.Serialize(new { valid = true }));
+    }
+    else if (args is ["output"])
+    {
+        using var doc = JsonDocument.Parse(text);
+        var data = doc.RootElement;
+        var output = ManifestValidation.ResolveOutput(data.GetProperty("root").GetString()!, data.GetProperty("output").GetString()!);
+        Console.WriteLine(JsonSerializer.Serialize(new { valid = true, output }));
+    }
+    else if (args is ["results"])
     {
         using var doc = JsonDocument.Parse(text);
         var root = doc.RootElement;
@@ -22,5 +51,5 @@ try
 }
 catch (Exception error)
 {
-    Console.WriteLine(JsonSerializer.Serialize(new { valid = false, error = error.Message }));
+    Console.WriteLine(JsonSerializer.Serialize(new { valid = false, error = error.Message, kind = error is RunnerProcessException process ? process.Kind : error is TimeoutException ? "timeout" : error.GetType().Name }));
 }

@@ -49,7 +49,10 @@ internal static class ManifestValidation
         if (relative == "." || relative == ".." || Path.IsPathRooted(relative) ||
             relative.StartsWith(".." + Path.DirectorySeparatorChar, StringComparison.Ordinal))
             throw new InvalidDataException("outputDirectory must be below the manifest directory.");
-        for (var current = new DirectoryInfo(work); current.FullName != Path.GetFullPath(root); current = current.Parent!)
+        var rootPath = new DirectoryInfo(root).FullName;
+        var comparer = OperatingSystem.IsWindows() ? StringComparer.OrdinalIgnoreCase : StringComparer.Ordinal;
+        for (var current = new DirectoryInfo(work); !comparer.Equals(current.FullName, rootPath);
+             current = current.Parent ?? throw new InvalidDataException("Could not resolve the output directory parent."))
             if (current.LinkTarget is not null)
                 throw new InvalidDataException("outputDirectory must not traverse a symbolic link.");
         return work;
