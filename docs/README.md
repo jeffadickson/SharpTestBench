@@ -45,3 +45,5 @@ builds and reference comparisons; they are not embedded in the C# test process.
 - [API semantic reviews](API_REVIEW.md) — source-pinned decisions, gaps and evidence.
 
 - [AXI memory verification and benchmark](../examples/AxiMemory/README.md) — scoreboards, fault detection and scoped measurements.
+
+Managed code coverage: [Coverlet and ReportGenerator](CODE_COVERAGE.md).

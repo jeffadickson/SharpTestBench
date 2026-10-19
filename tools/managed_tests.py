@@ -10,14 +10,15 @@ ROOT = Path(__file__).resolve().parents[1]
 SDK = str(Path(os.environ['CS_DOTNET_ROOT']) / 'dotnet') if 'CS_DOTNET_ROOT' in os.environ else 'dotnet'
 PROJECT = ROOT / 'tests/SharpTestBench.Tests'
 BUILD = ROOT / 'build'
+EXPECTED_CASES = 420
 
 
 def verify(report, failed):
     cases = ET.parse(report).findall('.//test')
-    assert len(cases) == 378, f'Expected 378 discovered cases, got {len(cases)}'
+    assert len(cases) == EXPECTED_CASES, f'Expected {EXPECTED_CASES} discovered cases, got {len(cases)}'
     failures = [case for case in cases if case.attrib['result'] == 'Fail']
     assert len(failures) == failed, failures
-    assert sum(case.attrib['result'] == 'Pass' for case in cases) == 378 - failed
+    assert sum(case.attrib['result'] == 'Pass' for case in cases) == EXPECTED_CASES - failed
     if failed:
         assert failures[0].attrib['name'] == 'ManagedTests.IntegerBoundaries'
         assert any(c.attrib['name'] == 'ManagedTests.FunctionalCoverage' and c.attrib['result'] == 'Pass' for c in cases)
@@ -37,7 +38,7 @@ def main():
     original = 'new UInt<W8>(255).Value == 255'
     assert source.count(original) == 1
     (probe / 'Program.cs').write_text(source.replace(original, 'new UInt<W8>(255).Value == 254'))
-    for name in ('CleanupTests.cs', 'VectorTextTests.cs', 'ArrayTests.cs', 'array-reference.json', 'LogicConversionTests.cs', 'LogicTransformTests.cs', 'logic-reference.json'):
+    for name in (*sorted(p.name for p in PROJECT.glob('*.cs') if p.name != 'Program.cs'), 'array-reference.json', 'logic-reference.json'):
         shutil.copyfile(PROJECT / name, probe / name)
     shutil.copyfile(PROJECT / 'nine-state-reference.txt', probe / 'nine-state-reference.txt')
     shutil.copyfile(PROJECT / 'packages.lock.json', probe / 'packages.lock.json')
@@ -47,7 +48,7 @@ def main():
     result = subprocess.run([SDK, str(probe / 'bin/Release/net10.0/FailureProbe.dll'), '-xml', str(report)])
     assert result.returncode != 0, 'Injected failure must fail the process'
     verify(report, 1)
-    print('MANAGED_PASS 378 cases; injected failure named correctly; remaining 377 cases passed')
+    print(f'MANAGED_PASS {EXPECTED_CASES} cases; injected failure named correctly; remaining {EXPECTED_CASES - 1} cases passed')
 
 
 if __name__ == '__main__':

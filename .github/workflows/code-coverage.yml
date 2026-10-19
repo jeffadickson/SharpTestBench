@@ -1,0 +1,28 @@
+name: Managed code coverage
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  coverage:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.402'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: dotnet tool restore
+      - run: dotnet build tests/SharpTestBench.Tests -c Release -p:RestoreLockedMode=true
+      - run: dotnet build tests/SharpTestBench.Generators.Tests -c Release -p:RestoreLockedMode=true
+      - run: python tools/code_coverage.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: managed-code-coverage
+          path: build/code-coverage
+          if-no-files-found: error
