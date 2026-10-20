@@ -16,7 +16,7 @@ internal static class ParityCiCommand
         if (exact is not null) arguments.AddRange(["--exact", exact]);
         return arguments.ToArray();
     }
-    static Dictionary<string, object> Compare(ToolContext context, string work, Dictionary<string, object> manifest, ulong seed, Dictionary<string, string?> environment, string? exact, string? metricsVariable, string? marker, Action<JsonElement, JsonElement>? metrics)
+    internal static Dictionary<string, object> Compare(ToolContext context, string work, Dictionary<string, object> manifest, ulong seed, Dictionary<string, string?> environment, string? exact, string? metricsVariable, string? marker, Action<JsonElement, JsonElement>? metrics)
     {
         var leftEnvironment = new Dictionary<string, string?>(environment); var rightEnvironment = new Dictionary<string, string?>(environment);
         if (metricsVariable is not null) { leftEnvironment[metricsVariable] = Path.Combine(work, "legacy/metrics.json"); rightEnvironment[metricsVariable] = Path.Combine(work, "native/metrics.json"); }
@@ -27,8 +27,7 @@ internal static class ParityCiCommand
         Dictionary<string, object> report;
         if (marker is not null)
         {
-            bool a = ParityContracts.FaultDetected(left.RootElement, leftCode, expected, marker), b = ParityContracts.FaultDetected(right.RootElement, rightCode, expected, marker);
-            report = new() { ["schemaVersion"] = 1, ["negativeControl"] = true, ["legacyDetected"] = a, ["nativeDetected"] = b, ["matched"] = a && b };
+            report = ParityContracts.CompareFaults(left.RootElement, leftCode, right.RootElement, rightCode, expected, marker);
         }
         else
         {
@@ -48,11 +47,14 @@ internal static class ParityCiCommand
         NativeBuildCommand.Build(context);
         return RunnerManifestCommand.Make(context.Root, fixture, seed, RunnerManifestCommand.InstalledAdapter(context), Path.Combine(work, "native"));
     }
-    static Dictionary<string, object> InWorkspace(ToolContext context, string name, Func<string, Dictionary<string, string?>, Dictionary<string, object>> action)
+    internal static Dictionary<string, object> InWorkspace(ToolContext context, string name, Func<string, Dictionary<string, string?>, Dictionary<string, object>> action)
     {
         var work = context.At("build/" + name); Directory.CreateDirectory(work); using var workspace = new WorkspaceLock(work, ".parity.lock");
         try
         {
+            // This case lease is ours even when a child workspace cannot be
+            // cleared. Retire old completion evidence before recording failure.
+            foreach (var reportName in new[] { "parity.json", "negative-control.json", "case-failure.json" }) File.Delete(Path.Combine(work, reportName));
             ParityContracts.ClearCase(work); var environment = ParityContracts.ChildEnvironment(ParityContracts.EnvironmentValues()); environment["STB_NATIVE_VPI_TIME"] = "1";
             var report = action(work, environment); bool negative = report.TryGetValue("negativeControl", out var flag) && flag is true;
             StrictJson.Write(Path.Combine(work, negative ? "negative-control.json" : "parity.json"), report);

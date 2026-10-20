@@ -45,7 +45,6 @@ internal static class ParityContracts
     public static Dictionary<string, object> Compare(JsonElement legacy, JsonElement native, JsonElement expectedNames)
     {
         var expected = Expected(expectedNames); var a = Signature(legacy); var b = Signature(native);
-        static Dictionary<string, ulong> Seeds(JsonElement rows) => rows.EnumerateArray().ToDictionary(Identity, row => FixtureContracts.Integer(row.GetProperty("Seed"), 0, ulong.MaxValue, "seed"), StringComparer.Ordinal);
         var left = Seeds(legacy); var right = Seeds(native);
         var missing = new { legacy = expected.Except(left.Keys).Order(StringComparer.Ordinal).ToArray(), native = expected.Except(right.Keys).Order(StringComparer.Ordinal).ToArray() };
         var unexpected = new { legacy = left.Keys.Except(expected).Order(StringComparer.Ordinal).ToArray(), native = right.Keys.Except(expected).Order(StringComparer.Ordinal).ToArray() };
@@ -56,7 +55,7 @@ internal static class ParityContracts
     public static bool FaultDetected(JsonElement rows, int exitCode, JsonElement expectedNames, string marker)
     {
         var expected = Expected(expectedNames);
-        if (exitCode != 1 || rows.ValueKind != JsonValueKind.Array || rows.GetArrayLength() != expected.Count) return false;
+        if (string.IsNullOrWhiteSpace(marker) || exitCode != 1 || rows.ValueKind != JsonValueKind.Array || rows.GetArrayLength() != expected.Count) return false;
         var observed = new HashSet<string>(StringComparer.Ordinal);
         foreach (var row in rows.EnumerateArray())
         {
@@ -65,6 +64,18 @@ internal static class ParityContracts
             if (!observed.Add(name) || !row.TryGetProperty("Status", out var status) || status.ValueKind != JsonValueKind.String || status.GetString() != "failed" || !row.TryGetProperty("Error", out var error) || error.ValueKind != JsonValueKind.String || !error.GetString()!.Contains(marker, StringComparison.Ordinal) || !row.TryGetProperty("Seed", out var seed) || seed.ValueKind != JsonValueKind.Number || !seed.TryGetUInt64(out _)) return false;
         }
         return observed.SetEquals(expected);
+    }
+    static Dictionary<string, ulong> Seeds(JsonElement rows) => rows.EnumerateArray().ToDictionary(Identity, row => FixtureContracts.Integer(row.GetProperty("Seed"), 0, ulong.MaxValue, "seed"), StringComparer.Ordinal);
+    public static Dictionary<string, object> CompareFaults(JsonElement legacy, int legacyExit, JsonElement native, int nativeExit, JsonElement expected, string marker)
+    {
+        bool a = FaultDetected(legacy, legacyExit, expected, marker), b = FaultDetected(native, nativeExit, expected, marker);
+        bool matched = false;
+        if (a && b)
+        {
+            var left = Seeds(legacy); var right = Seeds(native);
+            matched = left.All(pair => right.TryGetValue(pair.Key, out var seed) && pair.Value == seed);
+        }
+        return new() { ["schemaVersion"] = 1, ["negativeControl"] = true, ["legacyDetected"] = a, ["nativeDetected"] = b, ["matched"] = matched };
     }
     public static Dictionary<string, string?> CleanEnvironment(IReadOnlyDictionary<string, string?> environment) => environment.Where(pair => !SelectionVariables.Contains(pair.Key, StringComparer.Ordinal)).ToDictionary(pair => pair.Key, pair => pair.Value, StringComparer.Ordinal);
     public static Dictionary<string, string?> ChildEnvironment(IReadOnlyDictionary<string, string?> environment)

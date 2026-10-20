@@ -48,7 +48,7 @@ internal static class CoverageCommand
         const string output = "build/code-coverage";
         Directory.CreateDirectory(context.At(output));
         Directory.CreateDirectory(context.At(output + "/report"));
-        foreach (var name in new[] { "summary.json", "managed.cobertura.xml", "generators.cobertura.xml", "helpers.cobertura.xml", "contracts.cobertura.xml", "runner.cobertura.xml" }) File.Delete(context.At(output + "/" + name));
+        foreach (var name in new[] { "summary.json", "managed.cobertura.xml", "generators.cobertura.xml", "helpers.cobertura.xml", "contracts.cobertura.xml", "runner.cobertura.xml", "runner-cli.cobertura.xml" }) File.Delete(context.At(output + "/" + name));
         foreach (var name in new[] { "index.html", "Summary.json", "Summary.txt", "Cobertura.xml" }) File.Delete(context.At(output + "/report/" + name));
         var summaries = new Dictionary<string, CoverageReport>();
         foreach (var (label, project, assemblyName) in new[] { ("managed", "SharpTestBench.Tests", "SharpTestBench"), ("generators", "SharpTestBench.Generators.Tests", "SharpTestBench.Generators"), ("helpers", "SharpTestBench.Tools.Tests", "SharpTestBench.Tools") })
@@ -70,6 +70,14 @@ internal static class CoverageCommand
         var runnerHarness = "tests/RunnerValidation/bin/Release/net10.0/RunnerValidation.dll";
         context.Run(["dotnet", "tool", "run", "coverlet", runnerHarness, "--target", Environment.GetEnvironmentVariable("CS_PYTHON") ?? "python", "--targetargs", "-m unittest discover -s tests/Tooling -p test_*runner*.py -q", "--format", "cobertura", "--output", output + "/runner", "--include", "[SharpTestBench.Runner]*"]);
         summaries.Add("runner", Validate(context.At(output + "/runner.cobertura.xml"), "SharpTestBench.Runner"));
+        // Execute the real entry point with its production runtime configuration.
+        // Keep CLI instrumentation separate from both the RPC harness and workers.
+        var cliHarness = context.At(output + "/runner-cli-harness"); Directory.CreateDirectory(cliHarness);
+        var cliSource = context.At("tools/SharpTestBench.Runner/bin/Release/net10.0");
+        foreach (var name in new[] { "SharpTestBench.Runner.dll", "SharpTestBench.Runner.pdb", "SharpTestBench.Runner.deps.json", "SharpTestBench.Runner.runtimeconfig.json" }) File.Copy(Path.Combine(cliSource, name), Path.Combine(cliHarness, name), true);
+        var cliAssembly = output + "/runner-cli-harness/SharpTestBench.Runner.dll";
+        context.Run(["dotnet", "tool", "run", "coverlet", cliAssembly, "--target", Environment.GetEnvironmentVariable("CS_PYTHON") ?? "python", "--targetargs", "-m unittest discover -s tests/Tooling -p test_runner_cli.py -q", "--format", "cobertura", "--output", output + "/runner-cli", "--include-test-assembly", "--include", "[SharpTestBench.Runner]*"], environment: new Dictionary<string, string?> { ["STB_RUNNER_CLI_DLL"] = context.At(cliAssembly) });
+        summaries.Add("runner-cli", Validate(context.At(output + "/runner-cli.cobertura.xml"), "SharpTestBench.Runner"));
         context.Run(["dotnet", "tool", "run", "reportgenerator", "-reports:" + output + "/*.cobertura.xml", "-targetdir:" + output + "/report", "-reporttypes:Html;Cobertura;JsonSummary;TextSummary", "-verbosity:Warning"]);
         var combined = Validate(context.At(output + "/report/Cobertura.xml"), "SharpTestBench", "SharpTestBench.Generators", "SharpTestBench.Tools", "SharpTestBench.Runner");
         using var json = StrictJson.Read(context.At(output + "/report/Summary.json"));

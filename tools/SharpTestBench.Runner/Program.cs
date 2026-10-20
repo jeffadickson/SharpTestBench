@@ -42,7 +42,7 @@ try
     failureArtifactDirectory = work;
     workspace.ClearArtifacts();
     foreach (var required in sources.Concat([assembly, host, bootstrap, gpi]))
-        if (!File.Exists(required)) throw new FileNotFoundException("Required input not found", required);
+        if (!File.Exists(required)) throw new FileNotFoundException("Required input not found: " + required, required);
     var runtimeConfig = Path.Combine(Path.GetDirectoryName(assembly)!, Path.GetFileNameWithoutExtension(assembly) + ".runtimeconfig.json");
     if (!File.Exists(runtimeConfig)) throw new FileNotFoundException("Missing runtimeconfig", runtimeConfig);
     var fxrDir = Path.Combine(sdk, "host", "fxr");

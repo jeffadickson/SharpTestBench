@@ -14,10 +14,17 @@ library, generator and managed-helper tests, plus the retained contract suite
 through its C# test API. A separate Runner collection executes the retained
 `test_*runner*.py` contracts against the production `SharpTestBench.Runner`
 assembly referenced by RunnerValidation, rather than linked source copies.
-This measures managed Runner contracts; it does not execute the standalone
-CLI entry point, its runtime feature switches, or establish NativeAOT instruction
-coverage. RunnerValidation enables JSON reflection for its test protocol; the
-production CLI disables it. Native code, HDL and simulator-only behavior require the
+An additional `runner-cli` collection executes the production entry point through
+`test_runner_cli.py`, instrumenting a private copy of its DLL and retaining its
+production runtime configuration with JSON reflection disabled. It covers help,
+usage errors, malformed manifests, missing inputs and a controlled compiler
+failure with retained phase evidence. The compile-boundary test deliberately
+uses dummy input payloads and a rejecting subprocess; it does not simulate HDL.
+This measures selected CLI startup/preflight/failure paths, not a complete CLI
+success path or runtime-feature-switch matrix, and does not establish NativeAOT
+instruction coverage. RunnerValidation enables JSON reflection for its test protocol;
+the separate CLI collection preserves the production-disabled setting.
+Native code, HDL and simulator-only behavior require the
 existing simulator qualification workflows. Functional coverage bins are a
 separate measurement (`Coverage.cs`). No percentage target implies untested
 simulator behavior is covered.
@@ -37,7 +44,7 @@ assembly, including SharpTestBench.Tools. Failed tests,
 missing assemblies, empty reports and inconsistent counters stop publication of
 the completion summary. The deliberate failing-test mutation in
 `tools/SharpTestBench.Tools/ManagedTestsCommand.cs` runs separately and is excluded from coverage collection.
-CI uploads the report even when collection fails, for diagnosis.
+The disabled CI workflow retains report-upload steps for failure diagnosis.
 
 Tools: [Coverlet console](https://github.com/coverlet-coverage/coverlet/blob/master/Documentation/GlobalTool.md),
 [ReportGenerator](https://github.com/danielpalme/ReportGenerator). Versions are

@@ -42,6 +42,9 @@ excluding elapsed time and allocation measurements.
 Negative controls inject fault 1 into DSP/CPU and require both runners to exit 1
 with the expected named scoreboard failure and diagnostic marker. A crash,
 missing result, or successful child exit cannot qualify as detected corruption.
+Negative controls also require matching full-width seeds for each qualified case
+across both runners. Detecting the expected failure independently is insufficient
+when the runners used different per-case stimuli. Blank fault markers are rejected.
 
 ## Evidence and failure behavior
 

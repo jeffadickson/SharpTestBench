@@ -41,6 +41,12 @@ recorded separately in [the OptiPlex report](optiplex-validation-report.md) and
 [its independent deep review](optiplex-deep-peer-review.md). They do not replace or
 relabel the archived round 8 machine results.
 
+The follow-on [parity/failure coverage checkpoint](parity-coverage-validation-report.md)
+records 50 named regression scenarios, four supplemental collection guards,
+[interval reviews](parity-coverage-reviews.jsonl), the [scenario ledger](parity-coverage-iterations.jsonl)
+and a [final independent deep review](parity-coverage-deep-peer-review.md). Its CLI
+coverage scope extends the earlier managed-contract-only measurement.
+
 Saved Markdown, JSON, JSONL and CSV records are included below. Large binary archives, compiled workers, virtual environments, caches, and generated coverage HTML are not required for the handoff and are not imported into Git. The recorded reports preserve their results and limitations; regenerate local outputs with the C# helpers and Make targets when needed. Some historical reports name old ZIP/HTML artifacts; those filenames are archival references, not required downloads. Historical round 8 coverage excluded a separately collected Runner; the newer coverage scope is documented above. Managed coverage does not measure HDL or native instructions.
 
 ## Included records
