@@ -36,7 +36,7 @@ internal static class RunnerManifestCommand
             ["schemaVersion"] = 1, ["simulator"] = "icarus", ["top"] = item.Top,
             ["sources"] = new[] { Path.Combine(root, item.Project, item.Source) },
             ["assembly"] = Path.Combine(root, item.Project, "bin/Release/net10.0/" + item.Assembly + ".dll"),
-            ["nativeHost"] = Path.Combine(root, "build/libsharptestbench_host.so"), ["icarusBootstrap"] = RealPath((string)adapter["bootstrap"]), ["gpiLibrary"] = RealPath((string)adapter["library"]),
+            ["nativeHost"] = Path.Combine(root, "build", NativeBuildCommand.HostName), ["icarusBootstrap"] = RealPath((string)adapter["bootstrap"]), ["gpiLibrary"] = RealPath((string)adapter["library"]),
             ["gpiEntryPoint"] = (string)adapter["entryPoint"], ["gpiImpl"] = (string)adapter["implementation"], ["dotnetRoot"] = (string)adapter["dotnetRoot"],
             ["outputDirectory"] = output, ["seed"] = seed, ["entryType"] = "Entry, " + item.Assembly, ["expectedTests"] = 1, ["expectedNames"] = new[] { item.Test } };
     }
