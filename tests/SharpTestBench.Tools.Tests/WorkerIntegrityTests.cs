@@ -44,6 +44,16 @@ public sealed class WorkerIntegrityTests
     [InlineData("nested-name.dat", "removed")]
     [InlineData("nested-name.dat", "extra")]
     [InlineData("nested-name.dat", "identity")]
+    [InlineData("zlib.dat", "managed")]
+    [InlineData("zlib.dat", "runtime")]
+    [InlineData("zlib.dat", "removed")]
+    [InlineData("zlib.dat", "extra")]
+    [InlineData("zlib.dat", "identity")]
+    [InlineData("runtime.version", "managed")]
+    [InlineData("runtime.version", "runtime")]
+    [InlineData("runtime.version", "removed")]
+    [InlineData("runtime.version", "extra")]
+    [InlineData("runtime.version", "identity")]
     public void CompleteFileIntegrityIsRequired(string component, string mutation)
     {
         var root = Path.Combine(Path.GetTempPath(), "worker integrity " + Guid.NewGuid().ToString("N"));
