@@ -10,7 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 SDK = str(Path(os.environ['CS_DOTNET_ROOT']) / 'dotnet') if 'CS_DOTNET_ROOT' in os.environ else 'dotnet'
 PROJECT = ROOT / 'tests/SharpTestBench.Tests'
 BUILD = ROOT / 'build'
-EXPECTED_CASES = 420
+EXPECTED_CASES = 468
 
 
 def verify(report, failed):
