@@ -104,7 +104,11 @@ Each invocation records an ID and an atomic `input-manifest.json` before compili
 It hashes the manifest, sources, adjacent managed DLLs/configuration, explicit
 native/GPI inputs and hostfxr, plus files beneath explicit include directories.
 Include trees reject symbolic links and are limited to 4096 entries per directory
-tree. Keep generated outputs outside include trees. The same input set is checked
+tree. The Runner rejects output directories equal to or beneath explicit include
+directories before cleanup. Source, native adapter and GPI implementation paths
+are also rejected if they name generated runner artifacts, including the lease.
+These checks compare normalized paths; they do not establish general filesystem
+identity protection against alternate names or hard-link aliases. The same input set is checked
 again before accepting results, detecting observed content changes, additions or
 removals. This is before/after attestation, not a filesystem snapshot or a claim
 that every transitive native dependency has been qualified.

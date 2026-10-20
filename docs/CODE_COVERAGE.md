@@ -15,10 +15,11 @@ through its C# test API. A separate Runner collection executes the retained
 `test_*runner*.py` contracts against the production `SharpTestBench.Runner`
 assembly referenced by RunnerValidation, rather than linked source copies.
 An additional `runner-cli` collection executes the production entry point through
-`test_runner_cli.py`, instrumenting a private copy of its DLL and retaining its
+`test_runner_cli*.py`, instrumenting a private copy of its DLL and retaining its
 production runtime configuration with JSON reflection disabled. It covers help,
 usage errors, malformed manifests, missing inputs and a controlled compiler
-failure with retained phase evidence. The compile-boundary test deliberately
+failure with retained phase evidence, plus input/artifact collision rejection
+and preservation across the generated-file inventory. The compile-boundary test deliberately
 uses dummy input payloads and a rejecting subprocess; it does not simulate HDL.
 This measures selected CLI startup/preflight/failure paths, not a complete CLI
 success path or runtime-feature-switch matrix, and does not establish NativeAOT

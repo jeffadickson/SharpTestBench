@@ -31,13 +31,26 @@ try
     var gpi = Resolve(config.GpiLibrary);
     if (string.IsNullOrWhiteSpace(config.GpiImpl))
         throw new InvalidDataException("gpiImpl must specify the simulator-specific GPI implementation string.");
+    var implementationSeparator = config.GpiImpl.LastIndexOf(':');
+    if (implementationSeparator <= 0 || implementationSeparator == config.GpiImpl.Length - 1)
+        throw new InvalidDataException("gpiImpl must specify library:symbol.");
+    var implementation = Resolve(config.GpiImpl[..implementationSeparator]);
     var sdk = Resolve(config.DotnetRoot);
     var work = ManifestValidation.ResolveOutput(root, config.OutputDirectory);
     Directory.CreateDirectory(work);
     var artifactPaths = RunWorkspace.Artifacts.Append(".sharptestbench-run.lock").Select(name => Path.Combine(work, name)).ToHashSet(
         OperatingSystem.IsWindows() ? StringComparer.OrdinalIgnoreCase : StringComparer.Ordinal);
-    if (sources.Concat([assembly, host, bootstrap, gpi]).Any(artifactPaths.Contains))
+    if (sources.Concat([assembly, host, bootstrap, gpi, implementation]).Any(artifactPaths.Contains))
         throw new InvalidDataException("An input path collides with a generated runner artifact.");
+    var pathComparison = OperatingSystem.IsWindows() ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal;
+    foreach (var include in config.IncludeDirectories ?? [])
+    {
+        var directory = Resolve(include);
+        var relative = Path.GetRelativePath(directory, work);
+        if (relative == "." || (!Path.IsPathRooted(relative) && relative != ".." &&
+            !relative.StartsWith(".." + Path.DirectorySeparatorChar, pathComparison)))
+            throw new InvalidDataException("An include directory collides with the runner output directory.");
+    }
     workspace = RunWorkspace.Acquire(work);
     failureArtifactDirectory = work;
     workspace.ClearArtifacts();
