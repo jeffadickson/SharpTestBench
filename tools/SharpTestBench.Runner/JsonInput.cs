@@ -26,16 +26,14 @@ internal static class JsonInput
             bytes.Write(buffer, 0, count);
         }
         var text = new System.Text.UTF8Encoding(false, true).GetString(bytes.ToArray());
-        return text.StartsWith('﻿') ? text[1..] : text;
+        return text.StartsWith('\uFEFF') ? text[1..] : text;
     }
 
     internal static RunManifest Manifest(string text)
     {
         using var document = Parse(text, manifest: true);
         if (document.RootElement.ValueKind != JsonValueKind.Object) throw new InvalidDataException("Manifest must be an object.");
-        return document.RootElement.Deserialize<RunManifest>(new JsonSerializerOptions {
-            PropertyNameCaseInsensitive = true, UnmappedMemberHandling = JsonUnmappedMemberHandling.Disallow
-        }) ?? throw new InvalidDataException("Empty manifest");
+        return document.RootElement.Deserialize(ManifestJsonContext.Default.RunManifest) ?? throw new InvalidDataException("Empty manifest");
     }
 
     private static void Inspect(JsonElement element, bool manifest)

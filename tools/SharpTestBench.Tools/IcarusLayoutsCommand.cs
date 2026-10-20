@@ -82,7 +82,7 @@ internal static class IcarusLayoutsCommand
         void Run(string label, string path, string? marker = null)
         {
             var folder = System.IO.Path.Combine(work, label); Directory.CreateDirectory(folder);
-            var result = context.Run(["dotnet", typeof(ToolContext).Assembly.Location, "run", "--no-build", "--assembly", context.At("tests/LayoutMetadata/bin/Release/net10.0/LayoutMetadata.dll"), "--entry-type", "Entry, LayoutMetadata", "--source", source, "--top", "top", "--work-dir", folder], environment: new Dictionary<string, string?> { ["STB_LAYOUT_METADATA"] = path }, capture: true, check: false, timeout: TimeSpan.FromSeconds(120));
+            var result = context.Run([.. ToolContext.Self, "run", "--no-build", "--assembly", context.At("tests/LayoutMetadata/bin/Release/net10.0/LayoutMetadata.dll"), "--entry-type", "Entry, LayoutMetadata", "--source", source, "--top", "top", "--work-dir", folder], environment: new Dictionary<string, string?> { ["STB_LAYOUT_METADATA"] = path }, capture: true, check: false, timeout: TimeSpan.FromSeconds(120));
             var output = result.Output + result.Error; File.WriteAllText(System.IO.Path.Combine(folder, "driver.log"), output);
             if (marker is null ? result.ExitCode != 0 || !output.Contains("CS_SUMMARY 1 passed 0 failed", StringComparison.Ordinal) : result.ExitCode == 0 || !output.Contains(marker, StringComparison.Ordinal)) throw new InvalidDataException("Elaboration metadata check failed: " + output);
         }

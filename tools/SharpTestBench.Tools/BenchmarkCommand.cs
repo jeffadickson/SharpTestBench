@@ -25,12 +25,12 @@ internal static class BenchmarkCommand
     {
         if (arguments.Length != 0) throw new ArgumentException("benchmark accepts no arguments");
         var environment = new Dictionary<string, string?> { ["DOTNET_TieredCompilation"] = "0" };
-        context.Run(["dotnet", typeof(ToolContext).Assembly.Location, "run", "--project", "Benchmark", "--label", "benchmark-warm"], environment: environment);
+        context.Run([.. ToolContext.Self, "run", "--project", "Benchmark", "--label", "benchmark-warm"], environment: environment);
         var adapter = CocotbAdapter.Inspect(context); var build = context.At("build"); File.Delete(Path.Combine(build, "benchmark.json")); var records = new List<Dictionary<string, object>>();
         for (var repeat = 0; repeat < 5; repeat++) foreach (var language in repeat % 2 == 0 ? new[] { "python", "csharp" } : ["csharp", "python"])
         {
             CommandResult result; string text;
-            if (language == "csharp") { var label = "benchmark-csharp-" + repeat; result = context.Run(["dotnet", typeof(ToolContext).Assembly.Location, "run", "--project", "Benchmark", "--no-build", "--label", label], environment: environment, capture: true, check: false); text = File.ReadAllText(Path.Combine(build, label + "-run.log")); }
+            if (language == "csharp") { var label = "benchmark-csharp-" + repeat; result = context.Run([.. ToolContext.Self, "run", "--project", "Benchmark", "--no-build", "--label", label], environment: environment, capture: true, check: false); text = File.ReadAllText(Path.Combine(build, label + "-run.log")); }
             else
             {
                 var report = Path.Combine(build, "benchmark-python-" + repeat + ".xml"); File.Delete(report);

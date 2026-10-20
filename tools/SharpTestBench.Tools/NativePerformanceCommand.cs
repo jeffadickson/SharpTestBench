@@ -67,7 +67,7 @@ internal static class NativePerformanceCommand
             foreach (var workload in new[] { "micro", "axi" })
             {
                 var work = Path.Combine(output, round + "-" + variant + "-" + workload); Directory.CreateDirectory(work);
-                var invocation = new List<string> { "dotnet", typeof(ToolContext).Assembly.Location, "run", "--sim", simulator, "--no-build", "--host", selected.Host, "--work-dir", work, "--label", "perf" };
+                var invocation = new List<string>(ToolContext.Self) { "run", "--sim", simulator, "--no-build", "--host", selected.Host, "--work-dir", work, "--label", "perf" };
                 if (models.TryGetValue(workload, out var model)) invocation.AddRange(["--sim-executable", model]);
                 var baselineAssembly = baselineManaged is not null && variant != "full" ? baselineManaged : null;
                 if (workload == "micro") { invocation.AddRange(["--project", "Benchmark"]); if (baselineAssembly is not null) invocation.AddRange(["--assembly", Path.Combine(baselineAssembly, "Benchmark/Benchmark.dll")]); }

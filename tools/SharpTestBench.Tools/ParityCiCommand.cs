@@ -11,7 +11,7 @@ internal static class ParityCiCommand
     }
     static string[] LegacyCommand(ToolContext context, Dictionary<string, object> manifest, string work, ulong seed, string? exact)
     {
-        var arguments = new List<string> { "dotnet", typeof(ToolContext).Assembly.Location, "run", "--sim", "icarus", "--no-build", "--assembly", (string)manifest["assembly"], "--top", (string)manifest["top"], "--entry-type", (string)manifest["entryType"], "--work-dir", Path.Combine(work, "legacy"), "--label", "legacy", "--seed", seed.ToString(System.Globalization.CultureInfo.InvariantCulture) };
+        var arguments = new List<string>(ToolContext.Self) { "run", "--sim", "icarus", "--no-build", "--assembly", (string)manifest["assembly"], "--top", (string)manifest["top"], "--entry-type", (string)manifest["entryType"], "--work-dir", Path.Combine(work, "legacy"), "--label", "legacy", "--seed", seed.ToString(System.Globalization.CultureInfo.InvariantCulture) };
         foreach (var source in (string[])manifest["sources"]) arguments.AddRange(["--source", source]);
         if (exact is not null) arguments.AddRange(["--exact", exact]);
         return arguments.ToArray();

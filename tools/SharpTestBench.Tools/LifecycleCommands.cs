@@ -7,7 +7,7 @@ internal static class LifecycleCommands
     static CommandResult Run(ToolContext context, string label, string[] arguments, Dictionary<string, string?> environment, int timeout)
     {
         File.Delete(context.At("build/" + label + "-results.json"));
-        var result = context.Run(["dotnet", typeof(ToolContext).Assembly.Location, "run", "--no-build", "--label", label, .. arguments], environment: environment, capture: true, check: false, timeout: TimeSpan.FromSeconds(timeout));
+        var result = context.Run([.. ToolContext.Self, "run", "--no-build", "--label", label, .. arguments], environment: environment, capture: true, check: false, timeout: TimeSpan.FromSeconds(timeout));
         File.WriteAllText(context.At("build/" + label + "-driver.log"), result.Output + result.Error);
         return result;
     }

@@ -90,12 +90,11 @@ internal static class ProcessExecution
             if (outTask is not null && errTask is not null)
                 try { await Task.WhenAll(outTask, errTask).WaitAsync(TimeSpan.FromSeconds(5)); }
                 catch (Exception error) { drainError = error; }
-            var evidence = new { SchemaVersion = 1, Phase = phase, Executable = executable,
-                Arguments = argv, Failure = errorDetail ?? drainError?.Message, Started = started, ExitCode = exitCode, TimedOut = timedOut,
-                WallMilliseconds = watch.Elapsed.TotalMilliseconds, MaxLogBytes = maxLogBytes,
-                Stdout = outTask is { IsCompletedSuccessfully: true } ? outTask.Result : null,
-                Stderr = errTask is { IsCompletedSuccessfully: true } ? errTask.Result : null };
-            EvidenceWriter.Write(Path.Combine(cwd, phase + "-process.json"), evidence);
+            var evidence = new ProcessEvidence(1, phase, executable, argv, errorDetail ?? drainError?.Message,
+                started, exitCode, timedOut, watch.Elapsed.TotalMilliseconds, maxLogBytes,
+                outTask is { IsCompletedSuccessfully: true } ? outTask.Result : null,
+                errTask is { IsCompletedSuccessfully: true } ? errTask.Result : null);
+            EvidenceWriter.Write(Path.Combine(cwd, phase + "-process.json"), JsonSerializer.SerializeToElement(evidence, EvidenceJsonContext.Default.ProcessEvidence));
             if (!timedOut && drainError is not null)
                 throw new RunnerProcessException(phase, executable, exitCode, drainError.Message);
         }

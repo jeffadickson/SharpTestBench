@@ -3,6 +3,11 @@
 using System.Security.Cryptography;
 using System.Text.Json;
 
+if (args is ["--help"] or ["-h"])
+{
+    Console.WriteLine("SharpTestBench standalone runner: run <manifest.json>. Icarus orchestration; .NET runtime required by managed simulation tests.");
+    return 0;
+}
 if (args.Length != 2 || args[0] != "run")
 {
     Console.Error.WriteLine("Usage: dotnet run --project tools/SharpTestBench.Runner -- run <manifest.json>");
@@ -50,7 +55,7 @@ try
     foreach (var include in config.IncludeDirectories ?? [])
         if (!Directory.Exists(Resolve(include))) throw new DirectoryNotFoundException("Missing include directory: " + Resolve(include));
     var inputs = InputEvidence.Capture(root, manifestPath, config, fxrFile);
-    EvidenceWriter.Write(Path.Combine(work, "input-manifest.json"), new { SchemaVersion = 1, RunId = runId, Inputs = inputs });
+    EvidenceWriter.Write(Path.Combine(work, "input-manifest.json"), JsonSerializer.SerializeToElement(new InputManifestEvidence(1, runId, inputs), EvidenceJsonContext.Default.InputManifestEvidence));
     var compiled = Path.Combine(work, "top.vvp");
     await ProcessExecution.Run(config.Iverilog ?? "iverilog", CompilePlan.Arguments(root, config, compiled), work, null, "compile", config.TimeoutSeconds, config.MaxLogBytes);
     var results = Path.Combine(work, "icarus-results.json");
@@ -82,19 +87,19 @@ try
     InputEvidence.Verify(inputs, InputEvidence.Capture(root, manifestPath, config, fxrFile));
     var attestation = ResultAttestation.Verify(doc.RootElement, config);
     int failed = attestation.Failed;
-    var evidence = new
+    var evidence = new RunEvidence
     {
-        SchemaVersion = 1, RunId = runId, config.Simulator, config.Top, config.Seed, Inputs = inputs,
+        SchemaVersion = 1, RunId = runId, Simulator = config.Simulator, Top = config.Top, Seed = config.Seed, Inputs = inputs,
         Platform = System.Runtime.InteropServices.RuntimeInformation.OSDescription,
         Architecture = System.Runtime.InteropServices.RuntimeInformation.ProcessArchitecture.ToString(),
         Framework = System.Runtime.InteropServices.RuntimeInformation.FrameworkDescription,
-        Sources = sources.Select(s => new { Path = s, Sha256 = Convert.ToHexString(SHA256.HashData(File.ReadAllBytes(s))) }),
+        Sources = sources.Select(s => new SourceEvidence(s, Convert.ToHexString(SHA256.HashData(File.ReadAllBytes(s))))).ToArray(),
         AssemblySha256 = Convert.ToHexString(SHA256.HashData(File.ReadAllBytes(assembly))),
         Results = results, Passed = attestation.Passed, Failed = failed,
         TestNames = attestation.Names,
         Status = failed == 0 ? "passed" : "failed"
     };
-    EvidenceWriter.Write(Path.Combine(work, "run-manifest.json"), evidence);
+    EvidenceWriter.Write(Path.Combine(work, "run-manifest.json"), JsonSerializer.SerializeToElement(evidence, EvidenceJsonContext.Default.RunEvidence));
     Console.WriteLine($"SharpTestBench: {doc.RootElement.GetArrayLength()} tests; {failed} failed. {results}");
     return failed == 0 ? 0 : 1;
 }
@@ -115,7 +120,7 @@ catch (Exception ex)
     {
         try
         {
-            var evidence = new
+            var evidence = new FailureEvidence
             {
                 SchemaVersion = 1, RunId = runId, Status = "failed", Kind = kind,
                 ErrorType = ex.GetType().FullName, Error = ex.Message,
@@ -124,7 +129,7 @@ catch (Exception ex)
                     .Where(p => File.Exists(Path.Combine(failureArtifactDirectory, p))).ToArray()
             };
             var target = Path.Combine(failureArtifactDirectory, "failure-manifest.json");
-            EvidenceWriter.Write(target, evidence);
+            EvidenceWriter.Write(target, JsonSerializer.SerializeToElement(evidence, EvidenceJsonContext.Default.FailureEvidence));
             Console.Error.WriteLine($"Failure evidence: {target}");
         }
         catch (Exception evidenceError)

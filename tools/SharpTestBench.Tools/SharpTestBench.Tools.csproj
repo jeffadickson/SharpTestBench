@@ -4,6 +4,7 @@
     <InternalsVisibleTo Include="SharpTestBench.Tools.Tests" />
     <Compile Include="../SharpTestBench.Runner/JsonInput.cs" Link="Shared/JsonInput.cs" />
     <Compile Include="../SharpTestBench.Runner/RunManifest.cs" Link="Shared/RunManifest.cs" />
+    <Compile Include="../SharpTestBench.Runner/ManifestJsonContext.cs" Link="Shared/ManifestJsonContext.cs" />
   </ItemGroup>
   <ItemGroup><EmbeddedResource Include="NativeFaultProbe.cs.txt" WithCulture="false" LogicalName="SharpTestBench.Tools.NativeFaultProbe.cs.txt" /></ItemGroup>
 </Project>

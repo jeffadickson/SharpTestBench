@@ -35,7 +35,7 @@ internal static class StageCommand
             var label = "stage-" + scenario.Name; var events = context.At("build/" + label + "-events.jsonl");
             var environment = new Dictionary<string, string?> { ["CS_TEST_STAGES"] = null, ["CS_TEST_FILTER"] = null, ["CS_STAGE_FAILURE_POLICY"] = null, ["CS_LIST_TESTS"] = null, ["CS_TEST_NAMES"] = null, ["CS_STAGE_INJECT_FAILURE"] = scenario.Fail ? "1" : "0", ["CS_SEED"] = "100" };
             File.Delete(context.At("build/" + label + "-results.json")); File.Delete(events);
-            var result = context.Run(["dotnet", typeof(ToolContext).Assembly.Location, "run", "--no-build", "--assembly", context.At("tests/StageIntegration/bin/Release/net10.0/StageIntegration.dll"), "--label", label, "--log-json", events, .. scenario.Arguments], environment: environment, capture: true, check: false, timeout: TimeSpan.FromSeconds(120));
+            var result = context.Run([.. ToolContext.Self, "run", "--no-build", "--assembly", context.At("tests/StageIntegration/bin/Release/net10.0/StageIntegration.dll"), "--label", label, "--log-json", events, .. scenario.Arguments], environment: environment, capture: true, check: false, timeout: TimeSpan.FromSeconds(120));
             File.WriteAllText(context.At("build/" + label + "-driver.log"), result.Output + result.Error);
             using var rows = StrictJson.Read(context.At("build/" + label + "-results.json")); Validate(scenario, result.ExitCode, rows.RootElement);
             if (scenario.Name == "list")
@@ -64,7 +64,7 @@ internal static class WorkspaceCommand
     {
         if (arguments.Length != 0) throw new ArgumentException("workspace-tests accepts no arguments");
         var root = context.At("build/workspace-check"); Directory.CreateDirectory(root);
-        string[] Command(string directory) => ["dotnet", typeof(ToolContext).Assembly.Location, "run", "--sim", "icarus", "--no-build", "--work-dir", directory, "--label", "same-label", "--filter", "Cleanup_A_Run"];
+        string[] Command(string directory) => [.. ToolContext.Self, "run", "--sim", "icarus", "--no-build", "--work-dir", directory, "--label", "same-label", "--filter", "Cleanup_A_Run"];
         var tasks = new[] { (Name: "success", Mode: "normal"), (Name: "failure", Mode: "both") }.Select(item => Task.Run(() =>
         {
             var work = Path.Combine(root, item.Name); Directory.CreateDirectory(work); File.Delete(Path.Combine(work, "same-label-results.json"));

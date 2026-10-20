@@ -49,7 +49,7 @@ internal static class NativeFaultsCommand
             if (name == "unknown") { environment["CS_FAKE_PRODUCT"] = "Unknown Simulator"; environment["CS_FAKE_WIDTH"] = "8"; }
             Probe(name, ["dotnet", Path.Combine(build, "bin/Release/net10.0/Faults.dll"), name], environment);
         }
-        foreach (var name in new[] { "packed-boundary", "clock-boundary" }) Probe(name, ["dotnet", typeof(ToolContext).Assembly.Location, name, Path.Combine(build, "registration", Path.GetFileName(host))], new() { ["LD_LIBRARY_PATH"] = Path.Combine(build, "registration") });
+        foreach (var name in new[] { "packed-boundary", "clock-boundary" }) Probe(name, [.. ToolContext.Self, name, Path.Combine(build, "registration", Path.GetFileName(host))], new() { ["LD_LIBRARY_PATH"] = Path.Combine(build, "registration") });
         StrictJson.Write(context.At("build/native-faults.json"), results);
     }
 }

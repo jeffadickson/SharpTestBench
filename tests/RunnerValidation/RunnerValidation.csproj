@@ -2,6 +2,7 @@
   <PropertyGroup><OutputType>Exe</OutputType><TargetFramework>net10.0</TargetFramework><ImplicitUsings>enable</ImplicitUsings><Nullable>enable</Nullable><TreatWarningsAsErrors>true</TreatWarningsAsErrors></PropertyGroup>
   <ItemGroup>
     <Compile Include="../../tools/SharpTestBench.Runner/RunManifest.cs" Link="RunManifest.cs" />
+    <Compile Include="../../tools/SharpTestBench.Runner/ManifestJsonContext.cs" Link="ManifestJsonContext.cs" />
     <Compile Include="../../tools/SharpTestBench.Runner/ManifestValidation.cs" Link="ManifestValidation.cs" />
     <Compile Include="../../tools/SharpTestBench.Runner/ResultAttestation.cs" Link="ResultAttestation.cs" />
     <Compile Include="../../tools/SharpTestBench.Runner/ProcessExecution.cs" Link="ProcessExecution.cs" />
@@ -10,5 +11,7 @@
     <Compile Include="../../tools/SharpTestBench.Runner/CompilePlan.cs" Link="CompilePlan.cs" />
     <Compile Include="../../tools/SharpTestBench.Runner/InputEvidence.cs" Link="InputEvidence.cs" />
     <Compile Include="../../tools/SharpTestBench.Runner/EvidenceWriter.cs" Link="EvidenceWriter.cs" />
+    <Compile Include="../../tools/SharpTestBench.Runner/EvidenceRecords.cs" Link="EvidenceRecords.cs" />
+    <Compile Include="../../tools/SharpTestBench.Runner/EvidenceJsonContext.cs" Link="EvidenceJsonContext.cs" />
   </ItemGroup>
 </Project>

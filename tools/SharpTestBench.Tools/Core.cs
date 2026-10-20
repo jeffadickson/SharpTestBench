@@ -46,7 +46,8 @@ internal sealed class ToolContext(string root, ICommandRunner? runner = null)
     public ICommandRunner Runner { get; } = runner ?? new CommandRunner();
     public string At(string path) => Path.GetFullPath(path, Root);
     public CommandResult Run(string[] arguments, string? directory = null, IReadOnlyDictionary<string, string?>? environment = null, bool capture = false, bool check = true, TimeSpan? timeout = null) => Runner.Run(arguments, directory ?? Root, environment, capture, check, timeout);
-    public void Tool(string name, params string[] arguments) => Run(["dotnet", typeof(ToolContext).Assembly.Location, name, .. arguments]);
+    public static string[] Self => SelfInvocation.Prefix(Environment.ProcessPath, typeof(ToolContext).Assembly.Location);
+    public void Tool(string name, params string[] arguments) => Run([.. Self, name, .. arguments]);
     public static string FindRoot()
     {
         foreach (var start in new[] { AppContext.BaseDirectory, Environment.CurrentDirectory })

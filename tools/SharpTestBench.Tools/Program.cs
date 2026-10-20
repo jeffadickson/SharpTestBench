@@ -4,7 +4,7 @@ try
 {
     if (args.Length == 0 || args[0] is "--help" or "-h")
     {
-        Console.WriteLine("SharpTestBench managed helpers: array-reference, audit-reviews, audit-surface, axi-python, axi-workload, axis-ci, benchmark, ci, cleanup-tests, clock-boundary, code-coverage, coverage-check, cpu-python, cpu-workload, debugger-tests, doctor, documentation, dsp-python, dsp-workload, dual-runner-ci, dual-runner-manifest, dual-runner-parity, icarus-layouts, icarus-layouts-check, installed-run, lfsr-ci, lifecycle, logging-check, logic-reference, managed-tests, native-build, native-build-check, native-debugger-tests, native-faults, native-package, native-performance, native-performance-prepare, package, package-container, packed-benchmark, packed-boundary, parity, prepare-upstream, queue-reference, release-bundle, release-preflight, run, runner-manifest-check, stage-tests, structured-reference, structured-reference-env, timing-parity, typecheck, wave-check, wave-tests, workspace-tests");
+        Console.WriteLine("SharpTestBench managed helpers: array-reference, audit-reviews, audit-surface, axi-python, axi-workload, axis-ci, benchmark, ci, cleanup-tests, clock-boundary, code-coverage, coverage-check, cpu-python, cpu-workload, debugger-tests, doctor, documentation, dsp-python, dsp-workload, dual-runner-ci, dual-runner-manifest, dual-runner-parity, icarus-layouts, icarus-layouts-check, installed-run, lfsr-ci, lifecycle, logging-check, logic-reference, managed-tests, native-build, native-build-check, native-debugger-tests, native-faults, native-package, native-performance, native-performance-prepare, package, package-container, packed-benchmark, publish-workers, verify-workers, packed-boundary, parity, prepare-upstream, queue-reference, release-bundle, release-preflight, run, runner-manifest-check, stage-tests, structured-reference, structured-reference-env, timing-parity, typecheck, wave-check, wave-tests, workspace-tests");
         return 0;
     }
     if (args[0] == "installed-run") { InstalledRunCommand.Execute(args[1..]); return 0; }
@@ -16,6 +16,8 @@ try
         case "logging-check" or "coverage-check" or "wave-check" or "typecheck" or "documentation": ValidationCommands.Execute(context, args[0], args[1..]); break;
         case "release-bundle" or "release-preflight": ReleaseCommands.Execute(args[0], args[1..]); break;
         case "dual-runner-parity": ParityContracts.Execute(args[1..]); break;
+        case "publish-workers": WorkerPublishCommand.Execute(context, args[1..]); break;
+        case "verify-workers": WorkerPublishCommand.Verify(context, args[1..]); break;
         case "native-build": if (args.Length != 1) throw new ArgumentException("native-build accepts no arguments"); Console.WriteLine(NativeBuildCommand.Build(context)); break;
         case "dual-runner-manifest": RunnerManifestCommand.Execute(context, args[1..]); break;
         case "native-build-check": NativeChecks.BuildCheck(context); break;

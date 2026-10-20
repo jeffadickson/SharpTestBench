@@ -61,7 +61,7 @@ internal static class DebuggerCommand
         var work = context.At("build/debugger-check"); Directory.CreateDirectory(work);
         StrictJson.Write(Path.Combine(work, "evidence.json"), new { status = "started; validation incomplete" });
         var pidFile = Path.Combine(work, "pid"); File.Delete(pidFile);
-        using var simulator = Start("dotnet", [typeof(ToolContext).Assembly.Location, "run", "--no-build", "--sim", "icarus", "--assembly", context.At("tests/DebugIntegration/bin/Debug/net10.0/DebugIntegration.dll"), "--source", context.At("examples/Counter/counter.sv"), "--top", "counter", "--entry-type", "Entry, DebugIntegration", "--work-dir", work, "--label", "debugger"], context.Root, new() { ["STB_DEBUG_PID"] = pidFile, ["STB_DEBUG_PTRACE"] = "1" });
+        using var simulator = Start(ToolContext.Self[0], [.. ToolContext.Self.Skip(1), "run", "--no-build", "--sim", "icarus", "--assembly", context.At("tests/DebugIntegration/bin/Debug/net10.0/DebugIntegration.dll"), "--source", context.At("examples/Counter/counter.sv"), "--top", "counter", "--entry-type", "Entry, DebugIntegration", "--work-dir", work, "--label", "debugger"], context.Root, new() { ["STB_DEBUG_PID"] = pidFile, ["STB_DEBUG_PTRACE"] = "1" });
         var stdout = simulator.StandardOutput.ReadToEndAsync(); var stderr = simulator.StandardError.ReadToEndAsync();
         Process? debugger = null; Task<string>? debuggerError = null; DapSession? session = null;
         try

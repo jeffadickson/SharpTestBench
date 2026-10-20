@@ -6,7 +6,7 @@ internal static class CompilePlan
     internal static Dictionary<string, string> Environment(RunManifest config)
     {
         var environment = new Dictionary<string, string> { ["CS_SEED"] = config.Seed.ToString(CultureInfo.InvariantCulture) };
-        if (config.TestNames is not null) environment["CS_TEST_NAMES"] = JsonSerializer.Serialize(config.TestNames);
+        if (config.TestNames is not null) environment["CS_TEST_NAMES"] = JsonSerializer.Serialize(config.TestNames, ManifestJsonContext.Default.StringArray);
         return environment;
     }
 

@@ -45,8 +45,7 @@ See [migration and examples](docs/MIGRATION_0_8.md).
   per-test seeds, JSON and JUnit output, and a build/run command.
 
 The simulation runtime and tests are C#. A small C host loads .NET through hostfxr;
-cocotb's existing C++ adapters connect to the simulator. Python scripts currently
-orchestrate builds and comparisons. Python is not embedded in the C# test process.
+cocotb's existing C++ adapters connect to the simulator. C# helpers orchestrate builds and comparisons. Python remains for independent test oracles and upstream API adapters. Python is not embedded in the C# test process.
 
 ## Hardware-aware types
 
@@ -108,7 +107,7 @@ dotnet run --project tools/SharpTestBench.Tools -c Release -- typecheck
 dotnet run --project tools/SharpTestBench.Tools -c Release -- parity
 ```
 
-`run.py` builds a test assembly, native host and HDL, then checks the JSON results;
+The C# `run` helper builds a test assembly, native host and HDL, then checks the JSON results;
 a failed test, absent results, or simulator failure gives a nonzero CLI exit.
 It has a 120-second wall-clock watchdog in addition to simulation-time deadlines.
 `--filter` selects test names; `--label` preserves separate reports;
@@ -225,3 +224,5 @@ The [CpuCore example](examples/CpuCore/README.md) compares instruction retiremen
 and stalled memory traffic using independent C# and cocotb scoreboards.
 
 API documentation uses [Sphinx + Breathe for C++ and XMLdoc for C#](docs/DOCUMENTATION.md).
+
+Native worker builds and local Make targets are described in [Native workers](docs/NATIVE_WORKERS.md). The full helper suite uses self-contained ReadyToRun; the standalone runner supports NativeAOT.

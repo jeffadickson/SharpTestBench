@@ -30,7 +30,7 @@ internal static class PackedBenchmarkCommand
         var rows = new List<Dictionary<string, object>>(); Directory.CreateDirectory(context.At("build")); File.Delete(context.At("build/packed-benchmark.json"));
         for (int trial = 0; trial < 3; trial++)
         {
-            var label = "v05-packed-bench-" + trial; var result = context.Run(["dotnet", typeof(ToolContext).Assembly.Location, "run", "--project", "Benchmark", "--filter", "PackedVectorBenchmark", "--label", label, .. (trial == 0 ? Array.Empty<string>() : ["--no-build"])], environment: new Dictionary<string, string?> { ["CS_PACKED_REVERSE"] = (trial % 2).ToString(System.Globalization.CultureInfo.InvariantCulture) }, capture: true, check: false);
+            var label = "v05-packed-bench-" + trial; var result = context.Run([.. ToolContext.Self, "run", "--project", "Benchmark", "--filter", "PackedVectorBenchmark", "--label", label, .. (trial == 0 ? Array.Empty<string>() : ["--no-build"])], environment: new Dictionary<string, string?> { ["CS_PACKED_REVERSE"] = (trial % 2).ToString(System.Globalization.CultureInfo.InvariantCulture) }, capture: true, check: false);
             File.WriteAllText(context.At("build/" + label + "-driver.log"), result.Output + result.Error); if (result.ExitCode != 0) throw new InvalidDataException("Packed benchmark process failed");
             var lines = result.Output.Split('\n').Where(line => line.StartsWith("PACKED_MEASURE ", StringComparison.Ordinal)).ToArray(); if (lines.Length != 4) throw new InvalidDataException("Expected four benchmark measurements");
             foreach (var line in lines)
