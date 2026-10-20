@@ -6,10 +6,20 @@ internal static class BenchmarkCommand
 {
     public static Dictionary<string, double> Parse(string text)
     {
-        if (!text.Contains("checksum=694140833", StringComparison.Ordinal)) throw new InvalidDataException("Benchmark checksum differs");
-        var metrics = new Dictionary<string, double>();
-        foreach (Match match in Regex.Matches(text, @"MEASURE (\w+) ([\d.eE+-]+)")) metrics[match.Groups[1].Value] = double.Parse(match.Groups[2].Value, CultureInfo.InvariantCulture);
-        if (!metrics.ContainsKey("timer") || !metrics.ContainsKey("rw32") || metrics.Values.Any(value => !double.IsFinite(value) || value <= 0)) throw new InvalidDataException("Benchmark measurements missing or invalid"); return metrics;
+        var checksums = Regex.Matches(text, @"(?<!\S)checksum=([^\s]+)");
+        if (checksums.Count != 1 || checksums[0].Groups[1].Value != "694140833") throw new InvalidDataException("Benchmark checksum differs or is ambiguous");
+        var metrics = new Dictionary<string, double>(StringComparer.Ordinal);
+        foreach (var raw in text.Split(['\r', '\n'], StringSplitOptions.RemoveEmptyEntries))
+        {
+            var line = raw.Trim();
+            if (!line.StartsWith("MEASURE", StringComparison.Ordinal)) continue;
+            var tokens = line.Split((char[]?)null, StringSplitOptions.RemoveEmptyEntries);
+            if (tokens.Length is < 3 or > 4 || tokens[0] != "MEASURE" || tokens[1] is not ("timer" or "rw32") || tokens.Length == 4 && tokens[3] != "checksum=694140833" ||
+                !double.TryParse(tokens[2], NumberStyles.Float, CultureInfo.InvariantCulture, out var value) || !double.IsFinite(value) || value <= 0 || !metrics.TryAdd(tokens[1], value))
+                throw new InvalidDataException("Benchmark measurement is invalid or duplicated");
+        }
+        if (metrics.Count != 2) throw new InvalidDataException("Benchmark measurements missing");
+        return metrics;
     }
     public static void Execute(ToolContext context, string[] arguments)
     {
