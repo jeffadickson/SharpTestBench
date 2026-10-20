@@ -11,7 +11,8 @@ def validate(path, expected):
     if len(raw) > MAX_BYTES:
         raise ValueError('Coverage report exceeds size limit')
     raw = raw.replace(b'<!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-04.dtd">', b'')
-    if b'<!DOCTYPE' in raw.upper() or b'<!ENTITY' in raw.upper():
+    raw = raw.decode('utf-8-sig')
+    if '<!DOCTYPE' in raw.upper() or '<!ENTITY' in raw.upper():
         raise ValueError('Coverage DTD/entity declarations are forbidden')
     root = ET.fromstring(raw)
     if root.tag != 'coverage':
@@ -25,6 +26,8 @@ def validate(path, expected):
             raise ValueError('Invalid coverage counters')
         if not math.isfinite(rate) or not 0 <= rate <= 1 or abs(rate - covered / valid) > 0.000100000001:
             raise ValueError('Coverage rate disagrees with counters')
+        if kind == 'lines' and covered == 0:
+            raise ValueError('Coverage report has no executed lines')
         totals[kind] = {'covered': covered, 'valid': valid, 'percent': 100 * covered / valid}
     packages = root.findall('./packages/package')
     names = [item.attrib['name'] for item in packages]
