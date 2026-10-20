@@ -1,0 +1,591 @@
+{
+  "base": "eb9e2f6c68e51e7a807f903e02257510b7b01973",
+  "head": "6de9bb705df190f7e15a2341cd979f6af3e66d5a",
+  "iterations": 200,
+  "newTestCases": 171,
+  "checkpoints": [
+    {
+      "iteration": 50,
+      "commit": "c0aa8efa71bcdb97e2a1816ffa25a997580a7d0f",
+      "title": "feat: add native worker publish and Make targets (#60)",
+      "suites": {
+        "SharpTestBench.Generators.Tests": {
+          "total": 17,
+          "passed": 17,
+          "failed": 0,
+          "skipped": 0,
+          "errors": 0
+        },
+        "SharpTestBench.Tests": {
+          "total": 480,
+          "passed": 480,
+          "failed": 0,
+          "skipped": 0,
+          "errors": 0
+        },
+        "SharpTestBench.Tools.Tests": {
+          "total": 550,
+          "passed": 550,
+          "failed": 0,
+          "skipped": 0,
+          "errors": 0
+        }
+      },
+      "contracts": 742
+    },
+    {
+      "iteration": 100,
+      "commit": "73641c912f989face76a9ac4957af7e468fd473b",
+      "title": "test: validate native worker deployment contracts (#60)",
+      "suites": {
+        "SharpTestBench.Generators.Tests": {
+          "total": 17,
+          "passed": 17,
+          "failed": 0,
+          "skipped": 0,
+          "errors": 0
+        },
+        "SharpTestBench.Tests": {
+          "total": 480,
+          "passed": 480,
+          "failed": 0,
+          "skipped": 0,
+          "errors": 0
+        },
+        "SharpTestBench.Tools.Tests": {
+          "total": 600,
+          "passed": 600,
+          "failed": 0,
+          "skipped": 0,
+          "errors": 0
+        }
+      },
+      "contracts": 742
+    },
+    {
+      "iteration": 150,
+      "commit": "5e964c37c304b49da93798b938a87a9292c460a3",
+      "title": "test: qualify worker integrity and invocation boundaries (#60)",
+      "suites": {
+        "SharpTestBench.Generators.Tests": {
+          "total": 17,
+          "passed": 17,
+          "failed": 0,
+          "skipped": 0,
+          "errors": 0
+        },
+        "SharpTestBench.Tests": {
+          "total": 480,
+          "passed": 480,
+          "failed": 0,
+          "skipped": 0,
+          "errors": 0
+        },
+        "SharpTestBench.Tools.Tests": {
+          "total": 650,
+          "passed": 650,
+          "failed": 0,
+          "skipped": 0,
+          "errors": 0
+        }
+      },
+      "contracts": 742
+    },
+    {
+      "iteration": 200,
+      "commit": "6de9bb705df190f7e15a2341cd979f6af3e66d5a",
+      "title": "feat: qualify native worker deployment and local coverage (#60)",
+      "suites": {
+        "SharpTestBench.Generators.Tests": {
+          "total": 17,
+          "passed": 17,
+          "failed": 0,
+          "skipped": 0,
+          "errors": 0
+        },
+        "SharpTestBench.Tests": {
+          "total": 480,
+          "passed": 480,
+          "failed": 0,
+          "skipped": 0,
+          "errors": 0
+        },
+        "SharpTestBench.Tools.Tests": {
+          "total": 711,
+          "passed": 702,
+          "failed": 0,
+          "skipped": 9,
+          "errors": 0
+        }
+      },
+      "contracts": 742
+    }
+  ],
+  "peerReviews": [
+    {
+      "iteration": 15,
+      "reviewer": "migration_audit",
+      "findings": [
+        {
+          "severity": "P1",
+          "file": "tools/SharpTestBench.Runner/JsonInput.cs",
+          "issue": "UTF-8 BOM literal was transcoded by a scratch script",
+          "resolutionIteration": 16
+        }
+      ],
+      "recommendations": [
+        "Assert evidence shape compatibility including nullable drains"
+      ]
+    },
+    {
+      "iteration": 30,
+      "reviewer": "migration_audit",
+      "findings": [
+        {
+          "severity": "P1",
+          "issue": "Runner help smoke returned2",
+          "resolutionIteration": 31
+        },
+        {
+          "severity": "P2",
+          "issue": "Packed benchmark still forced dotnet child",
+          "resolutionIteration": 32
+        },
+        {
+          "severity": "P2",
+          "issue": "Publish output could target source directories",
+          "resolutionIteration": 33
+        }
+      ]
+    },
+    {
+      "iteration": 45,
+      "reviewer": "migration_audit",
+      "findings": [
+        {
+          "severity": "P1",
+          "issue": "Nested publish links could redirect writes",
+          "resolutionIteration": 46
+        },
+        {
+          "severity": "P2",
+          "issue": "Make test omitted contract suite",
+          "resolutionIteration": 47
+        }
+      ]
+    },
+    {
+      "iteration": 60,
+      "reviewer": "migration_audit",
+      "findings": [
+        {
+          "severity": "P2",
+          "issue": "Parallel native prerequisites raced on shared project output",
+          "resolution": "single ordered publish command"
+        }
+      ],
+      "recommendations": [
+        "LF attributes added to Makefiles"
+      ]
+    },
+    {
+      "iteration": 75,
+      "reviewer": "migration_audit",
+      "findings": [
+        {
+          "severity": "P2",
+          "issue": "Debug Make test could run stale Release contract assemblies",
+          "resolution": "all test suites now force a fresh Release build"
+        }
+      ]
+    },
+    {
+      "iteration": 90,
+      "reviewer": "migration_audit",
+      "findings": [],
+      "completionGates": [
+        "AOT success and failure simulation evidence",
+        "published helper self invocation",
+        "artifact tamper controls"
+      ]
+    },
+    {
+      "iteration": 105,
+      "reviewer": "migration_audit",
+      "findings": [],
+      "notes": "Invalid-plan controls accepted; prioritize artifact controls"
+    },
+    {
+      "iteration": 120,
+      "reviewer": "migration_audit",
+      "findings": [],
+      "notes": "Integrity baselines and mutations sound; distinguish file checks from runtime tests"
+    },
+    {
+      "iteration": 135,
+      "reviewer": "migration_audit",
+      "findings": [],
+      "notes": "Strict JSON already rejects duplicates; add direct malformed-map regressions"
+    },
+    {
+      "iteration": 150,
+      "reviewer": "migration_audit",
+      "findings": [],
+      "notes": "No material source defects; report filename variants as cases rather than features"
+    },
+    {
+      "iteration": 165,
+      "reviewer": "migration_audit",
+      "findings": [],
+      "notes": "Seven supplemental malformed metadata tests and invocation boundaries accepted; coverage scope explicit"
+    },
+    {
+      "iteration": 180,
+      "reviewer": "migration_audit",
+      "findings": [],
+      "notes": "Invocation boundaries accepted; ASCII folder names not claimed as Unicode coverage"
+    },
+    {
+      "iteration": 195,
+      "reviewer": "migration_audit",
+      "findings": [],
+      "notes": "Unix publishing link tests and generated contexts accepted; added2^53+1 alongside ulongmax in final regressions"
+    },
+    {
+      "iteration": 200,
+      "kind": "final-deep-review",
+      "reviewer": "migration_audit",
+      "findings": [],
+      "report": "final-migration-review.md",
+      "limitations": "Read-only source review; validation evidence owned by primary agent"
+    },
+    {
+      "iteration": 200,
+      "kind": "final-deep-review",
+      "reviewer": "native_deep_review",
+      "findings": [],
+      "report": "final-native-review.md",
+      "limitations": "Read-only source review; validation evidence owned by primary agent"
+    },
+    {
+      "iteration": 200,
+      "kind": "final-deep-review",
+      "reviewer": "workflow_deep_review",
+      "findings": [],
+      "report": "final-workflow-review.md",
+      "limitations": "Read-only source review; validation evidence owned by primary agent"
+    }
+  ],
+  "windows": {
+    "passed": 1941,
+    "skipped": 9,
+    "coverage": {
+      "suites": {
+        "managed": {
+          "assemblies": [
+            "SharpTestBench"
+          ],
+          "lines": {
+            "covered": 515,
+            "valid": 2119,
+            "percent": 24.30391694195375
+          },
+          "branches": {
+            "covered": 346,
+            "valid": 1297,
+            "percent": 26.676946800308404
+          }
+        },
+        "generators": {
+          "assemblies": [
+            "SharpTestBench.Generators"
+          ],
+          "lines": {
+            "covered": 60,
+            "valid": 68,
+            "percent": 88.23529411764706
+          },
+          "branches": {
+            "covered": 52,
+            "valid": 72,
+            "percent": 72.22222222222223
+          }
+        },
+        "helpers": {
+          "assemblies": [
+            "SharpTestBench.Tools"
+          ],
+          "lines": {
+            "covered": 1308,
+            "valid": 3075,
+            "percent": 42.53658536585366
+          },
+          "branches": {
+            "covered": 681,
+            "valid": 3043,
+            "percent": 22.379231022017745
+          }
+        },
+        "contracts": {
+          "assemblies": [
+            "SharpTestBench.Tools"
+          ],
+          "lines": {
+            "covered": 487,
+            "valid": 3075,
+            "percent": 15.83739837398374
+          },
+          "branches": {
+            "covered": 649,
+            "valid": 3043,
+            "percent": 21.32763720013145
+          }
+        }
+      },
+      "combined": {
+        "assemblies": [
+          "SharpTestBench",
+          "SharpTestBench.Generators",
+          "SharpTestBench.Tools"
+        ],
+        "lines": {
+          "covered": 2136,
+          "valid": 5262,
+          "percent": 40.592930444697835
+        },
+        "branches": {
+          "covered": 1471,
+          "valid": 4394,
+          "percent": 33.477469276285845
+        }
+      }
+    }
+  },
+  "linux": {
+    "status": "passed",
+    "suites": {
+      "SharpTestBench.Tests": {
+        "total": 480,
+        "passed": 480,
+        "failed": 0,
+        "skipped": 0
+      },
+      "SharpTestBench.Generators.Tests": {
+        "total": 17,
+        "passed": 17,
+        "failed": 0,
+        "skipped": 0
+      },
+      "SharpTestBench.Tools.Tests": {
+        "total": 711,
+        "passed": 711,
+        "failed": 0,
+        "skipped": 0
+      }
+    },
+    "contracts": 742,
+    "totalPassed": 1950,
+    "coverage": {
+      "suites": {
+        "managed": {
+          "assemblies": [
+            "SharpTestBench"
+          ],
+          "lines": {
+            "covered": 515,
+            "valid": 2119,
+            "percent": 24.30391694195375
+          },
+          "branches": {
+            "covered": 346,
+            "valid": 1297,
+            "percent": 26.676946800308404
+          }
+        },
+        "generators": {
+          "assemblies": [
+            "SharpTestBench.Generators"
+          ],
+          "lines": {
+            "covered": 60,
+            "valid": 68,
+            "percent": 88.23529411764706
+          },
+          "branches": {
+            "covered": 52,
+            "valid": 72,
+            "percent": 72.22222222222223
+          }
+        },
+        "helpers": {
+          "assemblies": [
+            "SharpTestBench.Tools"
+          ],
+          "lines": {
+            "covered": 1308,
+            "valid": 3075,
+            "percent": 42.53658536585366
+          },
+          "branches": {
+            "covered": 690,
+            "valid": 3043,
+            "percent": 22.674991784423266
+          }
+        },
+        "contracts": {
+          "assemblies": [
+            "SharpTestBench.Tools"
+          ],
+          "lines": {
+            "covered": 487,
+            "valid": 3075,
+            "percent": 15.83739837398374
+          },
+          "branches": {
+            "covered": 650,
+            "valid": 3043,
+            "percent": 21.360499507065395
+          }
+        }
+      },
+      "combined": {
+        "assemblies": [
+          "SharpTestBench",
+          "SharpTestBench.Generators",
+          "SharpTestBench.Tools"
+        ],
+        "lines": {
+          "covered": 2136,
+          "valid": 5262,
+          "percent": 40.592930444697835
+        },
+        "branches": {
+          "covered": 1480,
+          "valid": 4394,
+          "percent": 33.68229403732362
+        }
+      }
+    },
+    "native": {
+      "status": "passed",
+      "nativeAotSimulation": true,
+      "nativeAotFailure": "simulator_failure",
+      "readyToRunHeaderBytes": 196,
+      "selfContainedLaunch": true,
+      "publishedChildInvocation": true
+    },
+    "tamperingRejectedAndArtifactRestored": true,
+    "sourceHashesMatched": true
+  },
+  "migration": {
+    "trackedPythonHelpers": [],
+    "remainingPython": [
+      "docs/api/conf.py",
+      "examples/AxiMemory/test_axi.py",
+      "examples/CpuCore/test_cpu.py",
+      "examples/DspFir/test_dsp.py",
+      "tests/Benchmark/python_bench.py",
+      "tests/Integration/test_parity.py",
+      "tests/Integration/test_structured_reference.py",
+      "tests/Integration/test_timing_order.py",
+      "tests/Tooling/managed_compat/axis_fixture.py",
+      "tests/Tooling/managed_compat/code_coverage_report.py",
+      "tests/Tooling/managed_compat/dual_runner_ci.py",
+      "tests/Tooling/managed_compat/dual_runner_manifest.py",
+      "tests/Tooling/managed_compat/dual_runner_parity.py",
+      "tests/Tooling/managed_compat/icarus_layouts.py",
+      "tests/Tooling/managed_compat/lfsr_fixture.py",
+      "tests/Tooling/managed_compat/managed_rpc.py",
+      "tests/Tooling/managed_compat/prepare_upstream.py",
+      "tests/Tooling/managed_compat/release_bundle.py",
+      "tests/Tooling/managed_compat/strict_json.py",
+      "tests/Tooling/managed_compat/windows_arm64_check.py",
+      "tests/Tooling/test_axis_contract.py",
+      "tests/Tooling/test_axis_integrity.py",
+      "tests/Tooling/test_axis_metrics.py",
+      "tests/Tooling/test_axis_plan.py",
+      "tests/Tooling/test_code_coverage_report.py",
+      "tests/Tooling/test_dual_attestation.py",
+      "tests/Tooling/test_dual_manifest.py",
+      "tests/Tooling/test_dual_parity_cli.py",
+      "tests/Tooling/test_dual_results.py",
+      "tests/Tooling/test_dual_workloads.py",
+      "tests/Tooling/test_icarus_layouts.py",
+      "tests/Tooling/test_lfsr_algebra.py",
+      "tests/Tooling/test_lfsr_evidence.py",
+      "tests/Tooling/test_lfsr_integrity.py",
+      "tests/Tooling/test_lfsr_reference.py",
+      "tests/Tooling/test_lfsr_streaming.py",
+      "tests/Tooling/test_release_bundle.py",
+      "tests/Tooling/test_runner_compile_options.py",
+      "tests/Tooling/test_runner_diagnostic_controls.py",
+      "tests/Tooling/test_runner_input_evidence.py",
+      "tests/Tooling/test_runner_manifest.py",
+      "tests/Tooling/test_runner_process.py",
+      "tests/Tooling/test_runner_results.py",
+      "tests/Tooling/test_strict_runner_json.py",
+      "tests/Tooling/test_windows_arm64.py"
+    ],
+    "trackedCSharpHelpers": [
+      "tools/SharpTestBench.Runner/CompilePlan.cs",
+      "tools/SharpTestBench.Runner/EvidenceJsonContext.cs",
+      "tools/SharpTestBench.Runner/EvidenceRecords.cs",
+      "tools/SharpTestBench.Runner/EvidenceWriter.cs",
+      "tools/SharpTestBench.Runner/InputEvidence.cs",
+      "tools/SharpTestBench.Runner/JsonInput.cs",
+      "tools/SharpTestBench.Runner/ManifestJsonContext.cs",
+      "tools/SharpTestBench.Runner/ManifestValidation.cs",
+      "tools/SharpTestBench.Runner/ProcessExecution.cs",
+      "tools/SharpTestBench.Runner/Program.cs",
+      "tools/SharpTestBench.Runner/ResultAttestation.cs",
+      "tools/SharpTestBench.Runner/RunManifest.cs",
+      "tools/SharpTestBench.Runner/RunWorkspace.cs",
+      "tools/SharpTestBench.Tools/AuditCommand.cs",
+      "tools/SharpTestBench.Tools/AxisFixture.cs",
+      "tools/SharpTestBench.Tools/BenchmarkCommand.cs",
+      "tools/SharpTestBench.Tools/BoundaryCommands.cs",
+      "tools/SharpTestBench.Tools/CiCommands.cs",
+      "tools/SharpTestBench.Tools/CocotbAdapter.cs",
+      "tools/SharpTestBench.Tools/Core.cs",
+      "tools/SharpTestBench.Tools/CoverageCommand.cs",
+      "tools/SharpTestBench.Tools/DebuggerCommand.cs",
+      "tools/SharpTestBench.Tools/FixtureContracts.cs",
+      "tools/SharpTestBench.Tools/IcarusLayoutsCommand.cs",
+      "tools/SharpTestBench.Tools/InstalledRunCommand.cs",
+      "tools/SharpTestBench.Tools/LegacyRunCommand.cs",
+      "tools/SharpTestBench.Tools/LfsrFixture.cs",
+      "tools/SharpTestBench.Tools/LifecycleCommands.cs",
+      "tools/SharpTestBench.Tools/ManagedTestsCommand.cs",
+      "tools/SharpTestBench.Tools/ManifestCheckCommand.cs",
+      "tools/SharpTestBench.Tools/NativeBuildCommand.cs",
+      "tools/SharpTestBench.Tools/NativeChecks.cs",
+      "tools/SharpTestBench.Tools/NativeDebuggerCommand.cs",
+      "tools/SharpTestBench.Tools/NativeFaultsCommand.cs",
+      "tools/SharpTestBench.Tools/NativePerformanceCommand.cs",
+      "tools/SharpTestBench.Tools/OracleFixturesCommand.cs",
+      "tools/SharpTestBench.Tools/PackageCommand.cs",
+      "tools/SharpTestBench.Tools/PackageContainerCommand.cs",
+      "tools/SharpTestBench.Tools/ParityCiCommand.cs",
+      "tools/SharpTestBench.Tools/ParityContracts.cs",
+      "tools/SharpTestBench.Tools/PerformancePrepareCommand.cs",
+      "tools/SharpTestBench.Tools/PrepareUpstreamCommand.cs",
+      "tools/SharpTestBench.Tools/Program.cs",
+      "tools/SharpTestBench.Tools/ReferenceCommand.cs",
+      "tools/SharpTestBench.Tools/ReleaseCommands.cs",
+      "tools/SharpTestBench.Tools/RunnerManifestCommand.cs",
+      "tools/SharpTestBench.Tools/SelfInvocation.cs",
+      "tools/SharpTestBench.Tools/StageCommand.cs",
+      "tools/SharpTestBench.Tools/TestApiCommand.cs",
+      "tools/SharpTestBench.Tools/ValidationCommands.cs",
+      "tools/SharpTestBench.Tools/VerilatorBuildCommand.cs",
+      "tools/SharpTestBench.Tools/WorkerArtifact.cs",
+      "tools/SharpTestBench.Tools/WorkerPublishCommand.cs",
+      "tools/SharpTestBench.Tools/WorkloadCommand.cs",
+      "tools/SharpTestBench.Tools/WorkloadPlans.cs"
+    ],
+    "ownership": "Production repository helper orchestration in C#; independent test oracles/RPC bindings and upstream adapters retain Python"
+  },
+  "sourceFilesMatched": 989,
+  "githubCi": "disabled",
+  "pr62": "open,unmerged,unchanged"
+}

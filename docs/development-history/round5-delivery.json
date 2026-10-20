@@ -1,0 +1,54 @@
+{
+  "remoteMain": "32e41cd6e5337eb05d70add2fb6a12d82afae97a",
+  "verifiedAt": "2026-10-20T09:17:01.204766+00:00",
+  "pr62": {
+    "state": "open",
+    "draft": true,
+    "merged": false,
+    "head": "0318a864d9b570f9ffbc4857e7365ec9ed6a4736"
+  },
+  "ci": [
+    {
+      "name": "Managed code coverage",
+      "status": "in_progress",
+      "conclusion": null,
+      "url": "https://github.com/jeffadickson/SharpTestBench/actions/runs/39399446658"
+    },
+    {
+      "name": "Upstream AXI Stream parity",
+      "status": "queued",
+      "conclusion": null,
+      "url": "https://github.com/jeffadickson/SharpTestBench/actions/runs/39399446554"
+    },
+    {
+      "name": "Build and simulator tests",
+      "status": "queued",
+      "conclusion": null,
+      "url": "https://github.com/jeffadickson/SharpTestBench/actions/runs/39399446516"
+    },
+    {
+      "name": "Windows ARM64 native validation",
+      "status": "in_progress",
+      "conclusion": null,
+      "url": "https://github.com/jeffadickson/SharpTestBench/actions/runs/39399446507"
+    },
+    {
+      "name": "API documentation",
+      "status": "queued",
+      "conclusion": null,
+      "url": "https://github.com/jeffadickson/SharpTestBench/actions/runs/39399446597"
+    },
+    {
+      "name": "Dual runner parity (Icarus)",
+      "status": "queued",
+      "conclusion": null,
+      "url": "https://github.com/jeffadickson/SharpTestBench/actions/runs/39399446674"
+    },
+    {
+      "name": "Upstream LFSR CRC parity",
+      "status": "queued",
+      "conclusion": null,
+      "url": "https://github.com/jeffadickson/SharpTestBench/actions/runs/39399446633"
+    }
+  ]
+}

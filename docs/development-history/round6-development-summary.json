@@ -1,0 +1,101 @@
+{
+  "head": "b272e007ede2c34c9a4cd2507526a1b0a818a36d",
+  "base": "32e41cd6e5337eb05d70add2fb6a12d82afae97a",
+  "iterations": 200,
+  "newTestCases": 207,
+  "checkpoints": [
+    {
+      "iteration": 50,
+      "tests": {
+        "SharpTestBench.Generators.Tests": 17,
+        "SharpTestBench.Tests": 480,
+        "SharpTestBench.Tools.Tests": 174
+      },
+      "contracts": 742,
+      "commit": "f002c2c5f610decf14947af902b13844b0888c8e"
+    },
+    {
+      "iteration": 100,
+      "tests": {
+        "SharpTestBench.Generators.Tests": 17,
+        "SharpTestBench.Tests": 480,
+        "SharpTestBench.Tools.Tests": 227
+      },
+      "contracts": 742,
+      "commit": "b1e2a608ddd6973ba8dce336c0f3b3b8880a533b"
+    },
+    {
+      "iteration": 150,
+      "tests": {
+        "SharpTestBench.Generators.Tests": 17,
+        "SharpTestBench.Tests": 480,
+        "SharpTestBench.Tools.Tests": 281
+      },
+      "contracts": 742,
+      "commit": "259345fd7748831206164d3f098cfe3069e3d2f0"
+    },
+    {
+      "iteration": 200,
+      "tests": {
+        "SharpTestBench.Generators.Tests": 17,
+        "SharpTestBench.Tests": 480,
+        "SharpTestBench.Tools.Tests": 331
+      },
+      "contracts": 742,
+      "commit": "b272e007ede2c34c9a4cd2507526a1b0a818a36d"
+    }
+  ],
+  "commits": [
+    "f002c2c5f610decf14947af902b13844b0888c8e test: add independent CRC reference vectors (#60)",
+    "b1e2a608ddd6973ba8dce336c0f3b3b8880a533b test: expand managed fixture coverage at round 6 checkpoint 100 (#60)",
+    "259345fd7748831206164d3f098cfe3069e3d2f0 test: expand managed fixture coverage at round 6 checkpoint 150 (#60)",
+    "b272e007ede2c34c9a4cd2507526a1b0a818a36d test: expand managed fixture coverage at round 6 checkpoint 200 (#60)"
+  ],
+  "totalPassingCasesPerPlatform": 1570,
+  "windowsCoverage": {
+    "assemblies": [
+      "SharpTestBench",
+      "SharpTestBench.Generators",
+      "SharpTestBench.Tools"
+    ],
+    "lines": {
+      "covered": 1222,
+      "valid": 4259,
+      "percent": 28.692181263207324
+    },
+    "branches": {
+      "covered": 1270,
+      "valid": 4134,
+      "percent": 30.720851475568455
+    }
+  },
+  "linuxCoverage": {
+    "assemblies": [
+      "SharpTestBench",
+      "SharpTestBench.Generators",
+      "SharpTestBench.Tools"
+    ],
+    "lines": {
+      "covered": 1222,
+      "valid": 4259,
+      "percent": 28.692181263207324
+    },
+    "branches": {
+      "covered": 1271,
+      "valid": 4134,
+      "percent": 30.745041122399613
+    }
+  },
+  "pairedNativeScenarios": 16,
+  "positiveVectorsAcrossRunners": 2240,
+  "releaseReproductionRevision": "32e41cd6e5337eb05d70add2fb6a12d82afae97a",
+  "releaseReproductionPassed": true,
+  "pr62": {
+    "state": "open",
+    "draft": true,
+    "merged": false,
+    "head": "0318a864d9b570f9ffbc4857e7365ec9ed6a4736"
+  },
+  "pushed": true,
+  "remoteHead": "b272e007ede2c34c9a4cd2507526a1b0a818a36d"
+}

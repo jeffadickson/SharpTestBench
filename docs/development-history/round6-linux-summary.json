@@ -1,0 +1,566 @@
+{
+  "suites": {
+    "SharpTestBench.Tests": {
+      "passed": 480,
+      "total": 480
+    },
+    "SharpTestBench.Generators.Tests": {
+      "passed": 17,
+      "total": 17
+    },
+    "SharpTestBench.Tools.Tests": {
+      "passed": 331,
+      "total": 331
+    }
+  },
+  "contracts": 742,
+  "total": 1570,
+  "sourceHashes": {
+    ".github/workflows/ci.yml": "29a4b58ce1b6c509d134b1a809c88f368559bc02b26677d6f5413c9bcb7d04a6",
+    ".github/workflows/upstream-lfsr.yml": "d44d863b140a2c0044b4a180612c83f0630c2070ed2260cac84355b2570623ab",
+    "examples/Lfsr/README.md": "192744d82690c4eedde1cd611df3a147ac5b090eacc310297215e55a2a1c3ddc",
+    "examples/Lfsr/lfsr_fixture.sv": "d0b3a27141fe11b6b1249c820da7320444bef017f9eaf1895e1fe3a28284b533",
+    "tests/SharpTestBench.Tools.Tests/AxisEvidenceTests.cs": "a49f9e13ad5d56a0af19bf2901e8a25eab766166d880357a9d81bc213844f42e",
+    "tests/SharpTestBench.Tools.Tests/Crc64Tests.cs": "bd333fd759545d8a5fa2674a2b5d4bd9fd2fcb706ad0320d1826662e2972d663",
+    "tests/SharpTestBench.Tools.Tests/CrcReferenceTests.cs": "cd406cc3d74b91e7e84ea8752b8979ad1e0e3f6762ffa909b99088f0c538cf94",
+    "tests/SharpTestBench.Tools.Tests/FixtureTests.cs": "b0e9e63b5d9958dec08d18b2d4420f53c8685a58405448e089815fe2237cd2ad",
+    "tests/SharpTestBench.Tools.Tests/LfsrCorruptionTests.cs": "ef4102f945086a775c8b6f3fb2bba51cb9fb8d4debc0316f70df06b558ab2cc2",
+    "tests/SharpTestBench.Tools.Tests/LfsrLinearityTests.cs": "c752768c9d323c225cca4bf0095ca03f1257ec746ffbb347c93460e7bd97db0e",
+    "tests/SharpTestBench.Tools.Tests/ManifestPlatformTests.cs": "2860e2e5888196de2b852677161010fdb8ec111d67ca3b1ae7140d3334656bee",
+    "tools/SharpTestBench.Tools/CiCommands.cs": "b46b9ee497db0b768866b6e392777781324b516bab9d7eef304e9476b2650a10",
+    "tools/SharpTestBench.Tools/LfsrFixture.cs": "1b2a73d5822ab5a171449d4b03c7b436d1b7965d2b3b7c4b709d7418406876e1",
+    "tools/SharpTestBench.Tools/RunnerManifestCommand.cs": "8c7f5e7d502909cbdd6b459baf8e32c416d7de54fbb4b3aeecf2a8dc6bd4bd7f"
+  },
+  "parity": [
+    {
+      "schemaVersion": 1,
+      "legacy": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "native": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "expected": [
+        "Entry.SerialScoreboard"
+      ],
+      "missing": {
+        "legacy": [],
+        "native": []
+      },
+      "unexpected": {
+        "legacy": [],
+        "native": []
+      },
+      "seedMismatches": [],
+      "matched": true,
+      "traceMatched": true,
+      "exitCodes": {
+        "legacy": 0,
+        "native": 0
+      },
+      "fixture": "crc64",
+      "style": "LOOP",
+      "seed": 1,
+      "fault": 0,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "8ad18524bf9941adae04055ad5a7fb3660e36b7187ad06fb6bd13a75efaeeacd"
+    },
+    {
+      "schemaVersion": 1,
+      "negativeControl": true,
+      "legacyDetected": true,
+      "nativeDetected": true,
+      "matched": true,
+      "exitCodes": {
+        "legacy": 1,
+        "native": 1
+      },
+      "fixture": "crc64",
+      "style": "LOOP",
+      "seed": 1,
+      "fault": 1,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "8ad18524bf9941adae04055ad5a7fb3660e36b7187ad06fb6bd13a75efaeeacd"
+    },
+    {
+      "schemaVersion": 1,
+      "negativeControl": true,
+      "legacyDetected": true,
+      "nativeDetected": true,
+      "matched": true,
+      "exitCodes": {
+        "legacy": 1,
+        "native": 1
+      },
+      "fixture": "crc64",
+      "style": "LOOP",
+      "seed": 1,
+      "fault": 2,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "8ad18524bf9941adae04055ad5a7fb3660e36b7187ad06fb6bd13a75efaeeacd"
+    },
+    {
+      "schemaVersion": 1,
+      "legacy": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "native": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "expected": [
+        "Entry.SerialScoreboard"
+      ],
+      "missing": {
+        "legacy": [],
+        "native": []
+      },
+      "unexpected": {
+        "legacy": [],
+        "native": []
+      },
+      "seedMismatches": [],
+      "matched": true,
+      "traceMatched": true,
+      "exitCodes": {
+        "legacy": 0,
+        "native": 0
+      },
+      "fixture": "crc64",
+      "style": "LOOP",
+      "seed": 17,
+      "fault": 0,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "31b3d1e5f8267cc4d826e93abb6ce78a18e74d3740780f6cffb29c9b33266afe"
+    },
+    {
+      "schemaVersion": 1,
+      "legacy": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "native": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "expected": [
+        "Entry.SerialScoreboard"
+      ],
+      "missing": {
+        "legacy": [],
+        "native": []
+      },
+      "unexpected": {
+        "legacy": [],
+        "native": []
+      },
+      "seedMismatches": [],
+      "matched": true,
+      "traceMatched": true,
+      "exitCodes": {
+        "legacy": 0,
+        "native": 0
+      },
+      "fixture": "crc64",
+      "style": "REDUCTION",
+      "seed": 1,
+      "fault": 0,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "8ad18524bf9941adae04055ad5a7fb3660e36b7187ad06fb6bd13a75efaeeacd"
+    },
+    {
+      "schemaVersion": 1,
+      "negativeControl": true,
+      "legacyDetected": true,
+      "nativeDetected": true,
+      "matched": true,
+      "exitCodes": {
+        "legacy": 1,
+        "native": 1
+      },
+      "fixture": "crc64",
+      "style": "REDUCTION",
+      "seed": 1,
+      "fault": 1,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "8ad18524bf9941adae04055ad5a7fb3660e36b7187ad06fb6bd13a75efaeeacd"
+    },
+    {
+      "schemaVersion": 1,
+      "negativeControl": true,
+      "legacyDetected": true,
+      "nativeDetected": true,
+      "matched": true,
+      "exitCodes": {
+        "legacy": 1,
+        "native": 1
+      },
+      "fixture": "crc64",
+      "style": "REDUCTION",
+      "seed": 1,
+      "fault": 2,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "8ad18524bf9941adae04055ad5a7fb3660e36b7187ad06fb6bd13a75efaeeacd"
+    },
+    {
+      "schemaVersion": 1,
+      "legacy": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "native": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "expected": [
+        "Entry.SerialScoreboard"
+      ],
+      "missing": {
+        "legacy": [],
+        "native": []
+      },
+      "unexpected": {
+        "legacy": [],
+        "native": []
+      },
+      "seedMismatches": [],
+      "matched": true,
+      "traceMatched": true,
+      "exitCodes": {
+        "legacy": 0,
+        "native": 0
+      },
+      "fixture": "crc64",
+      "style": "REDUCTION",
+      "seed": 17,
+      "fault": 0,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "31b3d1e5f8267cc4d826e93abb6ce78a18e74d3740780f6cffb29c9b33266afe"
+    },
+    {
+      "schemaVersion": 1,
+      "legacy": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "native": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "expected": [
+        "Entry.SerialScoreboard"
+      ],
+      "missing": {
+        "legacy": [],
+        "native": []
+      },
+      "unexpected": {
+        "legacy": [],
+        "native": []
+      },
+      "seedMismatches": [],
+      "matched": true,
+      "traceMatched": true,
+      "exitCodes": {
+        "legacy": 0,
+        "native": 0
+      },
+      "fixture": "crc64xz",
+      "style": "LOOP",
+      "seed": 1,
+      "fault": 0,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "0d32878f4872830336a4eb756a03d18d79e4ecf1318f630a55d187b1bd7b7960"
+    },
+    {
+      "schemaVersion": 1,
+      "negativeControl": true,
+      "legacyDetected": true,
+      "nativeDetected": true,
+      "matched": true,
+      "exitCodes": {
+        "legacy": 1,
+        "native": 1
+      },
+      "fixture": "crc64xz",
+      "style": "LOOP",
+      "seed": 1,
+      "fault": 1,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "0d32878f4872830336a4eb756a03d18d79e4ecf1318f630a55d187b1bd7b7960"
+    },
+    {
+      "schemaVersion": 1,
+      "negativeControl": true,
+      "legacyDetected": true,
+      "nativeDetected": true,
+      "matched": true,
+      "exitCodes": {
+        "legacy": 1,
+        "native": 1
+      },
+      "fixture": "crc64xz",
+      "style": "LOOP",
+      "seed": 1,
+      "fault": 2,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "0d32878f4872830336a4eb756a03d18d79e4ecf1318f630a55d187b1bd7b7960"
+    },
+    {
+      "schemaVersion": 1,
+      "legacy": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "native": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "expected": [
+        "Entry.SerialScoreboard"
+      ],
+      "missing": {
+        "legacy": [],
+        "native": []
+      },
+      "unexpected": {
+        "legacy": [],
+        "native": []
+      },
+      "seedMismatches": [],
+      "matched": true,
+      "traceMatched": true,
+      "exitCodes": {
+        "legacy": 0,
+        "native": 0
+      },
+      "fixture": "crc64xz",
+      "style": "LOOP",
+      "seed": 17,
+      "fault": 0,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "e63059ab0d2bdd801810461782c10234cb22900a26b1301a579bfd56419f167f"
+    },
+    {
+      "schemaVersion": 1,
+      "legacy": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "native": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "expected": [
+        "Entry.SerialScoreboard"
+      ],
+      "missing": {
+        "legacy": [],
+        "native": []
+      },
+      "unexpected": {
+        "legacy": [],
+        "native": []
+      },
+      "seedMismatches": [],
+      "matched": true,
+      "traceMatched": true,
+      "exitCodes": {
+        "legacy": 0,
+        "native": 0
+      },
+      "fixture": "crc64xz",
+      "style": "REDUCTION",
+      "seed": 1,
+      "fault": 0,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "0d32878f4872830336a4eb756a03d18d79e4ecf1318f630a55d187b1bd7b7960"
+    },
+    {
+      "schemaVersion": 1,
+      "negativeControl": true,
+      "legacyDetected": true,
+      "nativeDetected": true,
+      "matched": true,
+      "exitCodes": {
+        "legacy": 1,
+        "native": 1
+      },
+      "fixture": "crc64xz",
+      "style": "REDUCTION",
+      "seed": 1,
+      "fault": 1,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "0d32878f4872830336a4eb756a03d18d79e4ecf1318f630a55d187b1bd7b7960"
+    },
+    {
+      "schemaVersion": 1,
+      "negativeControl": true,
+      "legacyDetected": true,
+      "nativeDetected": true,
+      "matched": true,
+      "exitCodes": {
+        "legacy": 1,
+        "native": 1
+      },
+      "fixture": "crc64xz",
+      "style": "REDUCTION",
+      "seed": 1,
+      "fault": 2,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "0d32878f4872830336a4eb756a03d18d79e4ecf1318f630a55d187b1bd7b7960"
+    },
+    {
+      "schemaVersion": 1,
+      "legacy": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "native": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "expected": [
+        "Entry.SerialScoreboard"
+      ],
+      "missing": {
+        "legacy": [],
+        "native": []
+      },
+      "unexpected": {
+        "legacy": [],
+        "native": []
+      },
+      "seedMismatches": [],
+      "matched": true,
+      "traceMatched": true,
+      "exitCodes": {
+        "legacy": 0,
+        "native": 0
+      },
+      "fixture": "crc64xz",
+      "style": "REDUCTION",
+      "seed": 17,
+      "fault": 0,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "e63059ab0d2bdd801810461782c10234cb22900a26b1301a579bfd56419f167f"
+    }
+  ],
+  "positiveVectorsAcrossRunners": 2240,
+  "coverage": {
+    "suites": {
+      "managed": {
+        "assemblies": [
+          "SharpTestBench"
+        ],
+        "lines": {
+          "covered": 515,
+          "valid": 2119,
+          "percent": 24.30391694195375
+        },
+        "branches": {
+          "covered": 346,
+          "valid": 1297,
+          "percent": 26.676946800308404
+        }
+      },
+      "generators": {
+        "assemblies": [
+          "SharpTestBench.Generators"
+        ],
+        "lines": {
+          "covered": 60,
+          "valid": 68,
+          "percent": 88.23529411764706
+        },
+        "branches": {
+          "covered": 52,
+          "valid": 72,
+          "percent": 72.22222222222223
+        }
+      },
+      "helpers": {
+        "assemblies": [
+          "SharpTestBench.Tools"
+        ],
+        "lines": {
+          "covered": 386,
+          "valid": 2072,
+          "percent": 18.62934362934363
+        },
+        "branches": {
+          "covered": 478,
+          "valid": 2783,
+          "percent": 17.175709665828244
+        }
+      },
+      "contracts": {
+        "assemblies": [
+          "SharpTestBench.Tools"
+        ],
+        "lines": {
+          "covered": 487,
+          "valid": 2072,
+          "percent": 23.503861003861005
+        },
+        "branches": {
+          "covered": 650,
+          "valid": 2783,
+          "percent": 23.35609054976644
+        }
+      }
+    },
+    "combined": {
+      "assemblies": [
+        "SharpTestBench",
+        "SharpTestBench.Generators",
+        "SharpTestBench.Tools"
+      ],
+      "lines": {
+        "covered": 1222,
+        "valid": 4259,
+        "percent": 28.692181263207324
+      },
+      "branches": {
+        "covered": 1271,
+        "valid": 4134,
+        "percent": 30.745041122399613
+      }
+    }
+  }
+}

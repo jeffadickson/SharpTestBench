@@ -1,0 +1,70 @@
+{
+  "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "sdk": "10.0.402",
+  "managed": {
+    "total": 378,
+    "passed": 378,
+    "failed": 0
+  },
+  "generators": {
+    "total": 17,
+    "passed": 17,
+    "failed": 0
+  },
+  "positiveParityCases": 6,
+  "negativeScoreboardControls": 4,
+  "cliFaults": [
+    {
+      "fault": "missing",
+      "detected": true,
+      "kind": "configuration_error"
+    },
+    {
+      "fault": "duplicate",
+      "detected": true,
+      "kind": "configuration_error"
+    },
+    {
+      "fault": "unknown",
+      "detected": true,
+      "kind": "configuration_error"
+    },
+    {
+      "fault": "skipped",
+      "detected": true,
+      "kind": "configuration_error"
+    },
+    {
+      "fault": "malformed",
+      "detected": true,
+      "kind": "configuration_error"
+    },
+    {
+      "fault": "failed",
+      "detected": true,
+      "kind": "assertion_failure"
+    },
+    {
+      "fault": "crash",
+      "detected": true,
+      "kind": "simulator_failure"
+    },
+    {
+      "fault": "compiler",
+      "detected": true,
+      "kind": "build_failure"
+    },
+    {
+      "fault": "timeout",
+      "detected": true,
+      "kind": "timeout"
+    },
+    {
+      "fault": "library",
+      "detected": true,
+      "kind": "configuration_error"
+    }
+  ],
+  "toolingTests": 217,
+  "allPassed": true
+}

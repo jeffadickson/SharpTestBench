@@ -1,0 +1,427 @@
+{
+  "base": "e96c8ae14664b1b06e5e032f29acaa635faa0180",
+  "head": "62308bff93e04ea8c765661a93db809147685069",
+  "branch": "main",
+  "iterations": 200,
+  "checkpoints": [
+    {
+      "iteration": 50,
+      "gates": [
+        {
+          "command": [
+            "dotnet",
+            "build",
+            "SharpTestBench.slnx",
+            "-c",
+            "Release",
+            "--no-restore",
+            "--disable-build-servers",
+            "-m:1",
+            "-v:q"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "dotnet",
+            "tests/SharpTestBench.Tests/bin/Release/net10.0/SharpTestBench.Tests.dll",
+            "-xml",
+            "C:\\Users\\jeffd\\Documents\\Codex\\2026-10-17\\continuing-from-sharptestbench-native-ci-watch\\work\\SharpTestBench\\build\\round2\\checkpoint-50\\managed.xml"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "dotnet",
+            "tests/SharpTestBench.Generators.Tests/bin/Release/net10.0/SharpTestBench.Generators.Tests.dll",
+            "-xml",
+            "C:\\Users\\jeffd\\Documents\\Codex\\2026-10-17\\continuing-from-sharptestbench-native-ci-watch\\work\\SharpTestBench\\build\\round2\\checkpoint-50\\generators.xml"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "C:\\Users\\jeffd\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+            "-m",
+            "unittest",
+            "discover",
+            "-s",
+            "tests/Tooling",
+            "-q"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "git",
+            "diff",
+            "--check"
+          ],
+          "exitCode": 0
+        }
+      ],
+      "commit": "211b71fbc5a2db871803ddc969a27ae10abf3913",
+      "message": "fix: reject ambiguous and malformed runner JSON inputs (#61)"
+    },
+    {
+      "iteration": 100,
+      "gates": [
+        {
+          "command": [
+            "dotnet",
+            "build",
+            "SharpTestBench.slnx",
+            "-c",
+            "Release",
+            "--no-restore",
+            "--disable-build-servers",
+            "-m:1",
+            "-v:q"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "dotnet",
+            "tests/SharpTestBench.Tests/bin/Release/net10.0/SharpTestBench.Tests.dll",
+            "-xml",
+            "C:\\Users\\jeffd\\Documents\\Codex\\2026-10-17\\continuing-from-sharptestbench-native-ci-watch\\work\\SharpTestBench\\build\\round2\\checkpoint-100\\managed.xml"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "dotnet",
+            "tests/SharpTestBench.Generators.Tests/bin/Release/net10.0/SharpTestBench.Generators.Tests.dll",
+            "-xml",
+            "C:\\Users\\jeffd\\Documents\\Codex\\2026-10-17\\continuing-from-sharptestbench-native-ci-watch\\work\\SharpTestBench\\build\\round2\\checkpoint-100\\generators.xml"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "C:\\Users\\jeffd\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+            "-m",
+            "unittest",
+            "discover",
+            "-s",
+            "tests/Tooling",
+            "-q"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "git",
+            "diff",
+            "--check"
+          ],
+          "exitCode": 0
+        }
+      ],
+      "commit": "b601ee95f2eac709a87d4c94ffacd7b6b05ec658",
+      "message": "feat: support attested HDL compile options and exact test selection (#57)"
+    },
+    {
+      "iteration": 150,
+      "gates": [
+        {
+          "command": [
+            "dotnet",
+            "build",
+            "SharpTestBench.slnx",
+            "-c",
+            "Release",
+            "--no-restore",
+            "--disable-build-servers",
+            "-m:1",
+            "-v:q"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "dotnet",
+            "tests/SharpTestBench.Tests/bin/Release/net10.0/SharpTestBench.Tests.dll",
+            "-xml",
+            "C:\\Users\\jeffd\\Documents\\Codex\\2026-10-17\\continuing-from-sharptestbench-native-ci-watch\\work\\SharpTestBench\\build\\round2\\checkpoint-150\\managed.xml"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "dotnet",
+            "tests/SharpTestBench.Generators.Tests/bin/Release/net10.0/SharpTestBench.Generators.Tests.dll",
+            "-xml",
+            "C:\\Users\\jeffd\\Documents\\Codex\\2026-10-17\\continuing-from-sharptestbench-native-ci-watch\\work\\SharpTestBench\\build\\round2\\checkpoint-150\\generators.xml"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "C:\\Users\\jeffd\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+            "-m",
+            "unittest",
+            "discover",
+            "-s",
+            "tests/Tooling",
+            "-q"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "git",
+            "diff",
+            "--check"
+          ],
+          "exitCode": 0
+        }
+      ],
+      "commit": "a0aebe6f83cea3b5f77bed91a6346a75f7174418",
+      "message": "feat: attest runner inputs and write durable evidence atomically (#61)"
+    },
+    {
+      "iteration": 200,
+      "gates": [
+        {
+          "command": [
+            "dotnet",
+            "build",
+            "SharpTestBench.slnx",
+            "-c",
+            "Release",
+            "--no-restore",
+            "--disable-build-servers",
+            "-m:1",
+            "-v:q"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "dotnet",
+            "tests/SharpTestBench.Tests/bin/Release/net10.0/SharpTestBench.Tests.dll",
+            "-xml",
+            "C:\\Users\\jeffd\\Documents\\Codex\\2026-10-17\\continuing-from-sharptestbench-native-ci-watch\\work\\SharpTestBench\\build\\round2\\checkpoint-200\\managed.xml"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "dotnet",
+            "tests/SharpTestBench.Generators.Tests/bin/Release/net10.0/SharpTestBench.Generators.Tests.dll",
+            "-xml",
+            "C:\\Users\\jeffd\\Documents\\Codex\\2026-10-17\\continuing-from-sharptestbench-native-ci-watch\\work\\SharpTestBench\\build\\round2\\checkpoint-200\\generators.xml"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "C:\\Users\\jeffd\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+            "-m",
+            "unittest",
+            "discover",
+            "-s",
+            "tests/Tooling",
+            "-q"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "git",
+            "diff",
+            "--check"
+          ],
+          "exitCode": 0
+        }
+      ],
+      "commit": "62308bff93e04ea8c765661a93db809147685069",
+      "message": "feat: retain bounded process diagnostics and qualify manifest execution (#61)"
+    }
+  ],
+  "localCommits": 4,
+  "windows": {
+    "managed": {
+      "total": 378,
+      "passed": 378
+    },
+    "generators": {
+      "total": 17,
+      "passed": 17
+    },
+    "toolingTests": 315
+  },
+  "linux": {
+    "allPassed": true,
+    "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+    "managed": {
+      "total": 378,
+      "passed": 378
+    },
+    "generators": {
+      "total": 17,
+      "passed": 17
+    },
+    "toolingTests": 315,
+    "positiveParityCases": 6,
+    "negativeScoreboardControls": 4,
+    "manifestFeatures": {
+      "schemaVersion": 1,
+      "compilerOptions": true,
+      "parameterNegativeControl": true,
+      "selectedCaseParity": {
+        "schemaVersion": 1,
+        "legacy": [
+          [
+            "Tests.A_TypesAndSignals",
+            "passed"
+          ]
+        ],
+        "native": [
+          [
+            "Tests.A_TypesAndSignals",
+            "passed"
+          ]
+        ],
+        "expected": [
+          "Tests.A_TypesAndSignals"
+        ],
+        "missing": {
+          "legacy": [],
+          "native": []
+        },
+        "unexpected": {
+          "legacy": [],
+          "native": []
+        },
+        "seedMismatches": [],
+        "matched": true
+      },
+      "inputAttestation": true
+    },
+    "cliFaults": [
+      {
+        "fault": "missing",
+        "detected": true,
+        "kind": "configuration_error"
+      },
+      {
+        "fault": "duplicate",
+        "detected": true,
+        "kind": "configuration_error"
+      },
+      {
+        "fault": "unknown",
+        "detected": true,
+        "kind": "configuration_error"
+      },
+      {
+        "fault": "skipped",
+        "detected": true,
+        "kind": "configuration_error"
+      },
+      {
+        "fault": "malformed",
+        "detected": true,
+        "kind": "configuration_error"
+      },
+      {
+        "fault": "failed",
+        "detected": true,
+        "kind": "assertion_failure"
+      },
+      {
+        "fault": "crash",
+        "detected": true,
+        "kind": "simulator_failure"
+      },
+      {
+        "fault": "compiler",
+        "detected": true,
+        "kind": "build_failure"
+      },
+      {
+        "fault": "timeout",
+        "detected": true,
+        "kind": "timeout"
+      },
+      {
+        "fault": "library",
+        "detected": true,
+        "kind": "configuration_error"
+      }
+    ],
+    "inputMutations": [
+      {
+        "mutation": "source",
+        "detected": true
+      },
+      {
+        "mutation": "dependency",
+        "detected": true
+      },
+      {
+        "mutation": "header",
+        "detected": true
+      },
+      {
+        "mutation": "added-header",
+        "detected": true
+      },
+      {
+        "mutation": "added-dependency",
+        "detected": true
+      }
+    ]
+  },
+  "verificationRepairs": [
+    {
+      "checkpoint": 50,
+      "change": "Set the raw-Unicode subprocess regression transport to explicit UTF-8 after Windows code-page encoding failed."
+    },
+    {
+      "checkpoint": 200,
+      "change": "Match the real HDL width diagnostic in the executable parameter negative-control assertion."
+    },
+    {
+      "checkpoint": 200,
+      "change": "Use the actual Tests.A_TypesAndSignals qualified identity, rather than its separate Entry initialization class, in the executable selection fixture."
+    }
+  ],
+  "pushStatus": "pushed and remote main verified",
+  "remoteMain": "62308bff93e04ea8c765661a93db809147685069",
+  "pullRequest62": {
+    "state": "open",
+    "draft": true,
+    "merged": false,
+    "head": "0318a864d9b570f9ffbc4857e7365ec9ed6a4736"
+  },
+  "workflows": [
+    {
+      "name": "Build and simulator tests",
+      "status": "queued",
+      "conclusion": null,
+      "url": "https://github.com/jeffadickson/SharpTestBench/actions/runs/39133809717"
+    },
+    {
+      "name": "Dual runner parity (Icarus)",
+      "status": "queued",
+      "conclusion": null,
+      "url": "https://github.com/jeffadickson/SharpTestBench/actions/runs/39133809651"
+    },
+    {
+      "name": "API documentation",
+      "status": "in_progress",
+      "conclusion": null,
+      "url": "https://github.com/jeffadickson/SharpTestBench/actions/runs/39133809716"
+    },
+    {
+      "name": "Windows ARM64 native validation",
+      "status": "in_progress",
+      "conclusion": null,
+      "url": "https://github.com/jeffadickson/SharpTestBench/actions/runs/39133809731"
+    }
+  ]
+}

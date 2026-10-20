@@ -1,0 +1,1882 @@
+{
+  "cases": [
+    {
+      "case": "lfsr-lfsr_crc16_loop-1-fault0",
+      "report": "parity.json",
+      "schemaVersion": 1,
+      "legacy": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "native": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "expected": [
+        "Entry.SerialScoreboard"
+      ],
+      "missing": {
+        "legacy": [],
+        "native": []
+      },
+      "unexpected": {
+        "legacy": [],
+        "native": []
+      },
+      "seedMismatches": [],
+      "matched": true,
+      "traceMatched": true,
+      "fixture": "crc16",
+      "style": "LOOP",
+      "seed": 1,
+      "fault": 0,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "48fc2e7ece87177484b25975c0fe7fadbcae22e2bf81cb67594534bd67f1eb22",
+      "exitCodes": {
+        "legacy": 0,
+        "native": 0
+      }
+    },
+    {
+      "case": "lfsr-lfsr_crc16_loop-1-fault1",
+      "report": "negative-control.json",
+      "matched": true,
+      "negativeControl": true,
+      "schemaVersion": 1,
+      "fixture": "crc16",
+      "style": "LOOP",
+      "seed": 1,
+      "fault": 1,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "48fc2e7ece87177484b25975c0fe7fadbcae22e2bf81cb67594534bd67f1eb22",
+      "exitCodes": {
+        "legacy": 1,
+        "native": 1
+      }
+    },
+    {
+      "case": "lfsr-lfsr_crc16_loop-1-fault2",
+      "report": "negative-control.json",
+      "matched": true,
+      "negativeControl": true,
+      "schemaVersion": 1,
+      "fixture": "crc16",
+      "style": "LOOP",
+      "seed": 1,
+      "fault": 2,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "48fc2e7ece87177484b25975c0fe7fadbcae22e2bf81cb67594534bd67f1eb22",
+      "exitCodes": {
+        "legacy": 1,
+        "native": 1
+      }
+    },
+    {
+      "case": "lfsr-lfsr_crc16_loop-17-fault0",
+      "report": "parity.json",
+      "schemaVersion": 1,
+      "legacy": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "native": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "expected": [
+        "Entry.SerialScoreboard"
+      ],
+      "missing": {
+        "legacy": [],
+        "native": []
+      },
+      "unexpected": {
+        "legacy": [],
+        "native": []
+      },
+      "seedMismatches": [],
+      "matched": true,
+      "traceMatched": true,
+      "fixture": "crc16",
+      "style": "LOOP",
+      "seed": 17,
+      "fault": 0,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "32ec2f50d867ddd181b056b365fa412639b0236346ef7f1592f186bcb86bd170",
+      "exitCodes": {
+        "legacy": 0,
+        "native": 0
+      }
+    },
+    {
+      "case": "lfsr-lfsr_crc16_reduction-1-fault0",
+      "report": "parity.json",
+      "schemaVersion": 1,
+      "legacy": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "native": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "expected": [
+        "Entry.SerialScoreboard"
+      ],
+      "missing": {
+        "legacy": [],
+        "native": []
+      },
+      "unexpected": {
+        "legacy": [],
+        "native": []
+      },
+      "seedMismatches": [],
+      "matched": true,
+      "traceMatched": true,
+      "fixture": "crc16",
+      "style": "REDUCTION",
+      "seed": 1,
+      "fault": 0,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "48fc2e7ece87177484b25975c0fe7fadbcae22e2bf81cb67594534bd67f1eb22",
+      "exitCodes": {
+        "legacy": 0,
+        "native": 0
+      }
+    },
+    {
+      "case": "lfsr-lfsr_crc16_reduction-1-fault1",
+      "report": "negative-control.json",
+      "matched": true,
+      "negativeControl": true,
+      "schemaVersion": 1,
+      "fixture": "crc16",
+      "style": "REDUCTION",
+      "seed": 1,
+      "fault": 1,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "48fc2e7ece87177484b25975c0fe7fadbcae22e2bf81cb67594534bd67f1eb22",
+      "exitCodes": {
+        "legacy": 1,
+        "native": 1
+      }
+    },
+    {
+      "case": "lfsr-lfsr_crc16_reduction-1-fault2",
+      "report": "negative-control.json",
+      "matched": true,
+      "negativeControl": true,
+      "schemaVersion": 1,
+      "fixture": "crc16",
+      "style": "REDUCTION",
+      "seed": 1,
+      "fault": 2,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "48fc2e7ece87177484b25975c0fe7fadbcae22e2bf81cb67594534bd67f1eb22",
+      "exitCodes": {
+        "legacy": 1,
+        "native": 1
+      }
+    },
+    {
+      "case": "lfsr-lfsr_crc16_reduction-17-fault0",
+      "report": "parity.json",
+      "schemaVersion": 1,
+      "legacy": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "native": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "expected": [
+        "Entry.SerialScoreboard"
+      ],
+      "missing": {
+        "legacy": [],
+        "native": []
+      },
+      "unexpected": {
+        "legacy": [],
+        "native": []
+      },
+      "seedMismatches": [],
+      "matched": true,
+      "traceMatched": true,
+      "fixture": "crc16",
+      "style": "REDUCTION",
+      "seed": 17,
+      "fault": 0,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "32ec2f50d867ddd181b056b365fa412639b0236346ef7f1592f186bcb86bd170",
+      "exitCodes": {
+        "legacy": 0,
+        "native": 0
+      }
+    },
+    {
+      "case": "lfsr-lfsr_crc32_loop-1-fault0",
+      "report": "parity.json",
+      "schemaVersion": 1,
+      "legacy": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "native": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "expected": [
+        "Entry.SerialScoreboard"
+      ],
+      "missing": {
+        "legacy": [],
+        "native": []
+      },
+      "unexpected": {
+        "legacy": [],
+        "native": []
+      },
+      "seedMismatches": [],
+      "matched": true,
+      "traceMatched": true,
+      "fixture": "crc32",
+      "style": "LOOP",
+      "seed": 1,
+      "fault": 0,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "b703c860caa410b7d37f45baca5b6ee75ed5d0dc28a9e48e84d0b1c56495119a",
+      "exitCodes": {
+        "legacy": 0,
+        "native": 0
+      }
+    },
+    {
+      "case": "lfsr-lfsr_crc32_loop-1-fault1",
+      "report": "negative-control.json",
+      "matched": true,
+      "negativeControl": true,
+      "schemaVersion": 1,
+      "fixture": "crc32",
+      "style": "LOOP",
+      "seed": 1,
+      "fault": 1,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "b703c860caa410b7d37f45baca5b6ee75ed5d0dc28a9e48e84d0b1c56495119a",
+      "exitCodes": {
+        "legacy": 1,
+        "native": 1
+      }
+    },
+    {
+      "case": "lfsr-lfsr_crc32_loop-1-fault2",
+      "report": "negative-control.json",
+      "matched": true,
+      "negativeControl": true,
+      "schemaVersion": 1,
+      "fixture": "crc32",
+      "style": "LOOP",
+      "seed": 1,
+      "fault": 2,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "b703c860caa410b7d37f45baca5b6ee75ed5d0dc28a9e48e84d0b1c56495119a",
+      "exitCodes": {
+        "legacy": 1,
+        "native": 1
+      }
+    },
+    {
+      "case": "lfsr-lfsr_crc32_loop-17-fault0",
+      "report": "parity.json",
+      "schemaVersion": 1,
+      "legacy": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "native": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "expected": [
+        "Entry.SerialScoreboard"
+      ],
+      "missing": {
+        "legacy": [],
+        "native": []
+      },
+      "unexpected": {
+        "legacy": [],
+        "native": []
+      },
+      "seedMismatches": [],
+      "matched": true,
+      "traceMatched": true,
+      "fixture": "crc32",
+      "style": "LOOP",
+      "seed": 17,
+      "fault": 0,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "95d9db4b590e17dcc1332f68682daabd4ca4c669048444c1fd93aba2b95bbd0b",
+      "exitCodes": {
+        "legacy": 0,
+        "native": 0
+      }
+    },
+    {
+      "case": "lfsr-lfsr_crc32_reduction-1-fault0",
+      "report": "parity.json",
+      "schemaVersion": 1,
+      "legacy": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "native": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "expected": [
+        "Entry.SerialScoreboard"
+      ],
+      "missing": {
+        "legacy": [],
+        "native": []
+      },
+      "unexpected": {
+        "legacy": [],
+        "native": []
+      },
+      "seedMismatches": [],
+      "matched": true,
+      "traceMatched": true,
+      "fixture": "crc32",
+      "style": "REDUCTION",
+      "seed": 1,
+      "fault": 0,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "b703c860caa410b7d37f45baca5b6ee75ed5d0dc28a9e48e84d0b1c56495119a",
+      "exitCodes": {
+        "legacy": 0,
+        "native": 0
+      }
+    },
+    {
+      "case": "lfsr-lfsr_crc32_reduction-1-fault1",
+      "report": "negative-control.json",
+      "matched": true,
+      "negativeControl": true,
+      "schemaVersion": 1,
+      "fixture": "crc32",
+      "style": "REDUCTION",
+      "seed": 1,
+      "fault": 1,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "b703c860caa410b7d37f45baca5b6ee75ed5d0dc28a9e48e84d0b1c56495119a",
+      "exitCodes": {
+        "legacy": 1,
+        "native": 1
+      }
+    },
+    {
+      "case": "lfsr-lfsr_crc32_reduction-1-fault2",
+      "report": "negative-control.json",
+      "matched": true,
+      "negativeControl": true,
+      "schemaVersion": 1,
+      "fixture": "crc32",
+      "style": "REDUCTION",
+      "seed": 1,
+      "fault": 2,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "b703c860caa410b7d37f45baca5b6ee75ed5d0dc28a9e48e84d0b1c56495119a",
+      "exitCodes": {
+        "legacy": 1,
+        "native": 1
+      }
+    },
+    {
+      "case": "lfsr-lfsr_crc32_reduction-17-fault0",
+      "report": "parity.json",
+      "schemaVersion": 1,
+      "legacy": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "native": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "expected": [
+        "Entry.SerialScoreboard"
+      ],
+      "missing": {
+        "legacy": [],
+        "native": []
+      },
+      "unexpected": {
+        "legacy": [],
+        "native": []
+      },
+      "seedMismatches": [],
+      "matched": true,
+      "traceMatched": true,
+      "fixture": "crc32",
+      "style": "REDUCTION",
+      "seed": 17,
+      "fault": 0,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "95d9db4b590e17dcc1332f68682daabd4ca4c669048444c1fd93aba2b95bbd0b",
+      "exitCodes": {
+        "legacy": 0,
+        "native": 0
+      }
+    },
+    {
+      "case": "lfsr-lfsr_crc32c_loop-1-fault0",
+      "report": "parity.json",
+      "schemaVersion": 1,
+      "legacy": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "native": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "expected": [
+        "Entry.SerialScoreboard"
+      ],
+      "missing": {
+        "legacy": [],
+        "native": []
+      },
+      "unexpected": {
+        "legacy": [],
+        "native": []
+      },
+      "seedMismatches": [],
+      "matched": true,
+      "traceMatched": true,
+      "fixture": "crc32c",
+      "style": "LOOP",
+      "seed": 1,
+      "fault": 0,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "371008d601413a322202a900c003b1878924ca6cd9a8b3ec652264cc2fbe2e37",
+      "exitCodes": {
+        "legacy": 0,
+        "native": 0
+      }
+    },
+    {
+      "case": "lfsr-lfsr_crc32c_loop-1-fault1",
+      "report": "negative-control.json",
+      "matched": true,
+      "negativeControl": true,
+      "schemaVersion": 1,
+      "fixture": "crc32c",
+      "style": "LOOP",
+      "seed": 1,
+      "fault": 1,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "371008d601413a322202a900c003b1878924ca6cd9a8b3ec652264cc2fbe2e37",
+      "exitCodes": {
+        "legacy": 1,
+        "native": 1
+      }
+    },
+    {
+      "case": "lfsr-lfsr_crc32c_loop-1-fault2",
+      "report": "negative-control.json",
+      "matched": true,
+      "negativeControl": true,
+      "schemaVersion": 1,
+      "fixture": "crc32c",
+      "style": "LOOP",
+      "seed": 1,
+      "fault": 2,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "371008d601413a322202a900c003b1878924ca6cd9a8b3ec652264cc2fbe2e37",
+      "exitCodes": {
+        "legacy": 1,
+        "native": 1
+      }
+    },
+    {
+      "case": "lfsr-lfsr_crc32c_loop-17-fault0",
+      "report": "parity.json",
+      "schemaVersion": 1,
+      "legacy": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "native": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "expected": [
+        "Entry.SerialScoreboard"
+      ],
+      "missing": {
+        "legacy": [],
+        "native": []
+      },
+      "unexpected": {
+        "legacy": [],
+        "native": []
+      },
+      "seedMismatches": [],
+      "matched": true,
+      "traceMatched": true,
+      "fixture": "crc32c",
+      "style": "LOOP",
+      "seed": 17,
+      "fault": 0,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "d4c10184b0afdc550769be91758a9cb8f0adac78fc2e817bec7f2104011bccd9",
+      "exitCodes": {
+        "legacy": 0,
+        "native": 0
+      }
+    },
+    {
+      "case": "lfsr-lfsr_crc32c_reduction-1-fault0",
+      "report": "parity.json",
+      "schemaVersion": 1,
+      "legacy": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "native": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "expected": [
+        "Entry.SerialScoreboard"
+      ],
+      "missing": {
+        "legacy": [],
+        "native": []
+      },
+      "unexpected": {
+        "legacy": [],
+        "native": []
+      },
+      "seedMismatches": [],
+      "matched": true,
+      "traceMatched": true,
+      "fixture": "crc32c",
+      "style": "REDUCTION",
+      "seed": 1,
+      "fault": 0,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "371008d601413a322202a900c003b1878924ca6cd9a8b3ec652264cc2fbe2e37",
+      "exitCodes": {
+        "legacy": 0,
+        "native": 0
+      }
+    },
+    {
+      "case": "lfsr-lfsr_crc32c_reduction-1-fault1",
+      "report": "negative-control.json",
+      "matched": true,
+      "negativeControl": true,
+      "schemaVersion": 1,
+      "fixture": "crc32c",
+      "style": "REDUCTION",
+      "seed": 1,
+      "fault": 1,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "371008d601413a322202a900c003b1878924ca6cd9a8b3ec652264cc2fbe2e37",
+      "exitCodes": {
+        "legacy": 1,
+        "native": 1
+      }
+    },
+    {
+      "case": "lfsr-lfsr_crc32c_reduction-1-fault2",
+      "report": "negative-control.json",
+      "matched": true,
+      "negativeControl": true,
+      "schemaVersion": 1,
+      "fixture": "crc32c",
+      "style": "REDUCTION",
+      "seed": 1,
+      "fault": 2,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "371008d601413a322202a900c003b1878924ca6cd9a8b3ec652264cc2fbe2e37",
+      "exitCodes": {
+        "legacy": 1,
+        "native": 1
+      }
+    },
+    {
+      "case": "lfsr-lfsr_crc32c_reduction-17-fault0",
+      "report": "parity.json",
+      "schemaVersion": 1,
+      "legacy": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "native": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "expected": [
+        "Entry.SerialScoreboard"
+      ],
+      "missing": {
+        "legacy": [],
+        "native": []
+      },
+      "unexpected": {
+        "legacy": [],
+        "native": []
+      },
+      "seedMismatches": [],
+      "matched": true,
+      "traceMatched": true,
+      "fixture": "crc32c",
+      "style": "REDUCTION",
+      "seed": 17,
+      "fault": 0,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "d4c10184b0afdc550769be91758a9cb8f0adac78fc2e817bec7f2104011bccd9",
+      "exitCodes": {
+        "legacy": 0,
+        "native": 0
+      }
+    },
+    {
+      "case": "lfsr-lfsr_descrambler_loop-1-fault0",
+      "report": "parity.json",
+      "schemaVersion": 1,
+      "legacy": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "native": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "expected": [
+        "Entry.SerialScoreboard"
+      ],
+      "missing": {
+        "legacy": [],
+        "native": []
+      },
+      "unexpected": {
+        "legacy": [],
+        "native": []
+      },
+      "seedMismatches": [],
+      "matched": true,
+      "traceMatched": true,
+      "fixture": "descrambler",
+      "style": "LOOP",
+      "seed": 1,
+      "fault": 0,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "0a07cb8cc41f1466b1feaf729e804b8b2a0f9b4cbe0eb1ed1545bb40a1ef6614",
+      "exitCodes": {
+        "legacy": 0,
+        "native": 0
+      }
+    },
+    {
+      "case": "lfsr-lfsr_descrambler_loop-1-fault1",
+      "report": "negative-control.json",
+      "matched": true,
+      "negativeControl": true,
+      "schemaVersion": 1,
+      "fixture": "descrambler",
+      "style": "LOOP",
+      "seed": 1,
+      "fault": 1,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "0a07cb8cc41f1466b1feaf729e804b8b2a0f9b4cbe0eb1ed1545bb40a1ef6614",
+      "exitCodes": {
+        "legacy": 1,
+        "native": 1
+      }
+    },
+    {
+      "case": "lfsr-lfsr_descrambler_loop-1-fault2",
+      "report": "negative-control.json",
+      "matched": true,
+      "negativeControl": true,
+      "schemaVersion": 1,
+      "fixture": "descrambler",
+      "style": "LOOP",
+      "seed": 1,
+      "fault": 2,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "0a07cb8cc41f1466b1feaf729e804b8b2a0f9b4cbe0eb1ed1545bb40a1ef6614",
+      "exitCodes": {
+        "legacy": 1,
+        "native": 1
+      }
+    },
+    {
+      "case": "lfsr-lfsr_descrambler_loop-17-fault0",
+      "report": "parity.json",
+      "schemaVersion": 1,
+      "legacy": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "native": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "expected": [
+        "Entry.SerialScoreboard"
+      ],
+      "missing": {
+        "legacy": [],
+        "native": []
+      },
+      "unexpected": {
+        "legacy": [],
+        "native": []
+      },
+      "seedMismatches": [],
+      "matched": true,
+      "traceMatched": true,
+      "fixture": "descrambler",
+      "style": "LOOP",
+      "seed": 17,
+      "fault": 0,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "082d00976c0ba889b0205ac97e4bd5e10cc7a4e795e01bf45330b6c5fe656560",
+      "exitCodes": {
+        "legacy": 0,
+        "native": 0
+      }
+    },
+    {
+      "case": "lfsr-lfsr_descrambler_reduction-1-fault0",
+      "report": "parity.json",
+      "schemaVersion": 1,
+      "legacy": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "native": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "expected": [
+        "Entry.SerialScoreboard"
+      ],
+      "missing": {
+        "legacy": [],
+        "native": []
+      },
+      "unexpected": {
+        "legacy": [],
+        "native": []
+      },
+      "seedMismatches": [],
+      "matched": true,
+      "traceMatched": true,
+      "fixture": "descrambler",
+      "style": "REDUCTION",
+      "seed": 1,
+      "fault": 0,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "0a07cb8cc41f1466b1feaf729e804b8b2a0f9b4cbe0eb1ed1545bb40a1ef6614",
+      "exitCodes": {
+        "legacy": 0,
+        "native": 0
+      }
+    },
+    {
+      "case": "lfsr-lfsr_descrambler_reduction-1-fault1",
+      "report": "negative-control.json",
+      "matched": true,
+      "negativeControl": true,
+      "schemaVersion": 1,
+      "fixture": "descrambler",
+      "style": "REDUCTION",
+      "seed": 1,
+      "fault": 1,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "0a07cb8cc41f1466b1feaf729e804b8b2a0f9b4cbe0eb1ed1545bb40a1ef6614",
+      "exitCodes": {
+        "legacy": 1,
+        "native": 1
+      }
+    },
+    {
+      "case": "lfsr-lfsr_descrambler_reduction-1-fault2",
+      "report": "negative-control.json",
+      "matched": true,
+      "negativeControl": true,
+      "schemaVersion": 1,
+      "fixture": "descrambler",
+      "style": "REDUCTION",
+      "seed": 1,
+      "fault": 2,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "0a07cb8cc41f1466b1feaf729e804b8b2a0f9b4cbe0eb1ed1545bb40a1ef6614",
+      "exitCodes": {
+        "legacy": 1,
+        "native": 1
+      }
+    },
+    {
+      "case": "lfsr-lfsr_descrambler_reduction-17-fault0",
+      "report": "parity.json",
+      "schemaVersion": 1,
+      "legacy": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "native": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "expected": [
+        "Entry.SerialScoreboard"
+      ],
+      "missing": {
+        "legacy": [],
+        "native": []
+      },
+      "unexpected": {
+        "legacy": [],
+        "native": []
+      },
+      "seedMismatches": [],
+      "matched": true,
+      "traceMatched": true,
+      "fixture": "descrambler",
+      "style": "REDUCTION",
+      "seed": 17,
+      "fault": 0,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "082d00976c0ba889b0205ac97e4bd5e10cc7a4e795e01bf45330b6c5fe656560",
+      "exitCodes": {
+        "legacy": 0,
+        "native": 0
+      }
+    },
+    {
+      "case": "lfsr-lfsr_galois_ff_loop-1-fault0",
+      "report": "parity.json",
+      "schemaVersion": 1,
+      "legacy": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "native": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "expected": [
+        "Entry.SerialScoreboard"
+      ],
+      "missing": {
+        "legacy": [],
+        "native": []
+      },
+      "unexpected": {
+        "legacy": [],
+        "native": []
+      },
+      "seedMismatches": [],
+      "matched": true,
+      "traceMatched": true,
+      "fixture": "galois_ff",
+      "style": "LOOP",
+      "seed": 1,
+      "fault": 0,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "2081bb3a5014467aecc1eba648dfae3382be626fd2301303cbfc8a7f7ca80d06",
+      "exitCodes": {
+        "legacy": 0,
+        "native": 0
+      }
+    },
+    {
+      "case": "lfsr-lfsr_galois_ff_loop-1-fault1",
+      "report": "negative-control.json",
+      "matched": true,
+      "negativeControl": true,
+      "schemaVersion": 1,
+      "fixture": "galois_ff",
+      "style": "LOOP",
+      "seed": 1,
+      "fault": 1,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "2081bb3a5014467aecc1eba648dfae3382be626fd2301303cbfc8a7f7ca80d06",
+      "exitCodes": {
+        "legacy": 1,
+        "native": 1
+      }
+    },
+    {
+      "case": "lfsr-lfsr_galois_ff_loop-1-fault2",
+      "report": "negative-control.json",
+      "matched": true,
+      "negativeControl": true,
+      "schemaVersion": 1,
+      "fixture": "galois_ff",
+      "style": "LOOP",
+      "seed": 1,
+      "fault": 2,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "2081bb3a5014467aecc1eba648dfae3382be626fd2301303cbfc8a7f7ca80d06",
+      "exitCodes": {
+        "legacy": 1,
+        "native": 1
+      }
+    },
+    {
+      "case": "lfsr-lfsr_galois_ff_loop-17-fault0",
+      "report": "parity.json",
+      "schemaVersion": 1,
+      "legacy": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "native": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "expected": [
+        "Entry.SerialScoreboard"
+      ],
+      "missing": {
+        "legacy": [],
+        "native": []
+      },
+      "unexpected": {
+        "legacy": [],
+        "native": []
+      },
+      "seedMismatches": [],
+      "matched": true,
+      "traceMatched": true,
+      "fixture": "galois_ff",
+      "style": "LOOP",
+      "seed": 17,
+      "fault": 0,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "c602bcf8a8e0c42a8c5deaf09b44c2cc51d97161d55ed7737fee4bb1025e5afe",
+      "exitCodes": {
+        "legacy": 0,
+        "native": 0
+      }
+    },
+    {
+      "case": "lfsr-lfsr_galois_ff_reduction-1-fault0",
+      "report": "parity.json",
+      "schemaVersion": 1,
+      "legacy": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "native": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "expected": [
+        "Entry.SerialScoreboard"
+      ],
+      "missing": {
+        "legacy": [],
+        "native": []
+      },
+      "unexpected": {
+        "legacy": [],
+        "native": []
+      },
+      "seedMismatches": [],
+      "matched": true,
+      "traceMatched": true,
+      "fixture": "galois_ff",
+      "style": "REDUCTION",
+      "seed": 1,
+      "fault": 0,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "2081bb3a5014467aecc1eba648dfae3382be626fd2301303cbfc8a7f7ca80d06",
+      "exitCodes": {
+        "legacy": 0,
+        "native": 0
+      }
+    },
+    {
+      "case": "lfsr-lfsr_galois_ff_reduction-1-fault1",
+      "report": "negative-control.json",
+      "matched": true,
+      "negativeControl": true,
+      "schemaVersion": 1,
+      "fixture": "galois_ff",
+      "style": "REDUCTION",
+      "seed": 1,
+      "fault": 1,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "2081bb3a5014467aecc1eba648dfae3382be626fd2301303cbfc8a7f7ca80d06",
+      "exitCodes": {
+        "legacy": 1,
+        "native": 1
+      }
+    },
+    {
+      "case": "lfsr-lfsr_galois_ff_reduction-1-fault2",
+      "report": "negative-control.json",
+      "matched": true,
+      "negativeControl": true,
+      "schemaVersion": 1,
+      "fixture": "galois_ff",
+      "style": "REDUCTION",
+      "seed": 1,
+      "fault": 2,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "2081bb3a5014467aecc1eba648dfae3382be626fd2301303cbfc8a7f7ca80d06",
+      "exitCodes": {
+        "legacy": 1,
+        "native": 1
+      }
+    },
+    {
+      "case": "lfsr-lfsr_galois_ff_reduction-17-fault0",
+      "report": "parity.json",
+      "schemaVersion": 1,
+      "legacy": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "native": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "expected": [
+        "Entry.SerialScoreboard"
+      ],
+      "missing": {
+        "legacy": [],
+        "native": []
+      },
+      "unexpected": {
+        "legacy": [],
+        "native": []
+      },
+      "seedMismatches": [],
+      "matched": true,
+      "traceMatched": true,
+      "fixture": "galois_ff",
+      "style": "REDUCTION",
+      "seed": 17,
+      "fault": 0,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "c602bcf8a8e0c42a8c5deaf09b44c2cc51d97161d55ed7737fee4bb1025e5afe",
+      "exitCodes": {
+        "legacy": 0,
+        "native": 0
+      }
+    },
+    {
+      "case": "lfsr-lfsr_minimal_loop-1-fault0",
+      "report": "parity.json",
+      "schemaVersion": 1,
+      "legacy": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "native": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "expected": [
+        "Entry.SerialScoreboard"
+      ],
+      "missing": {
+        "legacy": [],
+        "native": []
+      },
+      "unexpected": {
+        "legacy": [],
+        "native": []
+      },
+      "seedMismatches": [],
+      "matched": true,
+      "traceMatched": true,
+      "fixture": "minimal",
+      "style": "LOOP",
+      "seed": 1,
+      "fault": 0,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "6e07460e1fa49de24dba58cb9a33c7b42f1e13760fe151b5050616a605309ae4",
+      "exitCodes": {
+        "legacy": 0,
+        "native": 0
+      }
+    },
+    {
+      "case": "lfsr-lfsr_minimal_loop-1-fault1",
+      "report": "negative-control.json",
+      "matched": true,
+      "negativeControl": true,
+      "schemaVersion": 1,
+      "fixture": "minimal",
+      "style": "LOOP",
+      "seed": 1,
+      "fault": 1,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "6e07460e1fa49de24dba58cb9a33c7b42f1e13760fe151b5050616a605309ae4",
+      "exitCodes": {
+        "legacy": 1,
+        "native": 1
+      }
+    },
+    {
+      "case": "lfsr-lfsr_minimal_loop-1-fault2",
+      "report": "negative-control.json",
+      "matched": true,
+      "negativeControl": true,
+      "schemaVersion": 1,
+      "fixture": "minimal",
+      "style": "LOOP",
+      "seed": 1,
+      "fault": 2,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "6e07460e1fa49de24dba58cb9a33c7b42f1e13760fe151b5050616a605309ae4",
+      "exitCodes": {
+        "legacy": 1,
+        "native": 1
+      }
+    },
+    {
+      "case": "lfsr-lfsr_minimal_loop-17-fault0",
+      "report": "parity.json",
+      "schemaVersion": 1,
+      "legacy": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "native": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "expected": [
+        "Entry.SerialScoreboard"
+      ],
+      "missing": {
+        "legacy": [],
+        "native": []
+      },
+      "unexpected": {
+        "legacy": [],
+        "native": []
+      },
+      "seedMismatches": [],
+      "matched": true,
+      "traceMatched": true,
+      "fixture": "minimal",
+      "style": "LOOP",
+      "seed": 17,
+      "fault": 0,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "3c66d7269a0951fdcd553175f7678eaf94a5c0a32e13a203a747d664eba57fb7",
+      "exitCodes": {
+        "legacy": 0,
+        "native": 0
+      }
+    },
+    {
+      "case": "lfsr-lfsr_minimal_reduction-1-fault0",
+      "report": "parity.json",
+      "schemaVersion": 1,
+      "legacy": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "native": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "expected": [
+        "Entry.SerialScoreboard"
+      ],
+      "missing": {
+        "legacy": [],
+        "native": []
+      },
+      "unexpected": {
+        "legacy": [],
+        "native": []
+      },
+      "seedMismatches": [],
+      "matched": true,
+      "traceMatched": true,
+      "fixture": "minimal",
+      "style": "REDUCTION",
+      "seed": 1,
+      "fault": 0,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "6e07460e1fa49de24dba58cb9a33c7b42f1e13760fe151b5050616a605309ae4",
+      "exitCodes": {
+        "legacy": 0,
+        "native": 0
+      }
+    },
+    {
+      "case": "lfsr-lfsr_minimal_reduction-1-fault1",
+      "report": "negative-control.json",
+      "matched": true,
+      "negativeControl": true,
+      "schemaVersion": 1,
+      "fixture": "minimal",
+      "style": "REDUCTION",
+      "seed": 1,
+      "fault": 1,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "6e07460e1fa49de24dba58cb9a33c7b42f1e13760fe151b5050616a605309ae4",
+      "exitCodes": {
+        "legacy": 1,
+        "native": 1
+      }
+    },
+    {
+      "case": "lfsr-lfsr_minimal_reduction-1-fault2",
+      "report": "negative-control.json",
+      "matched": true,
+      "negativeControl": true,
+      "schemaVersion": 1,
+      "fixture": "minimal",
+      "style": "REDUCTION",
+      "seed": 1,
+      "fault": 2,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "6e07460e1fa49de24dba58cb9a33c7b42f1e13760fe151b5050616a605309ae4",
+      "exitCodes": {
+        "legacy": 1,
+        "native": 1
+      }
+    },
+    {
+      "case": "lfsr-lfsr_minimal_reduction-17-fault0",
+      "report": "parity.json",
+      "schemaVersion": 1,
+      "legacy": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "native": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "expected": [
+        "Entry.SerialScoreboard"
+      ],
+      "missing": {
+        "legacy": [],
+        "native": []
+      },
+      "unexpected": {
+        "legacy": [],
+        "native": []
+      },
+      "seedMismatches": [],
+      "matched": true,
+      "traceMatched": true,
+      "fixture": "minimal",
+      "style": "REDUCTION",
+      "seed": 17,
+      "fault": 0,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "3c66d7269a0951fdcd553175f7678eaf94a5c0a32e13a203a747d664eba57fb7",
+      "exitCodes": {
+        "legacy": 0,
+        "native": 0
+      }
+    },
+    {
+      "case": "lfsr-lfsr_prbs7_loop-1-fault0",
+      "report": "parity.json",
+      "schemaVersion": 1,
+      "legacy": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "native": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "expected": [
+        "Entry.SerialScoreboard"
+      ],
+      "missing": {
+        "legacy": [],
+        "native": []
+      },
+      "unexpected": {
+        "legacy": [],
+        "native": []
+      },
+      "seedMismatches": [],
+      "matched": true,
+      "traceMatched": true,
+      "fixture": "prbs7",
+      "style": "LOOP",
+      "seed": 1,
+      "fault": 0,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "f6f6e6ce6082df9b7b4fec542fd0287acbd39066c3da240a819b1fc22a9abe64",
+      "exitCodes": {
+        "legacy": 0,
+        "native": 0
+      }
+    },
+    {
+      "case": "lfsr-lfsr_prbs7_loop-1-fault1",
+      "report": "negative-control.json",
+      "matched": true,
+      "negativeControl": true,
+      "schemaVersion": 1,
+      "fixture": "prbs7",
+      "style": "LOOP",
+      "seed": 1,
+      "fault": 1,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "f6f6e6ce6082df9b7b4fec542fd0287acbd39066c3da240a819b1fc22a9abe64",
+      "exitCodes": {
+        "legacy": 1,
+        "native": 1
+      }
+    },
+    {
+      "case": "lfsr-lfsr_prbs7_loop-1-fault2",
+      "report": "negative-control.json",
+      "matched": true,
+      "negativeControl": true,
+      "schemaVersion": 1,
+      "fixture": "prbs7",
+      "style": "LOOP",
+      "seed": 1,
+      "fault": 2,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "f6f6e6ce6082df9b7b4fec542fd0287acbd39066c3da240a819b1fc22a9abe64",
+      "exitCodes": {
+        "legacy": 1,
+        "native": 1
+      }
+    },
+    {
+      "case": "lfsr-lfsr_prbs7_loop-17-fault0",
+      "report": "parity.json",
+      "schemaVersion": 1,
+      "legacy": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "native": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "expected": [
+        "Entry.SerialScoreboard"
+      ],
+      "missing": {
+        "legacy": [],
+        "native": []
+      },
+      "unexpected": {
+        "legacy": [],
+        "native": []
+      },
+      "seedMismatches": [],
+      "matched": true,
+      "traceMatched": true,
+      "fixture": "prbs7",
+      "style": "LOOP",
+      "seed": 17,
+      "fault": 0,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "0c2db104370344c81e3bd6744c017dbd6e6f16a780ecafc319116497be332183",
+      "exitCodes": {
+        "legacy": 0,
+        "native": 0
+      }
+    },
+    {
+      "case": "lfsr-lfsr_prbs7_reduction-1-fault0",
+      "report": "parity.json",
+      "schemaVersion": 1,
+      "legacy": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "native": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "expected": [
+        "Entry.SerialScoreboard"
+      ],
+      "missing": {
+        "legacy": [],
+        "native": []
+      },
+      "unexpected": {
+        "legacy": [],
+        "native": []
+      },
+      "seedMismatches": [],
+      "matched": true,
+      "traceMatched": true,
+      "fixture": "prbs7",
+      "style": "REDUCTION",
+      "seed": 1,
+      "fault": 0,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "f6f6e6ce6082df9b7b4fec542fd0287acbd39066c3da240a819b1fc22a9abe64",
+      "exitCodes": {
+        "legacy": 0,
+        "native": 0
+      }
+    },
+    {
+      "case": "lfsr-lfsr_prbs7_reduction-1-fault1",
+      "report": "negative-control.json",
+      "matched": true,
+      "negativeControl": true,
+      "schemaVersion": 1,
+      "fixture": "prbs7",
+      "style": "REDUCTION",
+      "seed": 1,
+      "fault": 1,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "f6f6e6ce6082df9b7b4fec542fd0287acbd39066c3da240a819b1fc22a9abe64",
+      "exitCodes": {
+        "legacy": 1,
+        "native": 1
+      }
+    },
+    {
+      "case": "lfsr-lfsr_prbs7_reduction-1-fault2",
+      "report": "negative-control.json",
+      "matched": true,
+      "negativeControl": true,
+      "schemaVersion": 1,
+      "fixture": "prbs7",
+      "style": "REDUCTION",
+      "seed": 1,
+      "fault": 2,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "f6f6e6ce6082df9b7b4fec542fd0287acbd39066c3da240a819b1fc22a9abe64",
+      "exitCodes": {
+        "legacy": 1,
+        "native": 1
+      }
+    },
+    {
+      "case": "lfsr-lfsr_prbs7_reduction-17-fault0",
+      "report": "parity.json",
+      "schemaVersion": 1,
+      "legacy": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "native": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "expected": [
+        "Entry.SerialScoreboard"
+      ],
+      "missing": {
+        "legacy": [],
+        "native": []
+      },
+      "unexpected": {
+        "legacy": [],
+        "native": []
+      },
+      "seedMismatches": [],
+      "matched": true,
+      "traceMatched": true,
+      "fixture": "prbs7",
+      "style": "REDUCTION",
+      "seed": 17,
+      "fault": 0,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "0c2db104370344c81e3bd6744c017dbd6e6f16a780ecafc319116497be332183",
+      "exitCodes": {
+        "legacy": 0,
+        "native": 0
+      }
+    },
+    {
+      "case": "lfsr-lfsr_scrambler_loop-1-fault0",
+      "report": "parity.json",
+      "schemaVersion": 1,
+      "legacy": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "native": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "expected": [
+        "Entry.SerialScoreboard"
+      ],
+      "missing": {
+        "legacy": [],
+        "native": []
+      },
+      "unexpected": {
+        "legacy": [],
+        "native": []
+      },
+      "seedMismatches": [],
+      "matched": true,
+      "traceMatched": true,
+      "fixture": "scrambler",
+      "style": "LOOP",
+      "seed": 1,
+      "fault": 0,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "235a951e39cf3e86ca2531b600f8d2bcc273bfdf83d2d09210294da4e38c0b1b",
+      "exitCodes": {
+        "legacy": 0,
+        "native": 0
+      }
+    },
+    {
+      "case": "lfsr-lfsr_scrambler_loop-1-fault1",
+      "report": "negative-control.json",
+      "matched": true,
+      "negativeControl": true,
+      "schemaVersion": 1,
+      "fixture": "scrambler",
+      "style": "LOOP",
+      "seed": 1,
+      "fault": 1,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "235a951e39cf3e86ca2531b600f8d2bcc273bfdf83d2d09210294da4e38c0b1b",
+      "exitCodes": {
+        "legacy": 1,
+        "native": 1
+      }
+    },
+    {
+      "case": "lfsr-lfsr_scrambler_loop-1-fault2",
+      "report": "negative-control.json",
+      "matched": true,
+      "negativeControl": true,
+      "schemaVersion": 1,
+      "fixture": "scrambler",
+      "style": "LOOP",
+      "seed": 1,
+      "fault": 2,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "235a951e39cf3e86ca2531b600f8d2bcc273bfdf83d2d09210294da4e38c0b1b",
+      "exitCodes": {
+        "legacy": 1,
+        "native": 1
+      }
+    },
+    {
+      "case": "lfsr-lfsr_scrambler_loop-17-fault0",
+      "report": "parity.json",
+      "schemaVersion": 1,
+      "legacy": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "native": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "expected": [
+        "Entry.SerialScoreboard"
+      ],
+      "missing": {
+        "legacy": [],
+        "native": []
+      },
+      "unexpected": {
+        "legacy": [],
+        "native": []
+      },
+      "seedMismatches": [],
+      "matched": true,
+      "traceMatched": true,
+      "fixture": "scrambler",
+      "style": "LOOP",
+      "seed": 17,
+      "fault": 0,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "afb859cd7da3383715ae02244031f0eaa0d6a9e3aa3131b60993e698f0ec82e4",
+      "exitCodes": {
+        "legacy": 0,
+        "native": 0
+      }
+    },
+    {
+      "case": "lfsr-lfsr_scrambler_reduction-1-fault0",
+      "report": "parity.json",
+      "schemaVersion": 1,
+      "legacy": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "native": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "expected": [
+        "Entry.SerialScoreboard"
+      ],
+      "missing": {
+        "legacy": [],
+        "native": []
+      },
+      "unexpected": {
+        "legacy": [],
+        "native": []
+      },
+      "seedMismatches": [],
+      "matched": true,
+      "traceMatched": true,
+      "fixture": "scrambler",
+      "style": "REDUCTION",
+      "seed": 1,
+      "fault": 0,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "235a951e39cf3e86ca2531b600f8d2bcc273bfdf83d2d09210294da4e38c0b1b",
+      "exitCodes": {
+        "legacy": 0,
+        "native": 0
+      }
+    },
+    {
+      "case": "lfsr-lfsr_scrambler_reduction-1-fault1",
+      "report": "negative-control.json",
+      "matched": true,
+      "negativeControl": true,
+      "schemaVersion": 1,
+      "fixture": "scrambler",
+      "style": "REDUCTION",
+      "seed": 1,
+      "fault": 1,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "235a951e39cf3e86ca2531b600f8d2bcc273bfdf83d2d09210294da4e38c0b1b",
+      "exitCodes": {
+        "legacy": 1,
+        "native": 1
+      }
+    },
+    {
+      "case": "lfsr-lfsr_scrambler_reduction-1-fault2",
+      "report": "negative-control.json",
+      "matched": true,
+      "negativeControl": true,
+      "schemaVersion": 1,
+      "fixture": "scrambler",
+      "style": "REDUCTION",
+      "seed": 1,
+      "fault": 2,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "235a951e39cf3e86ca2531b600f8d2bcc273bfdf83d2d09210294da4e38c0b1b",
+      "exitCodes": {
+        "legacy": 1,
+        "native": 1
+      }
+    },
+    {
+      "case": "lfsr-lfsr_scrambler_reduction-17-fault0",
+      "report": "parity.json",
+      "schemaVersion": 1,
+      "legacy": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "native": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "expected": [
+        "Entry.SerialScoreboard"
+      ],
+      "missing": {
+        "legacy": [],
+        "native": []
+      },
+      "unexpected": {
+        "legacy": [],
+        "native": []
+      },
+      "seedMismatches": [],
+      "matched": true,
+      "traceMatched": true,
+      "fixture": "scrambler",
+      "style": "REDUCTION",
+      "seed": 17,
+      "fault": 0,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "afb859cd7da3383715ae02244031f0eaa0d6a9e3aa3131b60993e698f0ec82e4",
+      "exitCodes": {
+        "legacy": 0,
+        "native": 0
+      }
+    }
+  ],
+  "baselineFixtures": [
+    "counter",
+    "dsp",
+    "cpu",
+    "axis-skid"
+  ],
+  "sourceSha256": {
+    "tools/lfsr_fixture.py": "d4b6f8b3a69034507883229293decaa0d8656dd39f2ee9193d1e18349ef6cdc1",
+    "tools/lfsr_ci.py": "4eebc67273d01c2220d70e9bfd05a5fdb6f90716f3e639ae4a7cf19270140169",
+    "examples/Lfsr/Tests.cs": "c5299fbf2af339b2c1a7982f965100d0769fa864a49fb8cb74e36e8179f5ffff",
+    "examples/Lfsr/lfsr_fixture.sv": "80a85ccf09c391a0c659dd0d2c3713704d3bf0f2649ac5af490c608d0cb749f8",
+    "tests/Fixtures/verilog-lfsr/COPYING": "38eab06c306519820a2ab0cf84fc4788ed7c43aa04829c8fcf3104a6307fb1cc",
+    "tests/Fixtures/verilog-lfsr/lfsr.v": "5502c8203b0dfc7246c1a2de93e60c199ded3c1d7840b106350d714f72a9a079",
+    "tests/Fixtures/verilog-lfsr/provenance.json": "27cb42470fd48d39d1f90a064801063ee8a90ab49f8dc18fbb8ab30d6b158804",
+    "tests/Tooling/test_lfsr_algebra.py": "f3387485ef2406ae070d6170381862d624fcb3a67cd7eb116339e85671bfaf35",
+    "tests/Tooling/test_lfsr_reference.py": "d00ee58da30a0379cf2614f632beb8800cb6c16eaa2e25096aaf91780bea0b49",
+    "tests/Tooling/test_lfsr_integrity.py": "207b507333283d5ca7f804266bbe2cf14e59e6974add6e52c5a926f3a4159ae0",
+    "tests/Tooling/test_lfsr_evidence.py": "ec63a8a11f3657c5d5e6b2875912080c12eaf05ef598869c9c355c9080018d07",
+    "tests/Tooling/test_runner_process.py": "ad8b52c71b0c16a8d75d5823f707b6f3fcf17872ec365a4d0480dc5704911d4b",
+    "tests/Tooling/test_runner_diagnostic_controls.py": "eb1d67c7b286124bf225eef86c796d1875d26c4cead1072a8c385089049f1c89"
+  },
+  "checkedVectorsPerRunner": 3860
+}

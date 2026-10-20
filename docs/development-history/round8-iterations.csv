@@ -1,0 +1,201 @@
+iteration,path,description
+1,tools/SharpTestBench.Runner/ManifestJsonContext.cs,Generate manifest and selection JSON metadata for AOT
+2,tools/SharpTestBench.Runner/JsonInput.cs,Deserialize manifests with generated metadata
+3,tools/SharpTestBench.Tools/SharpTestBench.Tools.csproj,Share generated manifest metadata with C# helpers
+4,tests/RunnerValidation/RunnerValidation.csproj,Exercise generated manifest metadata in contract probes
+5,tools/SharpTestBench.Runner/CompilePlan.cs,Serialize selected test names without reflection
+6,tools/SharpTestBench.Runner/EvidenceRecords.cs,"Define stable typed input, run, failure and process evidence schemas"
+7,tools/SharpTestBench.Runner/EvidenceJsonContext.cs,Generate all runner evidence serialization metadata
+8,tools/SharpTestBench.Runner/EvidenceWriter.cs,Write bounded atomic evidence through JsonElement without reflection
+9,tools/SharpTestBench.Runner/Program.cs,Serialize initial input attestation through generated metadata
+10,tools/SharpTestBench.Runner/Program.cs,Preserve complete run attestation using a typed AOT-safe schema
+11,tools/SharpTestBench.Runner/Program.cs,Preserve classified failure artifacts in AOT mode
+12,tools/SharpTestBench.Runner/ProcessExecution.cs,Generate typed process evidence while preserving timeout and drain diagnostics
+13,tests/RunnerValidation/RunnerValidation.csproj,Link typed evidence metadata into the contract validation executable
+14,tools/SharpTestBench.Tools/SelfInvocation.cs,Select the current self-contained apphost without confusing managed test hosts
+15,tools/SharpTestBench.Tools/Core.cs,Route helper child commands through their actual apphost or managed DLL
+16,tools/SharpTestBench.Runner/JsonInput.cs,Resolve review15: preserve UTF-8 BOM stripping with an explicit Unicode escape
+17,tools/SharpTestBench.Runner/ManifestJsonContext.cs,Use explicit partial context class bodies for ManifestJsonContext
+18,tools/SharpTestBench.Runner/EvidenceJsonContext.cs,Use explicit partial context class bodies for EvidenceJsonContext
+19,tools/SharpTestBench.Tools/BenchmarkCommand.cs,Use the published apphost in BenchmarkCommand child processes
+20,tools/SharpTestBench.Tools/DebuggerCommand.cs,Use the published apphost in DebuggerCommand child processes
+21,tools/SharpTestBench.Tools/IcarusLayoutsCommand.cs,Use the published apphost in IcarusLayoutsCommand child processes
+22,tools/SharpTestBench.Tools/LifecycleCommands.cs,Use the published apphost in LifecycleCommands child processes
+23,tools/SharpTestBench.Tools/ManifestCheckCommand.cs,Use the published apphost in ManifestCheckCommand child processes
+24,tools/SharpTestBench.Tools/NativeFaultsCommand.cs,Use the published apphost in NativeFaultsCommand child processes
+25,tools/SharpTestBench.Tools/NativePerformanceCommand.cs,Use the published apphost in NativePerformanceCommand child processes
+26,tools/SharpTestBench.Tools/ParityCiCommand.cs,Use the published apphost in ParityCiCommand child processes
+27,tools/SharpTestBench.Tools/StageCommand.cs,Use the published apphost in StageCommand child processes
+28,tools/SharpTestBench.Tools/WorkloadCommand.cs,Use the published apphost in WorkloadCommand child processes
+29,tools/SharpTestBench.Runner/SharpTestBench.Runner.csproj,Enforce runner AOT analysis and reflection-free JSON even in managed builds
+30,tools/SharpTestBench.Tools/WorkerPublishCommand.cs,Plan guarded native worker publishing with explicit ReadyToRun and NativeAOT profiles
+31,tools/SharpTestBench.Runner/Program.cs,Resolve review30: give native runner a successful help smoke path
+32,tools/SharpTestBench.Tools/PerformancePrepareCommand.cs,Resolve review30: use the apphost for packed benchmark child commands
+33,tools/SharpTestBench.Tools/WorkerPublishCommand.cs,Resolve review30: contain worker publish outputs under the build directory
+34,tools/SharpTestBench.Tools/Program.cs,Expose native worker publishing and integrity verification commands
+35,tools/SharpTestBench.Tools/Program.cs,Discover native deployment commands in helper CLI help
+36,tools/SharpTestBench.Tools/WorkerArtifact.cs,Attest and verify complete native worker file sets including ReadyToRun code
+37,tools/SharpTestBench.Tools/WorkerPublishCommand.cs,Publish complete integrity manifests and expose independent native worker verification
+38,Makefile,"Add portable GNU Make build, local test, coverage and native publish/run entry points"
+39,tools/Makefile,Add a tools-directory Makefile delegating to the repository build contract
+40,docs/NATIVE_WORKERS.md,"Document the migration audit, honest native modes, prerequisites and existing coverage tools"
+41,README.md,Correct stale worker orchestration language in the main README
+42,README.md,Remove the obsolete Python runner helper reference
+43,README.md,Link the native worker and local coverage guide
+44,tests/SharpTestBench.Tools.Tests/SelfInvocationTests.cs,Test apphost or managed fallback for /worker/SharpTestBench.Tools
+45,tests/SharpTestBench.Tools.Tests/SelfInvocationTests.cs,Test apphost or managed fallback for /sdk/dotnet
+46,tools/SharpTestBench.Tools/WorkerPublishCommand.cs,Resolve review45: reject linked RID and leaf publish directories before writing
+47,Makefile,Resolve review45: include the retained contract suite in make test
+48,tests/SharpTestBench.Tools.Tests/SelfInvocationTests.cs,Reject unrelated apphost /different/SharpTestBench.Tools
+49,tests/SharpTestBench.Tools.Tests/SelfInvocationTests.cs,Reject unrelated apphost /worker/SharpTestBench.Tools.Tests
+50,tests/SharpTestBench.Tools.Tests/WorkerPublishTests.cs,Test all six native publish profiles without claiming cross-host execution
+51,tests/SharpTestBench.Tools.Tests/WorkerInvalidPlanTests.cs,reject cross-host publish linux-x64 to linux-arm64
+52,tests/SharpTestBench.Tools.Tests/WorkerInvalidPlanTests.cs,reject cross-host publish linux-x64 to win-x64
+53,tests/SharpTestBench.Tools.Tests/WorkerInvalidPlanTests.cs,reject cross-host publish linux-x64 to win-arm64
+54,tests/SharpTestBench.Tools.Tests/WorkerInvalidPlanTests.cs,reject cross-host publish linux-x64 to osx-x64
+55,tests/SharpTestBench.Tools.Tests/WorkerInvalidPlanTests.cs,reject cross-host publish linux-x64 to osx-arm64
+56,tests/SharpTestBench.Tools.Tests/WorkerInvalidPlanTests.cs,reject cross-host publish linux-arm64 to linux-x64
+57,tests/SharpTestBench.Tools.Tests/WorkerInvalidPlanTests.cs,reject cross-host publish linux-arm64 to win-x64
+58,tests/SharpTestBench.Tools.Tests/WorkerInvalidPlanTests.cs,reject cross-host publish linux-arm64 to win-arm64
+59,tests/SharpTestBench.Tools.Tests/WorkerInvalidPlanTests.cs,reject cross-host publish linux-arm64 to osx-x64
+60,tests/SharpTestBench.Tools.Tests/WorkerInvalidPlanTests.cs,reject cross-host publish linux-arm64 to osx-arm64
+61,tests/SharpTestBench.Tools.Tests/WorkerInvalidPlanTests.cs,reject cross-host publish win-x64 to linux-x64
+62,tests/SharpTestBench.Tools.Tests/WorkerInvalidPlanTests.cs,reject cross-host publish win-x64 to linux-arm64
+63,tests/SharpTestBench.Tools.Tests/WorkerInvalidPlanTests.cs,reject cross-host publish win-x64 to win-arm64
+64,tests/SharpTestBench.Tools.Tests/WorkerInvalidPlanTests.cs,reject cross-host publish win-x64 to osx-x64
+65,tests/SharpTestBench.Tools.Tests/WorkerInvalidPlanTests.cs,reject cross-host publish win-x64 to osx-arm64
+66,tests/SharpTestBench.Tools.Tests/WorkerInvalidPlanTests.cs,reject cross-host publish win-arm64 to linux-x64
+67,tests/SharpTestBench.Tools.Tests/WorkerInvalidPlanTests.cs,reject cross-host publish win-arm64 to linux-arm64
+68,tests/SharpTestBench.Tools.Tests/WorkerInvalidPlanTests.cs,reject cross-host publish win-arm64 to win-x64
+69,tests/SharpTestBench.Tools.Tests/WorkerInvalidPlanTests.cs,reject cross-host publish win-arm64 to osx-x64
+70,tests/SharpTestBench.Tools.Tests/WorkerInvalidPlanTests.cs,reject cross-host publish win-arm64 to osx-arm64
+71,tests/SharpTestBench.Tools.Tests/WorkerInvalidPlanTests.cs,reject cross-host publish osx-x64 to linux-x64
+72,tests/SharpTestBench.Tools.Tests/WorkerInvalidPlanTests.cs,reject cross-host publish osx-x64 to linux-arm64
+73,tests/SharpTestBench.Tools.Tests/WorkerInvalidPlanTests.cs,reject cross-host publish osx-x64 to win-x64
+74,tests/SharpTestBench.Tools.Tests/WorkerInvalidPlanTests.cs,reject cross-host publish osx-x64 to win-arm64
+75,tests/SharpTestBench.Tools.Tests/WorkerInvalidPlanTests.cs,reject cross-host publish osx-x64 to osx-arm64
+76,tests/SharpTestBench.Tools.Tests/WorkerInvalidPlanTests.cs,reject cross-host publish osx-arm64 to linux-x64
+77,tests/SharpTestBench.Tools.Tests/WorkerInvalidPlanTests.cs,reject cross-host publish osx-arm64 to linux-arm64
+78,tests/SharpTestBench.Tools.Tests/WorkerInvalidPlanTests.cs,reject cross-host publish osx-arm64 to win-x64
+79,tests/SharpTestBench.Tools.Tests/WorkerInvalidPlanTests.cs,reject cross-host publish osx-arm64 to win-arm64
+80,tests/SharpTestBench.Tools.Tests/WorkerInvalidPlanTests.cs,reject cross-host publish osx-arm64 to osx-x64
+81,tests/SharpTestBench.Tools.Tests/WorkerInvalidPlanTests.cs,reject unsupported worker RID linux-x86 for all
+82,tests/SharpTestBench.Tools.Tests/WorkerInvalidPlanTests.cs,reject unsupported worker RID linux-x86 for tools
+83,tests/SharpTestBench.Tools.Tests/WorkerInvalidPlanTests.cs,reject unsupported worker RID linux-x86 for runner
+84,tests/SharpTestBench.Tools.Tests/WorkerInvalidPlanTests.cs,reject unsupported worker RID win-x86 for all
+85,tests/SharpTestBench.Tools.Tests/WorkerInvalidPlanTests.cs,reject unsupported worker RID win-x86 for tools
+86,tests/SharpTestBench.Tools.Tests/WorkerInvalidPlanTests.cs,reject unsupported worker RID win-x86 for runner
+87,tests/SharpTestBench.Tools.Tests/WorkerInvalidPlanTests.cs,reject unsupported worker RID freebsd-x64 for all
+88,tests/SharpTestBench.Tools.Tests/WorkerInvalidPlanTests.cs,reject unsupported worker RID freebsd-x64 for tools
+89,tests/SharpTestBench.Tools.Tests/WorkerInvalidPlanTests.cs,reject unsupported worker RID freebsd-x64 for runner
+90,tests/SharpTestBench.Tools.Tests/WorkerInvalidPlanTests.cs,reject unsupported worker RID Linux-x64 for all
+91,tests/SharpTestBench.Tools.Tests/WorkerInvalidPlanTests.cs,reject unsupported worker RID Linux-x64 for tools
+92,tests/SharpTestBench.Tools.Tests/WorkerInvalidPlanTests.cs,reject unsupported worker RID Linux-x64 for runner
+93,tests/SharpTestBench.Tools.Tests/WorkerInvalidPlanTests.cs,reject unknown deployment mode ''
+94,tests/SharpTestBench.Tools.Tests/WorkerInvalidPlanTests.cs,reject unknown deployment mode 'publish'
+95,tests/SharpTestBench.Tools.Tests/WorkerInvalidPlanTests.cs,reject unknown deployment mode 'TOOLS'
+96,tests/SharpTestBench.Tools.Tests/WorkerInvalidPlanTests.cs,reject unknown deployment mode 'NativeAOT'
+97,tests/SharpTestBench.Tools.Tests/WorkerInvalidPlanTests.cs,reject unknown deployment mode 'run'
+98,tests/SharpTestBench.Tools.Tests/WorkerInvalidPlanTests.cs,reject unknown deployment mode 'tools;invalid'
+99,tests/SharpTestBench.Tools.Tests/WorkerInvalidPlanTests.cs,reject source-overwriting worker output .. for tools
+100,tests/SharpTestBench.Tools.Tests/WorkerInvalidPlanTests.cs,reject source-overwriting worker output .. for runner
+101,tests/SharpTestBench.Tools.Tests/WorkerInvalidPlanTests.cs,reject source-overwriting worker output tools for tools
+102,tests/SharpTestBench.Tools.Tests/WorkerInvalidPlanTests.cs,reject source-overwriting worker output tools for runner
+103,tests/SharpTestBench.Tools.Tests/WorkerInvalidPlanTests.cs,reject source-overwriting worker output src for tools
+104,tests/SharpTestBench.Tools.Tests/WorkerInvalidPlanTests.cs,reject source-overwriting worker output src for runner
+105,tests/SharpTestBench.Tools.Tests/WorkerInvalidPlanTests.cs,reject source-overwriting worker output build for tools
+106,tests/SharpTestBench.Tools.Tests/WorkerInvalidPlanTests.cs,reject source-overwriting worker output build for runner
+107,tests/SharpTestBench.Tools.Tests/WorkerInvalidPlanTests.cs,reject source-overwriting worker output build/../tools for tools
+108,tests/SharpTestBench.Tools.Tests/WorkerInvalidPlanTests.cs,reject source-overwriting worker output build/../tools for runner
+109,tests/SharpTestBench.Tools.Tests/WorkerInvalidPlanTests.cs,reject source-overwriting worker output build/workers/../../src for tools
+110,tests/SharpTestBench.Tools.Tests/WorkerInvalidPlanTests.cs,reject source-overwriting worker output build/workers/../../src for runner
+111,tests/SharpTestBench.Tools.Tests/WorkerIntegrityTests.cs,detect managed tampering in native worker with core.bin
+112,tests/SharpTestBench.Tools.Tests/WorkerIntegrityTests.cs,detect runtime tampering in native worker with core.bin
+113,tests/SharpTestBench.Tools.Tests/WorkerIntegrityTests.cs,detect removed tampering in native worker with core.bin
+114,tests/SharpTestBench.Tools.Tests/WorkerIntegrityTests.cs,detect extra tampering in native worker with core.bin
+115,tests/SharpTestBench.Tools.Tests/WorkerIntegrityTests.cs,detect identity tampering in native worker with core.bin
+116,tests/SharpTestBench.Tools.Tests/WorkerIntegrityTests.cs,detect managed tampering in native worker with codec.dll
+117,tests/SharpTestBench.Tools.Tests/WorkerIntegrityTests.cs,detect runtime tampering in native worker with codec.dll
+118,tests/SharpTestBench.Tools.Tests/WorkerIntegrityTests.cs,detect removed tampering in native worker with codec.dll
+119,tests/SharpTestBench.Tools.Tests/WorkerIntegrityTests.cs,detect extra tampering in native worker with codec.dll
+120,tests/SharpTestBench.Tools.Tests/WorkerIntegrityTests.cs,detect identity tampering in native worker with codec.dll
+121,tests/SharpTestBench.Tools.Tests/WorkerIntegrityTests.cs,detect managed tampering in native worker with config.json
+122,tests/SharpTestBench.Tools.Tests/WorkerIntegrityTests.cs,detect runtime tampering in native worker with config.json
+123,tests/SharpTestBench.Tools.Tests/WorkerIntegrityTests.cs,detect removed tampering in native worker with config.json
+124,tests/SharpTestBench.Tools.Tests/WorkerIntegrityTests.cs,detect extra tampering in native worker with config.json
+125,tests/SharpTestBench.Tools.Tests/WorkerIntegrityTests.cs,detect identity tampering in native worker with config.json
+126,tests/SharpTestBench.Tools.Tests/WorkerIntegrityTests.cs,detect managed tampering in native worker with native.so
+127,tests/SharpTestBench.Tools.Tests/WorkerIntegrityTests.cs,detect runtime tampering in native worker with native.so
+128,tests/SharpTestBench.Tools.Tests/WorkerIntegrityTests.cs,detect removed tampering in native worker with native.so
+129,tests/SharpTestBench.Tools.Tests/WorkerIntegrityTests.cs,detect extra tampering in native worker with native.so
+130,tests/SharpTestBench.Tools.Tests/WorkerIntegrityTests.cs,detect identity tampering in native worker with native.so
+131,tests/SharpTestBench.Tools.Tests/WorkerIntegrityTests.cs,detect managed tampering in native worker with message.resources
+132,tests/SharpTestBench.Tools.Tests/WorkerIntegrityTests.cs,detect runtime tampering in native worker with message.resources
+133,tests/SharpTestBench.Tools.Tests/WorkerIntegrityTests.cs,detect removed tampering in native worker with message.resources
+134,tests/SharpTestBench.Tools.Tests/WorkerIntegrityTests.cs,detect extra tampering in native worker with message.resources
+135,tests/SharpTestBench.Tools.Tests/WorkerIntegrityTests.cs,detect identity tampering in native worker with message.resources
+136,tests/SharpTestBench.Tools.Tests/WorkerIntegrityTests.cs,detect managed tampering in native worker with a file.bin
+137,tests/SharpTestBench.Tools.Tests/WorkerIntegrityTests.cs,detect runtime tampering in native worker with a file.bin
+138,tests/SharpTestBench.Tools.Tests/WorkerIntegrityTests.cs,detect removed tampering in native worker with a file.bin
+139,tests/SharpTestBench.Tools.Tests/WorkerIntegrityTests.cs,detect extra tampering in native worker with a file.bin
+140,tests/SharpTestBench.Tools.Tests/WorkerIntegrityTests.cs,detect identity tampering in native worker with a file.bin
+141,tests/SharpTestBench.Tools.Tests/WorkerIntegrityTests.cs,detect managed tampering in native worker with lambda.bin
+142,tests/SharpTestBench.Tools.Tests/WorkerIntegrityTests.cs,detect runtime tampering in native worker with lambda.bin
+143,tests/SharpTestBench.Tools.Tests/WorkerIntegrityTests.cs,detect removed tampering in native worker with lambda.bin
+144,tests/SharpTestBench.Tools.Tests/WorkerIntegrityTests.cs,detect extra tampering in native worker with lambda.bin
+145,tests/SharpTestBench.Tools.Tests/WorkerIntegrityTests.cs,detect identity tampering in native worker with lambda.bin
+146,tests/SharpTestBench.Tools.Tests/WorkerIntegrityTests.cs,detect managed tampering in native worker with nested-name.dat
+147,tests/SharpTestBench.Tools.Tests/WorkerIntegrityTests.cs,detect runtime tampering in native worker with nested-name.dat
+148,tests/SharpTestBench.Tools.Tests/WorkerIntegrityTests.cs,detect removed tampering in native worker with nested-name.dat
+149,tests/SharpTestBench.Tools.Tests/WorkerIntegrityTests.cs,detect extra tampering in native worker with nested-name.dat
+150,tests/SharpTestBench.Tools.Tests/WorkerIntegrityTests.cs,detect identity tampering in native worker with nested-name.dat
+151,tests/SharpTestBench.Tools.Tests/WorkerIntegrityTests.cs,detect managed tampering in native worker with zlib.dat
+152,tests/SharpTestBench.Tools.Tests/WorkerIntegrityTests.cs,detect runtime tampering in native worker with zlib.dat
+153,tests/SharpTestBench.Tools.Tests/WorkerIntegrityTests.cs,detect removed tampering in native worker with zlib.dat
+154,tests/SharpTestBench.Tools.Tests/WorkerIntegrityTests.cs,detect extra tampering in native worker with zlib.dat
+155,tests/SharpTestBench.Tools.Tests/WorkerIntegrityTests.cs,detect identity tampering in native worker with zlib.dat
+156,tests/SharpTestBench.Tools.Tests/WorkerIntegrityTests.cs,detect managed tampering in native worker with runtime.version
+157,tests/SharpTestBench.Tools.Tests/WorkerIntegrityTests.cs,detect runtime tampering in native worker with runtime.version
+158,tests/SharpTestBench.Tools.Tests/WorkerIntegrityTests.cs,detect removed tampering in native worker with runtime.version
+159,tests/SharpTestBench.Tools.Tests/WorkerIntegrityTests.cs,detect extra tampering in native worker with runtime.version
+160,tests/SharpTestBench.Tools.Tests/WorkerIntegrityTests.cs,detect identity tampering in native worker with runtime.version
+161,tests/SharpTestBench.Tools.Tests/WorkerInvocationBoundaryTests.cs,"worker apphost name/directory identity: worker, SharpTestBench.Tools, same=True"
+162,tests/SharpTestBench.Tools.Tests/WorkerInvocationBoundaryTests.cs,"worker apphost name/directory identity: worker, SharpTestBench.Tools, same=False"
+163,tests/SharpTestBench.Tools.Tests/WorkerInvocationBoundaryTests.cs,"worker apphost name/directory identity: worker, SharpTestBench.Tools.Tests, same=True"
+164,tests/SharpTestBench.Tools.Tests/WorkerInvocationBoundaryTests.cs,"worker apphost name/directory identity: worker, dotnet, same=True"
+165,tests/SharpTestBench.Tools.Tests/WorkerInvocationBoundaryTests.cs,"worker apphost name/directory identity: worker, OtherWorker, same=True"
+166,tests/SharpTestBench.Tools.Tests/WorkerInvocationBoundaryTests.cs,"worker apphost name/directory identity: worker, SharpTestBench.Tools-copy, same=True"
+167,tests/SharpTestBench.Tools.Tests/WorkerInvocationBoundaryTests.cs,"worker apphost name/directory identity: worker with spaces, SharpTestBench.Tools, same=True"
+168,tests/SharpTestBench.Tools.Tests/WorkerInvocationBoundaryTests.cs,"worker apphost name/directory identity: worker with spaces, SharpTestBench.Tools, same=False"
+169,tests/SharpTestBench.Tools.Tests/WorkerInvocationBoundaryTests.cs,"worker apphost name/directory identity: worker with spaces, SharpTestBench.Tools.Tests, same=True"
+170,tests/SharpTestBench.Tools.Tests/WorkerInvocationBoundaryTests.cs,"worker apphost name/directory identity: worker with spaces, dotnet, same=True"
+171,tests/SharpTestBench.Tools.Tests/WorkerInvocationBoundaryTests.cs,"worker apphost name/directory identity: worker with spaces, OtherWorker, same=True"
+172,tests/SharpTestBench.Tools.Tests/WorkerInvocationBoundaryTests.cs,"worker apphost name/directory identity: worker with spaces, SharpTestBench.Tools-copy, same=True"
+173,tests/SharpTestBench.Tools.Tests/WorkerInvocationBoundaryTests.cs,"worker apphost name/directory identity: worker-long-name, SharpTestBench.Tools, same=True"
+174,tests/SharpTestBench.Tools.Tests/WorkerInvocationBoundaryTests.cs,"worker apphost name/directory identity: worker-long-name, SharpTestBench.Tools, same=False"
+175,tests/SharpTestBench.Tools.Tests/WorkerInvocationBoundaryTests.cs,"worker apphost name/directory identity: worker-long-name, SharpTestBench.Tools.Tests, same=True"
+176,tests/SharpTestBench.Tools.Tests/WorkerInvocationBoundaryTests.cs,"worker apphost name/directory identity: worker-long-name, dotnet, same=True"
+177,tests/SharpTestBench.Tools.Tests/WorkerInvocationBoundaryTests.cs,"worker apphost name/directory identity: worker-long-name, OtherWorker, same=True"
+178,tests/SharpTestBench.Tools.Tests/WorkerInvocationBoundaryTests.cs,"worker apphost name/directory identity: worker-long-name, SharpTestBench.Tools-copy, same=True"
+179,tests/SharpTestBench.Tools.Tests/WorkerInvocationBoundaryTests.cs,"worker apphost name/directory identity: worker.unicode, SharpTestBench.Tools, same=True"
+180,tests/SharpTestBench.Tools.Tests/WorkerInvocationBoundaryTests.cs,"worker apphost name/directory identity: worker.unicode, SharpTestBench.Tools, same=False"
+181,tests/SharpTestBench.Tools.Tests/WorkerInvocationBoundaryTests.cs,"worker apphost name/directory identity: worker.unicode, SharpTestBench.Tools.Tests, same=True"
+182,tests/SharpTestBench.Tools.Tests/WorkerInvocationBoundaryTests.cs,"worker apphost name/directory identity: worker.unicode, dotnet, same=True"
+183,tests/SharpTestBench.Tools.Tests/WorkerInvocationBoundaryTests.cs,"worker apphost name/directory identity: worker.unicode, OtherWorker, same=True"
+184,tests/SharpTestBench.Tools.Tests/WorkerInvocationBoundaryTests.cs,"worker apphost name/directory identity: worker.unicode, SharpTestBench.Tools-copy, same=True"
+185,tests/SharpTestBench.Tools.Tests/WorkerLinkTests.cs,publish must reject output link for tools before writes
+186,tests/SharpTestBench.Tools.Tests/WorkerLinkTests.cs,publish must reject output link for runner before writes
+187,tests/SharpTestBench.Tools.Tests/WorkerLinkTests.cs,publish must reject rid link for tools before writes
+188,tests/SharpTestBench.Tools.Tests/WorkerLinkTests.cs,publish must reject rid link for runner before writes
+189,tests/SharpTestBench.Tools.Tests/WorkerLinkTests.cs,publish must reject leaf link for tools before writes
+190,tests/SharpTestBench.Tools.Tests/WorkerLinkTests.cs,publish must reject leaf link for runner before writes
+191,tests/SharpTestBench.Tools.Tests/GeneratedManifestTests.cs,generated AOT manifest metadata seed 0 and case-sensitive nested keys
+192,tests/SharpTestBench.Tools.Tests/GeneratedManifestTests.cs,generated AOT manifest metadata seed 1 and case-sensitive nested keys
+193,tests/SharpTestBench.Tools.Tests/GeneratedManifestTests.cs,generated AOT manifest metadata seed 17 and case-sensitive nested keys
+194,tests/SharpTestBench.Tools.Tests/GeneratedManifestTests.cs,generated AOT manifest metadata seed 99 and case-sensitive nested keys
+195,tests/SharpTestBench.Tools.Tests/GeneratedManifestTests.cs,generated AOT manifest metadata seed 4294967296 and case-sensitive nested keys
+196,tests/SharpTestBench.Tools.Tests/GeneratedManifestTests.cs,generated AOT manifest metadata seed 18446744073709551615 and case-sensitive nested keys
+197,tests/SharpTestBench.Tools.Tests/GeneratedManifestTests.cs,generated AOT manifest metadata seed 9223372036854775808 and case-sensitive nested keys
+198,tests/SharpTestBench.Tools.Tests/GeneratedManifestTests.cs,generated AOT manifest metadata seed 65535 and case-sensitive nested keys
+199,tests/SharpTestBench.Tools.Tests/GeneratedManifestTests.cs,generated AOT manifest metadata seed 65536 and case-sensitive nested keys
+200,tests/SharpTestBench.Tools.Tests/GeneratedManifestTests.cs,generated AOT manifest metadata seed 2147483648 and case-sensitive nested keys

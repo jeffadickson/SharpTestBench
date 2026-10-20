@@ -1,0 +1,116 @@
+{
+  "status": "passed",
+  "suites": {
+    "SharpTestBench.Tests": {
+      "total": 480,
+      "passed": 480,
+      "failed": 0,
+      "skipped": 0
+    },
+    "SharpTestBench.Generators.Tests": {
+      "total": 17,
+      "passed": 17,
+      "failed": 0,
+      "skipped": 0
+    },
+    "SharpTestBench.Tools.Tests": {
+      "total": 711,
+      "passed": 711,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "contracts": 742,
+  "totalPassed": 1950,
+  "coverage": {
+    "suites": {
+      "managed": {
+        "assemblies": [
+          "SharpTestBench"
+        ],
+        "lines": {
+          "covered": 515,
+          "valid": 2119,
+          "percent": 24.30391694195375
+        },
+        "branches": {
+          "covered": 346,
+          "valid": 1297,
+          "percent": 26.676946800308404
+        }
+      },
+      "generators": {
+        "assemblies": [
+          "SharpTestBench.Generators"
+        ],
+        "lines": {
+          "covered": 60,
+          "valid": 68,
+          "percent": 88.23529411764706
+        },
+        "branches": {
+          "covered": 52,
+          "valid": 72,
+          "percent": 72.22222222222223
+        }
+      },
+      "helpers": {
+        "assemblies": [
+          "SharpTestBench.Tools"
+        ],
+        "lines": {
+          "covered": 1308,
+          "valid": 3075,
+          "percent": 42.53658536585366
+        },
+        "branches": {
+          "covered": 690,
+          "valid": 3043,
+          "percent": 22.674991784423266
+        }
+      },
+      "contracts": {
+        "assemblies": [
+          "SharpTestBench.Tools"
+        ],
+        "lines": {
+          "covered": 487,
+          "valid": 3075,
+          "percent": 15.83739837398374
+        },
+        "branches": {
+          "covered": 650,
+          "valid": 3043,
+          "percent": 21.360499507065395
+        }
+      }
+    },
+    "combined": {
+      "assemblies": [
+        "SharpTestBench",
+        "SharpTestBench.Generators",
+        "SharpTestBench.Tools"
+      ],
+      "lines": {
+        "covered": 2136,
+        "valid": 5262,
+        "percent": 40.592930444697835
+      },
+      "branches": {
+        "covered": 1480,
+        "valid": 4394,
+        "percent": 33.68229403732362
+      }
+    }
+  },
+  "native": {
+    "status": "passed",
+    "nativeAotSimulation": true,
+    "nativeAotFailure": "simulator_failure",
+    "readyToRunHeaderBytes": 196,
+    "selfContainedLaunch": true,
+    "publishedChildInvocation": true
+  },
+  "tamperingRejectedAndArtifactRestored": true,
+  "sourceHashesMatched": true
+}

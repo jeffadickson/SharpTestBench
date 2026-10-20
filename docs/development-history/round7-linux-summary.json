@@ -1,0 +1,147 @@
+{
+  "suites": {
+    "SharpTestBench.Tests": {
+      "passed": 480,
+      "total": 480
+    },
+    "SharpTestBench.Generators.Tests": {
+      "passed": 17,
+      "total": 17
+    },
+    "SharpTestBench.Tools.Tests": {
+      "passed": 540,
+      "total": 540
+    }
+  },
+  "contracts": 742,
+  "total": 1779,
+  "sourceHashes": {
+    "tests/SharpTestBench.Tools.Tests/BenchmarkEvidenceTests.cs": "9d8f2023211a1a75f721ebf1c11fd38234790e58d1f1a507932a5db59849364e",
+    "tests/SharpTestBench.Tools.Tests/DapObjectTests.cs": "8ac2b0d729717a4f8d142d64c8bad4cd6a76e26b5c1e0ece76a79b41d0a609a2",
+    "tests/SharpTestBench.Tools.Tests/DapSegmentationTests.cs": "0fe3cd3c4041a5559a173af88c8c2f23199665cb0ae76d3c4569971ab4783b6f",
+    "tests/SharpTestBench.Tools.Tests/PerformancePairingTests.cs": "2d9b8596e956ff9dbda1cbccc15aec412dddfaa05338f55180d8d9267ff82d3f",
+    "tests/SharpTestBench.Tools.Tests/WorkloadNegativeCountTests.cs": "874aab24a622beaa89b2fb4d799eb5af520b679785a15afe6a37febe8e4b5392",
+    "tests/SharpTestBench.Tools.Tests/WorkloadPlanTests.cs": "616a2fcbea170115f0867b1ad8fa061d12336e4b01d0b50213d006827c337278",
+    "tools/SharpTestBench.Tools/BenchmarkCommand.cs": "d53a67f5eed224b119bcd9e80e5be4491df9cdf9ed8dea71cd5ead9a601c6086",
+    "tools/SharpTestBench.Tools/DebuggerCommand.cs": "020c08dad22c71d40879a59ad658f66ce2de6c4303cf8dbbf8bd9c51c5e033e0",
+    "tools/SharpTestBench.Tools/NativePerformanceCommand.cs": "f348a53c7cff046941b4905800d5b26ff6b08db9ce4351ba3e6846072f582e09",
+    "tools/SharpTestBench.Tools/WorkloadPlans.cs": "5af0e95f7e1cd2632d6c43d267f4ee8ad42f5c6fd8bb85674bebb58399346e47"
+  },
+  "powershell": {
+    "version": "7.6.7",
+    "platform": "Unix",
+    "user": "jeffd",
+    "status": "passed"
+  },
+  "benchmarkRecords": 10,
+  "debugger": {
+    "breakpoint": true,
+    "local": {
+      "result": "41",
+      "type": "int",
+      "variablesReference": 0
+    },
+    "exception": {
+      "breakMode": "always",
+      "description": "Exception thrown: 'System.InvalidOperationException' in DebugIntegration.dll: 'STB_DEBUG_EXPECTED_EXCEPTION'",
+      "details": {
+        "evaluateName": "$exception",
+        "formattedDescription": "**System.InvalidOperationException** 'STB_DEBUG_EXPECTED_EXCEPTION'",
+        "fullTypeName": "System.InvalidOperationException",
+        "message": "STB_DEBUG_EXPECTED_EXCEPTION",
+        "source": "DebugIntegration",
+        "stackTrace": "   at Entry.BreakpointAndException(TestContext c) in /home/jeffd/.cache/sharptestbench-round5-20261019/tests/DebugIntegration/Entry.cs:line 35",
+        "typeName": "InvalidOperationException"
+      },
+      "exceptionId": "CLR/System.InvalidOperationException"
+    },
+    "shutdown": "expected test failure; simulator exited"
+  },
+  "cpu": {
+    "iterations": 2,
+    "commits": 24,
+    "positiveRecords": 2,
+    "detectedFaults": 6
+  },
+  "coverage": {
+    "suites": {
+      "managed": {
+        "assemblies": [
+          "SharpTestBench"
+        ],
+        "lines": {
+          "covered": 515,
+          "valid": 2119,
+          "percent": 24.30391694195375
+        },
+        "branches": {
+          "covered": 346,
+          "valid": 1297,
+          "percent": 26.676946800308404
+        }
+      },
+      "generators": {
+        "assemblies": [
+          "SharpTestBench.Generators"
+        ],
+        "lines": {
+          "covered": 60,
+          "valid": 68,
+          "percent": 88.23529411764706
+        },
+        "branches": {
+          "covered": 52,
+          "valid": 72,
+          "percent": 72.22222222222223
+        }
+      },
+      "helpers": {
+        "assemblies": [
+          "SharpTestBench.Tools"
+        ],
+        "lines": {
+          "covered": 423,
+          "valid": 2094,
+          "percent": 20.200573065902578
+        },
+        "branches": {
+          "covered": 550,
+          "valid": 2853,
+          "percent": 19.27795303189625
+        }
+      },
+      "contracts": {
+        "assemblies": [
+          "SharpTestBench.Tools"
+        ],
+        "lines": {
+          "covered": 487,
+          "valid": 2094,
+          "percent": 23.25692454632283
+        },
+        "branches": {
+          "covered": 650,
+          "valid": 2853,
+          "percent": 22.783035401331933
+        }
+      }
+    },
+    "combined": {
+      "assemblies": [
+        "SharpTestBench",
+        "SharpTestBench.Generators",
+        "SharpTestBench.Tools"
+      ],
+      "lines": {
+        "covered": 1258,
+        "valid": 4281,
+        "percent": 29.385657556645643
+      },
+      "branches": {
+        "covered": 1340,
+        "valid": 4204,
+        "percent": 31.874405328258803
+      }
+    }
+  }
+}

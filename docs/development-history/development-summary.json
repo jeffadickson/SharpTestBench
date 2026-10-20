@@ -1,0 +1,732 @@
+{
+  "base": "eb3275f83f7472be23903d5d7f5676ece7671ac9",
+  "head": "e96c8ae14664b1b06e5e032f29acaa635faa0180",
+  "branch": "main",
+  "iterations": 200,
+  "localCommits": 8,
+  "checkpoints": [
+    {
+      "iteration": 25,
+      "gates": [
+        {
+          "command": [
+            "dotnet",
+            "build",
+            "SharpTestBench.slnx",
+            "-c",
+            "Release",
+            "-p:RestoreLockedMode=true",
+            "--disable-build-servers",
+            "-m:1",
+            "-v:q"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "dotnet",
+            "build",
+            "tools/SharpTestBench.Runner",
+            "-c",
+            "Release",
+            "--disable-build-servers",
+            "-v:q"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "dotnet",
+            "run",
+            "--project",
+            "tests/SharpTestBench.Tests",
+            "-c",
+            "Release",
+            "--no-build",
+            "--",
+            "-xml",
+            "C:\\Users\\jeffd\\Documents\\Codex\\2026-10-17\\continuing-from-sharptestbench-native-ci-watch\\work\\SharpTestBench\\build\\checkpoint-25\\managed.xml"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "dotnet",
+            "run",
+            "--project",
+            "tests/SharpTestBench.Generators.Tests",
+            "-c",
+            "Release",
+            "--no-build",
+            "--",
+            "-xml",
+            "C:\\Users\\jeffd\\Documents\\Codex\\2026-10-17\\continuing-from-sharptestbench-native-ci-watch\\work\\SharpTestBench\\build\\checkpoint-25\\generators.xml"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "C:\\Users\\jeffd\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+            "-m",
+            "unittest",
+            "discover",
+            "-s",
+            "tests/Tooling",
+            "-q"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "git",
+            "diff",
+            "--check"
+          ],
+          "exitCode": 0
+        }
+      ],
+      "commit": "ad09b7cb362ad0f7272461759ef60e99957d9aa1",
+      "message": "fix: reject malformed and nonpassing parity results (#61)"
+    },
+    {
+      "iteration": 50,
+      "gates": [
+        {
+          "command": [
+            "dotnet",
+            "build",
+            "SharpTestBench.slnx",
+            "-c",
+            "Release",
+            "-p:RestoreLockedMode=true",
+            "--disable-build-servers",
+            "-m:1",
+            "-v:q"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "dotnet",
+            "build",
+            "tools/SharpTestBench.Runner",
+            "-c",
+            "Release",
+            "--disable-build-servers",
+            "-v:q"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "dotnet",
+            "run",
+            "--project",
+            "tests/SharpTestBench.Tests",
+            "-c",
+            "Release",
+            "--no-build",
+            "--",
+            "-xml",
+            "C:\\Users\\jeffd\\Documents\\Codex\\2026-10-17\\continuing-from-sharptestbench-native-ci-watch\\work\\SharpTestBench\\build\\checkpoint-50\\managed.xml"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "dotnet",
+            "run",
+            "--project",
+            "tests/SharpTestBench.Generators.Tests",
+            "-c",
+            "Release",
+            "--no-build",
+            "--",
+            "-xml",
+            "C:\\Users\\jeffd\\Documents\\Codex\\2026-10-17\\continuing-from-sharptestbench-native-ci-watch\\work\\SharpTestBench\\build\\checkpoint-50\\generators.xml"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "C:\\Users\\jeffd\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+            "-m",
+            "unittest",
+            "discover",
+            "-s",
+            "tests/Tooling",
+            "-q"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "git",
+            "diff",
+            "--check"
+          ],
+          "exitCode": 0
+        }
+      ],
+      "commit": "a6774c2200f75f2ea8a2c8a420a5ff66fa303769",
+      "message": "fix: attest exact parity selection and case seeds (#61)"
+    },
+    {
+      "iteration": 75,
+      "gates": [
+        {
+          "command": [
+            "dotnet",
+            "build",
+            "SharpTestBench.slnx",
+            "-c",
+            "Release",
+            "--no-restore",
+            "--disable-build-servers",
+            "-m:1",
+            "-v:q"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "dotnet",
+            "build",
+            "tools/SharpTestBench.Runner",
+            "-c",
+            "Release",
+            "--no-restore",
+            "--disable-build-servers",
+            "-v:q"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "dotnet",
+            "run",
+            "--project",
+            "tests/SharpTestBench.Tests",
+            "-c",
+            "Release",
+            "--no-build",
+            "--",
+            "-xml",
+            "C:\\Users\\jeffd\\Documents\\Codex\\2026-10-17\\continuing-from-sharptestbench-native-ci-watch\\work\\SharpTestBench\\build\\checkpoint-75\\managed.xml"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "dotnet",
+            "run",
+            "--project",
+            "tests/SharpTestBench.Generators.Tests",
+            "-c",
+            "Release",
+            "--no-build",
+            "--",
+            "-xml",
+            "C:\\Users\\jeffd\\Documents\\Codex\\2026-10-17\\continuing-from-sharptestbench-native-ci-watch\\work\\SharpTestBench\\build\\checkpoint-75\\generators.xml"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "C:\\Users\\jeffd\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+            "-m",
+            "unittest",
+            "discover",
+            "-s",
+            "tests/Tooling",
+            "-q"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "git",
+            "diff",
+            "--check"
+          ],
+          "exitCode": 0
+        }
+      ],
+      "commit": "2b1ec7f163e2e8b973f1a0faed979170eac6300b",
+      "message": "fix: preserve parity failure reports and protect input files (#61)"
+    },
+    {
+      "iteration": 100,
+      "gates": [
+        {
+          "command": [
+            "dotnet",
+            "build",
+            "SharpTestBench.slnx",
+            "-c",
+            "Release",
+            "--no-restore",
+            "--disable-build-servers",
+            "-m:1",
+            "-v:q"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "dotnet",
+            "build",
+            "tools/SharpTestBench.Runner",
+            "-c",
+            "Release",
+            "--no-restore",
+            "--disable-build-servers",
+            "-v:q"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "dotnet",
+            "tests/SharpTestBench.Tests/bin/Release/net10.0/SharpTestBench.Tests.dll",
+            "-xml",
+            "C:\\Users\\jeffd\\Documents\\Codex\\2026-10-17\\continuing-from-sharptestbench-native-ci-watch\\work\\SharpTestBench\\build\\checkpoint-100\\managed.xml"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "dotnet",
+            "tests/SharpTestBench.Generators.Tests/bin/Release/net10.0/SharpTestBench.Generators.Tests.dll",
+            "-xml",
+            "C:\\Users\\jeffd\\Documents\\Codex\\2026-10-17\\continuing-from-sharptestbench-native-ci-watch\\work\\SharpTestBench\\build\\checkpoint-100\\generators.xml"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "C:\\Users\\jeffd\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+            "-m",
+            "unittest",
+            "discover",
+            "-s",
+            "tests/Tooling",
+            "-q"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "git",
+            "diff",
+            "--check"
+          ],
+          "exitCode": 0
+        }
+      ],
+      "commit": "4b5b23c095d4e4b42d5240aaa4bc423f65f68093",
+      "message": "feat: define explicit Counter DSP and CPU parity manifests (#60)"
+    },
+    {
+      "iteration": 125,
+      "gates": [
+        {
+          "command": [
+            "dotnet",
+            "build",
+            "SharpTestBench.slnx",
+            "-c",
+            "Release",
+            "--no-restore",
+            "--disable-build-servers",
+            "-m:1",
+            "-v:q"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "dotnet",
+            "build",
+            "tools/SharpTestBench.Runner",
+            "-c",
+            "Release",
+            "--no-restore",
+            "--disable-build-servers",
+            "-v:q"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "dotnet",
+            "tests/SharpTestBench.Tests/bin/Release/net10.0/SharpTestBench.Tests.dll",
+            "-xml",
+            "C:\\Users\\jeffd\\Documents\\Codex\\2026-10-17\\continuing-from-sharptestbench-native-ci-watch\\work\\SharpTestBench\\build\\checkpoint-125\\managed.xml"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "dotnet",
+            "tests/SharpTestBench.Generators.Tests/bin/Release/net10.0/SharpTestBench.Generators.Tests.dll",
+            "-xml",
+            "C:\\Users\\jeffd\\Documents\\Codex\\2026-10-17\\continuing-from-sharptestbench-native-ci-watch\\work\\SharpTestBench\\build\\checkpoint-125\\generators.xml"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "C:\\Users\\jeffd\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+            "-m",
+            "unittest",
+            "discover",
+            "-s",
+            "tests/Tooling",
+            "-q"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "git",
+            "diff",
+            "--check"
+          ],
+          "exitCode": 0
+        }
+      ],
+      "commit": "fb228c2798ce996afd2bd5274c914041b204e7e1",
+      "message": "fix: validate standalone manifests before launching tools (#61)"
+    },
+    {
+      "iteration": 150,
+      "gates": [
+        {
+          "command": [
+            "dotnet",
+            "build",
+            "SharpTestBench.slnx",
+            "-c",
+            "Release",
+            "--no-restore",
+            "--disable-build-servers",
+            "-m:1",
+            "-v:q"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "dotnet",
+            "build",
+            "tools/SharpTestBench.Runner",
+            "-c",
+            "Release",
+            "--no-restore",
+            "--disable-build-servers",
+            "-v:q"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "dotnet",
+            "tests/SharpTestBench.Tests/bin/Release/net10.0/SharpTestBench.Tests.dll",
+            "-xml",
+            "C:\\Users\\jeffd\\Documents\\Codex\\2026-10-17\\continuing-from-sharptestbench-native-ci-watch\\work\\SharpTestBench\\build\\checkpoint-150\\managed.xml"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "dotnet",
+            "tests/SharpTestBench.Generators.Tests/bin/Release/net10.0/SharpTestBench.Generators.Tests.dll",
+            "-xml",
+            "C:\\Users\\jeffd\\Documents\\Codex\\2026-10-17\\continuing-from-sharptestbench-native-ci-watch\\work\\SharpTestBench\\build\\checkpoint-150\\generators.xml"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "C:\\Users\\jeffd\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+            "-m",
+            "unittest",
+            "discover",
+            "-s",
+            "tests/Tooling",
+            "-q"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "git",
+            "diff",
+            "--check"
+          ],
+          "exitCode": 0
+        }
+      ],
+      "commit": "95de153950a3f934d12fe5291e3fbd152f07a193",
+      "message": "fix: attest native results and retain all-failed regression evidence (#61)"
+    },
+    {
+      "iteration": 175,
+      "gates": [
+        {
+          "command": [
+            "dotnet",
+            "build",
+            "SharpTestBench.slnx",
+            "-c",
+            "Release",
+            "--no-restore",
+            "--disable-build-servers",
+            "-m:1",
+            "-v:q"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "dotnet",
+            "build",
+            "tools/SharpTestBench.Runner",
+            "-c",
+            "Release",
+            "--no-restore",
+            "--disable-build-servers",
+            "-v:q"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "dotnet",
+            "tests/SharpTestBench.Tests/bin/Release/net10.0/SharpTestBench.Tests.dll",
+            "-xml",
+            "C:\\Users\\jeffd\\Documents\\Codex\\2026-10-17\\continuing-from-sharptestbench-native-ci-watch\\work\\SharpTestBench\\build\\checkpoint-175\\managed.xml"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "dotnet",
+            "tests/SharpTestBench.Generators.Tests/bin/Release/net10.0/SharpTestBench.Generators.Tests.dll",
+            "-xml",
+            "C:\\Users\\jeffd\\Documents\\Codex\\2026-10-17\\continuing-from-sharptestbench-native-ci-watch\\work\\SharpTestBench\\build\\checkpoint-175\\generators.xml"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "C:\\Users\\jeffd\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+            "-m",
+            "unittest",
+            "discover",
+            "-s",
+            "tests/Tooling",
+            "-q"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "git",
+            "diff",
+            "--check"
+          ],
+          "exitCode": 0
+        }
+      ],
+      "commit": "a18325faa1578f5ffbe86d78e68ceeb0fd9ad085",
+      "message": "ci: qualify Counter DSP and CPU parity across seeds and fault controls (#60)"
+    },
+    {
+      "iteration": 200,
+      "gates": [
+        {
+          "command": [
+            "dotnet",
+            "build",
+            "SharpTestBench.slnx",
+            "-c",
+            "Release",
+            "--no-restore",
+            "--disable-build-servers",
+            "-m:1",
+            "-v:q"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "dotnet",
+            "build",
+            "tools/SharpTestBench.Runner",
+            "-c",
+            "Release",
+            "--no-restore",
+            "--disable-build-servers",
+            "-v:q"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "dotnet",
+            "tests/SharpTestBench.Tests/bin/Release/net10.0/SharpTestBench.Tests.dll",
+            "-xml",
+            "C:\\Users\\jeffd\\Documents\\Codex\\2026-10-17\\continuing-from-sharptestbench-native-ci-watch\\work\\SharpTestBench\\build\\checkpoint-200\\managed.xml"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "dotnet",
+            "tests/SharpTestBench.Generators.Tests/bin/Release/net10.0/SharpTestBench.Generators.Tests.dll",
+            "-xml",
+            "C:\\Users\\jeffd\\Documents\\Codex\\2026-10-17\\continuing-from-sharptestbench-native-ci-watch\\work\\SharpTestBench\\build\\checkpoint-200\\generators.xml"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "C:\\Users\\jeffd\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+            "-m",
+            "unittest",
+            "discover",
+            "-s",
+            "tests/Tooling",
+            "-q"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "git",
+            "diff",
+            "--check"
+          ],
+          "exitCode": 0
+        }
+      ],
+      "commit": "e96c8ae14664b1b06e5e032f29acaa635faa0180",
+      "message": "fix: preserve process diagnostics and isolate native runner workspaces (#61)"
+    }
+  ],
+  "windows": {
+    "managed": {
+      "total": 378,
+      "passed": 378,
+      "failed": 0
+    },
+    "generators": {
+      "total": 17,
+      "passed": 17,
+      "failed": 0
+    },
+    "toolingTests": 217
+  },
+  "linux": {
+    "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+    "sdk": "10.0.402",
+    "managed": {
+      "total": 378,
+      "passed": 378,
+      "failed": 0
+    },
+    "generators": {
+      "total": 17,
+      "passed": 17,
+      "failed": 0
+    },
+    "positiveParityCases": 6,
+    "negativeScoreboardControls": 4,
+    "cliFaults": [
+      {
+        "fault": "missing",
+        "detected": true,
+        "kind": "configuration_error"
+      },
+      {
+        "fault": "duplicate",
+        "detected": true,
+        "kind": "configuration_error"
+      },
+      {
+        "fault": "unknown",
+        "detected": true,
+        "kind": "configuration_error"
+      },
+      {
+        "fault": "skipped",
+        "detected": true,
+        "kind": "configuration_error"
+      },
+      {
+        "fault": "malformed",
+        "detected": true,
+        "kind": "configuration_error"
+      },
+      {
+        "fault": "failed",
+        "detected": true,
+        "kind": "assertion_failure"
+      },
+      {
+        "fault": "crash",
+        "detected": true,
+        "kind": "simulator_failure"
+      },
+      {
+        "fault": "compiler",
+        "detected": true,
+        "kind": "build_failure"
+      },
+      {
+        "fault": "timeout",
+        "detected": true,
+        "kind": "timeout"
+      },
+      {
+        "fault": "library",
+        "detected": true,
+        "kind": "configuration_error"
+      }
+    ],
+    "toolingTests": 217,
+    "allPassed": true
+  },
+  "pushStatus": "pushed and remote main verified",
+  "remoteMain": "e96c8ae14664b1b06e5e032f29acaa635faa0180",
+  "pullRequest62": {
+    "state": "open",
+    "draft": true,
+    "merged": false,
+    "head": "0318a864d9b570f9ffbc4857e7365ec9ed6a4736"
+  },
+  "githubWorkflows": [
+    {
+      "name": "Windows ARM64 native validation",
+      "status": "in_progress",
+      "url": "https://github.com/jeffadickson/SharpTestBench/actions/runs/39102879125"
+    },
+    {
+      "name": "API documentation",
+      "status": "in_progress",
+      "url": "https://github.com/jeffadickson/SharpTestBench/actions/runs/39102879128"
+    },
+    {
+      "name": "Dual runner parity (Icarus)",
+      "status": "in_progress",
+      "url": "https://github.com/jeffadickson/SharpTestBench/actions/runs/39102879144"
+    },
+    {
+      "name": "Build and simulator tests",
+      "status": "in_progress",
+      "url": "https://github.com/jeffadickson/SharpTestBench/actions/runs/39102879155"
+    }
+  ]
+}

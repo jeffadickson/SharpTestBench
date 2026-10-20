@@ -1,0 +1,123 @@
+{
+  "allPassed": true,
+  "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "managed": {
+    "total": 378,
+    "passed": 378
+  },
+  "generators": {
+    "total": 17,
+    "passed": 17
+  },
+  "toolingTests": 315,
+  "positiveParityCases": 6,
+  "negativeScoreboardControls": 4,
+  "manifestFeatures": {
+    "schemaVersion": 1,
+    "compilerOptions": true,
+    "parameterNegativeControl": true,
+    "selectedCaseParity": {
+      "schemaVersion": 1,
+      "legacy": [
+        [
+          "Tests.A_TypesAndSignals",
+          "passed"
+        ]
+      ],
+      "native": [
+        [
+          "Tests.A_TypesAndSignals",
+          "passed"
+        ]
+      ],
+      "expected": [
+        "Tests.A_TypesAndSignals"
+      ],
+      "missing": {
+        "legacy": [],
+        "native": []
+      },
+      "unexpected": {
+        "legacy": [],
+        "native": []
+      },
+      "seedMismatches": [],
+      "matched": true
+    },
+    "inputAttestation": true
+  },
+  "cliFaults": [
+    {
+      "fault": "missing",
+      "detected": true,
+      "kind": "configuration_error"
+    },
+    {
+      "fault": "duplicate",
+      "detected": true,
+      "kind": "configuration_error"
+    },
+    {
+      "fault": "unknown",
+      "detected": true,
+      "kind": "configuration_error"
+    },
+    {
+      "fault": "skipped",
+      "detected": true,
+      "kind": "configuration_error"
+    },
+    {
+      "fault": "malformed",
+      "detected": true,
+      "kind": "configuration_error"
+    },
+    {
+      "fault": "failed",
+      "detected": true,
+      "kind": "assertion_failure"
+    },
+    {
+      "fault": "crash",
+      "detected": true,
+      "kind": "simulator_failure"
+    },
+    {
+      "fault": "compiler",
+      "detected": true,
+      "kind": "build_failure"
+    },
+    {
+      "fault": "timeout",
+      "detected": true,
+      "kind": "timeout"
+    },
+    {
+      "fault": "library",
+      "detected": true,
+      "kind": "configuration_error"
+    }
+  ],
+  "inputMutations": [
+    {
+      "mutation": "source",
+      "detected": true
+    },
+    {
+      "mutation": "dependency",
+      "detected": true
+    },
+    {
+      "mutation": "header",
+      "detected": true
+    },
+    {
+      "mutation": "added-header",
+      "detected": true
+    },
+    {
+      "mutation": "added-dependency",
+      "detected": true
+    }
+  ]
+}

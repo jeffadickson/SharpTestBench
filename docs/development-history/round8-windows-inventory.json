@@ -1,0 +1,32 @@
+{
+  "platform": "Windows-11-10.0.26300-SP0",
+  "architecture": "AMD64",
+  "commands": {
+    "git": {
+      "exitCode": 0,
+      "output": "git version 2.55.0.windows.5\n"
+    },
+    "dotnet-sdks": {
+      "exitCode": 0,
+      "output": "10.0.402 [C:\\Program Files\\dotnet\\sdk]\n"
+    },
+    "python": {
+      "exitCode": 0,
+      "output": "Python 3.12.10\n"
+    },
+    "powershell": {
+      "exitCode": 0,
+      "output": "7.6.5\n"
+    }
+  },
+  "executables": {
+    "git": "C:\\Program Files\\Git\\cmd\\git.EXE",
+    "dotnet": "C:\\Program Files\\dotnet\\dotnet.EXE",
+    "python": "C:\\Users\\jeffd\\AppData\\Local\\Programs\\Python\\Python312\\python.EXE",
+    "pwsh": "C:\\Users\\jeffd\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.EXE",
+    "make": null,
+    "g++": null,
+    "cl": null,
+    "iverilog": null
+  }
+}

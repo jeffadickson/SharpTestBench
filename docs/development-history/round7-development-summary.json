@@ -1,0 +1,99 @@
+{
+  "head": "eb9e2f6c68e51e7a807f903e02257510b7b01973",
+  "base": "b272e007ede2c34c9a4cd2507526a1b0a818a36d",
+  "iterations": 200,
+  "newTestCases": 209,
+  "checkpoints": [
+    {
+      "iteration": 50,
+      "tests": {
+        "SharpTestBench.Generators.Tests": 17,
+        "SharpTestBench.Tests": 480,
+        "SharpTestBench.Tools.Tests": 381
+      },
+      "contracts": 742,
+      "commit": "c648d558af8bab63351f106438469db444f495b1"
+    },
+    {
+      "iteration": 100,
+      "tests": {
+        "SharpTestBench.Generators.Tests": 17,
+        "SharpTestBench.Tests": 480,
+        "SharpTestBench.Tools.Tests": 438
+      },
+      "contracts": 742,
+      "commit": "00adee9cc70a3e6aac0c10139dccab61c8a15a43"
+    },
+    {
+      "iteration": 150,
+      "tests": {
+        "SharpTestBench.Generators.Tests": 17,
+        "SharpTestBench.Tests": 480,
+        "SharpTestBench.Tools.Tests": 488
+      },
+      "contracts": 742,
+      "commit": "dcec5c9517d3568431853d31a6646cf211da41a7"
+    },
+    {
+      "iteration": 200,
+      "tests": {
+        "SharpTestBench.Generators.Tests": 17,
+        "SharpTestBench.Tests": 480,
+        "SharpTestBench.Tools.Tests": 540
+      },
+      "contracts": 742,
+      "commit": "eb9e2f6c68e51e7a807f903e02257510b7b01973"
+    }
+  ],
+  "commits": [
+    "c648d558af8bab63351f106438469db444f495b1 fix: validate complete benchmark evidence (#60)",
+    "00adee9cc70a3e6aac0c10139dccab61c8a15a43 fix: validate segmented debugger protocol messages (#60)",
+    "dcec5c9517d3568431853d31a6646cf211da41a7 fix: validate paired performance measurement rounds (#60)",
+    "eb9e2f6c68e51e7a807f903e02257510b7b01973 fix: validate workload plan boundaries (#60)"
+  ],
+  "totalPassingCasesPerPlatform": 1779,
+  "windowsCoverage": {
+    "assemblies": [
+      "SharpTestBench",
+      "SharpTestBench.Generators",
+      "SharpTestBench.Tools"
+    ],
+    "lines": {
+      "covered": 1258,
+      "valid": 4281,
+      "percent": 29.385657556645643
+    },
+    "branches": {
+      "covered": 1339,
+      "valid": 4204,
+      "percent": 31.850618458610846
+    }
+  },
+  "linuxCoverage": {
+    "assemblies": [
+      "SharpTestBench",
+      "SharpTestBench.Generators",
+      "SharpTestBench.Tools"
+    ],
+    "lines": {
+      "covered": 1258,
+      "valid": 4281,
+      "percent": 29.385657556645643
+    },
+    "branches": {
+      "covered": 1340,
+      "valid": 4204,
+      "percent": 31.874405328258803
+    }
+  },
+  "powershell": {
+    "version": "7.6.7",
+    "edition": "Core",
+    "platform": "Unix",
+    "user": "jeffd",
+    "command": "/opt/microsoft/powershell/7/pwsh"
+  },
+  "githubCi": "disabled",
+  "pushed": true,
+  "remoteHead": "eb9e2f6c68e51e7a807f903e02257510b7b01973"
+}

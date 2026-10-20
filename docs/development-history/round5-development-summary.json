@@ -1,0 +1,433 @@
+{
+  "startingSha": "cb7a50301ec82a12d73ba7505f091f493ed907f4",
+  "head": "32e41cd6e5337eb05d70add2fb6a12d82afae97a",
+  "iterations": 200,
+  "commits": [
+    "32e41cd6e5337eb05d70add2fb6a12d82afae97a refactor: remove superseded Python helper implementations (#60)",
+    "79f674b024ce4bbee897d57e83a3df91253a4702 feat: port helper tooling to C# and expand coverage (#60)",
+    "d1432d4341f73a8883b25f2e0441f195de4bc0f4 test: reject malformed and empty managed coverage evidence (#60)",
+    "af02491a0f158e847b3f02ec0b57a525b5bfb96b test: cover numeric overflow and representation boundaries (#60)",
+    "661a1463a8be743938869d563d87687e64708773 test: add managed coverage reporting and functional coverage boundaries (#60)"
+  ],
+  "checkpoints": [
+    {
+      "iteration": 50,
+      "managed": 420,
+      "generators": 17,
+      "helpers": 0,
+      "tooling": 668,
+      "gates": [
+        {
+          "command": [
+            "dotnet",
+            "build",
+            "SharpTestBench.slnx",
+            "-c",
+            "Release",
+            "--no-restore",
+            "--disable-build-servers",
+            "-m:1",
+            "-v:q"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "dotnet",
+            "tests/SharpTestBench.Tests/bin/Release/net10.0/SharpTestBench.Tests.dll",
+            "-xml",
+            "C:\\Users\\jeffd\\Documents\\Codex\\2026-10-17\\continuing-from-sharptestbench-native-ci-watch\\work\\SharpTestBench\\build\\round5\\checkpoint-50\\managed.xml"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "dotnet",
+            "tests/SharpTestBench.Generators.Tests/bin/Release/net10.0/SharpTestBench.Generators.Tests.dll",
+            "-xml",
+            "C:\\Users\\jeffd\\Documents\\Codex\\2026-10-17\\continuing-from-sharptestbench-native-ci-watch\\work\\SharpTestBench\\build\\round5\\checkpoint-50\\generators.xml"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "C:\\Users\\jeffd\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+            "-m",
+            "unittest",
+            "discover",
+            "-s",
+            "tests/Tooling",
+            "-q"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "git",
+            "diff",
+            "--check"
+          ],
+          "exitCode": 0
+        }
+      ]
+    },
+    {
+      "iteration": 100,
+      "managed": 468,
+      "generators": 17,
+      "helpers": 0,
+      "tooling": 668,
+      "gates": [
+        {
+          "command": [
+            "dotnet",
+            "build",
+            "SharpTestBench.slnx",
+            "-c",
+            "Release",
+            "--no-restore",
+            "--disable-build-servers",
+            "-m:1",
+            "-v:q"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "dotnet",
+            "tests/SharpTestBench.Tests/bin/Release/net10.0/SharpTestBench.Tests.dll",
+            "-xml",
+            "C:\\Users\\jeffd\\Documents\\Codex\\2026-10-17\\continuing-from-sharptestbench-native-ci-watch\\work\\SharpTestBench\\build\\round5\\checkpoint-100\\managed.xml"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "dotnet",
+            "tests/SharpTestBench.Generators.Tests/bin/Release/net10.0/SharpTestBench.Generators.Tests.dll",
+            "-xml",
+            "C:\\Users\\jeffd\\Documents\\Codex\\2026-10-17\\continuing-from-sharptestbench-native-ci-watch\\work\\SharpTestBench\\build\\round5\\checkpoint-100\\generators.xml"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "C:\\Users\\jeffd\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+            "-m",
+            "unittest",
+            "discover",
+            "-s",
+            "tests/Tooling",
+            "-q"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "C:\\Users\\jeffd\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+            "tools/managed_tests.py"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "C:\\Users\\jeffd\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+            "tools/code_coverage.py"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "git",
+            "diff",
+            "--check"
+          ],
+          "exitCode": 0
+        }
+      ]
+    },
+    {
+      "iteration": 150,
+      "managed": 468,
+      "generators": 17,
+      "helpers": 0,
+      "tooling": 715,
+      "gates": [
+        {
+          "command": [
+            "dotnet",
+            "build",
+            "SharpTestBench.slnx",
+            "-c",
+            "Release",
+            "--no-restore",
+            "--disable-build-servers",
+            "-m:1",
+            "-v:q"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "dotnet",
+            "tests/SharpTestBench.Tests/bin/Release/net10.0/SharpTestBench.Tests.dll",
+            "-xml",
+            "C:\\Users\\jeffd\\Documents\\Codex\\2026-10-17\\continuing-from-sharptestbench-native-ci-watch\\work\\SharpTestBench\\build\\round5\\checkpoint-150\\managed.xml"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "dotnet",
+            "tests/SharpTestBench.Generators.Tests/bin/Release/net10.0/SharpTestBench.Generators.Tests.dll",
+            "-xml",
+            "C:\\Users\\jeffd\\Documents\\Codex\\2026-10-17\\continuing-from-sharptestbench-native-ci-watch\\work\\SharpTestBench\\build\\round5\\checkpoint-150\\generators.xml"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "C:\\Users\\jeffd\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+            "-m",
+            "unittest",
+            "discover",
+            "-s",
+            "tests/Tooling",
+            "-q"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "C:\\Users\\jeffd\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+            "tools/managed_tests.py"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "C:\\Users\\jeffd\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+            "tools/code_coverage.py"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "git",
+            "diff",
+            "--check"
+          ],
+          "exitCode": 0
+        }
+      ]
+    },
+    {
+      "iteration": 200,
+      "managed": 480,
+      "generators": 17,
+      "helpers": 124,
+      "tooling": 742,
+      "gates": [
+        {
+          "command": [
+            "dotnet",
+            "build",
+            "SharpTestBench.slnx",
+            "-c",
+            "Release",
+            "-p:RestoreLockedMode=true",
+            "--disable-build-servers",
+            "-m:1",
+            "-v:q"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "dotnet",
+            "tests/SharpTestBench.Tests/bin/Release/net10.0/SharpTestBench.Tests.dll",
+            "-xml",
+            "C:\\Users\\jeffd\\Documents\\Codex\\2026-10-17\\continuing-from-sharptestbench-native-ci-watch\\work\\SharpTestBench\\build\\round5\\checkpoint-200\\managed.xml"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "dotnet",
+            "tests/SharpTestBench.Generators.Tests/bin/Release/net10.0/SharpTestBench.Generators.Tests.dll",
+            "-xml",
+            "C:\\Users\\jeffd\\Documents\\Codex\\2026-10-17\\continuing-from-sharptestbench-native-ci-watch\\work\\SharpTestBench\\build\\round5\\checkpoint-200\\generators.xml"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "C:\\Users\\jeffd\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+            "-m",
+            "unittest",
+            "discover",
+            "-s",
+            "tests/Tooling",
+            "-q"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "dotnet",
+            "tests/SharpTestBench.Tools.Tests/bin/Release/net10.0/SharpTestBench.Tools.Tests.dll",
+            "-xml",
+            "C:\\Users\\jeffd\\Documents\\Codex\\2026-10-17\\continuing-from-sharptestbench-native-ci-watch\\work\\SharpTestBench\\build\\round5\\checkpoint-200\\helpers.xml"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "dotnet",
+            "tools/SharpTestBench.Tools/bin/Release/net10.0/SharpTestBench.Tools.dll",
+            "managed-tests"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "dotnet",
+            "tools/SharpTestBench.Tools/bin/Release/net10.0/SharpTestBench.Tools.dll",
+            "code-coverage"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "git",
+            "diff",
+            "--check"
+          ],
+          "exitCode": 0
+        }
+      ]
+    }
+  ],
+  "finalCoverage": {
+    "suites": {
+      "managed": {
+        "assemblies": [
+          "SharpTestBench"
+        ],
+        "lines": {
+          "covered": 515,
+          "valid": 2119,
+          "percent": 24.30391694195375
+        },
+        "branches": {
+          "covered": 346,
+          "valid": 1297,
+          "percent": 26.676946800308404
+        }
+      },
+      "generators": {
+        "assemblies": [
+          "SharpTestBench.Generators"
+        ],
+        "lines": {
+          "covered": 60,
+          "valid": 68,
+          "percent": 88.23529411764706
+        },
+        "branches": {
+          "covered": 52,
+          "valid": 72,
+          "percent": 72.22222222222223
+        }
+      },
+      "helpers": {
+        "assemblies": [
+          "SharpTestBench.Tools"
+        ],
+        "lines": {
+          "covered": 334,
+          "valid": 2071,
+          "percent": 16.12747464992757
+        },
+        "branches": {
+          "covered": 398,
+          "valid": 2785,
+          "percent": 14.29084380610413
+        }
+      },
+      "contracts": {
+        "assemblies": [
+          "SharpTestBench.Tools"
+        ],
+        "lines": {
+          "covered": 485,
+          "valid": 2071,
+          "percent": 23.418638338966684
+        },
+        "branches": {
+          "covered": 648,
+          "valid": 2785,
+          "percent": 23.267504488330342
+        }
+      }
+    },
+    "combined": {
+      "assemblies": [
+        "SharpTestBench",
+        "SharpTestBench.Generators",
+        "SharpTestBench.Tools"
+      ],
+      "lines": {
+        "covered": 1220,
+        "valid": 4258,
+        "percent": 28.651949271958667
+      },
+      "branches": {
+        "covered": 1267,
+        "valid": 4136,
+        "percent": 30.63346228239845
+      }
+    }
+  },
+  "managedCases": 480,
+  "generatorCases": 17,
+  "helperCases": 124,
+  "contractCases": 742,
+  "totalCases": 1363,
+  "newCasesNet": 300,
+  "portedHelperImplementations": 62,
+  "legacyHelpersRetained": 0,
+  "rework": [
+    {
+      "checkpoint": 50,
+      "failure": "New tests used target-typed constructors through params and boolean Assert.Equal rejected by xUnit analyzer",
+      "correction": "Use explicit CoverageBin<int> and Assert.True/False"
+    },
+    {
+      "checkpoint": 50,
+      "review": "Fixed existing CI failure probe exact count and source copy inventory to include new cases"
+    },
+    {
+      "checkpoint": 50,
+      "failure": "Coverlet truncates rates to four decimals; tolerance 0.00001 was too strict",
+      "correction": "Allow less than one displayed unit (0.0001) while validating exact integer counters"
+    },
+    {
+      "checkpoint": 50,
+      "failure": "ReportGenerator emits a standard external Cobertura DOCTYPE",
+      "correction": "Strip only the exact standard declaration; reject all other DTD/entity declarations"
+    },
+    {
+      "checkpoint": 200,
+      "failure": "xUnit1051 requires the test cancellation token for CloseAsync",
+      "correction": "Pass Xunit.TestContext.Current.CancellationToken in both cleanup ownership tests"
+    }
+  ],
+  "linux": {
+    "sourcesMatched": 104,
+    "lfsrPositive": 16,
+    "lfsrNegative": 8,
+    "vectorsPerRunner": 1930
+  },
+  "pushed": true
+}

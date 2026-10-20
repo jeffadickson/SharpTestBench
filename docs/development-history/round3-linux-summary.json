@@ -1,0 +1,434 @@
+{
+  "cases": [
+    {
+      "case": "axis-axis_disabled-1-64-3-32",
+      "report": "parity.json",
+      "schemaVersion": 1,
+      "legacy": [
+        [
+          "Entry.StreamScoreboard",
+          "passed"
+        ]
+      ],
+      "native": [
+        [
+          "Entry.StreamScoreboard",
+          "passed"
+        ]
+      ],
+      "expected": [
+        "Entry.StreamScoreboard"
+      ],
+      "missing": {
+        "legacy": [],
+        "native": []
+      },
+      "unexpected": {
+        "legacy": [],
+        "native": []
+      },
+      "seedMismatches": [],
+      "matched": true,
+      "traceMatched": true,
+      "top": "axis_disabled",
+      "seed": 1,
+      "revision": "48ff7a7e2ef782cf778d47910cf85835c64b1bce",
+      "exitCodes": {
+        "legacy": 0,
+        "native": 0
+      }
+    },
+    {
+      "case": "axis-axis_disabled-1-64-3-32-negative",
+      "report": "negative-control.json",
+      "matched": true,
+      "negativeControl": true,
+      "schemaVersion": 1,
+      "top": "axis_disabled",
+      "seed": 1,
+      "revision": "48ff7a7e2ef782cf778d47910cf85835c64b1bce",
+      "exitCodes": {
+        "legacy": 1,
+        "native": 1
+      }
+    },
+    {
+      "case": "axis-axis_disabled-17-64-3-32",
+      "report": "parity.json",
+      "schemaVersion": 1,
+      "legacy": [
+        [
+          "Entry.StreamScoreboard",
+          "passed"
+        ]
+      ],
+      "native": [
+        [
+          "Entry.StreamScoreboard",
+          "passed"
+        ]
+      ],
+      "expected": [
+        "Entry.StreamScoreboard"
+      ],
+      "missing": {
+        "legacy": [],
+        "native": []
+      },
+      "unexpected": {
+        "legacy": [],
+        "native": []
+      },
+      "seedMismatches": [],
+      "matched": true,
+      "traceMatched": true,
+      "top": "axis_disabled",
+      "seed": 17,
+      "revision": "48ff7a7e2ef782cf778d47910cf85835c64b1bce",
+      "exitCodes": {
+        "legacy": 0,
+        "native": 0
+      }
+    },
+    {
+      "case": "axis-axis_disabled-17-64-3-32-negative",
+      "report": "negative-control.json",
+      "matched": true,
+      "negativeControl": true,
+      "schemaVersion": 1,
+      "top": "axis_disabled",
+      "seed": 17,
+      "revision": "48ff7a7e2ef782cf778d47910cf85835c64b1bce",
+      "exitCodes": {
+        "legacy": 1,
+        "native": 1
+      }
+    },
+    {
+      "case": "axis-axis_mode0-1-64-3-32",
+      "report": "parity.json",
+      "schemaVersion": 1,
+      "legacy": [
+        [
+          "Entry.StreamScoreboard",
+          "passed"
+        ]
+      ],
+      "native": [
+        [
+          "Entry.StreamScoreboard",
+          "passed"
+        ]
+      ],
+      "expected": [
+        "Entry.StreamScoreboard"
+      ],
+      "missing": {
+        "legacy": [],
+        "native": []
+      },
+      "unexpected": {
+        "legacy": [],
+        "native": []
+      },
+      "seedMismatches": [],
+      "matched": true,
+      "traceMatched": true,
+      "top": "axis_mode0",
+      "seed": 1,
+      "revision": "48ff7a7e2ef782cf778d47910cf85835c64b1bce",
+      "exitCodes": {
+        "legacy": 0,
+        "native": 0
+      }
+    },
+    {
+      "case": "axis-axis_mode0-1-64-3-32-negative",
+      "report": "negative-control.json",
+      "matched": true,
+      "negativeControl": true,
+      "schemaVersion": 1,
+      "top": "axis_mode0",
+      "seed": 1,
+      "revision": "48ff7a7e2ef782cf778d47910cf85835c64b1bce",
+      "exitCodes": {
+        "legacy": 1,
+        "native": 1
+      }
+    },
+    {
+      "case": "axis-axis_mode0-17-64-3-32",
+      "report": "parity.json",
+      "schemaVersion": 1,
+      "legacy": [
+        [
+          "Entry.StreamScoreboard",
+          "passed"
+        ]
+      ],
+      "native": [
+        [
+          "Entry.StreamScoreboard",
+          "passed"
+        ]
+      ],
+      "expected": [
+        "Entry.StreamScoreboard"
+      ],
+      "missing": {
+        "legacy": [],
+        "native": []
+      },
+      "unexpected": {
+        "legacy": [],
+        "native": []
+      },
+      "seedMismatches": [],
+      "matched": true,
+      "traceMatched": true,
+      "top": "axis_mode0",
+      "seed": 17,
+      "revision": "48ff7a7e2ef782cf778d47910cf85835c64b1bce",
+      "exitCodes": {
+        "legacy": 0,
+        "native": 0
+      }
+    },
+    {
+      "case": "axis-axis_mode0-17-64-3-32-negative",
+      "report": "negative-control.json",
+      "matched": true,
+      "negativeControl": true,
+      "schemaVersion": 1,
+      "top": "axis_mode0",
+      "seed": 17,
+      "revision": "48ff7a7e2ef782cf778d47910cf85835c64b1bce",
+      "exitCodes": {
+        "legacy": 1,
+        "native": 1
+      }
+    },
+    {
+      "case": "axis-axis_mode1-1-64-3-32",
+      "report": "parity.json",
+      "schemaVersion": 1,
+      "legacy": [
+        [
+          "Entry.StreamScoreboard",
+          "passed"
+        ]
+      ],
+      "native": [
+        [
+          "Entry.StreamScoreboard",
+          "passed"
+        ]
+      ],
+      "expected": [
+        "Entry.StreamScoreboard"
+      ],
+      "missing": {
+        "legacy": [],
+        "native": []
+      },
+      "unexpected": {
+        "legacy": [],
+        "native": []
+      },
+      "seedMismatches": [],
+      "matched": true,
+      "traceMatched": true,
+      "top": "axis_mode1",
+      "seed": 1,
+      "revision": "48ff7a7e2ef782cf778d47910cf85835c64b1bce",
+      "exitCodes": {
+        "legacy": 0,
+        "native": 0
+      }
+    },
+    {
+      "case": "axis-axis_mode1-1-64-3-32-negative",
+      "report": "negative-control.json",
+      "matched": true,
+      "negativeControl": true,
+      "schemaVersion": 1,
+      "top": "axis_mode1",
+      "seed": 1,
+      "revision": "48ff7a7e2ef782cf778d47910cf85835c64b1bce",
+      "exitCodes": {
+        "legacy": 1,
+        "native": 1
+      }
+    },
+    {
+      "case": "axis-axis_mode1-17-64-3-32",
+      "report": "parity.json",
+      "schemaVersion": 1,
+      "legacy": [
+        [
+          "Entry.StreamScoreboard",
+          "passed"
+        ]
+      ],
+      "native": [
+        [
+          "Entry.StreamScoreboard",
+          "passed"
+        ]
+      ],
+      "expected": [
+        "Entry.StreamScoreboard"
+      ],
+      "missing": {
+        "legacy": [],
+        "native": []
+      },
+      "unexpected": {
+        "legacy": [],
+        "native": []
+      },
+      "seedMismatches": [],
+      "matched": true,
+      "traceMatched": true,
+      "top": "axis_mode1",
+      "seed": 17,
+      "revision": "48ff7a7e2ef782cf778d47910cf85835c64b1bce",
+      "exitCodes": {
+        "legacy": 0,
+        "native": 0
+      }
+    },
+    {
+      "case": "axis-axis_mode1-17-64-3-32-negative",
+      "report": "negative-control.json",
+      "matched": true,
+      "negativeControl": true,
+      "schemaVersion": 1,
+      "top": "axis_mode1",
+      "seed": 17,
+      "revision": "48ff7a7e2ef782cf778d47910cf85835c64b1bce",
+      "exitCodes": {
+        "legacy": 1,
+        "native": 1
+      }
+    },
+    {
+      "case": "axis-axis_mode2-1-64-3-32",
+      "report": "parity.json",
+      "schemaVersion": 1,
+      "legacy": [
+        [
+          "Entry.StreamScoreboard",
+          "passed"
+        ]
+      ],
+      "native": [
+        [
+          "Entry.StreamScoreboard",
+          "passed"
+        ]
+      ],
+      "expected": [
+        "Entry.StreamScoreboard"
+      ],
+      "missing": {
+        "legacy": [],
+        "native": []
+      },
+      "unexpected": {
+        "legacy": [],
+        "native": []
+      },
+      "seedMismatches": [],
+      "matched": true,
+      "traceMatched": true,
+      "top": "axis_mode2",
+      "seed": 1,
+      "revision": "48ff7a7e2ef782cf778d47910cf85835c64b1bce",
+      "exitCodes": {
+        "legacy": 0,
+        "native": 0
+      }
+    },
+    {
+      "case": "axis-axis_mode2-1-64-3-32-negative",
+      "report": "negative-control.json",
+      "matched": true,
+      "negativeControl": true,
+      "schemaVersion": 1,
+      "top": "axis_mode2",
+      "seed": 1,
+      "revision": "48ff7a7e2ef782cf778d47910cf85835c64b1bce",
+      "exitCodes": {
+        "legacy": 1,
+        "native": 1
+      }
+    },
+    {
+      "case": "axis-axis_mode2-17-64-3-32",
+      "report": "parity.json",
+      "schemaVersion": 1,
+      "legacy": [
+        [
+          "Entry.StreamScoreboard",
+          "passed"
+        ]
+      ],
+      "native": [
+        [
+          "Entry.StreamScoreboard",
+          "passed"
+        ]
+      ],
+      "expected": [
+        "Entry.StreamScoreboard"
+      ],
+      "missing": {
+        "legacy": [],
+        "native": []
+      },
+      "unexpected": {
+        "legacy": [],
+        "native": []
+      },
+      "seedMismatches": [],
+      "matched": true,
+      "traceMatched": true,
+      "top": "axis_mode2",
+      "seed": 17,
+      "revision": "48ff7a7e2ef782cf778d47910cf85835c64b1bce",
+      "exitCodes": {
+        "legacy": 0,
+        "native": 0
+      }
+    },
+    {
+      "case": "axis-axis_mode2-17-64-3-32-negative",
+      "report": "negative-control.json",
+      "matched": true,
+      "negativeControl": true,
+      "schemaVersion": 1,
+      "top": "axis_mode2",
+      "seed": 17,
+      "revision": "48ff7a7e2ef782cf778d47910cf85835c64b1bce",
+      "exitCodes": {
+        "legacy": 1,
+        "native": 1
+      }
+    }
+  ],
+  "baselineFixtures": [
+    "counter",
+    "dsp",
+    "cpu"
+  ],
+  "sourceSha256": {
+    "tools/axis_ci.py": "a759cd7fb977e7979efdcbcee979b5f77a825219b20167d3335b6c6e388c6a42",
+    "tools/axis_fixture.py": "1d478d9772d6549dbac033d523335af7445d716153db27e86897b6adefb7105e",
+    "examples/AxisRegister/Tests.cs": "6409f384f9457f12e0686734fc0a4da1286e8aa250ed1c46e960123731a27186",
+    "examples/AxisRegister/axis_fixture.sv": "ce4c6ad8b10f4566d03bf1862df6a797ec10ddb7ba807eb539ebef9af39cfafa",
+    "tests/Fixtures/verilog-axis/axis_register.v": "599fde2d6c2d806643bbffb7c444297e69a71871f962d4b741ec1914342e0d39",
+    "tests/Fixtures/verilog-axis/COPYING": "8ea57f95365e9b16a5b516f422b71269183a1ae53bab5878ae6d69039e58fe77",
+    "tests/Fixtures/verilog-axis/provenance.json": "557f322a8970f3b6eb7bb982e2a5c5dbed24302cc411659dc905fa0f0330527d"
+  }
+}

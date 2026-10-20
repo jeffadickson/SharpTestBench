@@ -17,6 +17,8 @@ See [migration and examples](docs/MIGRATION_0_8.md).
 
 - [Documentation](docs/README.md)
 - [Repository layout and contributing](CONTRIBUTING.md)
+- [Resume development on another computer](docs/handoff/README.md)
+- [Saved development history and peer reviews](docs/development-history/README.md)
 - [All GitHub tasks](docs/TASKS_INDEX.md)
 - Open `SharpTestBench.slnx` to build the managed projects together.
 

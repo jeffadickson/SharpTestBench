@@ -1,0 +1,1285 @@
+{
+  "benchmarkAblationRecords": 30,
+  "sources": {
+    "tests/SharpTestBench.Tests/ArrayTests.cs": "b3ff6a0aa424c813d7073b71e35b5e2d66c97a3752f5461819718da117a6d29a",
+    "tests/SharpTestBench.Tests/CleanupTests.cs": "88a497c3d8325e2d140fe2815b68e652641791eef0919a3acb0165c7bfe1edc2",
+    "tests/SharpTestBench.Tests/CoverageBoundaryTests.cs": "3ee5a0d1850aa999f44d0ce6e4ff327bf54fc94a992beefd7c3f54d6b3ca64c3",
+    "tests/SharpTestBench.Tests/CoverageSafetyTests.cs": "c8aa36fb814ad6781ae394bd35942ad2f57babb7ed396455080f82fcccb4dd64",
+    "tests/SharpTestBench.Tests/LogicConversionTests.cs": "f520c3d1c33fd4a46fa994114cf02a83a70969680a0956d09b9fab458d977313",
+    "tests/SharpTestBench.Tests/LogicTransformTests.cs": "9e78e77ebb19163da1466cbe45a8c4c7b8a09641f9cffb4efdfb6a298605f46b",
+    "tests/SharpTestBench.Tests/NumericBoundaryTests.cs": "6694cab4ad66624870d27cf4c6bf8adbab361ebff1d47207a9ee79a306d922e4",
+    "tests/SharpTestBench.Tests/Program.cs": "f9ac87de4e538f6d70b073a507e1b7ee944ca8e52efb94ea05761a665296ad83",
+    "tests/SharpTestBench.Tests/SharpTestBench.Tests.csproj": "014c3fe2744813a30e3b240a49b1b26ad435a771422b1a556ee01c813fbf1611",
+    "tests/SharpTestBench.Tests/VectorTextTests.cs": "96cfe3bc4b74b49611d3a8f4fbfd19714651fca7e2f6343ba71cb1d1786cc0a2",
+    "tests/SharpTestBench.Tests/array-reference.json": "e8297a63cd6f4189bee4b9ae2931559a222fff1c370b36f64ca116fbad147284",
+    "tests/SharpTestBench.Tests/logic-reference.json": "807c5517855586d87cb71e0d80ced7dbe8035d7f4f0e617b215022fede653d4d",
+    "tests/SharpTestBench.Tests/nine-state-reference.txt": "caccc2f93b05c4754b82fd966a7956762103f21881208272eabc27d78f47cec2",
+    "tests/SharpTestBench.Tests/packages.lock.json": "59ee5766b8a66d33aafbe8b36ba0378854bdf9853687000b6abdd560f6ce8bb7",
+    "tests/SharpTestBench.Tools.Tests/AdapterPathTests.cs": "bac444a4b83553c3f53b432199d004ed865241e1332ab116c436af1c22864eef",
+    "tests/SharpTestBench.Tools.Tests/DapTests.cs": "c8361601d85229cffe6b565d5f3d9569f79a32ec84ca006e6c599f6da459327a",
+    "tests/SharpTestBench.Tools.Tests/DependencyTests.cs": "ce075c74ede1c68379f7351b794b65f04ed2786f5005a195bc61b33e7029ac4b",
+    "tests/SharpTestBench.Tools.Tests/FixtureTests.cs": "2d571de32c0a14dbad0f423d04c5a77075cd163f0061d5cc6c4818229e3430ef",
+    "tests/SharpTestBench.Tools.Tests/HelperTests.cs": "a58b35aedc3ebe26bd3e9d40b2689157b621ff9a26ffae2f2513e278fb345e18",
+    "tests/SharpTestBench.Tools.Tests/InstalledPackageTests.cs": "4c052b890753e9633b271af0bc8b87b7d39fbacdd28461061f5dd0d1ad37ab0c",
+    "tests/SharpTestBench.Tools.Tests/LifecycleTests.cs": "703e8200722befd4d686606ec9a6732527a2294019e7afa6b121e686253b1138",
+    "tests/SharpTestBench.Tools.Tests/MeasurementTests.cs": "f826c725782b1485a1a9a724b35f07ef1c77e7d6524622e5e2a3c60d6aee3cd7",
+    "tests/SharpTestBench.Tools.Tests/SharpTestBench.Tools.Tests.csproj": "fd9b123d50573bb740cbf1ce2b907c888eba90e5bb9e3e5f26172fb55a1bdf3d",
+    "tests/SharpTestBench.Tools.Tests/StageTests.cs": "9a4dc05b1148c566fd46ad13885ea4cd1e9072bb1b19cde78b369f47c400c708",
+    "tests/SharpTestBench.Tools.Tests/packages.lock.json": "6c3110bb5a19bc2738c62b7e8d3bdd1d2a69aa859dcc3e71b5c76ff5fccd9f91",
+    "tests/SharpTestBench.Tools.Tests/random-reference.json": "c04bec64a15c353d8c06014894267ede80f1bbf47761a76510c11e791acbdefb",
+    "tests/Tooling/managed_compat/axis_fixture.py": "b6e9f539fc6493b2c2b56874524bed733348f742851cacb498f3b22b9b7db9af",
+    "tests/Tooling/managed_compat/code_coverage_report.py": "efb53684ef01d92a3192689338e8666c7a69746c67bf20cdf9e277620e83a847",
+    "tests/Tooling/managed_compat/dual_runner_ci.py": "673a663c144e2322930f10ca753ab926c817468086ed92d0cf2ebd9c9326d064",
+    "tests/Tooling/managed_compat/dual_runner_manifest.py": "b475aecc6022a37629ff9be9155cc7b06a20c435bfa7767ed91681c9ff38b76d",
+    "tests/Tooling/managed_compat/dual_runner_parity.py": "62352958b6ea6a5852f5d67774ddc9daffcab3b11867973e76641bcf48cfa3f2",
+    "tests/Tooling/managed_compat/icarus_layouts.py": "1073b6d8a90574456acd850f744d68a6160b924dcb7f131e24e31952ce9acaf3",
+    "tests/Tooling/managed_compat/lfsr_fixture.py": "dbceef18b0df74551c82e8bccc2d92fe05bf00d0e332c096db2a2644ba6e0556",
+    "tests/Tooling/managed_compat/managed_rpc.py": "f1fca78d82eb4fdfcaf91c57f6da7344d654dbf75d7e8dba17162b460c90fff1",
+    "tests/Tooling/managed_compat/prepare_upstream.py": "5bdbbecef391339e9daef2ee9bb0e3877cb0a5776db8f6de5c3f4594b70cde4f",
+    "tests/Tooling/managed_compat/release_bundle.py": "eca419598e0282dc892591ed13dee464e6c7294077986c8c6e2e6225b6e83b7e",
+    "tests/Tooling/managed_compat/strict_json.py": "0691490594b54f5c369f67ea62ccb3fc89e0ae772a3a5ae7bdacb7b89f4e03b1",
+    "tests/Tooling/managed_compat/windows_arm64_check.py": "4aa2b1e2167ae701b4a3e1b905ac1f39fac6b79fb06e1a404d0b6e804721d21f",
+    "tests/Tooling/test_axis_contract.py": "4236d2fce484535d818642f74abd2f4c951b0f60f167367d34c42e38300f2443",
+    "tests/Tooling/test_axis_integrity.py": "ab71d5094b9acb3507ee7a4fc619d7d45fd899468cccbf7713f9e501ad37be02",
+    "tests/Tooling/test_axis_metrics.py": "46431050d3b02885f92b8f79c029cc50185719f0807dadf33841d15c30609255",
+    "tests/Tooling/test_axis_plan.py": "ab76a357b35a9047b00fca77fcc4473958506ebd8ff1c39a61412acb1f640c85",
+    "tests/Tooling/test_code_coverage_report.py": "552244c9730fb62692d16320eeb80ae5b7825277093b15bc77ac9b7c2e22c1ed",
+    "tests/Tooling/test_dual_attestation.py": "bbf69fedf6fa6bad74564063585d48377afcf5c5181a0473e3b9f5e8aa88fccb",
+    "tests/Tooling/test_dual_manifest.py": "7211105a3d04a8ad9cb263be3e40df0ff24888d4617221ab368186fb8299cd38",
+    "tests/Tooling/test_dual_parity_cli.py": "4ade0f93e06f773b63180a97aea1b0260c4e52514d293052479ef53367ccbab5",
+    "tests/Tooling/test_dual_results.py": "999f9e65317371795cdccf1764282f1a68af4148a89f5a52bf47a79f7a7e93b5",
+    "tests/Tooling/test_dual_workloads.py": "4b069e171f24f95f40642cbb1ddc84f9db27786df95a7446e6aab2945efb4cee",
+    "tests/Tooling/test_icarus_layouts.py": "ccf0d06ce2826d1e7eb610d144f0a970401216dd8d37674e4bd8a2e70387e0ef",
+    "tests/Tooling/test_lfsr_algebra.py": "76a0eed80d5e07aefb2ee9d332820e6bb22ae15edd13566a60c55ba774fd474c",
+    "tests/Tooling/test_lfsr_evidence.py": "48d93f39a41a22d45ac66b451e33f5449455086fcd749366be2407d8a3601771",
+    "tests/Tooling/test_lfsr_integrity.py": "02505583080dfbe11a78e976da6b2bb639a16bb7bdffb423dea8681835dd31df",
+    "tests/Tooling/test_lfsr_reference.py": "16f05f4f797dbd93d008a1b742ba89ad21424ba84a4a66c32ca4494c86778322",
+    "tests/Tooling/test_lfsr_streaming.py": "7cc8a6fc3ab477254b298af3d00e41c3a21b51fa8d09b811f5c47bfa92cb051b",
+    "tests/Tooling/test_release_bundle.py": "db7d6a63e6f3e16dd510c4a7c20c679f3326e7b534bbf0f9f6088a1d47322f7d",
+    "tests/Tooling/test_runner_compile_options.py": "33d450c738a5503fa69b1d0b73fd9139b06e72be69bc3b29184d0bb12cbc339e",
+    "tests/Tooling/test_runner_diagnostic_controls.py": "742d6292f9caec7f276a362ad2ffa6a222440b3fd2bf268ffa3c062abc9e3684",
+    "tests/Tooling/test_runner_input_evidence.py": "25a3bfb3b0e15b40d113d7996d91b67c825a5a019110dc480795d58047c70c68",
+    "tests/Tooling/test_runner_manifest.py": "a07e945cebf0fca285ef0cb8c9632b49b28e00564cf99973818043effa3d7364",
+    "tests/Tooling/test_runner_process.py": "68fa38580c2712746d2fb3b6c9fd777f0a0687a64740134410d34116e092f093",
+    "tests/Tooling/test_runner_results.py": "8b88ec6c69067539c625512b205f805c4c667937c586c503b4cfae09a54c92a8",
+    "tests/Tooling/test_strict_runner_json.py": "bbf80baf0a188784631df146b281a93a99c31770c0e5a09e7584b3431f45f292",
+    "tests/Tooling/test_windows_arm64.py": "cb35be26c51cb168db3abcc89f5168f1e962e29e9a7848089976887feb1fbb6d",
+    "tools/SharpTestBench.Tools/AuditCommand.cs": "0a427ebd9a73c498ac80811b1fd2a80fe312de3593e07bb392f2f5aeb789ffae",
+    "tools/SharpTestBench.Tools/AxisFixture.cs": "cf0e2ecffbb97e40972936a0fd1e8df3152558a8c890c875957e97311bf0c1cc",
+    "tools/SharpTestBench.Tools/BenchmarkCommand.cs": "34313bfd480ac61bd5079aeaa0a08b9f76cae0d41ada72eeb236722e4ec77576",
+    "tools/SharpTestBench.Tools/BoundaryCommands.cs": "c23dc7ec0e64f7579f8d36cda493afdc31fca1803d5f0e1d21d791dfc6b77c91",
+    "tools/SharpTestBench.Tools/CiCommands.cs": "01a697dd4861f669b092e037edfa6f5e2aa5e0fd0babf949d2b45861fe1592cb",
+    "tools/SharpTestBench.Tools/CocotbAdapter.cs": "0bbc0bed99834cc86af857fc3b0d69911e313910e07b36acc6e4350637fba6df",
+    "tools/SharpTestBench.Tools/Core.cs": "74fcfb0d19ce36a83569fb39dbaa7cf877db2b81e7d0f5fdba1e3d3352a1bdd4",
+    "tools/SharpTestBench.Tools/CoverageCommand.cs": "ad220ea46bb07f073eef072551d1f26b9b55be112399246765c7f2102e7114c4",
+    "tools/SharpTestBench.Tools/DebuggerCommand.cs": "acf1e0366603d93db9bebcec13f8d7d4f4650c96d45d4afbfacef3fec23be7a6",
+    "tools/SharpTestBench.Tools/FixtureContracts.cs": "93ea39d1b321c8bf15594c3cf0e228a32f3b9787e9bbbe5455c0da585e2414bc",
+    "tools/SharpTestBench.Tools/IcarusLayoutsCommand.cs": "34a22ec05a813aa0cc97425aa6481ae422384bf26fc0d11345772c61a4222e9d",
+    "tools/SharpTestBench.Tools/InstalledRunCommand.cs": "50c94f134f28b9d9cd7f5bfa316c07b038b733b66634f8911e942712672e6fdf",
+    "tools/SharpTestBench.Tools/LegacyRunCommand.cs": "e5676474e522c5a3eb98642ef3067f5692c28503c3cdb0def92d318f3b790433",
+    "tools/SharpTestBench.Tools/LfsrFixture.cs": "df18dd2fe07776f072f7c7c5f064c45bd70a2c119258712c0b2cff3a11f7e21a",
+    "tools/SharpTestBench.Tools/LifecycleCommands.cs": "078a8e003198462fe37c36e8dfdd5bf5682b86ad034f55a64b4d8bf209b079eb",
+    "tools/SharpTestBench.Tools/ManagedTestsCommand.cs": "09176415315a1b2a242cbd21467c7f420193e743df04dfdbe48cd251111694de",
+    "tools/SharpTestBench.Tools/ManifestCheckCommand.cs": "1baa2fd56eef349f598f2c0de2e125a515d67b6c5a966c29a873ed777753b655",
+    "tools/SharpTestBench.Tools/NativeBuildCommand.cs": "1520426c6f7bc2b846636e5c7856fa3327cd755d987d6df00b455f6ddfb98c11",
+    "tools/SharpTestBench.Tools/NativeChecks.cs": "4f6c14df37ede9543daecc224c4b71190246693705265eceb3c75a5431e5de60",
+    "tools/SharpTestBench.Tools/NativeDebuggerCommand.cs": "d35255996318d9465895e4e0799737cb6fd79c0b1655fd7b3993ab77c037bc93",
+    "tools/SharpTestBench.Tools/NativeFaultProbe.cs.txt": "d75d4352ceaf879a8452c3499fb2edf0df83769b7db457c762e72f17fb427e43",
+    "tools/SharpTestBench.Tools/NativeFaultsCommand.cs": "4fdc5167f79c6b01447f60288645c241d23b61dfe31c7d549b57f020788731be",
+    "tools/SharpTestBench.Tools/NativePerformanceCommand.cs": "221d6bce058de3806f656ebffb169b01a83777a98e0151394b18d2b5d4733d04",
+    "tools/SharpTestBench.Tools/OracleFixturesCommand.cs": "3c6fa4103d6c36ff03e2c84a0149244b75c3c9d0defb8e72b761464194c75b87",
+    "tools/SharpTestBench.Tools/PackageCommand.cs": "2b988a30754de4c9f9314e2f7ed99a89e13db22128ed91a63c5a467a19d45c7a",
+    "tools/SharpTestBench.Tools/PackageContainerCommand.cs": "4eac3ee7dd1ecdc937b476acc46dc8d7eeaee4c95e0768a4653812f69c919c7b",
+    "tools/SharpTestBench.Tools/ParityCiCommand.cs": "53ab66339334311c8d721099d6df8516202052f703cf6bde0516159aebb2d2ba",
+    "tools/SharpTestBench.Tools/ParityContracts.cs": "72271629e4250516a9c7208fd6a7eb1d29b3885d3f4600d0ef6594e4c9025a42",
+    "tools/SharpTestBench.Tools/PerformancePrepareCommand.cs": "3cb636b4313b5b8b94e507b09729f220221b03738cdc900a515dc702b4830478",
+    "tools/SharpTestBench.Tools/PrepareUpstreamCommand.cs": "e67c6d3cd0cdc9f92d011ac7b8ed04ed66a216d73d83616583d4ba34abb21196",
+    "tools/SharpTestBench.Tools/Program.cs": "94cd95de1e46d4c234578ca2884c4e896a4b13aa49505782ab890f7e13505ab2",
+    "tools/SharpTestBench.Tools/ReferenceCommand.cs": "c5af524025744b2909dd42d5efbd98026a41e9799f0cef4df484d64148f57a2c",
+    "tools/SharpTestBench.Tools/ReleaseCommands.cs": "3b764bb4e06449721711a3d779577cb3d89889c151cde53d1e07976a0669e297",
+    "tools/SharpTestBench.Tools/RunnerManifestCommand.cs": "e2fbb93f9afefc6a17a6df2bef20f294b01c4ecffee9cf9c7f8a53ec68417c49",
+    "tools/SharpTestBench.Tools/SharpTestBench.Tools.csproj": "060915b3639e32eff79c40c132e551281b0eea7e3c9aa0704eed3eca819724d6",
+    "tools/SharpTestBench.Tools/StageCommand.cs": "9500228d658621015fed963f7f511e1cf9b2dedca93600caab43f908f07091ce",
+    "tools/SharpTestBench.Tools/TestApiCommand.cs": "601fef19ef319ab76e83b31a89b65b91afd5fe1a958f1a824d72552c307bec67",
+    "tools/SharpTestBench.Tools/ValidationCommands.cs": "e876861d13842ab2517385c51b61613408361c7424a818dda36cff026b1f5712",
+    "tools/SharpTestBench.Tools/VerilatorBuildCommand.cs": "d19b7a834f63a4ac089bff5d294465f1ed04fb10db98d278686a4aaa5b049b55",
+    "tools/SharpTestBench.Tools/WorkloadCommand.cs": "be4c384304cbd6739327038d7270cc94958e21ea1574d0be9bd2abfd6fb95845",
+    "tools/SharpTestBench.Tools/WorkloadPlans.cs": "19aca5b3950ac93add8cc4074a3e4f472110e9c052e8441e8a47ad24a20256a6"
+  },
+  "lfsrPositiveCases": 16,
+  "lfsrNegativeCases": 8,
+  "vectorsPerRunner": 1930,
+  "totalPositiveVectors": 3860,
+  "lfsrCases": [
+    {
+      "schemaVersion": 1,
+      "legacy": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "native": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "expected": [
+        "Entry.SerialScoreboard"
+      ],
+      "missing": {
+        "legacy": [],
+        "native": []
+      },
+      "unexpected": {
+        "legacy": [],
+        "native": []
+      },
+      "seedMismatches": [],
+      "matched": true,
+      "traceMatched": true,
+      "exitCodes": {
+        "legacy": 0,
+        "native": 0
+      },
+      "fixture": "descrambler",
+      "style": "LOOP",
+      "seed": 99,
+      "fault": 0,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "d5a13e32c51aa7b85bc967c9864bddb486a4ee31d9fa0e47f2b8dc5dfd42ec5b",
+      "path": "build/lfsr-lfsr_descrambler_loop-99-fault0/parity.json",
+      "vectors": 190
+    },
+    {
+      "schemaVersion": 1,
+      "legacy": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "native": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "expected": [
+        "Entry.SerialScoreboard"
+      ],
+      "missing": {
+        "legacy": [],
+        "native": []
+      },
+      "unexpected": {
+        "legacy": [],
+        "native": []
+      },
+      "seedMismatches": [],
+      "matched": true,
+      "traceMatched": true,
+      "exitCodes": {
+        "legacy": 0,
+        "native": 0
+      },
+      "fixture": "descrambler",
+      "style": "REDUCTION",
+      "seed": 99,
+      "fault": 0,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "d5a13e32c51aa7b85bc967c9864bddb486a4ee31d9fa0e47f2b8dc5dfd42ec5b",
+      "path": "build/lfsr-lfsr_descrambler_reduction-99-fault0/parity.json",
+      "vectors": 190
+    },
+    {
+      "schemaVersion": 1,
+      "legacy": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "native": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "expected": [
+        "Entry.SerialScoreboard"
+      ],
+      "missing": {
+        "legacy": [],
+        "native": []
+      },
+      "unexpected": {
+        "legacy": [],
+        "native": []
+      },
+      "seedMismatches": [],
+      "matched": true,
+      "traceMatched": true,
+      "exitCodes": {
+        "legacy": 0,
+        "native": 0
+      },
+      "fixture": "crc32c",
+      "style": "REDUCTION",
+      "seed": 99,
+      "fault": 0,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "0dbd21ab121d1fd8ff21cc1c7d0ecada1433740a8fc439ea3c0b6764ef9b42a7",
+      "path": "build/lfsr-lfsr_crc32c_reduction-99-fault0/parity.json",
+      "vectors": 132
+    },
+    {
+      "schemaVersion": 1,
+      "legacy": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "native": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "expected": [
+        "Entry.SerialScoreboard"
+      ],
+      "missing": {
+        "legacy": [],
+        "native": []
+      },
+      "unexpected": {
+        "legacy": [],
+        "native": []
+      },
+      "seedMismatches": [],
+      "matched": true,
+      "traceMatched": true,
+      "exitCodes": {
+        "legacy": 0,
+        "native": 0
+      },
+      "fixture": "crc32",
+      "style": "LOOP",
+      "seed": 99,
+      "fault": 0,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "5843f0413a1e69f1ae1502a1e15be834ceef7b42d239c1efeed7ce620f1d99d0",
+      "path": "build/lfsr-lfsr_crc32_loop-99-fault0/parity.json",
+      "vectors": 108
+    },
+    {
+      "schemaVersion": 1,
+      "legacy": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "native": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "expected": [
+        "Entry.SerialScoreboard"
+      ],
+      "missing": {
+        "legacy": [],
+        "native": []
+      },
+      "unexpected": {
+        "legacy": [],
+        "native": []
+      },
+      "seedMismatches": [],
+      "matched": true,
+      "traceMatched": true,
+      "exitCodes": {
+        "legacy": 0,
+        "native": 0
+      },
+      "fixture": "prbs7",
+      "style": "LOOP",
+      "seed": 99,
+      "fault": 0,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "fca2ddf5cc31d508ae436416bbe5bad34255ddae4637c42bf8b8173ae65ffafa",
+      "path": "build/lfsr-lfsr_prbs7_loop-99-fault0/parity.json",
+      "vectors": 83
+    },
+    {
+      "schemaVersion": 1,
+      "legacy": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "native": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "expected": [
+        "Entry.SerialScoreboard"
+      ],
+      "missing": {
+        "legacy": [],
+        "native": []
+      },
+      "unexpected": {
+        "legacy": [],
+        "native": []
+      },
+      "seedMismatches": [],
+      "matched": true,
+      "traceMatched": true,
+      "exitCodes": {
+        "legacy": 0,
+        "native": 0
+      },
+      "fixture": "crc16",
+      "style": "REDUCTION",
+      "seed": 99,
+      "fault": 0,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "396713cde87cf3bbb90922780284690f1306d26f0181fab8e2eda27f225237a1",
+      "path": "build/lfsr-lfsr_crc16_reduction-99-fault0/parity.json",
+      "vectors": 92
+    },
+    {
+      "schemaVersion": 1,
+      "legacy": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "native": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "expected": [
+        "Entry.SerialScoreboard"
+      ],
+      "missing": {
+        "legacy": [],
+        "native": []
+      },
+      "unexpected": {
+        "legacy": [],
+        "native": []
+      },
+      "seedMismatches": [],
+      "matched": true,
+      "traceMatched": true,
+      "exitCodes": {
+        "legacy": 0,
+        "native": 0
+      },
+      "fixture": "galois_ff",
+      "style": "REDUCTION",
+      "seed": 99,
+      "fault": 0,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "fdb3ba513964f4fb1bcdf50a049951036b5d5d3dacaddc03fcdb1233187ba5aa",
+      "path": "build/lfsr-lfsr_galois_ff_reduction-99-fault0/parity.json",
+      "vectors": 100
+    },
+    {
+      "schemaVersion": 1,
+      "legacy": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "native": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "expected": [
+        "Entry.SerialScoreboard"
+      ],
+      "missing": {
+        "legacy": [],
+        "native": []
+      },
+      "unexpected": {
+        "legacy": [],
+        "native": []
+      },
+      "seedMismatches": [],
+      "matched": true,
+      "traceMatched": true,
+      "exitCodes": {
+        "legacy": 0,
+        "native": 0
+      },
+      "fixture": "prbs7",
+      "style": "REDUCTION",
+      "seed": 99,
+      "fault": 0,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "fca2ddf5cc31d508ae436416bbe5bad34255ddae4637c42bf8b8173ae65ffafa",
+      "path": "build/lfsr-lfsr_prbs7_reduction-99-fault0/parity.json",
+      "vectors": 83
+    },
+    {
+      "schemaVersion": 1,
+      "legacy": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "native": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "expected": [
+        "Entry.SerialScoreboard"
+      ],
+      "missing": {
+        "legacy": [],
+        "native": []
+      },
+      "unexpected": {
+        "legacy": [],
+        "native": []
+      },
+      "seedMismatches": [],
+      "matched": true,
+      "traceMatched": true,
+      "exitCodes": {
+        "legacy": 0,
+        "native": 0
+      },
+      "fixture": "crc16",
+      "style": "LOOP",
+      "seed": 99,
+      "fault": 0,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "396713cde87cf3bbb90922780284690f1306d26f0181fab8e2eda27f225237a1",
+      "path": "build/lfsr-lfsr_crc16_loop-99-fault0/parity.json",
+      "vectors": 92
+    },
+    {
+      "schemaVersion": 1,
+      "legacy": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "native": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "expected": [
+        "Entry.SerialScoreboard"
+      ],
+      "missing": {
+        "legacy": [],
+        "native": []
+      },
+      "unexpected": {
+        "legacy": [],
+        "native": []
+      },
+      "seedMismatches": [],
+      "matched": true,
+      "traceMatched": true,
+      "exitCodes": {
+        "legacy": 0,
+        "native": 0
+      },
+      "fixture": "crc32c",
+      "style": "LOOP",
+      "seed": 99,
+      "fault": 0,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "0dbd21ab121d1fd8ff21cc1c7d0ecada1433740a8fc439ea3c0b6764ef9b42a7",
+      "path": "build/lfsr-lfsr_crc32c_loop-99-fault0/parity.json",
+      "vectors": 132
+    },
+    {
+      "schemaVersion": 1,
+      "legacy": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "native": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "expected": [
+        "Entry.SerialScoreboard"
+      ],
+      "missing": {
+        "legacy": [],
+        "native": []
+      },
+      "unexpected": {
+        "legacy": [],
+        "native": []
+      },
+      "seedMismatches": [],
+      "matched": true,
+      "traceMatched": true,
+      "exitCodes": {
+        "legacy": 0,
+        "native": 0
+      },
+      "fixture": "scrambler",
+      "style": "LOOP",
+      "seed": 99,
+      "fault": 0,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "839b3dd5fa265b17a6c46dfb53576a080881a578f0c0e35c02408f76b5212c2a",
+      "path": "build/lfsr-lfsr_scrambler_loop-99-fault0/parity.json",
+      "vectors": 190
+    },
+    {
+      "schemaVersion": 1,
+      "legacy": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "native": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "expected": [
+        "Entry.SerialScoreboard"
+      ],
+      "missing": {
+        "legacy": [],
+        "native": []
+      },
+      "unexpected": {
+        "legacy": [],
+        "native": []
+      },
+      "seedMismatches": [],
+      "matched": true,
+      "traceMatched": true,
+      "exitCodes": {
+        "legacy": 0,
+        "native": 0
+      },
+      "fixture": "minimal",
+      "style": "REDUCTION",
+      "seed": 99,
+      "fault": 0,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "1ad2cc8ec1a9f465d58cf16b1e0c44f9f829755ab9ed4a845c1d613d4475433a",
+      "path": "build/lfsr-lfsr_minimal_reduction-99-fault0/parity.json",
+      "vectors": 70
+    },
+    {
+      "schemaVersion": 1,
+      "legacy": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "native": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "expected": [
+        "Entry.SerialScoreboard"
+      ],
+      "missing": {
+        "legacy": [],
+        "native": []
+      },
+      "unexpected": {
+        "legacy": [],
+        "native": []
+      },
+      "seedMismatches": [],
+      "matched": true,
+      "traceMatched": true,
+      "exitCodes": {
+        "legacy": 0,
+        "native": 0
+      },
+      "fixture": "minimal",
+      "style": "LOOP",
+      "seed": 99,
+      "fault": 0,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "1ad2cc8ec1a9f465d58cf16b1e0c44f9f829755ab9ed4a845c1d613d4475433a",
+      "path": "build/lfsr-lfsr_minimal_loop-99-fault0/parity.json",
+      "vectors": 70
+    },
+    {
+      "schemaVersion": 1,
+      "legacy": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "native": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "expected": [
+        "Entry.SerialScoreboard"
+      ],
+      "missing": {
+        "legacy": [],
+        "native": []
+      },
+      "unexpected": {
+        "legacy": [],
+        "native": []
+      },
+      "seedMismatches": [],
+      "matched": true,
+      "traceMatched": true,
+      "exitCodes": {
+        "legacy": 0,
+        "native": 0
+      },
+      "fixture": "galois_ff",
+      "style": "LOOP",
+      "seed": 99,
+      "fault": 0,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "fdb3ba513964f4fb1bcdf50a049951036b5d5d3dacaddc03fcdb1233187ba5aa",
+      "path": "build/lfsr-lfsr_galois_ff_loop-99-fault0/parity.json",
+      "vectors": 100
+    },
+    {
+      "schemaVersion": 1,
+      "legacy": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "native": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "expected": [
+        "Entry.SerialScoreboard"
+      ],
+      "missing": {
+        "legacy": [],
+        "native": []
+      },
+      "unexpected": {
+        "legacy": [],
+        "native": []
+      },
+      "seedMismatches": [],
+      "matched": true,
+      "traceMatched": true,
+      "exitCodes": {
+        "legacy": 0,
+        "native": 0
+      },
+      "fixture": "crc32",
+      "style": "REDUCTION",
+      "seed": 99,
+      "fault": 0,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "5843f0413a1e69f1ae1502a1e15be834ceef7b42d239c1efeed7ce620f1d99d0",
+      "path": "build/lfsr-lfsr_crc32_reduction-99-fault0/parity.json",
+      "vectors": 108
+    },
+    {
+      "schemaVersion": 1,
+      "legacy": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "native": [
+        [
+          "Entry.SerialScoreboard",
+          "passed"
+        ]
+      ],
+      "expected": [
+        "Entry.SerialScoreboard"
+      ],
+      "missing": {
+        "legacy": [],
+        "native": []
+      },
+      "unexpected": {
+        "legacy": [],
+        "native": []
+      },
+      "seedMismatches": [],
+      "matched": true,
+      "traceMatched": true,
+      "exitCodes": {
+        "legacy": 0,
+        "native": 0
+      },
+      "fixture": "scrambler",
+      "style": "REDUCTION",
+      "seed": 99,
+      "fault": 0,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "839b3dd5fa265b17a6c46dfb53576a080881a578f0c0e35c02408f76b5212c2a",
+      "path": "build/lfsr-lfsr_scrambler_reduction-99-fault0/parity.json",
+      "vectors": 190
+    },
+    {
+      "schemaVersion": 1,
+      "negativeControl": true,
+      "legacyDetected": true,
+      "nativeDetected": true,
+      "matched": true,
+      "exitCodes": {
+        "legacy": 1,
+        "native": 1
+      },
+      "fixture": "scrambler",
+      "style": "REDUCTION",
+      "seed": 99,
+      "fault": 1,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "839b3dd5fa265b17a6c46dfb53576a080881a578f0c0e35c02408f76b5212c2a",
+      "path": "build/lfsr-lfsr_scrambler_reduction-99-fault1/negative-control.json"
+    },
+    {
+      "schemaVersion": 1,
+      "negativeControl": true,
+      "legacyDetected": true,
+      "nativeDetected": true,
+      "matched": true,
+      "exitCodes": {
+        "legacy": 1,
+        "native": 1
+      },
+      "fixture": "prbs7",
+      "style": "REDUCTION",
+      "seed": 99,
+      "fault": 2,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "fca2ddf5cc31d508ae436416bbe5bad34255ddae4637c42bf8b8173ae65ffafa",
+      "path": "build/lfsr-lfsr_prbs7_reduction-99-fault2/negative-control.json"
+    },
+    {
+      "schemaVersion": 1,
+      "negativeControl": true,
+      "legacyDetected": true,
+      "nativeDetected": true,
+      "matched": true,
+      "exitCodes": {
+        "legacy": 1,
+        "native": 1
+      },
+      "fixture": "galois_ff",
+      "style": "REDUCTION",
+      "seed": 99,
+      "fault": 1,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "fdb3ba513964f4fb1bcdf50a049951036b5d5d3dacaddc03fcdb1233187ba5aa",
+      "path": "build/lfsr-lfsr_galois_ff_reduction-99-fault1/negative-control.json"
+    },
+    {
+      "schemaVersion": 1,
+      "negativeControl": true,
+      "legacyDetected": true,
+      "nativeDetected": true,
+      "matched": true,
+      "exitCodes": {
+        "legacy": 1,
+        "native": 1
+      },
+      "fixture": "minimal",
+      "style": "REDUCTION",
+      "seed": 99,
+      "fault": 2,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "1ad2cc8ec1a9f465d58cf16b1e0c44f9f829755ab9ed4a845c1d613d4475433a",
+      "path": "build/lfsr-lfsr_minimal_reduction-99-fault2/negative-control.json"
+    },
+    {
+      "schemaVersion": 1,
+      "negativeControl": true,
+      "legacyDetected": true,
+      "nativeDetected": true,
+      "matched": true,
+      "exitCodes": {
+        "legacy": 1,
+        "native": 1
+      },
+      "fixture": "descrambler",
+      "style": "REDUCTION",
+      "seed": 99,
+      "fault": 2,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "d5a13e32c51aa7b85bc967c9864bddb486a4ee31d9fa0e47f2b8dc5dfd42ec5b",
+      "path": "build/lfsr-lfsr_descrambler_reduction-99-fault2/negative-control.json"
+    },
+    {
+      "schemaVersion": 1,
+      "negativeControl": true,
+      "legacyDetected": true,
+      "nativeDetected": true,
+      "matched": true,
+      "exitCodes": {
+        "legacy": 1,
+        "native": 1
+      },
+      "fixture": "crc32c",
+      "style": "REDUCTION",
+      "seed": 99,
+      "fault": 1,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "0dbd21ab121d1fd8ff21cc1c7d0ecada1433740a8fc439ea3c0b6764ef9b42a7",
+      "path": "build/lfsr-lfsr_crc32c_reduction-99-fault1/negative-control.json"
+    },
+    {
+      "schemaVersion": 1,
+      "negativeControl": true,
+      "legacyDetected": true,
+      "nativeDetected": true,
+      "matched": true,
+      "exitCodes": {
+        "legacy": 1,
+        "native": 1
+      },
+      "fixture": "crc16",
+      "style": "REDUCTION",
+      "seed": 99,
+      "fault": 2,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "396713cde87cf3bbb90922780284690f1306d26f0181fab8e2eda27f225237a1",
+      "path": "build/lfsr-lfsr_crc16_reduction-99-fault2/negative-control.json"
+    },
+    {
+      "schemaVersion": 1,
+      "negativeControl": true,
+      "legacyDetected": true,
+      "nativeDetected": true,
+      "matched": true,
+      "exitCodes": {
+        "legacy": 1,
+        "native": 1
+      },
+      "fixture": "crc32",
+      "style": "REDUCTION",
+      "seed": 99,
+      "fault": 1,
+      "revision": "c1f86d036745935f3812ec6ddc7821c70ef4c9de",
+      "planSha256": "5843f0413a1e69f1ae1502a1e15be834ceef7b42d239c1efeed7ce620f1d99d0",
+      "path": "build/lfsr-lfsr_crc32_reduction-99-fault1/negative-control.json"
+    }
+  ],
+  "coverage": {
+    "suites": {
+      "managed": {
+        "assemblies": [
+          "SharpTestBench"
+        ],
+        "lines": {
+          "covered": 515,
+          "valid": 2119,
+          "percent": 24.30391694195375
+        },
+        "branches": {
+          "covered": 346,
+          "valid": 1297,
+          "percent": 26.676946800308404
+        }
+      },
+      "generators": {
+        "assemblies": [
+          "SharpTestBench.Generators"
+        ],
+        "lines": {
+          "covered": 60,
+          "valid": 68,
+          "percent": 88.23529411764706
+        },
+        "branches": {
+          "covered": 52,
+          "valid": 72,
+          "percent": 72.22222222222223
+        }
+      },
+      "helpers": {
+        "assemblies": [
+          "SharpTestBench.Tools"
+        ],
+        "lines": {
+          "covered": 334,
+          "valid": 2071,
+          "percent": 16.12747464992757
+        },
+        "branches": {
+          "covered": 398,
+          "valid": 2785,
+          "percent": 14.29084380610413
+        }
+      },
+      "contracts": {
+        "assemblies": [
+          "SharpTestBench.Tools"
+        ],
+        "lines": {
+          "covered": 485,
+          "valid": 2071,
+          "percent": 23.418638338966684
+        },
+        "branches": {
+          "covered": 648,
+          "valid": 2785,
+          "percent": 23.267504488330342
+        }
+      }
+    },
+    "combined": {
+      "assemblies": [
+        "SharpTestBench",
+        "SharpTestBench.Generators",
+        "SharpTestBench.Tools"
+      ],
+      "lines": {
+        "covered": 1220,
+        "valid": 4258,
+        "percent": 28.651949271958667
+      },
+      "branches": {
+        "covered": 1267,
+        "valid": 4136,
+        "percent": 30.63346228239845
+      }
+    }
+  },
+  "workloads": {
+    "axi": {
+      "negativeCases": 6,
+      "records": 2,
+      "contract": {
+        "cycles": 522,
+        "write_stalls": 125,
+        "read_stalls": 169
+      }
+    },
+    "dsp": {
+      "negativeCases": 6,
+      "records": 2,
+      "contract": {
+        "cycles": 165,
+        "accepted": 91,
+        "consumed": 89,
+        "stalls": 59
+      }
+    },
+    "cpu": {
+      "negativeCases": 6,
+      "records": 2,
+      "contract": {
+        "cycles": 97,
+        "commits": 78,
+        "memoryStalls": 7,
+        "pauses": 12,
+        "memory": [
+          4294967295,
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          4294967295,
+          1,
+          3,
+          1,
+          7,
+          1,
+          3,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      }
+    }
+  }
+}

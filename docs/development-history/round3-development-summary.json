@@ -1,0 +1,264 @@
+{
+  "iterations": 200,
+  "newToolingTests": 178,
+  "commits": [
+    "0d3922c016a636d5807dac2cd686bb6d4a19223f ci: qualify pinned upstream stream RTL and reject corrupt evidence (#60)",
+    "0a244b18c9314671df292241e81f111aa49587c7 test: attest upstream stream traces through independent runner paths (#60)",
+    "b18bfe465acfe0470872bf490e14fe9ded8068fe test: exercise upstream AXI register configurations with managed scoreboard (#60)",
+    "819c45da48bbcf18a2827f479b7048306c0e5f0c test: pin upstream AXI stream fixture and validate deterministic plans (#60)"
+  ],
+  "checkpoints": [
+    {
+      "iteration": 50,
+      "gates": [
+        {
+          "command": [
+            "dotnet",
+            "build",
+            "SharpTestBench.slnx",
+            "-c",
+            "Release",
+            "--no-restore",
+            "--disable-build-servers",
+            "-m:1",
+            "-v:q"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "dotnet",
+            "tests/SharpTestBench.Tests/bin/Release/net10.0/SharpTestBench.Tests.dll",
+            "-xml",
+            "C:\\Users\\jeffd\\Documents\\Codex\\2026-10-17\\continuing-from-sharptestbench-native-ci-watch\\work\\SharpTestBench\\build\\round3\\checkpoint-50\\managed.xml"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "dotnet",
+            "tests/SharpTestBench.Generators.Tests/bin/Release/net10.0/SharpTestBench.Generators.Tests.dll",
+            "-xml",
+            "C:\\Users\\jeffd\\Documents\\Codex\\2026-10-17\\continuing-from-sharptestbench-native-ci-watch\\work\\SharpTestBench\\build\\round3\\checkpoint-50\\generators.xml"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "C:\\Users\\jeffd\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+            "-m",
+            "unittest",
+            "discover",
+            "-s",
+            "tests/Tooling",
+            "-q"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "git",
+            "diff",
+            "--check"
+          ],
+          "exitCode": 0
+        }
+      ]
+    },
+    {
+      "iteration": 100,
+      "gates": [
+        {
+          "command": [
+            "dotnet",
+            "build",
+            "SharpTestBench.slnx",
+            "-c",
+            "Release",
+            "--no-restore",
+            "--disable-build-servers",
+            "-m:1",
+            "-v:q"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "dotnet",
+            "tests/SharpTestBench.Tests/bin/Release/net10.0/SharpTestBench.Tests.dll",
+            "-xml",
+            "C:\\Users\\jeffd\\Documents\\Codex\\2026-10-17\\continuing-from-sharptestbench-native-ci-watch\\work\\SharpTestBench\\build\\round3\\checkpoint-100\\managed.xml"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "dotnet",
+            "tests/SharpTestBench.Generators.Tests/bin/Release/net10.0/SharpTestBench.Generators.Tests.dll",
+            "-xml",
+            "C:\\Users\\jeffd\\Documents\\Codex\\2026-10-17\\continuing-from-sharptestbench-native-ci-watch\\work\\SharpTestBench\\build\\round3\\checkpoint-100\\generators.xml"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "C:\\Users\\jeffd\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+            "-m",
+            "unittest",
+            "discover",
+            "-s",
+            "tests/Tooling",
+            "-q"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "git",
+            "diff",
+            "--check"
+          ],
+          "exitCode": 0
+        }
+      ]
+    },
+    {
+      "iteration": 150,
+      "gates": [
+        {
+          "command": [
+            "dotnet",
+            "build",
+            "SharpTestBench.slnx",
+            "-c",
+            "Release",
+            "--no-restore",
+            "--disable-build-servers",
+            "-m:1",
+            "-v:q"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "dotnet",
+            "tests/SharpTestBench.Tests/bin/Release/net10.0/SharpTestBench.Tests.dll",
+            "-xml",
+            "C:\\Users\\jeffd\\Documents\\Codex\\2026-10-17\\continuing-from-sharptestbench-native-ci-watch\\work\\SharpTestBench\\build\\round3\\checkpoint-150\\managed.xml"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "dotnet",
+            "tests/SharpTestBench.Generators.Tests/bin/Release/net10.0/SharpTestBench.Generators.Tests.dll",
+            "-xml",
+            "C:\\Users\\jeffd\\Documents\\Codex\\2026-10-17\\continuing-from-sharptestbench-native-ci-watch\\work\\SharpTestBench\\build\\round3\\checkpoint-150\\generators.xml"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "C:\\Users\\jeffd\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+            "-m",
+            "unittest",
+            "discover",
+            "-s",
+            "tests/Tooling",
+            "-q"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "git",
+            "diff",
+            "--check"
+          ],
+          "exitCode": 0
+        }
+      ]
+    },
+    {
+      "iteration": 200,
+      "gates": [
+        {
+          "command": [
+            "dotnet",
+            "build",
+            "SharpTestBench.slnx",
+            "-c",
+            "Release",
+            "--no-restore",
+            "--disable-build-servers",
+            "-m:1",
+            "-v:q"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "dotnet",
+            "tests/SharpTestBench.Tests/bin/Release/net10.0/SharpTestBench.Tests.dll",
+            "-xml",
+            "C:\\Users\\jeffd\\Documents\\Codex\\2026-10-17\\continuing-from-sharptestbench-native-ci-watch\\work\\SharpTestBench\\build\\round3\\checkpoint-200\\managed.xml"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "dotnet",
+            "tests/SharpTestBench.Generators.Tests/bin/Release/net10.0/SharpTestBench.Generators.Tests.dll",
+            "-xml",
+            "C:\\Users\\jeffd\\Documents\\Codex\\2026-10-17\\continuing-from-sharptestbench-native-ci-watch\\work\\SharpTestBench\\build\\round3\\checkpoint-200\\generators.xml"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "C:\\Users\\jeffd\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+            "-m",
+            "unittest",
+            "discover",
+            "-s",
+            "tests/Tooling",
+            "-q"
+          ],
+          "exitCode": 0
+        },
+        {
+          "command": [
+            "git",
+            "diff",
+            "--check"
+          ],
+          "exitCode": 0
+        }
+      ]
+    }
+  ],
+  "windows": {
+    "managed": 378,
+    "generators": 17,
+    "tooling": 493
+  },
+  "linux": {
+    "managed": 378,
+    "generators": 17,
+    "tooling": 493,
+    "axisPositive": 8,
+    "axisNegative": 8,
+    "baselineParity": 3
+  },
+  "upstreamRevision": "48ff7a7e2ef782cf778d47910cf85835c64b1bce",
+  "rework": [
+    {
+      "checkpoint": 50,
+      "fix": "Preserve exact LF upstream bytes when writing vendor fixtures on Windows"
+    },
+    {
+      "checkpoint": 200,
+      "fix": "Model valid-but-unaccepted bypass beats; add three regressions and explicit cleaned mode environment; rerun final gates"
+    }
+  ]
+}
