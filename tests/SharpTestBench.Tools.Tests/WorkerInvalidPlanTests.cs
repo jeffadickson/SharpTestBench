@@ -1,0 +1,62 @@
+using SharpTestBench.Tools;
+using Xunit;
+
+public sealed class WorkerInvalidPlanTests
+{
+    [Theory]
+    [InlineData("linux-arm64", "linux-x64", "all", "default")]
+    [InlineData("win-x64", "linux-x64", "all", "default")]
+    [InlineData("win-arm64", "linux-x64", "all", "default")]
+    [InlineData("osx-x64", "linux-x64", "all", "default")]
+    [InlineData("osx-arm64", "linux-x64", "all", "default")]
+    [InlineData("linux-x64", "linux-arm64", "all", "default")]
+    [InlineData("win-x64", "linux-arm64", "all", "default")]
+    [InlineData("win-arm64", "linux-arm64", "all", "default")]
+    [InlineData("osx-x64", "linux-arm64", "all", "default")]
+    [InlineData("osx-arm64", "linux-arm64", "all", "default")]
+    [InlineData("linux-x64", "win-x64", "all", "default")]
+    [InlineData("linux-arm64", "win-x64", "all", "default")]
+    [InlineData("win-arm64", "win-x64", "all", "default")]
+    [InlineData("osx-x64", "win-x64", "all", "default")]
+    [InlineData("osx-arm64", "win-x64", "all", "default")]
+    [InlineData("linux-x64", "win-arm64", "all", "default")]
+    [InlineData("linux-arm64", "win-arm64", "all", "default")]
+    [InlineData("win-x64", "win-arm64", "all", "default")]
+    [InlineData("osx-x64", "win-arm64", "all", "default")]
+    [InlineData("osx-arm64", "win-arm64", "all", "default")]
+    [InlineData("linux-x64", "osx-x64", "all", "default")]
+    [InlineData("linux-arm64", "osx-x64", "all", "default")]
+    [InlineData("win-x64", "osx-x64", "all", "default")]
+    [InlineData("win-arm64", "osx-x64", "all", "default")]
+    [InlineData("osx-arm64", "osx-x64", "all", "default")]
+    [InlineData("linux-x64", "osx-arm64", "all", "default")]
+    [InlineData("linux-arm64", "osx-arm64", "all", "default")]
+    [InlineData("win-x64", "osx-arm64", "all", "default")]
+    [InlineData("win-arm64", "osx-arm64", "all", "default")]
+    [InlineData("osx-x64", "osx-arm64", "all", "default")]
+    [InlineData("linux-x86", "linux-x64", "all", "default")]
+    [InlineData("linux-x86", "linux-x64", "tools", "default")]
+    [InlineData("linux-x86", "linux-x64", "runner", "default")]
+    [InlineData("win-x86", "linux-x64", "all", "default")]
+    [InlineData("win-x86", "linux-x64", "tools", "default")]
+    [InlineData("win-x86", "linux-x64", "runner", "default")]
+    [InlineData("freebsd-x64", "linux-x64", "all", "default")]
+    [InlineData("freebsd-x64", "linux-x64", "tools", "default")]
+    [InlineData("freebsd-x64", "linux-x64", "runner", "default")]
+    [InlineData("Linux-x64", "linux-x64", "all", "default")]
+    [InlineData("Linux-x64", "linux-x64", "tools", "default")]
+    [InlineData("Linux-x64", "linux-x64", "runner", "default")]
+    [InlineData("linux-x64", "linux-x64", "", "default")]
+    [InlineData("linux-x64", "linux-x64", "publish", "default")]
+    [InlineData("linux-x64", "linux-x64", "TOOLS", "default")]
+    [InlineData("linux-x64", "linux-x64", "NativeAOT", "default")]
+    [InlineData("linux-x64", "linux-x64", "run", "default")]
+    [InlineData("linux-x64", "linux-x64", "tools;invalid", "default")]
+    [InlineData("linux-x64", "linux-x64", "tools", "..")]
+    [InlineData("linux-x64", "linux-x64", "runner", "..")]
+    public void InvalidNativePlansFailBeforePublishing(string rid, string host, string mode, string output)
+    {
+        var root = Path.Combine(Path.GetTempPath(), "native plan boundary");
+        Assert.Throws<ArgumentException>(() => WorkerPublishCommand.Plan(root, rid, mode, host, output == "default" ? null : output));
+    }
+}

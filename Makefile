@@ -34,15 +34,18 @@ help:
 	@echo "Full helpers: self-contained ReadyToRun. Standalone runner: NativeAOT. RID=$(RID)"
 build:
 	"$(DOTNET)" build SharpTestBench.slnx -c $(CONFIGURATION) -p:RestoreLockedMode=true --disable-build-servers -m:1
-test: build
-	"$(DOTNET)" tests/SharpTestBench.Tests/bin/$(CONFIGURATION)/net10.0/SharpTestBench.Tests.dll
-	"$(DOTNET)" tests/SharpTestBench.Generators.Tests/bin/$(CONFIGURATION)/net10.0/SharpTestBench.Generators.Tests.dll
-	"$(DOTNET)" tests/SharpTestBench.Tools.Tests/bin/$(CONFIGURATION)/net10.0/SharpTestBench.Tools.Tests.dll
+test:
+	$(MAKE) build CONFIGURATION=Release
+	"$(DOTNET)" tests/SharpTestBench.Tests/bin/Release/net10.0/SharpTestBench.Tests.dll
+	"$(DOTNET)" tests/SharpTestBench.Generators.Tests/bin/Release/net10.0/SharpTestBench.Generators.Tests.dll
+	"$(DOTNET)" tests/SharpTestBench.Tools.Tests/bin/Release/net10.0/SharpTestBench.Tools.Tests.dll
 	"$(PYTHON)" -m unittest discover -s tests/Tooling -q
-coverage: build
+coverage:
+	$(MAKE) build CONFIGURATION=Release
 	"$(DOTNET)" tool restore
 	"$(DOTNET)" run --project "$(HELPER)" -c Release -- code-coverage
-native: native-tools native-runner
+native:
+	"$(DOTNET)" run --project "$(HELPER)" -c Release -- publish-workers --mode all --rid "$(RID)" --output "$(WORKER_OUTPUT)"
 native-tools:
 	"$(DOTNET)" run --project "$(HELPER)" -c Release -- publish-workers --mode tools --rid "$(RID)" --output "$(WORKER_OUTPUT)"
 native-runner:
