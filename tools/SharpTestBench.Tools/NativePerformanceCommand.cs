@@ -10,10 +10,15 @@ internal static class NativePerformanceCommand
     const string Baseline = "2ff0ac644602197f64fb7839d52ff9d848d75387";
     public static object Comparison(IReadOnlyList<PerformanceSample> records, string variant, string metric, string baselineVariant = "baseline")
     {
-        var left = records.Where(row => row.variant == baselineVariant).ToArray(); var right = records.Where(row => row.variant == variant).ToArray();
-        if (left.Length == 0 || left.Length != right.Length || !left.Select(row => row.round).SequenceEqual(right.Select(row => row.round))) throw new InvalidDataException("Performance rounds are not paired");
-        var a = left.Select(row => row.metrics[metric]).ToArray(); var b = right.Select(row => row.metrics[metric]).ToArray();
-        if (a.Concat(b).Any(value => !double.IsFinite(value) || value <= 0)) throw new InvalidDataException("Performance samples must be positive and finite");
+        var left = records.Where(row => row.variant == baselineVariant).OrderBy(row => row.round).ToArray();
+        var right = records.Where(row => row.variant == variant).OrderBy(row => row.round).ToArray();
+        if (variant == baselineVariant || left.Length == 0 || left.Length != right.Length ||
+            left.Concat(right).Any(row => row.round < 0) || left.Select(row => row.round).Distinct().Count() != left.Length || right.Select(row => row.round).Distinct().Count() != right.Length ||
+            !left.Select(row => row.round).SequenceEqual(right.Select(row => row.round))) throw new InvalidDataException("Performance rounds are not uniquely paired");
+        double Sample(PerformanceSample row) => row.metrics.TryGetValue(metric, out var value) && double.IsFinite(value) && value > 0 ? value : throw new InvalidDataException("Performance samples must be present, positive and finite");
+        var a = left.Select(Sample).ToArray(); var b = right.Select(Sample).ToArray();
+        for (int index = 0; index < a.Length; index++)
+            if (!double.IsFinite(a[index] / b[index]) || a[index] / b[index] <= 0) throw new InvalidDataException("Performance ratio is not representable");
         var random = new PythonRandom(20261016); var ratios = new double[10000];
         for (var iteration = 0; iteration < ratios.Length; iteration++) { var indices = Enumerable.Range(0, a.Length).Select(_ => random.Below(a.Length)).ToArray(); ratios[iteration] = PackedBenchmarkCommand.Median(indices.Select(index => a[index])) / PackedBenchmarkCommand.Median(indices.Select(index => b[index])); }
         Array.Sort(ratios); var medianA = PackedBenchmarkCommand.Median(a); var medianB = PackedBenchmarkCommand.Median(b);
