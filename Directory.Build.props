@@ -10,5 +10,8 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <WarningsNotAsErrors>$(WarningsNotAsErrors);CS1591</WarningsNotAsErrors>
     <Deterministic>true</Deterministic>
+    <!-- Retain source-generator documents under obj so coverage can display
+         the generated lines already included in its counters. -->
+    <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
   </PropertyGroup>
 </Project>

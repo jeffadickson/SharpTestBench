@@ -11,10 +11,24 @@ dotnet run --project tools/SharpTestBench.Tools -c Release --no-build -- code-co
 Open `build/code-coverage/report/index.html`. The command also writes merged
 Cobertura, JSON and text summaries. It measures simulator-independent managed
 library, generator and managed-helper tests, plus the retained contract suite
-through its C# test API. Native code, HDL and simulator-only behavior require the
+through its C# test API. A separate Runner collection executes the retained
+`test_*runner*.py` contracts against the production `SharpTestBench.Runner`
+assembly referenced by RunnerValidation, rather than linked source copies.
+This measures managed Runner contracts; it does not execute the standalone
+CLI entry point, its runtime feature switches, or establish NativeAOT instruction
+coverage. RunnerValidation enables JSON reflection for its test protocol; the
+production CLI disables it. Native code, HDL and simulator-only behavior require the
 existing simulator qualification workflows. Functional coverage bins are a
 separate measurement (`Coverage.cs`). No percentage target implies untested
 simulator behavior is covered.
+
+The merged report requires all four production assemblies: SharpTestBench,
+SharpTestBench.Generators, SharpTestBench.Tools and SharpTestBench.Runner.
+Compiler-generated sources (including JSON serialization contexts) remain in
+the counts and are emitted under each project's ignored `obj` directory so
+ReportGenerator can display their source. They are not handwritten logic;
+changes in generated code or assembly scope can change the denominator, so
+percentages from different scopes are not directly comparable.
 
 Coverlet wraps the executable xUnit v3 suites without recompiling instrumented
 assemblies. Contract tests instrument a private helper copy to avoid modifying

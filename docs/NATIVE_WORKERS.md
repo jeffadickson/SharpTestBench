@@ -4,7 +4,7 @@ Repository-owned production helper orchestration lives in `tools/SharpTestBench.
 
 ## Local builds
 
-Install .NET SDK 10.0.402 and GNU Make. Run `make build`, `make test`, or `make coverage`. Coverlet 10.1.0 and ReportGenerator 5.5.11 are pinned in `.config/dotnet-tools.json`; the existing C# coverage command collects core, generator, helper and contract evidence and validates merged Cobertura/JSON counts. The default merged report covers SharpTestBench, SharpTestBench.Generators and SharpTestBench.Tools. Standalone Runner paths have direct tests and native execution evidence but are not a separately collected assembly in this report. Coverage describes managed assemblies, not native machine instructions or HDL.
+Install .NET SDK 10.0.402 and GNU Make. Run `make build`, `make test`, or `make coverage`. Coverlet 10.1.0 and ReportGenerator 5.5.11 are pinned in `.config/dotnet-tools.json`; the C# coverage command collects core, generator, helper and contract evidence and validates merged Cobertura/JSON counts. The default merged report covers SharpTestBench, SharpTestBench.Generators, SharpTestBench.Tools and SharpTestBench.Runner. Runner contracts exercise the production assembly through RunnerValidation; the standalone CLI entry point and native machine instructions require separate execution evidence. Coverage describes managed assemblies, not HDL. See [coverage scope and generated sources](CODE_COVERAGE.md).
 
 ## Native workers
 

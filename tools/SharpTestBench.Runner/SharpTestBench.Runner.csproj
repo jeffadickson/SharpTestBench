@@ -8,4 +8,7 @@
     <IsAotCompatible>true</IsAotCompatible>
     <JsonSerializerIsReflectionEnabledByDefault>false</JsonSerializerIsReflectionEnabledByDefault>
   </PropertyGroup>
+  <ItemGroup>
+    <InternalsVisibleTo Include="RunnerValidation" />
+  </ItemGroup>
 </Project>
