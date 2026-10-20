@@ -18,8 +18,8 @@ dotnet run --project tests/SharpTestBench.Tests -c Release --no-build
 dotnet run --project tests/SharpTestBench.Generators.Tests -c Release --no-build
 ```
 
-The small `tests/RunnerValidation` executable links the production runner's
-validation/process components so tooling tests can exercise them without a
+The small `tests/RunnerValidation` executable references the production Runner
+assembly so tooling tests can exercise its validation/process components without a
 simulator. It is test infrastructure, not a public runner command.
 
 On Linux, provision Icarus, a native toolchain, and the pinned adapter as in the
@@ -49,8 +49,9 @@ Each case writes to `build/dual-<fixture>-<seed>/`; negative controls append
 `-negative`. The directory retains manifests, input plans, expected identities,
 driver logs, runner outputs, functional metrics, and the parity/negative-control
 report. Errors also produce `case-failure.json`. CI uploads these directories
-even when execution fails. Every main push and PR triggers the workflow, including
-managed-runtime, generator, SDK, fixture and tooling changes.
+even when execution fails. GitHub workflows are currently disabled; use the local
+commands above for qualification. The workflow definition retains its push/PR
+triggers for managed-runtime, generator, SDK, fixture and tooling changes.
 
 The standalone manifest requires a positive expected count. When `expectedNames`
 is provided it must be a unique, nonempty list of that size. CI always supplies
@@ -87,6 +88,9 @@ Optional `testNames` selects exact qualified cases. Its unique, nonempty identit
 must match `expectedNames`; selection and the base seed are passed explicitly to
 the child after inherited selection variables are removed. The runtime preserves
 discovery-assigned per-case seeds when selection narrows a multi-case assembly.
+Parity children explicitly remove inherited selection, fault, metric-path and
+timeout controls before applying fixture-specific values. Merely omitting those
+variables from process overrides would leave the parent's values inherited.
 
 JSON readers reject duplicate keys, unknown manifest fields, malformed Unicode,
 nonfinite numeric values, excessive nesting, and inputs larger than 16 MiB.

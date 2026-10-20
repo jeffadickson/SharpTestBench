@@ -19,6 +19,14 @@ internal sealed class WorkspaceLock : IDisposable
 }
 internal static class LegacyRunCommand
 {
+    internal static Dictionary<string, string?> SimulatorEnvironment(IReadOnlyDictionary<string, string?> inherited, string hostDirectory, string adapterDirectory)
+    {
+        var environment = new Dictionary<string, string?>(inherited, OperatingSystem.IsWindows() ? StringComparer.OrdinalIgnoreCase : StringComparer.Ordinal);
+        string Prefix(string variable) => hostDirectory + Path.PathSeparator + adapterDirectory + Path.PathSeparator + environment.GetValueOrDefault(variable);
+        environment["LD_LIBRARY_PATH"] = Prefix("LD_LIBRARY_PATH");
+        if (NativeBuildCommand.LoaderPath != "LD_LIBRARY_PATH") environment[NativeBuildCommand.LoaderPath] = Prefix(NativeBuildCommand.LoaderPath);
+        return environment;
+    }
     public static void Execute(ToolContext context, string[] arguments)
     {
         var options = new Options(arguments, "--no-build", "--list");
@@ -54,13 +62,11 @@ internal static class LegacyRunCommand
         var sources = options.All("--source").Select(Path.GetFullPath).ToArray();
         if (sources.Length == 0) sources = [context.At(simulator is "ghdl" or "nvc" ? "tests/VhdlIntegration/top.vhd" : "tests/Integration/top.sv")];
         var adapter = CocotbAdapter.Inspect(context, simulator); var entry = adapter.NativeEntry();
-        var environment = ParityContracts.EnvironmentValues().ToDictionary(pair => pair.Key, pair => pair.Value, StringComparer.Ordinal);
+        var environment = SimulatorEnvironment(ParityContracts.EnvironmentValues(), Path.GetDirectoryName(host)!, adapter.LibsDir);
         void Set(string name, string value) => environment[name] = value;
         Set("CS_HOSTFXR", NativeBuildCommand.HostFxr(sdk)); Set("CS_CONFIG", config); Set("CS_ASSEMBLY", assembly); Set("CS_TOPLEVEL", top);
         Set("CS_ENTRY_TYPE", options.Get("--entry-type", "Entry, " + assemblyName)!); Set("CS_RESULTS", Path.Combine(work, label + "-results.json")); Set("CS_TRACE", Path.Combine(work, label + "-trace.txt")); Set("CS_BINDINGS", Path.Combine(work, "DutBindings.cs")); Set("DOTNET_ROOT", sdk);
         Set("CS_GPI_LIBRARY", entry.Library);
-        string Prefix(string variable) => Path.GetDirectoryName(host) + Path.PathSeparator.ToString() + adapter.LibsDir + Path.PathSeparator + environment.GetValueOrDefault(variable);
-        Set("LD_LIBRARY_PATH", Prefix("LD_LIBRARY_PATH")); Set(NativeBuildCommand.LoaderPath, Prefix(NativeBuildCommand.LoaderPath));
         if (options.Get("--filter") is string filter) Set("CS_TEST_FILTER", filter);
         if (options.Has("--list")) Set("CS_LIST_TESTS", "1");
         if (options.Get("--log-json") is string log) Set("CS_LOG_JSON", Path.GetFullPath(log));

@@ -7,7 +7,7 @@ internal static class ManifestCheckCommand
     {
         if (arguments.Length != 0) throw new ArgumentException("runner-manifest-check accepts no arguments");
         var work = context.At("build/manifest-check"); Directory.CreateDirectory(work); using var workspace = new WorkspaceLock(work, ".manifest-check.lock"); File.Delete(Path.Combine(work, "summary.json"));
-        var environment = new Dictionary<string, string?>(ParityContracts.EnvironmentValues()); foreach (var variable in ParityContracts.SelectionVariables) environment[variable] = null; environment["STB_NATIVE_VPI_TIME"] = "1";
+        var environment = ParityContracts.ChildEnvironment(ParityContracts.EnvironmentValues()); environment["STB_NATIVE_VPI_TIME"] = "1";
         void Run(string label, string[] command, int expected = 0) { var result = context.Run(command, environment: environment, capture: true, check: false, timeout: TimeSpan.FromSeconds(180)); File.WriteAllText(Path.Combine(work, label + ".log"), result.Output + result.Error); Require(result.ExitCode == expected, label + " did not produce expected exit code"); }
         Run("build-counter", ["dotnet", "build", context.At("examples/Counter"), "-c", "Release", "-v:q"]); NativeBuildCommand.Build(context);
         var include = Path.Combine(work, "include with spaces"); Directory.CreateDirectory(include); File.WriteAllText(Path.Combine(include, "counter_config.vh"), "`define COUNTER_INCREMENT `STB_INCREMENT\n");

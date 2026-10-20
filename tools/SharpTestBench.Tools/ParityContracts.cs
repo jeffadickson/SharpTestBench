@@ -67,6 +67,14 @@ internal static class ParityContracts
         return observed.SetEquals(expected);
     }
     public static Dictionary<string, string?> CleanEnvironment(IReadOnlyDictionary<string, string?> environment) => environment.Where(pair => !SelectionVariables.Contains(pair.Key, StringComparer.Ordinal)).ToDictionary(pair => pair.Key, pair => pair.Value, StringComparer.Ordinal);
+    public static Dictionary<string, string?> ChildEnvironment(IReadOnlyDictionary<string, string?> environment)
+    {
+        var result = CleanEnvironment(environment);
+        // ProcessStartInfo inherits the parent environment. Omitting an override
+        // leaves that inherited value intact; null explicitly removes it.
+        foreach (var variable in SelectionVariables) result[variable] = null;
+        return result;
+    }
     public static IReadOnlyDictionary<string, string?> EnvironmentValues() => Environment.GetEnvironmentVariables().Cast<System.Collections.DictionaryEntry>().ToDictionary(pair => (string)pair.Key, pair => (string?)pair.Value, StringComparer.Ordinal);
     public static void ClearCase(string work)
     {

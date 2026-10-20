@@ -53,7 +53,7 @@ internal static class ParityCiCommand
         var work = context.At("build/" + name); Directory.CreateDirectory(work); using var workspace = new WorkspaceLock(work, ".parity.lock");
         try
         {
-            ParityContracts.ClearCase(work); var environment = ParityContracts.CleanEnvironment(ParityContracts.EnvironmentValues()); environment["STB_NATIVE_VPI_TIME"] = "1";
+            ParityContracts.ClearCase(work); var environment = ParityContracts.ChildEnvironment(ParityContracts.EnvironmentValues()); environment["STB_NATIVE_VPI_TIME"] = "1";
             var report = action(work, environment); bool negative = report.TryGetValue("negativeControl", out var flag) && flag is true;
             StrictJson.Write(Path.Combine(work, negative ? "negative-control.json" : "parity.json"), report);
             if (!(bool)report["matched"]) throw new InvalidDataException("Runner parity qualification failed");
