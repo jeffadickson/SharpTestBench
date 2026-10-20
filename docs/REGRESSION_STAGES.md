@@ -6,7 +6,7 @@ type and method name using ordinal comparison; SimCase variants remain together
 in attribute declaration order. Each case retains its ordinary cancellation,
 timeout, result and cleanup boundary. Stages do not share an implicit fixture.
 
-`tools/run.py --stage -2 --stage 2` selects those stages. Selection intersects
+`tools/SharpTestBench.Tools/LegacyRunCommand.cs --stage -2 --stage 2` selects those stages. Selection intersects
 with `--filter`; unselected tests are omitted from reports. Selecting no tests
 fails explicitly. The equivalent environment variable is `CS_TEST_STAGES=-2,2`.
 Malformed stage values fail regression startup instead of silently selecting all.
@@ -19,7 +19,7 @@ failures. A leaked job/callback still aborts the process's regression immediatel
 stages never override isolation safeguards. Environment configuration uses
 `CS_STAGE_FAILURE_POLICY=continue` or `stop-after-stage`; unknown policies fail.
 
-Tests: `python tools/stage_tests.py` runs nine fresh Icarus processes with deliberately
+Tests: `dotnet run --project tools/SharpTestBench.Tools -c Release -- stage-tests` runs nine fresh Icarus processes with deliberately
 conflicting method/stage order, parameterized cases, injected failure, both failure
 policies, multi-stage selection, combined filtering and empty selection. CI runs
 these checks and retains JSON/JUnit and logs. This is ordering and selection,

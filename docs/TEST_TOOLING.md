@@ -11,17 +11,17 @@ Update: xUnit v3 3.2.2 is now installed in the managed test project, with a depe
 `tests/SharpTestBench.Tests/Program.cs` now exposes 361 xUnit cases, preserving the
 previous 1,916 checks. Byte round trips and four-/nine-state truth tables are
 individually discovered theories. Other checks are grouped into named behavioral
-facts. `tools/managed_tests.py` verifies the result count and builds a disposable
+facts. `tools/SharpTestBench.Tools/ManagedTestsCommand.cs` verifies the result count and builds a disposable
 copy with one broken boundary assertion: that case fails and the other 360 pass.
 The native xUnit executable runner is used directly via dotnet run; no solution-wide
 MTP/VSTest configuration or simulator synchronization context is changed.
 
 `SimRuntime` is sealed and tied to the simulator thread; `Native.cs` exposes static
-P/Invoke. `tools/native_faults.py` supplies fake native libraries in fresh processes
+P/Invoke. `tools/SharpTestBench.Tools/NativeFaultsCommand.cs` supplies fake native libraries in fresh processes
 and validates real ABI resolution and registration failures. The integration tests
 exercise actual simulator scheduling and HDL transport. These remain necessary.
 
-`tools/run.py` uses shared build files such as top.vvp. Unique labels alone do not
+`tools/SharpTestBench.Tools/LegacyRunCommand.cs` uses shared build files such as top.vvp. Unique labels alone do not
 make concurrent builds safe. The present CI installs Icarus and builds pinned cocotb
 adapters. No HTTP client or database dependency was found in the runtime. Neither
 a Docker executable in PATH nor /var/run/docker.sock was found in this workspace;

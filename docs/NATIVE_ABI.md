@@ -37,7 +37,7 @@ Native Icarus execution is validated on Linux x64, Windows x64 and macOS ARM64. 
 
 ## Validation
 
-`tools/native_faults.py` builds isolated fake libraries in `build/native-faults`
+`tools/SharpTestBench.Tools/NativeFaultsCommand.cs` builds isolated fake libraries in `build/native-faults`
 and launches a fresh .NET process per case. It checks rejection of ABI version 99,
 a missing GPI export, failure of all seven callback registrations without dictionary
 leaks, 100 failed Timer tasks completing with errors, and signed values outside the
@@ -80,7 +80,7 @@ Hostfxr function-address outputs use actual `void*` slots before conversion, avo
 pointer-to-pointer aliasing. Failed initialization closes any returned host context.
 Windows loader cleanup preserves its original error and checks UTF-8 conversion.
 
-`tools/native_build.py` requires GCC/G++ or Clang with C++20 and LTO support.
+`tools/SharpTestBench.Tools/NativeBuildCommand.cs` requires GCC/G++ or Clang with C++20 and LTO support.
 `CXX` selects the compiler. All owned host builds use `-std=c++20 -O3 -flto -g
 -DNDEBUG`, warnings as errors, and explicit export visibility. Windows uses `-static` to include the compiler and winpthread runtimes in the
 host DLL; its C ABI gate rejects dynamic compiler-runtime imports before loading.
@@ -91,7 +91,7 @@ for linked native consumers. LTO failure fails the build. Debug information rema
 breakpoints, although optimized locals may be unavailable or reordered.
 `build/native-build.json` records compiler identity, command, source and output hashes.
 
-`tools/prepare_upstream.py` verifies the pinned archive, then applies a checked,
+`tools/SharpTestBench.Tools/PrepareUpstreamCommand.cs` verifies the pinned archive, then applies a checked,
 build-only CMake overlay: C++20, Release, required interprocedural optimization,
 GCC/Clang `-O3 -g` or MSVC `/O2 /Ob2 /Zi /Zo` with release linker optimization.
 It uses upstream explicit Windows export annotations instead of CMake automatic
@@ -105,7 +105,7 @@ Neither profile enables fast-math or machine-specific instruction sets. This
 preserves real-value semantics and package portability. These flags enable release
 optimization; they do not establish a measured performance improvement. PGO remains separate work requiring representative data.
 
-`tools/native_build_check.py` resolves every public export by literal name and links
+`tools/SharpTestBench.Tools/NativeChecks.cs` resolves every public export by literal name and links
 and runs a C11 consumer against the actual optimized C++20 binary. CI runs this on
 Linux, Windows and macOS alongside simulator, debugger and package-consumer checks.
 
@@ -179,8 +179,8 @@ all have the same process architecture. The managed SharpTestBench assembly is
 architecture-neutral and is JIT compiled by the selected runtime. Do not load an
 x64 bridge or x64 adapter into an ARM64 Verilator process.
 
-`tools/native_build.py` already selects the native `linux-arm64` or `osx-arm64`
-.NET host pack and `tools/native_package.py` selects the matching package RID.
+`tools/SharpTestBench.Tools/NativeBuildCommand.cs` already selects the native `linux-arm64` or `osx-arm64`
+.NET host pack and `tools/SharpTestBench.Tools/PackageCommand.cs` selects the matching package RID.
 Build on the target architecture with its native C++ compiler; the same C++20
 source uses O3, LTO and loop/SLP vectorization without x86-specific ISA flags.
 Compiler auto-vectorization can target ARM SIMD where profitable; this is not a

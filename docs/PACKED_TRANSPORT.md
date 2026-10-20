@@ -51,7 +51,7 @@ Calls remain simulator-thread-only.
 
 ## Measured effect
 
-`tools/packed_benchmark.py` compares the previous string write/parse implementation
+`tools/SharpTestBench.Tools/PerformancePrepareCommand.cs` compares the previous string write/parse implementation
 with packed write/read on Icarus 11.0. Each mode performs 100 warmups and 500
 immediate round trips of a known value with its top bit set. Three fresh processes
 alternate mode order. The table reports medians. Every round trip checks its value.

@@ -8,7 +8,7 @@ the simulation host. It uses no private simulator object layout and changes no
 runtime ABI.
 
 ```sh
-python tools/icarus_layouts.py \
+dotnet run --project tools/SharpTestBench.Tools -c Release -- icarus-layouts \
   --source tests/Integration/top.sv --top top \
   --ivl-root /usr/lib/x86_64-linux-gnu/ivl \
   --include /usr/include/iverilog \
@@ -41,7 +41,7 @@ involved.
 On macOS with Homebrew:
 
 ```sh
-python tools/icarus_layouts_check.py \
+dotnet run --project tools/SharpTestBench.Tools -c Release -- icarus-layouts-check \
   --ivl-root "$(brew --prefix icarus-verilog)/lib/ivl" \
   --include "$(brew --prefix icarus-verilog)/include/iverilog"
 ```
@@ -61,14 +61,14 @@ it does not reproduce arbitrary defines, include paths or parameter overrides.
 | `packed_mixed` | `[-1:0][3:1][7:0]` |
 | `packed_packet` | `[15:0]`; no named fields inferred |
 
-`tools/icarus_layouts_check.py` exports metadata and runs an isolated C# consumer
+`tools/SharpTestBench.Tools/IcarusLayoutsCommand.cs` exports metadata and runs an isolated C# consumer
 against the same source fixture. The consumer constructs typed packed views from
 the JSON dimensions and checks independent HDL subscripts. A same-width reversal
 of the outer dimension must fail the HDL comparison. A stale explicit-source hash
 must also fail. Linux, Windows and macOS CI run all three cases and retains the documents/logs.
 
 ```sh
-python tools/icarus_layouts_check.py \
+dotnet run --project tools/SharpTestBench.Tools -c Release -- icarus-layouts-check \
   --ivl-root /usr/lib/x86_64-linux-gnu/ivl \
   --include /usr/include/iverilog
 ```

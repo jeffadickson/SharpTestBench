@@ -5,7 +5,7 @@ import sys
 import tempfile
 import unittest
 ROOT=Path(__file__).resolve().parents[2]
-sys.path.insert(0,str(ROOT/'tools'))
+sys.path.insert(0,str(ROOT/'tests/Tooling/managed_compat'))
 import dual_runner_ci as ci
 import strict_json
 

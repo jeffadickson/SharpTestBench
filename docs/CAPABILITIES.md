@@ -67,9 +67,9 @@ reports that distinction rather than banning the write action.
 
 Build the solution and run `tests/SharpTestBench.Tests` for product-boundary,
 complete-catalogue, ABI-bit and conservative-status checks. Run
-`CS_DOTNET_ROOT=/path/to/dotnet python tools/native_faults.py` to verify actual raw
+`CS_DOTNET_ROOT=/path/to/dotnet dotnet run --project tools/SharpTestBench.Tools -c Release -- native-faults` to verify actual raw
 and typed operations on an unknown fake backend reject before native mutation.
-`tools/run.py --sim BACKEND --label capabilities-BACKEND` runs the shared
+`tools/SharpTestBench.Tools/LegacyRunCommand.cs --sim BACKEND --label capabilities-BACKEND` runs the shared
 `TimingTests.CapabilityCatalogue` fixture alongside the existing transport,
 discovery and force tests. It exports the catalogue beside the trace. Captured
 catalogues and result files are in `docs/evidence/capabilities/`; timing behavior

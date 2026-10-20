@@ -16,63 +16,53 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - run: sudo apt-get update && sudo apt-get install -y iverilog gcc g++ gdb
+      - run: dotnet run --project tools/SharpTestBench.Tools -c Release -- ci install-deps linux
       - name: Install pinned cocotb adapters
-        run: |
-          python tools/prepare_upstream.py
-          CC=gcc CXX=g++ python -m pip install ./build/upstream/cocotb-source pytest
-      - run: python tools/audit_reviews.py --source build/upstream/cocotb-source
-      - run: python tools/array_reference.py --check
-      - run: python tools/logic_reference.py --check
+        run: dotnet run --project tools/SharpTestBench.Tools -c Release -- ci install-adapter --gnu
+      - run: dotnet run --project tools/SharpTestBench.Tools -c Release -- audit-reviews --source build/upstream/cocotb-source
+      - run: dotnet run --project tools/SharpTestBench.Tools -c Release -- array-reference --check
+      - run: dotnet run --project tools/SharpTestBench.Tools -c Release -- logic-reference --check
       - run: dotnet build SharpTestBench.slnx -c Release -p:RestoreLockedMode=true
       - run: python -m unittest discover -s tests/Tooling -v
-      - run: python tools/managed_tests.py
+      - run: dotnet run --project tests/SharpTestBench.Tools.Tests -c Release --no-build -- -xml build/helper-results.xml
+      - run: dotnet run --project tools/SharpTestBench.Tools -c Release -- managed-tests
       - run: dotnet run --project tests/SharpTestBench.Generators.Tests -c Release --no-build -- -xml build/generator-results.xml
-      - run: python tools/run.py --sim icarus --log-json build/icarus-events.jsonl --waves build/icarus.vcd
+      - run: dotnet run --project tools/SharpTestBench.Tools -c Release -- run --sim icarus --log-json build/icarus-events.jsonl --waves build/icarus.vcd
       - name: Install pinned NVC for VHDL value callbacks
-        run: |
-          curl --fail --location --retry 3 https://github.com/nickg/nvc/releases/download/r1.23.0/nvc_1.23.0-1_amd64_ubuntu-24.04.deb -o build/nvc.deb
-          echo '33d65eafb83d83352716895e44c116002f94d8a198a9486a3cee6df3e4fdfb89  build/nvc.deb' | sha256sum --check
-          sudo apt-get install -y ./build/nvc.deb
-      - run: python tools/run.py --sim nvc --label nvc
-      - run: python tools/native_build_check.py
-      - run: python tools/queue_reference.py --label icarus
-      - run: python tools/queue_reference.py --label nvc
-      - run: python tools/structured_reference_env.py --label icarus
-      - run: python tools/logging_check.py --label icarus
-      - run: python tools/coverage_check.py --label icarus
-      - run: python tools/timing_parity.py --sim icarus --label icarus
-      - run: python tools/wave_check.py --label icarus
-      - run: python tools/wave_tests.py
+        run: dotnet run --project tools/SharpTestBench.Tools -c Release -- ci install-nvc
+      - run: dotnet run --project tools/SharpTestBench.Tools -c Release -- run --sim nvc --label nvc
+      - run: dotnet run --project tools/SharpTestBench.Tools -c Release -- native-build-check
+      - run: dotnet run --project tools/SharpTestBench.Tools -c Release -- queue-reference --label icarus
+      - run: dotnet run --project tools/SharpTestBench.Tools -c Release -- queue-reference --label nvc
+      - run: dotnet run --project tools/SharpTestBench.Tools -c Release -- structured-reference-env --label icarus
+      - run: dotnet run --project tools/SharpTestBench.Tools -c Release -- logging-check --label icarus
+      - run: dotnet run --project tools/SharpTestBench.Tools -c Release -- coverage-check --label icarus
+      - run: dotnet run --project tools/SharpTestBench.Tools -c Release -- timing-parity --sim icarus --label icarus
+      - run: dotnet run --project tools/SharpTestBench.Tools -c Release -- wave-check --label icarus
+      - run: dotnet run --project tools/SharpTestBench.Tools -c Release -- wave-tests
       - run: dotnet build examples/Counter -c Release
-      - run: python tools/run.py --sim icarus --no-build --assembly examples/Counter/bin/Release/net10.0/Counter.dll --source examples/Counter/counter.sv --top counter --entry-type "Entry, Counter" --label counter --waves build/counter.vcd
-      - run: python tools/cleanup_tests.py
+      - run: dotnet run --project tools/SharpTestBench.Tools -c Release -- run --sim icarus --no-build --assembly examples/Counter/bin/Release/net10.0/Counter.dll --source examples/Counter/counter.sv --top counter --entry-type "Entry, Counter" --label counter --waves build/counter.vcd
+      - run: dotnet run --project tools/SharpTestBench.Tools -c Release -- cleanup-tests
       - run: dotnet build examples/AxiMemory -c Release -p:RestoreLockedMode=true
-      - run: python tools/axi_workload.py --transactions 128 --repeat 3
+      - run: dotnet run --project tools/SharpTestBench.Tools -c Release -- axi-workload --transactions 128 --repeat 3
         env:
           AXI_CLOCK_MODE: native
       - run: dotnet build examples/DspFir -c Release
-      - run: python tools/dsp_workload.py --cycles 1024 --repeat 3
+      - run: dotnet run --project tools/SharpTestBench.Tools -c Release -- dsp-workload --cycles 1024 --repeat 3
       - run: dotnet build examples/CpuCore -c Release
-      - run: python tools/cpu_workload.py --iterations 256 --repeat 3
-      - run: python tools/workspace_tests.py
-      - run: python tools/native_package.py
-      - run: python tools/stage_tests.py
-      - run: python tools/typecheck.py
-      - run: python tools/parity.py --label icarus
+      - run: dotnet run --project tools/SharpTestBench.Tools -c Release -- cpu-workload --iterations 256 --repeat 3
+      - run: dotnet run --project tools/SharpTestBench.Tools -c Release -- workspace-tests
+      - run: dotnet run --project tools/SharpTestBench.Tools -c Release -- native-package
+      - run: dotnet run --project tools/SharpTestBench.Tools -c Release -- stage-tests
+      - run: dotnet run --project tools/SharpTestBench.Tools -c Release -- typecheck
+      - run: dotnet run --project tools/SharpTestBench.Tools -c Release -- parity --label icarus
       - name: Validate managed debugger inside Icarus
-        run: |
-          curl --fail --location --retry 3 https://github.com/Samsung/netcoredbg/releases/download/3.2.0-1092/netcoredbg-linux-amd64.tar.gz -o build/netcoredbg.tar.gz
-          echo '080eb3b2d2152465f599d3b33d1ee6e747794e11cc0a3773ec689f5e5f2c5afa  build/netcoredbg.tar.gz' | sha256sum --check
-          mkdir -p build/debugger
-          tar -xzf build/netcoredbg.tar.gz -C build/debugger
-          dotnet build tests/DebugIntegration -c Debug
-          python tools/debugger_tests.py --debugger build/debugger/netcoredbg/netcoredbg
-      - run: python tools/native_debugger_tests.py
-      - run: python tools/native_faults.py
+        run: dotnet run --project tools/SharpTestBench.Tools -c Release -- ci debugger-check
+      - run: dotnet run --project tools/SharpTestBench.Tools -c Release -- native-debugger-tests
+      - run: dotnet run --project tools/SharpTestBench.Tools -c Release -- native-faults
         env:
           CS_DOTNET_ROOT: ${{ env.DOTNET_ROOT }}
-      - run: python tools/icarus_layouts_check.py --ivl-root /usr/lib/x86_64-linux-gnu/ivl --include /usr/include/iverilog
+      - run: dotnet run --project tools/SharpTestBench.Tools -c Release -- icarus-layouts-check --ivl-root /usr/lib/x86_64-linux-gnu/ivl --include /usr/include/iverilog
         env:
           CS_DOTNET_ROOT: ${{ env.DOTNET_ROOT }}
       - uses: actions/upload-artifact@v4
@@ -128,30 +118,19 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - run: sudo apt-get update && sudo apt-get install -y autoconf flex bison libfl-dev g++ make
+      - run: dotnet run --project tools/SharpTestBench.Tools -c Release -- ci install-deps verilator
       - name: Build pinned Verilator 5.048
-        run: |
-          mkdir -p build
-          curl --fail --location --retry 3 https://github.com/verilator/verilator/archive/refs/tags/v5.048.tar.gz -o build/verilator.tar.gz
-          echo '02d934b3f972c6d9b792350634d81eadfc9e61f347e3f3bdcaad40960b9fcb53  build/verilator.tar.gz' | sha256sum --check
-          tar -xzf build/verilator.tar.gz -C build
-          cd build/verilator-5.048
-          autoconf
-          ./configure
-          make -C src -j2 opt
-          echo "VERILATOR_ROOT=$PWD" >> "$GITHUB_ENV"
-          echo "$PWD/bin" >> "$GITHUB_PATH"
+        run: dotnet run --project tools/SharpTestBench.Tools -c Release -- ci install-verilator
       - name: Install pinned native adapters
-        run: |
-          python tools/prepare_upstream.py
-          CC=gcc CXX=g++ python -m pip install ./build/upstream/cocotb-source pytest
+        run: dotnet run --project tools/SharpTestBench.Tools -c Release -- ci install-adapter --gnu
       - run: dotnet build SharpTestBench.slnx -c Release -p:RestoreLockedMode=true
       - run: python -m unittest discover -s tests/Tooling -v
-      - run: python tools/run.py --sim verilator --label verilator --waves build/verilator.vcd
-      - run: python tools/queue_reference.py --label verilator
-      - run: python tools/wave_check.py --label verilator
+      - run: dotnet run --project tests/SharpTestBench.Tools.Tests -c Release --no-build -- -xml build/helper-results.xml
+      - run: dotnet run --project tools/SharpTestBench.Tools -c Release -- run --sim verilator --label verilator --waves build/verilator.vcd
+      - run: dotnet run --project tools/SharpTestBench.Tools -c Release -- queue-reference --label verilator
+      - run: dotnet run --project tools/SharpTestBench.Tools -c Release -- wave-check --label verilator
       - name: Check benchmark values using the same compiled model
-        run: python tools/run.py --sim verilator --no-build --project Benchmark --sim-executable build/verilator/top --label verilator-benchmark
+        run: dotnet run --project tools/SharpTestBench.Tools -c Release -- run --sim verilator --no-build --project Benchmark --sim-executable build/verilator/top --label verilator-benchmark
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -182,62 +161,54 @@ jobs:
           python-version: '3.12'
       - name: Install macOS simulator
         if: runner.os == 'macOS'
-        run: brew install icarus-verilog
+        run: dotnet run --project tools/SharpTestBench.Tools -c Release -- ci install-deps macos
       - uses: msys2/setup-msys2@v2
+        id: msys2
         if: runner.os == 'Windows'
         with:
           msystem: UCRT64
           install: mingw-w64-ucrt-x86_64-gcc mingw-w64-ucrt-x86_64-iverilog
       - name: Select matching Windows simulator and target SDK
         if: runner.os == 'Windows'
-        shell: msys2 {0}
-        run: |
-          cygpath -w /ucrt64/bin >> "$GITHUB_PATH"
-          echo "STB_IVL_ROOT=$(cygpath -w /ucrt64/lib/ivl)" >> "$GITHUB_ENV"
-          echo "STB_IVL_INCLUDE=$(cygpath -w /ucrt64/include/iverilog)" >> "$GITHUB_ENV"
-          pacman -Q > windows-toolchain.txt
+        run: dotnet run --project tools/SharpTestBench.Tools -c Release -- ci windows-toolchain --root "${{ steps.msys2.outputs.msys2-location }}" --variant ucrt64
       - name: Install pinned native adapters
-        run: |
-          python tools/prepare_upstream.py
-          python -m pip install ./build/upstream/cocotb-source pytest
-      - run: python tools/audit_reviews.py --source build/upstream/cocotb-source
-      - run: python tools/array_reference.py --check
-      - run: python tools/logic_reference.py --check
+        run: dotnet run --project tools/SharpTestBench.Tools -c Release -- ci install-adapter
+      - run: dotnet run --project tools/SharpTestBench.Tools -c Release -- audit-reviews --source build/upstream/cocotb-source
+      - run: dotnet run --project tools/SharpTestBench.Tools -c Release -- array-reference --check
+      - run: dotnet run --project tools/SharpTestBench.Tools -c Release -- logic-reference --check
       - run: dotnet build SharpTestBench.slnx -c Release -p:RestoreLockedMode=true
       - run: python -m unittest discover -s tests/Tooling -v
-      - run: python tools/managed_tests.py
+      - run: dotnet run --project tests/SharpTestBench.Tools.Tests -c Release --no-build -- -xml build/helper-results.xml
+      - run: dotnet run --project tools/SharpTestBench.Tools -c Release -- managed-tests
       - run: dotnet run --project tests/SharpTestBench.Generators.Tests -c Release --no-build -- -xml build/generator-results.xml
-      - run: python tools/run.py --sim icarus --label platform-icarus --waves build/platform-icarus.vcd
-      - run: python tools/native_build_check.py
+      - run: dotnet run --project tools/SharpTestBench.Tools -c Release -- run --sim icarus --label platform-icarus --waves build/platform-icarus.vcd
+      - run: dotnet run --project tools/SharpTestBench.Tools -c Release -- native-build-check
       - name: Check macOS elaboration metadata (native ARM64)
         if: runner.os == 'macOS'
         env:
           CS_DOTNET_ROOT: ${{ env.DOTNET_ROOT }}
-        run: python tools/icarus_layouts_check.py --ivl-root "$(brew --prefix icarus-verilog)/lib/ivl" --include "$(brew --prefix icarus-verilog)/include/iverilog"
+        run: dotnet run --project tools/SharpTestBench.Tools -c Release -- ci layouts
       - name: Check Windows elaboration metadata
         if: runner.os == 'Windows'
-        shell: pwsh
         env:
           CS_DOTNET_ROOT: ${{ env.DOTNET_ROOT }}
-        run: |
-          python tools/icarus_layouts_check.py --ivl-root "$env:STB_IVL_ROOT" --include "$env:STB_IVL_INCLUDE"
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-      - run: python tools/queue_reference.py --label platform-icarus
-      - run: python tools/structured_reference_env.py --label platform-icarus
-      - run: python tools/wave_check.py --label platform-icarus
+        run: dotnet run --project tools/SharpTestBench.Tools -c Release -- ci layouts
+      - run: dotnet run --project tools/SharpTestBench.Tools -c Release -- queue-reference --label platform-icarus
+      - run: dotnet run --project tools/SharpTestBench.Tools -c Release -- structured-reference-env --label platform-icarus
+      - run: dotnet run --project tools/SharpTestBench.Tools -c Release -- wave-check --label platform-icarus
       - run: dotnet build examples/Counter -c Release
-      - run: python tools/run.py --sim icarus --no-build --assembly examples/Counter/bin/Release/net10.0/Counter.dll --source examples/Counter/counter.sv --top counter --entry-type "Entry, Counter" --label counter --waves build/counter.vcd
-      - run: python tools/cleanup_tests.py
+      - run: dotnet run --project tools/SharpTestBench.Tools -c Release -- run --sim icarus --no-build --assembly examples/Counter/bin/Release/net10.0/Counter.dll --source examples/Counter/counter.sv --top counter --entry-type "Entry, Counter" --label counter --waves build/counter.vcd
+      - run: dotnet run --project tools/SharpTestBench.Tools -c Release -- cleanup-tests
       - run: dotnet build examples/AxiMemory -c Release -p:RestoreLockedMode=true
-      - run: python tools/axi_workload.py --transactions 128 --repeat 3
+      - run: dotnet run --project tools/SharpTestBench.Tools -c Release -- axi-workload --transactions 128 --repeat 3
         env:
           AXI_CLOCK_MODE: native
       - run: dotnet build examples/DspFir -c Release
-      - run: python tools/dsp_workload.py --cycles 1024 --repeat 3
+      - run: dotnet run --project tools/SharpTestBench.Tools -c Release -- dsp-workload --cycles 1024 --repeat 3
       - run: dotnet build examples/CpuCore -c Release
-      - run: python tools/cpu_workload.py --iterations 256 --repeat 3
-      - run: python tools/workspace_tests.py
-      - run: python tools/native_package.py
+      - run: dotnet run --project tools/SharpTestBench.Tools -c Release -- cpu-workload --iterations 256 --repeat 3
+      - run: dotnet run --project tools/SharpTestBench.Tools -c Release -- workspace-tests
+      - run: dotnet run --project tools/SharpTestBench.Tools -c Release -- native-package
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -278,7 +249,7 @@ jobs:
         with:
           name: linux-test-results
           path: downloaded
-      - run: python tools/package_container.py --artifacts downloaded
+      - run: dotnet run --project tools/SharpTestBench.Tools -c Release -- package-container --artifacts downloaded
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -299,7 +270,7 @@ jobs:
       - name: Validate release candidates from all native consumers
         env:
           REVISION: ${{ github.sha }}
-        run: python tools/release_bundle.py --artifacts downloaded --output release --revision "$REVISION"
+        run: dotnet run --project tools/SharpTestBench.Tools -c Release -- ci release-bundle --artifacts downloaded --output release
       - uses: actions/upload-artifact@v4
         with:
           name: release-candidate

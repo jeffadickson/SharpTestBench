@@ -4,7 +4,7 @@ import sys
 import unittest
 import zlib
 ROOT=Path(__file__).resolve().parents[2]
-sys.path.insert(0,str(ROOT/'tools'))
+sys.path.insert(0,str(ROOT/'tests/Tooling/managed_compat'))
 from lfsr_fixture import config, validate_config, transition, reverse_bits, plan
 
 class Tests(unittest.TestCase):

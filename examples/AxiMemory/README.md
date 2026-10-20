@@ -18,12 +18,12 @@ cycle trace, not just a checksum or final pass count.
 
 ```sh
 dotnet build examples/AxiMemory -c Release
-# Build native host once with tools/run.py; provision build/reference-python with
+# Build native host once with tools/SharpTestBench.Tools/LegacyRunCommand.cs; provision build/reference-python with
 # cocotb==2.1.0 and find_libpython==0.5.1 (CI already does this).
-python tools/axi_workload.py --transactions 1024 --repeat 5
+dotnet run --project tools/SharpTestBench.Tools -c Release -- axi-workload --transactions 1024 --repeat 5
 ```
 
-Use the same CS_DOTNET_ROOT/CS_IVERILOG/CS_IVL_ROOT/CS_VVP overrides as tools/run.py.
+Use the same CS_DOTNET_ROOT/CS_IVERILOG/CS_IVL_ROOT/CS_VVP overrides as tools/SharpTestBench.Tools/LegacyRunCommand.cs.
 The count is write/read pairs; reset probes add commands. Results, exact plans,
 traces, logs and metrics are in build/axi-workload. One whole workload at a time
 must use that parent directory. Each simulator process has a separate workspace.

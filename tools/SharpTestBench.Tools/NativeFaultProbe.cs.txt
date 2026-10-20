@@ -1,0 +1,65 @@
+using SharpTestBench;
+using System.Reflection;
+string mode = args[0];
+if (mode != "registration" && mode != "unknown") {
+ try { _ = new SimRuntime(); throw new Exception("Bad ABI was accepted"); }
+ catch (NotSupportedException e) {
+  string wanted = mode == "legacy" ? "predates packed-plane support" : mode == "version" ? "native ABI 99; expected 1" : "missing GPI symbol: gpi_register_start_of_sim_time_callback";
+  if (!e.Message.Contains(wanted)) throw;
+  Console.WriteLine("PASS " + mode + ": " + e.Message);
+ }
+ return;
+}
+var r = new SimRuntime();
+if (mode == "unknown") {
+ if (r.SupportsFourState || r.SupportsNineState || r.SupportsForceRelease) throw new Exception("Optimistic unknown support");
+ if (HdlObject.Root().Direction != PortDirection.Unknown) throw new Exception("Unknown backend direction inferred");
+ try { HdlObject.Root().RequireDirection(PortDirection.Input); throw new Exception("Unknown direction accepted"); }
+ catch (NotSupportedException) { }
+ var signal = HdlObject.Root().Signal();
+ var typed = HdlObject.Root().Signal<W8>();
+ Action[] writes = {
+  () => signal.WriteBits("XXXXXXXX", WriteAction.Immediate),
+  () => signal.WriteBits("UUUUUUUU", WriteAction.Immediate),
+  () => typed.Write(LogicVector<W8>.Parse("XXXXXXXX"), WriteAction.Immediate),
+  () => signal.WriteBits("00000000", WriteAction.Force),
+  () => signal.WriteBits("00000000", WriteAction.Release)
+ };
+ foreach (var write in writes) {
+  try { write(); throw new Exception("Unverified write accepted"); }
+  catch (NotSupportedException e) when (e.Message.Contains("Unverified")) { }
+ }
+ if (r.PendingCallbacks != 0) throw new Exception("Rejected operation queued work");
+ Console.WriteLine("PASS unknown: five raw/typed state and force/release guards reject unverified operations");
+ return;
+}
+var kindType = typeof(SimRuntime).Assembly.GetType("SharpTestBench.CallbackKind")!;
+var register = typeof(SimRuntime).GetMethod("Register", BindingFlags.NonPublic | BindingFlags.Instance)!;
+int count = 0;
+foreach (object kind in Enum.GetValues(kindType)) {
+ try {
+  register.Invoke(r, new object[] { kind, (Action)(() => throw new Exception("Unexpected callback")), 1UL, (nint)1, 0, null! });
+  throw new Exception("Failed native registration was accepted");
+ } catch (TargetInvocationException e) when (e.InnerException is InvalidOperationException error && error.Message.StartsWith("Cannot register ")) { }
+ if (r.PendingCallbacks != 0) throw new Exception("Registration leaked");
+ if (r.LastSimulatorCallback != null) throw new Exception("Failed registration fabricated callback history");
+ count++;
+}
+// Check the actual table too: PendingCallbacks intentionally excludes the End callback.
+var registrations = (System.Collections.IDictionary)typeof(SimRuntime).GetField("registrations", BindingFlags.NonPublic | BindingFlags.Instance)!.GetValue(r)!;
+if (registrations.Count != 0) throw new Exception("End callback registration leaked");
+var drain = typeof(SimRuntime).GetMethod("Drain", BindingFlags.NonPublic | BindingFlags.Instance)!;
+for (int i = 0; i < 100; i++) {
+ var task = Triggers.Timer(1).AsTask();
+ drain.Invoke(r, null);
+ if (!task.IsFaulted || task.Exception?.InnerException is not InvalidOperationException || r.PendingCallbacks != 0)
+  throw new Exception("Failed trigger did not settle cleanly");
+}
+try { HdlObject.Root().Signal().WriteBits("000000001"); throw new Exception("Failed write registration accepted"); }
+catch (InvalidOperationException e) when (e.Message == "Cannot register ReadWrite") { }
+foreach (string field in new[] { "writes", "writePreviews", "appliedPreviews" }) {
+ var pending = (System.Collections.IDictionary)typeof(SimRuntime).GetField(field, BindingFlags.NonPublic | BindingFlags.Instance)!.GetValue(r)!;
+ if (pending.Count != 0) throw new Exception("Failed write left pending state: " + field);
+}
+if (HdlObject.Root().Integer().Read() != -2147483649L) throw new Exception("Native long was truncated");
+Console.WriteLine($"PASS registration: {count} callback kinds cleanly rejected; 100 failed timer tasks settled; failed write leaves no state; signed 64-bit transport passed");

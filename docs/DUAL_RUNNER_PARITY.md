@@ -1,7 +1,8 @@
 # Dual-runner parity CI
 
-The parity workflow runs the existing Python orchestration and standalone .NET
-runner in separate Icarus processes. Both currently use the same managed runtime,
+The parity workflow runs the source-runner orchestration and standalone manifest
+runner in separate Icarus processes. Both launch paths are now implemented in C#,
+with separate option handling and process orchestration. Both currently use the same managed runtime,
 native host, and pinned GPI adapter. This validates orchestration and result
 equivalence; it does not qualify the independent VPI backend under development
 in PR #62. The existing runner remains the default for users.
@@ -25,10 +26,10 @@ On Linux, provision Icarus, a native toolchain, and the pinned adapter as in the
 workflow, then run:
 
 ```sh
-python tools/dual_runner_ci.py --fixture counter --seed 1
-python tools/dual_runner_ci.py --fixture dsp --seed 17
-python tools/dual_runner_ci.py --fixture cpu --seed 17
-python tools/dual_runner_ci.py --fixture dsp --seed 17 --negative-control
+dotnet run --project tools/SharpTestBench.Tools -c Release -- dual-runner-ci --fixture counter --seed 1
+dotnet run --project tools/SharpTestBench.Tools -c Release -- dual-runner-ci --fixture dsp --seed 17
+dotnet run --project tools/SharpTestBench.Tools -c Release -- dual-runner-ci --fixture cpu --seed 17
+dotnet run --project tools/SharpTestBench.Tools -c Release -- dual-runner-ci --fixture dsp --seed 17 --negative-control
 ```
 
 CI covers all three fixtures at seeds 1 and 17. DSP uses a shared deterministic
@@ -106,7 +107,7 @@ and atomically replaced. The parity orchestrator clears known stale reports befo
 building, preserves unrelated files, and refuses cleanup of locked child workspaces.
 
 After provisioning the pinned adapter and building the solution, run
-`python tools/runner_manifest_check.py` to qualify real include/define/parameter
+`dotnet run --project tools/SharpTestBench.Tools -c Release -- runner-manifest-check` to qualify real include/define/parameter
 handling, an intentional parameter-width failure, exact selection from a multi-case
 assembly, parity of selected-case seeds, and retained input provenance. The parity
 workflow runs this check for its Counter/seed-1 case and uploads the evidence.

@@ -82,7 +82,7 @@ from matching only the selected result. Same-time tie ordering is not compared.
 Run the managed integration suite with label `owned-icarus`, then:
 
 ```sh
-python tools/structured_reference_env.py --label owned-icarus
+dotnet run --project tools/SharpTestBench.Tools -c Release -- structured-reference-env --label owned-icarus
 ```
 
 The helper provisions build/reference-python with cocotb==2.1.0 and

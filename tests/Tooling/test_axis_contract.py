@@ -3,7 +3,7 @@ from pathlib import Path
 import sys
 import unittest
 ROOT=Path(__file__).resolve().parents[2]
-sys.path.insert(0,str(ROOT/'tools'))
+sys.path.insert(0,str(ROOT/'tests/Tooling/managed_compat'))
 from axis_fixture import plan, validate_plan, configuration, project
 
 class Tests(unittest.TestCase):

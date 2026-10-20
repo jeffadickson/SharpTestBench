@@ -17,9 +17,12 @@ jobs:
         with:
           python-version: '3.12'
       - run: dotnet tool restore
+      - run: dotnet build tests/RunnerValidation -c Release -p:RestoreLockedMode=true
       - run: dotnet build tests/SharpTestBench.Tests -c Release -p:RestoreLockedMode=true
       - run: dotnet build tests/SharpTestBench.Generators.Tests -c Release -p:RestoreLockedMode=true
-      - run: python tools/code_coverage.py
+      - run: dotnet build tests/SharpTestBench.Tools.Tests -c Release -p:RestoreLockedMode=true
+      - run: dotnet tests/SharpTestBench.Tools.Tests/bin/Release/net10.0/SharpTestBench.Tools.Tests.dll -xml build/managed-helper-results.xml
+      - run: dotnet run --project tools/SharpTestBench.Tools -c Release -- code-coverage
       - uses: actions/upload-artifact@v4
         if: always()
         with:

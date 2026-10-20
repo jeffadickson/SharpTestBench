@@ -5,7 +5,7 @@ import sys
 import tempfile
 import unittest
 ROOT=Path(__file__).resolve().parents[2]
-sys.path.insert(0,str(ROOT/'tools'))
+sys.path.insert(0,str(ROOT/'tests/Tooling/managed_compat'))
 from lfsr_fixture import config,fixture,transition,reverse_bits,plan,verify_sources,plan_digest
 from dual_runner_ci import clean_environment
 

@@ -12,7 +12,7 @@ From the repository root:
 
 ```sh
 python -m pip install -r docs/api/requirements.txt
-python tools/documentation.py
+dotnet run --project tools/SharpTestBench.Tools -c Release -- documentation
 ```
 
 Open `build/docs/html/index.html`. Use `--dotnet /path/to/dotnet` when necessary.

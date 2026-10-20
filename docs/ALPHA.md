@@ -27,13 +27,13 @@ of matching architecture. Windows/macOS CI records the tested installation recip
 From the repository root, in a Python virtual environment:
 
 ```sh
-python tools/prepare_upstream.py
+dotnet run --project tools/SharpTestBench.Tools -c Release -- prepare-upstream
 python -m pip install ./build/upstream/cocotb-source pytest
-python tools/doctor.py
+dotnet run --project tools/SharpTestBench.Tools -c Release -- doctor
 dotnet build SharpTestBench.slnx -c Release -p:RestoreLockedMode=true
-python tools/managed_tests.py
+dotnet run --project tools/SharpTestBench.Tools -c Release -- managed-tests
 dotnet build examples/Counter -c Release
-python tools/run.py --sim icarus --assembly examples/Counter/bin/Release/net10.0/Counter.dll --source examples/Counter/counter.sv --top counter --entry-type "Entry, Counter" --label counter --waves build/counter.vcd
+dotnet run --project tools/SharpTestBench.Tools -c Release -- run --sim icarus --assembly examples/Counter/bin/Release/net10.0/Counter.dll --source examples/Counter/counter.sv --top counter --entry-type "Entry, Counter" --label counter --waves build/counter.vcd
 ```
 
 The example asserts reset and four increments on an actual Verilog counter. It

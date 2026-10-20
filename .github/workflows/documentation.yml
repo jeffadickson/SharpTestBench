@@ -15,9 +15,9 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - run: sudo apt-get update && sudo apt-get install -y doxygen
+      - run: dotnet run --project tools/SharpTestBench.Tools -c Release -- ci install-deps documentation
       - run: python -m pip install -r docs/api/requirements.txt
-      - run: python tools/documentation.py
+      - run: dotnet run --project tools/SharpTestBench.Tools -c Release -- documentation
       - uses: actions/upload-artifact@v4
         if: always()
         with:

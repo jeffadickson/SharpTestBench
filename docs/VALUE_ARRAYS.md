@@ -75,7 +75,7 @@ migration warnings and LogicArray's specialized operations are separate audits.
 ## Evidence
 
 Issue [#47](https://github.com/jeffadickson/SharpTestBench/issues/47) tracks this work.
-`tools/array_reference.py` verifies hashes of the installed pinned cocotb range,
+`tools/SharpTestBench.Tools/OracleFixturesCommand.cs` verifies hashes of the installed pinned cocotb range,
 abstract-array and array modules before generating/checking 98 reference cases.
 `ArrayTests.PinnedRangeAndArrayReference` compares those results with C# ranges and
 arrays. Additional tests cover aliasing, throwing enumerables, transactional

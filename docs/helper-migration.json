@@ -1,0 +1,592 @@
+{
+  "language": "C#",
+  "helpers": [
+    {
+      "source": "tools/array_reference.py",
+      "sha256": "3e6a717ed5e2c5ff95f5e9636ef6de472d6643d1bcd5d1b24b5a58d64df375f5",
+      "functions": [],
+      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "implementation": "tools/SharpTestBench.Tools/OracleFixturesCommand.cs"
+    },
+    {
+      "source": "tools/audit_reviews.py",
+      "sha256": "6ffcdc0d521b0c68fed2504b71a0fa8e307e448e7b2bfd3ae01662002bf2dd8a",
+      "functions": [
+        "validate",
+        "main"
+      ],
+      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "implementation": "tools/SharpTestBench.Tools/AuditCommand.cs"
+    },
+    {
+      "source": "tools/audit_surface.py",
+      "sha256": "6e4dfb6d6bc3cf7522cab78e5dc14e5e6589ea1a0de8ce901257af5ceeb8b5c9",
+      "functions": [],
+      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "implementation": "tools/SharpTestBench.Tools/AuditCommand.cs"
+    },
+    {
+      "source": "tools/axi_python.py",
+      "sha256": "d31ce55de536611c4ff8ea62c5b7f8fb3dc4b4c2137be95024a871a262a85aa2",
+      "functions": [],
+      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "implementation": "tools/SharpTestBench.Tools/ReferenceCommand.cs"
+    },
+    {
+      "source": "tools/axi_workload.py",
+      "sha256": "2e3139d6d3791a31a494a08f326a12fcffef259230ba8dd14935f5db9284efd4",
+      "functions": [
+        "plan",
+        "python_run",
+        "main"
+      ],
+      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "implementation": "tools/SharpTestBench.Tools/WorkloadCommand.cs"
+    },
+    {
+      "source": "tools/axis_ci.py",
+      "sha256": "a759cd7fb977e7979efdcbcee979b5f77a825219b20167d3335b6c6e388c6a42",
+      "functions": [
+        "run_case",
+        "main"
+      ],
+      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "implementation": "tools/SharpTestBench.Tools/ParityCiCommand.cs"
+    },
+    {
+      "source": "tools/axis_fixture.py",
+      "sha256": "1d478d9772d6549dbac033d523335af7445d716153db27e86897b6adefb7105e",
+      "functions": [
+        "integer",
+        "plan",
+        "validate_plan",
+        "verify_sources",
+        "configuration",
+        "project",
+        "metrics"
+      ],
+      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "implementation": "tools/SharpTestBench.Tools/AxisFixture.cs"
+    },
+    {
+      "source": "tools/benchmark.py",
+      "sha256": "dd088de994b22d0f56f21bb4bfdb5d4576285c4cbb5013daef539659a233420f",
+      "functions": [],
+      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "implementation": "tools/SharpTestBench.Tools/BenchmarkCommand.cs"
+    },
+    {
+      "source": "tools/cleanup_tests.py",
+      "sha256": "536cf70c3bec8cf2d372171f0fa5f7c51d6a6e58155ec83aacb9097df42d1b55",
+      "functions": [],
+      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "implementation": "tools/SharpTestBench.Tools/LifecycleCommands.cs"
+    },
+    {
+      "source": "tools/clock_boundary.py",
+      "sha256": "a44b3123442b7fb363bab4f7925655acb3a14770c7be7a93766bfd4ac1045fbb",
+      "functions": [
+        "check",
+        "failed",
+        "cancel_on_write",
+        "start"
+      ],
+      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "implementation": "tools/SharpTestBench.Tools/BoundaryCommands.cs"
+    },
+    {
+      "source": "tools/code_coverage.py",
+      "sha256": "c4aa34e715be31a746a4686d84c06cfdd8f8b87c39a5979f1a135061a6a08e24",
+      "functions": [
+        "run",
+        "main"
+      ],
+      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "implementation": "tools/SharpTestBench.Tools/CoverageCommand.cs"
+    },
+    {
+      "source": "tools/code_coverage_report.py",
+      "sha256": "a46c2e888069301cc42e33853e02adfaf1b817d92cb441c1bc8c56a880a6007e",
+      "functions": [
+        "validate"
+      ],
+      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "implementation": "tools/SharpTestBench.Tools/CoverageCommand.cs"
+    },
+    {
+      "source": "tools/coverage_check.py",
+      "sha256": "228051724c553ea791641d1c169a33cf34a1c51b5b5f41015a5c2f135c6beaef",
+      "functions": [],
+      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "implementation": "tools/SharpTestBench.Tools/ValidationCommands.cs"
+    },
+    {
+      "source": "tools/cpu_python.py",
+      "sha256": "36af5a03a70d126bbfeb3ddea5d227c066032e595ddbe9158674bd22b5252705",
+      "functions": [],
+      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "implementation": "tools/SharpTestBench.Tools/ReferenceCommand.cs"
+    },
+    {
+      "source": "tools/cpu_workload.py",
+      "sha256": "d09ec985ad663e3610dc1ce9ebfba59ac00ba6f3b23f8cd847835f31da5be1ff",
+      "functions": [
+        "plan",
+        "main"
+      ],
+      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "implementation": "tools/SharpTestBench.Tools/WorkloadCommand.cs"
+    },
+    {
+      "source": "tools/debugger_tests.py",
+      "sha256": "980dee569831b76f3a8f0c8d6cda235cf2548148ec0e992978fe379d18f6c795",
+      "functions": [
+        "main"
+      ],
+      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "implementation": "tools/SharpTestBench.Tools/DebuggerCommand.cs"
+    },
+    {
+      "source": "tools/doctor.py",
+      "sha256": "f02dbb61e514424c54082e5bd6bd6d292d37a6bf00a3802bfe36cec18f3295ff",
+      "functions": [
+        "check",
+        "executable",
+        "dotnet",
+        "adapters"
+      ],
+      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "implementation": "tools/SharpTestBench.Tools/NativeChecks.cs"
+    },
+    {
+      "source": "tools/documentation.py",
+      "sha256": "e1aaf8b68a806713bc68e166579a0795857ee57b07d4341223e76de8d58a1cf4",
+      "functions": [
+        "managed",
+        "main"
+      ],
+      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "implementation": "tools/SharpTestBench.Tools/ValidationCommands.cs"
+    },
+    {
+      "source": "tools/dsp_python.py",
+      "sha256": "1b6cd2324b218512ba6b8f3a37915dcbb2c90cee2ef51164cd24381f79ba354d",
+      "functions": [],
+      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "implementation": "tools/SharpTestBench.Tools/ReferenceCommand.cs"
+    },
+    {
+      "source": "tools/dsp_workload.py",
+      "sha256": "43fdd1ca805895a708ea10d6eadd2e4e718a3bb6fdc42682050700fe32051114",
+      "functions": [
+        "plan",
+        "main"
+      ],
+      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "implementation": "tools/SharpTestBench.Tools/WorkloadCommand.cs"
+    },
+    {
+      "source": "tools/dual_runner_ci.py",
+      "sha256": "63e6349bf8f984db6637ee43f33d42cbf1fd49cb157e50346f9f335b2a6f8428",
+      "functions": [
+        "clean_environment",
+        "metrics_contract",
+        "fault_detected",
+        "clear_case",
+        "run_case",
+        "main"
+      ],
+      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "implementation": "tools/SharpTestBench.Tools/ParityCiCommand.cs"
+    },
+    {
+      "source": "tools/dual_runner_manifest.py",
+      "sha256": "8ec0f9c449f0f98703ee1db13850d285befc4d8a560f0571889303fa7bfbc1ff",
+      "functions": [
+        "make_manifest",
+        "installed_adapter",
+        "main"
+      ],
+      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "implementation": "tools/SharpTestBench.Tools/RunnerManifestCommand.cs"
+    },
+    {
+      "source": "tools/dual_runner_parity.py",
+      "sha256": "ce7ee44faef512eceaca5ca07a3bff38389b632c108a432fa2c03c61584a1579",
+      "functions": [
+        "signature",
+        "expected_identities",
+        "compare",
+        "write_report",
+        "main"
+      ],
+      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "implementation": "tools/SharpTestBench.Tools/ParityContracts.cs"
+    },
+    {
+      "source": "tools/icarus_layouts.py",
+      "sha256": "acade0020d524e2ed8f6560c2047fee56dd84e2f047b4ae83a5bba33a14d9e40",
+      "functions": [
+        "target_flags",
+        "export",
+        "main"
+      ],
+      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "implementation": "tools/SharpTestBench.Tools/IcarusLayoutsCommand.cs"
+    },
+    {
+      "source": "tools/icarus_layouts_check.py",
+      "sha256": "2aea6453dace7ef2461024c068556c5d20c714cb63095a992bcd1c6cc4bada22",
+      "functions": [
+        "main"
+      ],
+      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "implementation": "tools/SharpTestBench.Tools/IcarusLayoutsCommand.cs"
+    },
+    {
+      "source": "tools/installed_run.py",
+      "sha256": "e87dae543a8610d8137158369724bcca42066f41ea67f323f8af6046c0565f3e",
+      "functions": [],
+      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "implementation": "tools/SharpTestBench.Tools/InstalledRunCommand.cs"
+    },
+    {
+      "source": "tools/lfsr_ci.py",
+      "sha256": "4eebc67273d01c2220d70e9bfd05a5fdb6f90716f3e639ae4a7cf19270140169",
+      "functions": [
+        "run_case",
+        "main"
+      ],
+      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "implementation": "tools/SharpTestBench.Tools/ParityCiCommand.cs"
+    },
+    {
+      "source": "tools/lfsr_fixture.py",
+      "sha256": "d4b6f8b3a69034507883229293decaa0d8656dd39f2ee9193d1e18349ef6cdc1",
+      "functions": [
+        "config",
+        "validate_config",
+        "reverse_bits",
+        "transition",
+        "plan",
+        "fixture",
+        "validate_plan",
+        "metrics",
+        "verify_sources",
+        "plan_digest"
+      ],
+      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "implementation": "tools/SharpTestBench.Tools/LfsrFixture.cs"
+    },
+    {
+      "source": "tools/lifecycle.py",
+      "sha256": "ffeb08027510d741c11a3eb274942de5e2a1820d4681d5c1f40393ff225f5302",
+      "functions": [
+        "main"
+      ],
+      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "implementation": "tools/SharpTestBench.Tools/LifecycleCommands.cs"
+    },
+    {
+      "source": "tools/logging_check.py",
+      "sha256": "8d60b314c930e74e5824abba99ece847bd5a1032959766dd4e95801a680a5e6c",
+      "functions": [],
+      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "implementation": "tools/SharpTestBench.Tools/ValidationCommands.cs"
+    },
+    {
+      "source": "tools/logic_reference.py",
+      "sha256": "8eccebfb57dc59b1f3dd189a198013d5941e96af3606643411dbeb0ddd897519",
+      "functions": [],
+      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "implementation": "tools/SharpTestBench.Tools/OracleFixturesCommand.cs"
+    },
+    {
+      "source": "tools/managed_tests.py",
+      "sha256": "4344a38db04e624d672f101e3f4b05c0095a33e5d31918129833317a92ce9ac5",
+      "functions": [
+        "verify",
+        "main"
+      ],
+      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "implementation": "tools/SharpTestBench.Tools/ManagedTestsCommand.cs"
+    },
+    {
+      "source": "tools/native_build.py",
+      "sha256": "4589247dba02457f5d2f6074b2e4bf1450bae12b0b5f26bb265f435019b75b42",
+      "functions": [
+        "sdk_root",
+        "build_host"
+      ],
+      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "implementation": "tools/SharpTestBench.Tools/NativeBuildCommand.cs"
+    },
+    {
+      "source": "tools/native_build_check.py",
+      "sha256": "57cd3f81fe879bd2a4e776961ffe14ccbe46226234ae5e3f308fb880b430d106",
+      "functions": [
+        "main"
+      ],
+      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "implementation": "tools/SharpTestBench.Tools/NativeChecks.cs"
+    },
+    {
+      "source": "tools/native_debugger_tests.py",
+      "sha256": "7ada507fef4285770a3bc0cda0b08926a0490e008709e91ef6d4a7934f3838f3",
+      "functions": [
+        "main"
+      ],
+      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "implementation": "tools/SharpTestBench.Tools/NativeDebuggerCommand.cs"
+    },
+    {
+      "source": "tools/native_dependencies.py",
+      "sha256": "5f56df6d0d8fe1d71aebde8a260ac74583550895437936bc259b41094ba10d67",
+      "functions": [
+        "inspect"
+      ],
+      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "implementation": "tools/SharpTestBench.Tools/NativeChecks.cs"
+    },
+    {
+      "source": "tools/native_faults.py",
+      "sha256": "95569011006d69c915cc4ab89d2a9ae66cd8a954be681dbdf8d7ed9aea5603f3",
+      "functions": [
+        "run",
+        "main"
+      ],
+      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "implementation": "tools/SharpTestBench.Tools/NativeFaultsCommand.cs"
+    },
+    {
+      "source": "tools/native_package.py",
+      "sha256": "07fe87c2827524e2efaa086fbc14a7ae1a06866bc48cbe64acee6e3a69087fc0",
+      "functions": [
+        "run",
+        "main"
+      ],
+      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "implementation": "tools/SharpTestBench.Tools/PackageCommand.cs"
+    },
+    {
+      "source": "tools/native_performance.py",
+      "sha256": "9c133d72277b857752583fd65c25efbaa56899f8fadec06eb082e5bffbb9f9b2",
+      "functions": [
+        "digest",
+        "comparison",
+        "main"
+      ],
+      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "implementation": "tools/SharpTestBench.Tools/NativePerformanceCommand.cs"
+    },
+    {
+      "source": "tools/native_performance_prepare.py",
+      "sha256": "dde784e0bd27bfc0a487a8b59757a449e81876c14d0db749404ddebe0f4c4882",
+      "functions": [
+        "main"
+      ],
+      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "implementation": "tools/SharpTestBench.Tools/PerformancePrepareCommand.cs"
+    },
+    {
+      "source": "tools/package.py",
+      "sha256": "d0957315017653b6f6b16cdbc018d84523935a59fcdef7f40667fa061da59209",
+      "functions": [],
+      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "implementation": "tools/SharpTestBench.Tools/PackageCommand.cs"
+    },
+    {
+      "source": "tools/package_container.py",
+      "sha256": "619f0fdb928a764e894ea2100c91cdf55e4bf38a1e9e40b2924ebe831378a189",
+      "functions": [
+        "main"
+      ],
+      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "implementation": "tools/SharpTestBench.Tools/PackageContainerCommand.cs"
+    },
+    {
+      "source": "tools/packed_benchmark.py",
+      "sha256": "2f92b2c65d7f709456e608e873929b9be70b8b098fd54d72a5d9aca18584b204",
+      "functions": [],
+      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "implementation": "tools/SharpTestBench.Tools/PerformancePrepareCommand.cs"
+    },
+    {
+      "source": "tools/packed_boundary.py",
+      "sha256": "62f333cb24c21d13c53057af59ad5cd1603098fbe07794e78d350823b68ea0da",
+      "functions": [
+        "check"
+      ],
+      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "implementation": "tools/SharpTestBench.Tools/BoundaryCommands.cs"
+    },
+    {
+      "source": "tools/parity.py",
+      "sha256": "2612673129b3c3f63d4011e11648235243be8f031a7ca2eec0fad7bc08a5ed54",
+      "functions": [],
+      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "implementation": "tools/SharpTestBench.Tools/ReferenceCommand.cs"
+    },
+    {
+      "source": "tools/prepare_upstream.py",
+      "sha256": "93325fa0a2675371e6e47a21db9c0c8c4c515285a2791df3426e277349c01f87",
+      "functions": [
+        "configure_native_build",
+        "main"
+      ],
+      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "implementation": "tools/SharpTestBench.Tools/PrepareUpstreamCommand.cs"
+    },
+    {
+      "source": "tools/queue_reference.py",
+      "sha256": "670f0c0fffdd2a1dc704cc936a955ff543c6a12200d471ca04a11dadabe03668",
+      "functions": [],
+      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "implementation": "tools/SharpTestBench.Tools/OracleFixturesCommand.cs"
+    },
+    {
+      "source": "tools/release_bundle.py",
+      "sha256": "35352df55623d08bca68715278e28bb2dbc7d380c223c3cb7f50ae42e51bb77e",
+      "functions": [
+        "metadata",
+        "assemble",
+        "main"
+      ],
+      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "implementation": "tools/SharpTestBench.Tools/ReleaseCommands.cs"
+    },
+    {
+      "source": "tools/release_preflight.py",
+      "sha256": "c416a493c976ffca6447c07d8b49bff3faa595f750554c3e27d59166130834d4",
+      "functions": [],
+      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "implementation": "tools/SharpTestBench.Tools/ReleaseCommands.cs"
+    },
+    {
+      "source": "tools/run.py",
+      "sha256": "8304195f1526b2c8a93518e020ed5838430145597550728b8240ea74f9813dd6",
+      "functions": [
+        "command",
+        "workspace_lock",
+        "main"
+      ],
+      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "implementation": "tools/SharpTestBench.Tools/LegacyRunCommand.cs"
+    },
+    {
+      "source": "tools/runner_manifest_check.py",
+      "sha256": "08536d1c05f7fcb5fd8d8129a224014755baeb18a5766d14e2cbcc95a48498ad",
+      "functions": [
+        "main"
+      ],
+      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "implementation": "tools/SharpTestBench.Tools/ManifestCheckCommand.cs"
+    },
+    {
+      "source": "tools/stage_tests.py",
+      "sha256": "ec04bd35644c6441a1539cc9f62a825a73f0c772bedb86714b8a761a99b92451",
+      "functions": [
+        "main"
+      ],
+      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "implementation": "tools/SharpTestBench.Tools/StageCommand.cs"
+    },
+    {
+      "source": "tools/strict_json.py",
+      "sha256": "d8c388d3ec12c26755a322be2ac8f7627bb6f2ecf9d274fafedd64a7ac35d712",
+      "functions": [
+        "loads",
+        "load"
+      ],
+      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "implementation": "tools/SharpTestBench.Tools/Core.cs"
+    },
+    {
+      "source": "tools/structured_reference.py",
+      "sha256": "b044aecf0487431a942441b210f31f4ce82a616742b96fcde481d02e37cd9341",
+      "functions": [],
+      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "implementation": "tools/SharpTestBench.Tools/ReferenceCommand.cs"
+    },
+    {
+      "source": "tools/structured_reference_env.py",
+      "sha256": "3351a007f8bdc19f8f7399c94dbae6b2209542c4e09246ce49ba01b04f7268ab",
+      "functions": [],
+      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "implementation": "tools/SharpTestBench.Tools/ReferenceCommand.cs"
+    },
+    {
+      "source": "tools/timing_parity.py",
+      "sha256": "b0ce04d07043568727bde401ebc3dbd1204b57b831ae093448bba7a07dfe1a47",
+      "functions": [],
+      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "implementation": "tools/SharpTestBench.Tools/ReferenceCommand.cs"
+    },
+    {
+      "source": "tools/typecheck.py",
+      "sha256": "2caa431beebc182aff35eef56a2ce49825cb0f2644a341b7469337270f3f345a",
+      "functions": [
+        "build"
+      ],
+      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "implementation": "tools/SharpTestBench.Tools/ValidationCommands.cs"
+    },
+    {
+      "source": "tools/verilator_build.py",
+      "sha256": "ad7bdada5e0af21d272807a80e85f5c2d75f4da0d48ffc3b8be92ee6458783b1",
+      "functions": [
+        "build_model"
+      ],
+      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "implementation": "tools/SharpTestBench.Tools/VerilatorBuildCommand.cs"
+    },
+    {
+      "source": "tools/wave_check.py",
+      "sha256": "7e425a6c82305003cf2dcd942a922c690d173a7bafd7a619d45a924c57fde90e",
+      "functions": [
+        "check"
+      ],
+      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "implementation": "tools/SharpTestBench.Tools/ValidationCommands.cs"
+    },
+    {
+      "source": "tools/wave_tests.py",
+      "sha256": "58dc1eabf70354e33700719bc31f234b6b8aab680d04e4dd25322e5def25189f",
+      "functions": [],
+      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "implementation": "tools/SharpTestBench.Tools/LifecycleCommands.cs"
+    },
+    {
+      "source": "tools/windows_arm64_check.py",
+      "sha256": "48e34f1464adb2d05ffa51a89e4b88feb3ae26edd2cbdbd0596ec9a72475932a",
+      "functions": [
+        "pe_machine",
+        "main"
+      ],
+      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "implementation": "tools/SharpTestBench.Tools/NativeChecks.cs"
+    },
+    {
+      "source": "tools/workspace_tests.py",
+      "sha256": "df17b341c070ce6458b3140203ac069d68c726c82a51463fddda81ae05388b47",
+      "functions": [],
+      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "implementation": "tools/SharpTestBench.Tools/StageCommand.cs"
+    }
+  ],
+  "completionPolicy": "Implementation alone does not qualify a port. Migrate callers and preserve contract tests before removing the original helper.",
+  "validation": {
+    "managedCases": 480,
+    "generatorCases": 17,
+    "helperCases": 124,
+    "contractCases": 742,
+    "pairedScenarios": 40,
+    "independentWorkloadFaultRuns": 18,
+    "coveragePlatforms": [
+      "Windows",
+      "Linux"
+    ],
+    "originalScripts": "Retained pending explicit cleanup approval",
+    "optionalProfiles": "Historical performance and OS-specific integrations retain their documented prerequisites."
+  }
+}

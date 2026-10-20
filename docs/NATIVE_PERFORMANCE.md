@@ -38,12 +38,12 @@ Use the pinned .NET SDK from `global.json`, GCC/G++, Python and Icarus. Set
 Start from a full Git clone so the historical source revision is available.
 
 ```sh
-python tools/prepare_upstream.py
+dotnet run --project tools/SharpTestBench.Tools -c Release -- prepare-upstream
 CC=gcc CXX=g++ python -m pip install ./build/upstream/cocotb-source
-CC=gcc CXX=g++ python tools/native_performance_prepare.py
+CC=gcc CXX=g++ dotnet run --project tools/SharpTestBench.Tools -c Release -- native-performance-prepare
 dotnet build tests/Benchmark -c Release -p:RestoreLockedMode=true
 dotnet build examples/AxiMemory -c Release -p:RestoreLockedMode=true
-python tools/native_performance.py \
+dotnet run --project tools/SharpTestBench.Tools -c Release -- native-performance \
   --baseline-python build/native-performance/baseline-python \
   --repeat 9 --packed-count 1000 --transactions 2048
 ```
@@ -144,7 +144,7 @@ new implementation. Adapter binaries are identical across these configurations.
 
 Each HDL model was compiled **once**, with portable C++20, effective `-O3`, LTO,
 and explicit loop/SLP vectorization, then reused unchanged in all variants.
-`-O3` is passed in user CFLAGS, after Verilator's default `-Os`; the Python runner
+`-O3` is passed in user CFLAGS, after Verilator's default `-Os`; the managed source runner
 invokes make itself and does not apply Verilator's `-MAKEFLAGS`. Actual compiler
 commands and model executable hashes are retained. No host-specific ISA or
 fast-math is enabled. Wall times include runner/runtime startup but exclude model
@@ -194,7 +194,7 @@ Reproduce after building Verilator 5.048 and the current solution/AxiMemory, wit
 its `bin` on PATH and VERILATOR_ROOT set to its source/build directory:
 
 ```sh
-CS_DOTNET_ROOT=/path/to/dotnet python tools/native_performance.py \
+CS_DOTNET_ROOT=/path/to/dotnet dotnet run --project tools/SharpTestBench.Tools -c Release -- native-performance \
   --sim verilator \
   --baseline-revision 870b21e64a6c5eff98504b8351cf86ba219a7c3f \
   --baseline-python /path/to/current/site-packages \
@@ -207,7 +207,7 @@ CS_DOTNET_ROOT=/path/to/dotnet python tools/native_performance.py \
 Preserve the baseline host and full Benchmark/AxiMemory managed output directories
 before rebuilding the current revision, as in the buffer follow-up above. The
 harness records both sets of hashes. Fresh-process execution of a prebuilt model
-is also available through `tools/run.py --sim verilator --no-build
+is also available through `tools/SharpTestBench.Tools/LegacyRunCommand.cs --sim verilator --no-build
 --sim-executable /absolute/path/to/model`; callers must supply a model built for
 the requested HDL/top and wave mode. The permanent CI job builds pinned 5.048,
 runs the full regression, queue/wave checks and benchmark correctness smoke;
@@ -315,7 +315,7 @@ then run the following once for each simulator. Set the tool paths as described 
 Verilator requires the pinned 5.048 source build and its VERILATOR_ROOT/bin on PATH.
 
 ```sh
-python tools/native_performance.py --ablation --sim verilator \
+dotnet run --project tools/SharpTestBench.Tools -c Release -- native-performance --ablation --sim verilator \
   --baseline-python /path/to/installed/site-packages \
   --repeat 12 --packed-count 1000 --transactions 2048 \
   --output build/four-ablation-verilator

@@ -45,7 +45,7 @@ languages with a scoreboard mismatch; an unrelated setup failure does not pass.
 
 ```sh
 dotnet build examples/CpuCore -c Release
-python tools/cpu_workload.py --iterations 2048 --repeat 5
+dotnet run --project tools/SharpTestBench.Tools -c Release -- cpu-workload --iterations 2048 --repeat 5
 ```
 
 Provision the native host, Icarus and the pinned released-cocotb 2.1.0 environment

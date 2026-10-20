@@ -20,6 +20,8 @@ def main():
     # Remove only this command's known completion artifacts; old success is never evidence.
     for name in ('summary.json', 'managed.cobertura.xml', 'generators.cobertura.xml'):
         (ROOT / OUTPUT / name).unlink(missing_ok=True)
+    for name in ('index.html', 'Summary.json', 'Summary.txt', 'Cobertura.xml'):
+        (ROOT / OUTPUT / 'report' / name).unlink(missing_ok=True)
     summaries = {}
     for label, project, assemblies in SUITES:
         assembly = f'tests/{project}/bin/Release/net10.0/{project}.dll'
@@ -34,6 +36,11 @@ def main():
          '-targetdir:' + (OUTPUT / 'report').as_posix(),
          '-reporttypes:Html;Cobertura;JsonSummary;TextSummary', '-verbosity:Warning'])
     combined = validate(ROOT / OUTPUT / 'report/Cobertura.xml', ['SharpTestBench', 'SharpTestBench.Generators'])
+    from strict_json import load
+    summary = load(ROOT / OUTPUT / 'report/Summary.json')['summary']
+    for kind, covered, valid in (('lines', 'coveredlines', 'coverablelines'), ('branches', 'coveredbranches', 'totalbranches')):
+        if combined[kind]['covered'] != summary[covered] or combined[kind]['valid'] != summary[valid]:
+            raise ValueError('Merged Cobertura and JSON coverage totals disagree')
     (ROOT / OUTPUT / 'summary.json').write_text(json.dumps({'suites': summaries, 'combined': combined}, indent=2) + '\n', encoding='utf-8')
     print(json.dumps(combined, indent=2))
 

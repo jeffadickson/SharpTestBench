@@ -6,7 +6,7 @@ import sys
 import tarfile
 import tempfile
 import unittest
-sys.path.insert(0, str(Path(__file__).resolve().parents[2] / 'tools'))
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / 'tests/Tooling/managed_compat'))
 from windows_arm64_check import pe_machine
 from prepare_upstream import ROOT, configure_native_build
 

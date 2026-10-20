@@ -41,7 +41,7 @@ not retroactively undo that transfer.
 ## Queue families and upstream review
 
 All 15 inventoried definitions in pinned `cocotb.queue` are reviewed in
-API_REVIEWS.json, with the source hash checked by tools/audit_reviews.py.
+API_REVIEWS.json, with the source hash checked by tools/SharpTestBench.Tools/AuditCommand.cs.
 
 | Upstream surface | SharpTestBench decision |
 |---|---|
@@ -98,6 +98,6 @@ backends, including FIFO waiter handoffs, cancellation races, null payloads,
 stable ties, comparer failure, reentrancy, capacity reuse and callback counts.
 QueueOrderingReference also verifies timeout ownership: a task-combinator timeout
 leaves a caller-owned queue wait alive and able to receive a later item.
-`tools/queue_reference.py` compares 32 ordering/occupancy rows from each native
+`tools/SharpTestBench.Tools/OracleFixturesCommand.cs` compares 32 ordering/occupancy rows from each native
 backend with hash-verified pinned cocotb source, including reverse priority.
 This immediate-operation comparison does not claim scheduling or tie stability parity.

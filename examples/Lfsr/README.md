@@ -4,7 +4,7 @@ The unchanged MIT `lfsr.v` comes from [alexforencich/verilog-lfsr](https://githu
 Its copyright, license, immutable revision, and exact source hashes are retained in
 `tests/Fixtures/verilog-lfsr`. No upstream scripts are executed.
 
-`python tools/lfsr_ci.py --fixture crc32 --style REDUCTION --seed 17` runs both the
+`dotnet run --project tools/SharpTestBench.Tools -c Release -- lfsr-ci --fixture crc32 --style REDUCTION --seed 17` runs both the
 legacy and native Icarus paths. The Python integer model and the independent
 managed boolean-register model calculate serial shifts; the upstream RTL uses
 parallel XOR masks. CRC32 and CRC16 are checked against Python standard-library

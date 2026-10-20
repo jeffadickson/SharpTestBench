@@ -39,7 +39,7 @@ A passing test need not have 100% coverage, and coverage does not establish corr
 
 `AQ_FunctionalCoverage` samples independent HDL packed-field readback of four known
 values, producing two hits in each bin and 50% goal coverage on Icarus and Verilator.
-`tools/coverage_check.py --label icarus` validates the exported counts, goals and
+`tools/SharpTestBench.Tools/ValidationCommands.cs --label icarus` validates the exported counts, goals and
 identity against the regression result. Managed unit tests cover overlapping bins,
 null percentage, immutable counter snapshots, invalid definitions, predicate failure,
 recursion, thread checks and JSON counts. Managed/HDL code coverage remains outside

@@ -2,7 +2,7 @@
 import sys
 import unittest
 from pathlib import Path
-sys.path.insert(0, str(Path(__file__).resolve().parents[2] / 'tools'))
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / 'tests/Tooling/managed_compat'))
 from icarus_layouts import target_flags
 
 

@@ -1,6 +1,6 @@
 # Debugger validation and remaining limits
 
-The DebugIntegration fixture and tools/debugger_tests.py are an opt-in reproducer
+The DebugIntegration fixture and tools/SharpTestBench.Tools/DebuggerCommand.cs are an opt-in reproducer
 for #27. Managed attachment passes on Linux CI with pinned NetCoreDbg 3.2.0-1092.
 The Linux job requires the check to pass and retains its evidence.
 
@@ -8,11 +8,11 @@ Build portable PDBs and run with Icarus and a local NetCoreDbg executable:
 
 ```sh
 dotnet build tests/DebugIntegration -c Debug
-python tools/debugger_tests.py --debugger /absolute/path/to/netcoredbg
+dotnet run --project tools/SharpTestBench.Tools -c Release -- debugger-tests --debugger /absolute/path/to/netcoredbg
 ```
 
 Use the same CS_DOTNET_ROOT, CS_IVERILOG, CS_IVL_ROOT and CS_VVP overrides as the
-normal source runner. Build the native host first with tools/run.py. The harness
+normal source runner. Build the native host first with tools/SharpTestBench.Tools/LegacyRunCommand.cs. The harness
 waits for the simulator's PID, attaches through DAP, sets a source breakpoint after
 an awaited timer, expects inspectedValue == 41, resumes to a deliberate exception,
 and checks the failed regression result and simulator exit. It preserves the DAP
@@ -37,7 +37,7 @@ failure. It does not identify the precise cause of the local restriction.
 Windows/Mac attachment and simultaneous native/managed debugging remain unverified.
 
 For manual managed attachment, set STB_DEBUG_PID to a writable absolute path and
-run the DebugIntegration DLL with tools/run.py, --no-build, --top counter,
+run the DebugIntegration DLL with tools/SharpTestBench.Tools/LegacyRunCommand.cs, --no-build, --top counter,
 --source examples/Counter/counter.sv and --entry-type 'Entry, DebugIntegration'.
 Attach to the recorded PID within 45 seconds using the debugger's managed attach
 configuration. Set a breakpoint at STB_BREAKPOINT and enable thrown exceptions.
@@ -67,7 +67,7 @@ process-environment lead but does not prove which process emitted the original
 historical message. Keep #16 open; capture simulator stdout/stderr independently
 from shell/process-monitor output if it recurs. Do not label this a runtime fix.
 
-The Linux CI native debugger check is `python tools/native_debugger_tests.py`
+The Linux CI native debugger check is `dotnet run --project tools/SharpTestBench.Tools -c Release -- native-debugger-tests`
 (after building the counter and native host). It runs Icarus under GDB, sets
 pending breakpoints at sharptestbench_initialize and cs_v1_gpi_finish, collects
 backtraces, resumes and requires normal exit plus passing regression results.

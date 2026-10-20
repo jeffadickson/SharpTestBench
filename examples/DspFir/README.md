@@ -29,7 +29,7 @@ Icarus and pinned oracle environment described in the validation documentation:
 
 ```sh
 dotnet build examples/DspFir -c Release
-python tools/dsp_workload.py --cycles 16384 --repeat 5
+dotnet run --project tools/SharpTestBench.Tools -c Release -- dsp-workload --cycles 16384 --repeat 5
 ```
 
 The harness warms each language in a fresh process, alternates measured process

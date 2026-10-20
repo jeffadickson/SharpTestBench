@@ -3,7 +3,7 @@
 The pinned cocotb reference is 5fa952e92c46fd9cb58f55a8655312a4bf02e7de.
 `tests/Integration/TimingTests.cs` is compiled into both managed Verilog and VHDL
 suites. `test_timing_order.py` independently executes equivalent operations in
-Python. `tools/timing_parity.py` runs a fresh Python simulator process and requires
+Python. `tools/SharpTestBench.Tools/ReferenceCommand.cs` runs a fresh Python simulator process and requires
 exact trace equality, successful process exit and successful JUnit results.
 
 | Observation | Icarus 11 / Verilator 5.048 | GHDL 2 / NVC 1.23 |
@@ -27,8 +27,8 @@ post-release deposit (60), all against Python. Force is deliberately skipped on
 the other backends, whose force/deposit contract has not been established. These
 skips are recorded rather than treated as passing force coverage.
 
-Reproduction: first run `tools/run.py --sim SIM --label timing-SIM`, then
-`tools/timing_parity.py --sim SIM --label timing-SIM` with the same simulator paths
+Reproduction: first run `tools/SharpTestBench.Tools/LegacyRunCommand.cs --sim SIM --label timing-SIM`, then
+`tools/SharpTestBench.Tools/ReferenceCommand.cs --sim SIM --label timing-SIM` with the same simulator paths
 and VHDL library environment. The second command uses the HDL elaboration produced
 by the first. Local exact traces pass for Icarus, Verilator, GHDL and NVC; CI checks
 Icarus 12. Existing edge/NBA/ReadOnly, delta-chain and nine-state resolution tests

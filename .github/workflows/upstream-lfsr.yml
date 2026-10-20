@@ -20,23 +20,13 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - run: sudo apt-get update && sudo apt-get install -y iverilog gcc g++
+      - run: dotnet run --project tools/SharpTestBench.Tools -c Release -- ci install-deps parity
       - name: Install pinned adapters
-        run: |
-          python tools/prepare_upstream.py
-          CC=gcc CXX=g++ python -m pip install ./build/upstream/cocotb-source pytest
+        run: dotnet run --project tools/SharpTestBench.Tools -c Release -- ci install-adapter --gnu
       - run: dotnet build SharpTestBench.slnx -c Release -p:RestoreLockedMode=true
       - run: python -m unittest discover -s tests/Tooling -q
       - name: Check both implementation styles and corruption channels
-        run: |
-          for style in LOOP REDUCTION; do
-            for seed in 1 17; do
-              python tools/lfsr_ci.py --fixture ${{ matrix.fixture }} --style "$style" --seed "$seed"
-            done
-            for fault in 1 2; do
-              python tools/lfsr_ci.py --fixture ${{ matrix.fixture }} --style "$style" --seed 1 --fault "$fault"
-            done
-          done
+        run: dotnet run --project tools/SharpTestBench.Tools -c Release -- ci lfsr-matrix --fixture ${{ matrix.fixture }}
       - uses: actions/upload-artifact@v4
         if: always()
         with:

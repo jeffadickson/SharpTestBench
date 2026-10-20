@@ -25,15 +25,13 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - run: sudo apt-get update && sudo apt-get install -y iverilog gcc g++
+      - run: dotnet run --project tools/SharpTestBench.Tools -c Release -- ci install-deps parity
       - name: Install pinned adapters
-        run: |
-          python tools/prepare_upstream.py
-          CC=gcc CXX=g++ python -m pip install ./build/upstream/cocotb-source pytest
+        run: dotnet run --project tools/SharpTestBench.Tools -c Release -- ci install-adapter --gnu
       - run: dotnet build SharpTestBench.slnx -c Release -p:RestoreLockedMode=true
       - run: python -m unittest discover -s tests/Tooling -q
-      - run: python tools/axis_ci.py --mode ${{ matrix.config.mode }} --seed ${{ matrix.seed }} ${{ matrix.config.args }}
-      - run: python tools/axis_ci.py --mode ${{ matrix.config.mode }} --seed ${{ matrix.seed }} ${{ matrix.config.args }} --negative-control
+      - run: dotnet run --project tools/SharpTestBench.Tools -c Release -- axis-ci --mode ${{ matrix.config.mode }} --seed ${{ matrix.seed }} ${{ matrix.config.args }}
+      - run: dotnet run --project tools/SharpTestBench.Tools -c Release -- axis-ci --mode ${{ matrix.config.mode }} --seed ${{ matrix.seed }} ${{ matrix.config.args }} --negative-control
       - uses: actions/upload-artifact@v4
         if: always()
         with:

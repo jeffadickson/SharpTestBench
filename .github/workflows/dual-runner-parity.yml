@@ -27,23 +27,21 @@ jobs:
         with:
           python-version: '3.12'
       - name: Install Icarus and native toolchain
-        run: sudo apt-get update && sudo apt-get install -y iverilog gcc g++
+        run: dotnet run --project tools/SharpTestBench.Tools -c Release -- ci install-deps parity
       - name: Prepare pinned development adapter
-        run: |
-          python tools/prepare_upstream.py
-          CC=gcc CXX=g++ python -m pip install ./build/upstream/cocotb-source pytest
+        run: dotnet run --project tools/SharpTestBench.Tools -c Release -- ci install-adapter --gnu
       - name: Build solution including standalone runner and validation probe
         run: dotnet build SharpTestBench.slnx -c Release -p:RestoreLockedMode=true
       - name: Check runner failure gates
         run: python -m unittest discover -s tests/Tooling -v
       - name: Compare independent runner executions
-        run: python tools/dual_runner_ci.py --fixture ${{ matrix.fixture }} --seed ${{ matrix.seed }}
+        run: dotnet run --project tools/SharpTestBench.Tools -c Release -- dual-runner-ci --fixture ${{ matrix.fixture }} --seed ${{ matrix.seed }}
       - name: Prove both runners reject an injected scoreboard fault
         if: matrix.fixture != 'counter'
-        run: python tools/dual_runner_ci.py --fixture ${{ matrix.fixture }} --seed ${{ matrix.seed }} --negative-control
+        run: dotnet run --project tools/SharpTestBench.Tools -c Release -- dual-runner-ci --fixture ${{ matrix.fixture }} --seed ${{ matrix.seed }} --negative-control
       - name: Qualify manifest compiler and selection options
         if: matrix.fixture == 'counter' && matrix.seed == 1
-        run: python tools/runner_manifest_check.py
+        run: dotnet run --project tools/SharpTestBench.Tools -c Release -- runner-manifest-check
       - name: Upload differential evidence
         if: always()
         uses: actions/upload-artifact@v4

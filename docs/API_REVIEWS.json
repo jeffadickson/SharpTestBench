@@ -568,8 +568,8 @@
           "contains": "QueueFamiliesContract"
         },
         {
-          "path": "tools/queue_reference.py",
-          "contains": "expected"
+          "path": "tools/SharpTestBench.Tools/OracleFixturesCommand.cs",
+          "contains": "static void Queue"
         }
       ]
     },
@@ -854,8 +854,8 @@
           "contains": "QueueFamiliesContract"
         },
         {
-          "path": "tools/queue_reference.py",
-          "contains": "expected"
+          "path": "tools/SharpTestBench.Tools/OracleFixturesCommand.cs",
+          "contains": "static void Queue"
         }
       ]
     },
@@ -879,8 +879,8 @@
           "contains": "QueueFamiliesContract"
         },
         {
-          "path": "tools/queue_reference.py",
-          "contains": "expected"
+          "path": "tools/SharpTestBench.Tools/OracleFixturesCommand.cs",
+          "contains": "static void Queue"
         }
       ]
     },
@@ -904,8 +904,8 @@
           "contains": "QueueFamiliesContract"
         },
         {
-          "path": "tools/queue_reference.py",
-          "contains": "expected"
+          "path": "tools/SharpTestBench.Tools/OracleFixturesCommand.cs",
+          "contains": "static void Queue"
         }
       ]
     },
@@ -925,8 +925,8 @@
           "contains": "PinnedRangeAndArrayReference"
         },
         {
-          "path": "tools/array_reference.py",
-          "contains": "hashlib.sha256"
+          "path": "tools/SharpTestBench.Tools/OracleFixturesCommand.cs",
+          "contains": "static List<object> Arrays"
         }
       ]
     },
@@ -946,8 +946,8 @@
           "contains": "PinnedRangeAndArrayReference"
         },
         {
-          "path": "tools/array_reference.py",
-          "contains": "hashlib.sha256"
+          "path": "tools/SharpTestBench.Tools/OracleFixturesCommand.cs",
+          "contains": "static List<object> Arrays"
         }
       ]
     },
@@ -967,8 +967,8 @@
           "contains": "PinnedRangeAndArrayReference"
         },
         {
-          "path": "tools/array_reference.py",
-          "contains": "hashlib.sha256"
+          "path": "tools/SharpTestBench.Tools/OracleFixturesCommand.cs",
+          "contains": "static List<object> Arrays"
         }
       ]
     },
@@ -988,8 +988,8 @@
           "contains": "PinnedRangeAndArrayReference"
         },
         {
-          "path": "tools/array_reference.py",
-          "contains": "hashlib.sha256"
+          "path": "tools/SharpTestBench.Tools/OracleFixturesCommand.cs",
+          "contains": "static List<object> Arrays"
         }
       ]
     },
@@ -1009,8 +1009,8 @@
           "contains": "PinnedRangeAndArrayReference"
         },
         {
-          "path": "tools/array_reference.py",
-          "contains": "hashlib.sha256"
+          "path": "tools/SharpTestBench.Tools/OracleFixturesCommand.cs",
+          "contains": "static List<object> Arrays"
         }
       ]
     },
@@ -1030,8 +1030,8 @@
           "contains": "PinnedRangeAndArrayReference"
         },
         {
-          "path": "tools/array_reference.py",
-          "contains": "hashlib.sha256"
+          "path": "tools/SharpTestBench.Tools/OracleFixturesCommand.cs",
+          "contains": "static List<object> Arrays"
         }
       ]
     },
@@ -1051,8 +1051,8 @@
           "contains": "PinnedRangeAndArrayReference"
         },
         {
-          "path": "tools/array_reference.py",
-          "contains": "hashlib.sha256"
+          "path": "tools/SharpTestBench.Tools/OracleFixturesCommand.cs",
+          "contains": "static List<object> Arrays"
         }
       ]
     },
@@ -1072,8 +1072,8 @@
           "contains": "PinnedRangeAndArrayReference"
         },
         {
-          "path": "tools/array_reference.py",
-          "contains": "hashlib.sha256"
+          "path": "tools/SharpTestBench.Tools/OracleFixturesCommand.cs",
+          "contains": "static List<object> Arrays"
         }
       ]
     },
@@ -1093,8 +1093,8 @@
           "contains": "PinnedRangeAndArrayReference"
         },
         {
-          "path": "tools/array_reference.py",
-          "contains": "hashlib.sha256"
+          "path": "tools/SharpTestBench.Tools/OracleFixturesCommand.cs",
+          "contains": "static List<object> Arrays"
         }
       ]
     },
@@ -1114,8 +1114,8 @@
           "contains": "PinnedRangeAndArrayReference"
         },
         {
-          "path": "tools/array_reference.py",
-          "contains": "hashlib.sha256"
+          "path": "tools/SharpTestBench.Tools/OracleFixturesCommand.cs",
+          "contains": "static List<object> Arrays"
         }
       ]
     },
@@ -1135,8 +1135,8 @@
           "contains": "PinnedRangeAndArrayReference"
         },
         {
-          "path": "tools/array_reference.py",
-          "contains": "hashlib.sha256"
+          "path": "tools/SharpTestBench.Tools/OracleFixturesCommand.cs",
+          "contains": "static List<object> Arrays"
         }
       ]
     },
@@ -1156,8 +1156,8 @@
           "contains": "PinnedRangeAndArrayReference"
         },
         {
-          "path": "tools/array_reference.py",
-          "contains": "hashlib.sha256"
+          "path": "tools/SharpTestBench.Tools/OracleFixturesCommand.cs",
+          "contains": "static List<object> Arrays"
         }
       ]
     },
@@ -1177,8 +1177,8 @@
           "contains": "PinnedRangeAndArrayReference"
         },
         {
-          "path": "tools/array_reference.py",
-          "contains": "hashlib.sha256"
+          "path": "tools/SharpTestBench.Tools/OracleFixturesCommand.cs",
+          "contains": "static List<object> Arrays"
         }
       ]
     },
@@ -1198,8 +1198,8 @@
           "contains": "PinnedRangeAndArrayReference"
         },
         {
-          "path": "tools/array_reference.py",
-          "contains": "hashlib.sha256"
+          "path": "tools/SharpTestBench.Tools/OracleFixturesCommand.cs",
+          "contains": "static List<object> Arrays"
         }
       ]
     },
@@ -1219,8 +1219,8 @@
           "contains": "PinnedRangeAndArrayReference"
         },
         {
-          "path": "tools/array_reference.py",
-          "contains": "hashlib.sha256"
+          "path": "tools/SharpTestBench.Tools/OracleFixturesCommand.cs",
+          "contains": "static List<object> Arrays"
         }
       ]
     },
@@ -1240,8 +1240,8 @@
           "contains": "PinnedRangeAndArrayReference"
         },
         {
-          "path": "tools/array_reference.py",
-          "contains": "hashlib.sha256"
+          "path": "tools/SharpTestBench.Tools/OracleFixturesCommand.cs",
+          "contains": "static List<object> Arrays"
         }
       ]
     },
@@ -1261,8 +1261,8 @@
           "contains": "PinnedRangeAndArrayReference"
         },
         {
-          "path": "tools/array_reference.py",
-          "contains": "hashlib.sha256"
+          "path": "tools/SharpTestBench.Tools/OracleFixturesCommand.cs",
+          "contains": "static List<object> Arrays"
         }
       ]
     },
@@ -1282,8 +1282,8 @@
           "contains": "PinnedRangeAndArrayReference"
         },
         {
-          "path": "tools/array_reference.py",
-          "contains": "hashlib.sha256"
+          "path": "tools/SharpTestBench.Tools/OracleFixturesCommand.cs",
+          "contains": "static List<object> Arrays"
         }
       ]
     },
@@ -1303,8 +1303,8 @@
           "contains": "PinnedRangeAndArrayReference"
         },
         {
-          "path": "tools/array_reference.py",
-          "contains": "hashlib.sha256"
+          "path": "tools/SharpTestBench.Tools/OracleFixturesCommand.cs",
+          "contains": "static List<object> Arrays"
         }
       ]
     },
@@ -1324,8 +1324,8 @@
           "contains": "PinnedRangeAndArrayReference"
         },
         {
-          "path": "tools/array_reference.py",
-          "contains": "hashlib.sha256"
+          "path": "tools/SharpTestBench.Tools/OracleFixturesCommand.cs",
+          "contains": "static List<object> Arrays"
         }
       ]
     },
@@ -1345,8 +1345,8 @@
           "contains": "PinnedScalarAndVectorResolution"
         },
         {
-          "path": "tools/logic_reference.py",
-          "contains": "hashlib.sha256"
+          "path": "tools/SharpTestBench.Tools/OracleFixturesCommand.cs",
+          "contains": "static object Logic"
         }
       ]
     },
@@ -1366,8 +1366,8 @@
           "contains": "PinnedScalarAndVectorResolution"
         },
         {
-          "path": "tools/logic_reference.py",
-          "contains": "hashlib.sha256"
+          "path": "tools/SharpTestBench.Tools/OracleFixturesCommand.cs",
+          "contains": "static object Logic"
         }
       ]
     },
@@ -1387,8 +1387,8 @@
           "contains": "PinnedScalarAndVectorResolution"
         },
         {
-          "path": "tools/logic_reference.py",
-          "contains": "hashlib.sha256"
+          "path": "tools/SharpTestBench.Tools/OracleFixturesCommand.cs",
+          "contains": "static object Logic"
         }
       ]
     },
@@ -1408,8 +1408,8 @@
           "contains": "PinnedScalarAndVectorResolution"
         },
         {
-          "path": "tools/logic_reference.py",
-          "contains": "hashlib.sha256"
+          "path": "tools/SharpTestBench.Tools/OracleFixturesCommand.cs",
+          "contains": "static object Logic"
         }
       ]
     },
@@ -1429,8 +1429,8 @@
           "contains": "PinnedScalarAndVectorResolution"
         },
         {
-          "path": "tools/logic_reference.py",
-          "contains": "hashlib.sha256"
+          "path": "tools/SharpTestBench.Tools/OracleFixturesCommand.cs",
+          "contains": "static object Logic"
         },
         {
           "path": "docs/LOGIC_TRANSFORMS.md",
@@ -1462,8 +1462,8 @@
           "contains": "PinnedScalarAndVectorResolution"
         },
         {
-          "path": "tools/logic_reference.py",
-          "contains": "hashlib.sha256"
+          "path": "tools/SharpTestBench.Tools/OracleFixturesCommand.cs",
+          "contains": "static object Logic"
         }
       ]
     },
@@ -1483,8 +1483,8 @@
           "contains": "PinnedScalarAndVectorResolution"
         },
         {
-          "path": "tools/logic_reference.py",
-          "contains": "hashlib.sha256"
+          "path": "tools/SharpTestBench.Tools/OracleFixturesCommand.cs",
+          "contains": "static object Logic"
         }
       ]
     },
@@ -1504,8 +1504,8 @@
           "contains": "PinnedScalarAndVectorResolution"
         },
         {
-          "path": "tools/logic_reference.py",
-          "contains": "hashlib.sha256"
+          "path": "tools/SharpTestBench.Tools/OracleFixturesCommand.cs",
+          "contains": "static object Logic"
         }
       ]
     },
@@ -1525,8 +1525,8 @@
           "contains": "PinnedScalarAndVectorResolution"
         },
         {
-          "path": "tools/logic_reference.py",
-          "contains": "hashlib.sha256"
+          "path": "tools/SharpTestBench.Tools/OracleFixturesCommand.cs",
+          "contains": "static object Logic"
         }
       ]
     },
@@ -1546,8 +1546,8 @@
           "contains": "PinnedScalarAndVectorResolution"
         },
         {
-          "path": "tools/logic_reference.py",
-          "contains": "hashlib.sha256"
+          "path": "tools/SharpTestBench.Tools/OracleFixturesCommand.cs",
+          "contains": "static object Logic"
         }
       ]
     },
@@ -1567,8 +1567,8 @@
           "contains": "PinnedScalarAndVectorResolution"
         },
         {
-          "path": "tools/logic_reference.py",
-          "contains": "hashlib.sha256"
+          "path": "tools/SharpTestBench.Tools/OracleFixturesCommand.cs",
+          "contains": "static object Logic"
         }
       ]
     },
@@ -1588,8 +1588,8 @@
           "contains": "PinnedScalarAndVectorResolution"
         },
         {
-          "path": "tools/logic_reference.py",
-          "contains": "hashlib.sha256"
+          "path": "tools/SharpTestBench.Tools/OracleFixturesCommand.cs",
+          "contains": "static object Logic"
         }
       ]
     },
@@ -1609,8 +1609,8 @@
           "contains": "PinnedScalarAndVectorResolution"
         },
         {
-          "path": "tools/logic_reference.py",
-          "contains": "hashlib.sha256"
+          "path": "tools/SharpTestBench.Tools/OracleFixturesCommand.cs",
+          "contains": "static object Logic"
         }
       ]
     },
@@ -1630,8 +1630,8 @@
           "contains": "PinnedScalarAndVectorResolution"
         },
         {
-          "path": "tools/logic_reference.py",
-          "contains": "hashlib.sha256"
+          "path": "tools/SharpTestBench.Tools/OracleFixturesCommand.cs",
+          "contains": "static object Logic"
         }
       ]
     },
@@ -1651,8 +1651,8 @@
           "contains": "PinnedScalarAndVectorResolution"
         },
         {
-          "path": "tools/logic_reference.py",
-          "contains": "hashlib.sha256"
+          "path": "tools/SharpTestBench.Tools/OracleFixturesCommand.cs",
+          "contains": "static object Logic"
         }
       ]
     },
@@ -1672,8 +1672,8 @@
           "contains": "PinnedScalarAndVectorResolution"
         },
         {
-          "path": "tools/logic_reference.py",
-          "contains": "hashlib.sha256"
+          "path": "tools/SharpTestBench.Tools/OracleFixturesCommand.cs",
+          "contains": "static object Logic"
         }
       ]
     },
@@ -1693,8 +1693,8 @@
           "contains": "PinnedScalarAndVectorResolution"
         },
         {
-          "path": "tools/logic_reference.py",
-          "contains": "hashlib.sha256"
+          "path": "tools/SharpTestBench.Tools/OracleFixturesCommand.cs",
+          "contains": "static object Logic"
         }
       ]
     },
@@ -1714,8 +1714,8 @@
           "contains": "PinnedScalarAndVectorResolution"
         },
         {
-          "path": "tools/logic_reference.py",
-          "contains": "hashlib.sha256"
+          "path": "tools/SharpTestBench.Tools/OracleFixturesCommand.cs",
+          "contains": "static object Logic"
         }
       ]
     },
@@ -1735,8 +1735,8 @@
           "contains": "PinnedScalarAndVectorResolution"
         },
         {
-          "path": "tools/logic_reference.py",
-          "contains": "hashlib.sha256"
+          "path": "tools/SharpTestBench.Tools/OracleFixturesCommand.cs",
+          "contains": "static object Logic"
         }
       ]
     },
@@ -1756,8 +1756,8 @@
           "contains": "PinnedScalarAndVectorResolution"
         },
         {
-          "path": "tools/logic_reference.py",
-          "contains": "hashlib.sha256"
+          "path": "tools/SharpTestBench.Tools/OracleFixturesCommand.cs",
+          "contains": "static object Logic"
         }
       ]
     },
@@ -1777,8 +1777,8 @@
           "contains": "PinnedScalarAndVectorResolution"
         },
         {
-          "path": "tools/logic_reference.py",
-          "contains": "hashlib.sha256"
+          "path": "tools/SharpTestBench.Tools/OracleFixturesCommand.cs",
+          "contains": "static object Logic"
         }
       ]
     },
@@ -1798,8 +1798,8 @@
           "contains": "PinnedScalarAndVectorResolution"
         },
         {
-          "path": "tools/logic_reference.py",
-          "contains": "hashlib.sha256"
+          "path": "tools/SharpTestBench.Tools/OracleFixturesCommand.cs",
+          "contains": "static object Logic"
         }
       ]
     },
@@ -1819,8 +1819,8 @@
           "contains": "PinnedScalarAndVectorResolution"
         },
         {
-          "path": "tools/logic_reference.py",
-          "contains": "hashlib.sha256"
+          "path": "tools/SharpTestBench.Tools/OracleFixturesCommand.cs",
+          "contains": "static object Logic"
         }
       ]
     },
@@ -1840,8 +1840,8 @@
           "contains": "PinnedScalarAndVectorResolution"
         },
         {
-          "path": "tools/logic_reference.py",
-          "contains": "hashlib.sha256"
+          "path": "tools/SharpTestBench.Tools/OracleFixturesCommand.cs",
+          "contains": "static object Logic"
         }
       ]
     }

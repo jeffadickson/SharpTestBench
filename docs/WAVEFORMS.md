@@ -1,6 +1,6 @@
 # Waveform capture
 
-`python tools/run.py --sim icarus --waves build/debug.vcd` enables a run-wide VCD
+`dotnet run --project tools/SharpTestBench.Tools -c Release -- run --sim icarus --waves build/debug.vcd` enables a run-wide VCD
 at a chosen path. Omit --waves to disable capture. JSON test results gain an Artifacts
 entry; JUnit testcases gain a waveform property; a sibling `LABEL-artifacts.json`
 manifest records the simulator, result filename, relative waveform path and file
@@ -29,8 +29,8 @@ VCDs. Disabling capture removes stale manifest/result associations but does not
 delete previously saved waveform files. The Icarus helper is gated by a managed-run
 plusarg so subsequent Python reference simulations cannot overwrite the saved VCD.
 
-`tools/wave_check.py --label LABEL` checks actual VCD declarations, timestamps and
-known data transitions plus JSON/JUnit references. `tools/wave_tests.py` checks
+`tools/SharpTestBench.Tools/ValidationCommands.cs --label LABEL` checks actual VCD declarations, timestamps and
+known data transitions plus JSON/JUnit references. `tools/SharpTestBench.Tools/LifecycleCommands.cs` checks
 failure retention, a path with spaces and disabled capture without stale links.
 These controls are runner features; direct invocation of a simulator requires
 configuring its native waveform flags separately.

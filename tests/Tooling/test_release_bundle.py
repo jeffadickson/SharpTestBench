@@ -1,7 +1,7 @@
 import hashlib, importlib.util, json, tempfile, unittest, zipfile
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2]
-spec=importlib.util.spec_from_file_location('release_bundle',ROOT/'tools/release_bundle.py')
+spec=importlib.util.spec_from_file_location('release_bundle',ROOT/'tests/Tooling/managed_compat/release_bundle.py')
 module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
 
 class ReleaseBundleTests(unittest.TestCase):

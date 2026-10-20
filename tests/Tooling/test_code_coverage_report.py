@@ -2,7 +2,7 @@ import pathlib
 import sys
 import tempfile
 import unittest
-sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[2] / 'tools'))
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[2] / 'tests/Tooling/managed_compat'))
 from code_coverage_report import validate
 
 VALID = '<coverage lines-valid="10" lines-covered="5" branches-valid="4" branches-covered="1" line-rate="0.5" branch-rate="0.25"><packages><package name="SharpTestBench"><classes><class name="Example" filename="Example.cs" /></classes></package></packages></coverage>'

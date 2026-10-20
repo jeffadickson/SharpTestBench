@@ -6,7 +6,7 @@ callbacks are injected on Icarus. See FIXTURES.md.
 
 Managed test migration: xUnit v3 3.2.2 runs 361 named cases preserving the
 previous 1,916 checks. The isolated mutation probe reports exactly one named
-failure and 360 passing cases. Run `python tools/managed_tests.py` after building.
+failure and 360 passing cases. Run `dotnet run --project tools/SharpTestBench.Tools -c Release -- managed-tests` after building.
 
 Capability checkpoint: 1,916 unit assertions; Icarus 47 passed/1 skipped;
 Verilator 46 passed/2 skipped; GHDL 12 passed/6 skipped; NVC 17 passed/1 skipped.
@@ -27,7 +27,7 @@ exceptions, escaped multiline messages and bounded output fields; stage tests ve
 failed-test events. The same updated runtime passed NVC (15 tests) and GHDL
 (10 tests with five explicit backend skips). Evidence: docs/evidence/structured-logging.
 
-Selection follow-up: tools/stage_tests.py now runs nine simulator processes,
+Selection follow-up: tools/SharpTestBench.Tools/StageCommand.cs now runs nine simulator processes,
 including exact/multiple names and discovery-only mode; filtered case seeds are
 checked against complete discovery order. Evidence: docs/evidence/selection.
 
@@ -39,7 +39,7 @@ passed on Icarus 12. Evidence is in `docs/evidence/task-stages`.
 
 Functional coverage adds one HDL fixture per backend (43 passed and one deliberate
 skip each) and raises managed assertions to 1,860. Exact exported sample counts,
-goals and test/seed identity are checked by tools/coverage_check.py. Evidence is
+goals and test/seed identity are checked by tools/SharpTestBench.Tools/ValidationCommands.cs. Evidence is
 in `docs/evidence/functional-coverage`. The release table below remains historical;
 VHDL was rerun for the structured-logging checkpoint above. Package consumer
 validation was not rerun in this batch.
@@ -142,8 +142,8 @@ work and external-environment gates; there is no full-parity claim.
 
 ## Reproduce
 
-Use README.md commands. `tools/lifecycle.py` follows an Integration build.
-`tools/package.py` follows Icarus and NVC runs so both generated binding files
+Use README.md commands. `tools/SharpTestBench.Tools/LifecycleCommands.cs` follows an Integration build.
+`tools/SharpTestBench.Tools/PackageCommand.cs` follows Icarus and NVC runs so both generated binding files
 exist. The package-consumer DLL can then be selected using `run.py --assembly`,
 with `--host` pointing to its installed runtimes/linux-x64/native host.
 

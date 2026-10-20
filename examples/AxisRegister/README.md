@@ -5,7 +5,7 @@ The unchanged MIT `axis_register.v` is vendored from
 The source, license, revision, and SHA-256 values are in `tests/Fixtures/verilog-axis`.
 No upstream test scripts are executed and no runtime downloads are needed for this fixture.
 
-`python tools/axis_ci.py --mode 2 --seed 17` runs the independent legacy and native
+`dotnet run --project tools/SharpTestBench.Tools -c Release -- axis-ci --mode 2 --seed 17` runs the independent legacy and native
 Icarus paths and compares exact test identity, seed, exit status, and normalized cycle traces.
 Modes 0/1/2 cover bypass, simple register, and skid buffer. `--disabled-sidebands`
 uses mode 2 with keep/last/id/dest/user propagation disabled.

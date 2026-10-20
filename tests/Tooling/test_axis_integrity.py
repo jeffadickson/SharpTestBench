@@ -6,7 +6,7 @@ import sys
 import tempfile
 import unittest
 ROOT=Path(__file__).resolve().parents[2]
-sys.path.insert(0,str(ROOT/'tools'))
+sys.path.insert(0,str(ROOT/'tests/Tooling/managed_compat'))
 from axis_fixture import verify_sources, plan, validate_plan, metrics
 from dual_runner_ci import clean_environment
 import test_axis_metrics as metric_samples

@@ -55,7 +55,7 @@ the managed tests use real callbacks with observable order, failures and cancell
 ## Verification
 
 Three managed xUnit cases cover order/nesting/idempotence, failure aggregation, and
-attempting remaining callbacks after cancellation. tools/cleanup_tests.py launches
+attempting remaining callbacks after cancellation. tools/SharpTestBench.Tools/LifecycleCommands.cs launches
 six independent Icarus processes: normal, body plus cleanup failure, body timeout,
 cleanup timeout, throwing cancellation handler, and a noncooperative cleanup callback.
 The next test verifies cleanup order; the noncooperative case must abort before it.

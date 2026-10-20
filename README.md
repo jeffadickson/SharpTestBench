@@ -97,15 +97,15 @@ Preparation verifies its checksum and sets the recorded package version; native
 adapter sources are unchanged. This avoids malformed Git-version labels in archives.
 
 ```sh
-python tools/prepare_upstream.py
+dotnet run --project tools/SharpTestBench.Tools -c Release -- prepare-upstream
 CC=gcc CXX=g++ python -m pip install ./build/upstream/cocotb-source pytest
 dotnet run --project tests/SharpTestBench.Tests -c Release -- -xml build/managed-results.xml
-python tools/run.py --sim icarus
-python tools/run.py --sim verilator
-python tools/run.py --sim ghdl
-python tools/run.py --sim nvc
-python tools/typecheck.py
-python tools/parity.py
+dotnet run --project tools/SharpTestBench.Tools -c Release -- run --sim icarus
+dotnet run --project tools/SharpTestBench.Tools -c Release -- run --sim verilator
+dotnet run --project tools/SharpTestBench.Tools -c Release -- run --sim ghdl
+dotnet run --project tools/SharpTestBench.Tools -c Release -- run --sim nvc
+dotnet run --project tools/SharpTestBench.Tools -c Release -- typecheck
+dotnet run --project tools/SharpTestBench.Tools -c Release -- parity
 ```
 
 `run.py` builds a test assembly, native host and HDL, then checks the JSON results;
@@ -131,7 +131,7 @@ Roslyn incremental generator. See `docs/HDL_TYPES.md`.
 
 ## Installable package and your own tests
 
-`python tools/package.py` builds `build/packages/SharpTestBench.0.8.0-alpha.nupkg` and
+`dotnet run --project tools/SharpTestBench.Tools -c Release -- package` builds `build/packages/SharpTestBench.0.8.0-alpha.nupkg` and
 an isolated consumer of that package. Run Icarus and NVC suites first so both
 binding trees exist. The package contains managed code, the Linux x86-64 native
 host, build settings and licenses. The pinned GPI libraries and simulator must
@@ -144,7 +144,7 @@ with `SharpTestBenchCopyRuntimeAssets=false`). Use the same unmanaged Entry.Init
 pattern shown in `tests/Integration/Tests.cs`, then:
 
 ```sh
-python tools/run.py --assembly /path/to/MyTests.dll --source /path/to/top.sv --sim icarus
+dotnet run --project tools/SharpTestBench.Tools -c Release -- run --assembly /path/to/MyTests.dll --source /path/to/top.sv --sim icarus
 ```
 
 `--source` may be repeated; `--top` selects the HDL top; `--entry-type` overrides

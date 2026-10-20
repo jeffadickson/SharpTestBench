@@ -12,7 +12,7 @@ isolate files. Legacy runs use the root build directory and are serialized by th
 same exclusive lock. An occupied workspace is rejected; after a process crash,
 remove its stale lock only after confirming the process exited.
 
-`tools/workspace_tests.py` starts independent success and deliberate-failure
+`tools/SharpTestBench.Tools/StageCommand.cs` starts independent success and deliberate-failure
 processes with the same label, verifies isolated results and HDL outputs, and tests
 occupied-directory rejection. Existing Python subprocess orchestration is retained:
 xUnit is useful for managed/compiler cases, while these native process and artifact

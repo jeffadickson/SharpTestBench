@@ -5,6 +5,7 @@
   </Folder>
   <Folder Name="/tools/">
     <Project Path="tools/SharpTestBench.Runner/SharpTestBench.Runner.csproj" />
+    <Project Path="tools/SharpTestBench.Tools/SharpTestBench.Tools.csproj" />
   </Folder>
   <Folder Name="/examples/">
     <Project Path="examples/AxisRegister/AxisRegister.csproj" />
@@ -12,6 +13,7 @@
   </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/RunnerValidation/RunnerValidation.csproj" />
+    <Project Path="tests/SharpTestBench.Tools.Tests/SharpTestBench.Tools.Tests.csproj" />
     <Project Path="tests/DebugIntegration/DebugIntegration.csproj" />
     <Project Path="tests/Benchmark/Benchmark.csproj" />
     <Project Path="tests/SharpTestBench.Generators.Tests/SharpTestBench.Generators.Tests.csproj" />

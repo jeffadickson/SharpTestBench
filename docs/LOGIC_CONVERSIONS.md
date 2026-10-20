@@ -65,7 +65,7 @@ Python exception classes and implicit conversions are not reproduced.
 
 ## Evidence and upstream discrepancy
 
-`tools/logic_reference.py` hash-verifies installed pinned _logic, _logic_array and
+`tools/SharpTestBench.Tools/OracleFixturesCommand.cs` hash-verifies installed pinned _logic, _logic_array and
 _resolve source, rejects configured global/strict resolution, and generates
 9 scalar, 86 vector and 256 integer records. The managed tests compare resolution,
 checked/wrapped construction, numeric values and byte ordering against these records.

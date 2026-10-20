@@ -1,11 +1,11 @@
 # Alpha packages and installed consumer validation
 
-`python tools/native_package.py` builds three packages in `build/packages-RID`:
+`dotnet run --project tools/SharpTestBench.Tools -c Release -- native-package` builds three packages in `build/packages-RID`:
 
 - SharpTestBench: managed runtime, ABI source/headers and licensing information.
 - SharpTestBench.Generators: Roslyn analyzer assembly, with no runtime Roslyn dependency.
 - SharpTestBench.Native.RID: native host, pinned GPI core, bootstrap and Icarus adapter,
-  licenses, source revision and SHA-256 manifest, plus a standalone Python runner.
+  licenses, source revision and SHA-256 manifest, plus a standalone C# runner.
 
 The native package targets the machine that builds it: linux-x64, win-x64 or
 osx-arm64 in CI. Other architectures and simulator adapters are not advertised by
@@ -14,14 +14,13 @@ System runtime libraries remain OS prerequisites; these are not fully static bin
 
 The consumer check creates a temporary directory outside the checkout, restores
 only from the local feed into a fresh NuGet cache, compiles the generated counter
-bindings, and runs the installed native host and adapters. Its Python process uses
-isolated mode and the standalone runner imports only the standard library: no
-installed cocotb Python package, repository project reference or source-built native
-host is needed at runtime. .NET 10, Python 3.12 and Icarus of matching architecture
-remain prerequisites. The test machine itself is a CI machine, not proof of every
+bindings, and runs the installed native host and adapters through the packaged
+managed runner. No installed cocotb Python package, repository project reference,
+or source-built native host is needed at runtime. .NET 10 and Icarus of matching
+architecture remain prerequisites. The test machine itself is a CI machine, not proof of every
 possible clean-machine OS image.
 
-Invoke the installed native package's tools/installed_run.py with --native-dir
+Invoke `dotnet /package/tools/SharpTestBench.Tools.dll installed-run` with --native-dir
 pointing to its runtimes/RID/native directory, --assembly, --source, --top,
 --entry-type and --work-dir. The runner verifies packaged file hashes, uses explicit
 library paths, writes JSON/JUnit/logs and rejects an occupied workspace.
@@ -80,10 +79,10 @@ These account settings are the remaining external publication prerequisite.
 
 A further CI gate builds a consumer from the candidate feed in a digest-pinned
 .NET SDK image, then copies only its output and installed native package into a
-digest-pinned .NET runtime image. Python and Icarus are OS prerequisites there;
+digest-pinned .NET runtime image. Icarus is an OS prerequisite there;
 no cocotb Python package or repository is installed/mounted. Simulation runs with
 network disabled and a read-only container filesystem apart from /tmp and result
 artifacts. This is a separate Linux distribution/consumer environment, not proof
 of every Windows/Mac clean image. OS apt packages are recorded by the build log
 but are not snapshot-pinned; fully reproducible OS provisioning remains separate.
-Run tools/package_container.py --artifacts <downloaded-CI-artifacts> to reproduce.
+Run `dotnet run --project tools/SharpTestBench.Tools -c Release -- package-container --artifacts <downloaded-CI-artifacts>` to reproduce.

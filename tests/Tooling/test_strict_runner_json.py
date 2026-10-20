@@ -4,7 +4,7 @@ import subprocess
 import sys
 import unittest
 ROOT=Path(__file__).resolve().parents[2]
-sys.path.insert(0,str(ROOT/'tools'))
+sys.path.insert(0,str(ROOT/'tests/Tooling/managed_compat'))
 import strict_json
 
 class Tests(unittest.TestCase):

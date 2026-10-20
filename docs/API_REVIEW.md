@@ -4,11 +4,11 @@ UPSTREAM_API_INVENTORY.csv is generated inventory, not a conformance result.
 API_REVIEWS.json records manual semantic reviews separately, keyed by module,
 definition and source line (so property getter/setter entries remain distinct).
 Reviews identify their pinned source revision, source-file hash, rationale and
-code/test evidence. tools/audit_reviews.py rejects changed source hashes, unknown
+code/test evidence. tools/SharpTestBench.Tools/AuditCommand.cs rejects changed source hashes, unknown
 or duplicate definitions, missing evidence and stale code/test anchors. Run:
 
 ```sh
-python tools/audit_reviews.py --source ../cocotb
+dotnet run --project tools/SharpTestBench.Tools -c Release -- audit-reviews --source ../cocotb
 ```
 
 The initial review covers the 19 inventoried definitions in _base_triggers.

@@ -1,6 +1,6 @@
 # Structured simulation logs
 
-Use `tools/run.py --log-json build/run-events.jsonl` or set CS_LOG_JSON to an
+Use `tools/SharpTestBench.Tools/LegacyRunCommand.cs --log-json build/run-events.jsonl` or set CS_LOG_JSON to an
 output path. Each process truncates that file at startup, then appends one JSON
 object per line. Use distinct paths for concurrent simulator processes. Logging is
 opt-in; disabled structured logging performs no event serialization or event-buffer
@@ -36,8 +36,8 @@ An output I/O failure fails the regression; the JSON writer disables itself befo
 reporting the error so failure reporting cannot recursively retry the same write.
 Logs are not automatically rotated.
 
-AR_StructuredLogging and tools/logging_check.py verify parent/child identities,
+AR_StructuredLogging and tools/SharpTestBench.Tools/ValidationCommands.cs verify parent/child identities,
 monotonic simulation timestamps, source file/line, caught exception stacks,
-multiline escaping and the text limit on Icarus and Verilator. tools/stage_tests.py
+multiline escaping and the text limit on Icarus and Verilator. tools/SharpTestBench.Tools/StageCommand.cs
 also checks the failing-stage event against its exception and seed. CI uploads
 *-events.jsonl with the test results.
