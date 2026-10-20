@@ -20,7 +20,9 @@ internal sealed class DapSession(Stream input, Stream output)
         var lengths = Encoding.ASCII.GetString(header.ToArray()).Split("\r\n", StringSplitOptions.RemoveEmptyEntries).Where(line => line.StartsWith("Content-Length:", StringComparison.OrdinalIgnoreCase)).ToArray();
         if (lengths.Length != 1 || !int.TryParse(lengths[0].Split(':', 2)[1].Trim(), NumberStyles.None, CultureInfo.InvariantCulture, out var length) || length < 1 || length > 16 * 1024 * 1024) throw new InvalidDataException("Invalid DAP content length");
         var bytes = new byte[length]; await input.ReadExactlyAsync(bytes, token);
-        using var message = StrictJson.Parse(new UTF8Encoding(false, true).GetString(bytes)); return message.RootElement.Clone();
+        using var message = StrictJson.Parse(new UTF8Encoding(false, true).GetString(bytes));
+        if (message.RootElement.ValueKind != JsonValueKind.Object) throw new InvalidDataException("DAP message must be a JSON object");
+        return message.RootElement.Clone();
     }
     public JsonElement Receive(Func<JsonElement, bool> predicate)
     {
