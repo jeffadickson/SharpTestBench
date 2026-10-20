@@ -13,7 +13,7 @@ public sealed class FixtureTests
             foreach (var expected in row.GetProperty("values").EnumerateArray()) Assert.Equal(expected.GetUInt64(), random.GetBits(width));
         }
     }
-    [Theory][InlineData("crc32")][InlineData("crc16")][InlineData("crc32c")][InlineData("prbs7")][InlineData("scrambler")][InlineData("descrambler")][InlineData("galois_ff")][InlineData("minimal")]
+    [Theory][InlineData("crc32")][InlineData("crc16")][InlineData("crc32c")][InlineData("prbs7")][InlineData("scrambler")][InlineData("descrambler")][InlineData("galois_ff")][InlineData("minimal")][InlineData("crc64")][InlineData("crc64xz")]
     public void LfsrPlansValidateAndTracesAttest(string name)
     {
         var config = LfsrFixture.Cases[name]; var plan = LfsrFixture.Plan(config, ulong.MaxValue);

@@ -21,3 +21,5 @@ Qualification checks exact test selection, seed, exit code, complete input/outpu
 trace, unchanged pinned sources, and the exact plan hash before/after execution.
 Reports and child evidence are retained under `build/lfsr-*`. These are specific
 Icarus configurations, not certification of every upstream parameter combination.
+
+The `crc64` and `crc64xz` fixtures exercise the full 64-bit state boundary with the ECMA polynomial `0x42f0e1eba9ea3693`, in both LOOP and REDUCTION styles. Their managed standard check vectors come from the [CRC RevEng catalogue](https://reveng.sourceforge.io/crc-catalogue/17plus.htm#crc.cat.crc-64-ecma-182). The XZ variant reflects input and output. CI checks both runner traces and both output corruption channels for each fixture.

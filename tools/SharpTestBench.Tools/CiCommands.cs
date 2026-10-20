@@ -184,7 +184,7 @@ internal static class CiCommands
                 context.Tool("icarus-layouts-check", "--ivl-root", root, "--include", include); break;
             case "lfsr-matrix":
                 options.Only("--fixture"); var fixture = options.Require("--fixture");
-                if (!new[] { "crc32", "crc16", "crc32c", "prbs7", "scrambler", "descrambler", "galois_ff", "minimal" }.Contains(fixture, StringComparer.Ordinal)) throw new ArgumentException("Unknown LFSR fixture");
+                if (!LfsrFixture.Cases.ContainsKey(fixture)) throw new ArgumentException("Unknown LFSR fixture");
                 foreach (var style in new[] { "LOOP", "REDUCTION" })
                 {
                     foreach (var seed in new[] { "1", "17" }) context.Tool("lfsr-ci", "--fixture", fixture, "--style", style, "--seed", seed);

@@ -11,6 +11,7 @@ internal static class LfsrFixture
 {
     public static readonly IReadOnlyDictionary<string, LfsrConfig> Cases = new Dictionary<string, LfsrConfig>(StringComparer.Ordinal) {
         ["crc32"] = new(32, 0x04c11db7, 8, "GALOIS", true, false), ["crc16"] = new(16, 0x1021, 8, "GALOIS", false, false),
+        ["crc64"] = new(64, 0x42f0e1eba9ea3693, 8, "GALOIS", false, false), ["crc64xz"] = new(64, 0x42f0e1eba9ea3693, 8, "GALOIS", true, false),
         ["crc32c"] = new(32, 0x1edc6f41, 32, "GALOIS", true, false), ["prbs7"] = new(7, 0x41, 8, "FIBONACCI", false, false),
         ["scrambler"] = new(58, 0x8000000001, 64, "FIBONACCI", true, false), ["descrambler"] = new(58, 0x8000000001, 64, "FIBONACCI", true, true),
         ["galois_ff"] = new(16, 0x8005, 16, "GALOIS", true, true), ["minimal"] = new(1, 1, 1, "FIBONACCI", false, false) };

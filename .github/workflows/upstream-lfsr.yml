@@ -11,7 +11,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        fixture: [crc32, crc16, crc32c, prbs7, scrambler, descrambler, galois_ff, minimal]
+        fixture: [crc32, crc16, crc32c, crc64, crc64xz, prbs7, scrambler, descrambler, galois_ff, minimal]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-dotnet@v4
