@@ -54,6 +54,16 @@ public sealed class WorkerInvalidPlanTests
     [InlineData("linux-x64", "linux-x64", "tools;invalid", "default")]
     [InlineData("linux-x64", "linux-x64", "tools", "..")]
     [InlineData("linux-x64", "linux-x64", "runner", "..")]
+    [InlineData("linux-x64", "linux-x64", "tools", "tools")]
+    [InlineData("linux-x64", "linux-x64", "runner", "tools")]
+    [InlineData("linux-x64", "linux-x64", "tools", "src")]
+    [InlineData("linux-x64", "linux-x64", "runner", "src")]
+    [InlineData("linux-x64", "linux-x64", "tools", "build")]
+    [InlineData("linux-x64", "linux-x64", "runner", "build")]
+    [InlineData("linux-x64", "linux-x64", "tools", "build/../tools")]
+    [InlineData("linux-x64", "linux-x64", "runner", "build/../tools")]
+    [InlineData("linux-x64", "linux-x64", "tools", "build/workers/../../src")]
+    [InlineData("linux-x64", "linux-x64", "runner", "build/workers/../../src")]
     public void InvalidNativePlansFailBeforePublishing(string rid, string host, string mode, string output)
     {
         var root = Path.Combine(Path.GetTempPath(), "native plan boundary");
