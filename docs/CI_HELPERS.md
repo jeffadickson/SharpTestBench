@@ -3,8 +3,8 @@
 The helper implementation lives in `tools/SharpTestBench.Tools` in C#.
 Use `dotnet run --project tools/SharpTestBench.Tools -c Release -- <command>`.
 `docs/helper-migration.json` tracks each original helper and its migration status.
-All 62 implementations and their CI callers have moved to C#. Original scripts
-remain temporarily pending an explicit cleanup decision. Independent Python
+All 62 implementations and their CI callers use C#. Original Python tool scripts
+have been removed; their source remains in Git history. Independent Python
 scoreboards and test-only contract bindings remain under tests and examples.
 
 The C# implementation passes argument arrays directly to native processes and

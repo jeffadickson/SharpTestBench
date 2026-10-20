@@ -5,7 +5,7 @@
       "source": "tools/array_reference.py",
       "sha256": "3e6a717ed5e2c5ff95f5e9636ef6de472d6643d1bcd5d1b24b5a58d64df375f5",
       "functions": [],
-      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "status": "ported to C#; original source retained in Git history",
       "implementation": "tools/SharpTestBench.Tools/OracleFixturesCommand.cs"
     },
     {
@@ -15,21 +15,21 @@
         "validate",
         "main"
       ],
-      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "status": "ported to C#; original source retained in Git history",
       "implementation": "tools/SharpTestBench.Tools/AuditCommand.cs"
     },
     {
       "source": "tools/audit_surface.py",
       "sha256": "6e4dfb6d6bc3cf7522cab78e5dc14e5e6589ea1a0de8ce901257af5ceeb8b5c9",
       "functions": [],
-      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "status": "ported to C#; original source retained in Git history",
       "implementation": "tools/SharpTestBench.Tools/AuditCommand.cs"
     },
     {
       "source": "tools/axi_python.py",
       "sha256": "d31ce55de536611c4ff8ea62c5b7f8fb3dc4b4c2137be95024a871a262a85aa2",
       "functions": [],
-      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "status": "ported to C#; original source retained in Git history",
       "implementation": "tools/SharpTestBench.Tools/ReferenceCommand.cs"
     },
     {
@@ -40,7 +40,7 @@
         "python_run",
         "main"
       ],
-      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "status": "ported to C#; original source retained in Git history",
       "implementation": "tools/SharpTestBench.Tools/WorkloadCommand.cs"
     },
     {
@@ -50,7 +50,7 @@
         "run_case",
         "main"
       ],
-      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "status": "ported to C#; original source retained in Git history",
       "implementation": "tools/SharpTestBench.Tools/ParityCiCommand.cs"
     },
     {
@@ -65,21 +65,21 @@
         "project",
         "metrics"
       ],
-      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "status": "ported to C#; original source retained in Git history",
       "implementation": "tools/SharpTestBench.Tools/AxisFixture.cs"
     },
     {
       "source": "tools/benchmark.py",
       "sha256": "dd088de994b22d0f56f21bb4bfdb5d4576285c4cbb5013daef539659a233420f",
       "functions": [],
-      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "status": "ported to C#; original source retained in Git history",
       "implementation": "tools/SharpTestBench.Tools/BenchmarkCommand.cs"
     },
     {
       "source": "tools/cleanup_tests.py",
       "sha256": "536cf70c3bec8cf2d372171f0fa5f7c51d6a6e58155ec83aacb9097df42d1b55",
       "functions": [],
-      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "status": "ported to C#; original source retained in Git history",
       "implementation": "tools/SharpTestBench.Tools/LifecycleCommands.cs"
     },
     {
@@ -91,7 +91,7 @@
         "cancel_on_write",
         "start"
       ],
-      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "status": "ported to C#; original source retained in Git history",
       "implementation": "tools/SharpTestBench.Tools/BoundaryCommands.cs"
     },
     {
@@ -101,7 +101,7 @@
         "run",
         "main"
       ],
-      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "status": "ported to C#; original source retained in Git history",
       "implementation": "tools/SharpTestBench.Tools/CoverageCommand.cs"
     },
     {
@@ -110,21 +110,21 @@
       "functions": [
         "validate"
       ],
-      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "status": "ported to C#; original source retained in Git history",
       "implementation": "tools/SharpTestBench.Tools/CoverageCommand.cs"
     },
     {
       "source": "tools/coverage_check.py",
       "sha256": "228051724c553ea791641d1c169a33cf34a1c51b5b5f41015a5c2f135c6beaef",
       "functions": [],
-      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "status": "ported to C#; original source retained in Git history",
       "implementation": "tools/SharpTestBench.Tools/ValidationCommands.cs"
     },
     {
       "source": "tools/cpu_python.py",
       "sha256": "36af5a03a70d126bbfeb3ddea5d227c066032e595ddbe9158674bd22b5252705",
       "functions": [],
-      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "status": "ported to C#; original source retained in Git history",
       "implementation": "tools/SharpTestBench.Tools/ReferenceCommand.cs"
     },
     {
@@ -134,7 +134,7 @@
         "plan",
         "main"
       ],
-      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "status": "ported to C#; original source retained in Git history",
       "implementation": "tools/SharpTestBench.Tools/WorkloadCommand.cs"
     },
     {
@@ -143,7 +143,7 @@
       "functions": [
         "main"
       ],
-      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "status": "ported to C#; original source retained in Git history",
       "implementation": "tools/SharpTestBench.Tools/DebuggerCommand.cs"
     },
     {
@@ -155,7 +155,7 @@
         "dotnet",
         "adapters"
       ],
-      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "status": "ported to C#; original source retained in Git history",
       "implementation": "tools/SharpTestBench.Tools/NativeChecks.cs"
     },
     {
@@ -165,14 +165,14 @@
         "managed",
         "main"
       ],
-      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "status": "ported to C#; original source retained in Git history",
       "implementation": "tools/SharpTestBench.Tools/ValidationCommands.cs"
     },
     {
       "source": "tools/dsp_python.py",
       "sha256": "1b6cd2324b218512ba6b8f3a37915dcbb2c90cee2ef51164cd24381f79ba354d",
       "functions": [],
-      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "status": "ported to C#; original source retained in Git history",
       "implementation": "tools/SharpTestBench.Tools/ReferenceCommand.cs"
     },
     {
@@ -182,7 +182,7 @@
         "plan",
         "main"
       ],
-      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "status": "ported to C#; original source retained in Git history",
       "implementation": "tools/SharpTestBench.Tools/WorkloadCommand.cs"
     },
     {
@@ -196,7 +196,7 @@
         "run_case",
         "main"
       ],
-      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "status": "ported to C#; original source retained in Git history",
       "implementation": "tools/SharpTestBench.Tools/ParityCiCommand.cs"
     },
     {
@@ -207,7 +207,7 @@
         "installed_adapter",
         "main"
       ],
-      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "status": "ported to C#; original source retained in Git history",
       "implementation": "tools/SharpTestBench.Tools/RunnerManifestCommand.cs"
     },
     {
@@ -220,7 +220,7 @@
         "write_report",
         "main"
       ],
-      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "status": "ported to C#; original source retained in Git history",
       "implementation": "tools/SharpTestBench.Tools/ParityContracts.cs"
     },
     {
@@ -231,7 +231,7 @@
         "export",
         "main"
       ],
-      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "status": "ported to C#; original source retained in Git history",
       "implementation": "tools/SharpTestBench.Tools/IcarusLayoutsCommand.cs"
     },
     {
@@ -240,14 +240,14 @@
       "functions": [
         "main"
       ],
-      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "status": "ported to C#; original source retained in Git history",
       "implementation": "tools/SharpTestBench.Tools/IcarusLayoutsCommand.cs"
     },
     {
       "source": "tools/installed_run.py",
       "sha256": "e87dae543a8610d8137158369724bcca42066f41ea67f323f8af6046c0565f3e",
       "functions": [],
-      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "status": "ported to C#; original source retained in Git history",
       "implementation": "tools/SharpTestBench.Tools/InstalledRunCommand.cs"
     },
     {
@@ -257,7 +257,7 @@
         "run_case",
         "main"
       ],
-      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "status": "ported to C#; original source retained in Git history",
       "implementation": "tools/SharpTestBench.Tools/ParityCiCommand.cs"
     },
     {
@@ -275,7 +275,7 @@
         "verify_sources",
         "plan_digest"
       ],
-      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "status": "ported to C#; original source retained in Git history",
       "implementation": "tools/SharpTestBench.Tools/LfsrFixture.cs"
     },
     {
@@ -284,21 +284,21 @@
       "functions": [
         "main"
       ],
-      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "status": "ported to C#; original source retained in Git history",
       "implementation": "tools/SharpTestBench.Tools/LifecycleCommands.cs"
     },
     {
       "source": "tools/logging_check.py",
       "sha256": "8d60b314c930e74e5824abba99ece847bd5a1032959766dd4e95801a680a5e6c",
       "functions": [],
-      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "status": "ported to C#; original source retained in Git history",
       "implementation": "tools/SharpTestBench.Tools/ValidationCommands.cs"
     },
     {
       "source": "tools/logic_reference.py",
       "sha256": "8eccebfb57dc59b1f3dd189a198013d5941e96af3606643411dbeb0ddd897519",
       "functions": [],
-      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "status": "ported to C#; original source retained in Git history",
       "implementation": "tools/SharpTestBench.Tools/OracleFixturesCommand.cs"
     },
     {
@@ -308,7 +308,7 @@
         "verify",
         "main"
       ],
-      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "status": "ported to C#; original source retained in Git history",
       "implementation": "tools/SharpTestBench.Tools/ManagedTestsCommand.cs"
     },
     {
@@ -318,7 +318,7 @@
         "sdk_root",
         "build_host"
       ],
-      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "status": "ported to C#; original source retained in Git history",
       "implementation": "tools/SharpTestBench.Tools/NativeBuildCommand.cs"
     },
     {
@@ -327,7 +327,7 @@
       "functions": [
         "main"
       ],
-      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "status": "ported to C#; original source retained in Git history",
       "implementation": "tools/SharpTestBench.Tools/NativeChecks.cs"
     },
     {
@@ -336,7 +336,7 @@
       "functions": [
         "main"
       ],
-      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "status": "ported to C#; original source retained in Git history",
       "implementation": "tools/SharpTestBench.Tools/NativeDebuggerCommand.cs"
     },
     {
@@ -345,7 +345,7 @@
       "functions": [
         "inspect"
       ],
-      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "status": "ported to C#; original source retained in Git history",
       "implementation": "tools/SharpTestBench.Tools/NativeChecks.cs"
     },
     {
@@ -355,7 +355,7 @@
         "run",
         "main"
       ],
-      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "status": "ported to C#; original source retained in Git history",
       "implementation": "tools/SharpTestBench.Tools/NativeFaultsCommand.cs"
     },
     {
@@ -365,7 +365,7 @@
         "run",
         "main"
       ],
-      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "status": "ported to C#; original source retained in Git history",
       "implementation": "tools/SharpTestBench.Tools/PackageCommand.cs"
     },
     {
@@ -376,7 +376,7 @@
         "comparison",
         "main"
       ],
-      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "status": "ported to C#; original source retained in Git history",
       "implementation": "tools/SharpTestBench.Tools/NativePerformanceCommand.cs"
     },
     {
@@ -385,14 +385,14 @@
       "functions": [
         "main"
       ],
-      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "status": "ported to C#; original source retained in Git history",
       "implementation": "tools/SharpTestBench.Tools/PerformancePrepareCommand.cs"
     },
     {
       "source": "tools/package.py",
       "sha256": "d0957315017653b6f6b16cdbc018d84523935a59fcdef7f40667fa061da59209",
       "functions": [],
-      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "status": "ported to C#; original source retained in Git history",
       "implementation": "tools/SharpTestBench.Tools/PackageCommand.cs"
     },
     {
@@ -401,14 +401,14 @@
       "functions": [
         "main"
       ],
-      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "status": "ported to C#; original source retained in Git history",
       "implementation": "tools/SharpTestBench.Tools/PackageContainerCommand.cs"
     },
     {
       "source": "tools/packed_benchmark.py",
       "sha256": "2f92b2c65d7f709456e608e873929b9be70b8b098fd54d72a5d9aca18584b204",
       "functions": [],
-      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "status": "ported to C#; original source retained in Git history",
       "implementation": "tools/SharpTestBench.Tools/PerformancePrepareCommand.cs"
     },
     {
@@ -417,14 +417,14 @@
       "functions": [
         "check"
       ],
-      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "status": "ported to C#; original source retained in Git history",
       "implementation": "tools/SharpTestBench.Tools/BoundaryCommands.cs"
     },
     {
       "source": "tools/parity.py",
       "sha256": "2612673129b3c3f63d4011e11648235243be8f031a7ca2eec0fad7bc08a5ed54",
       "functions": [],
-      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "status": "ported to C#; original source retained in Git history",
       "implementation": "tools/SharpTestBench.Tools/ReferenceCommand.cs"
     },
     {
@@ -434,14 +434,14 @@
         "configure_native_build",
         "main"
       ],
-      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "status": "ported to C#; original source retained in Git history",
       "implementation": "tools/SharpTestBench.Tools/PrepareUpstreamCommand.cs"
     },
     {
       "source": "tools/queue_reference.py",
       "sha256": "670f0c0fffdd2a1dc704cc936a955ff543c6a12200d471ca04a11dadabe03668",
       "functions": [],
-      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "status": "ported to C#; original source retained in Git history",
       "implementation": "tools/SharpTestBench.Tools/OracleFixturesCommand.cs"
     },
     {
@@ -452,14 +452,14 @@
         "assemble",
         "main"
       ],
-      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "status": "ported to C#; original source retained in Git history",
       "implementation": "tools/SharpTestBench.Tools/ReleaseCommands.cs"
     },
     {
       "source": "tools/release_preflight.py",
       "sha256": "c416a493c976ffca6447c07d8b49bff3faa595f750554c3e27d59166130834d4",
       "functions": [],
-      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "status": "ported to C#; original source retained in Git history",
       "implementation": "tools/SharpTestBench.Tools/ReleaseCommands.cs"
     },
     {
@@ -470,7 +470,7 @@
         "workspace_lock",
         "main"
       ],
-      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "status": "ported to C#; original source retained in Git history",
       "implementation": "tools/SharpTestBench.Tools/LegacyRunCommand.cs"
     },
     {
@@ -479,7 +479,7 @@
       "functions": [
         "main"
       ],
-      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "status": "ported to C#; original source retained in Git history",
       "implementation": "tools/SharpTestBench.Tools/ManifestCheckCommand.cs"
     },
     {
@@ -488,7 +488,7 @@
       "functions": [
         "main"
       ],
-      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "status": "ported to C#; original source retained in Git history",
       "implementation": "tools/SharpTestBench.Tools/StageCommand.cs"
     },
     {
@@ -498,28 +498,28 @@
         "loads",
         "load"
       ],
-      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "status": "ported to C#; original source retained in Git history",
       "implementation": "tools/SharpTestBench.Tools/Core.cs"
     },
     {
       "source": "tools/structured_reference.py",
       "sha256": "b044aecf0487431a942441b210f31f4ce82a616742b96fcde481d02e37cd9341",
       "functions": [],
-      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "status": "ported to C#; original source retained in Git history",
       "implementation": "tools/SharpTestBench.Tools/ReferenceCommand.cs"
     },
     {
       "source": "tools/structured_reference_env.py",
       "sha256": "3351a007f8bdc19f8f7399c94dbae6b2209542c4e09246ce49ba01b04f7268ab",
       "functions": [],
-      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "status": "ported to C#; original source retained in Git history",
       "implementation": "tools/SharpTestBench.Tools/ReferenceCommand.cs"
     },
     {
       "source": "tools/timing_parity.py",
       "sha256": "b0ce04d07043568727bde401ebc3dbd1204b57b831ae093448bba7a07dfe1a47",
       "functions": [],
-      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "status": "ported to C#; original source retained in Git history",
       "implementation": "tools/SharpTestBench.Tools/ReferenceCommand.cs"
     },
     {
@@ -528,7 +528,7 @@
       "functions": [
         "build"
       ],
-      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "status": "ported to C#; original source retained in Git history",
       "implementation": "tools/SharpTestBench.Tools/ValidationCommands.cs"
     },
     {
@@ -537,7 +537,7 @@
       "functions": [
         "build_model"
       ],
-      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "status": "ported to C#; original source retained in Git history",
       "implementation": "tools/SharpTestBench.Tools/VerilatorBuildCommand.cs"
     },
     {
@@ -546,14 +546,14 @@
       "functions": [
         "check"
       ],
-      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "status": "ported to C#; original source retained in Git history",
       "implementation": "tools/SharpTestBench.Tools/ValidationCommands.cs"
     },
     {
       "source": "tools/wave_tests.py",
       "sha256": "58dc1eabf70354e33700719bc31f234b6b8aab680d04e4dd25322e5def25189f",
       "functions": [],
-      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "status": "ported to C#; original source retained in Git history",
       "implementation": "tools/SharpTestBench.Tools/LifecycleCommands.cs"
     },
     {
@@ -563,14 +563,14 @@
         "pe_machine",
         "main"
       ],
-      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "status": "ported to C#; original source retained in Git history",
       "implementation": "tools/SharpTestBench.Tools/NativeChecks.cs"
     },
     {
       "source": "tools/workspace_tests.py",
       "sha256": "df17b341c070ce6458b3140203ac069d68c726c82a51463fddda81ae05388b47",
       "functions": [],
-      "status": "C# implementation and callers qualified; original script retained pending cleanup decision",
+      "status": "ported to C#; original source retained in Git history",
       "implementation": "tools/SharpTestBench.Tools/StageCommand.cs"
     }
   ],
@@ -586,7 +586,7 @@
       "Windows",
       "Linux"
     ],
-    "originalScripts": "Retained pending explicit cleanup approval",
+    "originalScripts": "Removed; implementations and CI callers use C#",
     "optionalProfiles": "Historical performance and OS-specific integrations retain their documented prerequisites."
   }
 }
