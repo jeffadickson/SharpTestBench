@@ -121,7 +121,7 @@ Saved Markdown, JSON, JSONL and CSV records are included below. Large binary arc
 
 ## Active local requirements campaign
 
-- [Requirements campaign report (160/200 completed)](requirements200-report.md)
+- [Requirements campaign report (200/200 completed)](requirements200-report.md)
 - [Actual engineering units](requirements200-iterations.jsonl)
 - [Scheduled and independent reviews](requirements200-reviews.jsonl)
 - [Checkpoint 50 four-assembly coverage](requirements200-checkpoint50-coverage.json)
@@ -136,3 +136,13 @@ completed historical campaign and is not recounted as current work.
 - [Checkpoint150 native and manifest qualification](requirements200-checkpoint150-native.json)
 
 - [Checkpoint160 actual frame FIFO evidence](requirements200-checkpoint160-frame.json)
+
+
+- [Checkpoint190 actual bad-frame FIFO evidence](requirements200-checkpoint190-drop.json)
+- [Final200 four-assembly coverage](requirements200-checkpoint200-coverage.json)
+- [Final200 actual native/publication evidence](requirements200-checkpoint200-native.json)
+- [Final independent deep review and correction](requirements200-final-deep-review.md)
+
+Requirements200 is complete and locally verified on main; no push. Fresh final tests:
+Windows2665passed15Unixskips/Linux2680passed. Broader open requirements are retained
+in the bounded closure matrix; archived round8 evidence is not new-machine evidence.

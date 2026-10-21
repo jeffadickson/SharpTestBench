@@ -595,3 +595,134 @@ No new coverage/AOT publication percentage is claimed after150. Preparatory deep
 triage found reporting discovery-producer binding, compiler publication classification
 and general bounded/partial process capture as next defects.160 units verified,
 40 remain. Next scheduled review165; final200 deep review remains required. No push.
+
+
+## Checkpoint170 — bounded process capture and failure precedence
+
+Iterations161..170 bind reporting discovery seed producers to verified execution
+inputs, distinguish compiler diagnostic/process publication from actual build
+failure and preserve nonzero compiler errors over secondary publication errors.
+General captured stdout/stderr now have independent16MiB raw-byte budgets. Overflow
+terminates the owned process where possible and cannot return truncated success,
+even if child exit races cancellation. Deadlines retain partial streams; local
+cleanup bounds waits, closes readers and settles/observes capture tasks. It does
+not guarantee orphan-descendant termination. Separate simulator capture sidecars
+preserve existing result/report schemas and distinguish interrupted/complete output.
+All new destinations participate in ownership, retirement and failure inventories.
+
+Review165 found the completion/overflow race; unconditional limit checks and an
+immediate-exit regression correct it. Follow-up review accepted the correction.
+Controlled production CLI tests write passing JSON before17MiB output and still
+require both legacy and standalone runners to classify capture failure. Additional
+regressions cover compiler log/metadata obstruction, nonzero precedence, partial
+compiler/simulator timeout recovery, simultaneous streams, literal shell characters,
+Unicode paths/arguments/environment, invalid deadlines and inherited-pipe cleanup.
+A Windows probe initially tried printing through Python's default CP1252; that
+controlled child now explicitly emits UTF-8, and Windows checks were rerun.
+
+Fresh locked Release build and all three managed suites passed both OSes:
+core492, generators17, helpers1,199(12 Unix skips on Windows). Targeted retained
+contracts:46 legacy CLI plus82 Runner CLI tests, all passed(three Unix skips on
+Windows). This is128 targeted contracts, not a fresh full936-contract result.
+Actual reporting text/IO failure parity passed both runners on both OSes, including
+new discovery-input binding. Full local validation/coverage/publication remain due
+at200.170 engineering units verified locally; no push and PR62/CI untouched.
+
+
+## Checkpoint180 — parent orchestration failure closure
+
+Iterations171..180 preserve the original case exception if case-failure publication
+is blocked and add nine distinct controlled frame-parent regressions: managed/native
+build failures, legacy/standalone launch failures, missing/malformed metrics, independent
+oracle exit failure, equivalent-JSON plan byte mutation and imported oracle dependency
+mutation. Stale successful parity is retired and unrelated owner data survives.
+Recorded checkpoint160 plan/metrics are solely controlled payloads for parent tests;
+worker/oracle commands are mocked. No new HDL qualification is inferred from them.
+Scheduled180 review found no actionable defect, with this execution limit explicit.
+
+Fresh locked Release build and all three managed suites passed both OSes:
+core492, generators17, helpers1,209(12 Unix skips Windows).128 targeted contracts
+(46 legacy CLI +82 Runner CLI) passed both OSes(three Unix skips Windows). Actual
+reporting text/IO dual-runner parity passed both OSes. Full retained936-contract,
+coverage and publication qualification remain due200.180 engineering units verified,
+20 remain; no push, final200 deep review pending.
+
+
+## Checkpoint190 — last-beat bad-frame drop parity
+
+Iterations181..190 add a separate pinned FIFO wrapper/assembly and independently
+replayed mixed good/bad-frame workload. Onlybit0 of the last accepted beat marks
+a bad frame. Earlier markers and high unmasked bits do not discard good traffic.
+The whole bad frame stays hidden; accepted=consumed+discarded, good traffic retains
+order and sidebands, backpressured output is stable, and registered completion
+pulses must occur exactly the following cycle. Existing normal-frame schemas remain.
+
+Fresh lockedRelease/all3managed passed bothOS(core492/gen17/helpers1215), plus142
+targeted retained contracts(46legacyCLI/82RunnerCLI/14frame); Windows12managed and
+3contract Unix skips. Actual dual-runner Icarus positive+corruption passed four
+configurations(4,0,off),(8,1,off),(8,2,on),(64,3,on) bothOS, seed83/16frames. Semantic
+plans and metrics match across OSes. Linux Verilator8p2outon passed738cycles,
+63accepted/24consumed/39discarded,8good/8badframes,20stalls and hiddenwitness4.
+Compact evidence: requirements200-checkpoint190-drop.json. Extra independent source
+review190 found no actionable defect. Oversize/full-drop, pause and reset interruption
+remain open. This is190verifiedunits, not complete campaign/global requirements.
+
+
+## Final checkpoint200 — local campaign complete
+
+All200 engineering units are implemented/reviewed and locally verified. The ledger
+includes concrete implementation, regression and source-backed semantic decisions;
+parameter rows and repeated checks are not extra iterations. Builds occurred every10,
+scheduled peer reviews every15(15..195), full validated local commits at50/100/150
+and the final200 milestone, with additional smaller verified commits. This is not
+200 independent features and does not close every product requirement.
+
+Iterations191..200 bound diagnostic messages to16Ki UTF16 characters, preserve
+supplementary scalar boundaries/original exceptions and apply explicit truncation
+markers to case/Legacy/Runner evidence and compiler snippets. A real production
+Runner process-start failure regresses oversized messages. All four independent
+Python HDL oracle CLIs now enforce16MiB raw-byte and64container-depth input budgets,
+strict UTF8/scalars, duplicate-key and nonfinite-number rejection. Independent
+transaction replay remains Python; production helper orchestration remains C#.
+
+Final deep review found oneP2: simulator recording failure could mask a known
+nonzero exit. Corrected with bounded secondary warning and original simulator error;
+controlled combined-log/capture obstructions regress precedence. Follow-up source
+review and the separate independent coverage review are clear. This correction and
+validation are not additional counted iterations. Detailed assessment and limits:
+[final deep review](requirements200-final-deep-review.md).
+
+Fresh final Release validation with locked restore passed Windows and native WSL:
+core492, generators17, helpers1220; retained contracts951. Windows2,665passed plus
+15Unixskips(12managed/3contract); Linux2,680passed, no skips. Linux uses make test;
+both C# doctors, actual priority Icarus positive/corruption bothrunnersbothOS and
+Linux Verilator passed. Initial195 analyzer assertion and200 test-file encoding
+errors were corrected before successful final builds; failures are not counted as
+passed gates or additional iterations.
+
+Serial merged coverage requires all four production assemblies and includes generated
+code. Windows: 6493/10192lines(63.70683%),
+3450/6835branches(50.47549%). Linux:
+6494/10192lines(63.71664%),
+3471/6835branches(50.78274%).
+Both reports resolve161physicalsourcefiles and all43generatedHTMLsections. Production
+Runner Program132/142lines and RunnerCLIcollection2893/3341lines are covered with
+reflection-disabled runtimeconfig. This is selected CLI execution, not a complete
+entry-point/runtime-switch matrix, NativeAOT instruction coverage or HDL coverage.
+Historical percentages use different denominators and are not directly comparable.
+
+Actual final publication/execution: Windowsx64Tools and Linuxx64Tools self-contained
+ReadyToRun, native header signature52545200, bundled CLR/JIT fallback retained.
+Published Tools executed reporting text/IO failure parity,3portRRarbiter and8p2outon
+normal-frame/bad-frame dual-runner Icarus parity bothOS. Linux standalone Runner
+NativeAOT executed arbiter(142cycles), normal-frame and bad-frame(738cycles each),
+independent replays and compiled-image byte/SHA verification. Simulator assemblies
+still require separate hostfxr/CoreCLR processes. No WindowsRunnerAOT or six-RID
+execution claim. The larger actual normal/drop matrices remain separately recorded
+at160/190; no construction count is presented as executed coverage.
+
+Fresh read-only GitHub state: all12workflows disabled_manually; PR62 open/draft,
+unmerged, unchanged at0318a864d9b570f9ffbc4857e7365ec9ed6a4736. No hosted jobs were
+dispatched. Final source/evidence are committed locally on main. No push occurred.
+Unknown AGENTS.md is preserved untracked. Checkpoint200 coverage/native JSON and
+retained HTML snapshots record the fresh machine evidence; old round8 is unchanged.

@@ -73,3 +73,12 @@ class Tests(unittest.TestCase):
         path.unlink();path.symlink_to(protected);before=protected.read_bytes()
         result=self.run_cli(path);self.assertEqual(1,result.returncode);self.assertIn('collides',result.stderr)
         self.assertEqual(before,protected.read_bytes());self.assertEqual([protected],list(output.iterdir()));self.released()
+
+    def test_default_stream_budgets_reject_passing_rows_with_retained_process_failure(self):
+        for stream in ['stdout','stderr']:
+            path,_=self.prepare(earlyResults=True,**{stream+'Bytes':17*1024*1024})
+            result=self.run_cli(path);self.assertEqual(1,result.returncode,result.stderr)
+            self.assertEqual('passed',self.artifact('icarus-results.json')[0]['Status'])
+            self.assertEqual('simulator_failure',self.artifact('failure-manifest.json')['Kind'])
+            self.assertEqual(16*1024*1024,(self.folder/'output'/('simulate.'+stream+'.log')).stat().st_size)
+            self.assertFalse((self.folder/'output/run-manifest.json').exists());self.released()

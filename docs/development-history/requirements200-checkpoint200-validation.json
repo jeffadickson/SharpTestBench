@@ -1,0 +1,56 @@
+{
+  "baseCommit": "c0b4178",
+  "iterations": 200,
+  "windows": {
+    "passed": 2665,
+    "skipped": 15
+  },
+  "linux": {
+    "passed": 2680,
+    "skipped": 0
+  },
+  "managedTotals": {
+    "core": 492,
+    "generators": 17,
+    "helpers": 1220
+  },
+  "retainedContracts": 951,
+  "pushed": false,
+  "logsSha256": {
+    "windows": {
+      "requirements200-200-coverage-windows.log": "f19df5918b18b536d65a06a27034b3ba8ff0cf24874b5a767d223312ead3355b",
+      "requirements200-200-doctor-windows.log": "80c25c14c275c4e4cf30e02871246ab9fbe81bb1b7d3fdb4d61a316bb69cc968",
+      "requirements200-200-manifest-windows.log": "b21133e40e9c3d2359d404ed93ef834e35c4902eb97bf3d351d7ca6ad4038b81",
+      "requirements200-200-native-publish-windows.log": "70e0890bb62a7ecb695e0fb8eb473a1767807af78b8bbec35ba1a22c6b73b3e5",
+      "requirements200-200-priority-False-windows.log": "93244587cc7016daca201444fc04992bcb04c807361c99502ac35d9cf10a833b",
+      "requirements200-200-priority-True-windows.log": "73ded41a7d6bde2281d8afd2fc2aef0b6320bfdec1c2893f7c42218b952a9e3f",
+      "requirements200-200-published-arbiter-windows.log": "0249fb04a868c3e3df4496398d6a9d54c2d4d85a3407eec11deba5553885484c",
+      "requirements200-200-published-frame-ci-windows.log": "913c3210835d862401ed460798e653635d1d093d69c712d42946ace2495696f6",
+      "requirements200-200-published-frame-drop-ci-windows.log": "357a312719e602fce1d9bdf0b7554ba9e5240cb3c68618ca80c12b8de4bd84ac",
+      "requirements200-200-published-reporting-windows.log": "8756d6adb91010347e3e025397320815581380a64db4a077daf4f58694b67530",
+      "requirements200-200-reporting-windows.log": "8756d6adb91010347e3e025397320815581380a64db4a077daf4f58694b67530",
+      "requirements200-200-windows.log": "c731ee50cbac2461b0b4828089b0a5568d2a4dccdf9ad857dbcdd8774ff7d481"
+    },
+    "linux": {
+      "requirements200-200-published-arbiter-linux.log": "531cbf3d5821a76511adcb6955b0f714bcd45b8fb6c7562a6cce82969cfb89e3",
+      "requirements200-200-aot-arbiter.log": "76fed5b7283d5e7ccf96912923b551d8aad900ff85228a79b219b6269657b8a1",
+      "requirements200-200-published-reporting-linux.log": "ff216edb658a6d28b675d396973ec95deff881881a0e26ae966cbe005b95408c",
+      "requirements200-200-manifest-linux.log": "dbd1c0a643e6107902fafb7b9fcbf5709b69c554ff84c4ad93c9d9caec0a8c1f",
+      "requirements200-200-linux.log": "2cb492d3d2432f64ebf9fd3979e265c31f2b803702a1ebf523487111f7f4f4df",
+      "requirements200-200-verilator.log": "adcc0894e07da9c29cd8abfc4a3bc02cd255af0ae8383dea9ae169907da85f7b",
+      "requirements200-200-published-frame-drop-ci-linux.log": "8a280bcf719a4a60e011d8cfe64a030bec8d473f883768373c210096610479ed",
+      "requirements200-200-reporting-linux.log": "ff216edb658a6d28b675d396973ec95deff881881a0e26ae966cbe005b95408c",
+      "requirements200-200-aot-drop.log": "b4aabf890a0834c382fe2f5e1a02ede758d43f27ffb7ef78f0ecf6f0be0bbb2a",
+      "requirements200-200-priority-negative-linux.log": "76c4546f82a33a1cf99601a0c2b7c5ac7b9fdfc37241e014a77674b4fd7533f6",
+      "requirements200-200-priority-positive-linux.log": "7097ab40b96f85eec76078b9964ad72aa1bfa1eb26846bcc4a064576d667b1fa",
+      "requirements200-200-doctor-linux.log": "1bcf0539027f30ec5472aaedd2be303536ddc1c8b393a0039fdf2155f3eef7b0",
+      "requirements200-200-verilator-simulate.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "requirements200-200-coverage-linux.log": "f949e56a54517d4b05b58cb54b59be35b9bad58f1152018acface2104b97604e",
+      "requirements200-200-published-frame-ci-linux.log": "b6cdffbf984399095701a01c278f2e51251a19cd8e2b78e2acaba4da868b2294",
+      "requirements200-200-native-publish-linux.log": "2e0ead9e4ed40337dedf933fcb5ab62471a13f79b1cf018f2cdb9d9019ade2d1",
+      "requirements200-200-verilator-simulate.stdout.log": "fbc7672ad88dff0a60e8cb6ba028c957ee68d0fdf85d3c116b426ca5dc0e6808",
+      "requirements200-200-aot-frame.log": "192520218ba884d347b162eabcdacddc11f56b1cc8549ab6a314e8d7db0c3088",
+      "requirements200-200-verilator-run.log": "fbc7672ad88dff0a60e8cb6ba028c957ee68d0fdf85d3c116b426ca5dc0e6808"
+    }
+  }
+}

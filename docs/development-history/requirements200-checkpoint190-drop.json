@@ -1,0 +1,969 @@
+{
+  "windows": {
+    "platform": "nt",
+    "cases": [
+      {
+        "configuration": {
+          "Depth": 4,
+          "Pipeline": 0,
+          "OutputFifo": false
+        },
+        "positive": {
+          "schemaVersion": 1,
+          "legacy": [
+            [
+              "Entry.FrameDrops",
+              "passed"
+            ]
+          ],
+          "native": [
+            [
+              "Entry.FrameDrops",
+              "passed"
+            ]
+          ],
+          "expected": [
+            "Entry.FrameDrops"
+          ],
+          "missing": {
+            "legacy": [],
+            "native": []
+          },
+          "unexpected": {
+            "legacy": [],
+            "native": []
+          },
+          "seedMismatches": [],
+          "matched": true,
+          "traceMatched": true,
+          "expectedSeedMatched": true,
+          "exitCodes": {
+            "legacy": 0,
+            "native": 0
+          },
+          "fixture": "frame-drop-fifo",
+          "configuration": {
+            "Depth": 4,
+            "Pipeline": 0,
+            "OutputFifo": false
+          },
+          "top": "drop_d4_p0_o0",
+          "seed": 83,
+          "revision": "48ff7a7e2ef782cf778d47910cf85835c64b1bce",
+          "planSha256": "666f4c70436ae3198da004952a099615bd15e83d15bc15f5159b21b57fd343d2",
+          "configurationSha256": "c325646e251339c1bb56c9e412828e2d5a4a3121ef7ddbf114dd2f6ca1dc5159",
+          "wrapperSha256": "490d31179780d82308e38b81c165534d88312f032aff68e6daf22fb65c31d807",
+          "oracleSha256": "cde46f78232ea731b0c2494297ee913430c4e838c65552e21f00e1828c13d64d",
+          "fault": "none",
+          "oracleMatched": true
+        },
+        "negative": {
+          "schemaVersion": 1,
+          "negativeControl": true,
+          "legacyDetected": true,
+          "nativeDetected": true,
+          "matched": true,
+          "expectedSeedMatched": true,
+          "exitCodes": {
+            "legacy": 1,
+            "native": 1
+          },
+          "fixture": "frame-drop-fifo",
+          "configuration": {
+            "Depth": 4,
+            "Pipeline": 0,
+            "OutputFifo": false
+          },
+          "top": "drop_d4_p0_o0",
+          "seed": 83,
+          "revision": "48ff7a7e2ef782cf778d47910cf85835c64b1bce",
+          "planSha256": "666f4c70436ae3198da004952a099615bd15e83d15bc15f5159b21b57fd343d2",
+          "configurationSha256": "c325646e251339c1bb56c9e412828e2d5a4a3121ef7ddbf114dd2f6ca1dc5159",
+          "wrapperSha256": "490d31179780d82308e38b81c165534d88312f032aff68e6daf22fb65c31d807",
+          "oracleSha256": "cde46f78232ea731b0c2494297ee913430c4e838c65552e21f00e1828c13d64d",
+          "fault": "payload-lsb"
+        },
+        "workload": {
+          "frames": 16,
+          "beats": 37,
+          "cycles": 474,
+          "stalls": 17
+        },
+        "oracles": {
+          "legacy": {
+            "schemaVersion": 1,
+            "valid": true,
+            "incompleteHidden": 6,
+            "accepted": 37,
+            "consumed": 16,
+            "discarded": 21,
+            "badFrames": 8,
+            "goodFrames": 8,
+            "stalls": 17,
+            "resets": 1,
+            "cycles": 474
+          },
+          "native": {
+            "schemaVersion": 1,
+            "valid": true,
+            "incompleteHidden": 6,
+            "accepted": 37,
+            "consumed": 16,
+            "discarded": 21,
+            "badFrames": 8,
+            "goodFrames": 8,
+            "stalls": 17,
+            "resets": 1,
+            "cycles": 474
+          }
+        },
+        "semanticPlanSha256": "ebfc52727e4285c87731435ee421f42f0df88e5b299b7578224506edf90045e1",
+        "semanticMetricsSha256": "61dcf6f4faf885badcf21a52879251e93d0ca5be0245077b660e0b9aca58f372"
+      },
+      {
+        "configuration": {
+          "Depth": 8,
+          "Pipeline": 1,
+          "OutputFifo": false
+        },
+        "positive": {
+          "schemaVersion": 1,
+          "legacy": [
+            [
+              "Entry.FrameDrops",
+              "passed"
+            ]
+          ],
+          "native": [
+            [
+              "Entry.FrameDrops",
+              "passed"
+            ]
+          ],
+          "expected": [
+            "Entry.FrameDrops"
+          ],
+          "missing": {
+            "legacy": [],
+            "native": []
+          },
+          "unexpected": {
+            "legacy": [],
+            "native": []
+          },
+          "seedMismatches": [],
+          "matched": true,
+          "traceMatched": true,
+          "expectedSeedMatched": true,
+          "exitCodes": {
+            "legacy": 0,
+            "native": 0
+          },
+          "fixture": "frame-drop-fifo",
+          "configuration": {
+            "Depth": 8,
+            "Pipeline": 1,
+            "OutputFifo": false
+          },
+          "top": "drop_d8_p1_o0",
+          "seed": 83,
+          "revision": "48ff7a7e2ef782cf778d47910cf85835c64b1bce",
+          "planSha256": "94a2d0bc38827623b9f1cad3af2bdc8511ebc3bdbd6dae266e2a5d2eb92816b9",
+          "configurationSha256": "851b08ae9ced332c7aa56402ec87998a860be63e2bc69e93ffb2f40fb34d5d5c",
+          "wrapperSha256": "9fc215464d4c938e273174748d5a0dcf3ee808428297a9dfd564ab59a4421825",
+          "oracleSha256": "cde46f78232ea731b0c2494297ee913430c4e838c65552e21f00e1828c13d64d",
+          "fault": "none",
+          "oracleMatched": true
+        },
+        "negative": {
+          "schemaVersion": 1,
+          "negativeControl": true,
+          "legacyDetected": true,
+          "nativeDetected": true,
+          "matched": true,
+          "expectedSeedMatched": true,
+          "exitCodes": {
+            "legacy": 1,
+            "native": 1
+          },
+          "fixture": "frame-drop-fifo",
+          "configuration": {
+            "Depth": 8,
+            "Pipeline": 1,
+            "OutputFifo": false
+          },
+          "top": "drop_d8_p1_o0",
+          "seed": 83,
+          "revision": "48ff7a7e2ef782cf778d47910cf85835c64b1bce",
+          "planSha256": "94a2d0bc38827623b9f1cad3af2bdc8511ebc3bdbd6dae266e2a5d2eb92816b9",
+          "configurationSha256": "851b08ae9ced332c7aa56402ec87998a860be63e2bc69e93ffb2f40fb34d5d5c",
+          "wrapperSha256": "9fc215464d4c938e273174748d5a0dcf3ee808428297a9dfd564ab59a4421825",
+          "oracleSha256": "cde46f78232ea731b0c2494297ee913430c4e838c65552e21f00e1828c13d64d",
+          "fault": "payload-lsb"
+        },
+        "workload": {
+          "frames": 16,
+          "beats": 63,
+          "cycles": 738,
+          "stalls": 25
+        },
+        "oracles": {
+          "legacy": {
+            "schemaVersion": 1,
+            "valid": true,
+            "incompleteHidden": 10,
+            "accepted": 63,
+            "consumed": 24,
+            "discarded": 39,
+            "badFrames": 8,
+            "goodFrames": 8,
+            "stalls": 25,
+            "resets": 1,
+            "cycles": 738
+          },
+          "native": {
+            "schemaVersion": 1,
+            "valid": true,
+            "incompleteHidden": 10,
+            "accepted": 63,
+            "consumed": 24,
+            "discarded": 39,
+            "badFrames": 8,
+            "goodFrames": 8,
+            "stalls": 25,
+            "resets": 1,
+            "cycles": 738
+          }
+        },
+        "semanticPlanSha256": "0e28d02aadebfef644f5c2cabdb003a8b7baf36d0b7d9f36e28b419b004682da",
+        "semanticMetricsSha256": "5677314624b70088937a3ae7601c7079e9b4e4940c02da823c03d26839d13d4f"
+      },
+      {
+        "configuration": {
+          "Depth": 8,
+          "Pipeline": 2,
+          "OutputFifo": true
+        },
+        "positive": {
+          "schemaVersion": 1,
+          "legacy": [
+            [
+              "Entry.FrameDrops",
+              "passed"
+            ]
+          ],
+          "native": [
+            [
+              "Entry.FrameDrops",
+              "passed"
+            ]
+          ],
+          "expected": [
+            "Entry.FrameDrops"
+          ],
+          "missing": {
+            "legacy": [],
+            "native": []
+          },
+          "unexpected": {
+            "legacy": [],
+            "native": []
+          },
+          "seedMismatches": [],
+          "matched": true,
+          "traceMatched": true,
+          "expectedSeedMatched": true,
+          "exitCodes": {
+            "legacy": 0,
+            "native": 0
+          },
+          "fixture": "frame-drop-fifo",
+          "configuration": {
+            "Depth": 8,
+            "Pipeline": 2,
+            "OutputFifo": true
+          },
+          "top": "drop_d8_p2_o1",
+          "seed": 83,
+          "revision": "48ff7a7e2ef782cf778d47910cf85835c64b1bce",
+          "planSha256": "94a2d0bc38827623b9f1cad3af2bdc8511ebc3bdbd6dae266e2a5d2eb92816b9",
+          "configurationSha256": "a5d04a800ed86a7943e18ce2d9ca61fdaf11a2857fd4df5060cdc67226ff3837",
+          "wrapperSha256": "07d589627284e4441acd62f72f89f1490172de75480077315858a0c9e486383c",
+          "oracleSha256": "cde46f78232ea731b0c2494297ee913430c4e838c65552e21f00e1828c13d64d",
+          "fault": "none",
+          "oracleMatched": true
+        },
+        "negative": {
+          "schemaVersion": 1,
+          "negativeControl": true,
+          "legacyDetected": true,
+          "nativeDetected": true,
+          "matched": true,
+          "expectedSeedMatched": true,
+          "exitCodes": {
+            "legacy": 1,
+            "native": 1
+          },
+          "fixture": "frame-drop-fifo",
+          "configuration": {
+            "Depth": 8,
+            "Pipeline": 2,
+            "OutputFifo": true
+          },
+          "top": "drop_d8_p2_o1",
+          "seed": 83,
+          "revision": "48ff7a7e2ef782cf778d47910cf85835c64b1bce",
+          "planSha256": "94a2d0bc38827623b9f1cad3af2bdc8511ebc3bdbd6dae266e2a5d2eb92816b9",
+          "configurationSha256": "a5d04a800ed86a7943e18ce2d9ca61fdaf11a2857fd4df5060cdc67226ff3837",
+          "wrapperSha256": "07d589627284e4441acd62f72f89f1490172de75480077315858a0c9e486383c",
+          "oracleSha256": "cde46f78232ea731b0c2494297ee913430c4e838c65552e21f00e1828c13d64d",
+          "fault": "payload-lsb"
+        },
+        "workload": {
+          "frames": 16,
+          "beats": 63,
+          "cycles": 738,
+          "stalls": 20
+        },
+        "oracles": {
+          "legacy": {
+            "schemaVersion": 1,
+            "valid": true,
+            "incompleteHidden": 4,
+            "accepted": 63,
+            "consumed": 24,
+            "discarded": 39,
+            "badFrames": 8,
+            "goodFrames": 8,
+            "stalls": 20,
+            "resets": 1,
+            "cycles": 738
+          },
+          "native": {
+            "schemaVersion": 1,
+            "valid": true,
+            "incompleteHidden": 4,
+            "accepted": 63,
+            "consumed": 24,
+            "discarded": 39,
+            "badFrames": 8,
+            "goodFrames": 8,
+            "stalls": 20,
+            "resets": 1,
+            "cycles": 738
+          }
+        },
+        "semanticPlanSha256": "0e28d02aadebfef644f5c2cabdb003a8b7baf36d0b7d9f36e28b419b004682da",
+        "semanticMetricsSha256": "5cb855eec3109114b5e79a157069517ca0b30ad61271083de6e6ac6a60aa6ed5"
+      },
+      {
+        "configuration": {
+          "Depth": 64,
+          "Pipeline": 3,
+          "OutputFifo": true
+        },
+        "positive": {
+          "schemaVersion": 1,
+          "legacy": [
+            [
+              "Entry.FrameDrops",
+              "passed"
+            ]
+          ],
+          "native": [
+            [
+              "Entry.FrameDrops",
+              "passed"
+            ]
+          ],
+          "expected": [
+            "Entry.FrameDrops"
+          ],
+          "missing": {
+            "legacy": [],
+            "native": []
+          },
+          "unexpected": {
+            "legacy": [],
+            "native": []
+          },
+          "seedMismatches": [],
+          "matched": true,
+          "traceMatched": true,
+          "expectedSeedMatched": true,
+          "exitCodes": {
+            "legacy": 0,
+            "native": 0
+          },
+          "fixture": "frame-drop-fifo",
+          "configuration": {
+            "Depth": 64,
+            "Pipeline": 3,
+            "OutputFifo": true
+          },
+          "top": "drop_d64_p3_o1",
+          "seed": 83,
+          "revision": "48ff7a7e2ef782cf778d47910cf85835c64b1bce",
+          "planSha256": "7c290a3b37324dfe63f2c72737cf83d992e29175156dbdd4173e31a1958967b3",
+          "configurationSha256": "c602840968cd3c931dc1cdde995273cd668e707ec38b16ad19a5cab01982ca54",
+          "wrapperSha256": "8ea3df8907a61b4415eae63ca261d44908000e1e92b11bbdda3058f0aa39ebed",
+          "oracleSha256": "cde46f78232ea731b0c2494297ee913430c4e838c65552e21f00e1828c13d64d",
+          "fault": "none",
+          "oracleMatched": true
+        },
+        "negative": {
+          "schemaVersion": 1,
+          "negativeControl": true,
+          "legacyDetected": true,
+          "nativeDetected": true,
+          "matched": true,
+          "expectedSeedMatched": true,
+          "exitCodes": {
+            "legacy": 1,
+            "native": 1
+          },
+          "fixture": "frame-drop-fifo",
+          "configuration": {
+            "Depth": 64,
+            "Pipeline": 3,
+            "OutputFifo": true
+          },
+          "top": "drop_d64_p3_o1",
+          "seed": 83,
+          "revision": "48ff7a7e2ef782cf778d47910cf85835c64b1bce",
+          "planSha256": "7c290a3b37324dfe63f2c72737cf83d992e29175156dbdd4173e31a1958967b3",
+          "configurationSha256": "c602840968cd3c931dc1cdde995273cd668e707ec38b16ad19a5cab01982ca54",
+          "wrapperSha256": "8ea3df8907a61b4415eae63ca261d44908000e1e92b11bbdda3058f0aa39ebed",
+          "oracleSha256": "cde46f78232ea731b0c2494297ee913430c4e838c65552e21f00e1828c13d64d",
+          "fault": "payload-lsb"
+        },
+        "workload": {
+          "frames": 16,
+          "beats": 63,
+          "cycles": 794,
+          "stalls": 22
+        },
+        "oracles": {
+          "legacy": {
+            "schemaVersion": 1,
+            "valid": true,
+            "incompleteHidden": 1,
+            "accepted": 63,
+            "consumed": 24,
+            "discarded": 39,
+            "badFrames": 8,
+            "goodFrames": 8,
+            "stalls": 22,
+            "resets": 1,
+            "cycles": 794
+          },
+          "native": {
+            "schemaVersion": 1,
+            "valid": true,
+            "incompleteHidden": 1,
+            "accepted": 63,
+            "consumed": 24,
+            "discarded": 39,
+            "badFrames": 8,
+            "goodFrames": 8,
+            "stalls": 22,
+            "resets": 1,
+            "cycles": 794
+          }
+        },
+        "semanticPlanSha256": "8739f556706edd130238b44232157aea6dc4e96a6916701ea67a6d3f13e30fb2",
+        "semanticMetricsSha256": "b3830792be3fb85b8ff5d91ba2101eb546d7f93b59fcb0f7983b99a5794b5180"
+      }
+    ]
+  },
+  "linux": {
+    "platform": "posix",
+    "cases": [
+      {
+        "configuration": {
+          "Depth": 4,
+          "Pipeline": 0,
+          "OutputFifo": false
+        },
+        "positive": {
+          "schemaVersion": 1,
+          "legacy": [
+            [
+              "Entry.FrameDrops",
+              "passed"
+            ]
+          ],
+          "native": [
+            [
+              "Entry.FrameDrops",
+              "passed"
+            ]
+          ],
+          "expected": [
+            "Entry.FrameDrops"
+          ],
+          "missing": {
+            "legacy": [],
+            "native": []
+          },
+          "unexpected": {
+            "legacy": [],
+            "native": []
+          },
+          "seedMismatches": [],
+          "matched": true,
+          "traceMatched": true,
+          "expectedSeedMatched": true,
+          "exitCodes": {
+            "legacy": 0,
+            "native": 0
+          },
+          "fixture": "frame-drop-fifo",
+          "configuration": {
+            "Depth": 4,
+            "Pipeline": 0,
+            "OutputFifo": false
+          },
+          "top": "drop_d4_p0_o0",
+          "seed": 83,
+          "revision": "48ff7a7e2ef782cf778d47910cf85835c64b1bce",
+          "planSha256": "5d80041ed2380fcd70826e07e1a5783e09bda18a9eb83ec08e32b98ea7f3e81f",
+          "configurationSha256": "d02ffdc4140973800ef584845b731146084c166a9a019e374d2ce82fbb7677a1",
+          "wrapperSha256": "490d31179780d82308e38b81c165534d88312f032aff68e6daf22fb65c31d807",
+          "oracleSha256": "cde46f78232ea731b0c2494297ee913430c4e838c65552e21f00e1828c13d64d",
+          "fault": "none",
+          "oracleMatched": true
+        },
+        "negative": {
+          "schemaVersion": 1,
+          "negativeControl": true,
+          "legacyDetected": true,
+          "nativeDetected": true,
+          "matched": true,
+          "expectedSeedMatched": true,
+          "exitCodes": {
+            "legacy": 1,
+            "native": 1
+          },
+          "fixture": "frame-drop-fifo",
+          "configuration": {
+            "Depth": 4,
+            "Pipeline": 0,
+            "OutputFifo": false
+          },
+          "top": "drop_d4_p0_o0",
+          "seed": 83,
+          "revision": "48ff7a7e2ef782cf778d47910cf85835c64b1bce",
+          "planSha256": "5d80041ed2380fcd70826e07e1a5783e09bda18a9eb83ec08e32b98ea7f3e81f",
+          "configurationSha256": "d02ffdc4140973800ef584845b731146084c166a9a019e374d2ce82fbb7677a1",
+          "wrapperSha256": "490d31179780d82308e38b81c165534d88312f032aff68e6daf22fb65c31d807",
+          "oracleSha256": "cde46f78232ea731b0c2494297ee913430c4e838c65552e21f00e1828c13d64d",
+          "fault": "payload-lsb"
+        },
+        "workload": {
+          "frames": 16,
+          "beats": 37,
+          "cycles": 474,
+          "stalls": 17
+        },
+        "oracles": {
+          "legacy": {
+            "schemaVersion": 1,
+            "valid": true,
+            "incompleteHidden": 6,
+            "accepted": 37,
+            "consumed": 16,
+            "discarded": 21,
+            "badFrames": 8,
+            "goodFrames": 8,
+            "stalls": 17,
+            "resets": 1,
+            "cycles": 474
+          },
+          "native": {
+            "schemaVersion": 1,
+            "valid": true,
+            "incompleteHidden": 6,
+            "accepted": 37,
+            "consumed": 16,
+            "discarded": 21,
+            "badFrames": 8,
+            "goodFrames": 8,
+            "stalls": 17,
+            "resets": 1,
+            "cycles": 474
+          }
+        },
+        "semanticPlanSha256": "ebfc52727e4285c87731435ee421f42f0df88e5b299b7578224506edf90045e1",
+        "semanticMetricsSha256": "61dcf6f4faf885badcf21a52879251e93d0ca5be0245077b660e0b9aca58f372"
+      },
+      {
+        "configuration": {
+          "Depth": 8,
+          "Pipeline": 1,
+          "OutputFifo": false
+        },
+        "positive": {
+          "schemaVersion": 1,
+          "legacy": [
+            [
+              "Entry.FrameDrops",
+              "passed"
+            ]
+          ],
+          "native": [
+            [
+              "Entry.FrameDrops",
+              "passed"
+            ]
+          ],
+          "expected": [
+            "Entry.FrameDrops"
+          ],
+          "missing": {
+            "legacy": [],
+            "native": []
+          },
+          "unexpected": {
+            "legacy": [],
+            "native": []
+          },
+          "seedMismatches": [],
+          "matched": true,
+          "traceMatched": true,
+          "expectedSeedMatched": true,
+          "exitCodes": {
+            "legacy": 0,
+            "native": 0
+          },
+          "fixture": "frame-drop-fifo",
+          "configuration": {
+            "Depth": 8,
+            "Pipeline": 1,
+            "OutputFifo": false
+          },
+          "top": "drop_d8_p1_o0",
+          "seed": 83,
+          "revision": "48ff7a7e2ef782cf778d47910cf85835c64b1bce",
+          "planSha256": "b007f26ef829f77aa7f30f261f302ebe214ceff9496223a06c5ec5e6376dfdcf",
+          "configurationSha256": "92333f87aeff5b9611b893d90044e0b1576fbe7594f76d76deb56e00637cf535",
+          "wrapperSha256": "9fc215464d4c938e273174748d5a0dcf3ee808428297a9dfd564ab59a4421825",
+          "oracleSha256": "cde46f78232ea731b0c2494297ee913430c4e838c65552e21f00e1828c13d64d",
+          "fault": "none",
+          "oracleMatched": true
+        },
+        "negative": {
+          "schemaVersion": 1,
+          "negativeControl": true,
+          "legacyDetected": true,
+          "nativeDetected": true,
+          "matched": true,
+          "expectedSeedMatched": true,
+          "exitCodes": {
+            "legacy": 1,
+            "native": 1
+          },
+          "fixture": "frame-drop-fifo",
+          "configuration": {
+            "Depth": 8,
+            "Pipeline": 1,
+            "OutputFifo": false
+          },
+          "top": "drop_d8_p1_o0",
+          "seed": 83,
+          "revision": "48ff7a7e2ef782cf778d47910cf85835c64b1bce",
+          "planSha256": "b007f26ef829f77aa7f30f261f302ebe214ceff9496223a06c5ec5e6376dfdcf",
+          "configurationSha256": "92333f87aeff5b9611b893d90044e0b1576fbe7594f76d76deb56e00637cf535",
+          "wrapperSha256": "9fc215464d4c938e273174748d5a0dcf3ee808428297a9dfd564ab59a4421825",
+          "oracleSha256": "cde46f78232ea731b0c2494297ee913430c4e838c65552e21f00e1828c13d64d",
+          "fault": "payload-lsb"
+        },
+        "workload": {
+          "frames": 16,
+          "beats": 63,
+          "cycles": 738,
+          "stalls": 25
+        },
+        "oracles": {
+          "legacy": {
+            "schemaVersion": 1,
+            "valid": true,
+            "incompleteHidden": 10,
+            "accepted": 63,
+            "consumed": 24,
+            "discarded": 39,
+            "badFrames": 8,
+            "goodFrames": 8,
+            "stalls": 25,
+            "resets": 1,
+            "cycles": 738
+          },
+          "native": {
+            "schemaVersion": 1,
+            "valid": true,
+            "incompleteHidden": 10,
+            "accepted": 63,
+            "consumed": 24,
+            "discarded": 39,
+            "badFrames": 8,
+            "goodFrames": 8,
+            "stalls": 25,
+            "resets": 1,
+            "cycles": 738
+          }
+        },
+        "semanticPlanSha256": "0e28d02aadebfef644f5c2cabdb003a8b7baf36d0b7d9f36e28b419b004682da",
+        "semanticMetricsSha256": "5677314624b70088937a3ae7601c7079e9b4e4940c02da823c03d26839d13d4f"
+      },
+      {
+        "configuration": {
+          "Depth": 8,
+          "Pipeline": 2,
+          "OutputFifo": true
+        },
+        "positive": {
+          "schemaVersion": 1,
+          "legacy": [
+            [
+              "Entry.FrameDrops",
+              "passed"
+            ]
+          ],
+          "native": [
+            [
+              "Entry.FrameDrops",
+              "passed"
+            ]
+          ],
+          "expected": [
+            "Entry.FrameDrops"
+          ],
+          "missing": {
+            "legacy": [],
+            "native": []
+          },
+          "unexpected": {
+            "legacy": [],
+            "native": []
+          },
+          "seedMismatches": [],
+          "matched": true,
+          "traceMatched": true,
+          "expectedSeedMatched": true,
+          "exitCodes": {
+            "legacy": 0,
+            "native": 0
+          },
+          "fixture": "frame-drop-fifo",
+          "configuration": {
+            "Depth": 8,
+            "Pipeline": 2,
+            "OutputFifo": true
+          },
+          "top": "drop_d8_p2_o1",
+          "seed": 83,
+          "revision": "48ff7a7e2ef782cf778d47910cf85835c64b1bce",
+          "planSha256": "b007f26ef829f77aa7f30f261f302ebe214ceff9496223a06c5ec5e6376dfdcf",
+          "configurationSha256": "7ed21420804805ac33d3412b61ee4afa723affc75de5ccdfbaac5b7b82c6420f",
+          "wrapperSha256": "07d589627284e4441acd62f72f89f1490172de75480077315858a0c9e486383c",
+          "oracleSha256": "cde46f78232ea731b0c2494297ee913430c4e838c65552e21f00e1828c13d64d",
+          "fault": "none",
+          "oracleMatched": true
+        },
+        "negative": {
+          "schemaVersion": 1,
+          "negativeControl": true,
+          "legacyDetected": true,
+          "nativeDetected": true,
+          "matched": true,
+          "expectedSeedMatched": true,
+          "exitCodes": {
+            "legacy": 1,
+            "native": 1
+          },
+          "fixture": "frame-drop-fifo",
+          "configuration": {
+            "Depth": 8,
+            "Pipeline": 2,
+            "OutputFifo": true
+          },
+          "top": "drop_d8_p2_o1",
+          "seed": 83,
+          "revision": "48ff7a7e2ef782cf778d47910cf85835c64b1bce",
+          "planSha256": "b007f26ef829f77aa7f30f261f302ebe214ceff9496223a06c5ec5e6376dfdcf",
+          "configurationSha256": "7ed21420804805ac33d3412b61ee4afa723affc75de5ccdfbaac5b7b82c6420f",
+          "wrapperSha256": "07d589627284e4441acd62f72f89f1490172de75480077315858a0c9e486383c",
+          "oracleSha256": "cde46f78232ea731b0c2494297ee913430c4e838c65552e21f00e1828c13d64d",
+          "fault": "payload-lsb"
+        },
+        "workload": {
+          "frames": 16,
+          "beats": 63,
+          "cycles": 738,
+          "stalls": 20
+        },
+        "oracles": {
+          "legacy": {
+            "schemaVersion": 1,
+            "valid": true,
+            "incompleteHidden": 4,
+            "accepted": 63,
+            "consumed": 24,
+            "discarded": 39,
+            "badFrames": 8,
+            "goodFrames": 8,
+            "stalls": 20,
+            "resets": 1,
+            "cycles": 738
+          },
+          "native": {
+            "schemaVersion": 1,
+            "valid": true,
+            "incompleteHidden": 4,
+            "accepted": 63,
+            "consumed": 24,
+            "discarded": 39,
+            "badFrames": 8,
+            "goodFrames": 8,
+            "stalls": 20,
+            "resets": 1,
+            "cycles": 738
+          }
+        },
+        "semanticPlanSha256": "0e28d02aadebfef644f5c2cabdb003a8b7baf36d0b7d9f36e28b419b004682da",
+        "semanticMetricsSha256": "5cb855eec3109114b5e79a157069517ca0b30ad61271083de6e6ac6a60aa6ed5"
+      },
+      {
+        "configuration": {
+          "Depth": 64,
+          "Pipeline": 3,
+          "OutputFifo": true
+        },
+        "positive": {
+          "schemaVersion": 1,
+          "legacy": [
+            [
+              "Entry.FrameDrops",
+              "passed"
+            ]
+          ],
+          "native": [
+            [
+              "Entry.FrameDrops",
+              "passed"
+            ]
+          ],
+          "expected": [
+            "Entry.FrameDrops"
+          ],
+          "missing": {
+            "legacy": [],
+            "native": []
+          },
+          "unexpected": {
+            "legacy": [],
+            "native": []
+          },
+          "seedMismatches": [],
+          "matched": true,
+          "traceMatched": true,
+          "expectedSeedMatched": true,
+          "exitCodes": {
+            "legacy": 0,
+            "native": 0
+          },
+          "fixture": "frame-drop-fifo",
+          "configuration": {
+            "Depth": 64,
+            "Pipeline": 3,
+            "OutputFifo": true
+          },
+          "top": "drop_d64_p3_o1",
+          "seed": 83,
+          "revision": "48ff7a7e2ef782cf778d47910cf85835c64b1bce",
+          "planSha256": "98981a4efbb7d0db2d93c2029de97a907a5f45e25485e630b0cf6ebd7efe68b7",
+          "configurationSha256": "8cb69dad2085ecc7a4b8982301c11b89c819ef4642932769f2f1d99a7b258943",
+          "wrapperSha256": "8ea3df8907a61b4415eae63ca261d44908000e1e92b11bbdda3058f0aa39ebed",
+          "oracleSha256": "cde46f78232ea731b0c2494297ee913430c4e838c65552e21f00e1828c13d64d",
+          "fault": "none",
+          "oracleMatched": true
+        },
+        "negative": {
+          "schemaVersion": 1,
+          "negativeControl": true,
+          "legacyDetected": true,
+          "nativeDetected": true,
+          "matched": true,
+          "expectedSeedMatched": true,
+          "exitCodes": {
+            "legacy": 1,
+            "native": 1
+          },
+          "fixture": "frame-drop-fifo",
+          "configuration": {
+            "Depth": 64,
+            "Pipeline": 3,
+            "OutputFifo": true
+          },
+          "top": "drop_d64_p3_o1",
+          "seed": 83,
+          "revision": "48ff7a7e2ef782cf778d47910cf85835c64b1bce",
+          "planSha256": "98981a4efbb7d0db2d93c2029de97a907a5f45e25485e630b0cf6ebd7efe68b7",
+          "configurationSha256": "8cb69dad2085ecc7a4b8982301c11b89c819ef4642932769f2f1d99a7b258943",
+          "wrapperSha256": "8ea3df8907a61b4415eae63ca261d44908000e1e92b11bbdda3058f0aa39ebed",
+          "oracleSha256": "cde46f78232ea731b0c2494297ee913430c4e838c65552e21f00e1828c13d64d",
+          "fault": "payload-lsb"
+        },
+        "workload": {
+          "frames": 16,
+          "beats": 63,
+          "cycles": 794,
+          "stalls": 22
+        },
+        "oracles": {
+          "legacy": {
+            "schemaVersion": 1,
+            "valid": true,
+            "incompleteHidden": 1,
+            "accepted": 63,
+            "consumed": 24,
+            "discarded": 39,
+            "badFrames": 8,
+            "goodFrames": 8,
+            "stalls": 22,
+            "resets": 1,
+            "cycles": 794
+          },
+          "native": {
+            "schemaVersion": 1,
+            "valid": true,
+            "incompleteHidden": 1,
+            "accepted": 63,
+            "consumed": 24,
+            "discarded": 39,
+            "badFrames": 8,
+            "goodFrames": 8,
+            "stalls": 22,
+            "resets": 1,
+            "cycles": 794
+          }
+        },
+        "semanticPlanSha256": "8739f556706edd130238b44232157aea6dc4e96a6916701ea67a6d3f13e30fb2",
+        "semanticMetricsSha256": "b3830792be3fb85b8ff5d91ba2101eb546d7f93b59fcb0f7983b99a5794b5180"
+      }
+    ],
+    "verilator": {
+      "schemaVersion": 1,
+      "valid": true,
+      "incompleteHidden": 4,
+      "accepted": 63,
+      "consumed": 24,
+      "discarded": 39,
+      "badFrames": 8,
+      "goodFrames": 8,
+      "stalls": 20,
+      "resets": 1,
+      "cycles": 738
+    }
+  }
+}

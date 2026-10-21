@@ -335,3 +335,78 @@ class Tests(unittest.TestCase):
         evidence=json.loads((self.work/'guard-compile-process.json').read_text(encoding='utf-8'))
         self.assertEqual(0,evidence['exitCode']);self.assertFalse(evidence['diagnosticsRetained'])
         self.assertEqual('failed',evidence['status']);self.assertFalse((self.work/'guard-results.json').exists())
+
+    def test_successful_compiler_log_and_metadata_publication_failures_are_infrastructure(self):
+        for behavior in ['blockCompileLog','blockCompileStdoutLog','blockCompileProcess']:
+            # Each obstruction is scoped to a fresh child-owned directory.
+            for suffix in ['-compile.stderr.log','-compile.stdout.log','-compile-process.json']:
+                target=self.work/('guard'+suffix)
+                if target.is_dir():target.rmdir()
+            result=self.controlled(mock_adapter=True,**{behavior:True})
+            self.assertEqual(1,result.returncode);failure=self.failure()
+            self.assertEqual('infrastructure_failure',failure['kind']);self.assertEqual('compile-record',failure['phase'])
+            self.assertFalse((self.work/'guard-results.json').exists())
+
+    def test_nonzero_compiler_failure_wins_over_secondary_publication_obstructions(self):
+        for behavior in ['blockCompileLog','blockCompileProcess']:
+            for suffix in ['-compile.stderr.log','-compile-process.json']:
+                target=self.work/('guard'+suffix)
+                if target.is_dir():target.rmdir()
+            result=self.controlled(mock_adapter=True,compileExit=7,**{behavior:True})
+            self.assertEqual(1,result.returncode);failure=self.failure()
+            self.assertEqual('build_failure',failure['kind']);self.assertEqual('compile',failure['phase'])
+            self.assertIn('compiler failed (exit 7)',failure['error'])
+
+    def test_compiler_stderr_budget_retains_bounded_diagnostics_and_current_failure(self):
+        result=self.controlled(mock_adapter=True,compileStderrBytes=17*1024*1024)
+        self.assertEqual(1,result.returncode);failure=self.failure();self.assertEqual('build_failure',failure['kind'])
+        process=json.loads((self.work/'guard-compile-process.json').read_text(encoding='utf-8'))
+        self.assertTrue(process['stderrLimited']);self.assertFalse(process['stdoutLimited']);self.assertTrue(process['captureSettled'])
+        self.assertTrue(process['diagnosticsRetained']);self.assertFalse(process['diagnosticsComplete'])
+        self.assertEqual(16*1024*1024,(self.work/'guard-compile.stderr.log').stat().st_size)
+        self.assertLess(len(failure['error']),4300)
+
+    def test_compile_timeout_retains_partial_diagnostics_without_claiming_complete_output(self):
+        result=self.controlled(mock_adapter=True,child_environment={'CS_COMPILE_TIMEOUT':'1'},compileDelayMs=4000)
+        self.assertEqual(1,result.returncode);self.assertEqual('timeout',self.failure()['kind'])
+        evidence=json.loads((self.work/'guard-compile-process.json').read_text(encoding='utf-8'))
+        self.assertTrue(evidence['diagnosticsRetained']);self.assertFalse(evidence['diagnosticsComplete']);self.assertTrue(evidence['captureSettled'])
+        self.assertIn('compile',(self.work/'guard-compile.stdout.log').read_text(encoding='utf-8'))
+        result=self.controlled(mock_adapter=True);self.assertEqual(0,result.returncode,result.stderr)
+        self.assertFalse((self.work/'guard-failure.json').exists())
+
+    def test_simulator_timeout_keeps_separate_partial_streams_and_recoverable_workspace(self):
+        result=self.controlled(mock_adapter=True,child_environment={'CS_WALL_TIMEOUT':'1'},simulateDelayMs=4000,stderrBytes=32)
+        self.assertEqual(1,result.returncode);self.assertEqual('timeout',self.failure()['kind'])
+        evidence=json.loads((self.work/'guard-simulate-capture.json').read_text(encoding='utf-8'))
+        self.assertEqual('interrupted',evidence['status']);self.assertFalse(evidence['diagnosticsComplete']);self.assertTrue(evidence['captureSettled'])
+        self.assertIn('simulate',(self.work/'guard-simulate.stdout.log').read_text(encoding='utf-8'))
+        self.assertEqual('E'*32,(self.work/'guard-simulate.stderr.log').read_text(encoding='utf-8'))
+        result=self.controlled(mock_adapter=True);self.assertEqual(0,result.returncode,result.stderr)
+        self.assertFalse((self.work/'guard-failure.json').exists())
+
+    def test_simulator_stdout_budget_cannot_accept_passing_result_json(self):
+        result=self.controlled(mock_adapter=True,earlyResults=True,stdoutBytes=17*1024*1024)
+        self.assertEqual(1,result.returncode);failure=self.failure()
+        self.assertEqual('simulator_failure',failure['kind']);self.assertEqual('simulate',failure['phase'])
+        evidence=json.loads((self.work/'guard-simulate-capture.json').read_text(encoding='utf-8'))
+        self.assertEqual('passed',json.loads((self.work/'guard-results.json').read_text(encoding='utf-8'))[0]['Status'])
+        self.assertTrue(evidence['stdoutLimited']);self.assertFalse(evidence['stderrLimited']);self.assertTrue(evidence['captureSettled'])
+        self.assertEqual(16*1024*1024,(self.work/'guard-simulate.stdout.log').stat().st_size)
+
+    def test_simulator_stderr_budget_is_independent_and_cannot_accept_passing_rows(self):
+        result=self.controlled(mock_adapter=True,earlyResults=True,stderrBytes=17*1024*1024)
+        self.assertEqual(1,result.returncode);self.assertEqual('simulator_failure',self.failure()['kind'])
+        evidence=json.loads((self.work/'guard-simulate-capture.json').read_text(encoding='utf-8'))
+        self.assertEqual('passed',json.loads((self.work/'guard-results.json').read_text(encoding='utf-8'))[0]['Status'])
+        self.assertTrue(evidence['stderrLimited']);self.assertFalse(evidence['stdoutLimited'])
+        self.assertEqual(16*1024*1024,(self.work/'guard-simulate.stderr.log').stat().st_size)
+
+    def test_nonzero_simulator_failure_wins_over_secondary_publication_obstructions(self):
+        for behavior,suffix in [('blockRunLog','-run.log'),('blockSimulateCapture','-simulate-capture.json')]:
+            result=self.controlled(mock_adapter=True,simulateExit=7,**{behavior:True})
+            self.assertEqual(1,result.returncode);failure=self.failure()
+            self.assertEqual('simulator_failure',failure['kind']);self.assertEqual('simulate',failure['phase'])
+            self.assertIn('Simulator failed (exit 7)',failure['error']);self.assertEqual('System.IO.IOException',failure['errorType'])
+            self.assertEqual(7,failure['simulatorExitCode']);self.assertIn('Simulator diagnostics could not be written',result.stderr)
+            (self.work/('guard'+suffix)).rmdir()

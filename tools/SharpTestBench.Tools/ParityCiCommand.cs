@@ -72,7 +72,12 @@ internal static class ParityCiCommand
             if (!(bool)report["matched"]) throw new InvalidDataException("Runner parity qualification failed");
             Console.WriteLine(JsonSerializer.Serialize(report)); return report;
         }
-        catch (Exception error) { StrictJson.Write(Path.Combine(work, "case-failure.json"), new { schemaVersion = 1, status = "failed", error = error.Message, kind = error.GetType().Name }); throw; }
+        catch (Exception error)
+        {
+            try { StrictJson.Write(Path.Combine(work,"case-failure.json"),new {schemaVersion=1,status="failed",error=SharpTestBench.Internal.DiagnosticText.Limit(error.Message),kind=error.GetType().Name}); }
+            catch(Exception evidenceError) { Console.Error.WriteLine("Case failure evidence could not be written: "+evidenceError.Message); }
+            throw;
+        }
     }
     public static Dictionary<string, object> Dual(ToolContext context, string fixture, ulong seed, bool negative = false)
     {

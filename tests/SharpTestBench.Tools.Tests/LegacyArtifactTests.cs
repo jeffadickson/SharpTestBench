@@ -19,7 +19,7 @@ public sealed class LegacyArtifactTests
     {
         using var f=new Fixture();
         // Independent ownership inventory, not derived from the production list.
-        foreach (var file in new[] { "case-results.json","case-results.xml","case-results.coverage.json","case-results.discovery.json","top.vvp","DutBindings.cs","case-run.log","case-artifacts.json","case-timings.json","case-wave-dump.sv","case-compile.json","case-compile-process.json","case-compile.stdout.log","case-compile.stderr.log","case-failure.json","case-invocation.json","case-input-manifest.json","cocotb_bootstrap.vpi" })
+        foreach (var file in new[] { "case-results.json","case-results.xml","case-results.coverage.json","case-results.discovery.json","top.vvp","DutBindings.cs","case-run.log","case-simulate.stdout.log","case-simulate.stderr.log","case-simulate-capture.json","case-artifacts.json","case-timings.json","case-wave-dump.sv","case-compile.json","case-compile-process.json","case-compile.stdout.log","case-compile.stderr.log","case-failure.json","case-invocation.json","case-input-manifest.json","cocotb_bootstrap.vpi" })
         {
             var path=Path.Combine(f.Work,file); File.WriteAllText(path,"protected input");
             Assert.Throws<InvalidDataException>(() => LegacyArtifacts.Validate([path],LegacyArtifacts.Outputs(f.Work,"case")));

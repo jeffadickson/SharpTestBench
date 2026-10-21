@@ -55,9 +55,7 @@ def validate(config, plan, metrics):
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--configuration',required=True);parser.add_argument('--plan',required=True);parser.add_argument('--metrics',required=True)
     args=parser.parse_args()
-    from fifo_reference import _pairs
-    def read(path):
-        with open(path,encoding='utf-8-sig') as stream:return json.load(stream,object_pairs_hook=_pairs)
+    from fifo_reference import read_json as read
     print(json.dumps(validate(read(args.configuration),read(args.plan),read(args.metrics))))
 
 if __name__=='__main__':main()

@@ -1,0 +1,661 @@
+{
+  "windows": {
+    "readyToRun": {
+      "path": "C:\\dev\\SharpTestBench\\build\\requirements200-native200\\win-x64\\tools\\SharpTestBench.Tools.dll",
+      "managedNativeHeaderRva": 5744,
+      "managedNativeHeaderSize": 196,
+      "readyToRunSignature": "52545200"
+    },
+    "published": {
+      "arbiter": {
+        "schemaVersion": 1,
+        "legacy": [
+          [
+            "Entry.ArbiterScoreboard",
+            "passed"
+          ]
+        ],
+        "native": [
+          [
+            "Entry.ArbiterScoreboard",
+            "passed"
+          ]
+        ],
+        "expected": [
+          "Entry.ArbiterScoreboard"
+        ],
+        "missing": {
+          "legacy": [],
+          "native": []
+        },
+        "unexpected": {
+          "legacy": [],
+          "native": []
+        },
+        "seedMismatches": [],
+        "matched": true,
+        "traceMatched": true,
+        "expectedSeedMatched": true,
+        "exitCodes": {
+          "legacy": 0,
+          "native": 0
+        },
+        "fixture": "arbiter",
+        "configuration": {
+          "Ports": 3,
+          "RoundRobin": true,
+          "Blocking": 0,
+          "LsbPriority": true
+        },
+        "top": "arb_p3_r1_b0_l1",
+        "seed": 83,
+        "revision": "48ff7a7e2ef782cf778d47910cf85835c64b1bce",
+        "planSha256": "19c0fbb1fff1e8cf9709c36834715be99833ff425887483206ef98b5fcb0edd3",
+        "configurationSha256": "cfb51e400d0aa67a14d9ccd889c4e759952a7f2ca995191a4fa069878a8bab0b",
+        "wrapperSha256": "e6d31b3e04950d387d7c22a6d9831058bc6796178593c2905df4059aa3d05f4f",
+        "oracleSha256": "351990bc9c936c866184a9174dbd6aae9117eba6718ff1e53ff1b3d5d6c882dc",
+        "fault": "none",
+        "oracleMatched": true
+      },
+      "frame-ci": {
+        "schemaVersion": 1,
+        "legacy": [
+          [
+            "Entry.FrameTransactions",
+            "passed"
+          ]
+        ],
+        "native": [
+          [
+            "Entry.FrameTransactions",
+            "passed"
+          ]
+        ],
+        "expected": [
+          "Entry.FrameTransactions"
+        ],
+        "missing": {
+          "legacy": [],
+          "native": []
+        },
+        "unexpected": {
+          "legacy": [],
+          "native": []
+        },
+        "seedMismatches": [],
+        "matched": true,
+        "traceMatched": true,
+        "expectedSeedMatched": true,
+        "exitCodes": {
+          "legacy": 0,
+          "native": 0
+        },
+        "fixture": "frame-fifo",
+        "configuration": {
+          "Depth": 8,
+          "Pipeline": 2,
+          "OutputFifo": true
+        },
+        "top": "frame_d8_p2_o1",
+        "seed": 83,
+        "revision": "48ff7a7e2ef782cf778d47910cf85835c64b1bce",
+        "planSha256": "7e0735c8a40722d988c1b1c34a9b5c70f27593d6af6752aa7b29ac150c099089",
+        "configurationSha256": "a5d04a800ed86a7943e18ce2d9ca61fdaf11a2857fd4df5060cdc67226ff3837",
+        "wrapperSha256": "e0276bd8a97492e8f092ef7f93d3f5534ac58bf34d15fb9fb44daa9e4da641fc",
+        "oracleSha256": "35187ade9fe4290b3d9d500d9b2baa9b80d2e4644b732e95580e7aeaaabe4bb2",
+        "fault": "none",
+        "oracleMatched": true
+      },
+      "frame-drop-ci": {
+        "schemaVersion": 1,
+        "legacy": [
+          [
+            "Entry.FrameDrops",
+            "passed"
+          ]
+        ],
+        "native": [
+          [
+            "Entry.FrameDrops",
+            "passed"
+          ]
+        ],
+        "expected": [
+          "Entry.FrameDrops"
+        ],
+        "missing": {
+          "legacy": [],
+          "native": []
+        },
+        "unexpected": {
+          "legacy": [],
+          "native": []
+        },
+        "seedMismatches": [],
+        "matched": true,
+        "traceMatched": true,
+        "expectedSeedMatched": true,
+        "exitCodes": {
+          "legacy": 0,
+          "native": 0
+        },
+        "fixture": "frame-drop-fifo",
+        "configuration": {
+          "Depth": 8,
+          "Pipeline": 2,
+          "OutputFifo": true
+        },
+        "top": "drop_d8_p2_o1",
+        "seed": 83,
+        "revision": "48ff7a7e2ef782cf778d47910cf85835c64b1bce",
+        "planSha256": "94a2d0bc38827623b9f1cad3af2bdc8511ebc3bdbd6dae266e2a5d2eb92816b9",
+        "configurationSha256": "a5d04a800ed86a7943e18ce2d9ca61fdaf11a2857fd4df5060cdc67226ff3837",
+        "wrapperSha256": "07d589627284e4441acd62f72f89f1490172de75480077315858a0c9e486383c",
+        "oracleSha256": "5ce0dfa4202b36ef180dc9447bff679f31ed98d19eb527c7dbdbd621f9aa467b",
+        "fault": "none",
+        "oracleMatched": true
+      }
+    },
+    "reporting": [
+      {
+        "schemaVersion": 1,
+        "negativeControl": true,
+        "legacyDetected": true,
+        "nativeDetected": true,
+        "matched": true,
+        "expectedSeedMatched": true,
+        "xmlSanitized": true,
+        "mode": "text",
+        "exitCodes": {
+          "legacy": 1,
+          "native": 1
+        }
+      },
+      {
+        "schemaVersion": 1,
+        "negativeControl": true,
+        "legacyDetected": true,
+        "nativeDetected": true,
+        "matched": true,
+        "primaryResultsRetired": true,
+        "nativeInfrastructureFailure": true,
+        "mode": "io",
+        "exitCodes": {
+          "legacy": 1,
+          "native": 1
+        }
+      }
+    ],
+    "manifestCheck": {
+      "schemaVersion": 1,
+      "compilerOptions": true,
+      "parameterNegativeControl": true,
+      "selectedCaseParity": {
+        "schemaVersion": 1,
+        "legacy": [
+          [
+            "Tests.A_TypesAndSignals",
+            "passed"
+          ]
+        ],
+        "native": [
+          [
+            "Tests.A_TypesAndSignals",
+            "passed"
+          ]
+        ],
+        "expected": [
+          "Tests.A_TypesAndSignals"
+        ],
+        "missing": {
+          "legacy": [],
+          "native": []
+        },
+        "unexpected": {
+          "legacy": [],
+          "native": []
+        },
+        "seedMismatches": [],
+        "matched": true
+      },
+      "selectedExpectedSeed": 59,
+      "compilerOptionParity": {
+        "schemaVersion": 1,
+        "legacy": [
+          [
+            "Entry.ResetAndCount",
+            "passed"
+          ]
+        ],
+        "native": [
+          [
+            "Entry.ResetAndCount",
+            "passed"
+          ]
+        ],
+        "expected": [
+          "Entry.ResetAndCount"
+        ],
+        "missing": {
+          "legacy": [],
+          "native": []
+        },
+        "unexpected": {
+          "legacy": [],
+          "native": []
+        },
+        "seedMismatches": [],
+        "matched": true,
+        "expectedSeedMatched": true,
+        "exitCodes": {
+          "legacy": 0,
+          "native": 0
+        }
+      },
+      "compilerOptionNegativeParity": {
+        "schemaVersion": 1,
+        "negativeControl": true,
+        "legacyDetected": true,
+        "nativeDetected": true,
+        "matched": true,
+        "expectedSeedMatched": true,
+        "exitCodes": {
+          "legacy": 1,
+          "native": 1
+        }
+      },
+      "inputAttestation": true
+    }
+  },
+  "linux": {
+    "readyToRun": {
+      "path": "build/requirements200-native200/linux-x64/tools/SharpTestBench.Tools.dll",
+      "managedNativeHeaderRva": 67680,
+      "managedNativeHeaderSize": 196,
+      "readyToRunSignature": "52545200"
+    },
+    "published": {
+      "arbiter": {
+        "schemaVersion": 1,
+        "legacy": [
+          [
+            "Entry.ArbiterScoreboard",
+            "passed"
+          ]
+        ],
+        "native": [
+          [
+            "Entry.ArbiterScoreboard",
+            "passed"
+          ]
+        ],
+        "expected": [
+          "Entry.ArbiterScoreboard"
+        ],
+        "missing": {
+          "legacy": [],
+          "native": []
+        },
+        "unexpected": {
+          "legacy": [],
+          "native": []
+        },
+        "seedMismatches": [],
+        "matched": true,
+        "traceMatched": true,
+        "expectedSeedMatched": true,
+        "exitCodes": {
+          "legacy": 0,
+          "native": 0
+        },
+        "fixture": "arbiter",
+        "configuration": {
+          "Ports": 3,
+          "RoundRobin": true,
+          "Blocking": 0,
+          "LsbPriority": true
+        },
+        "top": "arb_p3_r1_b0_l1",
+        "seed": 83,
+        "revision": "48ff7a7e2ef782cf778d47910cf85835c64b1bce",
+        "planSha256": "613a902914a15373c2a3f77b81dfb6780e9ec99a35ae365906f95e42cf32ed1e",
+        "configurationSha256": "3b556e5173eeb81eefbee0973031703c032d97648336806637f663224015dfbc",
+        "wrapperSha256": "e6d31b3e04950d387d7c22a6d9831058bc6796178593c2905df4059aa3d05f4f",
+        "oracleSha256": "351990bc9c936c866184a9174dbd6aae9117eba6718ff1e53ff1b3d5d6c882dc",
+        "fault": "none",
+        "oracleMatched": true
+      },
+      "frame-ci": {
+        "schemaVersion": 1,
+        "legacy": [
+          [
+            "Entry.FrameTransactions",
+            "passed"
+          ]
+        ],
+        "native": [
+          [
+            "Entry.FrameTransactions",
+            "passed"
+          ]
+        ],
+        "expected": [
+          "Entry.FrameTransactions"
+        ],
+        "missing": {
+          "legacy": [],
+          "native": []
+        },
+        "unexpected": {
+          "legacy": [],
+          "native": []
+        },
+        "seedMismatches": [],
+        "matched": true,
+        "traceMatched": true,
+        "expectedSeedMatched": true,
+        "exitCodes": {
+          "legacy": 0,
+          "native": 0
+        },
+        "fixture": "frame-fifo",
+        "configuration": {
+          "Depth": 8,
+          "Pipeline": 2,
+          "OutputFifo": true
+        },
+        "top": "frame_d8_p2_o1",
+        "seed": 83,
+        "revision": "48ff7a7e2ef782cf778d47910cf85835c64b1bce",
+        "planSha256": "8a7b7a41049910700f757bdd392e6524ef7f24bb91909374158bd7460ca44232",
+        "configurationSha256": "7ed21420804805ac33d3412b61ee4afa723affc75de5ccdfbaac5b7b82c6420f",
+        "wrapperSha256": "e0276bd8a97492e8f092ef7f93d3f5534ac58bf34d15fb9fb44daa9e4da641fc",
+        "oracleSha256": "35187ade9fe4290b3d9d500d9b2baa9b80d2e4644b732e95580e7aeaaabe4bb2",
+        "fault": "none",
+        "oracleMatched": true
+      },
+      "frame-drop-ci": {
+        "schemaVersion": 1,
+        "legacy": [
+          [
+            "Entry.FrameDrops",
+            "passed"
+          ]
+        ],
+        "native": [
+          [
+            "Entry.FrameDrops",
+            "passed"
+          ]
+        ],
+        "expected": [
+          "Entry.FrameDrops"
+        ],
+        "missing": {
+          "legacy": [],
+          "native": []
+        },
+        "unexpected": {
+          "legacy": [],
+          "native": []
+        },
+        "seedMismatches": [],
+        "matched": true,
+        "traceMatched": true,
+        "expectedSeedMatched": true,
+        "exitCodes": {
+          "legacy": 0,
+          "native": 0
+        },
+        "fixture": "frame-drop-fifo",
+        "configuration": {
+          "Depth": 8,
+          "Pipeline": 2,
+          "OutputFifo": true
+        },
+        "top": "drop_d8_p2_o1",
+        "seed": 83,
+        "revision": "48ff7a7e2ef782cf778d47910cf85835c64b1bce",
+        "planSha256": "b007f26ef829f77aa7f30f261f302ebe214ceff9496223a06c5ec5e6376dfdcf",
+        "configurationSha256": "7ed21420804805ac33d3412b61ee4afa723affc75de5ccdfbaac5b7b82c6420f",
+        "wrapperSha256": "07d589627284e4441acd62f72f89f1490172de75480077315858a0c9e486383c",
+        "oracleSha256": "5ce0dfa4202b36ef180dc9447bff679f31ed98d19eb527c7dbdbd621f9aa467b",
+        "fault": "none",
+        "oracleMatched": true
+      }
+    },
+    "reporting": [
+      {
+        "schemaVersion": 1,
+        "negativeControl": true,
+        "legacyDetected": true,
+        "nativeDetected": true,
+        "matched": true,
+        "expectedSeedMatched": true,
+        "xmlSanitized": true,
+        "mode": "text",
+        "exitCodes": {
+          "legacy": 1,
+          "native": 1
+        }
+      },
+      {
+        "schemaVersion": 1,
+        "negativeControl": true,
+        "legacyDetected": true,
+        "nativeDetected": true,
+        "matched": true,
+        "primaryResultsRetired": true,
+        "nativeInfrastructureFailure": true,
+        "mode": "io",
+        "exitCodes": {
+          "legacy": 1,
+          "native": 1
+        }
+      }
+    ],
+    "manifestCheck": {
+      "schemaVersion": 1,
+      "compilerOptions": true,
+      "parameterNegativeControl": true,
+      "selectedCaseParity": {
+        "schemaVersion": 1,
+        "legacy": [
+          [
+            "Tests.A_TypesAndSignals",
+            "passed"
+          ]
+        ],
+        "native": [
+          [
+            "Tests.A_TypesAndSignals",
+            "passed"
+          ]
+        ],
+        "expected": [
+          "Tests.A_TypesAndSignals"
+        ],
+        "missing": {
+          "legacy": [],
+          "native": []
+        },
+        "unexpected": {
+          "legacy": [],
+          "native": []
+        },
+        "seedMismatches": [],
+        "matched": true
+      },
+      "selectedExpectedSeed": 59,
+      "compilerOptionParity": {
+        "schemaVersion": 1,
+        "legacy": [
+          [
+            "Entry.ResetAndCount",
+            "passed"
+          ]
+        ],
+        "native": [
+          [
+            "Entry.ResetAndCount",
+            "passed"
+          ]
+        ],
+        "expected": [
+          "Entry.ResetAndCount"
+        ],
+        "missing": {
+          "legacy": [],
+          "native": []
+        },
+        "unexpected": {
+          "legacy": [],
+          "native": []
+        },
+        "seedMismatches": [],
+        "matched": true,
+        "expectedSeedMatched": true,
+        "exitCodes": {
+          "legacy": 0,
+          "native": 0
+        }
+      },
+      "compilerOptionNegativeParity": {
+        "schemaVersion": 1,
+        "negativeControl": true,
+        "legacyDetected": true,
+        "nativeDetected": true,
+        "matched": true,
+        "expectedSeedMatched": true,
+        "exitCodes": {
+          "legacy": 1,
+          "native": 1
+        }
+      },
+      "inputAttestation": true
+    },
+    "nativeAotRunner": {
+      "arbiter": {
+        "status": "passed",
+        "passed": 1,
+        "compiled": {
+          "Role": "compiled-image",
+          "Path": "/home/jeffd/src/SharpTestBench/build/requirements200-200-aot-arbiter/native/top.vvp",
+          "Bytes": 18786,
+          "Sha256": "1C96226F014392A25B0D57303FB9902B706116FE50EE6AA018C0B5D96AF83CB9"
+        },
+        "metrics": {
+          "cycles": 142,
+          "valid": 127,
+          "idle": 15,
+          "resets": 4,
+          "transitions": 121,
+          "traceRows": 142,
+          "traceSha256": "460abab899d8d53f610a7abf677d5a00457c651fedc4e85f52f9e19871ba1fb1"
+        }
+      },
+      "frame": {
+        "status": "passed",
+        "passed": 1,
+        "compiled": {
+          "Role": "compiled-image",
+          "Path": "/home/jeffd/src/SharpTestBench/build/requirements200-200-aot-frame/native/top.vvp",
+          "Bytes": 32319,
+          "Sha256": "FEDECCEAF8A090C43255F13AD0FDA2B902F6BAC0E08D9CA0F6BD66B46D9D42FE"
+        },
+        "metrics": {
+          "accepted": 63,
+          "consumed": 63,
+          "flushed": 0,
+          "stalls": 49,
+          "resets": 1,
+          "cycles": 738,
+          "traceRows": 738,
+          "traceSha256": "8b1d31ac2c872594cd4e355a5a29cbde6f39478d7047510f169cd9a1e41f9f9f"
+        }
+      },
+      "drop": {
+        "status": "passed",
+        "passed": 1,
+        "compiled": {
+          "Role": "compiled-image",
+          "Path": "/home/jeffd/src/SharpTestBench/build/requirements200-200-aot-drop/native/top.vvp",
+          "Bytes": 32586,
+          "Sha256": "B43C801AA66CC42F18D6E9F3D0180552CD948AA3E0618192EEC8119E4A3DD2CB"
+        },
+        "metrics": {
+          "accepted": 63,
+          "consumed": 24,
+          "discarded": 39,
+          "badFrames": 8,
+          "goodFrames": 8,
+          "stalls": 20,
+          "resets": 1,
+          "cycles": 738,
+          "traceRows": 738,
+          "traceSha256": "421b41f6ec2e15d0cb3f691c5645dd0c8a44490d934ea6a17083ad7af761e1fa"
+        }
+      }
+    }
+  },
+  "github": {
+    "checkedUtc": "2026-10-21T22:07:50.7904230Z",
+    "workflows": [
+      {
+        "name": "Build and simulator tests",
+        "state": "disabled_manually"
+      },
+      {
+        "name": "Managed code coverage",
+        "state": "disabled_manually"
+      },
+      {
+        "name": "API documentation",
+        "state": "disabled_manually"
+      },
+      {
+        "name": "Dual runner parity (Icarus)",
+        "state": "disabled_manually"
+      },
+      {
+        "name": "Independent C++20 VPI probe",
+        "state": "disabled_manually"
+      },
+      {
+        "name": "Native runner Icarus integration",
+        "state": "disabled_manually"
+      },
+      {
+        "name": "Native .NET runner spike",
+        "state": "disabled_manually"
+      },
+      {
+        "name": "Prepare or publish validated NuGet release",
+        "state": "disabled_manually"
+      },
+      {
+        "name": "Upstream AXI Stream parity",
+        "state": "disabled_manually"
+      },
+      {
+        "name": "Upstream LFSR CRC parity",
+        "state": "disabled_manually"
+      },
+      {
+        "name": "Direct Verilator C++ model proof",
+        "state": "disabled_manually"
+      },
+      {
+        "name": "Windows ARM64 native validation",
+        "state": "disabled_manually"
+      }
+    ],
+    "pr": {
+      "draft": true,
+      "head": "0318a864d9b570f9ffbc4857e7365ec9ed6a4736",
+      "merged": false,
+      "state": "open"
+    }
+  },
+  "limits": "Actual Windows x64 ReadyToRun Tools and Linux x64 ReadyToRun Tools plus NativeAOT Runner. Simulator assemblies still run through separate hostfxr/CoreCLR. No Windows Runner AOT, six-platform, HDL coverage or AOT instruction coverage claim."
+}

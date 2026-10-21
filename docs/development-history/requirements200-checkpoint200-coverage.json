@@ -1,0 +1,260 @@
+{
+  "windows": {
+    "suites": {
+      "managed": {
+        "assemblies": [
+          "SharpTestBench"
+        ],
+        "lines": {
+          "covered": 571,
+          "valid": 2164,
+          "percent": 26.386321626617374
+        },
+        "branches": {
+          "covered": 385,
+          "valid": 1335,
+          "percent": 28.83895131086142
+        }
+      },
+      "generators": {
+        "assemblies": [
+          "SharpTestBench.Generators"
+        ],
+        "lines": {
+          "covered": 60,
+          "valid": 68,
+          "percent": 88.23529411764706
+        },
+        "branches": {
+          "covered": 52,
+          "valid": 72,
+          "percent": 72.22222222222223
+        }
+      },
+      "helpers": {
+        "assemblies": [
+          "SharpTestBench.Tools"
+        ],
+        "lines": {
+          "covered": 2543,
+          "valid": 4619,
+          "percent": 55.05520675470881
+        },
+        "branches": {
+          "covered": 2019,
+          "valid": 4712,
+          "percent": 42.84804753820034
+        }
+      },
+      "contracts": {
+        "assemblies": [
+          "SharpTestBench.Tools"
+        ],
+        "lines": {
+          "covered": 1249,
+          "valid": 4619,
+          "percent": 27.040484953453127
+        },
+        "branches": {
+          "covered": 1416,
+          "valid": 4712,
+          "percent": 30.050933786078097
+        }
+      },
+      "runner": {
+        "assemblies": [
+          "SharpTestBench.Runner"
+        ],
+        "lines": {
+          "covered": 1674,
+          "valid": 3341,
+          "percent": 50.104759054175396
+        },
+        "branches": {
+          "covered": 377,
+          "valid": 740,
+          "percent": 50.945945945945944
+        }
+      },
+      "runner-cli": {
+        "assemblies": [
+          "SharpTestBench.Runner"
+        ],
+        "lines": {
+          "covered": 2893,
+          "valid": 3341,
+          "percent": 86.59084106554924
+        },
+        "branches": {
+          "covered": 445,
+          "valid": 740,
+          "percent": 60.13513513513514
+        }
+      }
+    },
+    "combined": {
+      "assemblies": [
+        "SharpTestBench",
+        "SharpTestBench.Generators",
+        "SharpTestBench.Runner",
+        "SharpTestBench.Tools"
+      ],
+      "lines": {
+        "covered": 6493,
+        "valid": 10192,
+        "percent": 63.70682888540031
+      },
+      "branches": {
+        "covered": 3450,
+        "valid": 6835,
+        "percent": 50.47549378200439
+      }
+    },
+    "physicalSources": {
+      "sourceFiles": 161,
+      "generatedSourceFiles": 43,
+      "missing": []
+    },
+    "generatedHtml": {
+      "generatedFiles": 43,
+      "generatedHtmlSections": 43,
+      "missingGeneratedHtml": []
+    },
+    "cliScope": {
+      "programCoveredLines": 132,
+      "programValidLines": 142,
+      "productionJsonReflectionEnabled": false,
+      "cliAssemblyCoveredLines": 2893,
+      "cliAssemblyValidLines": 3341
+    }
+  },
+  "linux": {
+    "suites": {
+      "managed": {
+        "assemblies": [
+          "SharpTestBench"
+        ],
+        "lines": {
+          "covered": 571,
+          "valid": 2164,
+          "percent": 26.386321626617374
+        },
+        "branches": {
+          "covered": 385,
+          "valid": 1335,
+          "percent": 28.83895131086142
+        }
+      },
+      "generators": {
+        "assemblies": [
+          "SharpTestBench.Generators"
+        ],
+        "lines": {
+          "covered": 60,
+          "valid": 68,
+          "percent": 88.23529411764706
+        },
+        "branches": {
+          "covered": 52,
+          "valid": 72,
+          "percent": 72.22222222222223
+        }
+      },
+      "helpers": {
+        "assemblies": [
+          "SharpTestBench.Tools"
+        ],
+        "lines": {
+          "covered": 2544,
+          "valid": 4619,
+          "percent": 55.07685646243776
+        },
+        "branches": {
+          "covered": 2036,
+          "valid": 4712,
+          "percent": 43.20882852292021
+        }
+      },
+      "contracts": {
+        "assemblies": [
+          "SharpTestBench.Tools"
+        ],
+        "lines": {
+          "covered": 1249,
+          "valid": 4619,
+          "percent": 27.040484953453127
+        },
+        "branches": {
+          "covered": 1418,
+          "valid": 4712,
+          "percent": 30.093378607809846
+        }
+      },
+      "runner": {
+        "assemblies": [
+          "SharpTestBench.Runner"
+        ],
+        "lines": {
+          "covered": 1674,
+          "valid": 3341,
+          "percent": 50.104759054175396
+        },
+        "branches": {
+          "covered": 377,
+          "valid": 740,
+          "percent": 50.945945945945944
+        }
+      },
+      "runner-cli": {
+        "assemblies": [
+          "SharpTestBench.Runner"
+        ],
+        "lines": {
+          "covered": 2893,
+          "valid": 3341,
+          "percent": 86.59084106554924
+        },
+        "branches": {
+          "covered": 450,
+          "valid": 740,
+          "percent": 60.810810810810814
+        }
+      }
+    },
+    "combined": {
+      "assemblies": [
+        "SharpTestBench",
+        "SharpTestBench.Generators",
+        "SharpTestBench.Runner",
+        "SharpTestBench.Tools"
+      ],
+      "lines": {
+        "covered": 6494,
+        "valid": 10192,
+        "percent": 63.716640502354785
+      },
+      "branches": {
+        "covered": 3471,
+        "valid": 6835,
+        "percent": 50.78273591806877
+      }
+    },
+    "physicalSources": {
+      "sourceFiles": 161,
+      "generatedSourceFiles": 43,
+      "missing": []
+    },
+    "generatedHtml": {
+      "generatedFiles": 43,
+      "generatedHtmlSections": 43,
+      "missingGeneratedHtml": []
+    },
+    "cliScope": {
+      "programCoveredLines": 132,
+      "programValidLines": 142,
+      "productionJsonReflectionEnabled": false,
+      "cliAssemblyCoveredLines": 2893,
+      "cliAssemblyValidLines": 3341
+    }
+  }
+}

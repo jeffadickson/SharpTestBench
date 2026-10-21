@@ -136,7 +136,7 @@ catch (Exception ex)
         InvalidOperationException when ex.Message.Contains("vvp", StringComparison.OrdinalIgnoreCase) => "simulator_failure",
         _ => "infrastructure_failure"
     };
-    Console.Error.WriteLine($"SharpTestBench runner {kind}: {ex.GetType().Name}: {ex.Message}");
+    Console.Error.WriteLine($"SharpTestBench runner {kind}: {ex.GetType().Name}: {SharpTestBench.Internal.DiagnosticText.Limit(ex.Message)}");
     if (failureArtifactDirectory is not null)
     {
         try
@@ -144,7 +144,7 @@ catch (Exception ex)
             var evidence = new FailureEvidence
             {
                 SchemaVersion = 1, RunId = runId, Status = "failed", Kind = kind,
-                ErrorType = ex.GetType().FullName, Error = ex.Message,
+                ErrorType = ex.GetType().FullName, Error = SharpTestBench.Internal.DiagnosticText.Limit(ex.Message),
                 RecordedAtUtc = DateTimeOffset.UtcNow,
                 LogFiles = new[] { "compile.stdout.log", "compile.stderr.log", "simulate.stdout.log", "simulate.stderr.log", "compile-process.json", "simulate-process.json" }
                     .Where(p => File.Exists(Path.Combine(failureArtifactDirectory, p))).ToArray()

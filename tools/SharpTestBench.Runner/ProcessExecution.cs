@@ -90,7 +90,8 @@ internal static class ProcessExecution
             if (outTask is not null && errTask is not null)
                 try { await Task.WhenAll(outTask, errTask).WaitAsync(TimeSpan.FromSeconds(5)); }
                 catch (Exception error) { drainError = error; }
-            var evidence = new ProcessEvidence(1, phase, executable, argv, errorDetail ?? drainError?.Message,
+            var detail = errorDetail ?? drainError?.Message;
+            var evidence = new ProcessEvidence(1, phase, executable, argv, detail is null ? null : SharpTestBench.Internal.DiagnosticText.Limit(detail),
                 started, exitCode, timedOut, watch.Elapsed.TotalMilliseconds, maxLogBytes,
                 outTask is { IsCompletedSuccessfully: true } ? outTask.Result : null,
                 errTask is { IsCompletedSuccessfully: true } ? errTask.Result : null);

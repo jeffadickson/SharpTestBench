@@ -78,16 +78,49 @@ def _pairs(values):
     return result
 
 
+
+MAXIMUM_JSON_BYTES = 16 * 1024 * 1024
+
+
+def read_json(path, maximum=MAXIMUM_JSON_BYTES):
+    """Read bounded oracle data with the same strict scalar rules as managed inputs."""
+    import math
+    if type(maximum) is not int or not 1 <= maximum <= MAXIMUM_JSON_BYTES:
+        raise ValueError('invalid JSON byte budget')
+    with open(path, 'rb') as stream:
+        raw = stream.read(maximum + 1)
+    if len(raw) > maximum:
+        raise ValueError('JSON byte budget exceeded')
+    def constant(_):
+        raise ValueError('nonfinite JSON number')
+    try:
+        value = json.loads(raw.decode('utf-8-sig'), object_pairs_hook=_pairs, parse_constant=constant)
+    except (UnicodeError, RecursionError) as error:
+        raise ValueError('invalid JSON encoding or nesting') from error
+    pending = [(value, 0)]
+    while pending:
+        item, depth = pending.pop()
+        if isinstance(item, (dict, list)):
+            depth += 1
+            if depth > 64:
+                raise ValueError('JSON nesting budget exceeded')
+            children = list(item.keys()) + list(item.values()) if isinstance(item, dict) else item
+            pending.extend((child, depth) for child in children)
+        elif isinstance(item, str):
+            if any(0xD800 <= ord(character) <= 0xDFFF for character in item):
+                raise ValueError('invalid JSON Unicode scalar')
+        elif isinstance(item, float) and not math.isfinite(item):
+            raise ValueError('nonfinite JSON number')
+    return value
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--plan', required=True)
     parser.add_argument('--metrics', required=True)
     parser.add_argument('--disabled-sidebands', action='store_true')
     args = parser.parse_args()
-    with open(args.plan, encoding='utf-8-sig') as stream:
-        plan = json.load(stream, object_pairs_hook=_pairs)
-    with open(args.metrics, encoding='utf-8-sig') as stream:
-        metrics = json.load(stream, object_pairs_hook=_pairs)
+    plan = read_json(args.plan)
+    metrics = read_json(args.metrics)
     print(json.dumps(validate(plan, metrics, not args.disabled_sidebands)))
 
 

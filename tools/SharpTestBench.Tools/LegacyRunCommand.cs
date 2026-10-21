@@ -172,11 +172,17 @@ internal static class LegacyRunCommand
         var resultPath = environment["CS_RESULTS"]!; File.Delete(resultPath);
         phase="simulate";
         var simulationWatch = Stopwatch.StartNew();
-        var result = context.Run(command, directory: simulationDirectory, environment: environment, capture: true, check: false, timeout: TimeSpan.FromSeconds(seconds));
+        var result = LegacySimulator.Run(context,command,simulationDirectory,environment,work,label,TimeSpan.FromSeconds(seconds));
         simulatorExitCode=result.ExitCode;
         var simulationMilliseconds = simulationWatch.Elapsed.TotalMilliseconds;
         phase=result.ExitCode==0 ? "record" : "simulate";
-        var output = result.Output + result.Error; File.WriteAllText(Path.Combine(work, label + "-run.log"), output); Console.WriteLine(output);
+        var output = result.Output + result.Error;
+        try { LegacySimulator.Record(work,label,result); }
+        catch(Exception evidenceError) when(result.ExitCode!=0)
+        {
+            Console.Error.WriteLine("Simulator diagnostics could not be written: "+SharpTestBench.Internal.DiagnosticText.Limit(evidenceError.Message));
+        }
+        Console.WriteLine(output);
         if (result.ExitCode!=0) throw new IOException("Simulator failed (exit "+result.ExitCode+")");
         phase="attest";
         SharpTestBench.Internal.ReportFailureEvidence.ThrowIfReported(result.Output.Split('\n'));
@@ -195,6 +201,7 @@ internal static class LegacyRunCommand
         }
         catch (Exception error)
         {
+            if(error is LegacyCompilerPublicationException)phase="compile-record";
             try { LegacyFailure.Write(work,label,runId,phase,error,functionalFailure,simulatorExitCode); }
             catch (Exception evidenceError) { Console.Error.WriteLine("Legacy failure evidence could not be written: "+evidenceError.Message); }
             throw;

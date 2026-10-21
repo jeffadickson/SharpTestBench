@@ -7,6 +7,11 @@ namespace SharpTestBench.Tools;
 internal static class ReportingCheckCommand
 {
     const string Selected = "Tests.P_ExitStatus";
+    internal static void VerifyDiscovery(string legacy,InputFingerprint[] paired)
+    {
+        using var inputs=StrictJson.Read(Path.Combine(legacy,"discovery-input-manifest.json"));
+        ManifestCheckCommand.VerifyDiscoveryInputs(inputs.RootElement,paired);
+    }
     public static void Execute(ToolContext context, string[] arguments)
     {
         if (arguments.Length != 0) throw new ArgumentException("reporting-check accepts no arguments");
@@ -45,6 +50,7 @@ internal static class ReportingCheckCommand
                 manifest=ParityLegacyCommand.BindTools(context,manifest,work,environment,environment);
                 StrictJson.Write(Path.Combine(work, "manifest.json"), manifest);
                 var pairedInputs=PairedInputs.Capture(work,config);
+                VerifyDiscovery(legacy,pairedInputs);
                 environment[mode == "text" ? "CS_INJECT_XML_FAILURE" : "CS_INJECT_REPORT_IO_FAILURE"] = "1";
                 var left = RunLegacy("legacy");
                 PairedInputs.Verify(pairedInputs,work,config);

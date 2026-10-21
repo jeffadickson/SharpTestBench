@@ -1,7 +1,7 @@
 """Independent data-only arbiter policy oracle. No simulator/build orchestration."""
 import argparse
 import json
-from fifo_reference import _pairs
+from fifo_reference import read_json
 
 
 def require(condition,message):
@@ -61,7 +61,7 @@ def main():
     for key in ['configuration','plan','metrics']:parser.add_argument('--'+key,required=True)
     args=parser.parse_args();values=[]
     for path in [args.configuration,args.plan,args.metrics]:
-        with open(path,encoding='utf-8-sig') as stream:values.append(json.load(stream,object_pairs_hook=_pairs))
+        values.append(read_json(path))
     print(json.dumps(validate(*values)))
 
 

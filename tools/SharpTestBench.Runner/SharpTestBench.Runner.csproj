@@ -12,4 +12,5 @@
     <InternalsVisibleTo Include="RunnerValidation" />
   </ItemGroup>
   <ItemGroup><Compile Include="../../src/Shared/ReportFailureEvidence.cs" Link="Shared/ReportFailureEvidence.cs" /></ItemGroup>
+  <ItemGroup><Compile Include="../../src/Shared/DiagnosticText.cs" Link="Shared/DiagnosticText.cs" /></ItemGroup>
 </Project>

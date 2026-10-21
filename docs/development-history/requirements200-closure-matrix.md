@@ -1,7 +1,7 @@
-# Local requirement closure at milestone100
+# Bounded local requirement closure through milestone200
 
 These are bounded engineering contracts, not remote issue closure or complete
-cocotb parity. GitHub issue/PR state was not modified. The campaign is100/200.
+cocotb parity. GitHub issue/PR state was not modified. The original milestone100 snapshot follows; current200 closure is appended below.
 
 | Contract | Verified evidence | Remaining boundary |
 |---|---|---|
@@ -71,3 +71,27 @@ Checkpoint160 closes bounded normal frame-commit visibility/order/sideband/stall
 contracts with independent replay and actual dual-runner positive/corruption evidence
 for four Icarus configurations bothOS plus one Linux Verilator case. Oversize/bad
 frame dropping, pause and mid-frame reset remain open.160/200 verified, no push.
+
+
+## Current milestone200 closure
+
+200/200 documented engineering units are locally verified; no global parity or
+remote requirement/issue closure is implied. The earlier checkpoint narratives
+remain historical evidence with their then-current limits.
+
+| Contract | Fresh final evidence | Remaining boundary |
+|---|---|---|
+| Reporting discovery producer binding | Actual reporting text/IO dual-runner bothOS + mutation/dependency regressions | Declared before/after input snapshots only |
+| Bounded process diagnostics and primary failure preservation | Actual-child stream/deadline/race tests; real CLI passing-row overflow, compiler and simulator publication obstructions | Local cleanup does not guarantee orphan termination; errors bound in characters, not entire evidence bytes |
+| Parent frame orchestration failures | Nine production-parent boundaries with controlled commands/recorded payload | Controlled tests do not establish HDL/native execution |
+| Last-beat masked bad-frame dropping | Four actual Icarus positive/corruption configs bothrunnersbothOS at190; Linux Verilator; finalpublished/AOT8p2outon + independent replay | Oversize/full-drop, pause and midframe reset/fullAXI remain open |
+| Strict independent oracle input contracts | Four actual Python CLIs reject oversized/duplicate/unpaired-scalar data; depth/nonfinite/BOM/unit regressions | Independent Python stays; no generalized HDL coverage claim |
+| Four-assembly coverage and generated presentation | Final200serialcoverage161physicalsources/43generatedHTMLbothOS | Generated denominator; selected CLIpaths; excludes HDL/AOTinstructions/fullswitchmatrix |
+| Final native publication | Winx64Tools/Linuxx64Tools RTR; Linuxx64RunnerAOT actualarbiter/frame/drop | Simulator tests use separate runtime; noWinRunnerAOT/sixRIDcertification |
+
+Fresh full suites: Windows2665passed15Unixskips/Linux2680passed. Final independent
+source and coverage reviews clear after simulator failure-precedence P2 correction.
+API audit remains113/302 public definitions(excludingaliases/dynamicmembers),189open.
+Broader backend/object parity, native shutdown rootcause and complete AXI requirements
+remain open. See final report and evidence JSON for exact executed configurations.
+Local main commits only, no push; CI and PR62 unchanged.

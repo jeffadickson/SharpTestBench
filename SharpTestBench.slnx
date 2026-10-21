@@ -10,6 +10,7 @@
   <Folder Name="/examples/">
     <Project Path="examples/Arbiter/Arbiter.csproj" />
     <Project Path="examples/FrameFifo/FrameFifo.csproj" />
+    <Project Path="examples/FrameDropFifo/FrameDropFifo.csproj" />
     <Project Path="examples/PriorityEncoder/PriorityEncoder.csproj" />
     <Project Path="examples/AxisRegister/AxisRegister.csproj" />
     <Project Path="examples/Lfsr/Lfsr.csproj" />

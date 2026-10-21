@@ -17,27 +17,7 @@ internal sealed class CommandRunner : ICommandRunner
         var start = new ProcessStartInfo(arguments[0]) { WorkingDirectory = directory, UseShellExecute = false, RedirectStandardOutput = capture, RedirectStandardError = capture };
         foreach (var argument in arguments.Skip(1)) start.ArgumentList.Add(argument);
         if (environment is not null) foreach (var (name, value) in environment) start.Environment[name] = value;
-        using var process = Process.Start(start) ?? throw new IOException("Unable to start " + arguments[0]);
-        var stdout = capture ? process.StandardOutput.ReadToEndAsync() : Task.FromResult("");
-        var stderr = capture ? process.StandardError.ReadToEndAsync() : Task.FromResult("");
-        using var cancellation = timeout is null ? new CancellationTokenSource() : new CancellationTokenSource(timeout.Value);
-        try
-        {
-            process.WaitForExitAsync(cancellation.Token).GetAwaiter().GetResult();
-            Task.WhenAll(stdout, stderr).WaitAsync(cancellation.Token).GetAwaiter().GetResult();
-        }
-        catch (OperationCanceledException) when (cancellation.IsCancellationRequested)
-        {
-            try { if (!process.HasExited) process.Kill(entireProcessTree: true); } catch (InvalidOperationException) { }
-            if (capture) { process.StandardOutput.Close(); process.StandardError.Close(); }
-            _ = stdout.ContinueWith(task => { _ = task.Exception; }, TaskContinuationOptions.OnlyOnFaulted);
-            _ = stderr.ContinueWith(task => { _ = task.Exception; }, TaskContinuationOptions.OnlyOnFaulted);
-            process.WaitForExit(5000);
-            throw new TimeoutException("Command timed out: " + Path.GetFileName(arguments[0]));
-        }
-        var result = new CommandResult(process.ExitCode, stdout.Result, stderr.Result);
-        if (check && result.ExitCode != 0) throw new IOException($"Command failed ({result.ExitCode}): {Path.GetFileName(arguments[0])}\n{result.Error}");
-        return result;
+        return BoundedCapture.Run(start,timeout,check).GetAwaiter().GetResult();
     }
 }
 internal sealed class ToolContext(string root, ICommandRunner? runner = null)
