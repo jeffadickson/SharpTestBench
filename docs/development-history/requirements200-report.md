@@ -218,3 +218,37 @@ next gap. No new coverage percentage or native publication is claimed at60; the
 serial four-assembly50 coverage and native publication evidence remain scoped to50.
 Fresh artifacts: build/requirements200-60-*, build/fifo-*. All60 units are verified
 locally,140 remain. No push occurred; CI and PR62 were untouched.
+
+## Verified local milestone70
+
+Units61..70 add directed FIFO saturation generation and witnessed evidence, then
+hand-authored cross-language ownership histories for full-backlog blocking,
+false capacity claims, pending/held reset boundaries, simultaneous transfers,
+balanced reordering, disabled-sideband stalls and pending-source replacement.
+Two managed facts and eight retained contracts cover these changes; adversarial
+subcases are not separately counted as iterations.
+
+Fresh corrected locked Release: Windows2469 passed/10skipped; Linux2479 passed.
+Core492, generators17, helpers1134 (Windows1124 passed/10skipped), contracts836.
+Both doctors, priority Icarus parity positive/negative and Linux Verilator passed.
+A preparatory independent70 review found P2: startup blocking and a later full
+queue could be combined into a false saturation claim. Qualification now requires
+a blocked source while backlog>=RAM depth and downstream ready is withheld.
+The explicit startup-only history passes both semantic models but fails witness
+qualification. Focused independent re-review confirmed the correction; all gates
+were rerun after it. This correction is part of the same engineering units.
+
+Fresh directed simulation used seed83/count256 for depth2/pipeline0/output-off/
+sidebands-on and depth64/pipeline3/output-on/sidebands-off, each reset128 and no
+reset, through both Icarus runners on both OSes. Four positive cases per OS
+passed matching traces, seeds, hash stability, independent replay and saturation
+witnesses. Both configurations also passed payload-corruption controls without
+reset. Deep no-reset witness: backlog78, blockedSource58, blockedAtDepth50,
+simultaneousTransfers120. Shallow no-reset: backlog3, blockedSource126,
+blockedAtDepth125, simultaneousTransfers127. These are observed workload bounds,
+not exact capacity or performance claims. No additional HDL matrix certification
+or coverage percentage is claimed at70.
+
+Artifacts: build/requirements200-70-* and build/fifo-*-saturation*. Seventy units
+are locally verified;130 remain. No push occurred. Scheduled review75 and final
+whole-campaign deep review remain required; the extra70 review does not replace75.

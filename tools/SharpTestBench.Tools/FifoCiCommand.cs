@@ -8,7 +8,7 @@ internal static class FifoCiCommand
     public static void Execute(ToolContext context, string[] arguments)
     {
         var options = new Options(arguments, "--output-fifo", "--disabled-sidebands", "--negative-control");
-        options.Only("--depth", "--pipeline", "--output-fifo", "--disabled-sidebands", "--seed", "--count", "--stall", "--reset-at", "--negative-control");
+        options.Only("--depth", "--pipeline", "--output-fifo", "--disabled-sidebands", "--seed", "--count", "--stall", "--reset-at", "--negative-control", "--profile");
         int Number(string key, int fallback) => int.TryParse(options.Get(key, fallback.ToString(CultureInfo.InvariantCulture)), System.Globalization.NumberStyles.None, CultureInfo.InvariantCulture, out var value)
             ? value : throw new ArgumentException("Invalid FIFO option: " + key);
         if (!ulong.TryParse(options.Get("--seed", "1"), NumberStyles.None, CultureInfo.InvariantCulture, out var seed)) throw new ArgumentException("Invalid FIFO seed");
@@ -16,13 +16,13 @@ internal static class FifoCiCommand
         int count = Number("--count", 128), stall = Number("--stall", 7);
         string reset = options.Get("--reset-at", count > 1 ? (count / 2).ToString(CultureInfo.InvariantCulture) : "none")!;
         int? resetAt = reset == "none" ? null : int.TryParse(reset, NumberStyles.None, CultureInfo.InvariantCulture, out int index) ? index : throw new ArgumentException("Invalid FIFO reset index");
-        Run(context, config, seed, count, stall, resetAt, options.Has("--negative-control"));
+        Run(context, config, seed, count, stall, resetAt, options.Has("--negative-control"), options.Get("--profile", "random")!);
     }
-    internal static Dictionary<string, object> Run(ToolContext context, FifoConfiguration config, ulong seed, int count, int stall, int? resetAt, bool negative = false)
+    internal static Dictionary<string, object> Run(ToolContext context, FifoConfiguration config, ulong seed, int count, int stall, int? resetAt, bool negative = false, string profile = "random")
     {
-        var rows = FifoFixture.Plan(config, seed, count, stall, resetAt);
+        var rows = FifoFixture.Plan(config, seed, count, stall, resetAt, profile);
         var stimulus = JsonSerializer.SerializeToElement(rows); FifoFixture.ValidatePlan(config, stimulus);
-        return ParityCiCommand.InWorkspace(context, $"fifo-{config.Top}-{seed}-{count}-{stall}-{resetAt?.ToString(CultureInfo.InvariantCulture) ?? "none"}" + (negative ? "-negative" : ""), (work, environment) => {
+        return ParityCiCommand.InWorkspace(context, $"fifo-{config.Top}-{seed}-{count}-{stall}-{resetAt?.ToString(CultureInfo.InvariantCulture) ?? "none"}" + (profile == "random" ? "" : "-" + profile) + (negative ? "-negative" : ""), (work, environment) => {
             var provenance = FixtureContracts.VerifySources(context.Root, "fifo");
             var build = context.Run(["dotnet", "build", context.At("examples/AxisRegister"), "-c", "Release", "-p:RestoreLockedMode=true", "--disable-build-servers", "-m:1"], environment: environment, capture: true, check: false);
             File.WriteAllText(Path.Combine(work, "build.log"), build.Output + build.Error);
@@ -40,9 +40,15 @@ internal static class FifoCiCommand
             RunnerManifestCommand.BindSingleCase(manifest, "Entry.StreamScoreboard", seed);
             StrictJson.Write(Path.Combine(work, "manifest.json"), manifest);
             StrictJson.Write(Path.Combine(work, "expected.json"), manifest["expectedNames"]);
+            Dictionary<string, int>? witness = null;
             var report = ParityCiCommand.Compare(context, work, manifest, seed, environment, "Entry.StreamScoreboard", "AXIS_REPORT", negative ? "AXIS_MISMATCH" : null, (a, b) => {
                 FifoFixture.Metrics(config, a, stimulus); FifoFixture.Metrics(config, b, stimulus);
                 if (!JsonElement.DeepEquals(a, b)) throw new InvalidDataException("FIFO runner traces differ");
+                if (profile == "saturation")
+                {
+                    witness = FifoFixture.SaturationWitness(config, a, stimulus);
+                    FifoFixture.SaturationWitness(config, b, stimulus);
+                }
                 foreach (var runner in new[] { "legacy", "native" })
                 {
                     var command = new List<string> { Environment.GetEnvironmentVariable("CS_PYTHON") ?? "python", oracle, "--plan", planPath, "--metrics", Path.Combine(work, runner, "metrics.json") };
@@ -59,6 +65,8 @@ internal static class FifoCiCommand
             report["revision"] = provenance.GetProperty("revision").GetString()!;
             report["planSha256"] = planHash; report["wrapperSha256"] = wrapperHash; report["oracleSha256"] = oracleHash;
             report["fault"] = negative ? "payload-lsb" : "none";
+            report["profile"] = profile;
+            if (witness is not null) report["saturationWitness"] = witness;
             if (!negative) report["oracleMatched"] = true;
             return report;
         });

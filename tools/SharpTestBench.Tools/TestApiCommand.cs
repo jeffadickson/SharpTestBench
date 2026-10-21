@@ -49,6 +49,8 @@ internal static class TestApiCommand
             }
             return name switch {
                 "plan" => FifoFixture.Plan(Config(), Number(1, "seed"), (int)Number(2, "count", 1, 2048, 128), (int)Number(3, "stall", 0, 32, 7), Value(4, "reset_at").ValueKind == JsonValueKind.Null ? null : (int)Number(4, "reset_at", 1, 2047)),
+                "saturation_plan" => FifoFixture.Plan(Config(), Number(1, "seed"), (int)Number(2, "count", 1, 2048, 256), 0, Value(3, "reset_at").ValueKind == JsonValueKind.Null ? null : (int)Number(3, "reset_at", 1, 2047), "saturation"),
+                "saturation_witness" => FifoFixture.SaturationWitness(Config(), Value(1, "metrics"), Value(2, "plan")),
                 "metrics" => FifoFixture.Metrics(Config(), Value(1, "metrics"), Value(2, "plan")),
                 "verify_sources" => FixtureContracts.VerifySources(Text(0, "root"), "fifo"),
                 _ => throw new ArgumentException("Unknown FIFO contract") };

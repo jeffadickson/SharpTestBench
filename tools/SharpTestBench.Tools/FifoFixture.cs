@@ -15,11 +15,17 @@ internal static class FifoFixture
         return new(depth, pipeline, outputFifo, sidebands);
     }
     internal static int DrainCycles(FifoConfiguration config) => config.Depth + 76;
-    internal static AxisRow[] Plan(FifoConfiguration config, ulong seed, int count = 128, int stall = 7, int? resetAt = 64)
+    internal static AxisRow[] Plan(FifoConfiguration config, ulong seed, int count = 128, int stall = 7, int? resetAt = 64, string profile = "random")
     {
         Configuration(config.Depth, config.Pipeline, config.OutputFifo, config.Sidebands);
         if (count is < 1 or > 2048) throw new InvalidDataException("FIFO plan count must be1..2048.");
+        if (profile is not ("random" or "saturation")) throw new InvalidDataException("Unknown FIFO stimulus profile.");
+        if (profile == "saturation" && count < 2 * (config.Depth + 64))
+            throw new InvalidDataException("FIFO saturation needs at least twice(depth+64) active cycles.");
         var rows = AxisFixture.Plan(seed, count, stall, resetAt).ToList();
+        if (profile == "saturation")
+            for (int index = 0; index < count; index++)
+                rows[index + 1] = rows[index + 1] with { Ready = index >= count / 2, Offer = !rows[index + 1].Reset };
         rows.AddRange(Enumerable.Repeat(new AxisRow(false, true, false, 0, 0, false, 0, 0, 0), config.Depth + 64));
         return rows.ToArray();
     }
@@ -90,5 +96,32 @@ endmodule
         }
         if (queue.Count != 0 || pending is not null) throw new InvalidDataException("FIFO stimulus did not drain.");
         return value.Clone();
+    }
+
+    // A witnessed workload property, not an estimate of exact hardware capacity.
+    internal static Dictionary<string, int> SaturationWitness(FifoConfiguration config, JsonElement value, JsonElement stimulus)
+    {
+        Metrics(config, value, stimulus);
+        var rows = ValidatePlan(config, stimulus); var trace = value.GetProperty("trace");
+        int backlog = 0, maximum = 0, blocked = 0, blockedAtDepth = 0, simultaneous = 0; bool pending = false;
+        for (int index = 0; index < rows.Length; index++)
+        {
+            var source = rows[index]; var data = trace[index];
+            if (source.Reset) { backlog = 0; pending = false; continue; }
+            pending |= source.Offer;
+            bool take = data[2].GetInt32() != 0, consume = data[3].GetInt32() != 0 && source.Ready;
+            if (pending && !take)
+            {
+                blocked++;
+                if (!source.Ready && backlog >= config.Depth) blockedAtDepth++;
+            }
+            if (take) { backlog++; pending = false; }
+            if (consume) backlog--;
+            if (take && consume) simultaneous++;
+            maximum = Math.Max(maximum, backlog);
+        }
+        if (maximum < config.Depth || blockedAtDepth == 0)
+            throw new InvalidDataException("FIFO saturation was not witnessed: require a blocked source while RAM-depth backlog is held.");
+        return new() { ["maximumBacklog"] = maximum, ["blockedSourceCycles"] = blocked, ["blockedAtDepthCycles"] = blockedAtDepth, ["simultaneousTransfers"] = simultaneous };
     }
 }

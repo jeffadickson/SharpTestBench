@@ -128,4 +128,22 @@ public sealed class FifoFixtureTests
         var error = Assert.Throws<InvalidDataException>(() => FifoFixture.Metrics(s.Config, s.Metrics, JsonSerializer.SerializeToElement(plan)));
         Assert.Contains("source did not offer", error.Message);
     }
+
+    [Fact] public void SaturationPlanHoldsSinkUntilCapacityBoundThenRecovers()
+    {
+        var config = FifoFixture.Configuration(64, 3, true, true);
+        var rows = FifoFixture.Plan(config, 83, 256, 7, null, "saturation");
+        Assert.All(rows.Skip(1).Take(128), row => { Assert.False(row.Ready); Assert.True(row.Offer); });
+        Assert.All(rows.Skip(129).Take(128), row => { Assert.True(row.Ready); Assert.True(row.Offer); });
+        Assert.Equal(rows, FifoFixture.ValidatePlan(config, JsonSerializer.SerializeToElement(rows)));
+        Assert.Equal(rows, FifoFixture.Plan(config, 83, 256, 7, null, "saturation"));
+    }
+
+    [Fact] public void SaturationRejectsInsufficientStimulusAndUnknownProfiles()
+    {
+        var config = FifoFixture.Configuration(64, 3, true, true);
+        Assert.Throws<InvalidDataException>(() => FifoFixture.Plan(config, 83, 255, 7, null, "saturation"));
+        Assert.Throws<InvalidDataException>(() => FifoFixture.Plan(config, 83, 256, 7, null, "../other"));
+        Assert.Throws<InvalidDataException>(() => FifoFixture.Plan(config, 83, 256, 7, null, "Saturation"));
+    }
 }

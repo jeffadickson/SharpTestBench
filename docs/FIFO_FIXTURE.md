@@ -51,3 +51,25 @@ Depths2/8/32/64, pipelines0/1/2/3, both output-buffer and sideband settings were
 represented; these eight cases do not certify all96 combinations. Linux Verilator
 also passed one buffered depth8/pipeline2 case with independent trace replay.
 See the requirements campaign report for exact scope.
+
+## Directed saturation
+
+`--profile saturation --count 256 --reset-at none` offers continuously and blocks
+sink ready for half the active cycles before recovery. Count must be at least
+2*(depth+64); this reserves time for RAM plus optional output buffering to fill.
+Positive runs must witness backlog at least the selected RAM depth and at least
+one cycle with an offered source beat blocked while backlog is at least RAM
+depth and sink ready is held low. Startup-only blocking cannot qualify.
+Reports add the observed maximum
+backlog, blocked-source cycles and simultaneous input/output transfers. These are
+functional workload witnesses, not an assertion of exact hardware capacity or
+latency. Normal random-profile evidence retains its prior workspace identity.
+Saturation profiles use separate workspaces. Negative controls claim no witness.
+Reset-at may additionally exercise flushing, while reset-at none covers recovery
+without discarding the queued workload. Checkpoint70 passed directed shallow depth2/pipeline0/no-output-buffer and deep
+depth64/pipeline3/output-buffer cases on both OSes through both Icarus runners,
+with reset128 and reset-at none; both also passed corruption controls with no reset.
+Each used seed83/count256. All positive cases recorded filled-backlog blocking.
+The deep no-reset case observed maximum backlog78 and50 blocked-at-depth cycles;
+the shallow case observed backlog3 and125 blocked-at-depth cycles. This is
+workload evidence, not certification of exact upstream capacity for every setting.
