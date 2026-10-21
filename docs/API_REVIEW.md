@@ -110,3 +110,13 @@ Result bounds deliberately preserve the left operand; Python's operators instead
 normalize to default descending bounds. See LOGIC_TRANSFORMS.md for this and
 other explicit immutable/collection/protocol decisions. Review counts remain
 88 reviewed / 214 unreviewed definitions plus aliases/dynamic exports.
+
+## Completed-outcome contracts (requirements campaign)
+
+The seven inventoried cocotb._outcomes definitions now have individual pinned
+source reviews:95 decisions,207 inventory entries still unreviewed. Each compares
+capture/value/error/get semantics with SimJob/Task<T> and names the incomplete,
+cancellation, exception taxonomy and traceback differences. Review completion
+does not imply a public Python Outcome API or full Task parity. Current-source
+anchor checks and targeted simulator validation are recorded in the requirements
+campaign rather than relabeling older evidence.

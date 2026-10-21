@@ -133,3 +133,26 @@ This remains a focused qualification step for issues #60 and #61. Full native
 shutdown health instrumentation, independent adapter qualification, cancellation
 of the runner itself, Verilator parity through this CLI, and wider native-runner
 platform qualification remain separate work.
+
+## Explicit expected stimulus seeds
+
+The optional v1 manifest `expectedSeeds` object maps every expected qualified
+identity to its exact UInt64 seed. It requires `expectedNames` and exactly the
+same identity set. Passed and failed result rows must match their own expected
+seed; row order and the base seed do not substitute for this per-case contract.
+This permits filtered runs whose case ordinal produces a seed above the base.
+
+Current fixture producers bind expected identities, selection and seed maps
+consistently. The parent parity command also checks both result sets against the
+map, including negative controls, and adds `expectedSeedMatched` to its report.
+Two runners agreeing on the same wrong stimulus cannot qualify through that path.
+Older manifests without the field retain numeric seed validation and pairwise
+agreement; they do not gain expected-stimulus attestation automatically. Older
+Runner binaries reject this new optional field as unknown: rebuild matching
+workers before consuming newly emitted manifests. Schema version and existing
+evidence fields remain unchanged.
+
+Malformed Unicode property names are configuration errors in both shared strict
+JSON parsing and the production Runner CLI, including JSON-reflection-disabled
+execution. Valid supplementary Unicode keys/values remain accepted by the generic
+JSON parser; manifest unknown-field policy remains separate.

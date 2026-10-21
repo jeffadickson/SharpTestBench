@@ -38,8 +38,16 @@ internal static class RunnerManifestCommand
             ["assembly"] = Path.Combine(root, item.Project, "bin/Release/net10.0/" + item.Assembly + ".dll"),
             ["nativeHost"] = Path.Combine(root, "build", NativeBuildCommand.HostName), ["icarusBootstrap"] = RealPath((string)adapter["bootstrap"]), ["gpiLibrary"] = RealPath((string)adapter["library"]),
             ["gpiEntryPoint"] = (string)adapter["entryPoint"], ["gpiImpl"] = (string)adapter["implementation"], ["dotnetRoot"] = (string)adapter["dotnetRoot"],
-            ["outputDirectory"] = output, ["seed"] = seed, ["entryType"] = "Entry, " + item.Assembly, ["expectedTests"] = 1, ["expectedNames"] = new[] { item.Test } };
+            ["outputDirectory"] = output, ["seed"] = seed, ["entryType"] = "Entry, " + item.Assembly, ["expectedTests"] = 1, ["expectedNames"] = new[] { item.Test }, ["expectedSeeds"] = new Dictionary<string, ulong> { [item.Test] = seed } };
     }
+    internal static void BindSingleCase(Dictionary<string, object> manifest, string name, ulong seed)
+    {
+        manifest["expectedTests"] = 1;
+        manifest["expectedNames"] = new[] { name };
+        manifest["testNames"] = new[] { name };
+        manifest["expectedSeeds"] = new Dictionary<string, ulong>(StringComparer.Ordinal) { [name] = seed };
+    }
+
     public static void Execute(ToolContext context, string[] arguments)
     {
         var options = new Options(arguments); options.Only("--fixture", "--seed", "--output", "--output-directory");

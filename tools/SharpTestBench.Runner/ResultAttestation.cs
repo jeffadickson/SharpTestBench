@@ -8,6 +8,7 @@ internal static class ResultAttestation
     {
         if (rows.ValueKind != JsonValueKind.Array || rows.GetArrayLength() == 0)
             throw new InvalidDataException("No test results; expected a nonempty result array.");
+        ManifestValidation.ValidateExpectedSeeds(config);
         var names = new HashSet<string>(StringComparer.Ordinal);
         int passed = 0, failed = 0;
         foreach (var row in rows.EnumerateArray())
@@ -34,8 +35,11 @@ internal static class ResultAttestation
             if (!ManifestValidation.ValidIdentity(identity))
                 throw new InvalidDataException("Test identity must be nonempty without padding or control characters.");
             if (!names.Add(identity!)) throw new InvalidDataException("Duplicate test identity: " + identity);
-            if (!row.TryGetProperty("Seed", out var seed) || seed.ValueKind != JsonValueKind.Number || !seed.TryGetUInt64(out _))
+            if (!row.TryGetProperty("Seed", out var seed) || seed.ValueKind != JsonValueKind.Number || !seed.TryGetUInt64(out var actualSeed))
                 throw new InvalidDataException("Test result needs an unsigned 64-bit Seed.");
+            if (config.ExpectedSeeds is { } seeds &&
+                (!seeds.TryGetValue(identity!, out var expectedSeed) || expectedSeed != actualSeed))
+                throw new InvalidDataException("Test result seed differs from expectedSeeds: " + identity);
             if (!row.TryGetProperty("Status", out var status) || status.ValueKind != JsonValueKind.String)
                 throw new InvalidDataException("Test result without Status.");
             switch (status.GetString())

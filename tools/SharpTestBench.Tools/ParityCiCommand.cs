@@ -39,6 +39,13 @@ internal static class ParityCiCommand
                 metrics(a.RootElement, b.RootElement); report["traceMatched"] = true;
             }
         }
+        if (manifest.TryGetValue("expectedSeeds", out var seedMap))
+        {
+            var required = JsonSerializer.SerializeToElement(seedMap);
+            bool matched = ParityContracts.MatchExpectedSeeds(left.RootElement, required) && ParityContracts.MatchExpectedSeeds(right.RootElement, required);
+            report["expectedSeedMatched"] = matched;
+            report["matched"] = (bool)report["matched"] && matched;
+        }
         report["exitCodes"] = new { legacy = leftCode, native = rightCode }; return report;
     }
     static Dictionary<string, object> Prepare(ToolContext context, string work, string project, string fixture, ulong seed, IReadOnlyDictionary<string, string?> environment)
@@ -85,7 +92,7 @@ internal static class ParityCiCommand
             var provenance = FixtureContracts.VerifySources(context.Root, "lfsr");
             environment["LFSR_PLAN"] = Path.Combine(work, "plan.json"); environment["LFSR_FAULT"] = fault.ToString(System.Globalization.CultureInfo.InvariantCulture);
             var manifest = Prepare(context, work, "examples/Lfsr", "counter", seed, environment);
-            manifest["top"] = selected.Top; manifest["sources"] = new[] { context.At("examples/Lfsr/lfsr_fixture.sv"), context.At("tests/Fixtures/verilog-lfsr/lfsr.v") }; manifest["assembly"] = context.At("examples/Lfsr/bin/Release/net10.0/Lfsr.dll"); manifest["entryType"] = "Entry, Lfsr"; manifest["expectedNames"] = new[] { "Entry.SerialScoreboard" }; manifest["testNames"] = new[] { "Entry.SerialScoreboard" };
+            manifest["top"] = selected.Top; manifest["sources"] = new[] { context.At("examples/Lfsr/lfsr_fixture.sv"), context.At("tests/Fixtures/verilog-lfsr/lfsr.v") }; manifest["assembly"] = context.At("examples/Lfsr/bin/Release/net10.0/Lfsr.dll"); manifest["entryType"] = "Entry, Lfsr"; RunnerManifestCommand.BindSingleCase(manifest, "Entry.SerialScoreboard", seed); manifest["testNames"] = new[] { "Entry.SerialScoreboard" };
             StrictJson.Write(Path.Combine(work, "manifest.json"), manifest); StrictJson.Write(Path.Combine(work, "plan.json"), plan); var digest = LfsrFixture.PlanDigest(Path.Combine(work, "plan.json"));
             var report = Compare(context, work, manifest, seed, environment, "Entry.SerialScoreboard", "LFSR_REPORT", fault == 0 ? null : "LFSR_MISMATCH", (a, b) => { LfsrFixture.Metrics(a, stimulus); LfsrFixture.Metrics(b, stimulus); if (!JsonElement.DeepEquals(a, b)) throw new InvalidDataException("LFSR traces differ"); });
             if (LfsrFixture.PlanDigest(Path.Combine(work, "plan.json")) != digest) throw new InvalidDataException("LFSR stimulus changed during execution"); FixtureContracts.VerifySources(context.Root, "lfsr");
@@ -99,7 +106,7 @@ internal static class ParityCiCommand
             var provenance = FixtureContracts.VerifySources(context.Root, "axis");
             environment["AXIS_MODE"] = mode.ToString(System.Globalization.CultureInfo.InvariantCulture); environment["AXIS_PLAN"] = Path.Combine(work, "plan.json"); environment["AXIS_SIDEBANDS"] = sidebands ? "1" : "0"; environment["AXIS_FAULT"] = negative ? "1" : "0";
             var manifest = Prepare(context, work, "examples/AxisRegister", "counter", seed, environment);
-            manifest["top"] = top; manifest["sources"] = new[] { context.At("examples/AxisRegister/axis_fixture.sv"), context.At("tests/Fixtures/verilog-axis/axis_register.v") }; manifest["assembly"] = context.At("examples/AxisRegister/bin/Release/net10.0/AxisRegister.dll"); manifest["entryType"] = "Entry, AxisRegister"; manifest["expectedNames"] = new[] { "Entry.StreamScoreboard" }; manifest["testNames"] = new[] { "Entry.StreamScoreboard" };
+            manifest["top"] = top; manifest["sources"] = new[] { context.At("examples/AxisRegister/axis_fixture.sv"), context.At("tests/Fixtures/verilog-axis/axis_register.v") }; manifest["assembly"] = context.At("examples/AxisRegister/bin/Release/net10.0/AxisRegister.dll"); manifest["entryType"] = "Entry, AxisRegister"; RunnerManifestCommand.BindSingleCase(manifest, "Entry.StreamScoreboard", seed); manifest["testNames"] = new[] { "Entry.StreamScoreboard" };
             StrictJson.Write(Path.Combine(work, "manifest.json"), manifest); StrictJson.Write(Path.Combine(work, "plan.json"), plan);
             var report = Compare(context, work, manifest, seed, environment, "Entry.StreamScoreboard", "AXIS_REPORT", negative ? "AXIS_MISMATCH" : null, (a, b) => { AxisFixture.Metrics(a); AxisFixture.Metrics(b); if (!JsonElement.DeepEquals(a, b)) throw new InvalidDataException("Stream traces differ"); });
             FixtureContracts.VerifySources(context.Root, "axis"); report["top"] = top; report["seed"] = seed; report["revision"] = provenance.GetProperty("revision").GetString()!; return report;
@@ -133,8 +140,7 @@ internal static class ParityCiCommand
             manifest["sources"] = new[] { context.At("examples/PriorityEncoder/priority_fixture.sv"), context.At("tests/Fixtures/verilog-priority/priority_encoder.v") };
             manifest["assembly"] = context.At("examples/PriorityEncoder/bin/Release/net10.0/PriorityEncoder.dll");
             manifest["entryType"] = "Entry, PriorityEncoder";
-            manifest["expectedNames"] = new[] { "Entry.PriorityScoreboard" };
-            manifest["testNames"] = new[] { "Entry.PriorityScoreboard" };
+            RunnerManifestCommand.BindSingleCase(manifest, "Entry.PriorityScoreboard", seed);
             StrictJson.Write(Path.Combine(work, "manifest.json"), manifest);
             StrictJson.Write(Path.Combine(work, "expected.json"), manifest["expectedNames"]);
             var report = Compare(context, work, manifest, seed, environment, "Entry.PriorityScoreboard", "PRIORITY_REPORT",

@@ -43,7 +43,10 @@ internal static class JsonInput
             var names = new HashSet<string>(manifest ? StringComparer.OrdinalIgnoreCase : StringComparer.Ordinal);
             foreach (var property in element.EnumerateObject())
             {
-                if (!names.Add(property.Name)) throw new InvalidDataException("Duplicate JSON property: " + property.Name);
+                string name;
+                try { name = property.Name; }
+                catch (InvalidOperationException error) { throw new InvalidDataException("Invalid Unicode in JSON property name.", error); }
+                if (!names.Add(name)) throw new InvalidDataException("Duplicate JSON property: " + name);
                 Inspect(property.Value, manifest: false);
             }
         }

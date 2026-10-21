@@ -72,7 +72,8 @@ try
         var root = doc.RootElement;
         var config = new RunManifest(1, "icarus", "top", ["top.sv"], "a.dll", "h.so", "b.vpi", "g.so", "sdk", "out",
             ExpectedTests: root.GetProperty("count").GetInt32(),
-            ExpectedNames: root.GetProperty("names").Deserialize<string[]>());
+            ExpectedNames: root.GetProperty("names").Deserialize<string[]>(),
+            ExpectedSeeds: root.TryGetProperty("expectedSeeds", out var seeds) ? seeds.Deserialize<Dictionary<string, ulong>>() : null);
         var result = ResultAttestation.Verify(root.GetProperty("rows"), config);
         Console.WriteLine(JsonSerializer.Serialize(new { valid = true, passed = result.Passed, failed = result.Failed }));
     }

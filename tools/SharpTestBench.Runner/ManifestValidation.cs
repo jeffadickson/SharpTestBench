@@ -16,6 +16,7 @@ internal static class ManifestValidation
              config.ExpectedNames.Any(name => !ValidIdentity(name)) ||
              config.ExpectedNames.Distinct(StringComparer.Ordinal).Count() != config.ExpectedNames.Length))
             throw new InvalidDataException("expectedNames must contain unique, nonempty identities matching expectedTests.");
+        ValidateExpectedSeeds(config);
         if (config.Sources is not { Length: > 0 })
             throw new InvalidDataException("At least one source is required.");
         if (string.IsNullOrEmpty(config.Top) || !Regex.IsMatch(config.Top, @"\A[A-Za-z_][A-Za-z0-9_$]*\z"))
@@ -53,6 +54,14 @@ internal static class ManifestValidation
             throw new InvalidDataException("maxLogBytes must be between 1024 and 67108864.");
         if (config.TimeoutSeconds is < 1 or > 3600)
             throw new InvalidDataException("timeoutSeconds must be between 1 and 3600.");
+    }
+
+    internal static void ValidateExpectedSeeds(RunManifest config)
+    {
+        if (config.ExpectedSeeds is not { } seeds) return;
+        if (config.ExpectedNames is null || seeds.Count != config.ExpectedTests ||
+            !seeds.Keys.ToHashSet(StringComparer.Ordinal).SetEquals(config.ExpectedNames))
+            throw new InvalidDataException("expectedSeeds must contain exactly the expectedNames identities.");
     }
 
     private static void ValidateOptions<T>(Dictionary<string, T>? options, string kind, bool allowNull)

@@ -10,7 +10,8 @@
     "cocotb.types._array": "93a8937c00e1610d2bffb2a1b57bb3a79042a25294629094307176e6736f7fda",
     "cocotb.types._logic": "622a8856a6f60693218cc54e8f46f4e73dc9024a61e4dcc0cdcc6a43bf483ba7",
     "cocotb.types._logic_array": "1b0e9f23ebc0666a5ba1098eeaab74d448b0730f98e238380fec7f1407200d9d",
-    "cocotb.types._resolve": "7c2a1087a6e791306f73a323f7e1aa5f9216dd440b8eee6110d831b13ee59935"
+    "cocotb.types._resolve": "7c2a1087a6e791306f73a323f7e1aa5f9216dd440b8eee6110d831b13ee59935",
+    "cocotb._outcomes": "45aef3bbcd6c489e8dbd5cc105cce29e7a50905a6e01a2c2f14e9e132d497858"
   },
   "reviews": [
     {
@@ -1842,6 +1843,153 @@
         {
           "path": "tools/SharpTestBench.Tools/OracleFixturesCommand.cs",
           "contains": "static object Logic"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._outcomes",
+      "definition": "capture",
+      "source_line": 24,
+      "classification": "intentional-difference",
+      "reason": "Pinned capture calls synchronously and wraps any Python BaseException with traceback-frame stripping. C# StartJob schedules the body and captures .NET exceptions in TaskCompletionSource; it is not a synchronous capture API and does not rewrite Python tracebacks. Deferred execution and test supervision are retained intentionally.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Regression.cs",
+          "contains": "started.SetResult(await body(child.Token));"
+        },
+        {
+          "path": "tests/Integration/Tests.cs",
+          "contains": "AA_TypedJobResults"
+        },
+        {
+          "path": "tests/Integration/Tests.cs",
+          "contains": "Throws<FormatException>(() => failed.Task.GetAwaiter().GetResult());"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._outcomes",
+      "definition": "Outcome",
+      "source_line": 33,
+      "classification": "internal-adapter",
+      "reason": "The pinned completed-outcome abstraction has Value/Error subclasses. C# uses Task/Task<T> completion state and SimJob wrappers; no public Outcome class or Python outcome protocol is provided. Pending and cancelled tasks are separate .NET states, not additional Python Outcome variants.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Regression.cs",
+          "contains": "public class SimJob"
+        },
+        {
+          "path": "tests/Integration/Tests.cs",
+          "contains": "AA_TypedJobResults"
+        },
+        {
+          "path": "tests/Integration/Tests.cs",
+          "contains": "Throws<FormatException>(() => failed.Task.GetAwaiter().GetResult());"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._outcomes",
+      "definition": "Outcome.get",
+      "source_line": 35,
+      "classification": "intentional-difference",
+      "reason": "Upstream abstract get is implemented by completed value/error wrappers. C# typed Result explicitly rejects unfinished jobs instead of blocking the simulator, and awaits propagate completion/failure/cancellation. This is a stateful job contract rather than a callable completed Outcome interface.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Regression.cs",
+          "contains": "Job is not complete; await it instead of blocking the simulator"
+        },
+        {
+          "path": "tests/Integration/Tests.cs",
+          "contains": "AA_TypedJobResults"
+        },
+        {
+          "path": "tests/Integration/Tests.cs",
+          "contains": "Throws<FormatException>(() => failed.Task.GetAwaiter().GetResult());"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._outcomes",
+      "definition": "Value",
+      "source_line": 39,
+      "classification": "idiomatic-equivalent",
+      "reason": "A successful typed job retains its value in Task<T>, exposed by await and completed Result. This covers value propagation, not Python wrapper construction, representation, identity or direct value-field mutation.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Regression.cs",
+          "contains": "public sealed class SimJob<T>"
+        },
+        {
+          "path": "tests/Integration/Tests.cs",
+          "contains": "AA_TypedJobResults"
+        },
+        {
+          "path": "tests/Integration/Tests.cs",
+          "contains": "Throws<FormatException>(() => failed.Task.GetAwaiter().GetResult());"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._outcomes",
+      "definition": "Value.get",
+      "source_line": 43,
+      "classification": "intentional-difference",
+      "reason": "Pinned Value.get immediately returns its stored object. C# completed Result returns the same typed value, while incomplete access fails; the result is immutable through this API. The typed job regression checks value survives awaiting and subsequent Result reads.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Regression.cs",
+          "contains": "public T Result => Task.IsCompleted"
+        },
+        {
+          "path": "tests/Integration/Tests.cs",
+          "contains": "AA_TypedJobResults"
+        },
+        {
+          "path": "tests/Integration/Tests.cs",
+          "contains": "Throws<FormatException>(() => failed.Task.GetAwaiter().GetResult());"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._outcomes",
+      "definition": "Error",
+      "source_line": 50,
+      "classification": "internal-adapter",
+      "reason": "Pinned Error stores a Python BaseException. C# faults Task<T> and exposes AggregateException through Task.Exception while await/GetAwaiter.GetResult rethrows the underlying .NET exception. Python traceback manipulation and BaseException taxonomy are outside this mapping.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Regression.cs",
+          "contains": "public AggregateException? Exception => Task.Exception;"
+        },
+        {
+          "path": "tests/Integration/Tests.cs",
+          "contains": "AA_TypedJobResults"
+        },
+        {
+          "path": "tests/Integration/Tests.cs",
+          "contains": "Throws<FormatException>(() => failed.Task.GetAwaiter().GetResult());"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._outcomes",
+      "definition": "Error.get",
+      "source_line": 54,
+      "classification": "idiomatic-equivalent",
+      "reason": "Pinned Error.get raises its stored exception. C# GetAwaiter.GetResult on a faulted job throws the original FormatException; existing completion/introspection regressions check the original error and managed stack. Exception-class identity across Python and .NET is not claimed.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Regression.cs",
+          "contains": "started.SetException(e);"
+        },
+        {
+          "path": "tests/Integration/Tests.cs",
+          "contains": "AA_TypedJobResults"
+        },
+        {
+          "path": "tests/Integration/Tests.cs",
+          "contains": "Throws<FormatException>(() => failed.Task.GetAwaiter().GetResult());"
         }
       ]
     }

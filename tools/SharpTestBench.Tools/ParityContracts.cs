@@ -77,6 +77,24 @@ internal static class ParityContracts
         }
         return new() { ["schemaVersion"] = 1, ["negativeControl"] = true, ["legacyDetected"] = a, ["nativeDetected"] = b, ["matched"] = matched };
     }
+    internal static bool MatchExpectedSeeds(JsonElement rows, JsonElement expected)
+    {
+        if (rows.ValueKind != JsonValueKind.Array || expected.ValueKind != JsonValueKind.Object) return false;
+        var seeds = new Dictionary<string, ulong>(StringComparer.Ordinal);
+        foreach (var item in expected.EnumerateObject())
+            if (item.Value.ValueKind != JsonValueKind.Number || !item.Value.TryGetUInt64(out var value) || !seeds.TryAdd(item.Name, value)) return false;
+        if (seeds.Count != rows.GetArrayLength()) return false;
+        foreach (var row in rows.EnumerateArray())
+        {
+            if (row.ValueKind != JsonValueKind.Object) return false;
+            string name;
+            try { name = Identity(row); } catch (InvalidDataException) { return false; }
+            if (!seeds.Remove(name, out var required) || !row.TryGetProperty("Seed", out var actual) ||
+                actual.ValueKind != JsonValueKind.Number || !actual.TryGetUInt64(out var value) || value != required) return false;
+        }
+        return seeds.Count == 0;
+    }
+
     public static Dictionary<string, string?> CleanEnvironment(IReadOnlyDictionary<string, string?> environment) => environment.Where(pair => !SelectionVariables.Contains(pair.Key, StringComparer.Ordinal)).ToDictionary(pair => pair.Key, pair => pair.Value, StringComparer.Ordinal);
     public static Dictionary<string, string?> ChildEnvironment(IReadOnlyDictionary<string, string?> environment)
     {

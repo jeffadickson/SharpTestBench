@@ -336,4 +336,21 @@ public sealed class ParityFailureCoverageTests
         var report = f.Read("report.json"); Assert.False(report.GetProperty("matched").GetBoolean()); Assert.True(report.TryGetProperty("error", out _)); Assert.Equal(1, report.GetProperty("schemaVersion").GetInt32());
         Assert.Empty(Directory.EnumerateFiles(f.Work, "*.tmp"));
     }
+
+    [Fact] public void NegativeControlRejectsBothRunnersUsingWrongRequestedSeed()
+    {
+        using var f = new Fixture { Left = Rows(seed:18), Right = Rows(seed:18) };
+        f.Manifest["expectedSeeds"] = new Dictionary<string, ulong> { ["Entry.Scoreboard"] = 17 };
+        var report = f.Compare();
+        Assert.True((bool)report["legacyDetected"]); Assert.True((bool)report["nativeDetected"]);
+        Assert.False((bool)report["expectedSeedMatched"]); Assert.False((bool)report["matched"]);
+    }
+    [Fact] public void PositiveParityRejectsBothRunnersUsingWrongRequestedSeed()
+    {
+        using var f = new Fixture(); f.Passing();
+        f.Left = Rows("passed",18); f.Right = Rows("passed",18);
+        f.Manifest["expectedSeeds"] = new Dictionary<string, ulong> { ["Entry.Scoreboard"] = 17 };
+        var report = f.Compare(marker:null);
+        Assert.False((bool)report["expectedSeedMatched"]); Assert.False((bool)report["matched"]);
+    }
 }
