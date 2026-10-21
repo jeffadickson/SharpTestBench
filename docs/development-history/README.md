@@ -53,6 +53,12 @@ its [scenario ledger](runner-cleanup-iterations.jsonl),
 [interval reviews](runner-cleanup-reviews.jsonl) and
 [independent deep review](runner-cleanup-deep-peer-review.md).
 
+The [priority-encoder checkpoint](priority-validation-report.md) adds pinned
+third-party Verilog, an independent C# scoreboard and 50 managed regressions.
+Its [review record](priority-deep-peer-review.md),
+[scenario ledger](priority-iterations.jsonl) and [review ledger](priority-reviews.jsonl)
+separate new local execution from historical qualification.
+
 Saved Markdown, JSON, JSONL and CSV records are included below. Large binary archives, compiled workers, virtual environments, caches, and generated coverage HTML are not required for the handoff and are not imported into Git. The recorded reports preserve their results and limitations; regenerate local outputs with the C# helpers and Make targets when needed. Some historical reports name old ZIP/HTML artifacts; those filenames are archival references, not required downloads. Historical round 8 coverage excluded a separately collected Runner; the newer coverage scope is documented above. Managed coverage does not measure HDL or native instructions.
 
 ## Included records

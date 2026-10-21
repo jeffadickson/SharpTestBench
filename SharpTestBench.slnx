@@ -8,6 +8,7 @@
     <Project Path="tools/SharpTestBench.Tools/SharpTestBench.Tools.csproj" />
   </Folder>
   <Folder Name="/examples/">
+    <Project Path="examples/PriorityEncoder/PriorityEncoder.csproj" />
     <Project Path="examples/AxisRegister/AxisRegister.csproj" />
     <Project Path="examples/Lfsr/Lfsr.csproj" />
   </Folder>

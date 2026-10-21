@@ -1,0 +1,4 @@
+{"iteration": 15, "reviewer": "coverage_peer", "result": "no actionable findings", "scope": "oracle and wrapper"}
+{"iteration": 30, "reviewer": "coverage_peer", "result": "no actionable findings; gap identified", "resolution": "Added per-row structural trace validation and malformed-report cases."}
+{"iteration": 45, "reviewer": "coverage_peer", "result": "no actionable findings", "resolution": "Final five cases cover acceptance, bit31, index overflow, onehot mismatch, later reordering."}
+{"iteration": 50, "reviewer": "coverage_deep", "result": "no actionable findings", "limits": "Structural validator relies on scoreboard semantics; fault stops at first configuration."}

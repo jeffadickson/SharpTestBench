@@ -1,5 +1,6 @@
 tests/Fixtures/verilog-axis/axis_register.v text eol=lf
 tests/Fixtures/verilog-axis/COPYING text eol=lf
 tests/Fixtures/verilog-lfsr/* text eol=lf
+tests/Fixtures/verilog-priority/* text eol=lf
 Makefile text eol=lf
 tools/Makefile text eol=lf

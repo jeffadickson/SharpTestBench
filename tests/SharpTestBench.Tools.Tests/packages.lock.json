@@ -123,6 +123,15 @@
           "xunit.v3.runner.common": "[3.2.2]"
         }
       },
+      "priorityencoder": {
+        "type": "Project",
+        "dependencies": {
+          "SharpTestBench": "[0.8.0-alpha, )"
+        }
+      },
+      "sharptestbench": {
+        "type": "Project"
+      },
       "sharptestbench.tools": {
         "type": "Project"
       }

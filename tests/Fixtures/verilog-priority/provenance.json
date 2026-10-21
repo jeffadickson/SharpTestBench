@@ -1,0 +1,15 @@
+{
+  "repository": "https://github.com/alexforencich/verilog-axis",
+  "revision": "48ff7a7e2ef782cf778d47910cf85835c64b1bce",
+  "license": "MIT",
+  "files": {
+    "priority_encoder.v": {
+      "upstream": "rtl/priority_encoder.v",
+      "sha256": "df28220d95b47df349a72803a9751aad331eb8e1435416e8686d00572a974dd5"
+    },
+    "COPYING": {
+      "upstream": "COPYING",
+      "sha256": "8ea57f95365e9b16a5b516f422b71269183a1ae53bab5878ae6d69039e58fe77"
+    }
+  }
+}

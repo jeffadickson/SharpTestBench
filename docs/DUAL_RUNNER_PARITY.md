@@ -9,6 +9,12 @@ in PR #62. The existing runner remains the default for users.
 
 ## Local checks
 
+`priority-ci --seed 83` adds the pinned upstream priority encoder to the local
+Icarus dual-runner matrix; `--negative-control` checks valid-bit fault detection.
+See [the fixture guide](../examples/PriorityEncoder/README.md) for the 12
+configurations, 453-vector independent oracle and explicit qualification limits.
+These local commands do not enable or dispatch GitHub workflows.
+
 Use the pinned .NET SDK in `global.json`. Build before running tooling tests:
 
 ```sh

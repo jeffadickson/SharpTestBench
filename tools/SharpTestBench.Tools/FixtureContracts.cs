@@ -21,13 +21,14 @@ internal static class FixtureContracts
         string source, revision;
         if (kind == "lfsr") { source = "lfsr.v"; revision = "c1f86d036745935f3812ec6ddc7821c70ef4c9de"; }
         else if (kind == "axis") { source = "axis_register.v"; revision = "48ff7a7e2ef782cf778d47910cf85835c64b1bce"; }
+        else if (kind == "priority") { source = "priority_encoder.v"; revision = "48ff7a7e2ef782cf778d47910cf85835c64b1bce"; }
         else throw new ArgumentException("Unknown fixture kind");
         var folder = Path.Combine(root, "tests/Fixtures/verilog-" + kind);
         if (File.GetAttributes(folder).HasFlag(FileAttributes.ReparsePoint)) throw new InvalidDataException("Linked fixture directory");
         using var document = StrictJson.Read(Path.Combine(folder, "provenance.json"));
         var meta = document.RootElement;
         Fields(meta, "repository", "revision", "license", "files");
-        if (meta.GetProperty("repository").GetString() != "https://github.com/alexforencich/verilog-" + kind || meta.GetProperty("revision").GetString() != revision || meta.GetProperty("license").GetString() != "MIT") throw new InvalidDataException("Invalid upstream provenance");
+        if (meta.GetProperty("repository").GetString() != "https://github.com/alexforencich/verilog-" + (kind == "priority" ? "axis" : kind) || meta.GetProperty("revision").GetString() != revision || meta.GetProperty("license").GetString() != "MIT") throw new InvalidDataException("Invalid upstream provenance");
         var files = meta.GetProperty("files"); Fields(files, source, "COPYING");
         foreach (var file in files.EnumerateObject())
         {
