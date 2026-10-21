@@ -28,3 +28,12 @@ The arbiter oracle hash covers its main file, not the imported parser dependency
 Native shutdown root cause, broader object/backend parity, full AXI/benchmark
 scope and the remaining public API audit are still open. Final200 deep review
 remains required. No push occurred.
+
+
+Checkpoints110/120 add bounded legacy ownership/compiled-image/completion-shape
+closures and native canonical manifest/config ownership, supplemental retirement,
+relative GPI implementation loading and consistent summary hashes. Fresh120:
+Windows2553 passed/15 Unix skips; Linux2568 passed; actual relative-GPI Icarus both
+OSes, dual priority controls both OSes, Linux Verilator. Compiler-option forwarding,
+relative bridge inputs and broader requirements remain open. No issue is globally
+closed by these bounded contracts; final200 deep review remains outstanding.

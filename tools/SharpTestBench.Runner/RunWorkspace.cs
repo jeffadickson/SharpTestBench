@@ -4,7 +4,8 @@ internal sealed class WorkspaceInUseException(string path, Exception error)
 internal sealed class RunWorkspace : IDisposable
 {
     internal static readonly string[] Artifacts = ["run-manifest.json", "failure-manifest.json", "input-manifest.json",
-        "icarus-results.json", "icarus-results.xml", "icarus-trace.txt", "icarus-trace.txt.delta", "top.vvp", "DutBindings.cs",
+        "icarus-results.json", "icarus-results.xml", "icarus-results.coverage.json", "icarus-results.discovery.json",
+        "icarus-trace.txt.scheduled", "icarus-trace.txt.force", "icarus-trace.txt.capabilities.json", "icarus-trace.txt", "icarus-trace.txt.delta", "top.vvp", "DutBindings.cs",
         "compile.stdout.log", "compile.stderr.log", "simulate.stdout.log", "simulate.stderr.log",
         "compile-process.json", "simulate-process.json"];
     private readonly string path;
@@ -30,6 +31,29 @@ internal sealed class RunWorkspace : IDisposable
             stream.Dispose();
             File.Delete(path);
             throw;
+        }
+    }
+
+    internal static void ValidateOwnership(string work, IEnumerable<string> inputs)
+    {
+        static string Resolve(string path)
+        {
+            path=Path.GetFullPath(path);var root=Path.GetPathRoot(path)!;var current=root;
+            foreach (var part in path[root.Length..].Split(new[] { Path.DirectorySeparatorChar,Path.AltDirectorySeparatorChar },StringSplitOptions.RemoveEmptyEntries))
+            {
+                current=Path.Combine(current,part);
+                FileSystemInfo info=File.Exists(current) ? new FileInfo(current) : new DirectoryInfo(current);
+                if (info.LinkTarget is not null) current=info.ResolveLinkTarget(true)?.FullName ?? throw new InvalidDataException("Unresolved input link: "+current);
+            }
+            return current;
+        }
+        var comparer=OperatingSystem.IsWindows() ? StringComparer.OrdinalIgnoreCase : StringComparer.Ordinal;
+        var protectedFiles=inputs.Select(Resolve).ToHashSet(comparer);
+        foreach (var name in Artifacts.Append(".sharptestbench-run.lock"))
+        {
+            var path=Path.Combine(work,name);
+            if (protectedFiles.Contains(Resolve(path))) throw new InvalidDataException("An input path collides with a generated runner artifact.");
+            if (new FileInfo(path).LinkTarget is not null) throw new InvalidDataException("Generated runner artifact must not be a symbolic link: "+path);
         }
     }
 

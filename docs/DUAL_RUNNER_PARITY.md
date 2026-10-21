@@ -197,3 +197,33 @@ different schema and does not gain this field.
 Controlled C# child tests exercise the production managed entry point with JSON
 reflection disabled. They establish orchestration/evidence behavior only; actual
 HDL simulation, native host loading and NativeAOT publication use separate gates.
+
+
+## Local legacy invocation safety
+
+The `run` CLI validates canonical input/output ownership before removing old
+reports or waveform data. It protects the managed build's `bin` and `obj` trees
+and dedicated backend directories (`verilator`, `nvc-work`, `ghdl-work`). GHDL
+analysis, elaboration and simulation share `ghdl-work`. Inherited JSON log paths
+are made absolute before launch, so backend working directories cannot change
+the validated destination. This protects known outputs; it is not a compiler
+sandbox. SDK/adapter discovery failures before full ownership verification leave
+previous reports intact. After verification, old completion sidecars are retired
+before assembly preparation or compilation.
+
+Icarus requires fresh nonempty compiled output. The legacy compile sidecar records
+its SHA256 and byte count; the image is checked again before accepting results.
+Standalone run evidence also binds the compiled image. These are before/after
+snapshots and do not detect a mutation restored between checks.
+
+Legacy completion must be an array of objects with unique valid identities,
+unsigned64 numeric seeds and `passed`, `failed` or `skipped` statuses. Ordinary
+runs require at least one result and may retain skipped cases. Discovery may
+produce an empty result array. The stricter manifest CI attestation still rejects
+skips and requires its expected identities/count/seeds. Standalone supplemental
+coverage/discovery and trace sidecars are retired alongside primary artifacts;
+canonical manifest and runtime-config aliases are rejected before cleanup.
+
+Standalone GPI implementation library paths are resolved against the manifest
+directory before passing them to the child. Summary source and assembly hashes
+reuse the same verified streaming fingerprint records as input evidence.

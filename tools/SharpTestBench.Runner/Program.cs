@@ -1,6 +1,5 @@
 // Standalone .NET 10 runner for prebuilt SharpTestBench native host/GPI adapter.
 // This initial slice supports Icarus only. No cocotb Python process is launched.
-using System.Security.Cryptography;
 using System.Text.Json;
 
 if (args is ["--help"] or ["-h"])
@@ -40,7 +39,11 @@ try
     Directory.CreateDirectory(work);
     var artifactPaths = RunWorkspace.Artifacts.Append(".sharptestbench-run.lock").Select(name => Path.Combine(work, name)).ToHashSet(
         OperatingSystem.IsWindows() ? StringComparer.OrdinalIgnoreCase : StringComparer.Ordinal);
-    if (sources.Concat([assembly, host, bootstrap, gpi, implementation]).Any(artifactPaths.Contains))
+    var runtimeConfig = Path.ChangeExtension(assembly,".runtimeconfig.json");
+    var dependencyConfig = Path.ChangeExtension(assembly,".deps.json");
+    var ownershipInputs = sources.Concat([manifestPath,assembly,runtimeConfig,dependencyConfig,host,bootstrap,gpi,implementation]);
+    RunWorkspace.ValidateOwnership(work,ownershipInputs);
+    if (ownershipInputs.Any(artifactPaths.Contains))
         throw new InvalidDataException("An input path collides with a generated runner artifact.");
     var pathComparison = OperatingSystem.IsWindows() ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal;
     foreach (var include in config.IncludeDirectories ?? [])
@@ -56,7 +59,6 @@ try
     workspace.ClearArtifacts();
     foreach (var required in sources.Concat([assembly, host, bootstrap, gpi]))
         if (!File.Exists(required)) throw new FileNotFoundException("Required input not found: " + required, required);
-    var runtimeConfig = Path.Combine(Path.GetDirectoryName(assembly)!, Path.GetFileNameWithoutExtension(assembly) + ".runtimeconfig.json");
     if (!File.Exists(runtimeConfig)) throw new FileNotFoundException("Missing runtimeconfig", runtimeConfig);
     var fxrDir = Path.Combine(sdk, "host", "fxr");
     if (!Directory.Exists(fxrDir)) throw new DirectoryNotFoundException(fxrDir);
@@ -88,7 +90,7 @@ try
         ["CS_BINDINGS"] = Path.Combine(work, "DutBindings.cs"),
         ["CS_GPI_LIBRARY"] = gpi,
         ["COCOTB_BOOTSTRAP"] = gpi + "," + config.GpiEntryPoint + Path.PathSeparator + host + ",sharptestbench_initialize",
-        ["GPI_IMPL"] = config.GpiImpl,
+        ["GPI_IMPL"] = implementation + config.GpiImpl[implementationSeparator..],
         ["DOTNET_ROOT"] = sdk,
         ["CS_SEED"] = config.Seed.ToString(),
     };
@@ -112,8 +114,8 @@ try
         Platform = System.Runtime.InteropServices.RuntimeInformation.OSDescription,
         Architecture = System.Runtime.InteropServices.RuntimeInformation.ProcessArchitecture.ToString(),
         Framework = System.Runtime.InteropServices.RuntimeInformation.FrameworkDescription,
-        Sources = sources.Select(s => new SourceEvidence(s, Convert.ToHexString(SHA256.HashData(File.ReadAllBytes(s))))).ToArray(),
-        AssemblySha256 = Convert.ToHexString(SHA256.HashData(File.ReadAllBytes(assembly))),
+        Sources = inputs.Where(input => input.Role == "source").Select(input => new SourceEvidence(input.Path,input.Sha256)).ToArray(),
+        AssemblySha256 = inputs.Single(input => input.Role == "assembly").Sha256,
         Results = results, Passed = attestation.Passed, Failed = failed,
         TestNames = attestation.Names,
         Status = failed == 0 ? "passed" : "failed"

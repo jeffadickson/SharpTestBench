@@ -80,7 +80,7 @@ class Tests(unittest.TestCase):
 
     def controlled(self, **behavior):
         fixture=ROOT/'tests/RunnerProcessFixture/bin/Release/net10.0'/('RunnerProcessFixture.exe' if os.name=='nt' else 'RunnerProcessFixture')
-        config=self.folder/'process-fixture.json';config.write_text(json.dumps({'resultText':'[{"Name":"Contract","Status":"passed"}]',**behavior}),encoding='utf-8')
+        config=self.folder/'process-fixture.json';config.write_text(json.dumps({'resultText':'[{"Name":"Contract","Status":"passed","Seed":1}]',**behavior}),encoding='utf-8')
         assembly=self.folder/'controlled.dll';assembly.write_bytes(b'controlled assembly placeholder')
         assembly.with_suffix('.runtimeconfig.json').write_text('{}',encoding='utf-8')
         source=self.folder/'input.sv';source.write_text('module top; endmodule',encoding='utf-8')
@@ -122,3 +122,27 @@ class Tests(unittest.TestCase):
                               text=True,encoding='utf-8',capture_output=True,check=False,timeout=30)
         self.assertEqual(1,result.returncode);self.assertIn('contains an input',result.stderr)
         self.assertFalse(source.exists())
+
+    def test_unknown_completion_status_is_not_a_success(self):
+        for status in ['unknown','PASSED','',None,True,17]:
+            result=self.controlled(resultText=json.dumps([dict(Name='Contract',Seed=1,Status=status)]))
+            self.assertEqual(1,result.returncode);self.assertIn('test status',result.stderr);self.released()
+
+    def test_malformed_or_duplicate_completion_identities_are_rejected(self):
+        for rows in [[dict(Name=name,Seed=1,Status='passed')] for name in ['', ' padded','bad\u0085name',True]]+[
+                [dict(Name='same',Seed=1,Status='passed'),dict(Name='same',Seed=2,Status='passed')]]:
+            result=self.controlled(resultText=json.dumps(rows));self.assertEqual(1,result.returncode)
+            self.assertIn('identity',result.stderr.lower());self.released()
+
+    def test_completion_seed_must_be_uint64(self):
+        for seed in [None,True,-1,2**64,1.5,'1']:
+            result=self.controlled(resultText=json.dumps([dict(Name='Contract',Seed=seed,Status='passed')]))
+            self.assertEqual(1,result.returncode);self.assertIn('64-bit Seed',result.stderr);self.released()
+        result=self.controlled(resultText=json.dumps([dict(Name='Contract',Seed=2**64-1,Status='passed')]))
+        self.assertEqual(0,result.returncode,result.stderr);self.released()
+
+    def test_generic_run_preserves_skips_while_rejecting_empty_or_nonarray_completion(self):
+        result=self.controlled(resultText=json.dumps([dict(Name='pass',Seed=0,Status='passed'),dict(Name='skip',Seed=1,Status='skipped')]))
+        self.assertEqual(0,result.returncode,result.stderr)
+        for rows in [[],{},None,[17]]:
+            result=self.controlled(resultText=json.dumps(rows));self.assertEqual(1,result.returncode);self.released()

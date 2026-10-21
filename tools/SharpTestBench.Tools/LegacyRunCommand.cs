@@ -163,6 +163,7 @@ internal static class LegacyRunCommand
         if (wave is not null) RecordWave(work, label, simulator, resultPath, wave);
         if (result.ExitCode != 0 || !File.Exists(resultPath)) throw new IOException("Simulator failed or produced no result file");
         using var rows = StrictJson.Read(resultPath);
+        LegacyResults.Validate(rows.RootElement,options.Has("--list") || environment.GetValueOrDefault("CS_LIST_TESTS") == "1");
         var failed = rows.RootElement.EnumerateArray().Where(row => row.GetProperty("Status").GetString() == "failed").ToArray();
         if (failed.Length != 0) { Console.WriteLine(JsonSerializer.Serialize(failed, new JsonSerializerOptions { WriteIndented = true })); throw new InvalidDataException("Simulator test failed"); }
         if (options.Has("--list") || environment.GetValueOrDefault("CS_LIST_TESTS") == "1") { Console.WriteLine(File.ReadAllText(Path.ChangeExtension(resultPath, ".discovery.json"))); return; }

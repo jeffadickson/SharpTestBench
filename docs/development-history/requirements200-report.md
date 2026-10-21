@@ -400,3 +400,31 @@ logging gaps; all corrected and follow-up source review found no actionable issu
 No GHDL native execution or new coverage percentage is claimed. Checkpoint100
 coverage remains the last serial four-assembly collection. CI and PR62 untouched;
 no push. Units1–110 verified locally,90 remain before final200 review.
+
+
+## Local checkpoint120: completion and manifest requirements
+
+Standalone GPI implementation libraries now resolve relative to the manifest
+before child launch. Actual Icarus priority simulation passed with relative
+implementation paths on Windows and Linux. The first extra qualification attempt
+failed because the scratch driver omitted the required PRIORITY_REPORT destination;
+correcting that harness produced a passing run. It was not a production defect.
+Summary source/assembly hashes now reuse verified streaming input records, avoiding
+whole-file reads and inconsistent later summary snapshots. Manifest/runtime-config
+aliases and linked source components are protected before cleanup; supplemental
+coverage/discovery and scheduled/force/capability trace outputs are retired.
+
+Legacy CLI completion now rejects unknown or malformed statuses, identities,
+duplicate identities and invalid uint64 seeds. Generic skipped cases and empty
+discovery remain supported; strict CI manifest skip rejection is unchanged.
+
+Fresh locked Release results: Windows2,553 passed/15 Unix skips; Linux2,568 passed.
+Counts include492 core,17 generator,1,160 helper and899 retained contract cases
+(three Windows contract skips,12 managed skips). Both doctors, both Icarus runners'
+priority positive/negative controls and Linux Verilator passed. Extra relative-GPI
+simulations passed both OSes. Controlled children still do not establish HDL/native
+hosting; Unix link tests do not certify Windows links. No new NativeAOT publication
+or coverage percentage is claimed; checkpoint100 remains last serial coverage.
+Scheduled120 review corrected an unreachable manifest-alias test and added a
+reachable Unix symlink case. No additional actionable source findings remained.
+CI/PR62 untouched; no push.120 units verified,80 remain before final200 review.

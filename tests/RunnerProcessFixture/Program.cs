@@ -23,7 +23,7 @@ if (args.Length != 3 || args[0] != "-m") return 64;
 if (Flag("mutateCompiled")) File.AppendAllText(args[2], "\ncontrolled image mutation\n");
 int logBytes = Number("stdoutBytes");
 if (logBytes > 0) Console.Write(new string('L', logBytes));
-var names = new[] { "CS_SEED", "CS_TEST_FILTER", "CS_TEST_NAMES", "CS_TEST_STAGES", "CS_LIST_TESTS", "CS_STAGE_FAILURE_POLICY" };
+var names = new[] { "GPI_IMPL", "CS_LOG_JSON", "CS_SEED", "CS_TEST_FILTER", "CS_TEST_NAMES", "CS_TEST_STAGES", "CS_LIST_TESTS", "CS_STAGE_FAILURE_POLICY" };
 File.WriteAllText("fixture-environment.json", JsonSerializer.Serialize(names.ToDictionary(key => key, Environment.GetEnvironmentVariable)));
 int delay = Number("simulateDelayMs");
 if (delay != 0) await Task.Delay(delay);
