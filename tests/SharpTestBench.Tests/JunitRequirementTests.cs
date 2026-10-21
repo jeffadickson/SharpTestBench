@@ -56,4 +56,12 @@ public sealed class JunitRequirementTests
         Assert.Equal("0", empty.Attribute("tests")!.Value); Assert.Empty(empty.Elements());
     }
 
+    [Fact] public void LegalUnicodeAndXmlMetacharactersRemainReadableAndRoundTrip()
+    {
+        const string text = "name <&\"'> \t\n \uD7FF\uE000\uFFFD \U0001F600 \U0010FFFF";
+        var xml = JunitReport.Create(new[] { new TestResult(text, "failed", 1, 0, 1, 0, text) });
+        var parsed = XDocument.Parse(xml.ToString()); var row = parsed.Root!.Element("testcase")!;
+        Assert.Equal(text, row.Attribute("name")!.Value); Assert.Equal(text, row.Element("failure")!.Value);
+        Assert.DoesNotContain("#x", row.Element("failure")!.Value);
+    }
 }

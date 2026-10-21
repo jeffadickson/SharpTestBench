@@ -21,3 +21,7 @@ CI tests all four configurations with seeds 1 and 17 and retains plans, source
 fingerprints, child logs, traces, and parity reports under `build/axis-*`.
 This qualifies these configurations on Icarus; it does not claim full AXI protocol
 coverage or upstream project certification.
+
+The same C# stream scoreboard also drives the separately pinned FIFO fixture. See
+[the FIFO qualification guide](../../docs/FIFO_FIXTURE.md) for capacity, pipeline,
+sideband, reset and failure scope.

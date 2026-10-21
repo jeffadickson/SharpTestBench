@@ -38,6 +38,21 @@ internal static class TestApiCommand
             "integer" => Number(0, "value", Number(1, "low"), Number(2, "high")),
             "plan" => AxisFixture.Plan(Number(0, "seed"), (int)Number(1, "count", 1, 4096, 64), (int)Number(2, "stall", 0, 32, 3), Value(3, "reset_at").ValueKind == JsonValueKind.Null ? null : (int)Number(3, "reset_at", 1, 4095)),
             "validate_plan" => AxisFixture.ValidatePlan(Value(0, "rows")), "configuration" => AxisFixture.Configuration((int)Number(0, "mode", 0, 2), Flag(1, "sidebands")), "project" => AxisFixture.Project(Value(0, "row"), Flag(1, "sidebands")), "metrics" => AxisFixture.Metrics(Value(0, "data")), "verify_sources" => FixtureContracts.VerifySources(Text(0, "root"), "axis"), _ => throw new ArgumentException("Unknown AXIS contract") };
+        if (module == "fifo_fixture")
+        {
+            FifoConfiguration Config()
+            {
+                var value = Value(0, "configuration"); FixtureContracts.Fields(value, "Depth", "Pipeline", "OutputFifo", "Sidebands");
+                return FifoFixture.Configuration((int)FixtureContracts.Integer(value.GetProperty("Depth"), 2, 64, "depth"),
+                    (int)FixtureContracts.Integer(value.GetProperty("Pipeline"), 0, 3, "pipeline"),
+                    FixtureContracts.Boolean(value.GetProperty("OutputFifo"), "output_fifo"), FixtureContracts.Boolean(value.GetProperty("Sidebands"), "sidebands"));
+            }
+            return name switch {
+                "plan" => FifoFixture.Plan(Config(), Number(1, "seed"), (int)Number(2, "count", 1, 2048, 128), (int)Number(3, "stall", 0, 32, 7), Value(4, "reset_at").ValueKind == JsonValueKind.Null ? null : (int)Number(4, "reset_at", 1, 2047)),
+                "metrics" => FifoFixture.Metrics(Config(), Value(1, "metrics"), Value(2, "plan")),
+                "verify_sources" => FixtureContracts.VerifySources(Text(0, "root"), "fifo"),
+                _ => throw new ArgumentException("Unknown FIFO contract") };
+        }
         if (module == "dual_runner_manifest") return name switch { "constants" => RunnerManifestCommand.Fixtures, "make_manifest" => RunnerManifestCommand.Make(Text(0, "root"), Text(1, "fixture"), Number(2, "seed"), Value(3, "adapter").EnumerateObject().ToDictionary(pair => pair.Name, pair => (object)(pair.Value.ValueKind == JsonValueKind.String ? pair.Value.GetString()! : "")), Text(4, "output_directory")), _ => throw new ArgumentException("Unknown manifest contract") };
         if (module == "dual_runner_parity")
         {

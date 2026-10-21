@@ -187,3 +187,34 @@ Evidence is fresh under build/requirements200-50-* and
 build/requirements200-native50*. The first 50 of 200 meaningful units are complete;
 150 remain. No push, hosted CI dispatch or external publication occurred. The
 final independent deep review of the whole 200-unit campaign remains required.
+
+## Verified local milestone60
+
+Units51..60 add legal Unicode JUnit coverage and a pinned, unmodified MIT AXI-stream
+FIFO fixture. C# owns configuration, deterministic HDL wrappers, bounded stimulus,
+source/license integrity, builds, both runners and evidence. A parent replay binds
+observations to requested stimulus; an independent Python deque oracle checks each
+positive trace. The existing C# HDL scoreboard is reused. Twelve managed helper
+facts, one core fact and fifteen retained contracts cover provenance, configuration,
+drain budgets, source ownership, sideband projection and adversarial failure data.
+
+Fresh locked Release validation: Windows2459 passed/10skipped; Linux2469 passed.
+Core492, generators17, helpers1132 (Windows1122 passed/10skipped), contracts828.
+Doctors, priority positive/negative Icarus parity and Linux Verilator passed.
+Eight FIFO configurations each passed positive and payload-bit-flip negative
+controls in both runners on both OSes: (depth,pipeline,outputFIFO,sidebands)
+(2,0,off,on),(2,3,on,off),(8,1,off,on),(8,2,on,on),
+(32,0,on,off),(32,3,off,off),(64,1,on,on),(64,2,off,on).
+Each used seed83/count256/stall7/reset128. Both positive traces matched and passed
+the independent oracle; negative cases failed with AXIS_MISMATCH and matched seeds.
+These are32 qualification cases/64 runner processes, not32 engineering iterations.
+One Linux Verilator legacy-runner depth8/pipeline2/outputFIFO/sidebands case also
+passed; its independent replay observed65 accepted,49 consumed,16 reset-flushed
+beats and211 stalled cycles. No dual-runner Verilator or96-configuration claim.
+
+The scheduled60 independent static review found no actionable defect. Random
+traffic does not guarantee RAM saturation; explicit saturation witnesses remain a
+next gap. No new coverage percentage or native publication is claimed at60; the
+serial four-assembly50 coverage and native publication evidence remain scoped to50.
+Fresh artifacts: build/requirements200-60-*, build/fifo-*. All60 units are verified
+locally,140 remain. No push occurred; CI and PR62 were untouched.
