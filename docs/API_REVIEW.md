@@ -149,3 +149,20 @@ are not claimed equivalent. Seven additional native regression requirements cove
 snapshot mutation, synchronous factory failures, failed selection, duplicate
 borrowed observations, pre-dispatch cancellation, error identity and completed
 job cancellation behavior. Actual execution is recorded in the campaign report.
+
+## JUnit reporter contract review
+
+Six pinned _xunit_reporter definitions now have individual reviews:113/302
+inventory decisions,189remaining. The internal C# snapshot builder deliberately
+differs from Python's mutable multi-suite reporter, arbitrary properties,
+attachments, relative-path cache and error/xfailed taxonomy. The runtime retains
+passed/failed/skipped rows and expected-exception handling. No public Python-style
+reporter or atomic multi-file publication is claimed.
+
+JUnit now visibly escapes XML-illegal UTF-16 units in test names and diagnostic
+text while original JSON errors remain intact. Legal XML characters and valid
+supplementary Unicode survive. Testcases gain additive classname metadata from
+the qualified declaring type, so equal short names remain distinguishable. Existing
+name/time fields and JSON result/evidence schemas are retained. Managed regression
+coverage checks invalid text, qualified identity, locale-independent wall time,
+counts and outcome element selection. Native execution is recorded separately.

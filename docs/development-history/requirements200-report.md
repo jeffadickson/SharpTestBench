@@ -100,3 +100,28 @@ Fresh logs/artifacts are build/requirements200-30-* and
 build/requirements200-native30* in their respective checkouts. Native workers were
 published only into the local build directory. Nothing was pushed or published
 externally. The200-unit objective remains active with30completed.
+
+## Verified local milestone40
+
+One production XML-text defect correction, six distinct pinned reporter contract
+reviews, additive JUnit class identity, culture-independent time coverage and
+mixed-outcome/empty-report coverage complete units31..40. Four new managed facts
+exercise production code, not a duplicated XML implementation. A fresh execution
+of the old System.Xml.Linq serialization expression rejects NUL with an invalid
+character error; the new reporter renders rejected UTF-16 units visibly, preserves
+valid surrogate pairs and retains the original JSON error. This does not yet
+establish artifact I/O failure shutdown; that separate defect remains next.
+
+Final Windows2422passed/10skipped; Linux2432passed. Core484, generators17,
+helpers1118total, contracts813. Locked Release builds, both doctors, actual Icarus
+priority positive/negative dual runs and Linux Verilator priority positive passed.
+Independent parsing of both runners' positive/negative JSON/XML reports confirmed
+case names, class identities, failure counts and failure-element presence. Actual
+pinned-source audits passed113/302,189unreviewed. The initial build caught an
+ambiguous TestResult name shared with xUnit; an explicit production-type alias
+corrected it, and failed initial logs remain retained.
+
+Fresh evidence: build/requirements200-40-*; the control-character reproduction is
+build/requirements200-31-prechange-xml.log. JSON schema remains unchanged; JUnit
+classname is additive. No new coverage percentage or new native platform claim is
+made.40of200 meaningful units are complete. All changes remain local/unpushed.

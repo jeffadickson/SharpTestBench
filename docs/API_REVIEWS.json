@@ -12,7 +12,8 @@
     "cocotb.types._logic_array": "1b0e9f23ebc0666a5ba1098eeaab74d448b0730f98e238380fec7f1407200d9d",
     "cocotb.types._resolve": "7c2a1087a6e791306f73a323f7e1aa5f9216dd440b8eee6110d831b13ee59935",
     "cocotb._outcomes": "45aef3bbcd6c489e8dbd5cc105cce29e7a50905a6e01a2c2f14e9e132d497858",
-    "cocotb._concurrent_waiters": "dadac9b16e60c4a107f9063661ce8e2281541bda0ea22f62880a91ee1f372020"
+    "cocotb._concurrent_waiters": "dadac9b16e60c4a107f9063661ce8e2281541bda0ea22f62880a91ee1f372020",
+    "cocotb._xunit_reporter": "9911a6d4edc796af788a5b88da4a9efaa2ea62c703a96193cb151750279888ad"
   },
   "reviews": [
     {
@@ -2195,6 +2196,108 @@
         {
           "path": "tests/Integration/StructuredWaitTests.cs",
           "contains": "root and cleanup failures retained once"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._xunit_reporter",
+      "definition": "TestSuite",
+      "source_line": 46,
+      "classification": "internal-adapter",
+      "reason": "Pinned TestSuite wraps an Element with mutable tests/failure/error/skip/time counters. C# derives a single suite snapshot from completed TestResult rows; it has no public mutable suite handle or multi-class suite cache. Only report generation is mapped, not construction or Python Element protocols.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/JunitReport.cs",
+          "contains": "var suite = new XElement(\"testsuite\","
+        },
+        {
+          "path": "tests/SharpTestBench.Tests/JunitRequirementTests.cs",
+          "contains": "IllegalExceptionCharactersCannotBreakXmlEvidence"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._xunit_reporter",
+      "definition": "TestSuite.update",
+      "source_line": 62,
+      "classification": "intentional-difference",
+      "reason": "Pinned update writes five mutable counters and rounds suite time to three decimals. C# derives tests/failures/skipped from the final rows and writes each case wall duration as an invariant XML number. No separately callable update, error-status counter or rounded aggregate suite-time contract is provided.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/JunitReport.cs",
+          "contains": "new XAttribute(\"failures\", results.Count(x => x.Status == \"failed\"))"
+        },
+        {
+          "path": "tests/SharpTestBench.Tests/JunitRequirementTests.cs",
+          "contains": "IllegalExceptionCharactersCannotBreakXmlEvidence"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._xunit_reporter",
+      "definition": "XUnitReporter",
+      "source_line": 71,
+      "classification": "internal-adapter",
+      "reason": "Pinned XUnitReporter is an application-constructible accumulating reporter with per-class suites, default attachments and path normalization. SharpTestBench regression owns final result publication through an internal JUnit builder. This internal mapping does not provide the upstream configurable reporter API.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Regression.cs",
+          "contains": "JunitReport.Create(results).Save"
+        },
+        {
+          "path": "tests/SharpTestBench.Tests/JunitRequirementTests.cs",
+          "contains": "IllegalExceptionCharactersCannotBreakXmlEvidence"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._xunit_reporter",
+      "definition": "XUnitReporter.add_testcase",
+      "source_line": 112,
+      "classification": "intentional-difference",
+      "reason": "Pinned add_testcase handles passed/failed/skipped/error/xfailed and arbitrary properties, output streams and attachments. C# derives passed/failed/skipped testcase elements from TestResult; expected exceptions become passed and errors remain failure payloads. XML-illegal UTF-16 is visibly escaped while JSON keeps original text. Attachment/property and Python traceback protocols remain outside this mapping.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/JunitReport.cs",
+          "contains": "internal static string Text(string? text)"
+        },
+        {
+          "path": "tests/SharpTestBench.Tests/JunitRequirementTests.cs",
+          "contains": "IllegalExceptionCharactersCannotBreakXmlEvidence"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._xunit_reporter",
+      "definition": "XUnitReporter.write",
+      "source_line": 186,
+      "classification": "intentional-difference",
+      "reason": "Pinned write updates counters, creates parents and saves UTF-8 XML. C# regression writes discovery/results/functional JSON and JUnit beside the configured results path. Successful XML serialization is covered separately from simulator shutdown; atomic multi-file publication and artifact I/O failure shutdown are not established by this mapping.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Regression.cs",
+          "contains": "JunitReport.Create(results).Save"
+        },
+        {
+          "path": "tests/SharpTestBench.Tests/JunitRequirementTests.cs",
+          "contains": "IllegalExceptionCharactersCannotBreakXmlEvidence"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._xunit_reporter",
+      "definition": "XUnitReporter.normalize_path",
+      "source_line": 235,
+      "classification": "intentional-difference",
+      "reason": "Pinned normalize_path caches path objects and optionally makes resolved paths relative to a configured root. C# leaves application exception paths intact in JSON and XML text; it has no mutable reporter base path or attachment cache. Automatic relative-path rewriting is intentionally absent to preserve original diagnostic evidence.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/JunitReport.cs",
+          "contains": "else result.Append(\"#x\")"
+        },
+        {
+          "path": "tests/SharpTestBench.Tests/JunitRequirementTests.cs",
+          "contains": "IllegalExceptionCharactersCannotBreakXmlEvidence"
         }
       ]
     }

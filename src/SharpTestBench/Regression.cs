@@ -3,7 +3,6 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text.Json;
-using System.Xml.Linq;
 
 namespace SharpTestBench;
 [AttributeUsage(AttributeTargets.Method)]
@@ -474,8 +473,7 @@ public static class Regression
         File.WriteAllText(output, JsonSerializer.Serialize(results, new JsonSerializerOptions { WriteIndented = true }));
         File.WriteAllText(Path.ChangeExtension(output, ".coverage.json"), JsonSerializer.Serialize(
             new { SchemaVersion = 1, Kind = "functional", Tests = coverage }, new JsonSerializerOptions { WriteIndented = true }));
-        var suite = new XElement("testsuite", new XAttribute("tests", results.Count), new XAttribute("failures", results.Count(x => x.Status == "failed")), new XAttribute("skipped", results.Count(x => x.Status == "skipped")), results.Select(x => new XElement("testcase", new XAttribute("name", x.Name), new XAttribute("time", x.Seconds), x.Status == "failed" ? new XElement("failure", x.Error) : x.Status == "skipped" ? new XElement("skipped", x.Error) : null)));
-        new XDocument(suite).Save(Path.ChangeExtension(output, "xml"));
+        JunitReport.Create(results).Save(Path.ChangeExtension(output, "xml"));
         if (listOnly && results.Count == 0) Console.WriteLine($"CS_DISCOVERY {discovered.Count} tests; no test bodies executed");
         else Console.WriteLine($"CS_SUMMARY {results.Count(x => x.Status == "passed")} passed {results.Count(x => x.Status == "failed")} failed {results.Count(x => x.Status == "skipped")} skipped");
         if (stopSimulator)
