@@ -57,3 +57,15 @@ not hermetic machine isolation. Run on an otherwise idle machine, serially with
 builds, tests, coverage and other benchmarks. Managed simulator test assemblies
 still require hostfxr/runtime even when the orchestration executable is NativeAOT.
 These measurements do not compare different HDL runtimes or GPI backends.
+
+Use `runner-benchmark-check --report /path/to/summary.json` to check a saved report
+without modifying it or requiring its original binaries. New reports pass this
+same check before completion is published. The checker verifies complete ordered
+pairs, warmup classification, finite nonnegative phases/remainders and recomputed
+measured-only summary counts/min/median/max, with a one-nanosecond rounding tolerance.
+It checks internal consistency, not authenticity, input hashes against today's
+filesystem, correctness of the original simulation, or performance repeatability.
+
+The subsequent 50-edit hardening batch has a [hashed edit ledger](development-history/optiplex-benchmark-50-iterations.jsonl).
+Those entries are source/test/documentation edits, including individual regression
+cases and review corrections; they are not 50 features or 50 separate benchmarks.

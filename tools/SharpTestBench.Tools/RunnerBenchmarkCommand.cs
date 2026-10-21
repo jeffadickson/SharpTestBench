@@ -8,15 +8,18 @@ namespace SharpTestBench.Tools;
 internal sealed record RunnerTiming(int Round, bool Warmup, int Order, string Runner,
     double HelpRoundTripMilliseconds, double TotalMilliseconds, double CompileMilliseconds,
     double SimulationMilliseconds, double OtherMilliseconds);
+internal sealed record RunnerStatistics(int count, double min, double median, double max);
 internal static class RunnerBenchmarkCommand
 {
     internal static string[] Order(int round) => (round & 1) == 0 ? ["legacy", "standalone"] : ["standalone", "legacy"];
-    internal static object Distribution(IEnumerable<double> source)
+    internal static RunnerStatistics Distribution(IEnumerable<double> source)
     {
         var values = source.Order().ToArray();
         if (values.Length == 0 || values.Any(value => !double.IsFinite(value) || value < 0)) throw new InvalidDataException("Invalid timing distribution");
         int middle = values.Length / 2;
-        return new { count = values.Length, min = values[0], median = values.Length % 2 == 0 ? (values[middle - 1] + values[middle]) / 2 : values[middle], max = values[^1] };
+        double low = values[middle == 0 ? 0 : middle - 1], high = values[middle];
+        double median = values.Length % 2 != 0 ? high : low <= double.MaxValue - high ? (low + high) / 2 : low / 2 + high / 2;
+        return new(values.Length, values[0], median, values[^1]);
     }
     internal static double Phase(JsonElement report, string phase)
     {
@@ -153,6 +156,7 @@ internal static class RunnerBenchmarkCommand
             });
             var runtimeSettings = new[] { "DOTNET_TieredCompilation", "DOTNET_ReadyToRun", "DOTNET_TC_QuickJit", "COMPlus_TieredCompilation", "COMPlus_ReadyToRun", "CS_IVL_ROOT" }.ToDictionary(key => key, Environment.GetEnvironmentVariable);
             var report = new { schemaVersion = 1, fixture, seed, repeats, warmups, units = "milliseconds", scope = "Icarus process wall time; prebuilt managed fixture/native host; help round trip is a separate startup proxy", standaloneDeployment = worker is null ? "managed" : "native-aot-artifact", legacyCommand = ToolContext.Self, standaloneCommand = standalone, platform = RuntimeInformation.OSDescription, architecture = RuntimeInformation.ProcessArchitecture.ToString(), controllerRuntime = RuntimeInformation.FrameworkDescription, runtimeSettings, childOverrides = environment, toolVersions, inputs = before, samples, summary };
+            RunnerBenchmarkReport.Validate(JsonSerializer.SerializeToElement(report));
             StrictJson.Write(Path.Combine(work, "summary.json"), report); Console.WriteLine(JsonSerializer.Serialize(report));
         }
         catch (Exception error) { File.Delete(Path.Combine(work, "summary.json")); StrictJson.Write(Path.Combine(work, "failure.json"), new { schemaVersion = 1, error = error.Message, kind = error.GetType().Name, samples }); throw; }
