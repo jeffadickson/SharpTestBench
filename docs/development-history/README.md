@@ -121,7 +121,7 @@ Saved Markdown, JSON, JSONL and CSV records are included below. Large binary arc
 
 ## Active local requirements campaign
 
-- [Requirements campaign report (140/200 completed)](requirements200-report.md)
+- [Requirements campaign report (150/200 completed)](requirements200-report.md)
 - [Actual engineering units](requirements200-iterations.jsonl)
 - [Scheduled and independent reviews](requirements200-reviews.jsonl)
 - [Checkpoint 50 four-assembly coverage](requirements200-checkpoint50-coverage.json)
@@ -131,3 +131,6 @@ completed historical campaign and is not recounted as current work.
 
 - [Checkpoint100 four-assembly coverage](requirements200-checkpoint100-coverage.json)
 - [Bounded requirement closure matrix](requirements200-closure-matrix.md)
+
+- [Checkpoint150 four-assembly coverage](requirements200-checkpoint150-coverage.json)
+- [Checkpoint150 native and manifest qualification](requirements200-checkpoint150-native.json)

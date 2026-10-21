@@ -30,6 +30,21 @@ internal static class ParityLegacyCommand
         return arguments.ToArray();
     }
 
+    internal static Dictionary<string,object> BindTools(ToolContext context,Dictionary<string,object> manifest,string work,Dictionary<string,string?> left,Dictionary<string,string?> right)
+    {
+        var config=Read(manifest);
+        string Tool(string key,string fallback,string? configured)
+        {
+            var selected=configured ?? (left.TryGetValue(key,out var value) ? value ?? fallback : Environment.GetEnvironmentVariable(key) ?? fallback);
+            return selected.Contains(Path.DirectorySeparatorChar) || selected.Contains(Path.AltDirectorySeparatorChar) ? Path.GetFullPath(selected,configured is null ? context.Root : work) : selected;
+        }
+        var compiler=Tool("CS_IVERILOG","iverilog",config.Iverilog);var simulator=Tool("CS_VVP","vvp",config.Vvp);
+        left["CS_IVERILOG"]=compiler;left["CS_VVP"]=simulator;left["CS_DOTNET_ROOT"]=Path.GetFullPath(config.DotnetRoot,work);
+        left["CS_IVL_ROOT"]=null;right["CS_IVL_ROOT"]=null;
+        left["CS_COMPILE_TIMEOUT"]=null;right["CS_COMPILE_TIMEOUT"]=null;
+        return new Dictionary<string,object>(manifest) { ["iverilog"]=compiler,["vvp"]=simulator };
+    }
+
     internal static void ValidateAdapter(RunManifest config,string work,CocotbAdapter adapter)
     {
         var comparer=OperatingSystem.IsWindows() ? StringComparer.OrdinalIgnoreCase : StringComparer.Ordinal;

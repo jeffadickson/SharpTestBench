@@ -41,11 +41,16 @@ internal static class ReportingCheckCommand
                 manifest["assembly"] = assembly; manifest["entryType"] = "Entry, Integration";
                 manifest["top"] = "top"; manifest["sources"] = new[] { source };
                 RunnerManifestCommand.BindSingleCase(manifest, Selected, seed);
+                var config=ParityLegacyCommand.Read(manifest);
+                manifest=ParityLegacyCommand.BindTools(context,manifest,work,environment,environment);
                 StrictJson.Write(Path.Combine(work, "manifest.json"), manifest);
+                var pairedInputs=PairedInputs.Capture(work,config);
                 environment[mode == "text" ? "CS_INJECT_XML_FAILURE" : "CS_INJECT_REPORT_IO_FAILURE"] = "1";
                 var left = RunLegacy("legacy");
+                PairedInputs.Verify(pairedInputs,work,config);
                 var right = context.Run(["dotnet", context.At("tools/SharpTestBench.Runner/bin/Release/net10.0/SharpTestBench.Runner.dll"), "run", Path.Combine(work, "manifest.json")],
                     environment: environment, capture: true, check: false, timeout: TimeSpan.FromSeconds(60));
+                PairedInputs.Verify(pairedInputs,work,config);
                 File.WriteAllText(Path.Combine(work, "native.log"), right.Output + right.Error);
                 if (left.ExitCode != 1 || right.ExitCode != 1) throw new InvalidDataException("Reporting negatives must fail both runners without watchdog expiry");
                 Dictionary<string, object> report;
@@ -77,6 +82,7 @@ internal static class ReportingCheckCommand
                         ["matched"] = a && b && retired && classified, ["primaryResultsRetired"] = retired, ["nativeInfrastructureFailure"] = classified };
                 }
                 report["mode"] = mode; report["exitCodes"] = new { legacy = left.ExitCode, native = right.ExitCode };
+                PairedInputs.Publish(pairedInputs,work,config);
                 return report;
             });
         }

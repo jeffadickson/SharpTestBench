@@ -19,10 +19,22 @@ internal static class ManifestCheckCommand
         }
         return found ?? throw new InvalidDataException("Selected test missing from discovery.");
     }
+    internal static void VerifyDiscoveryInputs(JsonElement evidence,InputFingerprint[] paired)
+    {
+        if (evidence.ValueKind!=JsonValueKind.Object || !evidence.TryGetProperty("schemaVersion",out var version) || version.ValueKind!=JsonValueKind.Number || !version.TryGetInt32(out int schema) || schema!=1 ||
+            !evidence.TryGetProperty("status",out var status) || status.ValueKind!=JsonValueKind.String || status.GetString()!="verified" ||
+            !evidence.TryGetProperty("inputs",out var rows) || rows.ValueKind!=JsonValueKind.Array) throw new InvalidDataException("Discovery inputs must be verified v1 evidence.");
+        InputFingerprint[] inputs;
+        try { inputs=JsonSerializer.Deserialize<InputFingerprint[]>(rows.GetRawText()) ?? throw new InvalidDataException("Missing discovery inputs."); }
+        catch (JsonException error) { throw new InvalidDataException("Invalid discovery input evidence.",error); }
+        if (inputs.Any(input=>input is null || string.IsNullOrWhiteSpace(input.Role) || string.IsNullOrWhiteSpace(input.Path) || input.Bytes<0 || input.Sha256 is not { Length:64 } || !input.Sha256.All(Uri.IsHexDigit)) ||
+            inputs.Count(input=>input.Role=="manifest")!=1 || !inputs.Any(input=>input.Role=="source")) throw new InvalidDataException("Invalid discovery input records.");
+        InputEvidence.Verify(inputs.Where(input=>input.Role!="manifest").ToArray(),paired.Where(input=>input.Role!="manifest").ToArray());
+    }
     public static void Execute(ToolContext context, string[] arguments)
     {
         if (arguments.Length != 0) throw new ArgumentException("runner-manifest-check accepts no arguments");
-        var work = context.At("build/manifest-check"); Directory.CreateDirectory(work); using var workspace = new WorkspaceLock(work, ".manifest-check.lock"); File.Delete(Path.Combine(work, "summary.json"));
+        var work = context.At("build/manifest-check"); Directory.CreateDirectory(work); using var workspace = new WorkspaceLock(work, ".manifest-check.lock"); File.Delete(Path.Combine(work, "summary.json")); File.Delete(Path.Combine(work,PairedInputs.FileName));
         var environment = ParityContracts.ChildEnvironment(ParityContracts.EnvironmentValues()); environment["STB_NATIVE_VPI_TIME"] = "1";
         void Run(string label, string[] command, int expected = 0) { var result = context.Run(command, environment: environment, capture: true, check: false, timeout: TimeSpan.FromSeconds(180)); File.WriteAllText(Path.Combine(work, label + ".log"), result.Output + result.Error); Require(result.ExitCode == expected, label + " did not produce expected exit code"); }
         Run("build-counter", ["dotnet", "build", context.At("examples/Counter"), "-c", "Release", "-v:q"]); NativeBuildCommand.Build(context);
@@ -65,9 +77,18 @@ endmodule
         var selectedSeed=SelectionSeed(discovery.RootElement,selected);
         RunnerManifestCommand.BindSingleCase(manifest,selected,selectedSeed);
         manifest["hdlStandard"]="2012";
-        StrictJson.Write(Path.Combine(work, "selection.json"), manifest); Run("native-selection", ["dotnet", runner, "run", Path.Combine(work, "selection.json")]);
+        var selectionConfig=ParityLegacyCommand.Read(manifest);
+        manifest=ParityLegacyCommand.BindTools(context,manifest,work,environment,environment);
+        StrictJson.Write(Path.Combine(work, "selection.json"), manifest);
+        var selectionInputs=PairedInputs.Capture(work,selectionConfig,"selection.json");
+        using var discoveryInputs=StrictJson.Read(Path.Combine(work,"selection-discovery/discovered-input-manifest.json"));
+        VerifyDiscoveryInputs(discoveryInputs.RootElement,selectionInputs);
+        Run("native-selection", ["dotnet", runner, "run", Path.Combine(work, "selection.json")]);
+        PairedInputs.Verify(selectionInputs,work,selectionConfig,"selection.json");
         Run("legacy-selection", [.. ToolContext.Self, "run", "--sim", "icarus", "--no-build", "--assembly", (string)manifest["assembly"], "--source", ((string[])manifest["sources"])[0], "--top", "top", "--entry-type", "Entry, Integration", "--work-dir", Path.Combine(work, "selection-legacy"), "--label", "selected", "--exact", selected, "--seed", "17"]);
+        PairedInputs.Verify(selectionInputs,work,selectionConfig,"selection.json");
         using var left = StrictJson.Read(Path.Combine(work, "selection-legacy/selected-results.json")); using var right = StrictJson.Read(Path.Combine(work, "selection-native/icarus-results.json")); var comparison = ParityContracts.Compare(left.RootElement, right.RootElement, JsonSerializer.SerializeToElement(new[] { selected })); Require((bool)comparison["matched"], "Selected runner cases differ");
+        PairedInputs.Publish(selectionInputs,work,selectionConfig,"selection.json");
         StrictJson.Write(Path.Combine(work, "summary.json"), new { schemaVersion = 1, compilerOptions = true, parameterNegativeControl = true, selectedCaseParity = comparison, selectedExpectedSeed=selectedSeed, compilerOptionParity=compilerParity, compilerOptionNegativeParity=compilerNegativeParity, inputAttestation = true }); Console.WriteLine("MANIFEST_CHECK_PASS compiler options, parameter negative, exact selection and provenance");
     }
 }

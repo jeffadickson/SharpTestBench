@@ -17,15 +17,7 @@ internal static class ParityCiCommand
         var leftEnvironment = new Dictionary<string, string?>(environment); var rightEnvironment = new Dictionary<string, string?>(environment);
         leftEnvironment["CS_DOTNET_ROOT"]=Path.GetFullPath(config.DotnetRoot,work);
         foreach (var key in new[] { "CS_TEST_FILTER","CS_TEST_NAMES","CS_TEST_STAGES","CS_LIST_TESTS","CS_STAGE_FAILURE_POLICY" }) { leftEnvironment[key]=null;rightEnvironment[key]=null; }
-        string Tool(string key,string fallback)
-        {
-            var selected=environment.TryGetValue(key,out var value) ? value ?? fallback : Environment.GetEnvironmentVariable(key) ?? fallback;
-            return selected.Contains(Path.DirectorySeparatorChar) || selected.Contains(Path.AltDirectorySeparatorChar) ? Path.GetFullPath(selected,context.Root) : selected;
-        }
-        var compiler=Tool("CS_IVERILOG","iverilog");var simulator=Tool("CS_VVP","vvp");
-        leftEnvironment["CS_IVERILOG"]=compiler;leftEnvironment["CS_VVP"]=simulator;
-        leftEnvironment["CS_IVL_ROOT"]=null;rightEnvironment["CS_IVL_ROOT"]=null;
-        var boundManifest=new Dictionary<string,object>(manifest) { ["iverilog"]=compiler,["vvp"]=simulator };
+        var boundManifest=ParityLegacyCommand.BindTools(context,manifest,work,leftEnvironment,rightEnvironment);
         StrictJson.Write(Path.Combine(work,"manifest.json"),boundManifest);
         if (metricsVariable is not null) { leftEnvironment[metricsVariable] = Path.Combine(work, "legacy/metrics.json"); rightEnvironment[metricsVariable] = Path.Combine(work, "native/metrics.json"); }
         var pairedInputs=PairedInputs.Capture(work,config);
@@ -57,8 +49,7 @@ internal static class ParityCiCommand
             report["expectedSeedMatched"] = matched;
             report["matched"] = (bool)report["matched"] && matched;
         }
-        PairedInputs.Verify(pairedInputs,work,config);
-        StrictJson.Write(Path.Combine(work,PairedInputs.FileName),new { schemaVersion=1,status="verified",runId=Guid.NewGuid().ToString("N"),inputs=pairedInputs });
+        PairedInputs.Publish(pairedInputs,work,config);
         report["exitCodes"] = new { legacy = leftCode, native = rightCode }; return report;
     }
     static Dictionary<string, object> Prepare(ToolContext context, string work, string project, string fixture, ulong seed, IReadOnlyDictionary<string, string?> environment)

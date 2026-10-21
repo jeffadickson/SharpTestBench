@@ -11,6 +11,8 @@ internal static class LegacyArtifacts
         Path.Combine(work,label+"-trace.txt.scheduled"), Path.Combine(work,label+"-trace.txt.force"),
         Path.Combine(work,label+"-trace.txt.capabilities.json"), Path.Combine(work,label+"-artifacts.json"),
         Path.Combine(work,label+"-timings.json"), Path.Combine(work,label+"-run.log"),
+        Path.Combine(work,label+"-invocation.json"),Path.Combine(work,label+"-input-manifest.json"),
+        Path.Combine(work,label+"-compile-process.json"),Path.Combine(work,label+"-compile.stdout.log"),Path.Combine(work,label+"-compile.stderr.log"),
         Path.Combine(work,label+"-compile.json"), Path.Combine(work,label+"-failure.json"),
         Path.Combine(work,label+"-wave-dump.sv")];
     static StringComparer Comparison => OperatingSystem.IsWindows() ? StringComparer.OrdinalIgnoreCase : StringComparer.Ordinal;
@@ -40,7 +42,7 @@ internal static class LegacyArtifacts
     internal static void RetireReports(string work, string label)
     {
         // Caller must have acquired its workspace and validated explicit and resolved runtime inputs.
-        foreach (var path in Reports(work,label).Concat(new[] { "-artifacts.json", "-timings.json", "-run.log", "-compile.json", "-failure.json" }.Select(suffix => Path.Combine(work,label+suffix))))
+        foreach (var path in Reports(work,label).Concat(new[] { "-artifacts.json", "-timings.json", "-run.log", "-compile.json", "-compile-process.json", "-compile.stdout.log", "-compile.stderr.log", "-failure.json", "-invocation.json", "-input-manifest.json" }.Select(suffix => Path.Combine(work,label+suffix))))
             File.Delete(path);
     }
 }

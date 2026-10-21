@@ -511,3 +511,50 @@ requirements200-checkpoint140-native.json. No new AOT publication or coverage
 percentage is claimed; final coverage/publication qualification remains upcoming.
 Scheduled135 and extra140 reviews completed; findings above corrected and reviewed.
 140 units verified locally,60 remain. CI/PR62 untouched and no push.
+
+
+## Checkpoint150 — direct identity and compiler failure contracts
+
+Iterations141..150 add direct Legacy invocation/input snapshots, canonical runtime
+and source stability checks, Windows staged-bootstrap and generated wave-helper
+fingerprints. Passing JSON cannot conceal changed declared inputs. Custom reporting
+and exact-selection helpers bind paired inputs separately; discovered seeds require
+verified matching execution inputs. Existing parity result schemas remain unchanged.
+
+Automatic managed/native build failures retain compile classification. Successful
+simulation followed by parent log-write failure records infrastructure/record failure.
+Icarus compilation has validated CS_COMPILE_TIMEOUT(default120s,1..3600), separate
+stdout/stderr and v1 process metadata for nonzero/start/timeout failures. Diagnostics
+are retained only after both writes. New outputs participate in ownership and stale
+retirement. Timeout/start failures retain metadata, not partial streams; generic
+CommandRunner capture remains unbounded. No all-backend compiler-watchdog claim.
+
+Review150 caught ambient deadline asymmetry and false diagnostic-retention state;
+both are corrected with regressions. Full tests caught the first fix violating an
+existing explicit-null environment invariant; both maps now clear the override and
+use default120s. An initial Windows contract attempt used an old fixture binary
+with the newly added obstruction test. Fixed-source full validation was rerun.
+Failed attempts are not counted as passes or additional engineering iterations.
+
+Fresh locked Release: Windows2,596 passed/15 Unix skips; Linux2,611 passed including
+make test. Counts: core492, generators17, helpers1,181 and921 retained contracts.
+Both doctors, dual Icarus priority +/- and Linux Verilator passed. Actual manifest
+options positive/wrong-width negatives and exact selection passed both OSes.
+Reporting text/IO negatives and published Tools3-portRR arbiter passed both OSes.
+Linux NativeAOT Runner completed actual Icarus arbiter and independent Python replay.
+Full Tools is self-contained ReadyToRun with bundled CoreCLR/JIT, not NativeAOT;
+no Windows Runner AOT or six executed RID claim.
+
+Serial coverage includes all four production assemblies. Windows6,153/9,839 lines
+(62.5368431751%),3,161/6,434 branches(49.1296238732%); Linux6,154/9,839 lines
+(62.5470068096%),3,179/6,434 branches(49.4093876282%). Both reports retain all152
+physical sources and43/43 generated-source HTML sections. Production Runner CLI
+collection covers132/142 Program lines with JSON reflection disabled. Generated
+sources contribute to the denominator; old/new percentages are not directly
+comparable. HDL, NativeAOT instructions and complete CLI success/runtime-switch
+matrices are excluded. Detailed checkpoint150 JSON is committed; HTML remains in
+this task's outputs/requirements200/checkpoint150.
+
+A read-only GitHub check confirmed12 disabled workflows and unchanged open/draft
+PR62 at0318a864d9b570f9ffbc4857e7365ec9ed6a4736.150 units verified locally,50 remain.
+Final200 deep review remains required. No push occurred.

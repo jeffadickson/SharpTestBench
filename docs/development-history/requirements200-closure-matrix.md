@@ -56,3 +56,12 @@ Existing parity/arbiter report schemas remain unchanged. Actual one3-portRR arbi
 generic direct Legacy source snapshots are separate remaining scope. New oracle
 source sidecar covers the imported parser; historical100 limitations remain true
 of that older evidence.140/200 verified; final review/coverage remain outstanding.
+
+
+Checkpoint150 closes direct declared-input/staged-bootstrap/wave-helper stability,
+custom reporting/selection pair identity and Icarus compile deadline, startup/nonzero
+diagnostics and timeout recovery. Existing parity schemas remain unchanged. Actual
+manifest parity bothOS, published Tools bothOS and Linux NativeAOT Runner passed.
+Four-assembly coverage/generated HTML are refreshed in checkpoint150 JSON. Bounded
+and partial process capture, frame FIFO modes, broader API audit and native shutdown
+root cause remain open.150/200 verified; final review pending; no push.

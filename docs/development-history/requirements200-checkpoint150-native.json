@@ -1,0 +1,348 @@
+{
+  "windows": {
+    "manifestCheck": {
+      "schemaVersion": 1,
+      "compilerOptions": true,
+      "parameterNegativeControl": true,
+      "selectedCaseParity": {
+        "schemaVersion": 1,
+        "legacy": [
+          [
+            "Tests.A_TypesAndSignals",
+            "passed"
+          ]
+        ],
+        "native": [
+          [
+            "Tests.A_TypesAndSignals",
+            "passed"
+          ]
+        ],
+        "expected": [
+          "Tests.A_TypesAndSignals"
+        ],
+        "missing": {
+          "legacy": [],
+          "native": []
+        },
+        "unexpected": {
+          "legacy": [],
+          "native": []
+        },
+        "seedMismatches": [],
+        "matched": true
+      },
+      "selectedExpectedSeed": 59,
+      "compilerOptionParity": {
+        "schemaVersion": 1,
+        "legacy": [
+          [
+            "Entry.ResetAndCount",
+            "passed"
+          ]
+        ],
+        "native": [
+          [
+            "Entry.ResetAndCount",
+            "passed"
+          ]
+        ],
+        "expected": [
+          "Entry.ResetAndCount"
+        ],
+        "missing": {
+          "legacy": [],
+          "native": []
+        },
+        "unexpected": {
+          "legacy": [],
+          "native": []
+        },
+        "seedMismatches": [],
+        "matched": true,
+        "expectedSeedMatched": true,
+        "exitCodes": {
+          "legacy": 0,
+          "native": 0
+        }
+      },
+      "compilerOptionNegativeParity": {
+        "schemaVersion": 1,
+        "negativeControl": true,
+        "legacyDetected": true,
+        "nativeDetected": true,
+        "matched": true,
+        "expectedSeedMatched": true,
+        "exitCodes": {
+          "legacy": 1,
+          "native": 1
+        }
+      },
+      "inputAttestation": true
+    },
+    "readyToRun": {
+      "path": "C:\\dev\\SharpTestBench\\build\\requirements200-native150\\win-x64\\tools\\SharpTestBench.Tools.dll",
+      "managedNativeHeaderRva": 5744,
+      "managedNativeHeaderSize": 196,
+      "readyToRunSignature": "52545200"
+    },
+    "arbiter": {
+      "schemaVersion": 1,
+      "legacy": [
+        [
+          "Entry.ArbiterScoreboard",
+          "passed"
+        ]
+      ],
+      "native": [
+        [
+          "Entry.ArbiterScoreboard",
+          "passed"
+        ]
+      ],
+      "expected": [
+        "Entry.ArbiterScoreboard"
+      ],
+      "missing": {
+        "legacy": [],
+        "native": []
+      },
+      "unexpected": {
+        "legacy": [],
+        "native": []
+      },
+      "seedMismatches": [],
+      "matched": true,
+      "traceMatched": true,
+      "expectedSeedMatched": true,
+      "exitCodes": {
+        "legacy": 0,
+        "native": 0
+      },
+      "fixture": "arbiter",
+      "configuration": {
+        "Ports": 3,
+        "RoundRobin": true,
+        "Blocking": 0,
+        "LsbPriority": true
+      },
+      "top": "arb_p3_r1_b0_l1",
+      "seed": 83,
+      "revision": "48ff7a7e2ef782cf778d47910cf85835c64b1bce",
+      "planSha256": "19c0fbb1fff1e8cf9709c36834715be99833ff425887483206ef98b5fcb0edd3",
+      "configurationSha256": "cfb51e400d0aa67a14d9ccd889c4e759952a7f2ca995191a4fa069878a8bab0b",
+      "wrapperSha256": "e6d31b3e04950d387d7c22a6d9831058bc6796178593c2905df4059aa3d05f4f",
+      "oracleSha256": "3577a676225a4bd3339c36f9997200665948a7ab58bceb108f7ebb7b84df4196",
+      "fault": "none",
+      "oracleMatched": true
+    }
+  },
+  "linux": {
+    "manifestCheck": {
+      "schemaVersion": 1,
+      "compilerOptions": true,
+      "parameterNegativeControl": true,
+      "selectedCaseParity": {
+        "schemaVersion": 1,
+        "legacy": [
+          [
+            "Tests.A_TypesAndSignals",
+            "passed"
+          ]
+        ],
+        "native": [
+          [
+            "Tests.A_TypesAndSignals",
+            "passed"
+          ]
+        ],
+        "expected": [
+          "Tests.A_TypesAndSignals"
+        ],
+        "missing": {
+          "legacy": [],
+          "native": []
+        },
+        "unexpected": {
+          "legacy": [],
+          "native": []
+        },
+        "seedMismatches": [],
+        "matched": true
+      },
+      "selectedExpectedSeed": 59,
+      "compilerOptionParity": {
+        "schemaVersion": 1,
+        "legacy": [
+          [
+            "Entry.ResetAndCount",
+            "passed"
+          ]
+        ],
+        "native": [
+          [
+            "Entry.ResetAndCount",
+            "passed"
+          ]
+        ],
+        "expected": [
+          "Entry.ResetAndCount"
+        ],
+        "missing": {
+          "legacy": [],
+          "native": []
+        },
+        "unexpected": {
+          "legacy": [],
+          "native": []
+        },
+        "seedMismatches": [],
+        "matched": true,
+        "expectedSeedMatched": true,
+        "exitCodes": {
+          "legacy": 0,
+          "native": 0
+        }
+      },
+      "compilerOptionNegativeParity": {
+        "schemaVersion": 1,
+        "negativeControl": true,
+        "legacyDetected": true,
+        "nativeDetected": true,
+        "matched": true,
+        "expectedSeedMatched": true,
+        "exitCodes": {
+          "legacy": 1,
+          "native": 1
+        }
+      },
+      "inputAttestation": true
+    },
+    "readyToRun": {
+      "path": "build/requirements200-native150/linux-x64/tools/SharpTestBench.Tools.dll",
+      "managedNativeHeaderRva": 67680,
+      "managedNativeHeaderSize": 196,
+      "readyToRunSignature": "52545200"
+    },
+    "arbiter": {
+      "schemaVersion": 1,
+      "legacy": [
+        [
+          "Entry.ArbiterScoreboard",
+          "passed"
+        ]
+      ],
+      "native": [
+        [
+          "Entry.ArbiterScoreboard",
+          "passed"
+        ]
+      ],
+      "expected": [
+        "Entry.ArbiterScoreboard"
+      ],
+      "missing": {
+        "legacy": [],
+        "native": []
+      },
+      "unexpected": {
+        "legacy": [],
+        "native": []
+      },
+      "seedMismatches": [],
+      "matched": true,
+      "traceMatched": true,
+      "expectedSeedMatched": true,
+      "exitCodes": {
+        "legacy": 0,
+        "native": 0
+      },
+      "fixture": "arbiter",
+      "configuration": {
+        "Ports": 3,
+        "RoundRobin": true,
+        "Blocking": 0,
+        "LsbPriority": true
+      },
+      "top": "arb_p3_r1_b0_l1",
+      "seed": 83,
+      "revision": "48ff7a7e2ef782cf778d47910cf85835c64b1bce",
+      "planSha256": "613a902914a15373c2a3f77b81dfb6780e9ec99a35ae365906f95e42cf32ed1e",
+      "configurationSha256": "3b556e5173eeb81eefbee0973031703c032d97648336806637f663224015dfbc",
+      "wrapperSha256": "e6d31b3e04950d387d7c22a6d9831058bc6796178593c2905df4059aa3d05f4f",
+      "oracleSha256": "3577a676225a4bd3339c36f9997200665948a7ab58bceb108f7ebb7b84df4196",
+      "fault": "none",
+      "oracleMatched": true
+    },
+    "nativeAotRunner": {
+      "status": "passed",
+      "passed": 1,
+      "compiled": {
+        "Role": "compiled-image",
+        "Path": "/home/jeffd/src/SharpTestBench/build/requirements200-150-aot-arbiter/native/top.vvp",
+        "Bytes": 18786,
+        "Sha256": "D5020917CB6894E259BAD9763C313D7034C3D9A28EEBFB899086797E8369F6CB"
+      }
+    }
+  },
+  "github": {
+    "checkedUtc": "2026-10-21T21:23:58.4544974Z",
+    "workflows": [
+      {
+        "name": "Build and simulator tests",
+        "state": "disabled_manually"
+      },
+      {
+        "name": "Managed code coverage",
+        "state": "disabled_manually"
+      },
+      {
+        "name": "API documentation",
+        "state": "disabled_manually"
+      },
+      {
+        "name": "Dual runner parity (Icarus)",
+        "state": "disabled_manually"
+      },
+      {
+        "name": "Independent C++20 VPI probe",
+        "state": "disabled_manually"
+      },
+      {
+        "name": "Native runner Icarus integration",
+        "state": "disabled_manually"
+      },
+      {
+        "name": "Native .NET runner spike",
+        "state": "disabled_manually"
+      },
+      {
+        "name": "Prepare or publish validated NuGet release",
+        "state": "disabled_manually"
+      },
+      {
+        "name": "Upstream AXI Stream parity",
+        "state": "disabled_manually"
+      },
+      {
+        "name": "Upstream LFSR CRC parity",
+        "state": "disabled_manually"
+      },
+      {
+        "name": "Direct Verilator C++ model proof",
+        "state": "disabled_manually"
+      },
+      {
+        "name": "Windows ARM64 native validation",
+        "state": "disabled_manually"
+      }
+    ],
+    "pr": {
+      "head": "0318a864d9b570f9ffbc4857e7365ec9ed6a4736",
+      "draft": true,
+      "merged": false,
+      "state": "open"
+    }
+  },
+  "limits": "Actual Windows x64 ReadyToRun Tools and Linux x64 ReadyToRun Tools plus NativeAOT Runner. Managed simulation tests still require separate CoreCLR/hostfxr. No Windows Runner AOT or six-platform qualification."
+}

@@ -90,12 +90,13 @@ class Tests(unittest.TestCase):
         assembly=self.folder/'controlled.dll';assembly.write_bytes(b'controlled assembly placeholder')
         assembly.with_suffix('.runtimeconfig.json').write_text('{}',encoding='utf-8')
         source=self.folder/'input.sv';source.write_text('module top; endmodule',encoding='utf-8')
+        host=self.folder/'host.bin';host.write_bytes(b'controlled native host placeholder')
         env=dict(os.environ,CS_IVERILOG=str(fixture),CS_VVP=str(fixture),STB_PROCESS_FIXTURE_CONFIG=str(config))
         env.pop("CS_IVL_ROOT",None)
         if mock_adapter:env["CS_PYTHON"]=str(fixture)
         if child_environment:env.update(child_environment)
         return subprocess.run(['dotnet',str(self.cli),'run','--no-build','--work-dir',str(self.work),'--label','guard',
-                               '--assembly',str(assembly),'--source',str(source),*cli_options],cwd=ROOT,env=env,
+                               '--assembly',str(assembly),'--source',str(source),'--host',str(host),*cli_options],cwd=ROOT,env=env,
                                text=True,encoding='utf-8',capture_output=True,check=False,timeout=30)
 
     def test_controlled_compilation_records_exact_image_and_accepts_results(self):
@@ -257,3 +258,80 @@ class Tests(unittest.TestCase):
         self.assertEqual(1,result.returncode);evidence=self.failure()
         self.assertEqual('configuration_error',evidence['kind']);self.assertEqual('prepare',evidence['phase'])
         self.assertFalse((self.folder/'fixture-compile-argv.json').exists())
+
+    def test_direct_legacy_run_rejects_source_mutation_despite_passing_results(self):
+        for phase in ['compile','simulate']:
+            result=self.controlled(mock_adapter=True,mutatePhase=phase)
+            self.assertEqual(1,result.returncode);self.assertIn('inputs changed',result.stderr)
+            evidence=self.failure();self.assertEqual('configuration_error',evidence['kind'])
+            captured=json.loads((self.work/'guard-input-manifest.json').read_text(encoding='utf-8'))
+            self.assertEqual('captured',captured['status']);self.assertEqual(evidence['runId'],captured['runId'])
+
+    def test_bootstrap_mutation_is_rejected_including_windows_staged_copy(self):
+        result=self.controlled(mock_adapter=True,mutateBootstrap=True)
+        self.assertEqual(1,result.returncode);self.assertIn('inputs changed',result.stderr)
+        self.assertEqual('configuration_error',self.failure()['kind'])
+
+    def test_direct_input_evidence_keeps_invocation_identity_and_verified_bytes(self):
+        import hashlib
+        result=self.controlled(mock_adapter=True);self.assertEqual(0,result.returncode,result.stderr)
+        inputs=json.loads((self.work/'guard-input-manifest.json').read_text(encoding='utf-8'))
+        invocation=json.loads((self.work/'guard-invocation.json').read_text(encoding='utf-8'))
+        self.assertEqual('verified',inputs['status']);self.assertEqual(inputs['runId'],invocation['runId'])
+        for item in inputs['inputs']+inputs['generated']:
+            self.assertEqual(hashlib.sha256(Path(item['Path']).read_bytes()).hexdigest().upper(),item['Sha256'])
+        self.assertEqual(['staged-bootstrap'] if os.name=='nt' else [],[item['Role'] for item in inputs['generated']]);self.released()
+
+    def test_parent_log_publication_failure_is_infrastructure_not_simulator_failure(self):
+        result=self.controlled(mock_adapter=True,blockRunLog=True)
+        self.assertEqual(1,result.returncode);evidence=self.failure()
+        self.assertEqual('infrastructure_failure',evidence['kind']);self.assertEqual('record',evidence['phase'])
+        self.assertEqual(0,evidence['simulatorExitCode']);self.assertTrue((self.work/'guard-results.json').is_file())
+
+    def test_compiler_deadline_rejects_invalid_configuration_before_launch(self):
+        for value in ['invalid','0','3601']:
+            result=self.controlled(mock_adapter=True,child_environment={'CS_COMPILE_TIMEOUT':value})
+            self.assertEqual(1,result.returncode);evidence=self.failure()
+            self.assertEqual('prepare',evidence['phase']);self.assertEqual('configuration_error',evidence['kind'])
+            self.assertFalse((self.folder/'fixture-compile-argv.json').exists())
+
+    def test_compiler_diagnostics_and_exit_are_retained_separately_from_simulation(self):
+        result=self.controlled(mock_adapter=True,compileExit=7)
+        self.assertEqual(1,result.returncode);self.assertEqual('build_failure',self.failure()['kind'])
+        evidence=json.loads((self.work/'guard-compile-process.json').read_text(encoding='utf-8'))
+        self.assertEqual(7,evidence['exitCode']);self.assertTrue(evidence['diagnosticsRetained'])
+        self.assertFalse(evidence['timedOut']);self.assertEqual('failed',evidence['status'])
+        self.assertIn('controlled compiler diagnostic',(self.work/'guard-compile.stderr.log').read_text(encoding='utf-8'))
+        self.assertFalse((self.work/'guard-results.json').exists())
+
+    def test_compiler_start_failure_has_current_metadata_and_no_stale_diagnostics(self):
+        for suffix in ['-compile.stdout.log','-compile.stderr.log','-compile-process.json']:
+            (self.work/('guard'+suffix)).write_text('old diagnostics',encoding='utf-8')
+        result=self.controlled(mock_adapter=True,child_environment={'CS_IVERILOG':str(self.folder/'missing compiler')})
+        self.assertEqual(1,result.returncode);self.assertEqual('build_failure',self.failure()['kind'])
+        evidence=json.loads((self.work/'guard-compile-process.json').read_text(encoding='utf-8'))
+        self.assertIsNone(evidence['exitCode']);self.assertFalse(evidence['diagnosticsRetained'])
+        self.assertFalse((self.work/'guard-compile.stdout.log').exists());self.assertFalse((self.work/'guard-compile.stderr.log').exists())
+
+    def test_compiler_timeout_releases_lease_and_next_run_replaces_failure(self):
+        result=self.controlled(mock_adapter=True,child_environment={'CS_COMPILE_TIMEOUT':'1'},compileDelayMs=4000)
+        self.assertEqual(1,result.returncode);evidence=self.failure()
+        self.assertEqual('timeout',evidence['kind']);self.assertEqual('compile',evidence['phase'])
+        process=json.loads((self.work/'guard-compile-process.json').read_text(encoding='utf-8'))
+        self.assertTrue(process['timedOut']);self.assertIsNone(process['exitCode'])
+        result=self.controlled(mock_adapter=True);self.assertEqual(0,result.returncode,result.stderr)
+        self.assertFalse((self.work/'guard-failure.json').exists())
+        process=json.loads((self.work/'guard-compile-process.json').read_text(encoding='utf-8'))
+        self.assertEqual('completed',process['status']);self.assertEqual(0,process['exitCode'])
+
+    def test_generated_wave_helper_mutation_cannot_hide_behind_passing_result_rows(self):
+        result=self.controlled(mock_adapter=True,cli_options=['--waves',str(self.folder/'waves.vcd')],mutateWaveHelper=True)
+        self.assertEqual(1,result.returncode);self.assertIn('inputs changed',result.stderr)
+        self.assertEqual('configuration_error',self.failure()['kind'])
+
+    def test_compiler_log_io_failure_does_not_claim_complete_diagnostic_retention(self):
+        result=self.controlled(mock_adapter=True,blockCompileLog=True)
+        self.assertEqual(1,result.returncode);self.failure()
+        evidence=json.loads((self.work/'guard-compile-process.json').read_text(encoding='utf-8'))
+        self.assertEqual(0,evidence['exitCode']);self.assertFalse(evidence['diagnosticsRetained'])
+        self.assertEqual('failed',evidence['status']);self.assertFalse((self.work/'guard-results.json').exists())

@@ -80,4 +80,23 @@ public sealed class CompileParityTests
             Assert.Throws<InvalidDataException>(()=>ManifestCheckCommand.SelectionSeed(discovery.RootElement,"Entry.Case"));
         }
     }
+    [Fact] public void DiscoverySeedProducerMustUseTheSameDeclaredInputBytesAsSelectedPair()
+    {
+        var source=new InputFingerprint("source",Path.Combine(Root,"top.sv"),1,new string('A',64));
+        var planning=new[] { new InputFingerprint("manifest","discovery invocation",1,new string('B',64)),source };
+        var execution=new[] { new InputFingerprint("manifest","selected invocation",1,new string('C',64)),source };
+        var evidence=System.Text.Json.JsonSerializer.SerializeToElement(new { schemaVersion=1,status="verified",inputs=planning });
+        ManifestCheckCommand.VerifyDiscoveryInputs(evidence,execution);
+        Assert.Throws<InvalidDataException>(()=>ManifestCheckCommand.VerifyDiscoveryInputs(evidence,[execution[0],source with { Sha256=new string('D',64) }]));
+        var incomplete=System.Text.Json.JsonSerializer.SerializeToElement(new { schemaVersion=1,status="captured",inputs=planning });
+        Assert.Throws<InvalidDataException>(()=>ManifestCheckCommand.VerifyDiscoveryInputs(incomplete,execution));
+    }
+    [Fact] public void PairedCompilerDeadlineIgnoresPoisonedInheritedOverride()
+    {
+        var left=new Dictionary<string,string?> { ["CS_COMPILE_TIMEOUT"]="invalid" };
+        var right=new Dictionary<string,string?> { ["CS_COMPILE_TIMEOUT"]="1" };
+        ParityLegacyCommand.BindTools(new ToolContext(Root),Manifest(),Root,left,right);
+        Assert.Null(left["CS_COMPILE_TIMEOUT"]);Assert.Null(right["CS_COMPILE_TIMEOUT"]);
+        Assert.Contains("CS_COMPILE_TIMEOUT",ParityContracts.SelectionVariables);
+    }
 }

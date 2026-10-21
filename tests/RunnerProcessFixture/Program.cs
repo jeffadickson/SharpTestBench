@@ -19,15 +19,21 @@ if (compile)
     if (index < 0 || index + 1 >= args.Length) return 64;
     if (!Flag("omitCompiled"))
         File.WriteAllText(args[index + 1], Flag("emptyCompiled") ? "" : "Controlled compiler output; not executable HDL.");
+    if (Flag("blockCompileLog")) Directory.CreateDirectory(Path.Combine(Path.GetDirectoryName(args[index+1])!,"guard-compile.stderr.log"));
+    if (Number("compileDelayMs")>0) await Task.Delay(Number("compileDelayMs"));
+    Console.Error.WriteLine("controlled compiler diagnostic");
     return Number("compileExit");
 }
-if (args.Length != 3 || args[0] != "-m") return 64;
+if (args.Length < 3 || args[0] != "-m") return 64;
 if (Flag("writeLog")) File.WriteAllText(Environment.GetEnvironmentVariable("CS_LOG_JSON") ?? throw new InvalidOperationException("Missing log path"),"controlled runtime log\n");
+if (Flag("mutateWaveHelper")) File.AppendAllText(Path.Combine(Directory.GetCurrentDirectory(),"guard-wave-dump.sv"),"// mutation");
+if (Flag("mutateBootstrap")) File.AppendAllText(args[1],"\ncontrolled bootstrap mutation\n");
 if (Flag("mutateCompiled")) File.AppendAllText(args[2], "\ncontrolled image mutation\n");
 int logBytes = Number("stdoutBytes");
 if (logBytes > 0) Console.Write(new string('L', logBytes));
 var names = new[] { "GPI_IMPL", "CS_LOG_JSON", "CS_SEED", "CS_TEST_FILTER", "CS_TEST_NAMES", "CS_TEST_STAGES", "CS_LIST_TESTS", "CS_STAGE_FAILURE_POLICY" };
 File.WriteAllText("fixture-environment.json", JsonSerializer.Serialize(names.ToDictionary(key => key, Environment.GetEnvironmentVariable)));
+if (Flag("blockRunLog")) Directory.CreateDirectory((Environment.GetEnvironmentVariable("CS_RESULTS") ?? throw new InvalidOperationException("Missing results")).Replace("-results.json","-run.log",StringComparison.Ordinal));
 if (Flag("blockFailureArtifact")) Directory.CreateDirectory((Environment.GetEnvironmentVariable("CS_RESULTS") ?? throw new InvalidOperationException("Missing results")).Replace("-results.json","-failure.json",StringComparison.Ordinal));
 int delay = Number("simulateDelayMs");
 if (delay != 0) await Task.Delay(delay);

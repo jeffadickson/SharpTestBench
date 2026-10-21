@@ -85,8 +85,10 @@ internal static class LegacyRunCommand
         var assemblyName = simulator is "ghdl" or "nvc" ? "VhdlIntegration" : project;
         if (!noBuild)
         {
+            phase="compile";
             if (!options.Has("--assembly")) context.Run([Path.Combine(sdk, OperatingSystem.IsWindows() ? "dotnet.exe" : "dotnet"), "build", context.At($"tests/{assemblyName}/{assemblyName}.csproj"), "-c", "Release", "--nologo"]);
             NativeBuildCommand.Build(context, sdk, work);
+            phase="prepare";
         }
         if (Directory.Exists(Path.GetDirectoryName(selectedDll))) LegacyArtifacts.Validate(inputPaths.Concat(Directory.EnumerateFiles(Path.GetDirectoryName(selectedDll)!,"*.dll")),outputPaths,generatedDirectories,compileConfig.IncludeDirectories);
         var binary = context.At($"tests/{assemblyName}/bin/Release/net10.0");
@@ -95,11 +97,11 @@ internal static class LegacyRunCommand
         if (!File.Exists(assembly) || !File.Exists(config)) throw new FileNotFoundException("Test DLL and runtimeconfig.json are required");
         var sources = options.All("--source").Select(Path.GetFullPath).ToArray();
         if (sources.Length == 0) sources = [context.At(simulator is "ghdl" or "nvc" ? "tests/VhdlIntegration/top.vhd" : "tests/Integration/top.sv")];
-        var environment = SimulatorEnvironment(ParityContracts.EnvironmentValues(), Path.GetDirectoryName(host)!, adapter.LibsDir, logPath);
+        var environment = SimulatorEnvironment(ParityContracts.EnvironmentValues(), Path.GetDirectoryName(host)!, Path.GetFullPath(adapter.LibsDir), logPath);
         void Set(string name, string value) => environment[name] = value;
         Set("CS_HOSTFXR", hostFxr); Set("CS_CONFIG", config); Set("CS_ASSEMBLY", assembly); Set("CS_TOPLEVEL", top);
         Set("CS_ENTRY_TYPE", options.Get("--entry-type", "Entry, " + assemblyName)!); Set("CS_RESULTS", Path.Combine(work, label + "-results.json")); Set("CS_TRACE", Path.Combine(work, label + "-trace.txt")); Set("CS_BINDINGS", Path.Combine(work, "DutBindings.cs")); Set("DOTNET_ROOT", sdk);
-        Set("CS_GPI_LIBRARY", entry.Library);
+        Set("CS_GPI_LIBRARY", Path.GetFullPath(entry.Library));
         if (options.Get("--filter") is string filter) Set("CS_TEST_FILTER", filter);
         if (options.Has("--list")) Set("CS_LIST_TESTS", "1");
         if (options.Get("--log-json") is string log) Set("CS_LOG_JSON", Path.GetFullPath(log));
@@ -108,8 +110,15 @@ internal static class LegacyRunCommand
         if (options.Has("--stage")) { var stages = options.All("--stage"); if (stages.Any(stage => !int.TryParse(stage, out _))) throw new ArgumentException("Invalid stage"); Set("CS_TEST_STAGES", string.Join(',', stages)); }
         if (options.Get("--stage-failure-policy") is string policy) { if (policy is not ("continue" or "stop-after-stage")) throw new ArgumentException("Unknown stage failure policy"); Set("CS_STAGE_FAILURE_POLICY", policy); }
         Set("GPI_IMPL", Path.GetFullPath(implementation.Library)+":"+implementation.Entry);
-        Set("COCOTB_BOOTSTRAP", adapter.GpiEntryPoint + Path.PathSeparator + host + ",sharptestbench_initialize");
+        Set("COCOTB_BOOTSTRAP", Path.GetFullPath(entry.Library)+","+entry.Entry + Path.PathSeparator + host + ",sharptestbench_initialize");
         if (!int.TryParse(environment.GetValueOrDefault("CS_WALL_TIMEOUT") ?? "120", out var seconds) || seconds < 1 || seconds > 3600) throw new ArgumentException("Invalid simulator wall timeout");
+        if (!int.TryParse(environment.GetValueOrDefault("CS_COMPILE_TIMEOUT") ?? "120", out var compileSeconds) || compileSeconds < 1 || compileSeconds > 3600) throw new ArgumentException("Invalid compiler wall timeout");
+        if (!ulong.TryParse(environment.GetValueOrDefault("CS_SEED") ?? "1",System.Globalization.NumberStyles.Integer,System.Globalization.CultureInfo.InvariantCulture,out var effectiveSeed)) throw new ArgumentException("Invalid seed");
+        var inputConfig=compileConfig with { Simulator=simulator,Assembly=assembly,NativeHost=host,IcarusBootstrap=Path.GetFullPath(adapter.Bootstrap),
+            GpiLibrary=Path.GetFullPath(entry.Library),DotnetRoot=sdk,OutputDirectory=work,Seed=effectiveSeed,EntryType=environment["CS_ENTRY_TYPE"],
+            GpiEntryPoint=entry.Entry,Iverilog=environment.GetValueOrDefault("CS_IVERILOG") ?? "iverilog",Vvp=environment.GetValueOrDefault("CS_VVP") ?? "vvp",TimeoutSeconds=seconds,GpiImpl=Path.GetFullPath(implementation.Library)+":"+implementation.Entry };
+        var inputs=LegacyInputs.Capture(work,label,runId,inputConfig,hostFxr,environment);
+        var generated=new List<InputFingerprint>();
         string[] ivl = environment.GetValueOrDefault("CS_IVL_ROOT") is string ivlRoot ? ["-B", ivlRoot] : [];
         string[] command;
         phase="compile";
@@ -127,15 +136,16 @@ internal static class LegacyRunCommand
                 var literal = wave.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal);
                 File.WriteAllText(helper, "module __sharptestbench_wave_dump; initial if ($test$plusargs(\"SHARPTESTBENCH_WAVES\")) begin $dumpfile(\"" + literal + "\"); $dumpvars(0," + top + "); end endmodule\n");
                 waveOptions.AddRange(["-s", "__sharptestbench_wave_dump", helper]);
+                generated.Add(InputEvidence.File("wave-helper",helper));
             }
             var compileWatch = Stopwatch.StartNew();
-            context.Run([environment.GetValueOrDefault("CS_IVERILOG") ?? "iverilog", .. ivl, .. CompilePlan.Arguments(context.Root,compileConfig,compiledPath), .. waveOptions]);
+            LegacyCompiler.Run(context,work,label,[environment.GetValueOrDefault("CS_IVERILOG") ?? "iverilog", .. ivl, .. CompilePlan.Arguments(context.Root,compileConfig,compiledPath), .. waveOptions],TimeSpan.FromSeconds(compileSeconds));
             if (!File.Exists(compiledPath) || new FileInfo(compiledPath).Length == 0) throw new IOException("Icarus compiler did not produce a nonempty output image.");
             compiledImage=LegacyImage.Capture(compiledPath);
             StrictJson.Write(Path.Combine(work,label+"-compile.json"),new { schemaVersion=1,status="compiled",image=compiledImage });
             compileMilliseconds = compileWatch.Elapsed.TotalMilliseconds;
-            var bootstrap = adapter.Bootstrap;
-            if (OperatingSystem.IsWindows()) { var staged = Path.Combine(work, "cocotb_bootstrap.vpi"); File.Copy(bootstrap, staged, true); bootstrap = staged; }
+            var bootstrap = Path.GetFullPath(adapter.Bootstrap);
+            if (OperatingSystem.IsWindows()) { var staged = Path.Combine(work, "cocotb_bootstrap.vpi"); File.Copy(bootstrap, staged, true); bootstrap = staged; generated.Add(InputEvidence.File("staged-bootstrap",staged)); }
             command = [environment.GetValueOrDefault("CS_VVP") ?? "vvp", "-m", bootstrap, Path.Combine(work, "top.vvp"), .. (wave is null ? Array.Empty<string>() : ["+SHARPTESTBENCH_WAVES"])];
         }
         else if (simulator == "ghdl")
@@ -144,13 +154,13 @@ internal static class LegacyRunCommand
             simulationDirectory = Path.Combine(work,"ghdl-work");
             Directory.CreateDirectory(simulationDirectory);
             context.Run([ghdl, "-a", "--std=08", .. sources], directory: simulationDirectory, environment: environment); context.Run([ghdl, "-e", "--std=08", top], directory: simulationDirectory, environment: environment);
-            command = [ghdl, "-r", "--std=08", top, "--vpi=" + adapter.Bootstrap, .. (wave is null ? Array.Empty<string>() : ["--vcd=" + wave])];
+            command = [ghdl, "-r", "--std=08", top, "--vpi=" + Path.GetFullPath(adapter.Bootstrap), .. (wave is null ? Array.Empty<string>() : ["--vcd=" + wave])];
         }
         else if (simulator == "nvc")
         {
             var nvc = environment.GetValueOrDefault("CS_NVC") ?? "nvc"; var nvcWork = "--work=work:" + Path.Combine(work, "nvc-work");
             context.Run([nvc, "--std=2008", nvcWork, "-a", .. sources, "--preserve-case"], directory: work, environment: environment);
-            command = [nvc, "--std=2008", nvcWork, "-e", top, "--no-save", "--jit", "-r", "--load=" + adapter.Bootstrap, .. (wave is null ? Array.Empty<string>() : ["--wave=" + wave, "--format=vcd"])];
+            command = [nvc, "--std=2008", nvcWork, "-e", top, "--no-save", "--jit", "-r", "--load=" + Path.GetFullPath(adapter.Bootstrap), .. (wave is null ? Array.Empty<string>() : ["--wave=" + wave, "--format=vcd"])];
         }
         else
         {
@@ -165,12 +175,14 @@ internal static class LegacyRunCommand
         var result = context.Run(command, directory: simulationDirectory, environment: environment, capture: true, check: false, timeout: TimeSpan.FromSeconds(seconds));
         simulatorExitCode=result.ExitCode;
         var simulationMilliseconds = simulationWatch.Elapsed.TotalMilliseconds;
+        phase=result.ExitCode==0 ? "record" : "simulate";
         var output = result.Output + result.Error; File.WriteAllText(Path.Combine(work, label + "-run.log"), output); Console.WriteLine(output);
         if (result.ExitCode!=0) throw new IOException("Simulator failed (exit "+result.ExitCode+")");
         phase="attest";
         SharpTestBench.Internal.ReportFailureEvidence.ThrowIfReported(result.Output.Split('\n'));
         SharpTestBench.Internal.ReportFailureEvidence.ThrowIfReported(result.Error.Split('\n'));
         compiledImage?.Verify();
+        LegacyInputs.Verify(work,label,runId,inputConfig,hostFxr,inputs,generated.ToArray());
         if (wave is not null) RecordWave(work, label, simulator, resultPath, wave);
         if (!File.Exists(resultPath)) throw new InvalidDataException("Simulator did not produce a result JSON file");
         using var rows = StrictJson.Read(resultPath);
