@@ -32,8 +32,9 @@ order, masks, flags, indexes and onehot consistency. It also truncates each requ
 to the configuration width and recomputes the winning bit with leading/trailing
 zero counts, independently of the simulator scoreboard's linear scan. Thus equal
 traces cannot qualify when both select an unrequested bit, reverse priority, or
-report the wrong valid flag. The helper does not reconstruct the seeded stimulus;
-the scoreboard and matching per-case seeds remain required.
+report the wrong valid flag. Qualification additionally reconstructs all 453
+requests from the effective seed, rejecting semantically correct traces for the
+wrong stimulus. The unseeded validator remains available for archived reports.
 
 The negative control flips the wrapper's valid outputs and requires both runners
 to fail with `PRIORITY_MISMATCH` and matching seeds. Failure occurs on the first

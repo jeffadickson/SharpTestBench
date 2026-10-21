@@ -134,7 +134,7 @@ internal static class ParityCiCommand
             StrictJson.Write(Path.Combine(work, "expected.json"), manifest["expectedNames"]);
             var report = Compare(context, work, manifest, seed, environment, "Entry.PriorityScoreboard", "PRIORITY_REPORT",
                 negative ? "PRIORITY_MISMATCH" : null, (a, b) => {
-                    PriorityTrace.Validate(a); PriorityTrace.Validate(b);
+                    PriorityTrace.Validate(a, seed); PriorityTrace.Validate(b, seed);
                     if (!JsonElement.DeepEquals(a, b)) throw new InvalidDataException("Priority traces differ");
                 });
             FixtureContracts.VerifySources(context.Root, "priority");

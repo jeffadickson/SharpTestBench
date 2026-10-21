@@ -1,0 +1,3 @@
+{"iteration":15,"reviewer":"coverage_peer","result":"no actionable findings","scope":"seed attestation, eight golden schedules and early wrong-request cases","followup":"Add schedule transitions, generated tail and wrong-seed regression."}
+{"iteration":30,"reviewer":"coverage_peer","result":"no actionable findings","scope":"directed/boundary transitions through vector264"}
+{"iteration":45,"reviewer":"coverage_peer","result":"no actionable findings","scope":"onehot/complement end and generated-tail start","followup":"Final tail and wrong-seed cases added before50."}

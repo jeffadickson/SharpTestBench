@@ -36,6 +36,11 @@ The archived round 8 reports remain unchanged historical snapshots of `6de9bb7`.
 
 ## Evidence scope
 
+The ongoing [200-edit development batch](development200-report.md) records
+[individual source/test edits](development200-iterations.jsonl) and
+[15-edit reviews](development200-reviews.jsonl). It builds on newer main
+benchmark work and does not recount archived iterations or claim 200 features.
+
 Fresh OptiPlex validation and the subsequent focused parity environment fixes are
 recorded separately in [the OptiPlex report](optiplex-validation-report.md) and
 [its independent deep review](optiplex-deep-peer-review.md). They do not replace or

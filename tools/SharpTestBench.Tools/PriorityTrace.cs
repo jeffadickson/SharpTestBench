@@ -5,6 +5,33 @@ namespace SharpTestBench.Tools;
 
 internal static class PriorityTrace
 {
+    // Keep the unseeded validator for archived traces. Qualification also binds
+    // every request to the effective seed and the fixed stimulus schedule.
+    public static void Validate(JsonElement metrics, ulong seed)
+    {
+        Validate(metrics);
+        int vector = 0;
+        foreach (uint expected in Requests(seed))
+        {
+            var actual = metrics.GetProperty("trace")[vector * 12][2].GetUInt32();
+            if (actual != expected)
+                throw new InvalidDataException($"Priority stimulus differs at vector {vector}");
+            vector++;
+        }
+    }
+
+    private static IEnumerable<uint> Requests(ulong seed)
+    {
+        for (uint mask = 0; mask < 256; mask++) yield return mask;
+        foreach (uint mask in new uint[] { uint.MaxValue, 0x80000000, 0x80000001, 0xaaaaaaaa, 0x55555555 }) yield return mask;
+        for (int bit = 0; bit < 32; bit++) { yield return 1u << bit; yield return ~(1u << bit); }
+        for (int n = 0; n < 128; n++)
+        {
+            seed = unchecked(seed * 6364136223846793005UL + 1442695040888963407UL);
+            yield return (uint)(seed >> 32);
+        }
+    }
+
     public static void Validate(JsonElement metrics)
     {
         FixtureContracts.Fields(metrics, "trace", "vectors", "configurations");
