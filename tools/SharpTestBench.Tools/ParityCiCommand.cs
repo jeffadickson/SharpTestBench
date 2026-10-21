@@ -81,8 +81,8 @@ internal static class ParityCiCommand
     {
         var selected = LfsrFixture.Fixture(fixture, style); if (fault < 0 || fault > 2) throw new InvalidDataException("Invalid fault");
         var plan = LfsrFixture.Plan(selected.Config, seed); var stimulus = JsonSerializer.SerializeToElement(plan); LfsrFixture.ValidatePlan(stimulus);
-        var provenance = FixtureContracts.VerifySources(context.Root, "lfsr");
         return InWorkspace(context, $"lfsr-{selected.Top}-{seed}-fault{fault}", (work, environment) => {
+            var provenance = FixtureContracts.VerifySources(context.Root, "lfsr");
             environment["LFSR_PLAN"] = Path.Combine(work, "plan.json"); environment["LFSR_FAULT"] = fault.ToString(System.Globalization.CultureInfo.InvariantCulture);
             var manifest = Prepare(context, work, "examples/Lfsr", "counter", seed, environment);
             manifest["top"] = selected.Top; manifest["sources"] = new[] { context.At("examples/Lfsr/lfsr_fixture.sv"), context.At("tests/Fixtures/verilog-lfsr/lfsr.v") }; manifest["assembly"] = context.At("examples/Lfsr/bin/Release/net10.0/Lfsr.dll"); manifest["entryType"] = "Entry, Lfsr"; manifest["expectedNames"] = new[] { "Entry.SerialScoreboard" }; manifest["testNames"] = new[] { "Entry.SerialScoreboard" };
@@ -95,8 +95,8 @@ internal static class ParityCiCommand
     public static Dictionary<string, object> Axis(ToolContext context, int mode, ulong seed, bool sidebands = true, bool negative = false, int count = 64, int stall = 3, int? resetAt = 32)
     {
         var top = AxisFixture.Configuration(mode, sidebands); var plan = AxisFixture.Plan(seed, count, stall, resetAt); AxisFixture.ValidatePlan(JsonSerializer.SerializeToElement(plan));
-        var provenance = FixtureContracts.VerifySources(context.Root, "axis");
         return InWorkspace(context, $"axis-{top}-{seed}-{count}-{stall}-{resetAt?.ToString(System.Globalization.CultureInfo.InvariantCulture) ?? "None"}" + (negative ? "-negative" : ""), (work, environment) => {
+            var provenance = FixtureContracts.VerifySources(context.Root, "axis");
             environment["AXIS_MODE"] = mode.ToString(System.Globalization.CultureInfo.InvariantCulture); environment["AXIS_PLAN"] = Path.Combine(work, "plan.json"); environment["AXIS_SIDEBANDS"] = sidebands ? "1" : "0"; environment["AXIS_FAULT"] = negative ? "1" : "0";
             var manifest = Prepare(context, work, "examples/AxisRegister", "counter", seed, environment);
             manifest["top"] = top; manifest["sources"] = new[] { context.At("examples/AxisRegister/axis_fixture.sv"), context.At("tests/Fixtures/verilog-axis/axis_register.v") }; manifest["assembly"] = context.At("examples/AxisRegister/bin/Release/net10.0/AxisRegister.dll"); manifest["entryType"] = "Entry, AxisRegister"; manifest["expectedNames"] = new[] { "Entry.StreamScoreboard" }; manifest["testNames"] = new[] { "Entry.StreamScoreboard" };
@@ -124,8 +124,8 @@ internal static class ParityCiCommand
     {
         fault ??= PriorityFault.Parse(null, null, negative);
         if (fault.Enabled != negative) throw new ArgumentException("Fault control disagrees with negative-control mode");
-        var provenance = FixtureContracts.VerifySources(context.Root, "priority");
         return InWorkspace(context, $"priority-{seed}" + fault.Suffix, (work, environment) => {
+            var provenance = FixtureContracts.VerifySources(context.Root, "priority");
             fault.Apply(environment);
             var manifest = Prepare(context, work, "examples/PriorityEncoder", "counter", seed, environment);
             manifest["top"] = "priority_fixture";

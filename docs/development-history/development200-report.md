@@ -50,3 +50,22 @@ Windows, each exercising both production runner launch paths and C# fault
 contracts. It does not execute priority-ci orchestration for every target.
 Separate full priority-ci config11/index qualification passed on both systems.
 No intermediate coverage percentage is claimed.
+
+## Checkpoint 150
+
+Initial priority/AXIS/LFSR provenance verification now runs inside the owned
+case lease, after stale completion artifacts are retired. Invalid source hashes,
+license/revision metadata, absent license/inventory files and malformed JSON
+produce current structured case-failure evidence without launching children.
+Another active owner's evidence remains protected. Post-run verification remains.
+Added 49 named regressions: 30 fixture/artifact combinations, 18 corruption-mode
+cases and one active-owner case. Reviews105/120/135/150 found no production
+defects; the105 review corrected the malformed-JSON assertion to accept parser
+exception subclasses before those cases were enabled.
+
+Locked Release validation passed: Windows core480, generators17, helpers1,033
+passed/9 skipped, contracts797 (2,327 passed/9 skipped); Linux core480,
+generators17, helpers1,042, contracts797 (2,336 passed). Both doctors, actual
+Icarus positive/negative priority qualification and Linux Verilator positive
+simulation passed. These cloned-fixture failure tests do not claim post-run
+mutation execution or HDL coverage. No intermediate coverage percentage claimed.
