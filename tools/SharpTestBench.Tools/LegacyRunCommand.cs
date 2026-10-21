@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Text.RegularExpressions;
@@ -29,11 +30,12 @@ internal static class LegacyRunCommand
     }
     public static void Execute(ToolContext context, string[] arguments)
     {
-        var options = new Options(arguments, "--no-build", "--list");
-        options.Only("--sim-executable", "--work-dir", "--waves", "--host", "--assembly", "--source", "--top", "--entry-type", "--no-build", "--project", "--stage", "--stage-failure-policy", "--log-json", "--list", "--exact", "--seed", "--filter", "--label", "--sim");
+        var options = new Options(arguments, "--no-build", "--list", "--timings");
+        options.Only("--timings", "--sim-executable", "--work-dir", "--waves", "--host", "--assembly", "--source", "--top", "--entry-type", "--no-build", "--project", "--stage", "--stage-failure-policy", "--log-json", "--list", "--exact", "--seed", "--filter", "--label", "--sim");
         var simulator = options.Get("--sim", "icarus")!; var project = options.Get("--project", "Integration")!;
         if (!new[] { "icarus", "verilator", "ghdl", "nvc" }.Contains(simulator) || project is not ("Integration" or "Benchmark")) throw new ArgumentException("Unknown simulator or project");
         bool noBuild = options.Has("--no-build");
+        if (options.Has("--timings") && (simulator != "icarus" || !noBuild || options.Has("--list"))) throw new ArgumentException("--timings requires Icarus --no-build without --list");
         if (options.Has("--sim-executable") && (simulator != "verilator" || !noBuild)) throw new ArgumentException("--sim-executable requires --sim verilator --no-build");
         if (options.Has("--work-dir") && !noBuild) throw new ArgumentException("--work-dir requires --no-build");
         var work = options.Get("--work-dir") is string selectedWork ? Path.GetFullPath(selectedWork) : context.At("build");
@@ -41,6 +43,11 @@ internal static class LegacyRunCommand
         var host = options.Get("--host") is string selectedHost ? Path.GetFullPath(selectedHost) : context.At("build/" + NativeBuildCommand.HostName);
         var top = options.Get("--top", "top")!; var label = options.Get("--label", simulator)!;
         if (label.Length == 0 || label.Any(c => !char.IsLetterOrDigit(c) && c is not ('-' or '_'))) throw new ArgumentException("Label must be alphanumeric");
+        var timingPath = Path.Combine(work, label + "-timings.json");
+        var pathComparer = OperatingSystem.IsWindows() ? StringComparer.OrdinalIgnoreCase : StringComparer.Ordinal;
+        if (options.Has("--timings") && options.All("--source").Concat(options.All("--assembly")).Concat(options.All("--host")).Select(Path.GetFullPath).Contains(timingPath, pathComparer)) throw new ArgumentException("Timing output must not overwrite an input");
+        if (options.Has("--timings")) File.Delete(timingPath);
+        double compileMilliseconds = 0;
         string? wave = options.Get("--waves") is string selectedWave ? Path.GetFullPath(selectedWave) : null;
         if (wave is not null)
         {
@@ -89,7 +96,9 @@ internal static class LegacyRunCommand
                 File.WriteAllText(helper, "module __sharptestbench_wave_dump; initial if ($test$plusargs(\"SHARPTESTBENCH_WAVES\")) begin $dumpfile(\"" + literal + "\"); $dumpvars(0," + top + "); end endmodule\n");
                 waveOptions.AddRange(["-s", "__sharptestbench_wave_dump", helper]);
             }
+            var compileWatch = Stopwatch.StartNew();
             context.Run([environment.GetValueOrDefault("CS_IVERILOG") ?? "iverilog", .. ivl, "-g2012", "-s", top, "-o", Path.Combine(work, "top.vvp"), .. waveOptions, .. sources]);
+            compileMilliseconds = compileWatch.Elapsed.TotalMilliseconds;
             var bootstrap = adapter.Bootstrap;
             if (OperatingSystem.IsWindows()) { var staged = Path.Combine(work, "cocotb_bootstrap.vpi"); File.Copy(bootstrap, staged, true); bootstrap = staged; }
             command = [environment.GetValueOrDefault("CS_VVP") ?? "vvp", "-m", bootstrap, Path.Combine(work, "top.vvp"), .. (wave is null ? Array.Empty<string>() : ["+SHARPTESTBENCH_WAVES"])];
@@ -115,7 +124,9 @@ internal static class LegacyRunCommand
         if (environment.GetValueOrDefault("CS_INJECT_EARLY") == "1" && simulator is "icarus" or "verilator") command = [.. command, "+CS_EARLY_FINISH"];
         var resultPath = environment["CS_RESULTS"]!; File.Delete(resultPath);
         if (!int.TryParse(environment.GetValueOrDefault("CS_WALL_TIMEOUT") ?? "120", out var seconds) || seconds < 1 || seconds > 3600) throw new ArgumentException("Invalid simulator wall timeout");
+        var simulationWatch = Stopwatch.StartNew();
         var result = context.Run(command, directory: work, environment: environment, capture: true, check: false, timeout: TimeSpan.FromSeconds(seconds));
+        var simulationMilliseconds = simulationWatch.Elapsed.TotalMilliseconds;
         var output = result.Output + result.Error; File.WriteAllText(Path.Combine(work, label + "-run.log"), output); Console.WriteLine(output);
         if (wave is not null) RecordWave(work, label, simulator, resultPath, wave);
         if (result.ExitCode != 0 || !File.Exists(resultPath)) throw new IOException("Simulator failed or produced no result file");
@@ -124,6 +135,7 @@ internal static class LegacyRunCommand
         if (failed.Length != 0) { Console.WriteLine(JsonSerializer.Serialize(failed, new JsonSerializerOptions { WriteIndented = true })); throw new InvalidDataException("Simulator test failed"); }
         if (options.Has("--list") || environment.GetValueOrDefault("CS_LIST_TESTS") == "1") { Console.WriteLine(File.ReadAllText(Path.ChangeExtension(resultPath, ".discovery.json"))); return; }
         if (rows.RootElement.GetArrayLength() == 0) throw new InvalidDataException("No results");
+        if (options.Has("--timings")) StrictJson.Write(timingPath, new { schemaVersion = 1, compileMilliseconds, simulationMilliseconds });
     }
     static void RecordWave(string work, string label, string simulator, string resultPath, string wave)
     {
