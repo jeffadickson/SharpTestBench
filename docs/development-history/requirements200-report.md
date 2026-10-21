@@ -252,3 +252,32 @@ or coverage percentage is claimed at70.
 Artifacts: build/requirements200-70-* and build/fifo-*-saturation*. Seventy units
 are locally verified;130 remain. No push occurred. Scheduled review75 and final
 whole-campaign deep review remain required; the extra70 review does not replace75.
+
+## Verified local milestone80
+
+Units71..80 fix a reproduced Unicode identity mismatch and close bounded production
+managed CLI execution gaps. Before71, the parent parity helper accepted identity
+Entry.\u009fTest while Runner attestation rejected its C1 control. Observed and
+expected parent identities now use char.IsControl, aligning both paths while
+preserving legitimate non-ASCII and canonically distinct ordinal identities.
+
+A dependency-free C# controlled process fixture allows the real production Runner
+entry point to complete compile/simulate process phases without loading HDL or
+native host code. Nine retained tests exercise complete success serialization,
+functional failed run evidence, wrong expected seed, inherited selection cleanup,
+missing results after prior success, duplicate result properties, source mutation
+in either phase, zero-exit report-failure diagnostics on both streams and timeout
+followed by workspace reuse. Three identity tests cover the reproduced defect.
+The production JSON reflection-disabled runtime setting remains asserted.
+
+Fresh locked Release validation: Windows2481 passed/10skipped; Linux2491 passed.
+Core492, generators17, helpers1134 (Windows1124 passed/10skipped), contracts848.
+Both doctors, actual priority positive/negative dual-Icarus controls and Linux
+Verilator passed. Scheduled independent75 source review found no actionable issue.
+This closes the listed managed CLI control-flow/serialization contracts; it does
+not establish native-host loading, HDL correctness, every runtime switch or
+NativeAOT instruction coverage. Actual simulator/native publication gates remain
+separate. No refreshed coverage percentage is claimed until serial collection.
+
+Evidence is fresh under build/requirements200-80-*. Eighty engineering units are
+locally verified;120 remain. No push, CI dispatch or PR62 mutation occurred.

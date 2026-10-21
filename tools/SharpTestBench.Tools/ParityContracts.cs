@@ -14,7 +14,7 @@ internal static class ParityContracts
             if (!row.TryGetProperty("Name", out value)) throw new InvalidDataException("Each result needs a test identity");
         if (value.ValueKind != JsonValueKind.String) throw new InvalidDataException("Test identity must be text");
         var name = value.GetString() ?? "";
-        if (string.IsNullOrWhiteSpace(name) || name != name.Trim() || name.Any(c => c < 32 || c == 127)) throw new InvalidDataException("Test identity contains whitespace padding or control characters");
+        if (string.IsNullOrWhiteSpace(name) || name != name.Trim() || name.Any(char.IsControl)) throw new InvalidDataException("Test identity contains whitespace padding or control characters");
         return name;
     }
     public static string[][] Signature(JsonElement rows)
@@ -38,7 +38,7 @@ internal static class ParityContracts
         {
             if (item.ValueKind != JsonValueKind.String) throw new InvalidDataException("Expected identity must be text");
             var name = item.GetString() ?? "";
-            if (string.IsNullOrWhiteSpace(name) || name != name.Trim() || name.Any(c => c < 32 || c == 127) || !names.Add(name)) throw new InvalidDataException("Invalid or duplicate expected identity");
+            if (string.IsNullOrWhiteSpace(name) || name != name.Trim() || name.Any(char.IsControl) || !names.Add(name)) throw new InvalidDataException("Invalid or duplicate expected identity");
         }
         return names;
     }
