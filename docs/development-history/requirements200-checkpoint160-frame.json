@@ -1,0 +1,937 @@
+{
+  "windows": {
+    "platform": "nt",
+    "cases": [
+      {
+        "configuration": {
+          "Depth": 4,
+          "Pipeline": 0,
+          "OutputFifo": false
+        },
+        "positive": {
+          "schemaVersion": 1,
+          "legacy": [
+            [
+              "Entry.FrameTransactions",
+              "passed"
+            ]
+          ],
+          "native": [
+            [
+              "Entry.FrameTransactions",
+              "passed"
+            ]
+          ],
+          "expected": [
+            "Entry.FrameTransactions"
+          ],
+          "missing": {
+            "legacy": [],
+            "native": []
+          },
+          "unexpected": {
+            "legacy": [],
+            "native": []
+          },
+          "seedMismatches": [],
+          "matched": true,
+          "traceMatched": true,
+          "expectedSeedMatched": true,
+          "exitCodes": {
+            "legacy": 0,
+            "native": 0
+          },
+          "fixture": "frame-fifo",
+          "configuration": {
+            "Depth": 4,
+            "Pipeline": 0,
+            "OutputFifo": false
+          },
+          "top": "frame_d4_p0_o0",
+          "seed": 83,
+          "revision": "48ff7a7e2ef782cf778d47910cf85835c64b1bce",
+          "planSha256": "fc705e6e1be1f1ccf0330b73c8d74e7f6406b65f12e9416c3fff3f4ff6ce6d2c",
+          "configurationSha256": "c325646e251339c1bb56c9e412828e2d5a4a3121ef7ddbf114dd2f6ca1dc5159",
+          "wrapperSha256": "4b537fb1ec161db1db6a6b98966005bf459560c806e8206972f34d1ee34843e9",
+          "oracleSha256": "8344ad17d5d7fb4bc0bf8054f395a72908d48d225b8318d9d279166ef9b6f596",
+          "fault": "none",
+          "oracleMatched": true
+        },
+        "negative": {
+          "schemaVersion": 1,
+          "negativeControl": true,
+          "legacyDetected": true,
+          "nativeDetected": true,
+          "matched": true,
+          "expectedSeedMatched": true,
+          "exitCodes": {
+            "legacy": 1,
+            "native": 1
+          },
+          "fixture": "frame-fifo",
+          "configuration": {
+            "Depth": 4,
+            "Pipeline": 0,
+            "OutputFifo": false
+          },
+          "top": "frame_d4_p0_o0",
+          "seed": 83,
+          "revision": "48ff7a7e2ef782cf778d47910cf85835c64b1bce",
+          "planSha256": "fc705e6e1be1f1ccf0330b73c8d74e7f6406b65f12e9416c3fff3f4ff6ce6d2c",
+          "configurationSha256": "c325646e251339c1bb56c9e412828e2d5a4a3121ef7ddbf114dd2f6ca1dc5159",
+          "wrapperSha256": "4b537fb1ec161db1db6a6b98966005bf459560c806e8206972f34d1ee34843e9",
+          "oracleSha256": "8344ad17d5d7fb4bc0bf8054f395a72908d48d225b8318d9d279166ef9b6f596",
+          "fault": "payload-lsb"
+        },
+        "workload": {
+          "frames": 16,
+          "beats": 37,
+          "cycles": 474,
+          "stalls": 37
+        },
+        "oracles": {
+          "legacy": {
+            "schemaVersion": 1,
+            "valid": true,
+            "incompleteHidden": 1,
+            "accepted": 37,
+            "consumed": 37,
+            "flushed": 0,
+            "stalls": 37,
+            "resets": 1,
+            "cycles": 474
+          },
+          "native": {
+            "schemaVersion": 1,
+            "valid": true,
+            "incompleteHidden": 1,
+            "accepted": 37,
+            "consumed": 37,
+            "flushed": 0,
+            "stalls": 37,
+            "resets": 1,
+            "cycles": 474
+          }
+        },
+        "semanticPlanSha256": "a9984fbbfc4a72377961a51f9f01f4dabec5397e2389f2b05129b29f3367551b",
+        "semanticMetricsSha256": "fa3024fdd69031e13fbadaa41f6394af22552eec3b1caeb538349eccbe23f0ed"
+      },
+      {
+        "configuration": {
+          "Depth": 8,
+          "Pipeline": 1,
+          "OutputFifo": false
+        },
+        "positive": {
+          "schemaVersion": 1,
+          "legacy": [
+            [
+              "Entry.FrameTransactions",
+              "passed"
+            ]
+          ],
+          "native": [
+            [
+              "Entry.FrameTransactions",
+              "passed"
+            ]
+          ],
+          "expected": [
+            "Entry.FrameTransactions"
+          ],
+          "missing": {
+            "legacy": [],
+            "native": []
+          },
+          "unexpected": {
+            "legacy": [],
+            "native": []
+          },
+          "seedMismatches": [],
+          "matched": true,
+          "traceMatched": true,
+          "expectedSeedMatched": true,
+          "exitCodes": {
+            "legacy": 0,
+            "native": 0
+          },
+          "fixture": "frame-fifo",
+          "configuration": {
+            "Depth": 8,
+            "Pipeline": 1,
+            "OutputFifo": false
+          },
+          "top": "frame_d8_p1_o0",
+          "seed": 83,
+          "revision": "48ff7a7e2ef782cf778d47910cf85835c64b1bce",
+          "planSha256": "7e0735c8a40722d988c1b1c34a9b5c70f27593d6af6752aa7b29ac150c099089",
+          "configurationSha256": "851b08ae9ced332c7aa56402ec87998a860be63e2bc69e93ffb2f40fb34d5d5c",
+          "wrapperSha256": "e90c24fec09c9727be92c67fdf8daf861915ecd8707bb1abc005ad21607fb51b",
+          "oracleSha256": "8344ad17d5d7fb4bc0bf8054f395a72908d48d225b8318d9d279166ef9b6f596",
+          "fault": "none",
+          "oracleMatched": true
+        },
+        "negative": {
+          "schemaVersion": 1,
+          "negativeControl": true,
+          "legacyDetected": true,
+          "nativeDetected": true,
+          "matched": true,
+          "expectedSeedMatched": true,
+          "exitCodes": {
+            "legacy": 1,
+            "native": 1
+          },
+          "fixture": "frame-fifo",
+          "configuration": {
+            "Depth": 8,
+            "Pipeline": 1,
+            "OutputFifo": false
+          },
+          "top": "frame_d8_p1_o0",
+          "seed": 83,
+          "revision": "48ff7a7e2ef782cf778d47910cf85835c64b1bce",
+          "planSha256": "7e0735c8a40722d988c1b1c34a9b5c70f27593d6af6752aa7b29ac150c099089",
+          "configurationSha256": "851b08ae9ced332c7aa56402ec87998a860be63e2bc69e93ffb2f40fb34d5d5c",
+          "wrapperSha256": "e90c24fec09c9727be92c67fdf8daf861915ecd8707bb1abc005ad21607fb51b",
+          "oracleSha256": "8344ad17d5d7fb4bc0bf8054f395a72908d48d225b8318d9d279166ef9b6f596",
+          "fault": "payload-lsb"
+        },
+        "workload": {
+          "frames": 16,
+          "beats": 63,
+          "cycles": 738,
+          "stalls": 52
+        },
+        "oracles": {
+          "legacy": {
+            "schemaVersion": 1,
+            "valid": true,
+            "incompleteHidden": 1,
+            "accepted": 63,
+            "consumed": 63,
+            "flushed": 0,
+            "stalls": 52,
+            "resets": 1,
+            "cycles": 738
+          },
+          "native": {
+            "schemaVersion": 1,
+            "valid": true,
+            "incompleteHidden": 1,
+            "accepted": 63,
+            "consumed": 63,
+            "flushed": 0,
+            "stalls": 52,
+            "resets": 1,
+            "cycles": 738
+          }
+        },
+        "semanticPlanSha256": "af7e9c1342b5f3b8ec42360d408686ad610f39f1eac708dc524fa03887428586",
+        "semanticMetricsSha256": "24a551a67ce0cc9864f59acceec633d839b444a6afa82476e44b9e14dbaacb3d"
+      },
+      {
+        "configuration": {
+          "Depth": 8,
+          "Pipeline": 2,
+          "OutputFifo": true
+        },
+        "positive": {
+          "schemaVersion": 1,
+          "legacy": [
+            [
+              "Entry.FrameTransactions",
+              "passed"
+            ]
+          ],
+          "native": [
+            [
+              "Entry.FrameTransactions",
+              "passed"
+            ]
+          ],
+          "expected": [
+            "Entry.FrameTransactions"
+          ],
+          "missing": {
+            "legacy": [],
+            "native": []
+          },
+          "unexpected": {
+            "legacy": [],
+            "native": []
+          },
+          "seedMismatches": [],
+          "matched": true,
+          "traceMatched": true,
+          "expectedSeedMatched": true,
+          "exitCodes": {
+            "legacy": 0,
+            "native": 0
+          },
+          "fixture": "frame-fifo",
+          "configuration": {
+            "Depth": 8,
+            "Pipeline": 2,
+            "OutputFifo": true
+          },
+          "top": "frame_d8_p2_o1",
+          "seed": 83,
+          "revision": "48ff7a7e2ef782cf778d47910cf85835c64b1bce",
+          "planSha256": "7e0735c8a40722d988c1b1c34a9b5c70f27593d6af6752aa7b29ac150c099089",
+          "configurationSha256": "a5d04a800ed86a7943e18ce2d9ca61fdaf11a2857fd4df5060cdc67226ff3837",
+          "wrapperSha256": "e0276bd8a97492e8f092ef7f93d3f5534ac58bf34d15fb9fb44daa9e4da641fc",
+          "oracleSha256": "8344ad17d5d7fb4bc0bf8054f395a72908d48d225b8318d9d279166ef9b6f596",
+          "fault": "none",
+          "oracleMatched": true
+        },
+        "negative": {
+          "schemaVersion": 1,
+          "negativeControl": true,
+          "legacyDetected": true,
+          "nativeDetected": true,
+          "matched": true,
+          "expectedSeedMatched": true,
+          "exitCodes": {
+            "legacy": 1,
+            "native": 1
+          },
+          "fixture": "frame-fifo",
+          "configuration": {
+            "Depth": 8,
+            "Pipeline": 2,
+            "OutputFifo": true
+          },
+          "top": "frame_d8_p2_o1",
+          "seed": 83,
+          "revision": "48ff7a7e2ef782cf778d47910cf85835c64b1bce",
+          "planSha256": "7e0735c8a40722d988c1b1c34a9b5c70f27593d6af6752aa7b29ac150c099089",
+          "configurationSha256": "a5d04a800ed86a7943e18ce2d9ca61fdaf11a2857fd4df5060cdc67226ff3837",
+          "wrapperSha256": "e0276bd8a97492e8f092ef7f93d3f5534ac58bf34d15fb9fb44daa9e4da641fc",
+          "oracleSha256": "8344ad17d5d7fb4bc0bf8054f395a72908d48d225b8318d9d279166ef9b6f596",
+          "fault": "payload-lsb"
+        },
+        "workload": {
+          "frames": 16,
+          "beats": 63,
+          "cycles": 738,
+          "stalls": 49
+        },
+        "oracles": {
+          "legacy": {
+            "schemaVersion": 1,
+            "valid": true,
+            "incompleteHidden": 1,
+            "accepted": 63,
+            "consumed": 63,
+            "flushed": 0,
+            "stalls": 49,
+            "resets": 1,
+            "cycles": 738
+          },
+          "native": {
+            "schemaVersion": 1,
+            "valid": true,
+            "incompleteHidden": 1,
+            "accepted": 63,
+            "consumed": 63,
+            "flushed": 0,
+            "stalls": 49,
+            "resets": 1,
+            "cycles": 738
+          }
+        },
+        "semanticPlanSha256": "af7e9c1342b5f3b8ec42360d408686ad610f39f1eac708dc524fa03887428586",
+        "semanticMetricsSha256": "30c34e9c6bc29332027bd08bc5159dddc70e82554b11a6e2e18ed33f482558e3"
+      },
+      {
+        "configuration": {
+          "Depth": 64,
+          "Pipeline": 3,
+          "OutputFifo": true
+        },
+        "positive": {
+          "schemaVersion": 1,
+          "legacy": [
+            [
+              "Entry.FrameTransactions",
+              "passed"
+            ]
+          ],
+          "native": [
+            [
+              "Entry.FrameTransactions",
+              "passed"
+            ]
+          ],
+          "expected": [
+            "Entry.FrameTransactions"
+          ],
+          "missing": {
+            "legacy": [],
+            "native": []
+          },
+          "unexpected": {
+            "legacy": [],
+            "native": []
+          },
+          "seedMismatches": [],
+          "matched": true,
+          "traceMatched": true,
+          "expectedSeedMatched": true,
+          "exitCodes": {
+            "legacy": 0,
+            "native": 0
+          },
+          "fixture": "frame-fifo",
+          "configuration": {
+            "Depth": 64,
+            "Pipeline": 3,
+            "OutputFifo": true
+          },
+          "top": "frame_d64_p3_o1",
+          "seed": 83,
+          "revision": "48ff7a7e2ef782cf778d47910cf85835c64b1bce",
+          "planSha256": "0fb3003aeb52d6a72335cb18583a21eaaf4ca709fff6c9786e19b06b9468223a",
+          "configurationSha256": "c602840968cd3c931dc1cdde995273cd668e707ec38b16ad19a5cab01982ca54",
+          "wrapperSha256": "cfbd0e9301febf4b68781cdb8b5e03eb46eb00d150a2253bb47d4ac400f67019",
+          "oracleSha256": "8344ad17d5d7fb4bc0bf8054f395a72908d48d225b8318d9d279166ef9b6f596",
+          "fault": "none",
+          "oracleMatched": true
+        },
+        "negative": {
+          "schemaVersion": 1,
+          "negativeControl": true,
+          "legacyDetected": true,
+          "nativeDetected": true,
+          "matched": true,
+          "expectedSeedMatched": true,
+          "exitCodes": {
+            "legacy": 1,
+            "native": 1
+          },
+          "fixture": "frame-fifo",
+          "configuration": {
+            "Depth": 64,
+            "Pipeline": 3,
+            "OutputFifo": true
+          },
+          "top": "frame_d64_p3_o1",
+          "seed": 83,
+          "revision": "48ff7a7e2ef782cf778d47910cf85835c64b1bce",
+          "planSha256": "0fb3003aeb52d6a72335cb18583a21eaaf4ca709fff6c9786e19b06b9468223a",
+          "configurationSha256": "c602840968cd3c931dc1cdde995273cd668e707ec38b16ad19a5cab01982ca54",
+          "wrapperSha256": "cfbd0e9301febf4b68781cdb8b5e03eb46eb00d150a2253bb47d4ac400f67019",
+          "oracleSha256": "8344ad17d5d7fb4bc0bf8054f395a72908d48d225b8318d9d279166ef9b6f596",
+          "fault": "payload-lsb"
+        },
+        "workload": {
+          "frames": 16,
+          "beats": 63,
+          "cycles": 794,
+          "stalls": 48
+        },
+        "oracles": {
+          "legacy": {
+            "schemaVersion": 1,
+            "valid": true,
+            "incompleteHidden": 1,
+            "accepted": 63,
+            "consumed": 63,
+            "flushed": 0,
+            "stalls": 48,
+            "resets": 1,
+            "cycles": 794
+          },
+          "native": {
+            "schemaVersion": 1,
+            "valid": true,
+            "incompleteHidden": 1,
+            "accepted": 63,
+            "consumed": 63,
+            "flushed": 0,
+            "stalls": 48,
+            "resets": 1,
+            "cycles": 794
+          }
+        },
+        "semanticPlanSha256": "8defb483a04bc1acd901d9c73208cf8c7bf8edfee81885e09d5a355ca7b509a8",
+        "semanticMetricsSha256": "349cb1b8c9533cfcae8639d8d2af69e113fced711bead1000c72defb19ac784b"
+      }
+    ]
+  },
+  "linux": {
+    "platform": "posix",
+    "cases": [
+      {
+        "configuration": {
+          "Depth": 4,
+          "Pipeline": 0,
+          "OutputFifo": false
+        },
+        "positive": {
+          "schemaVersion": 1,
+          "legacy": [
+            [
+              "Entry.FrameTransactions",
+              "passed"
+            ]
+          ],
+          "native": [
+            [
+              "Entry.FrameTransactions",
+              "passed"
+            ]
+          ],
+          "expected": [
+            "Entry.FrameTransactions"
+          ],
+          "missing": {
+            "legacy": [],
+            "native": []
+          },
+          "unexpected": {
+            "legacy": [],
+            "native": []
+          },
+          "seedMismatches": [],
+          "matched": true,
+          "traceMatched": true,
+          "expectedSeedMatched": true,
+          "exitCodes": {
+            "legacy": 0,
+            "native": 0
+          },
+          "fixture": "frame-fifo",
+          "configuration": {
+            "Depth": 4,
+            "Pipeline": 0,
+            "OutputFifo": false
+          },
+          "top": "frame_d4_p0_o0",
+          "seed": 83,
+          "revision": "48ff7a7e2ef782cf778d47910cf85835c64b1bce",
+          "planSha256": "243ff749f6878502da627c137ebdfb08cc3f62494fec80a86606c5adfc8e69a6",
+          "configurationSha256": "d02ffdc4140973800ef584845b731146084c166a9a019e374d2ce82fbb7677a1",
+          "wrapperSha256": "4b537fb1ec161db1db6a6b98966005bf459560c806e8206972f34d1ee34843e9",
+          "oracleSha256": "8344ad17d5d7fb4bc0bf8054f395a72908d48d225b8318d9d279166ef9b6f596",
+          "fault": "none",
+          "oracleMatched": true
+        },
+        "negative": {
+          "schemaVersion": 1,
+          "negativeControl": true,
+          "legacyDetected": true,
+          "nativeDetected": true,
+          "matched": true,
+          "expectedSeedMatched": true,
+          "exitCodes": {
+            "legacy": 1,
+            "native": 1
+          },
+          "fixture": "frame-fifo",
+          "configuration": {
+            "Depth": 4,
+            "Pipeline": 0,
+            "OutputFifo": false
+          },
+          "top": "frame_d4_p0_o0",
+          "seed": 83,
+          "revision": "48ff7a7e2ef782cf778d47910cf85835c64b1bce",
+          "planSha256": "243ff749f6878502da627c137ebdfb08cc3f62494fec80a86606c5adfc8e69a6",
+          "configurationSha256": "d02ffdc4140973800ef584845b731146084c166a9a019e374d2ce82fbb7677a1",
+          "wrapperSha256": "4b537fb1ec161db1db6a6b98966005bf459560c806e8206972f34d1ee34843e9",
+          "oracleSha256": "8344ad17d5d7fb4bc0bf8054f395a72908d48d225b8318d9d279166ef9b6f596",
+          "fault": "payload-lsb"
+        },
+        "workload": {
+          "frames": 16,
+          "beats": 37,
+          "cycles": 474,
+          "stalls": 37
+        },
+        "oracles": {
+          "legacy": {
+            "schemaVersion": 1,
+            "valid": true,
+            "incompleteHidden": 1,
+            "accepted": 37,
+            "consumed": 37,
+            "flushed": 0,
+            "stalls": 37,
+            "resets": 1,
+            "cycles": 474
+          },
+          "native": {
+            "schemaVersion": 1,
+            "valid": true,
+            "incompleteHidden": 1,
+            "accepted": 37,
+            "consumed": 37,
+            "flushed": 0,
+            "stalls": 37,
+            "resets": 1,
+            "cycles": 474
+          }
+        },
+        "semanticPlanSha256": "a9984fbbfc4a72377961a51f9f01f4dabec5397e2389f2b05129b29f3367551b",
+        "semanticMetricsSha256": "fa3024fdd69031e13fbadaa41f6394af22552eec3b1caeb538349eccbe23f0ed"
+      },
+      {
+        "configuration": {
+          "Depth": 8,
+          "Pipeline": 1,
+          "OutputFifo": false
+        },
+        "positive": {
+          "schemaVersion": 1,
+          "legacy": [
+            [
+              "Entry.FrameTransactions",
+              "passed"
+            ]
+          ],
+          "native": [
+            [
+              "Entry.FrameTransactions",
+              "passed"
+            ]
+          ],
+          "expected": [
+            "Entry.FrameTransactions"
+          ],
+          "missing": {
+            "legacy": [],
+            "native": []
+          },
+          "unexpected": {
+            "legacy": [],
+            "native": []
+          },
+          "seedMismatches": [],
+          "matched": true,
+          "traceMatched": true,
+          "expectedSeedMatched": true,
+          "exitCodes": {
+            "legacy": 0,
+            "native": 0
+          },
+          "fixture": "frame-fifo",
+          "configuration": {
+            "Depth": 8,
+            "Pipeline": 1,
+            "OutputFifo": false
+          },
+          "top": "frame_d8_p1_o0",
+          "seed": 83,
+          "revision": "48ff7a7e2ef782cf778d47910cf85835c64b1bce",
+          "planSha256": "8a7b7a41049910700f757bdd392e6524ef7f24bb91909374158bd7460ca44232",
+          "configurationSha256": "92333f87aeff5b9611b893d90044e0b1576fbe7594f76d76deb56e00637cf535",
+          "wrapperSha256": "e90c24fec09c9727be92c67fdf8daf861915ecd8707bb1abc005ad21607fb51b",
+          "oracleSha256": "8344ad17d5d7fb4bc0bf8054f395a72908d48d225b8318d9d279166ef9b6f596",
+          "fault": "none",
+          "oracleMatched": true
+        },
+        "negative": {
+          "schemaVersion": 1,
+          "negativeControl": true,
+          "legacyDetected": true,
+          "nativeDetected": true,
+          "matched": true,
+          "expectedSeedMatched": true,
+          "exitCodes": {
+            "legacy": 1,
+            "native": 1
+          },
+          "fixture": "frame-fifo",
+          "configuration": {
+            "Depth": 8,
+            "Pipeline": 1,
+            "OutputFifo": false
+          },
+          "top": "frame_d8_p1_o0",
+          "seed": 83,
+          "revision": "48ff7a7e2ef782cf778d47910cf85835c64b1bce",
+          "planSha256": "8a7b7a41049910700f757bdd392e6524ef7f24bb91909374158bd7460ca44232",
+          "configurationSha256": "92333f87aeff5b9611b893d90044e0b1576fbe7594f76d76deb56e00637cf535",
+          "wrapperSha256": "e90c24fec09c9727be92c67fdf8daf861915ecd8707bb1abc005ad21607fb51b",
+          "oracleSha256": "8344ad17d5d7fb4bc0bf8054f395a72908d48d225b8318d9d279166ef9b6f596",
+          "fault": "payload-lsb"
+        },
+        "workload": {
+          "frames": 16,
+          "beats": 63,
+          "cycles": 738,
+          "stalls": 52
+        },
+        "oracles": {
+          "legacy": {
+            "schemaVersion": 1,
+            "valid": true,
+            "incompleteHidden": 1,
+            "accepted": 63,
+            "consumed": 63,
+            "flushed": 0,
+            "stalls": 52,
+            "resets": 1,
+            "cycles": 738
+          },
+          "native": {
+            "schemaVersion": 1,
+            "valid": true,
+            "incompleteHidden": 1,
+            "accepted": 63,
+            "consumed": 63,
+            "flushed": 0,
+            "stalls": 52,
+            "resets": 1,
+            "cycles": 738
+          }
+        },
+        "semanticPlanSha256": "af7e9c1342b5f3b8ec42360d408686ad610f39f1eac708dc524fa03887428586",
+        "semanticMetricsSha256": "24a551a67ce0cc9864f59acceec633d839b444a6afa82476e44b9e14dbaacb3d"
+      },
+      {
+        "configuration": {
+          "Depth": 8,
+          "Pipeline": 2,
+          "OutputFifo": true
+        },
+        "positive": {
+          "schemaVersion": 1,
+          "legacy": [
+            [
+              "Entry.FrameTransactions",
+              "passed"
+            ]
+          ],
+          "native": [
+            [
+              "Entry.FrameTransactions",
+              "passed"
+            ]
+          ],
+          "expected": [
+            "Entry.FrameTransactions"
+          ],
+          "missing": {
+            "legacy": [],
+            "native": []
+          },
+          "unexpected": {
+            "legacy": [],
+            "native": []
+          },
+          "seedMismatches": [],
+          "matched": true,
+          "traceMatched": true,
+          "expectedSeedMatched": true,
+          "exitCodes": {
+            "legacy": 0,
+            "native": 0
+          },
+          "fixture": "frame-fifo",
+          "configuration": {
+            "Depth": 8,
+            "Pipeline": 2,
+            "OutputFifo": true
+          },
+          "top": "frame_d8_p2_o1",
+          "seed": 83,
+          "revision": "48ff7a7e2ef782cf778d47910cf85835c64b1bce",
+          "planSha256": "8a7b7a41049910700f757bdd392e6524ef7f24bb91909374158bd7460ca44232",
+          "configurationSha256": "7ed21420804805ac33d3412b61ee4afa723affc75de5ccdfbaac5b7b82c6420f",
+          "wrapperSha256": "e0276bd8a97492e8f092ef7f93d3f5534ac58bf34d15fb9fb44daa9e4da641fc",
+          "oracleSha256": "8344ad17d5d7fb4bc0bf8054f395a72908d48d225b8318d9d279166ef9b6f596",
+          "fault": "none",
+          "oracleMatched": true
+        },
+        "negative": {
+          "schemaVersion": 1,
+          "negativeControl": true,
+          "legacyDetected": true,
+          "nativeDetected": true,
+          "matched": true,
+          "expectedSeedMatched": true,
+          "exitCodes": {
+            "legacy": 1,
+            "native": 1
+          },
+          "fixture": "frame-fifo",
+          "configuration": {
+            "Depth": 8,
+            "Pipeline": 2,
+            "OutputFifo": true
+          },
+          "top": "frame_d8_p2_o1",
+          "seed": 83,
+          "revision": "48ff7a7e2ef782cf778d47910cf85835c64b1bce",
+          "planSha256": "8a7b7a41049910700f757bdd392e6524ef7f24bb91909374158bd7460ca44232",
+          "configurationSha256": "7ed21420804805ac33d3412b61ee4afa723affc75de5ccdfbaac5b7b82c6420f",
+          "wrapperSha256": "e0276bd8a97492e8f092ef7f93d3f5534ac58bf34d15fb9fb44daa9e4da641fc",
+          "oracleSha256": "8344ad17d5d7fb4bc0bf8054f395a72908d48d225b8318d9d279166ef9b6f596",
+          "fault": "payload-lsb"
+        },
+        "workload": {
+          "frames": 16,
+          "beats": 63,
+          "cycles": 738,
+          "stalls": 49
+        },
+        "oracles": {
+          "legacy": {
+            "schemaVersion": 1,
+            "valid": true,
+            "incompleteHidden": 1,
+            "accepted": 63,
+            "consumed": 63,
+            "flushed": 0,
+            "stalls": 49,
+            "resets": 1,
+            "cycles": 738
+          },
+          "native": {
+            "schemaVersion": 1,
+            "valid": true,
+            "incompleteHidden": 1,
+            "accepted": 63,
+            "consumed": 63,
+            "flushed": 0,
+            "stalls": 49,
+            "resets": 1,
+            "cycles": 738
+          }
+        },
+        "semanticPlanSha256": "af7e9c1342b5f3b8ec42360d408686ad610f39f1eac708dc524fa03887428586",
+        "semanticMetricsSha256": "30c34e9c6bc29332027bd08bc5159dddc70e82554b11a6e2e18ed33f482558e3"
+      },
+      {
+        "configuration": {
+          "Depth": 64,
+          "Pipeline": 3,
+          "OutputFifo": true
+        },
+        "positive": {
+          "schemaVersion": 1,
+          "legacy": [
+            [
+              "Entry.FrameTransactions",
+              "passed"
+            ]
+          ],
+          "native": [
+            [
+              "Entry.FrameTransactions",
+              "passed"
+            ]
+          ],
+          "expected": [
+            "Entry.FrameTransactions"
+          ],
+          "missing": {
+            "legacy": [],
+            "native": []
+          },
+          "unexpected": {
+            "legacy": [],
+            "native": []
+          },
+          "seedMismatches": [],
+          "matched": true,
+          "traceMatched": true,
+          "expectedSeedMatched": true,
+          "exitCodes": {
+            "legacy": 0,
+            "native": 0
+          },
+          "fixture": "frame-fifo",
+          "configuration": {
+            "Depth": 64,
+            "Pipeline": 3,
+            "OutputFifo": true
+          },
+          "top": "frame_d64_p3_o1",
+          "seed": 83,
+          "revision": "48ff7a7e2ef782cf778d47910cf85835c64b1bce",
+          "planSha256": "6adf877577c9933eef7d9fda8b470f1c3d70e14fb9444a01ffc520fafebe3563",
+          "configurationSha256": "8cb69dad2085ecc7a4b8982301c11b89c819ef4642932769f2f1d99a7b258943",
+          "wrapperSha256": "cfbd0e9301febf4b68781cdb8b5e03eb46eb00d150a2253bb47d4ac400f67019",
+          "oracleSha256": "8344ad17d5d7fb4bc0bf8054f395a72908d48d225b8318d9d279166ef9b6f596",
+          "fault": "none",
+          "oracleMatched": true
+        },
+        "negative": {
+          "schemaVersion": 1,
+          "negativeControl": true,
+          "legacyDetected": true,
+          "nativeDetected": true,
+          "matched": true,
+          "expectedSeedMatched": true,
+          "exitCodes": {
+            "legacy": 1,
+            "native": 1
+          },
+          "fixture": "frame-fifo",
+          "configuration": {
+            "Depth": 64,
+            "Pipeline": 3,
+            "OutputFifo": true
+          },
+          "top": "frame_d64_p3_o1",
+          "seed": 83,
+          "revision": "48ff7a7e2ef782cf778d47910cf85835c64b1bce",
+          "planSha256": "6adf877577c9933eef7d9fda8b470f1c3d70e14fb9444a01ffc520fafebe3563",
+          "configurationSha256": "8cb69dad2085ecc7a4b8982301c11b89c819ef4642932769f2f1d99a7b258943",
+          "wrapperSha256": "cfbd0e9301febf4b68781cdb8b5e03eb46eb00d150a2253bb47d4ac400f67019",
+          "oracleSha256": "8344ad17d5d7fb4bc0bf8054f395a72908d48d225b8318d9d279166ef9b6f596",
+          "fault": "payload-lsb"
+        },
+        "workload": {
+          "frames": 16,
+          "beats": 63,
+          "cycles": 794,
+          "stalls": 48
+        },
+        "oracles": {
+          "legacy": {
+            "schemaVersion": 1,
+            "valid": true,
+            "incompleteHidden": 1,
+            "accepted": 63,
+            "consumed": 63,
+            "flushed": 0,
+            "stalls": 48,
+            "resets": 1,
+            "cycles": 794
+          },
+          "native": {
+            "schemaVersion": 1,
+            "valid": true,
+            "incompleteHidden": 1,
+            "accepted": 63,
+            "consumed": 63,
+            "flushed": 0,
+            "stalls": 48,
+            "resets": 1,
+            "cycles": 794
+          }
+        },
+        "semanticPlanSha256": "8defb483a04bc1acd901d9c73208cf8c7bf8edfee81885e09d5a355ca7b509a8",
+        "semanticMetricsSha256": "349cb1b8c9533cfcae8639d8d2af69e113fced711bead1000c72defb19ac784b"
+      }
+    ],
+    "verilator": {
+      "schemaVersion": 1,
+      "valid": true,
+      "incompleteHidden": 1,
+      "accepted": 63,
+      "consumed": 63,
+      "flushed": 0,
+      "stalls": 49,
+      "resets": 1,
+      "cycles": 738
+    }
+  },
+  "crossOsSemanticPlansAndMetricsMatched": true,
+  "limits": "Four actual Icarus configurations on each OS plus one Linux Verilator configuration.40 construction configurations are not40 executed cases. No oversize/drop-bad/pause/mid-frame reset/full AXI claim."
+}

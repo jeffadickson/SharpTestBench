@@ -65,3 +65,9 @@ manifest parity bothOS, published Tools bothOS and Linux NativeAOT Runner passed
 Four-assembly coverage/generated HTML are refreshed in checkpoint150 JSON. Bounded
 and partial process capture, frame FIFO modes, broader API audit and native shutdown
 root cause remain open.150/200 verified; final review pending; no push.
+
+
+Checkpoint160 closes bounded normal frame-commit visibility/order/sideband/stall/drain
+contracts with independent replay and actual dual-runner positive/corruption evidence
+for four Icarus configurations bothOS plus one Linux Verilator case. Oversize/bad
+frame dropping, pause and mid-frame reset remain open.160/200 verified, no push.

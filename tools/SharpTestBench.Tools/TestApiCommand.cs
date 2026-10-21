@@ -46,6 +46,15 @@ internal static class TestApiCommand
                 "metrics" => ArbiterFixture.Metrics(config, Value(1, "metrics"), Value(2, "plan")),
                 _ => throw new ArgumentException("Unknown arbiter contract") };
         }
+        if (module == "frame_fixture")
+        {
+            var config=FrameFixture.Configuration(Value(0,"config"));
+            return name switch {
+                "plan"=>FrameFixture.Plan(config,Number(1,"seed"),(int)Number(2,"count",1,32,16)),
+                "metrics"=>FrameFixture.Metrics(config,Value(1,"metrics"),Value(2,"plan")),
+                "wrapper"=>FrameFixture.Wrapper(config),
+                _=>throw new ArgumentException("Unknown frame contract") };
+        }
         if (module == "fifo_fixture")
         {
             FifoConfiguration Config()

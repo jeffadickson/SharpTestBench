@@ -558,3 +558,40 @@ this task's outputs/requirements200/checkpoint150.
 A read-only GitHub check confirmed12 disabled workflows and unchanged open/draft
 PR62 at0318a864d9b570f9ffbc4857e7365ec9ed6a4736.150 units verified locally,50 remain.
 Final200 deep review remains required. No push occurred.
+
+
+## Checkpoint160 — complete-frame FIFO verification
+
+Iterations151..160 add a separate FrameFifo simulation assembly and frame-ci helper
+for the pinned MIT axis_fifo RTL. The wrapper enables frame mode and oversize-drop
+support, while the generated workload keeps frames strictly shorter than RAM depth.
+The transaction model accepts source beats only at handshakes and exposes complete
+frames only after the last input handshake has completed. Output in that same cycle
+is rejected. Stable backpressured output, all sidebands, ordered complete drain and
+an incomplete-frame-hidden witness are checked. An independent Python deque replay
+cross-checks both runner traces. Exact identities/seeds, declared input snapshots,
+RTL/wrapper/plan/oracle and imported parser source hashes remain bound. Existing
+beat-mode schemas and vendor source bytes are unchanged.
+
+Six managed tests and seven retained contract tests add hand-derived early-output,
+sideband/stall/last-boundary corruption, malformed numeric/schema, counter and drain
+checks. Extra independent source review found no actionable defect. Fresh locked
+Release: Windows2,609 passed/15 Unix skips; Linux2,624 passed including make test.
+Counts: core492, generators17, helpers1,187 and928 retained contracts. Both doctors,
+dual Icarus priority +/- controls and Linux Verilator baseline passed.
+
+Actual frame qualification executed(depth,pipeline,output FIFO)=(4,0,off),(8,1,off),
+(8,2,on),(64,3,on), seed83 with16 frames, positive and payload corruption through
+both Icarus runners on both OSes. All identities/seeds, independent oracles and
+trace comparisons passed. Cross-OS canonical semantic plan/metrics digests match
+for all four cases; platform-indented JSON byte hashes differ legitimately. Linux
+Verilator(8,2,on) passed independent replay:63 accepted/consumed beats,738 cycles,
+49 stalls and an incomplete-frame-hidden witness. Detailed compact evidence is in
+requirements200-checkpoint160-frame.json; detailed traces remain under ignored build.
+40 supported construction combinations are not40 executed configurations. Oversize
+and bad-frame dropping, pause, reset interruption and full AXI remain open.
+
+No new coverage/AOT publication percentage is claimed after150. Preparatory deep
+triage found reporting discovery-producer binding, compiler publication classification
+and general bounded/partial process capture as next defects.160 units verified,
+40 remain. Next scheduled review165; final200 deep review remains required. No push.
