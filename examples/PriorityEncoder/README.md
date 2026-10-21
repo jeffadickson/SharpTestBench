@@ -36,12 +36,21 @@ report the wrong valid flag. Qualification additionally reconstructs all 453
 requests from the effective seed, rejecting semantically correct traces for the
 wrong stimulus. The unseeded validator remains available for archived reports.
 
-The negative control flips the wrapper's valid outputs and requires both runners
-to fail with `PRIORITY_MISMATCH` and matching seeds. Failure occurs on the first
-vector/configuration, so this does not independently qualify fault detection in
-all 12 configurations. Inherited `PRIORITY_FAULT` and `PRIORITY_REPORT` controls
-are explicitly removed before fixture values are supplied. Reports use the
-existing parity schema.
+Negative controls select a configuration (0–11, ascending widths and MSB before
+LSB) and output kind (`valid`, `index` or `onehot`):
+
+```sh
+dotnet tools/SharpTestBench.Tools/bin/Release/net10.0/SharpTestBench.Tools.dll priority-ci --seed 83 --negative-control --fault-config 11 --fault-kind index
+```
+
+Only the selected output is corrupted. Both runners must identify the selected
+configuration and observed output kind with matching seeds. Multiple-output or
+unrelated failures cannot qualify as the requested single-output negative. Valid
+faults are observable on request zero; index/onehot faults require a valid request.
+The default remains configuration0/valid and its existing workspace path.
+Inherited `PRIORITY_FAULT`, `PRIORITY_CONFIG`, `PRIORITY_KIND` and `PRIORITY_REPORT`
+controls are explicitly removed before fixture values are supplied. Existing
+parity fields remain; negative reports add the fault configuration/kind.
 
 This is a functional test, not a throughput benchmark. Unknown-state semantics,
 width-one behavior and arbiter fairness remain outside its scope.

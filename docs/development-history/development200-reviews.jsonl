@@ -1,3 +1,6 @@
 {"iteration":15,"reviewer":"coverage_peer","result":"no actionable findings","scope":"seed attestation, eight golden schedules and early wrong-request cases","followup":"Add schedule transitions, generated tail and wrong-seed regression."}
 {"iteration":30,"reviewer":"coverage_peer","result":"no actionable findings","scope":"directed/boundary transitions through vector264"}
 {"iteration":45,"reviewer":"coverage_peer","result":"no actionable findings","scope":"onehot/complement end and generated-tail start","followup":"Final tail and wrong-seed cases added before50."}
+{"iteration":60,"reviewer":"coverage_peer","result":"no actionable code defects; evidence gap identified","scope":"targeted fault controls and RTL gates","followup":"Require observed mismatch kind, not requested-mode echo; implemented at76. Execute real matrix."}
+{"iteration":75,"reviewer":"coverage_peer","result":"no actionable findings","scope":"additional configuration/kind protocol cases","followup":"Actual output classification and simulator matrix still pending at review."}
+{"iteration":90,"reviewer":"coverage_peer","result":"no actionable findings","scope":"observed single-output classification, multiple-output rejection, all36 protocol encodings","followup":"Input rejections and actual simulator matrix completed after review."}

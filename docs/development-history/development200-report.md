@@ -29,3 +29,24 @@ No coverage percentage is claimed for this intermediate checkpoint.
 Fresh execution evidence and later checkpoints are appended after validation.
 Unknown local AGENTS.md remains outside commits. CI remains disabled; PR #62
 is not modified. Windows and Linux use separate native checkouts and outputs.
+
+## Checkpoint 100
+
+Added independently targeted valid/index/onehot faults for all twelve priority
+encoder configurations, strict negative-only CLI controls, isolated workspaces,
+and actual observed-output mismatch markers. The upstream Verilog remains pinned
+and unchanged. Added 47 named control/argument regressions and an executable
+independent Python golden reference. Review60 exposed the requested-kind echo
+risk; edit76 now requires a single observed wrong output and rejects multiple
+wrong outputs. Reviews75/90 and the supplemental qualification-driver review
+found no actionable defects.
+
+Windows: core480, generators17, helpers984 passed/9 skipped, contracts797:
+2,278 passed/9 skipped. Linux: core480, generators17, helpers993, contracts797:
+2,287 passed. Locked Release builds, doctors, default actual Icarus positive and
+negative parity passed on both; Linux Verilator positive passed. The opt-in
+prepared-host matrix passed 36 configuration/kind cases on Linux and nine on
+Windows, each exercising both production runner launch paths and C# fault
+contracts. It does not execute priority-ci orchestration for every target.
+Separate full priority-ci config11/index qualification passed on both systems.
+No intermediate coverage percentage is claimed.
