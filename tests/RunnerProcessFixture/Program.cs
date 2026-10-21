@@ -14,10 +14,14 @@ if (compile)
 {
     int index = Array.IndexOf(args, "-o");
     if (index < 0 || index + 1 >= args.Length) return 64;
-    File.WriteAllText(args[index + 1], "Controlled compiler output; not executable HDL.");
+    if (!Flag("omitCompiled"))
+        File.WriteAllText(args[index + 1], Flag("emptyCompiled") ? "" : "Controlled compiler output; not executable HDL.");
     return Number("compileExit");
 }
 if (args.Length != 3 || args[0] != "-m") return 64;
+if (Flag("mutateCompiled")) File.AppendAllText(args[2], "\ncontrolled image mutation\n");
+int logBytes = Number("stdoutBytes");
+if (logBytes > 0) Console.Write(new string('L', logBytes));
 var names = new[] { "CS_SEED", "CS_TEST_FILTER", "CS_TEST_NAMES", "CS_TEST_STAGES", "CS_LIST_TESTS", "CS_STAGE_FAILURE_POLICY" };
 File.WriteAllText("fixture-environment.json", JsonSerializer.Serialize(names.ToDictionary(key => key, Environment.GetEnvironmentVariable)));
 int delay = Number("simulateDelayMs");
@@ -25,7 +29,8 @@ if (delay != 0) await Task.Delay(delay);
 if (!Flag("omitResults"))
 {
     string resultPath = Environment.GetEnvironmentVariable("CS_RESULTS") ?? throw new InvalidOperationException("Missing results destination");
-    File.WriteAllText(resultPath, config.GetProperty("resultText").GetString());
+    if (config.TryGetProperty("resultHex", out var hex)) File.WriteAllBytes(resultPath, Convert.FromHexString(hex.GetString()!));
+    else File.WriteAllText(resultPath, config.GetProperty("resultText").GetString());
 }
 if (config.TryGetProperty("reportFailureStream", out var report))
 {

@@ -281,3 +281,35 @@ separate. No refreshed coverage percentage is claimed until serial collection.
 
 Evidence is fresh under build/requirements200-80-*. Eighty engineering units are
 locally verified;120 remain. No push, CI dispatch or PR62 mutation occurred.
+
+## Verified local milestone90
+
+Units81..90 close compiled-image integrity and additional production CLI failure
+contracts. A retained pre-change controlled probe observed successful runs when
+compiler output was missing, empty, or modified by the simulation child. Runner
+now requires a nonempty image before launching simulation, captures its hash and
+size, then verifies it again before result attestation. Completed schemaVersion1
+run evidence adds Compiled Role/Path/Bytes/Sha256 while preserving prior fields.
+Missing/empty output is a build failure even with zero compile exit. Persistent
+image mutation cannot produce a successful run manifest. Snapshot checks do not
+detect transient changes restored before rechecking; immutable storage is not
+claimed. Legacy run evidence has its own schema and does not gain this field.
+
+Ten retained production CLI tests cover compiler start failure, process exit
+precedence over passing JSON, missing/empty compiler output, exact image hashing,
+image mutation, log truncation, malformed UTF-8, skipped required cases, stale
+simulation evidence after compile failure and reordered multicase seed binding.
+These use controlled C# children, not HDL/native hosting. Real priority Icarus
+runs additionally exercised the new image requirement and retained Compiled hashes.
+
+Fresh locked Release: Windows2491 passed/10skipped; Linux2501 passed. Core492,
+generators17, helpers1134 (Windows1124 passed/10skipped), contracts858. Both doctors,
+actual priority positive/negative dual-Icarus controls and Linux Verilator passed.
+Scheduled independent90 review found no actionable issue and confirmed the additive
+source-generated evidence field. NativeAOT publication and refreshed managed
+coverage for this change remain pending100; no historical publication result is
+relabelled as current qualification.
+
+Artifacts: build/requirements200-90-*; pre-change probes
+build/requirements200-83-before.json. Ninety units are locally verified;110 remain.
+No push or GitHub mutation occurred. Final whole-campaign deep review is pending.

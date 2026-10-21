@@ -2,6 +2,7 @@ internal sealed record InputManifestEvidence(int SchemaVersion, string RunId, In
 internal sealed record SourceEvidence(string Path, string Sha256);
 internal sealed record RunEvidence
 {
+    public InputFingerprint? Compiled { get; init; }
     public int SchemaVersion { get; init; } = 1;
     public string RunId { get; init; } = "";
     public string Simulator { get; init; } = "";

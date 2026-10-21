@@ -71,6 +71,9 @@ try
     EvidenceWriter.Write(Path.Combine(work, "input-manifest.json"), JsonSerializer.SerializeToElement(new InputManifestEvidence(1, runId, inputs), EvidenceJsonContext.Default.InputManifestEvidence));
     var compiled = Path.Combine(work, "top.vvp");
     await ProcessExecution.Run(config.Iverilog ?? "iverilog", CompilePlan.Arguments(root, config, compiled), work, null, "compile", config.TimeoutSeconds, config.MaxLogBytes);
+    if (!File.Exists(compiled) || new FileInfo(compiled).Length == 0)
+        throw new RunnerProcessException("compile", config.Iverilog ?? "iverilog", 0, "Compiler did not produce a nonempty output image.");
+    var compiledInput = InputEvidence.File("compiled-image", compiled);
     var results = Path.Combine(work, "icarus-results.json");
     if (File.Exists(results)) File.Delete(results);
     var env = new Dictionary<string, string>
@@ -100,11 +103,12 @@ try
     if (!File.Exists(results)) throw new InvalidDataException("Simulator did not produce a result JSON file");
     using var doc = JsonInput.Parse(JsonInput.Read(results));
     InputEvidence.Verify(inputs, InputEvidence.Capture(root, manifestPath, config, fxrFile));
+    InputEvidence.Verify([compiledInput], [InputEvidence.File("compiled-image", compiled)]);
     var attestation = ResultAttestation.Verify(doc.RootElement, config);
     int failed = attestation.Failed;
     var evidence = new RunEvidence
     {
-        SchemaVersion = 1, RunId = runId, Simulator = config.Simulator, Top = config.Top, Seed = config.Seed, Inputs = inputs,
+        SchemaVersion = 1, RunId = runId, Simulator = config.Simulator, Top = config.Top, Seed = config.Seed, Inputs = inputs, Compiled = compiledInput,
         Platform = System.Runtime.InteropServices.RuntimeInformation.OSDescription,
         Architecture = System.Runtime.InteropServices.RuntimeInformation.ProcessArchitecture.ToString(),
         Framework = System.Runtime.InteropServices.RuntimeInformation.FrameworkDescription,

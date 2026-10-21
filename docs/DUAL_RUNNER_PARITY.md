@@ -182,3 +182,18 @@ JSON retains diagnostic control characters through the normal .NET serializer.
 XML sanitization does not alter that source error; invalid UTF-16 may still follow
 the JSON serializer's replacement policy. This is not a claim that arbitrary
 ill-formed UTF-16 has a lossless UTF-8 JSON representation.
+
+## Standalone compiled image evidence
+
+Standalone Runner requires a successful compiler process to leave a nonempty
+`top.vvp` before simulation starts. A zero compiler exit without that artifact is
+a build failure. It fingerprints the image before simulation and rechecks the
+bytes afterward before attesting results. Completed v1 run evidence adds a
+`Compiled` object with Role, Path, Bytes and Sha256; prior fields and schemaVersion
+remain intact. This is snapshot integrity, not a claim of immutable storage or
+validation of arbitrary compiler output semantics. Legacy runner evidence has a
+different schema and does not gain this field.
+
+Controlled C# child tests exercise the production managed entry point with JSON
+reflection disabled. They establish orchestration/evidence behavior only; actual
+HDL simulation, native host loading and NativeAOT publication use separate gates.
