@@ -369,3 +369,34 @@ Read-only GitHub verification confirmed12 disabled workflows and PR62 still
 open/draft/unmerged at0318a864d9b570f9ffbc4857e7365ec9ed6a4736. Fresh evidence is
 under build/requirements200-100-* and build/requirements200-native100*. One hundred
 engineering units are verified locally;100 remain. No push or CI dispatch occurred.
+
+
+## Local checkpoint110: legacy ownership and compiler failures
+
+Ten additional engineering units close bounded STB-060 legacy orchestration
+contracts. A pre-change real CLI reproduction deleted an HDL input selected as
+its waveform. Legacy now rejects canonical input/output aliases, linked generated
+leaves, duplicate output destinations and inputs under generated backend/build
+trees before cleanup. Automatic managed build guards include bin and obj; GHDL
+uses ghdl-work. Adapter/bootstrap/hostfxr resolution and ownership validation
+precede report retirement. Failures during that discovery preserve old reports;
+after complete ownership verification, ordinary missing assembly/compile failures
+retire previous JSON/XML/coverage/discovery completion evidence. This is known
+artifact ownership protection, not a sandbox against arbitrary compiler writes.
+
+Legacy Icarus removes stale images, requires fresh nonempty compiler output,
+records exact streaming SHA256 and checks persistent mutation after simulation.
+Snapshots do not detect mutations restored between checks. Controlled C# child
+contracts exercise actual production CLI orchestration without HDL/native hosting.
+They cover success, absent/empty output, failed compiler and changed image despite
+passing results. Real simulation evidence remains separate.
+
+Fresh locked Release validation: Windows2,543 passed plus12 Unix skips;
+Linux2,555 passed. Counts include core492, generators17, helpers1,158 and888
+retained contracts. Both doctors passed; both Icarus runners passed priority
+positive/negative controls on both OSes; Linux Verilator positive control passed.
+Scheduled105 review found GHDL ownership, obj ownership and inherited relative
+logging gaps; all corrected and follow-up source review found no actionable issue.
+No GHDL native execution or new coverage percentage is claimed. Checkpoint100
+coverage remains the last serial four-assembly collection. CI and PR62 untouched;
+no push. Units1–110 verified locally,90 remain before final200 review.

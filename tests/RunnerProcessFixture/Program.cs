@@ -1,7 +1,8 @@
 // Controlled child executable for production CLI contracts. Does not simulate HDL.
 using System.Text.Json;
 
-using var behavior = JsonDocument.Parse(File.ReadAllText(Path.Combine(Directory.GetCurrentDirectory(), "..", "process-fixture.json")));
+var behaviorPath = Environment.GetEnvironmentVariable("STB_PROCESS_FIXTURE_CONFIG") ?? Path.Combine(Directory.GetCurrentDirectory(), "..", "process-fixture.json");
+using var behavior = JsonDocument.Parse(File.ReadAllText(behaviorPath));
 var config = behavior.RootElement;
 bool Flag(string key) => config.TryGetProperty(key, out var value) && value.GetBoolean();
 int Number(string key) => config.TryGetProperty(key, out var value) ? value.GetInt32() : 0;
@@ -9,7 +10,7 @@ bool compile = args.Contains("-o");
 string phase = compile ? "compile" : "simulate";
 Console.WriteLine("Controlled process fixture: " + phase);
 if (config.TryGetProperty("mutatePhase", out var mutate) && mutate.GetString() == phase)
-    File.AppendAllText(Path.Combine(Directory.GetCurrentDirectory(), "..", "input.sv"), "\n// controlled mutation\n");
+    File.AppendAllText(Path.Combine(Path.GetDirectoryName(Path.GetFullPath(behaviorPath))!, "input.sv"), "\n// controlled mutation\n");
 if (compile)
 {
     int index = Array.IndexOf(args, "-o");
