@@ -120,3 +120,19 @@ cancellation, exception taxonomy and traceback differences. Review completion
 does not imply a public Python Outcome API or full Task parity. Current-source
 anchor checks and targeted simulator validation are recorded in the requirements
 campaign rather than relabeling older evidence.
+
+## Audit integrity and locally installed pinned source
+
+The C# audit accepts a source checkout, a package container, or a direct installed
+cocotb package directory. It validates pinned source hashes and Python AST names
+and source coordinates, using the existing narrow Python language-parser adapter.
+No installation is performed by the audit. Set CS_PYTHON to the existing Python3.12
+interpreter when it is not already the selected python command.
+
+Review schema1, commit identity, unique inventory rows, nonempty text anchors and
+repository-contained canonical evidence paths are required. Inventories must not
+be empty. The legacy reviewed-mapping-see-TASK_API_MAP.md marker is retained as
+inventory metadata only; reviewed counts come exclusively from validated review
+entries. Inventory generation fails closed on syntax errors, stages the complete
+CSV and replaces the destination atomically. Failed parsing/replacement preserves
+existing evidence and cleans only the current operation's temporary file.
