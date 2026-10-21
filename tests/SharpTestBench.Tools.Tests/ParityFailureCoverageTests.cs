@@ -28,12 +28,14 @@ public sealed class ParityFailureCoverageTests
         public List<Dictionary<string, string?>> Environments { get; } = [];
         public ToolContext Context => new(Root, this);
         public Dictionary<string, object> Manifest { get; } = new() {
+            ["schemaVersion"]=1,["simulator"]="icarus",["nativeHost"]="host",["icarusBootstrap"]="bootstrap",["gpiLibrary"]="gpi",["gpiEntryPoint"]="entry",["gpiImpl"]="impl:entry",["dotnetRoot"]="sdk",["outputDirectory"]="native",["seed"]=17UL,
             ["assembly"] = "fixture assembly.dll", ["top"] = "top", ["entryType"] = "Entry, Fixture",
             ["sources"] = new[] { "source one.sv", "source two.sv" }, ["expectedNames"] = new[] { "Entry.Scoreboard" }
         };
         public Fixture() { Directory.CreateDirectory(Path.Combine(Work, "legacy")); Directory.CreateDirectory(Path.Combine(Work, "native")); }
         public CommandResult Run(IReadOnlyList<string> arguments, string directory, IReadOnlyDictionary<string, string?>? environment = null, bool capture = false, bool check = true, TimeSpan? timeout = null)
         {
+            if (arguments.Count>1 && arguments[1]=="-c") return new(0,JsonSerializer.Serialize(new CocotbAdapter("fixture","python","libs","bootstrap","gpi,entry","impl:entry",null,null)),"");
             bool left = Commands.Count == 0;
             Commands.Add(arguments.ToArray()); Environments.Add(new(environment!));
             Assert.True(capture); Assert.False(check); Assert.Equal(TimeSpan.FromSeconds(300), timeout);
@@ -44,8 +46,11 @@ public sealed class ParityFailureCoverageTests
             if (metrics is not null) File.WriteAllText(Path.Combine(Work, left ? "legacy/metrics.json" : "native/metrics.json"), metrics);
             return new(left ? LeftExit : RightExit, left ? "legacy stdout\n" : "native stdout\n", left ? "legacy stderr" : "native stderr");
         }
-        public Dictionary<string, object> Compare(string? marker = "DSP_MISMATCH", string? metricVariable = null, Action<JsonElement, JsonElement>? metrics = null, string? exact = null, Dictionary<string, string?>? environment = null, ulong seed = 17) =>
-            ParityCiCommand.Compare(Context, Work, Manifest, seed, environment ?? ParityContracts.ChildEnvironment(new Dictionary<string, string?>()), exact, metricVariable, marker, metrics);
+        public Dictionary<string, object> Compare(string? marker = "DSP_MISMATCH", string? metricVariable = null, Action<JsonElement, JsonElement>? metrics = null, string? exact = null, Dictionary<string, string?>? environment = null, ulong seed = 17)
+        {
+            Manifest["seed"]=seed;
+            return ParityCiCommand.Compare(Context, Work, Manifest, seed, environment ?? ParityContracts.ChildEnvironment(new Dictionary<string, string?>()), exact, metricVariable, marker, metrics);
+        }
         public void Passing() { Left = Rows("passed"); Right = Rows("passed"); LeftExit = RightExit = 0; }
         public JsonElement Read(string name) => Json(File.ReadAllText(Path.Combine(Work, name)));
         public void Dispose()
@@ -188,10 +193,10 @@ public sealed class ParityFailureCoverageTests
     {
         using var f = new Fixture(); f.Compare(exact: "Entry.Scoreboard", seed: ulong.MaxValue);
         var command = f.Commands[0]; var sourcePositions = command.Select((value, index) => (value, index)).Where(pair => pair.value == "--source").Select(pair => pair.index).ToArray();
-        Assert.Equal(new[] { "source one.sv", "source two.sv" }, sourcePositions.Select(index => command[index + 1]));
+        Assert.Equal(new[] { Path.GetFullPath("source one.sv",f.Work), Path.GetFullPath("source two.sv",f.Work) }, sourcePositions.Select(index => command[index + 1]));
         Assert.Equal("18446744073709551615", command[Array.IndexOf(command, "--seed") + 1]);
         Assert.Equal("Entry.Scoreboard", command[Array.IndexOf(command, "--exact") + 1]);
-        Assert.Equal("fixture assembly.dll", command[Array.IndexOf(command, "--assembly") + 1]);
+        Assert.Equal(Path.GetFullPath("fixture assembly.dll",f.Work), command[Array.IndexOf(command, "--assembly") + 1]);
         Assert.Contains("--no-build", command);
     }
     [Fact] public void NativeLaunchUsesProductionRunnerAndExactManifestPath()
@@ -352,5 +357,27 @@ public sealed class ParityFailureCoverageTests
         f.Manifest["expectedSeeds"] = new Dictionary<string, ulong> { ["Entry.Scoreboard"] = 17 };
         var report = f.Compare(marker:null);
         Assert.False((bool)report["expectedSeedMatched"]); Assert.False((bool)report["matched"]);
+    }
+    [Fact] public void NestedCompilerCaseCannotRetainAnEarlierPassingReportAfterFailure()
+    {
+        using var f=new Fixture();const string name="manifest-check/compiler-parity";
+        ParityCiCommand.InWorkspace(f.Context,name,(_,_)=>new Dictionary<string,object> { ["matched"]=true });
+        var pair=f.Context.At("build/"+name);Assert.True(File.Exists(Path.Combine(pair,"parity.json")));
+        Assert.Throws<IOException>(()=>ParityCiCommand.InWorkspace(f.Context,name,(_,_)=>throw new IOException("controlled rerun failure")));
+        Assert.False(File.Exists(Path.Combine(pair,"parity.json")));
+        Assert.True(File.Exists(Path.Combine(pair,"case-failure.json")));
+        Assert.False(File.Exists(Path.Combine(pair,".parity.lock")));
+    }
+    [Fact] public void BothRunnerCommandsUseIdenticalEffectiveAmbientCompilerAndSimulator()
+    {
+        using var f=new Fixture();
+        var environment=new Dictionary<string,string?> { ["CS_IVERILOG"]="tools/compiler with spaces",["CS_VVP"]="tools/simulator with spaces",["CS_IVL_ROOT"]="other library root" };
+        f.Compare(environment:environment);
+        var manifest=f.Read("manifest.json");
+        Assert.Equal(Path.GetFullPath("tools/compiler with spaces",f.Root),manifest.GetProperty("iverilog").GetString());
+        Assert.Equal(manifest.GetProperty("iverilog").GetString(),f.Environments[0]["CS_IVERILOG"]);
+        Assert.Equal(manifest.GetProperty("vvp").GetString(),f.Environments[0]["CS_VVP"]);
+        Assert.All(f.Environments,env=>Assert.Null(env["CS_IVL_ROOT"]));
+        Assert.Equal("other library root",environment["CS_IVL_ROOT"]);
     }
 }

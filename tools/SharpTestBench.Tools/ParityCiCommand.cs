@@ -9,18 +9,26 @@ internal static class ParityCiCommand
         var result = context.Run(command, environment: environment, capture: true, check: false, timeout: TimeSpan.FromSeconds(300));
         File.WriteAllText(Path.Combine(work, label + ".log"), result.Output + result.Error); return result.ExitCode;
     }
-    static string[] LegacyCommand(ToolContext context, Dictionary<string, object> manifest, string work, ulong seed, string? exact)
-    {
-        var arguments = new List<string>(ToolContext.Self) { "run", "--sim", "icarus", "--no-build", "--assembly", (string)manifest["assembly"], "--top", (string)manifest["top"], "--entry-type", (string)manifest["entryType"], "--work-dir", Path.Combine(work, "legacy"), "--label", "legacy", "--seed", seed.ToString(System.Globalization.CultureInfo.InvariantCulture) };
-        foreach (var source in (string[])manifest["sources"]) arguments.AddRange(["--source", source]);
-        if (exact is not null) arguments.AddRange(["--exact", exact]);
-        return arguments.ToArray();
-    }
     internal static Dictionary<string, object> Compare(ToolContext context, string work, Dictionary<string, object> manifest, ulong seed, Dictionary<string, string?> environment, string? exact, string? metricsVariable, string? marker, Action<JsonElement, JsonElement>? metrics)
     {
+        var command=ParityLegacyCommand.Build(manifest,work,seed,exact);
+        var config=ParityLegacyCommand.Read(manifest);
+        ParityLegacyCommand.ValidateAdapter(config,work,CocotbAdapter.Inspect(context));
         var leftEnvironment = new Dictionary<string, string?>(environment); var rightEnvironment = new Dictionary<string, string?>(environment);
+        leftEnvironment["CS_DOTNET_ROOT"]=Path.GetFullPath(config.DotnetRoot,work);
+        foreach (var key in new[] { "CS_TEST_FILTER","CS_TEST_NAMES","CS_TEST_STAGES","CS_LIST_TESTS","CS_STAGE_FAILURE_POLICY" }) { leftEnvironment[key]=null;rightEnvironment[key]=null; }
+        string Tool(string key,string fallback)
+        {
+            var selected=environment.TryGetValue(key,out var value) ? value ?? fallback : Environment.GetEnvironmentVariable(key) ?? fallback;
+            return selected.Contains(Path.DirectorySeparatorChar) || selected.Contains(Path.AltDirectorySeparatorChar) ? Path.GetFullPath(selected,context.Root) : selected;
+        }
+        var compiler=Tool("CS_IVERILOG","iverilog");var simulator=Tool("CS_VVP","vvp");
+        leftEnvironment["CS_IVERILOG"]=compiler;leftEnvironment["CS_VVP"]=simulator;
+        leftEnvironment["CS_IVL_ROOT"]=null;rightEnvironment["CS_IVL_ROOT"]=null;
+        var boundManifest=new Dictionary<string,object>(manifest) { ["iverilog"]=compiler,["vvp"]=simulator };
+        StrictJson.Write(Path.Combine(work,"manifest.json"),boundManifest);
         if (metricsVariable is not null) { leftEnvironment[metricsVariable] = Path.Combine(work, "legacy/metrics.json"); rightEnvironment[metricsVariable] = Path.Combine(work, "native/metrics.json"); }
-        int leftCode = Execute(context, work, "legacy", LegacyCommand(context, manifest, work, seed, exact), leftEnvironment);
+        int leftCode = Execute(context, work, "legacy", command, leftEnvironment);
         int rightCode = Execute(context, work, "native", ["dotnet", context.At("tools/SharpTestBench.Runner/bin/Release/net10.0/SharpTestBench.Runner.dll"), "run", Path.Combine(work, "manifest.json")], rightEnvironment);
         using var left = StrictJson.Read(Path.Combine(work, "legacy/legacy-results.json")); using var right = StrictJson.Read(Path.Combine(work, "native/icarus-results.json"));
         var expected = JsonSerializer.SerializeToElement(manifest["expectedNames"]);

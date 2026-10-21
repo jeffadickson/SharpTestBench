@@ -37,3 +37,12 @@ Windows2553 passed/15 Unix skips; Linux2568 passed; actual relative-GPI Icarus b
 OSes, dual priority controls both OSes, Linux Verilator. Compiler-option forwarding,
 relative bridge inputs and broader requirements remain open. No issue is globally
 closed by these bounded contracts; final200 deep review remains outstanding.
+
+
+Checkpoint130 closes the compiler-option forwarding and relative bridge-input
+contracts for the supported Icarus/default-timeout/log-limit scope. Actual positive
+and wrong-width failure parity passed both OSes, including bare/valued defines and
+spaces. Exact selection binds full-discovery seeds. Unsupported overrides fail
+explicitly. Omitted runtime implementation/dependency ownership and whole-pair
+input identity remain next requirements; generic Legacy structured failure evidence
+is also still open.130/200 verified, no push and final200 review remains pending.

@@ -32,7 +32,7 @@ internal static class LegacyRunCommand
     public static void Execute(ToolContext context, string[] arguments)
     {
         var options = new Options(arguments, "--no-build", "--list", "--timings");
-        options.Only("--timings", "--sim-executable", "--work-dir", "--waves", "--host", "--assembly", "--source", "--top", "--entry-type", "--no-build", "--project", "--stage", "--stage-failure-policy", "--log-json", "--list", "--exact", "--seed", "--filter", "--label", "--sim");
+        options.Only("--hdl-standard","--include-dir","--define","--parameter","--timings", "--sim-executable", "--work-dir", "--waves", "--host", "--assembly", "--source", "--top", "--entry-type", "--no-build", "--project", "--stage", "--stage-failure-policy", "--log-json", "--list", "--exact", "--seed", "--filter", "--label", "--sim");
         var simulator = options.Get("--sim", "icarus")!; var project = options.Get("--project", "Integration")!;
         if (!new[] { "icarus", "verilator", "ghdl", "nvc" }.Contains(simulator) || project is not ("Integration" or "Benchmark")) throw new ArgumentException("Unknown simulator or project");
         bool noBuild = options.Has("--no-build");
@@ -55,6 +55,7 @@ internal static class LegacyRunCommand
         }
         var selectedSources = options.All("--source").Select(Path.GetFullPath).ToArray();
         if (selectedSources.Length == 0) selectedSources = [context.At(simulator is "ghdl" or "nvc" ? "tests/VhdlIntegration/top.vhd" : "tests/Integration/top.sv")];
+        var compileConfig = LegacyCompileOptions.Create(options,simulator,top,selectedSources);
         var selectedName = simulator is "ghdl" or "nvc" ? "VhdlIntegration" : project;
         var selectedDll = options.Get("--assembly") is string requestedAssembly ? Path.ChangeExtension(Path.GetFullPath(requestedAssembly),".dll") : context.At($"tests/{selectedName}/bin/Release/net10.0/{selectedName}.dll");
         var inputPaths = selectedSources.Concat(new[] { selectedDll, Path.ChangeExtension(selectedDll,".runtimeconfig.json"), Path.ChangeExtension(selectedDll,".deps.json"), host }).ToList();
@@ -62,19 +63,19 @@ internal static class LegacyRunCommand
         string? logPath = options.Get("--log-json") is string selectedLog ? Path.GetFullPath(selectedLog) : Environment.GetEnvironmentVariable("CS_LOG_JSON") is string inheritedLog ? Path.GetFullPath(inheritedLog,work) : null;
         var outputPaths = LegacyArtifacts.Outputs(work,label).Concat(wave is null ? [] : new[] { wave }).Concat(logPath is null ? [] : new[] { logPath }).ToArray();
         string[] generatedDirectories = simulator == "verilator" && !options.Has("--sim-executable") ? [Path.Combine(work,"verilator")] : simulator == "nvc" ? [Path.Combine(work,"nvc-work")] : simulator == "ghdl" ? [Path.Combine(work,"ghdl-work")] : [];
-        LegacyArtifacts.Validate(inputPaths,outputPaths,generatedDirectories);
+        LegacyArtifacts.Validate(inputPaths,outputPaths,generatedDirectories,compileConfig.IncludeDirectories);
         if (!noBuild)
         {
             var nativeOutput=Path.Combine(work,NativeBuildCommand.HostName);
             var buildInputs=selectedSources.Concat(new[] { selectedDll,Path.ChangeExtension(selectedDll,".runtimeconfig.json"),Path.ChangeExtension(selectedDll,".deps.json") }).ToList();
             if (!pathComparer.Equals(RunnerManifestCommand.RealPath(host),RunnerManifestCommand.RealPath(nativeOutput))) buildInputs.Add(host);
-            LegacyArtifacts.Validate(buildInputs,[nativeOutput,Path.Combine(work,"native-vectorization.txt"),Path.Combine(work,"native-build.json")]);
-            if (!options.Has("--assembly")) LegacyArtifacts.Validate(selectedSources,[],[context.At($"tests/{selectedName}/bin"),context.At($"tests/{selectedName}/obj")]);
+            LegacyArtifacts.Validate(buildInputs,[nativeOutput,Path.Combine(work,"native-vectorization.txt"),Path.Combine(work,"native-build.json")],includeDirectories:compileConfig.IncludeDirectories);
+            if (!options.Has("--assembly")) LegacyArtifacts.Validate(selectedSources,[],[context.At($"tests/{selectedName}/bin"),context.At($"tests/{selectedName}/obj")],compileConfig.IncludeDirectories);
         }
         var sdk = NativeBuildCommand.SdkRoot();
         var adapter = CocotbAdapter.Inspect(context, simulator); var entry = adapter.NativeEntry();
         var hostFxr = NativeBuildCommand.HostFxr(sdk);
-        LegacyArtifacts.Validate(inputPaths.Concat(new[] { adapter.Bootstrap,entry.Library,hostFxr }),outputPaths,generatedDirectories);
+        LegacyArtifacts.Validate(inputPaths.Concat(new[] { adapter.Bootstrap,entry.Library,hostFxr }),outputPaths,generatedDirectories,compileConfig.IncludeDirectories);
         LegacyArtifacts.RetireReports(work,label);
         if (wave is not null) { Directory.CreateDirectory(Path.GetDirectoryName(wave)!); File.Delete(wave); }
         var assemblyName = simulator is "ghdl" or "nvc" ? "VhdlIntegration" : project;
@@ -121,7 +122,7 @@ internal static class LegacyRunCommand
                 waveOptions.AddRange(["-s", "__sharptestbench_wave_dump", helper]);
             }
             var compileWatch = Stopwatch.StartNew();
-            context.Run([environment.GetValueOrDefault("CS_IVERILOG") ?? "iverilog", .. ivl, "-g2012", "-s", top, "-o", Path.Combine(work, "top.vvp"), .. waveOptions, .. sources]);
+            context.Run([environment.GetValueOrDefault("CS_IVERILOG") ?? "iverilog", .. ivl, .. CompilePlan.Arguments(context.Root,compileConfig,compiledPath), .. waveOptions]);
             if (!File.Exists(compiledPath) || new FileInfo(compiledPath).Length == 0) throw new IOException("Icarus compiler did not produce a nonempty output image.");
             compiledImage=LegacyImage.Capture(compiledPath);
             StrictJson.Write(Path.Combine(work,label+"-compile.json"),new { schemaVersion=1,status="compiled",image=compiledImage });

@@ -78,15 +78,16 @@ class Tests(unittest.TestCase):
             self.assertEqual(1,result.returncode);self.assertIn('contains an input',result.stderr)
             self.assertEqual(b'protected VHDL input',source.read_bytes());self.released()
 
-    def controlled(self, **behavior):
+    def controlled(self, cli_options=(), **behavior):
         fixture=ROOT/'tests/RunnerProcessFixture/bin/Release/net10.0'/('RunnerProcessFixture.exe' if os.name=='nt' else 'RunnerProcessFixture')
         config=self.folder/'process-fixture.json';config.write_text(json.dumps({'resultText':'[{"Name":"Contract","Status":"passed","Seed":1}]',**behavior}),encoding='utf-8')
         assembly=self.folder/'controlled.dll';assembly.write_bytes(b'controlled assembly placeholder')
         assembly.with_suffix('.runtimeconfig.json').write_text('{}',encoding='utf-8')
         source=self.folder/'input.sv';source.write_text('module top; endmodule',encoding='utf-8')
         env=dict(os.environ,CS_IVERILOG=str(fixture),CS_VVP=str(fixture),STB_PROCESS_FIXTURE_CONFIG=str(config))
+        env.pop("CS_IVL_ROOT",None)
         return subprocess.run(['dotnet',str(self.cli),'run','--no-build','--work-dir',str(self.work),'--label','guard',
-                               '--assembly',str(assembly),'--source',str(source)],cwd=ROOT,env=env,
+                               '--assembly',str(assembly),'--source',str(source),*cli_options],cwd=ROOT,env=env,
                                text=True,encoding='utf-8',capture_output=True,check=False,timeout=30)
 
     def test_controlled_compilation_records_exact_image_and_accepts_results(self):
@@ -146,3 +147,29 @@ class Tests(unittest.TestCase):
         self.assertEqual(0,result.returncode,result.stderr)
         for rows in [[],{},None,[17]]:
             result=self.controlled(resultText=json.dumps(rows));self.assertEqual(1,result.returncode);self.released()
+
+    def test_compiler_options_preserve_independent_expected_argv_and_literal_expressions(self):
+        first=self.folder/'include first';second=self.folder/'include second'
+        first.mkdir();second.mkdir()
+        result=self.controlled(cli_options=['--hdl-standard','2005-sv','--include-dir',str(second),'--include-dir',str(first),
+            '--define','Z=4==4','--define','BARE','--define','A=hello world','--parameter','WIDTH=8','--parameter',"OFFSET=(1 << 2)"])
+        self.assertEqual(0,result.returncode,result.stderr)
+        actual=json.loads((self.folder/'fixture-compile-argv.json').read_text(encoding='utf-8'))
+        self.assertEqual(['-g2005-sv','-s','top','-o',str(self.work/'top.vvp'),'-I',str(second),'-I',str(first),
+            '-D','A=hello world','-D','BARE','-D','Z=4==4','-P','top.OFFSET=(1 << 2)','-P','top.WIDTH=8',str(self.folder/'input.sv')],actual)
+        self.released()
+
+    def test_invalid_duplicate_and_empty_compiler_options_reject_before_launch(self):
+        for options in [['--hdl-standard','2099'],['--define','A=1','--define','A=2'],['--define','bad.name=1'],
+                        ['--define','A='],['--parameter','WIDTH'],['--parameter','WIDTH='],
+                        ['--parameter','WIDTH=8','--parameter','WIDTH=4'],['--include-dir','']]:
+            result=self.controlled(cli_options=options)
+            self.assertEqual(1,result.returncode);self.assertFalse((self.folder/'fixture-compile-argv.json').exists());self.released()
+
+    def test_automatic_build_rejects_include_trees_overlapping_managed_outputs(self):
+        source=self.folder/'input.sv';source.write_bytes(b'protected source')
+        for tree in ['bin','obj']:
+            result=subprocess.run(['dotnet',str(self.cli),'run','--source',str(source),'--include-dir',str(ROOT/'tests/Integration'/tree)],
+                cwd=ROOT,text=True,encoding='utf-8',capture_output=True,check=False,timeout=30)
+            self.assertEqual(1,result.returncode);self.assertIn('overlaps an include directory',result.stderr)
+            self.assertEqual(b'protected source',source.read_bytes())

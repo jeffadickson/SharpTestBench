@@ -1,0 +1,164 @@
+{
+  "schemaVersion": 1,
+  "scope": "actual local Icarus compiler-option and exact-selection qualification; no HDL code coverage or new NativeAOT qualification",
+  "windows": {
+    "schemaVersion": 1,
+    "compilerOptions": true,
+    "parameterNegativeControl": true,
+    "selectedCaseParity": {
+      "schemaVersion": 1,
+      "legacy": [
+        [
+          "Tests.A_TypesAndSignals",
+          "passed"
+        ]
+      ],
+      "native": [
+        [
+          "Tests.A_TypesAndSignals",
+          "passed"
+        ]
+      ],
+      "expected": [
+        "Tests.A_TypesAndSignals"
+      ],
+      "missing": {
+        "legacy": [],
+        "native": []
+      },
+      "unexpected": {
+        "legacy": [],
+        "native": []
+      },
+      "seedMismatches": [],
+      "matched": true
+    },
+    "selectedExpectedSeed": 59,
+    "compilerOptionParity": {
+      "schemaVersion": 1,
+      "legacy": [
+        [
+          "Entry.ResetAndCount",
+          "passed"
+        ]
+      ],
+      "native": [
+        [
+          "Entry.ResetAndCount",
+          "passed"
+        ]
+      ],
+      "expected": [
+        "Entry.ResetAndCount"
+      ],
+      "missing": {
+        "legacy": [],
+        "native": []
+      },
+      "unexpected": {
+        "legacy": [],
+        "native": []
+      },
+      "seedMismatches": [],
+      "matched": true,
+      "expectedSeedMatched": true,
+      "exitCodes": {
+        "legacy": 0,
+        "native": 0
+      }
+    },
+    "compilerOptionNegativeParity": {
+      "schemaVersion": 1,
+      "negativeControl": true,
+      "legacyDetected": true,
+      "nativeDetected": true,
+      "matched": true,
+      "expectedSeedMatched": true,
+      "exitCodes": {
+        "legacy": 1,
+        "native": 1
+      }
+    },
+    "inputAttestation": true
+  },
+  "linux": {
+    "schemaVersion": 1,
+    "compilerOptions": true,
+    "parameterNegativeControl": true,
+    "selectedCaseParity": {
+      "schemaVersion": 1,
+      "legacy": [
+        [
+          "Tests.A_TypesAndSignals",
+          "passed"
+        ]
+      ],
+      "native": [
+        [
+          "Tests.A_TypesAndSignals",
+          "passed"
+        ]
+      ],
+      "expected": [
+        "Tests.A_TypesAndSignals"
+      ],
+      "missing": {
+        "legacy": [],
+        "native": []
+      },
+      "unexpected": {
+        "legacy": [],
+        "native": []
+      },
+      "seedMismatches": [],
+      "matched": true
+    },
+    "selectedExpectedSeed": 59,
+    "compilerOptionParity": {
+      "schemaVersion": 1,
+      "legacy": [
+        [
+          "Entry.ResetAndCount",
+          "passed"
+        ]
+      ],
+      "native": [
+        [
+          "Entry.ResetAndCount",
+          "passed"
+        ]
+      ],
+      "expected": [
+        "Entry.ResetAndCount"
+      ],
+      "missing": {
+        "legacy": [],
+        "native": []
+      },
+      "unexpected": {
+        "legacy": [],
+        "native": []
+      },
+      "seedMismatches": [],
+      "matched": true,
+      "expectedSeedMatched": true,
+      "exitCodes": {
+        "legacy": 0,
+        "native": 0
+      }
+    },
+    "compilerOptionNegativeParity": {
+      "schemaVersion": 1,
+      "negativeControl": true,
+      "legacyDetected": true,
+      "nativeDetected": true,
+      "matched": true,
+      "expectedSeedMatched": true,
+      "exitCodes": {
+        "legacy": 1,
+        "native": 1
+      }
+    },
+    "inputAttestation": true
+  }
+}

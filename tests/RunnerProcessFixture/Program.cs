@@ -13,6 +13,7 @@ if (config.TryGetProperty("mutatePhase", out var mutate) && mutate.GetString() =
     File.AppendAllText(Path.Combine(Path.GetDirectoryName(Path.GetFullPath(behaviorPath))!, "input.sv"), "\n// controlled mutation\n");
 if (compile)
 {
+    File.WriteAllText(Path.Combine(Path.GetDirectoryName(Path.GetFullPath(behaviorPath))!,"fixture-compile-argv.json"),JsonSerializer.Serialize(args));
     int index = Array.IndexOf(args, "-o");
     if (index < 0 || index + 1 >= args.Length) return 64;
     if (!Flag("omitCompiled"))

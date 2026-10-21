@@ -428,3 +428,42 @@ or coverage percentage is claimed; checkpoint100 remains last serial coverage.
 Scheduled120 review corrected an unreachable manifest-alias test and added a
 reachable Unix symlink case. No additional actionable source findings remained.
 CI/PR62 untouched; no push.120 units verified,80 remain before final200 review.
+
+
+## Local checkpoint130: compiler-option and selection parity
+
+Legacy Icarus now supports the same HDL standard, ordered includes, bare/valued
+defines and parameter expressions as standalone Runner, through a shared argument
+builder and shared compiler-option validation. Direct CLI paths retain invocation
+semantics; parity resolves manifest sources/assembly/host/includes relative to the
+manifest directory. Exact selection/seed controls agree explicitly. Installed
+adapter identity is checked, effective ambient compiler/simulator selections are
+bound into both launches, and unsupported custom manifest tool/timeout/log limits
+are rejected. Both paths omit legacy-only CS_IVL_ROOT. Independent controlled-child
+argv tests cover spaces, ordering, first-equals splitting and literal expressions.
+
+Actual runner-manifest-check passed on Windows and Linux: both runners compiled
+relative source/include paths with spaces, a bare and valued define, explicit
+2005-sv standard and WIDTH=8 parameter; both detected the intended WIDTH=4 failure.
+The Integration selection scenario also passed. Actual execution exposed that its
+expected seed must come from full discovery: base17 yields selected59. The helper
+now runs separate discovery and binds that seed, preserving base17. It never derives
+expectation from the accepted run result. Selection descriptor regression tests
+cover offset, missing/duplicate identities and malformed seeds.
+
+Fresh locked Release: Windows2,567 passed/15 Unix skips; Linux2,582 passed. Counts:
+core492, generators17, helpers1,171, retained contracts902 (three Windows contract
+skips and12 managed skips). Both doctors, dual-Icarus priority positive/negative
+controls and Linux Verilator passed. Native manifest qualification summary is
+requirements200-checkpoint130-manifest.json. Controlled-child tests alone still do
+not establish HDL/native hosting; actual native execution is reported separately.
+No new AOT publication, HDL coverage or managed coverage percentage is claimed.
+
+Extra independent130 review found stale nested completion reports and include-tree
+auto-build overlap, and identified ambient tool divergence. All corrected and
+regressed; follow-up reviews found no actionable issue, including the discovered
+seed correction. Initial candidate validation caught one API type mismatch and two
+Windows path expectations; final runs above are green. An extra Linux harness run
+had empty CS_PYTHON and was repeated with the derived interpreter path; main make
+test used the selected venv correctly. CI and PR62 untouched, no push.130 engineering
+units verified locally;70 remain before final200 deep review.

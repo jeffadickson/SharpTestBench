@@ -227,3 +227,28 @@ canonical manifest and runtime-config aliases are rejected before cleanup.
 Standalone GPI implementation library paths are resolved against the manifest
 directory before passing them to the child. Summary source and assembly hashes
 reuse the same verified streaming fingerprint records as input evidence.
+
+
+The legacy Icarus CLI accepts `--hdl-standard`, repeated `--include-dir`,
+`--define NAME[=value]` and `--parameter NAME=value`. Includes and sources preserve
+order; maps use ordinal key order. Splitting at the first `=` preserves literal
+expressions, and the process argument list avoids shell interpolation. Duplicate
+map names, invalid names, empty values and unsupported standards are errors.
+Compiler options are currently rejected on other legacy backends. Input include
+trees may not overlap generated backend, native-build or managed bin/obj outputs.
+
+The local parity bridge forwards those manifest options and resolves source,
+assembly, host and include paths relative to the manifest directory. Exact
+selection and seeds must agree with explicit helper controls. Installed adapter
+identity must match the manifest. Effective inherited compiler/simulator settings
+are bound into both launches, with relative tool paths resolved against the repository
+root. Both launches omit the legacy-only `CS_IVL_ROOT` override.
+Custom manifest tool overrides, timeouts or log limits are currently rejected by
+this bridge, while standalone Runner continues to support them. This prevents
+qualification through silently different settings.
+
+`runner-manifest-check` exercises the same relative-path/include/define/parameter
+fixture through both runners, including a wrong-width failure control. Its nested
+cases use the normal workspace lifecycle so failed reruns retire prior passing
+completion reports. The selection scenario rebinds expected names and per-case
+seeds together when changing test assembly.
