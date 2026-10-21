@@ -23,18 +23,20 @@ internal static class FixtureContracts
         else if (kind == "axis") { source = "axis_register.v"; revision = "48ff7a7e2ef782cf778d47910cf85835c64b1bce"; }
         else if (kind == "fifo") { source = "axis_fifo.v"; revision = "48ff7a7e2ef782cf778d47910cf85835c64b1bce"; }
         else if (kind == "priority") { source = "priority_encoder.v"; revision = "48ff7a7e2ef782cf778d47910cf85835c64b1bce"; }
+        else if (kind == "arbiter") { source = "arbiter.v"; revision = "48ff7a7e2ef782cf778d47910cf85835c64b1bce"; }
         else throw new ArgumentException("Unknown fixture kind");
         var folder = Path.Combine(root, "tests/Fixtures/verilog-" + kind);
         if (File.GetAttributes(folder).HasFlag(FileAttributes.ReparsePoint)) throw new InvalidDataException("Linked fixture directory");
         using var document = StrictJson.Read(Path.Combine(folder, "provenance.json"));
         var meta = document.RootElement;
         Fields(meta, "repository", "revision", "license", "files");
-        if (meta.GetProperty("repository").GetString() != "https://github.com/alexforencich/verilog-" + (kind is "priority" or "fifo" ? "axis" : kind) || meta.GetProperty("revision").GetString() != revision || meta.GetProperty("license").GetString() != "MIT") throw new InvalidDataException("Invalid upstream provenance");
-        var files = meta.GetProperty("files"); Fields(files, source, "COPYING");
+        if (meta.GetProperty("repository").GetString() != "https://github.com/alexforencich/verilog-" + (kind is "priority" or "fifo" or "arbiter" ? "axis" : kind) || meta.GetProperty("revision").GetString() != revision || meta.GetProperty("license").GetString() != "MIT") throw new InvalidDataException("Invalid upstream provenance");
+        var files = meta.GetProperty("files");
+        Fields(files, kind == "arbiter" ? [source, "priority_encoder.v", "COPYING"] : [source, "COPYING"]);
         foreach (var file in files.EnumerateObject())
         {
             Fields(file.Value, "upstream", "sha256");
-            if (file.Value.GetProperty("upstream").GetString() != (file.Name == source ? "rtl/" : "") + file.Name) throw new InvalidDataException("Invalid upstream path");
+            if (file.Value.GetProperty("upstream").GetString() != (file.Name == "COPYING" ? "" : "rtl/") + file.Name) throw new InvalidDataException("Invalid upstream path");
             var digest = file.Value.GetProperty("sha256").GetString() ?? "";
             var path = Path.Combine(folder, file.Name);
             if (!Regex.IsMatch(digest, "^[0-9a-f]{64}$") || File.GetAttributes(path).HasFlag(FileAttributes.ReparsePoint) || new FileInfo(path).Length > 1024 * 1024 || CiCommands.Hash(path) != digest) throw new InvalidDataException("Upstream source changed or invalid");

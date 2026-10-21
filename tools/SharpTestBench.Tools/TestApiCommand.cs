@@ -38,6 +38,14 @@ internal static class TestApiCommand
             "integer" => Number(0, "value", Number(1, "low"), Number(2, "high")),
             "plan" => AxisFixture.Plan(Number(0, "seed"), (int)Number(1, "count", 1, 4096, 64), (int)Number(2, "stall", 0, 32, 3), Value(3, "reset_at").ValueKind == JsonValueKind.Null ? null : (int)Number(3, "reset_at", 1, 4095)),
             "validate_plan" => AxisFixture.ValidatePlan(Value(0, "rows")), "configuration" => AxisFixture.Configuration((int)Number(0, "mode", 0, 2), Flag(1, "sidebands")), "project" => AxisFixture.Project(Value(0, "row"), Flag(1, "sidebands")), "metrics" => AxisFixture.Metrics(Value(0, "data")), "verify_sources" => FixtureContracts.VerifySources(Text(0, "root"), "axis"), _ => throw new ArgumentException("Unknown AXIS contract") };
+        if (module == "arbiter_fixture")
+        {
+            var config = ArbiterFixture.Configuration(Value(0, "configuration"));
+            return name switch {
+                "plan" => ArbiterFixture.Plan(config, Number(1, "seed"), (int)Number(2, "count", 1, 2048, 128)),
+                "metrics" => ArbiterFixture.Metrics(config, Value(1, "metrics"), Value(2, "plan")),
+                _ => throw new ArgumentException("Unknown arbiter contract") };
+        }
         if (module == "fifo_fixture")
         {
             FifoConfiguration Config()

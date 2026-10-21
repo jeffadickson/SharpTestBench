@@ -313,3 +313,59 @@ relabelled as current qualification.
 Artifacts: build/requirements200-90-*; pre-change probes
 build/requirements200-83-before.json. Ninety units are locally verified;110 remain.
 No push or GitHub mutation occurred. Final whole-campaign deep review is pending.
+
+## Verified local milestone100
+
+Units91..100 add unmodified pinned MIT arbiter/priority-encoder RTL,48 safe policy
+constructions, a sequential circular C# model, reset/hold/release/seeded plans,
+a C# HDL scoreboard, strict parent trace attestation, an independent ordered-list
+Python oracle, C# dual-runner orchestration, corrupt-grant controls and adversarial
+cross-language contracts. Twelve managed facts and17 retained contracts support
+the feature. Configuration rows and native reruns are not engineering iterations.
+
+Fresh locked Release: Windows2520 passed/10skipped; Linux2530 passed. Core492,
+generators17, helpers1146 (Windows1136 passed/10skipped), retained contracts875.
+Both doctors, priority positive/negative dual-Icarus controls and Linux Verilator
+passed. Additional priority failures covered9 cases on Windows and36 on Linux,
+all through both C# runner launch paths with exact diagnostic/seed checks.
+
+Arbiter seed83/count128 actual dual-Icarus cases on both OSes, each positive and
+grant-bit-flip negative: (ports,roundRobin,block,priority)
+(2,off,none,LSB),(3,on,none,LSB),(4,on,ack,MSB),
+(8,off,request,MSB),(8,on,none,MSB),(3,off,ack,LSB).
+All positive traces passed independent replay and input/hash/seed binding; both
+runners rejected each corruption with ARBITER_MISMATCH. These six cases do not
+certify all48 model/construction settings. Linux Verilator also passed the
+three-port round-robin case and its independent142-cycle replay.
+
+Fresh full Tools publication executed on Windows x64 and Linux x64 as self-contained
+ReadyToRun. Actual RTR headers and bundled coreclr/clrjit files were verified.
+Published Tools passed reporting-failure controls and arbiter qualification on
+both OSes. Linux standalone Runner was freshly published as NativeAOT, then ran
+the actual three-port arbiter successfully with independent replay and nonempty
+compiled-image fingerprint (18,786bytes). Test assemblies still use separate
+hostfxr/runtime hosting. No Windows Runner AOT or additional executed RID claim.
+
+Serial coverage includes all four production assemblies:5,700/9,436 lines
+(60.406952%) on both OSes. Windows2,695/5,966 branches (45.172645%);
+Linux2,707/5,966 (45.373785%). All141 source files and all43 generated HTML
+sections were present. Selected production CLI tests execute130/139 Program lines
+with JSON reflection disabled; controlled children do not establish HDL/native
+hosting. Generated code contributes to the denominator. No HDL code coverage,
+NativeAOT instruction coverage or complete runtime-switch/platform matrix claim.
+Exact counters: requirements200-checkpoint100-coverage.json. Portable HTML remains
+in this task's outputs/requirements200/checkpoint100 folder; checkpoint50 is kept.
+
+Extra independent100 source review found no actionable arbiter defect. Its limits
+are recorded: shared C# model,48 construction versus six native configurations,
+negative controls do not validate positive traces, and oracleSha256 does not cover
+the imported FIFO JSON parser. Preparatory legacy review found existing ownership,
+stale-result, compiler-option and relative-path gaps. These do not invalidate the
+absolute-path, generated-wrapper fixtures just qualified; they are next work,
+with input-preservation defects prioritized. Final whole-campaign review remains
+pending200. The closure matrix separates verified contracts from broader issues.
+
+Read-only GitHub verification confirmed12 disabled workflows and PR62 still
+open/draft/unmerged at0318a864d9b570f9ffbc4857e7365ec9ed6a4736. Fresh evidence is
+under build/requirements200-100-* and build/requirements200-native100*. One hundred
+engineering units are verified locally;100 remain. No push or CI dispatch occurred.
