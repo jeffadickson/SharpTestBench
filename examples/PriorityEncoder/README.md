@@ -28,9 +28,12 @@ The effective per-test seed is retained in runner results.
 
 Positive parity requires passing results with matching identities/seeds and
 identical 5,436-row traces. The helper validates row dimensions, configuration
-order, masks, flags, indexes and onehot consistency. This structural validator
-does not recompute winners or reconstruct seeded stimulus; functional correctness
-comes from the independent scoreboard in each simulator process.
+order, masks, flags, indexes and onehot consistency. It also truncates each request
+to the configuration width and recomputes the winning bit with leading/trailing
+zero counts, independently of the simulator scoreboard's linear scan. Thus equal
+traces cannot qualify when both select an unrequested bit, reverse priority, or
+report the wrong valid flag. The helper does not reconstruct the seeded stimulus;
+the scoreboard and matching per-case seeds remain required.
 
 The negative control flips the wrapper's valid outputs and requires both runners
 to fail with `PRIORITY_MISMATCH` and matching seeds. Failure occurs on the first

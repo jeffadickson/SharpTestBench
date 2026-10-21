@@ -1,3 +1,4 @@
+using System.Numerics;
 using System.Text.Json;
 
 namespace SharpTestBench.Tools;
@@ -32,6 +33,13 @@ internal static class PriorityTrace
             ulong onehot = FixtureContracts.Integer(row[5], 0, uint.MaxValue, "onehot");
             if (valid == 0 ? onehot != 0 : onehot != 1UL << index)
                 throw new InvalidDataException("Invalid priority onehot mask");
+            // Recompute independently of the simulator scoreboard's linear scan.
+            uint requests = current & (uint)FixtureContracts.Mask(widths[configuration / 2]);
+            int winner = requests == 0 ? -1 : configuration % 2 == 0
+                ? 31 - BitOperations.LeadingZeroCount(requests)
+                : BitOperations.TrailingZeroCount(requests);
+            if (valid != (winner < 0 ? 0UL : 1UL) || index != winner)
+                throw new InvalidDataException("Priority trace disagrees with request mask or direction");
         }
     }
 }
