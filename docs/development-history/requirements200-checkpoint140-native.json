@@ -1,0 +1,354 @@
+{
+  "schemaVersion": 1,
+  "scope": "actual local Icarus one3port roundrobin configuration plus reporting negatives; snapshot source verification, not HDL/AOT instruction coverage",
+  "windows": {
+    "platform": "nt",
+    "arbiter": {
+      "positive": {
+        "report": {
+          "schemaVersion": 1,
+          "legacy": [
+            [
+              "Entry.ArbiterScoreboard",
+              "passed"
+            ]
+          ],
+          "native": [
+            [
+              "Entry.ArbiterScoreboard",
+              "passed"
+            ]
+          ],
+          "expected": [
+            "Entry.ArbiterScoreboard"
+          ],
+          "missing": {
+            "legacy": [],
+            "native": []
+          },
+          "unexpected": {
+            "legacy": [],
+            "native": []
+          },
+          "seedMismatches": [],
+          "matched": true,
+          "traceMatched": true,
+          "expectedSeedMatched": true,
+          "exitCodes": {
+            "legacy": 0,
+            "native": 0
+          },
+          "fixture": "arbiter",
+          "configuration": {
+            "Ports": 3,
+            "RoundRobin": true,
+            "Blocking": 0,
+            "LsbPriority": true
+          },
+          "top": "arb_p3_r1_b0_l1",
+          "seed": 83,
+          "revision": "48ff7a7e2ef782cf778d47910cf85835c64b1bce",
+          "planSha256": "19c0fbb1fff1e8cf9709c36834715be99833ff425887483206ef98b5fcb0edd3",
+          "configurationSha256": "cfb51e400d0aa67a14d9ccd889c4e759952a7f2ca995191a4fa069878a8bab0b",
+          "wrapperSha256": "e6d31b3e04950d387d7c22a6d9831058bc6796178593c2905df4059aa3d05f4f",
+          "oracleSha256": "3577a676225a4bd3339c36f9997200665948a7ab58bceb108f7ebb7b84df4196",
+          "fault": "none",
+          "oracleMatched": true
+        },
+        "pair": {
+          "status": "verified",
+          "records": 13,
+          "roles": {
+            "manifest": 1,
+            "source": 3,
+            "assembly": 1,
+            "managed-dependency": 1,
+            "managed-config": 2,
+            "native-host": 1,
+            "bootstrap": 1,
+            "gpi": 1,
+            "hostfxr": 1,
+            "gpi-implementation": 1
+          }
+        },
+        "oracleInputs": {
+          "tests/Tooling/arbiter_reference.py": "3577a676225a4bd3339c36f9997200665948a7ab58bceb108f7ebb7b84df4196",
+          "tests/Tooling/fifo_reference.py": "5d36b3155ec0bc8db5e220a743498ab5d0c6db21434ae8de6f4ee51eb73784ce"
+        }
+      },
+      "negative": {
+        "report": {
+          "schemaVersion": 1,
+          "negativeControl": true,
+          "legacyDetected": true,
+          "nativeDetected": true,
+          "matched": true,
+          "expectedSeedMatched": true,
+          "exitCodes": {
+            "legacy": 1,
+            "native": 1
+          },
+          "fixture": "arbiter",
+          "configuration": {
+            "Ports": 3,
+            "RoundRobin": true,
+            "Blocking": 0,
+            "LsbPriority": true
+          },
+          "top": "arb_p3_r1_b0_l1",
+          "seed": 83,
+          "revision": "48ff7a7e2ef782cf778d47910cf85835c64b1bce",
+          "planSha256": "19c0fbb1fff1e8cf9709c36834715be99833ff425887483206ef98b5fcb0edd3",
+          "configurationSha256": "cfb51e400d0aa67a14d9ccd889c4e759952a7f2ca995191a4fa069878a8bab0b",
+          "wrapperSha256": "e6d31b3e04950d387d7c22a6d9831058bc6796178593c2905df4059aa3d05f4f",
+          "oracleSha256": "3577a676225a4bd3339c36f9997200665948a7ab58bceb108f7ebb7b84df4196",
+          "fault": "grant-lsb"
+        },
+        "pair": {
+          "status": "verified",
+          "records": 13,
+          "roles": {
+            "manifest": 1,
+            "source": 3,
+            "assembly": 1,
+            "managed-dependency": 1,
+            "managed-config": 2,
+            "native-host": 1,
+            "bootstrap": 1,
+            "gpi": 1,
+            "hostfxr": 1,
+            "gpi-implementation": 1
+          }
+        },
+        "oracleInputs": {
+          "tests/Tooling/arbiter_reference.py": "3577a676225a4bd3339c36f9997200665948a7ab58bceb108f7ebb7b84df4196",
+          "tests/Tooling/fifo_reference.py": "5d36b3155ec0bc8db5e220a743498ab5d0c6db21434ae8de6f4ee51eb73784ce"
+        },
+        "legacyFailure": {
+          "kind": "test_failure",
+          "phase": "attest",
+          "simulatorExitCode": 0
+        }
+      }
+    },
+    "reporting": {
+      "text": {
+        "report": {
+          "schemaVersion": 1,
+          "negativeControl": true,
+          "legacyDetected": true,
+          "nativeDetected": true,
+          "matched": true,
+          "expectedSeedMatched": true,
+          "xmlSanitized": true,
+          "mode": "text",
+          "exitCodes": {
+            "legacy": 1,
+            "native": 1
+          }
+        },
+        "legacyFailure": {
+          "kind": "test_failure",
+          "phase": "attest",
+          "simulatorExitCode": 0
+        }
+      },
+      "io": {
+        "report": {
+          "schemaVersion": 1,
+          "negativeControl": true,
+          "legacyDetected": true,
+          "nativeDetected": true,
+          "matched": true,
+          "primaryResultsRetired": true,
+          "nativeInfrastructureFailure": true,
+          "mode": "io",
+          "exitCodes": {
+            "legacy": 1,
+            "native": 1
+          }
+        },
+        "legacyFailure": {
+          "kind": "infrastructure_failure",
+          "phase": "attest",
+          "simulatorExitCode": 0
+        }
+      }
+    }
+  },
+  "linux": {
+    "platform": "posix",
+    "arbiter": {
+      "positive": {
+        "report": {
+          "schemaVersion": 1,
+          "legacy": [
+            [
+              "Entry.ArbiterScoreboard",
+              "passed"
+            ]
+          ],
+          "native": [
+            [
+              "Entry.ArbiterScoreboard",
+              "passed"
+            ]
+          ],
+          "expected": [
+            "Entry.ArbiterScoreboard"
+          ],
+          "missing": {
+            "legacy": [],
+            "native": []
+          },
+          "unexpected": {
+            "legacy": [],
+            "native": []
+          },
+          "seedMismatches": [],
+          "matched": true,
+          "traceMatched": true,
+          "expectedSeedMatched": true,
+          "exitCodes": {
+            "legacy": 0,
+            "native": 0
+          },
+          "fixture": "arbiter",
+          "configuration": {
+            "Ports": 3,
+            "RoundRobin": true,
+            "Blocking": 0,
+            "LsbPriority": true
+          },
+          "top": "arb_p3_r1_b0_l1",
+          "seed": 83,
+          "revision": "48ff7a7e2ef782cf778d47910cf85835c64b1bce",
+          "planSha256": "613a902914a15373c2a3f77b81dfb6780e9ec99a35ae365906f95e42cf32ed1e",
+          "configurationSha256": "3b556e5173eeb81eefbee0973031703c032d97648336806637f663224015dfbc",
+          "wrapperSha256": "e6d31b3e04950d387d7c22a6d9831058bc6796178593c2905df4059aa3d05f4f",
+          "oracleSha256": "3577a676225a4bd3339c36f9997200665948a7ab58bceb108f7ebb7b84df4196",
+          "fault": "none",
+          "oracleMatched": true
+        },
+        "pair": {
+          "status": "verified",
+          "records": 13,
+          "roles": {
+            "manifest": 1,
+            "source": 3,
+            "assembly": 1,
+            "managed-dependency": 1,
+            "managed-config": 2,
+            "native-host": 1,
+            "bootstrap": 1,
+            "gpi": 1,
+            "hostfxr": 1,
+            "gpi-implementation": 1
+          }
+        },
+        "oracleInputs": {
+          "tests/Tooling/arbiter_reference.py": "3577a676225a4bd3339c36f9997200665948a7ab58bceb108f7ebb7b84df4196",
+          "tests/Tooling/fifo_reference.py": "5d36b3155ec0bc8db5e220a743498ab5d0c6db21434ae8de6f4ee51eb73784ce"
+        }
+      },
+      "negative": {
+        "report": {
+          "schemaVersion": 1,
+          "negativeControl": true,
+          "legacyDetected": true,
+          "nativeDetected": true,
+          "matched": true,
+          "expectedSeedMatched": true,
+          "exitCodes": {
+            "legacy": 1,
+            "native": 1
+          },
+          "fixture": "arbiter",
+          "configuration": {
+            "Ports": 3,
+            "RoundRobin": true,
+            "Blocking": 0,
+            "LsbPriority": true
+          },
+          "top": "arb_p3_r1_b0_l1",
+          "seed": 83,
+          "revision": "48ff7a7e2ef782cf778d47910cf85835c64b1bce",
+          "planSha256": "613a902914a15373c2a3f77b81dfb6780e9ec99a35ae365906f95e42cf32ed1e",
+          "configurationSha256": "3b556e5173eeb81eefbee0973031703c032d97648336806637f663224015dfbc",
+          "wrapperSha256": "e6d31b3e04950d387d7c22a6d9831058bc6796178593c2905df4059aa3d05f4f",
+          "oracleSha256": "3577a676225a4bd3339c36f9997200665948a7ab58bceb108f7ebb7b84df4196",
+          "fault": "grant-lsb"
+        },
+        "pair": {
+          "status": "verified",
+          "records": 13,
+          "roles": {
+            "manifest": 1,
+            "source": 3,
+            "assembly": 1,
+            "managed-dependency": 1,
+            "managed-config": 2,
+            "native-host": 1,
+            "bootstrap": 1,
+            "gpi": 1,
+            "hostfxr": 1,
+            "gpi-implementation": 1
+          }
+        },
+        "oracleInputs": {
+          "tests/Tooling/arbiter_reference.py": "3577a676225a4bd3339c36f9997200665948a7ab58bceb108f7ebb7b84df4196",
+          "tests/Tooling/fifo_reference.py": "5d36b3155ec0bc8db5e220a743498ab5d0c6db21434ae8de6f4ee51eb73784ce"
+        },
+        "legacyFailure": {
+          "kind": "test_failure",
+          "phase": "attest",
+          "simulatorExitCode": 0
+        }
+      }
+    },
+    "reporting": {
+      "text": {
+        "report": {
+          "schemaVersion": 1,
+          "negativeControl": true,
+          "legacyDetected": true,
+          "nativeDetected": true,
+          "matched": true,
+          "expectedSeedMatched": true,
+          "xmlSanitized": true,
+          "mode": "text",
+          "exitCodes": {
+            "legacy": 1,
+            "native": 1
+          }
+        },
+        "legacyFailure": {
+          "kind": "test_failure",
+          "phase": "attest",
+          "simulatorExitCode": 0
+        }
+      },
+      "io": {
+        "report": {
+          "schemaVersion": 1,
+          "negativeControl": true,
+          "legacyDetected": true,
+          "nativeDetected": true,
+          "matched": true,
+          "primaryResultsRetired": true,
+          "nativeInfrastructureFailure": true,
+          "mode": "io",
+          "exitCodes": {
+            "legacy": 1,
+            "native": 1
+          }
+        },
+        "legacyFailure": {
+          "kind": "infrastructure_failure",
+          "phase": "attest",
+          "simulatorExitCode": 0
+        }
+      }
+    }
+  }
+}

@@ -46,3 +46,13 @@ spaces. Exact selection binds full-discovery seeds. Unsupported overrides fail
 explicitly. Omitted runtime implementation/dependency ownership and whole-pair
 input identity remain next requirements; generic Legacy structured failure evidence
 is also still open.130/200 verified, no push and final200 review remains pending.
+
+
+Checkpoint140 protects selected implementation libraries and managed dependencies,
+binds declared inputs across common-comparator launches/metrics, persists separately
+verified pair/oracle source sidecars and records owned Legacy failure attempts.
+Existing parity/arbiter report schemas remain unchanged. Actual one3-portRR arbiter
++/- and reporting text/IO cases passed both OSes. Custom comparison helpers and
+generic direct Legacy source snapshots are separate remaining scope. New oracle
+source sidecar covers the imported parser; historical100 limitations remain true
+of that older evidence.140/200 verified; final review/coverage remain outstanding.

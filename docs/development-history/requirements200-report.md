@@ -467,3 +467,47 @@ Windows path expectations; final runs above are green. An extra Linux harness ru
 had empty CS_PYTHON and was repeated with the derived interpreter path; main make
 test used the selected venv correctly. CI and PR62 untouched, no push.130 engineering
 units verified locally;70 remain before final200 deep review.
+
+
+## Local checkpoint140: runtime preservation, paired inputs and failure evidence
+
+A safe pre-change production CLI reproduction overwrote temporary GPI implementation
+and managed dependency files through --log-json while exiting0. No installed
+library was modified. Legacy now includes those runtime inputs in ownership checks
+and refreshes dependencies after automatic builds. New regressions preserve both
+protected bytes and earlier owner evidence on rejection.
+
+The common parity comparator fingerprints declared worker inputs before legacy,
+before standalone, after standalone and after metrics callbacks. Matching results
+cannot conceal changed source/configuration, include membership or dependencies.
+Canonical verified records live in pair-input-manifest.json. Existing parity report
+keys remain unchanged; an exact-schema test caught the initial additive-key design,
+which was replaced by separate sidecars. Reruns retire stale pair/oracle sidecars.
+Compiler/simulator executable bytes and changes restored between snapshots remain
+outside this attestation. Custom helpers not using the common comparator require
+separate pair binding; no universal whole-project input-attestation claim is made.
+
+Arbiter oracle-input-manifest.json binds main Python source plus its imported FIFO
+parser. oracleSha256 and existing arbiter report keys remain unchanged. This covers
+declared repository-local sources, not Python interpreter/standard-library bytes.
+Negative controls verify source identity without claiming successful oracle replay.
+
+Legacy failures after complete ownership checks and prior-report retirement now
+publish attempt-scoped failure JSON while holding the lease. Metadata distinguishes
+build/simulator/configuration/infrastructure/timeout/functional failures and records
+available artifacts. Nonzero simulator exit takes precedence over a marker or
+passing JSON; timeout values are validated before compilation. Failure-publication
+errors preserve the original exception and clean pending files. Early ownership,
+lease, SDK/adapter discovery or retirement failures do not publish this sidecar.
+Native failure-manifest schema remains unchanged.
+
+Fresh locked Release: Windows2,583 passed/15 Unix skips, Linux2,598 passed. Counts:
+core492, generators17, helpers1,178 and911 retained contracts. Both doctors and dual
+Icarus priority +/- controls passed; Linux Verilator passed. Actual3-port round-robin
+arbiter positive/corruption controls and reporting text/IO negatives passed through
+both runners on both OSes. Actual Legacy functional failures classified test_failure;
+report IO failures classified infrastructure_failure. Native summary is retained in
+requirements200-checkpoint140-native.json. No new AOT publication or coverage
+percentage is claimed; final coverage/publication qualification remains upcoming.
+Scheduled135 and extra140 reviews completed; findings above corrected and reviewed.
+140 units verified locally,60 remain. CI/PR62 untouched and no push.

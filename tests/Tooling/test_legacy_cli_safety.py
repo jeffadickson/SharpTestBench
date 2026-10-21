@@ -78,14 +78,22 @@ class Tests(unittest.TestCase):
             self.assertEqual(1,result.returncode);self.assertIn('contains an input',result.stderr)
             self.assertEqual(b'protected VHDL input',source.read_bytes());self.released()
 
-    def controlled(self, cli_options=(), **behavior):
+    def controlled(self, cli_options=(), mock_adapter=False, child_environment=None, **behavior):
         fixture=ROOT/'tests/RunnerProcessFixture/bin/Release/net10.0'/('RunnerProcessFixture.exe' if os.name=='nt' else 'RunnerProcessFixture')
+        if mock_adapter:
+            for name in ['bootstrap.bin','gpi.bin','implementation.bin']:
+                target=self.folder/name
+                if not target.exists():target.write_bytes(b'protected adapter input')
+            behavior['adapter']=dict(Version='controlled',Python=str(fixture),LibsDir=str(self.folder),Bootstrap=str(self.folder/'bootstrap.bin'),
+                GpiEntryPoint=str(self.folder/'gpi.bin')+',entry',Implementation=str(self.folder/'implementation.bin')+':entry',PyGpiEntryPoint=None,LibPython=None)
         config=self.folder/'process-fixture.json';config.write_text(json.dumps({'resultText':'[{"Name":"Contract","Status":"passed","Seed":1}]',**behavior}),encoding='utf-8')
         assembly=self.folder/'controlled.dll';assembly.write_bytes(b'controlled assembly placeholder')
         assembly.with_suffix('.runtimeconfig.json').write_text('{}',encoding='utf-8')
         source=self.folder/'input.sv';source.write_text('module top; endmodule',encoding='utf-8')
         env=dict(os.environ,CS_IVERILOG=str(fixture),CS_VVP=str(fixture),STB_PROCESS_FIXTURE_CONFIG=str(config))
         env.pop("CS_IVL_ROOT",None)
+        if mock_adapter:env["CS_PYTHON"]=str(fixture)
+        if child_environment:env.update(child_environment)
         return subprocess.run(['dotnet',str(self.cli),'run','--no-build','--work-dir',str(self.work),'--label','guard',
                                '--assembly',str(assembly),'--source',str(source),*cli_options],cwd=ROOT,env=env,
                                text=True,encoding='utf-8',capture_output=True,check=False,timeout=30)
@@ -173,3 +181,79 @@ class Tests(unittest.TestCase):
                 cwd=ROOT,text=True,encoding='utf-8',capture_output=True,check=False,timeout=30)
             self.assertEqual(1,result.returncode);self.assertIn('overlaps an include directory',result.stderr)
             self.assertEqual(b'protected source',source.read_bytes())
+
+    def test_implementation_library_cannot_be_used_as_log_destination(self):
+        target=self.folder/'implementation.bin';target.write_bytes(b'protected implementation')
+        old=self.previous();result=self.controlled(cli_options=['--log-json',str(target)],mock_adapter=True,writeLog=True)
+        self.assertEqual(1,result.returncode);self.assertIn('collides with an input',result.stderr)
+        self.assertEqual(b'protected implementation',target.read_bytes())
+        self.assertEqual(old,{path:path.read_bytes() for path in old});self.released()
+
+    def test_managed_dependency_cannot_be_used_as_log_destination(self):
+        target=self.folder/'extra dependency.dll';target.write_bytes(b'protected managed dependency')
+        old=self.previous();result=self.controlled(cli_options=['--log-json',str(target)],mock_adapter=True,writeLog=True)
+        self.assertEqual(1,result.returncode);self.assertIn('collides with an input',result.stderr)
+        self.assertEqual(b'protected managed dependency',target.read_bytes())
+        self.assertEqual(old,{path:path.read_bytes() for path in old});self.released()
+
+    def failure(self):
+        data=json.loads((self.work/'guard-failure.json').read_text(encoding='utf-8'))
+        self.assertEqual(1,data['schemaVersion']);self.assertEqual('failed',data['status'])
+        self.assertEqual(32,len(data['runId']));int(data['runId'],16)
+        self.assertTrue(data['errorType']);self.assertTrue(data['error']);self.assertTrue(data['recordedAtUtc'])
+        self.assertTrue(all((self.work/name).is_file() for name in data['artifacts']))
+        self.assertEqual([],list(self.work.glob('*.tmp')));self.released();return data
+
+    def test_failure_evidence_distinguishes_compile_simulate_configuration_and_publication(self):
+        cases=[({'compileExit':7},'compile','build_failure'),({'simulateExit':9},'simulate','simulator_failure'),
+               ({'omitResults':True},'attest','configuration_error'),({'resultText':'{'},'attest','configuration_error'),
+               ({'reportFailureStream':'stderr'},'attest','infrastructure_failure')]
+        ids=[]
+        for behavior,phase,kind in cases:
+            result=self.controlled(mock_adapter=True,**behavior);self.assertEqual(1,result.returncode)
+            evidence=self.failure();ids.append(evidence['runId'])
+            self.assertEqual(phase,evidence['phase']);self.assertEqual(kind,evidence['kind'])
+            if behavior.get('simulateExit'):self.assertEqual(9,evidence['simulatorExitCode'])
+        self.assertEqual(len(ids),len(set(ids)))
+
+    def test_functional_failure_is_distinct_from_infrastructure_and_success_retires_failure(self):
+        rows=[dict(Name='Contract',Seed=1,Status='failed',Error='controlled assertion')]
+        result=self.controlled(mock_adapter=True,resultText=json.dumps(rows));self.assertEqual(1,result.returncode)
+        evidence=self.failure();self.assertEqual('test_failure',evidence['kind']);self.assertEqual('attest',evidence['phase'])
+        self.assertIn('guard-results.json',evidence['artifacts'])
+        result=self.controlled(mock_adapter=True);self.assertEqual(0,result.returncode,result.stderr)
+        self.assertFalse((self.work/'guard-failure.json').exists());self.released()
+
+    def test_timeout_records_current_failure_and_releases_workspace_for_recovery(self):
+        result=self.controlled(mock_adapter=True,child_environment={'CS_WALL_TIMEOUT':'1'},simulateDelayMs=4000)
+        self.assertEqual(1,result.returncode);evidence=self.failure()
+        self.assertEqual('timeout',evidence['kind']);self.assertEqual('simulate',evidence['phase'])
+        result=self.controlled(mock_adapter=True);self.assertEqual(0,result.returncode,result.stderr)
+        self.assertFalse((self.work/'guard-failure.json').exists());self.released()
+
+    def test_nonzero_simulator_failure_wins_over_publication_marker_and_passing_json(self):
+        result=self.controlled(mock_adapter=True,simulateExit=7,reportFailureStream='stdout')
+        self.assertEqual(1,result.returncode);evidence=self.failure()
+        self.assertEqual('simulator_failure',evidence['kind']);self.assertEqual(7,evidence['simulatorExitCode'])
+        self.assertIn('Simulator failed (exit 7)',evidence['error'])
+
+    def test_failed_evidence_publication_does_not_mask_original_configuration_error(self):
+        result=self.controlled(mock_adapter=True,blockFailureArtifact=True,resultText='{}')
+        self.assertEqual(1,result.returncode)
+        self.assertIn('Legacy failure evidence could not be written',result.stderr)
+        self.assertIn('InvalidDataException: No results',result.stderr)
+        self.assertTrue((self.work/'guard-failure.json').is_dir());self.released()
+        self.assertEqual([],list(self.work.glob('*.tmp')))
+
+    def test_ownership_rejection_does_not_publish_or_replace_failure_evidence(self):
+        failure=self.work/'guard-failure.json';failure.write_bytes(b'protected prior evidence')
+        source=self.folder/'protected.vcd';source.write_bytes(b'protected source')
+        result=self.run_cli(source,'--waves',source)
+        self.assertEqual(1,result.returncode);self.assertEqual(b'protected prior evidence',failure.read_bytes())
+        self.assertEqual(b'protected source',source.read_bytes());self.released()
+
+    def test_invalid_wall_timeout_is_configuration_failure_before_compilation(self):
+        result=self.controlled(mock_adapter=True,child_environment={'CS_WALL_TIMEOUT':'invalid'})
+        self.assertEqual(1,result.returncode);evidence=self.failure()
+        self.assertEqual('configuration_error',evidence['kind']);self.assertEqual('prepare',evidence['phase'])
+        self.assertFalse((self.folder/'fixture-compile-argv.json').exists())

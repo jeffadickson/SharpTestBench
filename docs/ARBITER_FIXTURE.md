@@ -43,5 +43,9 @@ Checkpoint100 executed six configurations, each positive and corrupt-grant, on
 Windows/Linux Icarus through both runners. See the campaign report for exact cases.
 One three-port round-robin case also passed Linux Verilator and Linux NativeAOT
 Runner, each with independent replay. These cases do not certify all48 settings.
-The oracle hash covers arbiter_reference.py; its imported fifo_reference.py parser
-is outside that hash, so complete transitive dependency attestation is not claimed.
+The existing oracleSha256 still identifies arbiter_reference.py. A separate
+oracle-input-manifest.json records and rechecks both that file and its imported
+fifo_reference.py parser. This binds the declared repository-local dependencies;
+it does not attest Python standard-library or interpreter binaries. Existing
+parity report keys are unchanged. Negative controls verify source identity without
+claiming successful oracle replay.

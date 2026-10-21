@@ -24,6 +24,8 @@ public sealed class ParityFailureCoverageTests
         public string? RightMetrics { get; set; }
         public Exception? LeftException { get; set; }
         public Exception? RightException { get; set; }
+        public Action? AfterLegacy { get; set; }
+        public Action? AfterNative { get; set; }
         public List<string[]> Commands { get; } = [];
         public List<Dictionary<string, string?>> Environments { get; } = [];
         public ToolContext Context => new(Root, this);
@@ -32,7 +34,13 @@ public sealed class ParityFailureCoverageTests
             ["assembly"] = "fixture assembly.dll", ["top"] = "top", ["entryType"] = "Entry, Fixture",
             ["sources"] = new[] { "source one.sv", "source two.sv" }, ["expectedNames"] = new[] { "Entry.Scoreboard" }
         };
-        public Fixture() { Directory.CreateDirectory(Path.Combine(Work, "legacy")); Directory.CreateDirectory(Path.Combine(Work, "native")); }
+        public Fixture()
+        {
+            Directory.CreateDirectory(Path.Combine(Work,"legacy"));Directory.CreateDirectory(Path.Combine(Work,"native"));
+            foreach (var name in new[] { "source one.sv","source two.sv","fixture assembly.dll","fixture assembly.runtimeconfig.json","host","bootstrap","gpi","impl" })
+                File.WriteAllText(Path.Combine(Work,name),"controlled input; not executable HDL or native code");
+            var fxr=Path.Combine(Work,"sdk/host/fxr/10.0.0");Directory.CreateDirectory(fxr);File.WriteAllText(Path.Combine(fxr,NativeBuildCommand.FxrName),"controlled hostfxr input");
+        }
         public CommandResult Run(IReadOnlyList<string> arguments, string directory, IReadOnlyDictionary<string, string?>? environment = null, bool capture = false, bool check = true, TimeSpan? timeout = null)
         {
             if (arguments.Count>1 && arguments[1]=="-c") return new(0,JsonSerializer.Serialize(new CocotbAdapter("fixture","python","libs","bootstrap","gpi,entry","impl:entry",null,null)),"");
@@ -44,6 +52,7 @@ public sealed class ParityFailureCoverageTests
                 File.WriteAllText(Path.Combine(Work, left ? "legacy/legacy-results.json" : "native/icarus-results.json"), (left ? LeftText : RightText) ?? (left ? Left : Right).GetRawText());
             var metrics = left ? LeftMetrics : RightMetrics;
             if (metrics is not null) File.WriteAllText(Path.Combine(Work, left ? "legacy/metrics.json" : "native/metrics.json"), metrics);
+            if (left) AfterLegacy?.Invoke();else AfterNative?.Invoke();
             return new(left ? LeftExit : RightExit, left ? "legacy stdout\n" : "native stdout\n", left ? "legacy stderr" : "native stderr");
         }
         public Dictionary<string, object> Compare(string? marker = "DSP_MISMATCH", string? metricVariable = null, Action<JsonElement, JsonElement>? metrics = null, string? exact = null, Dictionary<string, string?>? environment = null, ulong seed = 17)
@@ -363,8 +372,12 @@ public sealed class ParityFailureCoverageTests
         using var f=new Fixture();const string name="manifest-check/compiler-parity";
         ParityCiCommand.InWorkspace(f.Context,name,(_,_)=>new Dictionary<string,object> { ["matched"]=true });
         var pair=f.Context.At("build/"+name);Assert.True(File.Exists(Path.Combine(pair,"parity.json")));
+        File.WriteAllText(Path.Combine(pair,"pair-input-manifest.json"),"old verified inputs");
+        File.WriteAllText(Path.Combine(pair,"oracle-input-manifest.json"),"old verified oracle");
         Assert.Throws<IOException>(()=>ParityCiCommand.InWorkspace(f.Context,name,(_,_)=>throw new IOException("controlled rerun failure")));
         Assert.False(File.Exists(Path.Combine(pair,"parity.json")));
+        Assert.False(File.Exists(Path.Combine(pair,"pair-input-manifest.json")));
+        Assert.False(File.Exists(Path.Combine(pair,"oracle-input-manifest.json")));
         Assert.True(File.Exists(Path.Combine(pair,"case-failure.json")));
         Assert.False(File.Exists(Path.Combine(pair,".parity.lock")));
     }
@@ -379,5 +392,48 @@ public sealed class ParityFailureCoverageTests
         Assert.Equal(manifest.GetProperty("vvp").GetString(),f.Environments[0]["CS_VVP"]);
         Assert.All(f.Environments,env=>Assert.Null(env["CS_IVL_ROOT"]));
         Assert.Equal("other library root",environment["CS_IVL_ROOT"]);
+    }
+    [Fact] public void DifferentSourceBetweenLaunchesCannotQualifyEvenWhenResultRowsMatch()
+    {
+        using var f=new Fixture();f.Passing();f.AfterLegacy=()=>File.AppendAllText(Path.Combine(f.Work,"source one.sv"),"changed");
+        Assert.Throws<InvalidDataException>(()=>f.Compare(marker:null));Assert.Single(f.Commands);
+    }
+    [Fact] public void InputMutationAfterNativeCannotPublishMatchedPair()
+    {
+        using var f=new Fixture();f.Passing();f.AfterNative=()=>File.AppendAllText(Path.Combine(f.Work,"fixture assembly.runtimeconfig.json"),"changed");
+        Assert.Throws<InvalidDataException>(()=>f.Compare(marker:null));Assert.Equal(2,f.Commands.Count);
+    }
+    [Fact] public void IncludeAdditionRemovalAndManagedDependencyAdditionArePairInputChanges()
+    {
+        foreach (var change in new[] { "add-include","remove-include","add-dependency" })
+        {
+            using var f=new Fixture();f.Passing();var include=Path.Combine(f.Work,"includes");Directory.CreateDirectory(include);
+            var header=Path.Combine(include,"config.vh");File.WriteAllText(header,"original");f.Manifest["includeDirectories"]=new[] { include };
+            f.AfterLegacy=()=> { if (change=="add-include") File.WriteAllText(Path.Combine(include,"new.vh"),"added");
+                else if (change=="remove-include") File.Delete(header);else File.WriteAllText(Path.Combine(f.Work,"new dependency.dll"),"added"); };
+            Assert.Throws<InvalidDataException>(()=>f.Compare(marker:null));Assert.Single(f.Commands);
+        }
+    }
+    [Fact] public void StablePairPublishesAdditiveCanonicalInputRecords()
+    {
+        using var f=new Fixture();f.Passing();var report=f.Compare(marker:null);
+        Assert.False(report.ContainsKey("pairedInputMatched")); // Existing parity schema remains unchanged.
+        var evidence=f.Read("pair-input-manifest.json");Assert.Equal("verified",evidence.GetProperty("status").GetString());
+        var inputs=evidence.GetProperty("inputs").EnumerateArray().ToArray();
+        Assert.Contains(inputs,input=>input.GetProperty("Role").GetString()=="source" && input.GetProperty("Path").GetString()==Path.GetFullPath("source one.sv",f.Work));
+        Assert.Contains(inputs,input=>input.GetProperty("Role").GetString()=="manifest");Assert.All(inputs,input=>Assert.Equal(64,input.GetProperty("Sha256").GetString()!.Length));
+    }
+    [Fact] public void MetricsCallbackCannotChangeInputsAfterBothLaunchesAndStillPublishMatch()
+    {
+        using var f=new Fixture { LeftMetrics=DspMetrics,RightMetrics=DspMetrics };f.Passing();
+        Assert.Throws<InvalidDataException>(()=>f.Compare(marker:null,metricVariable:"DSP_REPORT",metrics:(_,_)=>File.AppendAllText(Path.Combine(f.Work,"source two.sv"),"changed after simulation")));
+        Assert.Equal(2,f.Commands.Count);
+    }
+    [Fact] public void PairEvidenceDestinationCannotOverwriteADeclaredSource()
+    {
+        using var f=new Fixture();f.Passing();var path=Path.Combine(f.Work,"pair-input-manifest.json");
+        File.WriteAllText(path,"protected source");f.Manifest["sources"]=new[] { path };
+        Assert.Throws<InvalidDataException>(()=>f.Compare(marker:null));Assert.Empty(f.Commands);
+        Assert.Equal("protected source",File.ReadAllText(path));
     }
 }

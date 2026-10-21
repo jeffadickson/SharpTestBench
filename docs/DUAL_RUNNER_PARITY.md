@@ -252,3 +252,27 @@ fixture through both runners, including a wrong-width failure control. Its neste
 cases use the normal workspace lifecycle so failed reruns retire prior passing
 completion reports. The selection scenario rebinds expected names and per-case
 seeds together when changing test assembly.
+
+
+The common parity comparator captures declared worker input fingerprints before the legacy
+launch, verifies them before standalone launch, after standalone completion and
+after metrics validation. This detects changed sources/configs/libraries and
+include/dependency additions or removals even when result rows match. Verified
+canonical records are stored in `pair-input-manifest.json`; existing parity report
+keys remain unchanged. The sidecar describes stable inputs, not functional success.
+Compiler/simulator executable bytes are outside this fingerprint scope, and changes
+restored between snapshots are not detected. Failed case reruns retire old pair and
+oracle sidecars along with old completion reports.
+
+Legacy output ownership includes the selected implementation library and managed
+DLL dependencies, refreshed after automatic builds. After ownership verification
+and successful prior-report retirement, failures write `<label>-failure.json`
+while the workspace lease is held. This new v1 sidecar records attempt identity,
+phase, kind, error, simulator exit code when known, and available current artifacts.
+It distinguishes functional test failures from configuration/infrastructure,
+compiler, simulator and timeout failures. A nonzero simulator exit takes precedence
+over a publication marker or passing result JSON. Invalid wall timeouts are checked
+before compilation. Failure-evidence publication errors preserve the original
+exception and remove pending temporary files. Ownership/lease rejection, early
+SDK/adapter discovery and unsuccessful report retirement do not publish this
+attempt record. Native failure-manifest schema remains unchanged.

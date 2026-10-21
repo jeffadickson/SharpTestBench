@@ -59,6 +59,7 @@ internal static class LegacyRunCommand
         var selectedName = simulator is "ghdl" or "nvc" ? "VhdlIntegration" : project;
         var selectedDll = options.Get("--assembly") is string requestedAssembly ? Path.ChangeExtension(Path.GetFullPath(requestedAssembly),".dll") : context.At($"tests/{selectedName}/bin/Release/net10.0/{selectedName}.dll");
         var inputPaths = selectedSources.Concat(new[] { selectedDll, Path.ChangeExtension(selectedDll,".runtimeconfig.json"), Path.ChangeExtension(selectedDll,".deps.json"), host }).ToList();
+        if (Directory.Exists(Path.GetDirectoryName(selectedDll))) inputPaths.AddRange(Directory.EnumerateFiles(Path.GetDirectoryName(selectedDll)!,"*.dll"));
         if (options.Get("--sim-executable") is string selectedSimulator) inputPaths.Add(Path.GetFullPath(selectedSimulator));
         string? logPath = options.Get("--log-json") is string selectedLog ? Path.GetFullPath(selectedLog) : Environment.GetEnvironmentVariable("CS_LOG_JSON") is string inheritedLog ? Path.GetFullPath(inheritedLog,work) : null;
         var outputPaths = LegacyArtifacts.Outputs(work,label).Concat(wave is null ? [] : new[] { wave }).Concat(logPath is null ? [] : new[] { logPath }).ToArray();
@@ -73,10 +74,13 @@ internal static class LegacyRunCommand
             if (!options.Has("--assembly")) LegacyArtifacts.Validate(selectedSources,[],[context.At($"tests/{selectedName}/bin"),context.At($"tests/{selectedName}/obj")],compileConfig.IncludeDirectories);
         }
         var sdk = NativeBuildCommand.SdkRoot();
-        var adapter = CocotbAdapter.Inspect(context, simulator); var entry = adapter.NativeEntry();
+        var adapter = CocotbAdapter.Inspect(context, simulator); var entry = adapter.NativeEntry(); var implementation=adapter.ImplementationEntry();
         var hostFxr = NativeBuildCommand.HostFxr(sdk);
-        LegacyArtifacts.Validate(inputPaths.Concat(new[] { adapter.Bootstrap,entry.Library,hostFxr }),outputPaths,generatedDirectories,compileConfig.IncludeDirectories);
+        LegacyArtifacts.Validate(inputPaths.Concat(new[] { adapter.Bootstrap,entry.Library,implementation.Library,hostFxr }),outputPaths,generatedDirectories,compileConfig.IncludeDirectories);
         LegacyArtifacts.RetireReports(work,label);
+        var runId=Guid.NewGuid().ToString("N");var phase="prepare";bool functionalFailure=false;int? simulatorExitCode=null;
+        try
+        {
         if (wave is not null) { Directory.CreateDirectory(Path.GetDirectoryName(wave)!); File.Delete(wave); }
         var assemblyName = simulator is "ghdl" or "nvc" ? "VhdlIntegration" : project;
         if (!noBuild)
@@ -84,6 +88,7 @@ internal static class LegacyRunCommand
             if (!options.Has("--assembly")) context.Run([Path.Combine(sdk, OperatingSystem.IsWindows() ? "dotnet.exe" : "dotnet"), "build", context.At($"tests/{assemblyName}/{assemblyName}.csproj"), "-c", "Release", "--nologo"]);
             NativeBuildCommand.Build(context, sdk, work);
         }
+        if (Directory.Exists(Path.GetDirectoryName(selectedDll))) LegacyArtifacts.Validate(inputPaths.Concat(Directory.EnumerateFiles(Path.GetDirectoryName(selectedDll)!,"*.dll")),outputPaths,generatedDirectories,compileConfig.IncludeDirectories);
         var binary = context.At($"tests/{assemblyName}/bin/Release/net10.0");
         if (options.Get("--assembly") is string selectedAssembly) { var full = Path.GetFullPath(selectedAssembly); binary = Path.GetDirectoryName(full)!; assemblyName = Path.GetFileNameWithoutExtension(full); }
         var assembly = Path.Combine(binary, assemblyName + ".dll"); var config = Path.Combine(binary, assemblyName + ".runtimeconfig.json");
@@ -102,10 +107,12 @@ internal static class LegacyRunCommand
         if (options.Get("--seed") is string seed) { if (!ulong.TryParse(seed, out _)) throw new ArgumentException("Invalid seed"); Set("CS_SEED", seed); }
         if (options.Has("--stage")) { var stages = options.All("--stage"); if (stages.Any(stage => !int.TryParse(stage, out _))) throw new ArgumentException("Invalid stage"); Set("CS_TEST_STAGES", string.Join(',', stages)); }
         if (options.Get("--stage-failure-policy") is string policy) { if (policy is not ("continue" or "stop-after-stage")) throw new ArgumentException("Unknown stage failure policy"); Set("CS_STAGE_FAILURE_POLICY", policy); }
-        Set("GPI_IMPL", adapter.Implementation ?? throw new InvalidDataException("Missing GPI implementation"));
+        Set("GPI_IMPL", Path.GetFullPath(implementation.Library)+":"+implementation.Entry);
         Set("COCOTB_BOOTSTRAP", adapter.GpiEntryPoint + Path.PathSeparator + host + ",sharptestbench_initialize");
+        if (!int.TryParse(environment.GetValueOrDefault("CS_WALL_TIMEOUT") ?? "120", out var seconds) || seconds < 1 || seconds > 3600) throw new ArgumentException("Invalid simulator wall timeout");
         string[] ivl = environment.GetValueOrDefault("CS_IVL_ROOT") is string ivlRoot ? ["-B", ivlRoot] : [];
         string[] command;
+        phase="compile";
         LegacyImage? compiledImage=null;
         var simulationDirectory = work;
         if (simulator == "icarus")
@@ -153,23 +160,33 @@ internal static class LegacyRunCommand
         }
         if (environment.GetValueOrDefault("CS_INJECT_EARLY") == "1" && simulator is "icarus" or "verilator") command = [.. command, "+CS_EARLY_FINISH"];
         var resultPath = environment["CS_RESULTS"]!; File.Delete(resultPath);
-        if (!int.TryParse(environment.GetValueOrDefault("CS_WALL_TIMEOUT") ?? "120", out var seconds) || seconds < 1 || seconds > 3600) throw new ArgumentException("Invalid simulator wall timeout");
+        phase="simulate";
         var simulationWatch = Stopwatch.StartNew();
         var result = context.Run(command, directory: simulationDirectory, environment: environment, capture: true, check: false, timeout: TimeSpan.FromSeconds(seconds));
+        simulatorExitCode=result.ExitCode;
         var simulationMilliseconds = simulationWatch.Elapsed.TotalMilliseconds;
         var output = result.Output + result.Error; File.WriteAllText(Path.Combine(work, label + "-run.log"), output); Console.WriteLine(output);
+        if (result.ExitCode!=0) throw new IOException("Simulator failed (exit "+result.ExitCode+")");
+        phase="attest";
         SharpTestBench.Internal.ReportFailureEvidence.ThrowIfReported(result.Output.Split('\n'));
         SharpTestBench.Internal.ReportFailureEvidence.ThrowIfReported(result.Error.Split('\n'));
         compiledImage?.Verify();
         if (wave is not null) RecordWave(work, label, simulator, resultPath, wave);
-        if (result.ExitCode != 0 || !File.Exists(resultPath)) throw new IOException("Simulator failed or produced no result file");
+        if (!File.Exists(resultPath)) throw new InvalidDataException("Simulator did not produce a result JSON file");
         using var rows = StrictJson.Read(resultPath);
         LegacyResults.Validate(rows.RootElement,options.Has("--list") || environment.GetValueOrDefault("CS_LIST_TESTS") == "1");
         var failed = rows.RootElement.EnumerateArray().Where(row => row.GetProperty("Status").GetString() == "failed").ToArray();
-        if (failed.Length != 0) { Console.WriteLine(JsonSerializer.Serialize(failed, new JsonSerializerOptions { WriteIndented = true })); throw new InvalidDataException("Simulator test failed"); }
+        if (failed.Length != 0) { functionalFailure=true; Console.WriteLine(JsonSerializer.Serialize(failed, new JsonSerializerOptions { WriteIndented = true })); throw new InvalidDataException("Simulator test failed"); }
         if (options.Has("--list") || environment.GetValueOrDefault("CS_LIST_TESTS") == "1") { Console.WriteLine(File.ReadAllText(Path.ChangeExtension(resultPath, ".discovery.json"))); return; }
         if (rows.RootElement.GetArrayLength() == 0) throw new InvalidDataException("No results");
         if (options.Has("--timings")) StrictJson.Write(timingPath, new { schemaVersion = 1, compileMilliseconds, simulationMilliseconds });
+        }
+        catch (Exception error)
+        {
+            try { LegacyFailure.Write(work,label,runId,phase,error,functionalFailure,simulatorExitCode); }
+            catch (Exception evidenceError) { Console.Error.WriteLine("Legacy failure evidence could not be written: "+evidenceError.Message); }
+            throw;
+        }
     }
     static void RecordWave(string work, string label, string simulator, string resultPath, string wave)
     {

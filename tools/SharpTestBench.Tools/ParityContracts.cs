@@ -113,7 +113,7 @@ internal static class ParityContracts
             if (new DirectoryInfo(folder).LinkTarget is not null) throw new InvalidDataException("Parity output must not be a symbolic link");
             if (File.Exists(Path.Combine(folder, ".sharptestbench-run.lock"))) throw new IOException("Child workspace is already in use");
         }
-        foreach (var name in new[] { "parity.json", "negative-control.json", "case-failure.json", "manifest.json", "expected.json", "plan.json", "build.log", "legacy.log", "native.log" }) File.Delete(Path.Combine(work, name));
+        foreach (var name in new[] { "parity.json", "negative-control.json", "case-failure.json",PairedInputs.FileName,OracleEvidence.FileName, "manifest.json", "expected.json", "plan.json", "build.log", "legacy.log", "native.log" }) File.Delete(Path.Combine(work, name));
         foreach (var directory in new[] { "legacy", "native" })
         {
             var folder = Path.Combine(work, directory); Directory.CreateDirectory(folder);

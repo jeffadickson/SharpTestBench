@@ -28,8 +28,11 @@ internal static class ParityCiCommand
         var boundManifest=new Dictionary<string,object>(manifest) { ["iverilog"]=compiler,["vvp"]=simulator };
         StrictJson.Write(Path.Combine(work,"manifest.json"),boundManifest);
         if (metricsVariable is not null) { leftEnvironment[metricsVariable] = Path.Combine(work, "legacy/metrics.json"); rightEnvironment[metricsVariable] = Path.Combine(work, "native/metrics.json"); }
+        var pairedInputs=PairedInputs.Capture(work,config);
         int leftCode = Execute(context, work, "legacy", command, leftEnvironment);
+        PairedInputs.Verify(pairedInputs,work,config);
         int rightCode = Execute(context, work, "native", ["dotnet", context.At("tools/SharpTestBench.Runner/bin/Release/net10.0/SharpTestBench.Runner.dll"), "run", Path.Combine(work, "manifest.json")], rightEnvironment);
+        PairedInputs.Verify(pairedInputs,work,config);
         using var left = StrictJson.Read(Path.Combine(work, "legacy/legacy-results.json")); using var right = StrictJson.Read(Path.Combine(work, "native/icarus-results.json"));
         var expected = JsonSerializer.SerializeToElement(manifest["expectedNames"]);
         Dictionary<string, object> report;
@@ -54,6 +57,8 @@ internal static class ParityCiCommand
             report["expectedSeedMatched"] = matched;
             report["matched"] = (bool)report["matched"] && matched;
         }
+        PairedInputs.Verify(pairedInputs,work,config);
+        StrictJson.Write(Path.Combine(work,PairedInputs.FileName),new { schemaVersion=1,status="verified",runId=Guid.NewGuid().ToString("N"),inputs=pairedInputs });
         report["exitCodes"] = new { legacy = leftCode, native = rightCode }; return report;
     }
     static Dictionary<string, object> Prepare(ToolContext context, string work, string project, string fixture, ulong seed, IReadOnlyDictionary<string, string?> environment)
@@ -69,7 +74,7 @@ internal static class ParityCiCommand
         {
             // This case lease is ours even when a child workspace cannot be
             // cleared. Retire old completion evidence before recording failure.
-            foreach (var reportName in new[] { "parity.json", "negative-control.json", "case-failure.json" }) File.Delete(Path.Combine(work, reportName));
+            foreach (var reportName in new[] { "parity.json", "negative-control.json", "case-failure.json",PairedInputs.FileName,OracleEvidence.FileName }) File.Delete(Path.Combine(work, reportName));
             ParityContracts.ClearCase(work); var environment = ParityContracts.ChildEnvironment(ParityContracts.EnvironmentValues()); environment["STB_NATIVE_VPI_TIME"] = "1";
             var report = action(work, environment); bool negative = report.TryGetValue("negativeControl", out var flag) && flag is true;
             StrictJson.Write(Path.Combine(work, negative ? "negative-control.json" : "parity.json"), report);

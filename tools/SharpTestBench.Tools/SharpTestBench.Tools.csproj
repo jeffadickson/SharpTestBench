@@ -3,6 +3,7 @@
   <ItemGroup>
     <Compile Include="../../examples/Arbiter/Contract.cs" Link="Fixtures/ArbiterContract.cs" />
     <InternalsVisibleTo Include="SharpTestBench.Tools.Tests" />
+    <Compile Include="../SharpTestBench.Runner/InputEvidence.cs" Link="Shared/InputEvidence.cs" />
     <Compile Include="../SharpTestBench.Runner/CompilePlan.cs" Link="Shared/CompilePlan.cs" />
     <Compile Include="../SharpTestBench.Runner/HdlCompileValidation.cs" Link="Shared/HdlCompileValidation.cs" />
     <Compile Include="../SharpTestBench.Runner/JsonInput.cs" Link="Shared/JsonInput.cs" />

@@ -29,6 +29,8 @@ internal static class ArbiterCiCommand
             var plan = Path.Combine(work, "plan.json"); var configuration = Path.Combine(work, "configuration.json");
             var wrapper = Path.Combine(work, "arbiter_fixture.sv"); var oracle = context.At("tests/Tooling/arbiter_reference.py");
             StrictJson.Write(plan, rows); StrictJson.Write(configuration, config); File.WriteAllText(wrapper, ArbiterFixture.Wrapper(config));
+            string[] oracleFiles=["tests/Tooling/arbiter_reference.py","tests/Tooling/fifo_reference.py"];
+            var oracleInputs=OracleEvidence.Capture(context.Root,oracleFiles);
             var hashes = new[] { plan, configuration, wrapper, oracle }.ToDictionary(path => path, CiCommands.Hash);
             environment["ARBITER_PLAN"] = plan; environment["ARBITER_CONFIG"] = configuration; environment["ARBITER_FAULT"] = negative ? "1" : "0";
             var manifest = RunnerManifestCommand.Make(context.Root, "counter", seed, RunnerManifestCommand.InstalledAdapter(context), Path.Combine(work, "native"));
@@ -47,10 +49,12 @@ internal static class ArbiterCiCommand
                 }
             });
             if (hashes.Any(pair => CiCommands.Hash(pair.Key) != pair.Value)) throw new InvalidDataException("Arbiter stimulus, wrapper, configuration or oracle changed.");
+            OracleEvidence.Verify(context.Root,oracleFiles,oracleInputs);
             FixtureContracts.VerifySources(context.Root, "arbiter");
             report["fixture"] = "arbiter"; report["configuration"] = config; report["top"] = config.Top; report["seed"] = seed;
             report["revision"] = provenance.GetProperty("revision").GetString()!;
             report["planSha256"] = hashes[plan]; report["configurationSha256"] = hashes[configuration]; report["wrapperSha256"] = hashes[wrapper]; report["oracleSha256"] = hashes[oracle];
+            StrictJson.Write(Path.Combine(work,OracleEvidence.FileName),new { schemaVersion=1,status="source-verified",hashes=oracleInputs });
             report["fault"] = negative ? "grant-lsb" : "none";
             if (!negative) report["oracleMatched"] = true;
             return report;
