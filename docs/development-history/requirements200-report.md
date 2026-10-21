@@ -71,3 +71,32 @@ Fresh evidence: build/requirements200-20-* in each independent checkout. The use
 requested200 meaningful units;20 are complete at this milestone. No push or remote
 mutation occurred. New coverage percentages and NativeAOT qualification have not
 been measured at this milestone.
+
+## Verified local milestone30
+
+Three grouped pinned concurrency contract reviews cover12 inventory rows, including
+typing overloads. Seven distinct simulator regression requirements cover caller
+array mutation, synchronous factory failure/cleanup, selected failure/cleanup,
+duplicate borrowed observations, parent cancellation before dispatch, shared error
+object deduplication and completed-job cancellation. No overload or repeated run
+is counted as a separate engineering unit. Peer review30 found no actionable issue.
+
+Locked Release builds and all3managed suites plus813retained contracts passed:
+Windows2418passed/10skipped; Linux2428passed. Actual simulation ran10 selected
+concurrency cases (7new plus3existing) successfully on Windows Icarus, Linux Icarus
+and Linux Verilator. Each real source audit passed107reviewed/302inventoried;
+195entries remain, with aliases/dynamic exports outside this denominator.
+
+Fresh Linux x64 standalone Runner NativeAOT publication passed, including artifact
+hash verification and direct apphost execution. A real Icarus simulation with
+expectedSeeds=83 passed; changing only the expected seed to84 caused exit1 with
+configuration_error and explicit seed mismatch failure evidence. Both runs used
+the emitted expectedSeeds JSON metadata. This qualifies Linux x64 orchestration,
+not NativeAOT instruction coverage, hostfxr removal or six executed platforms.
+Simulation assemblies still execute in the separate CLR-hosting simulator process.
+Full Tools remains ReadyToRun with bundled CLR/JIT fallback; no Tools AOT claim.
+
+Fresh logs/artifacts are build/requirements200-30-* and
+build/requirements200-native30* in their respective checkouts. Native workers were
+published only into the local build directory. Nothing was pushed or published
+externally. The200-unit objective remains active with30completed.

@@ -23,7 +23,7 @@ CS021,Validation,GHDL VHDL conformance,partial,GHDL eight cases; NVC thirteen; a
 CS022,Validation,Commercial simulator and mixed-language coverage,open,No licensed commercial simulator available in this run
 CS023,Tools,Cross-platform build packaging and CLI,partial,Installed Icarus NuGet consumers pass on Linux x64 Windows x64 and Mac ARM64; isolated workspaces; public publication and wider binary adapter distribution open
 CS024,Debug,Managed debugger and logging integration,partial,Linux NetCoreDbg source breakpoint local inspection exception stop and simulator exit verified in CI; other platforms and simultaneous managed/native debugging unverified
-CS025,Parity,Audit all upstream public APIs deprecations and previews,inventoried,302 definitions inventoried; 95 trigger/queue/range/array/logic/outcome definitions reviewed with explicit differences and evidence; 207 remain plus aliases and dynamic exports
+CS025,Parity,Audit all upstream public APIs deprecations and previews,inventoried,302 definitions inventoried; 107 trigger/queue/range/array/logic/outcome/concurrency definitions reviewed with explicit differences and evidence; 195 remain plus aliases and dynamic exports
 CS026,Performance,Full-framework vs cocotb representative benchmarks,partial,AXI-Lite-shaped memory workload with equal C#/cocotb cycle traces six fault negatives repeated processes and allocation evidence; CPU/DSP and larger AXI workloads pending
 CS027,Interop,Native packed vector extension,verified-core,Packed value X Z planes and direct VPI words on Icarus/Verilator; checked widths and handle ownership; other backends retain binary-string fallback
 CS028,Python,Python bridge external-thread helpers and IPython,open,No Python source compatibility or bridge/IPython equivalent

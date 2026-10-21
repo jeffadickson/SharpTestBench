@@ -136,3 +136,16 @@ inventory metadata only; reviewed counts come exclusively from validated review
 entries. Inventory generation fails closed on syntax errors, stages the complete
 CSV and replaces the destination atomically. Failed parsing/replacement preserves
 existing evidence and cleans only the current operation's temporary file.
+
+## Structured concurrency contract review
+
+Pinned cocotb._concurrent_waiters wait, select and gather were reviewed as three
+semantic contracts. Their12 inventory rows include static typing overloads;
+overload signatures do not count as separate engineering iterations. The review
+ledger now contains107/302 validated decisions (195 inventory entries remain).
+C# keeps explicit ownership, homogeneous results and joined asynchronous cleanup;
+Python cancellation internals, low-level wait policies and same-time tie ordering
+are not claimed equivalent. Seven additional native regression requirements cover
+snapshot mutation, synchronous factory failures, failed selection, duplicate
+borrowed observations, pre-dispatch cancellation, error identity and completed
+job cancellation behavior. Actual execution is recorded in the campaign report.

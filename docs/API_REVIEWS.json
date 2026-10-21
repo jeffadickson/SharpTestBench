@@ -11,7 +11,8 @@
     "cocotb.types._logic": "622a8856a6f60693218cc54e8f46f4e73dc9024a61e4dcc0cdcc6a43bf483ba7",
     "cocotb.types._logic_array": "1b0e9f23ebc0666a5ba1098eeaab74d448b0730f98e238380fec7f1407200d9d",
     "cocotb.types._resolve": "7c2a1087a6e791306f73a323f7e1aa5f9216dd440b8eee6110d831b13ee59935",
-    "cocotb._outcomes": "45aef3bbcd6c489e8dbd5cc105cce29e7a50905a6e01a2c2f14e9e132d497858"
+    "cocotb._outcomes": "45aef3bbcd6c489e8dbd5cc105cce29e7a50905a6e01a2c2f14e9e132d497858",
+    "cocotb._concurrent_waiters": "dadac9b16e60c4a107f9063661ce8e2281541bda0ea22f62880a91ee1f372020"
   },
   "reviews": [
     {
@@ -1990,6 +1991,210 @@
         {
           "path": "tests/Integration/Tests.cs",
           "contains": "Throws<FormatException>(() => failed.Task.GetAwaiter().GetResult());"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._concurrent_waiters",
+      "definition": "wait",
+      "source_line": 33,
+      "classification": "intentional-difference",
+      "reason": "Pinned wait exposes FIRST_COMPLETED/FIRST_EXCEPTION/ALL_COMPLETED with waiter Tasks and an optional first index, owning raw awaitables while borrowing existing Tasks. SharpTestBench intentionally exposes high-level Gather/Select and non-owning First/Combine instead of this low-level policy/result tuple. Heterogeneous Python overloads are one contract review, not separate engineered features. This mapping does not establish the absent public wait API or upstream cancellation internals.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/StructuredWaits.cs",
+          "contains": "static async Task<(int Index, Task<T>[] Tasks)> Structured<T>"
+        },
+        {
+          "path": "docs/CONCURRENCY_COMPARISON.md",
+          "contains": "No public low-level wait(return_when) API is introduced"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._concurrent_waiters",
+      "definition": "wait",
+      "source_line": 39,
+      "classification": "intentional-difference",
+      "reason": "Pinned wait exposes FIRST_COMPLETED/FIRST_EXCEPTION/ALL_COMPLETED with waiter Tasks and an optional first index, owning raw awaitables while borrowing existing Tasks. SharpTestBench intentionally exposes high-level Gather/Select and non-owning First/Combine instead of this low-level policy/result tuple. Heterogeneous Python overloads are one contract review, not separate engineered features. This mapping does not establish the absent public wait API or upstream cancellation internals.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/StructuredWaits.cs",
+          "contains": "static async Task<(int Index, Task<T>[] Tasks)> Structured<T>"
+        },
+        {
+          "path": "docs/CONCURRENCY_COMPARISON.md",
+          "contains": "No public low-level wait(return_when) API is introduced"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._concurrent_waiters",
+      "definition": "wait",
+      "source_line": 45,
+      "classification": "intentional-difference",
+      "reason": "Pinned wait exposes FIRST_COMPLETED/FIRST_EXCEPTION/ALL_COMPLETED with waiter Tasks and an optional first index, owning raw awaitables while borrowing existing Tasks. SharpTestBench intentionally exposes high-level Gather/Select and non-owning First/Combine instead of this low-level policy/result tuple. Heterogeneous Python overloads are one contract review, not separate engineered features. This mapping does not establish the absent public wait API or upstream cancellation internals.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/StructuredWaits.cs",
+          "contains": "static async Task<(int Index, Task<T>[] Tasks)> Structured<T>"
+        },
+        {
+          "path": "docs/CONCURRENCY_COMPARISON.md",
+          "contains": "No public low-level wait(return_when) API is introduced"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._concurrent_waiters",
+      "definition": "wait",
+      "source_line": 56,
+      "classification": "intentional-difference",
+      "reason": "Pinned wait exposes FIRST_COMPLETED/FIRST_EXCEPTION/ALL_COMPLETED with waiter Tasks and an optional first index, owning raw awaitables while borrowing existing Tasks. SharpTestBench intentionally exposes high-level Gather/Select and non-owning First/Combine instead of this low-level policy/result tuple. Heterogeneous Python overloads are one contract review, not separate engineered features. This mapping does not establish the absent public wait API or upstream cancellation internals.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/StructuredWaits.cs",
+          "contains": "static async Task<(int Index, Task<T>[] Tasks)> Structured<T>"
+        },
+        {
+          "path": "docs/CONCURRENCY_COMPARISON.md",
+          "contains": "No public low-level wait(return_when) API is introduced"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._concurrent_waiters",
+      "definition": "wait",
+      "source_line": 67,
+      "classification": "intentional-difference",
+      "reason": "Pinned wait exposes FIRST_COMPLETED/FIRST_EXCEPTION/ALL_COMPLETED with waiter Tasks and an optional first index, owning raw awaitables while borrowing existing Tasks. SharpTestBench intentionally exposes high-level Gather/Select and non-owning First/Combine instead of this low-level policy/result tuple. Heterogeneous Python overloads are one contract review, not separate engineered features. This mapping does not establish the absent public wait API or upstream cancellation internals.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/StructuredWaits.cs",
+          "contains": "static async Task<(int Index, Task<T>[] Tasks)> Structured<T>"
+        },
+        {
+          "path": "docs/CONCURRENCY_COMPARISON.md",
+          "contains": "No public low-level wait(return_when) API is introduced"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._concurrent_waiters",
+      "definition": "select",
+      "source_line": 208,
+      "classification": "intentional-difference",
+      "reason": "Both select APIs report the first observed index and typed result and reject empty input. C# requires explicit Owned/Borrowed homogeneous inputs and joins asynchronous loser cleanup, preserving cleanup failures; the released-reference comparison documents Python cancellation differences. Same-time tie order, arbitrary awaitable protocols and cross-language exception taxonomy are not equivalent.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/StructuredWaits.cs",
+          "contains": "static async Task<(int Index, Task<T>[] Tasks)> Structured<T>"
+        },
+        {
+          "path": "tests/Integration/StructuredWaitTests.cs",
+          "contains": "select joins async loser cleanup"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._concurrent_waiters",
+      "definition": "gather",
+      "source_line": 250,
+      "classification": "intentional-difference",
+      "reason": "Both gather APIs preserve argument result order, permit empty input and cancel waiter ownership on child failure. C# uses explicit ownership and homogeneous typed arrays, joins async cleanup and aggregates distinct operation/cleanup errors. Python heterogeneous tuple overloads are reviewed together with the implementation; cleanup and aggregate policies deliberately differ.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/StructuredWaits.cs",
+          "contains": "static async Task<(int Index, Task<T>[] Tasks)> Structured<T>"
+        },
+        {
+          "path": "tests/Integration/StructuredWaitTests.cs",
+          "contains": "root and cleanup failures retained once"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._concurrent_waiters",
+      "definition": "gather",
+      "source_line": 254,
+      "classification": "intentional-difference",
+      "reason": "Both gather APIs preserve argument result order, permit empty input and cancel waiter ownership on child failure. C# uses explicit ownership and homogeneous typed arrays, joins async cleanup and aggregates distinct operation/cleanup errors. Python heterogeneous tuple overloads are reviewed together with the implementation; cleanup and aggregate policies deliberately differ.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/StructuredWaits.cs",
+          "contains": "static async Task<(int Index, Task<T>[] Tasks)> Structured<T>"
+        },
+        {
+          "path": "tests/Integration/StructuredWaitTests.cs",
+          "contains": "root and cleanup failures retained once"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._concurrent_waiters",
+      "definition": "gather",
+      "source_line": 258,
+      "classification": "intentional-difference",
+      "reason": "Both gather APIs preserve argument result order, permit empty input and cancel waiter ownership on child failure. C# uses explicit ownership and homogeneous typed arrays, joins async cleanup and aggregates distinct operation/cleanup errors. Python heterogeneous tuple overloads are reviewed together with the implementation; cleanup and aggregate policies deliberately differ.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/StructuredWaits.cs",
+          "contains": "static async Task<(int Index, Task<T>[] Tasks)> Structured<T>"
+        },
+        {
+          "path": "tests/Integration/StructuredWaitTests.cs",
+          "contains": "root and cleanup failures retained once"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._concurrent_waiters",
+      "definition": "gather",
+      "source_line": 264,
+      "classification": "intentional-difference",
+      "reason": "Both gather APIs preserve argument result order, permit empty input and cancel waiter ownership on child failure. C# uses explicit ownership and homogeneous typed arrays, joins async cleanup and aggregates distinct operation/cleanup errors. Python heterogeneous tuple overloads are reviewed together with the implementation; cleanup and aggregate policies deliberately differ.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/StructuredWaits.cs",
+          "contains": "static async Task<(int Index, Task<T>[] Tasks)> Structured<T>"
+        },
+        {
+          "path": "tests/Integration/StructuredWaitTests.cs",
+          "contains": "root and cleanup failures retained once"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._concurrent_waiters",
+      "definition": "gather",
+      "source_line": 270,
+      "classification": "intentional-difference",
+      "reason": "Both gather APIs preserve argument result order, permit empty input and cancel waiter ownership on child failure. C# uses explicit ownership and homogeneous typed arrays, joins async cleanup and aggregates distinct operation/cleanup errors. Python heterogeneous tuple overloads are reviewed together with the implementation; cleanup and aggregate policies deliberately differ.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/StructuredWaits.cs",
+          "contains": "static async Task<(int Index, Task<T>[] Tasks)> Structured<T>"
+        },
+        {
+          "path": "tests/Integration/StructuredWaitTests.cs",
+          "contains": "root and cleanup failures retained once"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._concurrent_waiters",
+      "definition": "gather",
+      "source_line": 273,
+      "classification": "intentional-difference",
+      "reason": "Both gather APIs preserve argument result order, permit empty input and cancel waiter ownership on child failure. C# uses explicit ownership and homogeneous typed arrays, joins async cleanup and aggregates distinct operation/cleanup errors. Python heterogeneous tuple overloads are reviewed together with the implementation; cleanup and aggregate policies deliberately differ.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/StructuredWaits.cs",
+          "contains": "static async Task<(int Index, Task<T>[] Tasks)> Structured<T>"
+        },
+        {
+          "path": "tests/Integration/StructuredWaitTests.cs",
+          "contains": "root and cleanup failures retained once"
         }
       ]
     }
