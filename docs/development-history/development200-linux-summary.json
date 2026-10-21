@@ -1,0 +1,277 @@
+{
+  "schemaVersion": 1,
+  "platform": "linux",
+  "suites": {
+    "SharpTestBench.Tests": {
+      "total": 480,
+      "passed": 480,
+      "skipped": 0
+    },
+    "SharpTestBench.Generators.Tests": {
+      "total": 17,
+      "passed": 17,
+      "skipped": 0
+    },
+    "SharpTestBench.Tools.Tests": {
+      "total": 1091,
+      "passed": 1091,
+      "skipped": 0
+    }
+  },
+  "retainedContracts": 802,
+  "totalPassed": 2390,
+  "totalSkipped": 0,
+  "doctor": {
+    "platform": "Ubuntu 24.04.5 LTS",
+    "architecture": "X64",
+    "checks": [
+      {
+        "name": "dotnet SDK",
+        "ok": true,
+        "detail": "10.0.402"
+      },
+      {
+        "name": "C++20 compiler",
+        "ok": true,
+        "detail": "/usr/bin/g++"
+      },
+      {
+        "name": "Icarus compiler",
+        "ok": true,
+        "detail": "/usr/bin/iverilog"
+      },
+      {
+        "name": "Icarus runtime",
+        "ok": true,
+        "detail": "/usr/bin/vvp"
+      },
+      {
+        "name": "native adapters",
+        "ok": true,
+        "detail": "/home/jeffd/.venvs/sharptestbench/lib/python3.12/site-packages/cocotb/libs/libgpi.so,gpi_initialize"
+      }
+    ]
+  },
+  "matrices": {
+    "all-faults": {
+      "cases": 36,
+      "report": "build/development200-200-all-faults-linux.json",
+      "inputHashes": {
+        "/home/jeffd/src/SharpTestBench/examples/PriorityEncoder/priority_fixture.sv": "354e2b5fbacc44d4357621b9ff470fb87dc0f43da8febb03245eb99f553be842",
+        "/home/jeffd/src/SharpTestBench/tests/Fixtures/verilog-priority/priority_encoder.v": "df28220d95b47df349a72803a9751aad331eb8e1435416e8686d00572a974dd5",
+        "/home/jeffd/src/SharpTestBench/examples/PriorityEncoder/bin/Release/net10.0/PriorityEncoder.dll": "7223a88b902239e2ec005d22f781707664d1fab8a282c3dbbd651d67be184e25",
+        "/home/jeffd/src/SharpTestBench/build/libsharptestbench_host.so": "39f38e3b34fb0b556056ace69e20213103ae261d268b61378a15087b73007a27",
+        "/home/jeffd/.venvs/sharptestbench/lib/python3.12/site-packages/cocotb/libs/libgpi.so": "b3c7eb6de5c2072d65a93e58b9fee2bb6cf2ff70a6a12f96b45afe6a237931a8",
+        "/home/jeffd/.venvs/sharptestbench/lib/python3.12/site-packages/cocotb/libs/libcocotb_bootstrap.so": "f44321e40c8c57ff7ef44c1d5b3d8521890da1b0c7380bbb6ee8339256d8fb8a",
+        "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Tools/bin/Release/net10.0/SharpTestBench.Tools.dll": "2a1956e684668875509cc9bdfeee65d3aa0d55fc2834aae90ebe718851e53ae4",
+        "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Runner/bin/Release/net10.0/SharpTestBench.Runner.dll": "46a85d7b9a62585b8b1092ee4db89c70aa187c9d8f004604799fb5fc2fc0efd9",
+        "/home/jeffd/src/SharpTestBench/tests/SharpTestBench.Tools.Tests/priority-seed-vectors.json": "c7add09050311785ff90db924ee9b2df6b69cfa41e687fd9b369b0a2f6cb4898"
+      }
+    },
+    "late-valid": {
+      "cases": 24,
+      "report": "build/development200-200-late-valid-linux.json",
+      "inputHashes": {
+        "/home/jeffd/src/SharpTestBench/examples/PriorityEncoder/priority_fixture.sv": "354e2b5fbacc44d4357621b9ff470fb87dc0f43da8febb03245eb99f553be842",
+        "/home/jeffd/src/SharpTestBench/tests/Fixtures/verilog-priority/priority_encoder.v": "df28220d95b47df349a72803a9751aad331eb8e1435416e8686d00572a974dd5",
+        "/home/jeffd/src/SharpTestBench/examples/PriorityEncoder/bin/Release/net10.0/PriorityEncoder.dll": "7223a88b902239e2ec005d22f781707664d1fab8a282c3dbbd651d67be184e25",
+        "/home/jeffd/src/SharpTestBench/build/libsharptestbench_host.so": "39f38e3b34fb0b556056ace69e20213103ae261d268b61378a15087b73007a27",
+        "/home/jeffd/.venvs/sharptestbench/lib/python3.12/site-packages/cocotb/libs/libgpi.so": "b3c7eb6de5c2072d65a93e58b9fee2bb6cf2ff70a6a12f96b45afe6a237931a8",
+        "/home/jeffd/.venvs/sharptestbench/lib/python3.12/site-packages/cocotb/libs/libcocotb_bootstrap.so": "f44321e40c8c57ff7ef44c1d5b3d8521890da1b0c7380bbb6ee8339256d8fb8a",
+        "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Tools/bin/Release/net10.0/SharpTestBench.Tools.dll": "2a1956e684668875509cc9bdfeee65d3aa0d55fc2834aae90ebe718851e53ae4",
+        "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Runner/bin/Release/net10.0/SharpTestBench.Runner.dll": "46a85d7b9a62585b8b1092ee4db89c70aa187c9d8f004604799fb5fc2fc0efd9",
+        "/home/jeffd/src/SharpTestBench/tests/SharpTestBench.Tools.Tests/priority-seed-vectors.json": "c7add09050311785ff90db924ee9b2df6b69cfa41e687fd9b369b0a2f6cb4898"
+      }
+    },
+    "late-outputs": {
+      "cases": 8,
+      "report": "build/development200-200-late-outputs-linux.json",
+      "inputHashes": {
+        "/home/jeffd/src/SharpTestBench/examples/PriorityEncoder/priority_fixture.sv": "354e2b5fbacc44d4357621b9ff470fb87dc0f43da8febb03245eb99f553be842",
+        "/home/jeffd/src/SharpTestBench/tests/Fixtures/verilog-priority/priority_encoder.v": "df28220d95b47df349a72803a9751aad331eb8e1435416e8686d00572a974dd5",
+        "/home/jeffd/src/SharpTestBench/examples/PriorityEncoder/bin/Release/net10.0/PriorityEncoder.dll": "7223a88b902239e2ec005d22f781707664d1fab8a282c3dbbd651d67be184e25",
+        "/home/jeffd/src/SharpTestBench/build/libsharptestbench_host.so": "39f38e3b34fb0b556056ace69e20213103ae261d268b61378a15087b73007a27",
+        "/home/jeffd/.venvs/sharptestbench/lib/python3.12/site-packages/cocotb/libs/libgpi.so": "b3c7eb6de5c2072d65a93e58b9fee2bb6cf2ff70a6a12f96b45afe6a237931a8",
+        "/home/jeffd/.venvs/sharptestbench/lib/python3.12/site-packages/cocotb/libs/libcocotb_bootstrap.so": "f44321e40c8c57ff7ef44c1d5b3d8521890da1b0c7380bbb6ee8339256d8fb8a",
+        "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Tools/bin/Release/net10.0/SharpTestBench.Tools.dll": "2a1956e684668875509cc9bdfeee65d3aa0d55fc2834aae90ebe718851e53ae4",
+        "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Runner/bin/Release/net10.0/SharpTestBench.Runner.dll": "46a85d7b9a62585b8b1092ee4db89c70aa187c9d8f004604799fb5fc2fc0efd9",
+        "/home/jeffd/src/SharpTestBench/tests/SharpTestBench.Tools.Tests/priority-seed-vectors.json": "c7add09050311785ff90db924ee9b2df6b69cfa41e687fd9b369b0a2f6cb4898"
+      }
+    }
+  },
+  "distinctMatrixSettings": 64,
+  "coverage": {
+    "suites": {
+      "managed": {
+        "assemblies": [
+          "SharpTestBench"
+        ],
+        "lines": {
+          "covered": 515,
+          "valid": 2119,
+          "percent": 24.30391694195375
+        },
+        "branches": {
+          "covered": 346,
+          "valid": 1297,
+          "percent": 26.676946800308404
+        }
+      },
+      "generators": {
+        "assemblies": [
+          "SharpTestBench.Generators"
+        ],
+        "lines": {
+          "covered": 60,
+          "valid": 68,
+          "percent": 88.23529411764706
+        },
+        "branches": {
+          "covered": 52,
+          "valid": 72,
+          "percent": 72.22222222222223
+        }
+      },
+      "helpers": {
+        "assemblies": [
+          "SharpTestBench.Tools"
+        ],
+        "lines": {
+          "covered": 1690,
+          "valid": 3375,
+          "percent": 50.074074074074076
+        },
+        "branches": {
+          "covered": 1162,
+          "valid": 3375,
+          "percent": 34.42962962962963
+        }
+      },
+      "contracts": {
+        "assemblies": [
+          "SharpTestBench.Tools"
+        ],
+        "lines": {
+          "covered": 487,
+          "valid": 3375,
+          "percent": 14.42962962962963
+        },
+        "branches": {
+          "covered": 652,
+          "valid": 3375,
+          "percent": 19.31851851851852
+        }
+      },
+      "runner": {
+        "assemblies": [
+          "SharpTestBench.Runner"
+        ],
+        "lines": {
+          "covered": 1614,
+          "valid": 3208,
+          "percent": 50.31172069825436
+        },
+        "branches": {
+          "covered": 352,
+          "valid": 672,
+          "percent": 52.38095238095238
+        }
+      },
+      "runner-cli": {
+        "assemblies": [
+          "SharpTestBench.Runner"
+        ],
+        "lines": {
+          "covered": 2108,
+          "valid": 3208,
+          "percent": 65.71072319201996
+        },
+        "branches": {
+          "covered": 299,
+          "valid": 672,
+          "percent": 44.49404761904762
+        }
+      }
+    },
+    "combined": {
+      "assemblies": [
+        "SharpTestBench",
+        "SharpTestBench.Generators",
+        "SharpTestBench.Runner",
+        "SharpTestBench.Tools"
+      ],
+      "lines": {
+        "covered": 4621,
+        "valid": 8770,
+        "percent": 52.69099201824401
+      },
+      "branches": {
+        "covered": 2240,
+        "valid": 5394,
+        "percent": 41.527623285131625
+      }
+    }
+  },
+  "coverageSources": {
+    "sourceFiles": 130,
+    "generatedSourceFiles": 41,
+    "missing": []
+  },
+  "generatedHtml": {
+    "generatedFiles": 41,
+    "generatedHtmlSections": 41,
+    "missingGeneratedHtml": []
+  },
+  "runnerCliCoverage": {
+    "programCoveredLines": 78,
+    "programValidLines": 133,
+    "productionJsonReflectionEnabled": false,
+    "cliAssemblyCoveredLines": 2108,
+    "cliAssemblyValidLines": 3208
+  },
+  "toolsDeployment": {
+    "rid": "linux-x64",
+    "kind": "self-contained-readytorun",
+    "fileCount": 193,
+    "readyToRun": {
+      "path": "/home/jeffd/src/SharpTestBench/build/development200-workers/linux-x64/tools/SharpTestBench.Tools.dll",
+      "managedNativeHeaderRva": 67680,
+      "managedNativeHeaderSize": 196,
+      "readyToRunSignature": "52545200"
+    },
+    "bundledClrJit": true
+  },
+  "targetedCliVector": 452,
+  "publishedToolsPositiveAndLateNegative": true,
+  "runnerNativeAot": {
+    "schemaVersion": 1,
+    "matched": true,
+    "verilatorIcarusTraceMatched": true,
+    "traceRows": 5436,
+    "cases": [
+      {
+        "fault": 0,
+        "exitCode": 0,
+        "status": "passed",
+        "seed": 83
+      },
+      {
+        "fault": 1,
+        "exitCode": 1,
+        "status": "failed",
+        "seed": 83
+      },
+      {
+        "case": "simulator-failure",
+        "exitCode": 1,
+        "kind": "simulator_failure"
+      },
+      {
+        "case": "missing-source",
+        "exitCode": 1,
+        "kind": "configuration_error"
+      }
+    ],
+    "standaloneElfWithoutRunnerDll": true
+  }
+}

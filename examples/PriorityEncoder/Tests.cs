@@ -28,6 +28,8 @@ public static class Entry
         var fault = c.Dut.Child("fault").Signal<W1>();
         int selected = int.Parse(Environment.GetEnvironmentVariable("PRIORITY_CONFIG") ?? "0", System.Globalization.CultureInfo.InvariantCulture);
         int mode = int.Parse(Environment.GetEnvironmentVariable("PRIORITY_KIND") ?? "0", System.Globalization.CultureInfo.InvariantCulture);
+        int onset = int.Parse(Environment.GetEnvironmentVariable("PRIORITY_VECTOR") ?? "0", System.Globalization.CultureInfo.InvariantCulture);
+        if (onset is < 0 or > 452) throw new ArgumentException("Invalid priority fault onset");
         if (selected is < 0 or > 11 || mode is < 0 or > 2) throw new ArgumentException("Invalid priority fault controls");
         c.Dut.Child("fault_config").Signal<W4>().Write(new UInt<W4>(selected));
         c.Dut.Child("fault_kind").Signal<W2>().Write(new UInt<W2>(mode));
@@ -48,9 +50,11 @@ public static class Entry
                        select (width, low, valid: c.Dut.Child(prefix + "valid").Signal<W1>(),
                            index: c.Dut.Child(prefix + "index").Signal<W32>(),
                            onehot: c.Dut.Child(prefix + "onehot").Signal<W32>())).ToArray();
-        fault.WriteBit(Environment.GetEnvironmentVariable("PRIORITY_FAULT") == "1");
+        bool enabled = Environment.GetEnvironmentVariable("PRIORITY_FAULT") == "1";
+        int vector = 0;
         foreach (uint mask in masks)
         {
+            fault.WriteBit(enabled && vector >= onset);
             input.Write(new UInt<W32>(mask));
             await Triggers.Timer(1); await Triggers.ReadOnly();
             for (int configuration = 0; configuration < signals.Length; configuration++)
@@ -68,11 +72,12 @@ public static class Entry
                 {
                     string observed = (badValid ? 1 : 0) + (badIndex ? 1 : 0) + (badOnehot ? 1 : 0) != 1
                         ? "multiple" : badValid ? "valid" : badIndex ? "index" : "onehot";
-                    throw new Exception($"PRIORITY_MISMATCH configuration={configuration} fault={mode} observed={observed} width={s.width} low={s.low} mask={mask:X8} winner={winner} valid={valid} index={index} onehot={onehot:X8}");
+                    throw new Exception($"PRIORITY_MISMATCH configuration={configuration} fault={mode} observed={observed} vector={vector} width={s.width} low={s.low} mask={mask:X8} winner={winner} valid={valid} index={index} onehot={onehot:X8}");
                 }
                 rows.Add([s.width, s.low ? 1 : 0, mask, valid ? 1 : 0, valid ? index : -1, valid ? onehot : 0]);
             }
             await Triggers.Timer(1);
+            vector++;
         }
         File.WriteAllText(Environment.GetEnvironmentVariable("PRIORITY_REPORT")!,
             JsonSerializer.Serialize(new { trace = rows, vectors = masks.Count, configurations = signals.Length }));

@@ -111,9 +111,9 @@ internal static class ParityCiCommand
         if (!ulong.TryParse(options.Get("--seed", "1"), out var seed)) throw new ArgumentException("Invalid seed");
         switch (name)
         {
-            case "priority-ci": options.Only("--seed", "--negative-control", "--fault-config", "--fault-kind");
+            case "priority-ci": options.Only("--seed", "--negative-control", "--fault-config", "--fault-kind", "--fault-vector");
                 bool negative = options.Has("--negative-control");
-                Priority(context, seed, negative, PriorityFault.Parse(options.Get("--fault-config"), options.Get("--fault-kind"), negative)); break;
+                Priority(context, seed, negative, PriorityFault.Parse(options.Get("--fault-config"), options.Get("--fault-kind"), negative, options.Get("--fault-vector"))); break;
             case "dual-runner-ci": options.Only("--fixture", "--seed", "--negative-control"); Dual(context, options.Require("--fixture"), seed, options.Has("--negative-control")); break;
             case "lfsr-ci": options.Only("--fixture", "--style", "--seed", "--fault"); if (!int.TryParse(options.Get("--fault", "0"), out var fault)) throw new ArgumentException("Invalid fault"); Lfsr(context, options.Require("--fixture"), options.Get("--style", "REDUCTION")!, seed, fault); break;
             case "axis-ci": options.Only("--mode", "--seed", "--disabled-sidebands", "--negative-control"); if (!int.TryParse(options.Get("--mode", "2"), out var mode)) throw new ArgumentException("Invalid mode"); Axis(context, mode, seed, !options.Has("--disabled-sidebands"), options.Has("--negative-control")); break;
@@ -126,6 +126,7 @@ internal static class ParityCiCommand
         if (fault.Enabled != negative) throw new ArgumentException("Fault control disagrees with negative-control mode");
         return InWorkspace(context, $"priority-{seed}" + fault.Suffix, (work, environment) => {
             var provenance = FixtureContracts.VerifySources(context.Root, "priority");
+            string? marker = negative ? fault.Marker(seed) : null;
             fault.Apply(environment);
             var manifest = Prepare(context, work, "examples/PriorityEncoder", "counter", seed, environment);
             manifest["top"] = "priority_fixture";
@@ -137,13 +138,13 @@ internal static class ParityCiCommand
             StrictJson.Write(Path.Combine(work, "manifest.json"), manifest);
             StrictJson.Write(Path.Combine(work, "expected.json"), manifest["expectedNames"]);
             var report = Compare(context, work, manifest, seed, environment, "Entry.PriorityScoreboard", "PRIORITY_REPORT",
-                negative ? fault.Marker : null, (a, b) => {
+                marker, (a, b) => {
                     PriorityTrace.Validate(a, seed); PriorityTrace.Validate(b, seed);
                     if (!JsonElement.DeepEquals(a, b)) throw new InvalidDataException("Priority traces differ");
                 });
             FixtureContracts.VerifySources(context.Root, "priority");
             report["fixture"] = "priority"; report["revision"] = provenance.GetProperty("revision").GetString()!;
-            if (negative) { report["faultConfiguration"] = fault.Configuration; report["faultKind"] = fault.Kind; }
+            if (negative) { report["faultConfiguration"] = fault.Configuration; report["faultKind"] = fault.Kind; report["faultVector"] = fault.OnsetVector; report["detectedVector"] = fault.DetectedVector(seed); }
             return report;
         });
     }

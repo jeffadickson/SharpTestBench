@@ -13,7 +13,7 @@ public sealed class PriorityFaultTests
         Assert.Equal(configuration.ToString(CultureInfo.InvariantCulture), environment["PRIORITY_CONFIG"]);
         Assert.Equal(encoded.ToString(CultureInfo.InvariantCulture), environment["PRIORITY_KIND"]);
         Assert.Equal("retained", environment["KEEP"]);
-        Assert.Equal($"PRIORITY_MISMATCH configuration={configuration} fault={encoded} observed={kind} ", fault.Marker);
+        Assert.Equal($"PRIORITY_MISMATCH configuration={configuration} fault={encoded} observed={kind} vector={(encoded == 0 ? 0 : 1)} ", fault.Marker(83));
         Assert.Equal(configuration == 0 && encoded == 0 ? "-negative" : $"-negative-c{configuration}-k{encoded}", fault.Suffix);
     }
     static void Reject(string? configuration, string? kind, bool enabled = true) =>

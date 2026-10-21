@@ -48,10 +48,18 @@ configuration and observed output kind with matching seeds. Multiple-output or
 unrelated failures cannot qualify as the requested single-output negative. Valid
 faults are observable on request zero; index/onehot faults require a valid request.
 The default remains configuration0/valid and its existing workspace path.
-Inherited `PRIORITY_FAULT`, `PRIORITY_CONFIG`, `PRIORITY_KIND` and `PRIORITY_REPORT`
+Inherited `PRIORITY_FAULT`, `PRIORITY_CONFIG`, `PRIORITY_KIND`, `PRIORITY_VECTOR` and `PRIORITY_REPORT`
 controls are explicitly removed before fixture values are supplied. Existing
 parity fields remain; negative reports add the fault configuration/kind.
 
 This is a functional test, not a throughput benchmark. Unknown-state semantics,
 width-one behavior and arbiter fairness remain outside its scope.
 Upstream source: https://github.com/alexforencich/verilog-axis/blob/48ff7a7e2ef782cf778d47910cf85835c64b1bce/rtl/priority_encoder.v
+
+Late negative controls accept `--fault-vector 0..452`. The fault stays off before
+that vector. Qualification requires the first observable failure at the expected
+vector, configuration and output kind. Encoded and onehot outputs remain
+unspecified on zero requests; a remaining schedule with no valid request is
+rejected before child launch. Existing default negative paths remain stable.
+The opt-in fault driver also accepts `--vectors` and `--kinds`; it uses committed
+independent golden masks to predict observable failure vectors.

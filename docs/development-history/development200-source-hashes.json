@@ -1,0 +1,31 @@
+{
+  "base": "b35382a",
+  "scope": "Final source state; ledger hashes record earlier states at their numbered edit",
+  "recordedEdits": 200,
+  "namedManagedRegressions": 194,
+  "supplementalPythonSetupRegressions": 5,
+  "files": {
+    ".config/dotnet-tools.json": "0b57e158d512a6a83964efb52f39b2c2339a4820d87affebcad349ab75c54b81",
+    "examples/PriorityEncoder/README.md": "8ef77a1611d6ff2e3272a73da641f636843ee598f7a2f222879c2f76bea69089",
+    "examples/PriorityEncoder/Tests.cs": "89daa4ce58e1e9f7cf0926a42fc2ed7ec2ade7b299c3878750d17fd91e555ee0",
+    "examples/PriorityEncoder/priority_fixture.sv": "354e2b5fbacc44d4357621b9ff470fb87dc0f43da8febb03245eb99f553be842",
+    "global.json": "81ae2087dbfb46027fd94748351fb4b1ab24145fbb52544a2822bf128e2e48f1",
+    "tests/Fixtures/verilog-priority/COPYING": "8ea57f95365e9b16a5b516f422b71269183a1ae53bab5878ae6d69039e58fe77",
+    "tests/Fixtures/verilog-priority/priority_encoder.v": "df28220d95b47df349a72803a9751aad331eb8e1435416e8686d00572a974dd5",
+    "tests/Fixtures/verilog-priority/provenance.json": "903575327a051b274c12142086ea9459ed4fb3e63145a781e6bb2593a4fb9b63",
+    "tests/SharpTestBench.Tools.Tests/PriorityFaultOnsetTests.cs": "761d90786110a7581f7741fcc15507c8d503e3e1f28a3847ecdb594a4d3231af",
+    "tests/SharpTestBench.Tools.Tests/PriorityFaultTests.cs": "18d3f623ba32c85bae9e3041e3f3f677fd8a9e0f3d6572f8a38b838de599b162",
+    "tests/SharpTestBench.Tools.Tests/PrioritySeedTests.cs": "4556bef0ece4ad7843763903f56770cc09a2d15e3b8715de8e129b86221a271c",
+    "tests/SharpTestBench.Tools.Tests/ProvenanceFailureTests.cs": "88b4790f570faf50a1e9de7a5ebe74f9d42cc99530a25f2a8c0bc50898e26742",
+    "tests/SharpTestBench.Tools.Tests/Reference/priority_seed_reference.py": "fabed1d0a716fb5189915570441797fa534339025d652e8ae12abc9d6e1e58af",
+    "tests/SharpTestBench.Tools.Tests/SharpTestBench.Tools.Tests.csproj": "4082216be24edebfaf8003279b3d6b857f76440a93576ba0201d5739dc5b589d",
+    "tests/SharpTestBench.Tools.Tests/priority-seed-vectors.json": "c7add09050311785ff90db924ee9b2df6b69cfa41e687fd9b369b0a2f6cb4898",
+    "tests/Tooling/qualify_priority_faults.py": "7753ec4e2b9351778fb5d67b1d0d6c9dcbd648f56199ed882a9f5969f5c67308",
+    "tests/Tooling/test_priority_qualification_setup.py": "3c863efb0ec4cd8ae2f2b27ad0b2f315bf2455c38f3376ee214ccf858eb1d1de",
+    "third_party/UPSTREAM.json": "5d1b927b22f98640350d4251ee415a41bfdf0bf4233ddd55832b5362b5ec077a",
+    "tools/SharpTestBench.Tools/ParityCiCommand.cs": "4fcac4367ff37439ce0cd415e6f71d520fabce2810935e3a86a62acdac6e7400",
+    "tools/SharpTestBench.Tools/ParityContracts.cs": "c9b9e52eecc53f98fdbc69f4c9065ca2609d6b5ec76aca0073ef3c7c3710c74c",
+    "tools/SharpTestBench.Tools/PriorityFault.cs": "eddb8d5a10535ca1ccd3878574b10cf90a88289ed0d5cad8f250ab50a3f0a468",
+    "tools/SharpTestBench.Tools/PriorityTrace.cs": "6e1b1093475d5077f3da53dd1c354116329120619d80bbc06ab0f126165f7ef5"
+  }
+}

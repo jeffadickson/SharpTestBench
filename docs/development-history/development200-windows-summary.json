@@ -1,0 +1,246 @@
+{
+  "schemaVersion": 1,
+  "platform": "windows",
+  "suites": {
+    "SharpTestBench.Tests": {
+      "total": 480,
+      "passed": 480,
+      "skipped": 0
+    },
+    "SharpTestBench.Generators.Tests": {
+      "total": 17,
+      "passed": 17,
+      "skipped": 0
+    },
+    "SharpTestBench.Tools.Tests": {
+      "total": 1091,
+      "passed": 1082,
+      "skipped": 9
+    }
+  },
+  "retainedContracts": 802,
+  "totalPassed": 2381,
+  "totalSkipped": 9,
+  "doctor": {
+    "platform": "Microsoft Windows 10.0.26200",
+    "architecture": "X64",
+    "checks": [
+      {
+        "name": "dotnet SDK",
+        "ok": true,
+        "detail": "10.0.402"
+      },
+      {
+        "name": "C++20 compiler",
+        "ok": true,
+        "detail": "C:\\dev\\tools\\msys64\\ucrt64\\bin\\g++.exe"
+      },
+      {
+        "name": "Icarus compiler",
+        "ok": true,
+        "detail": "C:\\dev\\tools\\msys64\\ucrt64\\bin\\iverilog.exe"
+      },
+      {
+        "name": "Icarus runtime",
+        "ok": true,
+        "detail": "C:\\dev\\tools\\msys64\\ucrt64\\bin\\vvp.exe"
+      },
+      {
+        "name": "native adapters",
+        "ok": true,
+        "detail": "C:/dev/SharpTestBench/.venv-windows/Lib/site-packages/cocotb/libs/gpi.dll,gpi_initialize"
+      }
+    ]
+  },
+  "matrices": {
+    "all-faults": {
+      "cases": 36,
+      "report": "build/development200-200-all-faults-windows.json",
+      "inputHashes": {
+        "C:\\dev\\SharpTestBench\\examples\\PriorityEncoder\\priority_fixture.sv": "354e2b5fbacc44d4357621b9ff470fb87dc0f43da8febb03245eb99f553be842",
+        "C:\\dev\\SharpTestBench\\tests\\Fixtures\\verilog-priority\\priority_encoder.v": "df28220d95b47df349a72803a9751aad331eb8e1435416e8686d00572a974dd5",
+        "C:\\dev\\SharpTestBench\\examples\\PriorityEncoder\\bin\\Release\\net10.0\\PriorityEncoder.dll": "989261f8fe414a43c07c7046660755c9e769d1c6c9a290ebc2440d88c27b4733",
+        "C:\\dev\\SharpTestBench\\build\\sharptestbench_host.dll": "dc18be6604b4b302cf0ba999338abe4a5eeb70d46090afcffb5e6cc0a69560f5",
+        "C:\\dev\\SharpTestBench\\.venv-windows\\Lib\\site-packages\\cocotb\\libs\\gpi.dll": "721336012110838add5d0e5617eb151e57c475ab6a7283165a012229ccab0cf2",
+        "C:\\dev\\SharpTestBench\\.venv-windows\\Lib\\site-packages\\cocotb\\libs\\cocotb_bootstrap.dll": "32031cfbfbf5a66869e07c6609f70469c71199a8597039f432a81d287f0f5456",
+        "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Tools\\bin\\Release\\net10.0\\SharpTestBench.Tools.dll": "1031d2f170e86081373ee1f0a974678b7fb4f552344922f55d68ef7317856e86",
+        "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Runner\\bin\\Release\\net10.0\\SharpTestBench.Runner.dll": "2e4cc840c40428efcdac60bc54250fc3a09bafcbabec6381cd2499d8c4f75b80",
+        "C:\\dev\\SharpTestBench\\tests\\SharpTestBench.Tools.Tests\\priority-seed-vectors.json": "c7add09050311785ff90db924ee9b2df6b69cfa41e687fd9b369b0a2f6cb4898"
+      }
+    },
+    "late-valid": {
+      "cases": 4,
+      "report": "build/development200-200-late-valid-windows.json",
+      "inputHashes": {
+        "C:\\dev\\SharpTestBench\\examples\\PriorityEncoder\\priority_fixture.sv": "354e2b5fbacc44d4357621b9ff470fb87dc0f43da8febb03245eb99f553be842",
+        "C:\\dev\\SharpTestBench\\tests\\Fixtures\\verilog-priority\\priority_encoder.v": "df28220d95b47df349a72803a9751aad331eb8e1435416e8686d00572a974dd5",
+        "C:\\dev\\SharpTestBench\\examples\\PriorityEncoder\\bin\\Release\\net10.0\\PriorityEncoder.dll": "989261f8fe414a43c07c7046660755c9e769d1c6c9a290ebc2440d88c27b4733",
+        "C:\\dev\\SharpTestBench\\build\\sharptestbench_host.dll": "dc18be6604b4b302cf0ba999338abe4a5eeb70d46090afcffb5e6cc0a69560f5",
+        "C:\\dev\\SharpTestBench\\.venv-windows\\Lib\\site-packages\\cocotb\\libs\\gpi.dll": "721336012110838add5d0e5617eb151e57c475ab6a7283165a012229ccab0cf2",
+        "C:\\dev\\SharpTestBench\\.venv-windows\\Lib\\site-packages\\cocotb\\libs\\cocotb_bootstrap.dll": "32031cfbfbf5a66869e07c6609f70469c71199a8597039f432a81d287f0f5456",
+        "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Tools\\bin\\Release\\net10.0\\SharpTestBench.Tools.dll": "1031d2f170e86081373ee1f0a974678b7fb4f552344922f55d68ef7317856e86",
+        "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Runner\\bin\\Release\\net10.0\\SharpTestBench.Runner.dll": "2e4cc840c40428efcdac60bc54250fc3a09bafcbabec6381cd2499d8c4f75b80",
+        "C:\\dev\\SharpTestBench\\tests\\SharpTestBench.Tools.Tests\\priority-seed-vectors.json": "c7add09050311785ff90db924ee9b2df6b69cfa41e687fd9b369b0a2f6cb4898"
+      }
+    },
+    "late-outputs": {
+      "cases": 2,
+      "report": "build/development200-200-late-outputs-windows.json",
+      "inputHashes": {
+        "C:\\dev\\SharpTestBench\\examples\\PriorityEncoder\\priority_fixture.sv": "354e2b5fbacc44d4357621b9ff470fb87dc0f43da8febb03245eb99f553be842",
+        "C:\\dev\\SharpTestBench\\tests\\Fixtures\\verilog-priority\\priority_encoder.v": "df28220d95b47df349a72803a9751aad331eb8e1435416e8686d00572a974dd5",
+        "C:\\dev\\SharpTestBench\\examples\\PriorityEncoder\\bin\\Release\\net10.0\\PriorityEncoder.dll": "989261f8fe414a43c07c7046660755c9e769d1c6c9a290ebc2440d88c27b4733",
+        "C:\\dev\\SharpTestBench\\build\\sharptestbench_host.dll": "dc18be6604b4b302cf0ba999338abe4a5eeb70d46090afcffb5e6cc0a69560f5",
+        "C:\\dev\\SharpTestBench\\.venv-windows\\Lib\\site-packages\\cocotb\\libs\\gpi.dll": "721336012110838add5d0e5617eb151e57c475ab6a7283165a012229ccab0cf2",
+        "C:\\dev\\SharpTestBench\\.venv-windows\\Lib\\site-packages\\cocotb\\libs\\cocotb_bootstrap.dll": "32031cfbfbf5a66869e07c6609f70469c71199a8597039f432a81d287f0f5456",
+        "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Tools\\bin\\Release\\net10.0\\SharpTestBench.Tools.dll": "1031d2f170e86081373ee1f0a974678b7fb4f552344922f55d68ef7317856e86",
+        "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Runner\\bin\\Release\\net10.0\\SharpTestBench.Runner.dll": "2e4cc840c40428efcdac60bc54250fc3a09bafcbabec6381cd2499d8c4f75b80",
+        "C:\\dev\\SharpTestBench\\tests\\SharpTestBench.Tools.Tests\\priority-seed-vectors.json": "c7add09050311785ff90db924ee9b2df6b69cfa41e687fd9b369b0a2f6cb4898"
+      }
+    }
+  },
+  "distinctMatrixSettings": 42,
+  "coverage": {
+    "suites": {
+      "managed": {
+        "assemblies": [
+          "SharpTestBench"
+        ],
+        "lines": {
+          "covered": 515,
+          "valid": 2119,
+          "percent": 24.30391694195375
+        },
+        "branches": {
+          "covered": 346,
+          "valid": 1297,
+          "percent": 26.676946800308404
+        }
+      },
+      "generators": {
+        "assemblies": [
+          "SharpTestBench.Generators"
+        ],
+        "lines": {
+          "covered": 60,
+          "valid": 68,
+          "percent": 88.23529411764706
+        },
+        "branches": {
+          "covered": 52,
+          "valid": 72,
+          "percent": 72.22222222222223
+        }
+      },
+      "helpers": {
+        "assemblies": [
+          "SharpTestBench.Tools"
+        ],
+        "lines": {
+          "covered": 1690,
+          "valid": 3375,
+          "percent": 50.074074074074076
+        },
+        "branches": {
+          "covered": 1152,
+          "valid": 3375,
+          "percent": 34.13333333333333
+        }
+      },
+      "contracts": {
+        "assemblies": [
+          "SharpTestBench.Tools"
+        ],
+        "lines": {
+          "covered": 487,
+          "valid": 3375,
+          "percent": 14.42962962962963
+        },
+        "branches": {
+          "covered": 651,
+          "valid": 3375,
+          "percent": 19.288888888888888
+        }
+      },
+      "runner": {
+        "assemblies": [
+          "SharpTestBench.Runner"
+        ],
+        "lines": {
+          "covered": 1614,
+          "valid": 3208,
+          "percent": 50.31172069825436
+        },
+        "branches": {
+          "covered": 352,
+          "valid": 672,
+          "percent": 52.38095238095238
+        }
+      },
+      "runner-cli": {
+        "assemblies": [
+          "SharpTestBench.Runner"
+        ],
+        "lines": {
+          "covered": 2108,
+          "valid": 3208,
+          "percent": 65.71072319201996
+        },
+        "branches": {
+          "covered": 298,
+          "valid": 672,
+          "percent": 44.345238095238095
+        }
+      }
+    },
+    "combined": {
+      "assemblies": [
+        "SharpTestBench",
+        "SharpTestBench.Generators",
+        "SharpTestBench.Runner",
+        "SharpTestBench.Tools"
+      ],
+      "lines": {
+        "covered": 4621,
+        "valid": 8770,
+        "percent": 52.69099201824401
+      },
+      "branches": {
+        "covered": 2229,
+        "valid": 5394,
+        "percent": 41.32369299221357
+      }
+    }
+  },
+  "coverageSources": {
+    "sourceFiles": 130,
+    "generatedSourceFiles": 41,
+    "missing": []
+  },
+  "generatedHtml": {
+    "generatedFiles": 41,
+    "generatedHtmlSections": 41,
+    "missingGeneratedHtml": []
+  },
+  "runnerCliCoverage": {
+    "programCoveredLines": 78,
+    "programValidLines": 133,
+    "productionJsonReflectionEnabled": false,
+    "cliAssemblyCoveredLines": 2108,
+    "cliAssemblyValidLines": 3208
+  },
+  "toolsDeployment": {
+    "rid": "win-x64",
+    "kind": "self-contained-readytorun",
+    "fileCount": 193,
+    "readyToRun": {
+      "path": "C:\\dev\\SharpTestBench\\build\\development200-workers\\win-x64\\tools\\SharpTestBench.Tools.dll",
+      "managedNativeHeaderRva": 5744,
+      "managedNativeHeaderSize": 196,
+      "readyToRunSignature": "52545200"
+    },
+    "bundledClrJit": true
+  },
+  "targetedCliVector": 452,
+  "publishedToolsPositiveAndLateNegative": true
+}

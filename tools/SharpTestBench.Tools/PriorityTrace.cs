@@ -20,7 +20,7 @@ internal static class PriorityTrace
         }
     }
 
-    private static IEnumerable<uint> Requests(ulong seed)
+    internal static IEnumerable<uint> Requests(ulong seed)
     {
         for (uint mask = 0; mask < 256; mask++) yield return mask;
         foreach (uint mask in new uint[] { uint.MaxValue, 0x80000000, 0x80000001, 0xaaaaaaaa, 0x55555555 }) yield return mask;
