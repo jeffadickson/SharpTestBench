@@ -19,4 +19,5 @@
     <None Include="../../third_party/UPSTREAM.json" Pack="true" PackagePath="native/" />
   </ItemGroup>
 
+  <ItemGroup><Compile Include="../Shared/ReportFailureEvidence.cs" Link="Shared/ReportFailureEvidence.cs" /></ItemGroup>
 </Project>

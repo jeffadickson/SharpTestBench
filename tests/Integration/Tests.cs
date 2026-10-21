@@ -911,6 +911,10 @@ public static class Tests
     public static async Task P_ExitStatus(TestContext c)
     {
         await Timer(1);
+        if (Environment.GetEnvironmentVariable("CS_INJECT_REPORT_IO_FAILURE") == "1")
+            Directory.CreateDirectory(Path.ChangeExtension(Environment.GetEnvironmentVariable("CS_RESULTS") ?? throw new InvalidOperationException("Missing report destination"), "xml"));
+        if (Environment.GetEnvironmentVariable("CS_INJECT_XML_FAILURE") == "1")
+            throw new Exception("REPORT_XML_FAILURE \0 \a 😀 &<>");
         if (Environment.GetEnvironmentVariable("CS_INJECT_FAILURE") == "1")
             throw new Exception("intentional runner failure");
     }

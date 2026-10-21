@@ -2241,7 +2241,7 @@
       "reason": "Pinned XUnitReporter is an application-constructible accumulating reporter with per-class suites, default attachments and path normalization. SharpTestBench regression owns final result publication through an internal JUnit builder. This internal mapping does not provide the upstream configurable reporter API.",
       "evidence": [
         {
-          "path": "src/SharpTestBench/Regression.cs",
+          "path": "src/SharpTestBench/ResultPublication.cs",
           "contains": "JunitReport.Create(results).Save"
         },
         {
@@ -2275,7 +2275,7 @@
       "reason": "Pinned write updates counters, creates parents and saves UTF-8 XML. C# regression writes discovery/results/functional JSON and JUnit beside the configured results path. Successful XML serialization is covered separately from simulator shutdown; atomic multi-file publication and artifact I/O failure shutdown are not established by this mapping.",
       "evidence": [
         {
-          "path": "src/SharpTestBench/Regression.cs",
+          "path": "src/SharpTestBench/ResultPublication.cs",
           "contains": "JunitReport.Create(results).Save"
         },
         {

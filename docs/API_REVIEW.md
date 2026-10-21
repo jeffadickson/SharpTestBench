@@ -166,3 +166,10 @@ the qualified declaring type, so equal short names remain distinguishable. Exist
 name/time fields and JSON result/evidence schemas are retained. Managed regression
 coverage checks invalid text, qualified identity, locale-independent wall time,
 counts and outcome element selection. Native execution is recorded separately.
+
+Report publication now requests native completion on artifact failures and rejects
+false-success evidence through a shared runtime/parent diagnostic protocol. All
+content is prepared before publication; each file replacement is atomic, with
+explicitly limited whole-set guarantees. See DUAL_RUNNER_PARITY.md and the actual
+reporting-check gate. Review counts remain113/302; this implementation work does
+not add inventory review decisions or certify every shutdown path.

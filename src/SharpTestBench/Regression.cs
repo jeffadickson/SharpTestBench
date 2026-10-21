@@ -467,16 +467,7 @@ public static class Regression
             return;
         finished = true;
         string output = Environment.GetEnvironmentVariable("CS_RESULTS") ?? "csharp-results.json";
-        Directory.CreateDirectory(Path.GetDirectoryName(Path.GetFullPath(output))!);
-        File.WriteAllText(Path.ChangeExtension(output, ".discovery.json"), JsonSerializer.Serialize(
-            new { SchemaVersion = 1, Tests = discovered }, new JsonSerializerOptions { WriteIndented = true }));
-        File.WriteAllText(output, JsonSerializer.Serialize(results, new JsonSerializerOptions { WriteIndented = true }));
-        File.WriteAllText(Path.ChangeExtension(output, ".coverage.json"), JsonSerializer.Serialize(
-            new { SchemaVersion = 1, Kind = "functional", Tests = coverage }, new JsonSerializerOptions { WriteIndented = true }));
-        JunitReport.Create(results).Save(Path.ChangeExtension(output, "xml"));
-        if (listOnly && results.Count == 0) Console.WriteLine($"CS_DISCOVERY {discovered.Count} tests; no test bodies executed");
-        else Console.WriteLine($"CS_SUMMARY {results.Count(x => x.Status == "passed")} passed {results.Count(x => x.Status == "failed")} failed {results.Count(x => x.Status == "skipped")} skipped");
-        if (stopSimulator)
-            runtime!.Finish();
+        ResultPublication.Complete(output, results, discovered, coverage, listOnly,
+            stopSimulator ? () => runtime!.Finish() : null);
     }
 }

@@ -95,6 +95,8 @@ try
     env[loaderKey] = searchPath + Path.PathSeparator + Environment.GetEnvironmentVariable(loaderKey);
     var command = config.Vvp ?? "vvp";
     await ProcessExecution.Run(command, ["-m", bootstrap, compiled], work, env, "simulate", config.TimeoutSeconds, config.MaxLogBytes);
+    foreach (var stream in new[] { "stdout", "stderr" })
+        SharpTestBench.Internal.ReportFailureEvidence.ThrowIfReported(File.ReadLines(Path.Combine(work, "simulate." + stream + ".log")));
     if (!File.Exists(results)) throw new InvalidDataException("Simulator did not produce a result JSON file");
     using var doc = JsonInput.Parse(JsonInput.Read(results));
     InputEvidence.Verify(inputs, InputEvidence.Capture(root, manifestPath, config, fxrFile));

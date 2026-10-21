@@ -118,3 +118,13 @@ Saved Markdown, JSON, JSONL and CSV records are included below. Large binary arc
 - [development200 final Linux evidence](development200-linux-summary.json)
 - [development200 independent deep review](development200-deep-review.md)
 - [development200 final source hashes](development200-source-hashes.json)
+
+## Active local requirements campaign
+
+- [Requirements campaign report (50/200 completed)](requirements200-report.md)
+- [Actual engineering units](requirements200-iterations.jsonl)
+- [Scheduled and independent reviews](requirements200-reviews.jsonl)
+- [Checkpoint 50 four-assembly coverage](requirements200-checkpoint50-coverage.json)
+
+This campaign is local and unpushed. Earlier development200 evidence is a separate,
+completed historical campaign and is not recounted as current work.

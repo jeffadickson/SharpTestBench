@@ -7,4 +7,5 @@
     <Compile Include="../SharpTestBench.Runner/ManifestJsonContext.cs" Link="Shared/ManifestJsonContext.cs" />
   </ItemGroup>
   <ItemGroup><EmbeddedResource Include="NativeFaultProbe.cs.txt" WithCulture="false" LogicalName="SharpTestBench.Tools.NativeFaultProbe.cs.txt" /></ItemGroup>
+  <ItemGroup><Compile Include="../../src/Shared/ReportFailureEvidence.cs" Link="Shared/ReportFailureEvidence.cs" /></ItemGroup>
 </Project>

@@ -128,6 +128,8 @@ internal static class LegacyRunCommand
         var result = context.Run(command, directory: work, environment: environment, capture: true, check: false, timeout: TimeSpan.FromSeconds(seconds));
         var simulationMilliseconds = simulationWatch.Elapsed.TotalMilliseconds;
         var output = result.Output + result.Error; File.WriteAllText(Path.Combine(work, label + "-run.log"), output); Console.WriteLine(output);
+        SharpTestBench.Internal.ReportFailureEvidence.ThrowIfReported(result.Output.Split('\n'));
+        SharpTestBench.Internal.ReportFailureEvidence.ThrowIfReported(result.Error.Split('\n'));
         if (wave is not null) RecordWave(work, label, simulator, resultPath, wave);
         if (result.ExitCode != 0 || !File.Exists(resultPath)) throw new IOException("Simulator failed or produced no result file");
         using var rows = StrictJson.Read(resultPath);

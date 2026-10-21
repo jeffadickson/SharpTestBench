@@ -125,3 +125,65 @@ Fresh evidence: build/requirements200-40-*; the control-character reproduction i
 build/requirements200-31-prechange-xml.log. JSON schema remains unchanged; JUnit
 classname is additive. No new coverage percentage or new native platform claim is
 made.40of200 meaningful units are complete. All changes remain local/unpushed.
+
+## Verified local milestone 50
+
+Units 41–50 close ten distinct publication/failure contracts: finish on report I/O
+failure; prepare all content before replacing evidence; atomic individual file
+replacement; primary/sidecar collision rejection; discovery-only publication;
+shared failure diagnostics in both parents; failed-attempt primary retirement;
+stream framing; publication-before-completion ordering; and an actual C# dual-runner
+qualification command. Seven core and two helper managed facts were added. The
+controlled integration case has separate text and blocked-output failure modes.
+Production orchestration remains C#; independent Python contracts remain retained.
+
+Final Windows: **2,431 passed, 10 skipped**. Linux: **2,441 passed**. Core 491,
+generators 17, helpers 1,120 total (Windows 1,110 passed/10 skipped), retained
+contracts 813. Locked Release builds, all three managed suites, contracts, both
+doctors, actual dual Icarus priority positive/negative and Linux Verilator priority
+positive passed. Across this campaign's first 50 units, 40 managed facts, 11
+retained contracts and 7 distinct simulator regressions were added; repeated
+executions and parameter rows are not additional engineering units.
+
+`reporting-check` passed both modes on Windows and Linux with the ordinary helper
+and freshly published full Tools. The text mode retained JSON NUL/BEL and valid
+supplementary Unicode, produced valid escaped XML, matched actual selected-case
+seeds and failed both runners. The blocked-XML mode retired promoted primary JSON
+and made both parents fail. Fresh Linux x64 standalone NativeAOT qualification also
+passed the blocked-output control: vvp exited 0 without timeout (191.5524 ms),
+while the parent rejected the diagnostic and wrote infrastructure_failure evidence.
+This establishes the reviewed zero-exit failure path, not every combination of
+nonzero process failure and publication failure. Per-file replacement is atomic;
+the four-artifact set is not a transaction. Preparation failures preserve prior
+evidence; later failures retire only the primary promoted by that attempt.
+
+Full Tools publication was freshly qualified on Windows x64 and Linux x64 as
+self-contained ReadyToRun, with actual RTR headers and bundled CLR/JIT files.
+Standalone Runner NativeAOT was freshly qualified on Linux x64. Simulation test
+assemblies still require hostfxr/runtime in a separate simulator process. No
+Windows Runner AOT or additional executed platform is claimed.
+
+Serial merged managed coverage includes **all four production assemblies**:
+**4,880/9,094 lines (53.661755%)** on both OSes; Windows **2,438/5,636 branches
+(43.257630%)**, Linux **2,449/5,636 (43.452803%)**. Generated source contributes
+to the denominator. All 136 source files and all 43 generated-source HTML sections
+were present. Selected production CLI collection covers 78/135 Program lines and
+retains JSON reflection disabled; actual simulation/native qualification is
+separate from these coverage counts. HDL, NativeAOT instructions, the full CLI
+success/runtime-switch matrix and complete upstream behavior remain outside scope.
+Exact counters are in requirements200-checkpoint50-coverage.json. Portable HTML
+snapshots were retained in this task's outputs/requirements200/checkpoint50 folder.
+
+The scheduled 45 review and extra independent 50 review found no additional
+blocking defect after the known publication false-success path was addressed.
+Their scope and process-classification limit are recorded in the reviews ledger.
+A Windows authoring encoding error was corrected by restoring the exact tracked
+integration source and applying its four intended fixture lines as UTF-8 before
+building; the verified diff and tests retained all prior behavior. During live
+read-only GitHub verification, all 12 workflows remained disabled and PR #62
+remained open/draft/unmerged at 0318a864d9b570f9ffbc4857e7365ec9ed6a4736.
+
+Evidence is fresh under build/requirements200-50-* and
+build/requirements200-native50*. The first 50 of 200 meaningful units are complete;
+150 remain. No push, hosted CI dispatch or external publication occurred. The
+final independent deep review of the whole 200-unit campaign remains required.

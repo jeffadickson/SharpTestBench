@@ -156,3 +156,29 @@ Malformed Unicode property names are configuration errors in both shared strict
 JSON parsing and the production Runner CLI, including JSON-reflection-disabled
 execution. Valid supplementary Unicode keys/values remain accepted by the generic
 JSON parser; manifest unknown-field policy remains separate.
+
+## Reporting failure qualification
+
+Run the local C# `reporting-check` helper after a Release build. It discovers the
+selected integration case and binds its actual per-case seed, then invokes both
+runners for two negative controls: an exception containing NUL/BEL and valid
+supplementary Unicode/XML metacharacters; and a directory blocking final JUnit
+replacement. It requires failed child exits without watchdog expiry, preserved
+JSON control characters, valid visibly escaped XML, primary-result retirement
+and standalone infrastructure-failure evidence as appropriate. Workspaces use
+unique local build/reporting-* directories and retain logs and reports.
+
+The runtime pre-renders every report before changing evidence, atomically replaces
+each file and requests simulator completion in finally. This is per-file atomicity,
+not a four-file transaction. If publication fails after this attempt promoted its
+primary result JSON, that primary is retired. Preparation failures preserve prior
+completed evidence. Both parent paths independently scan both output streams for
+the reserved CS_REPORT_FAILURE diagnostic and reject it even with zero simulator
+exit status or parseable passing results. Retirement is best effort; the diagnostic
+is authoritative when cleanup also fails. Fault injection controls are removed
+from ordinary parity children before fixture-specific overrides.
+
+JSON retains diagnostic control characters through the normal .NET serializer.
+XML sanitization does not alter that source error; invalid UTF-16 may still follow
+the JSON serializer's replacement policy. This is not a claim that arbitrary
+ill-formed UTF-16 has a lossless UTF-8 JSON representation.

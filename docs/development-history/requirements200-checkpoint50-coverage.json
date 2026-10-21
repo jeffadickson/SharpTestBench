@@ -1,0 +1,244 @@
+{
+  "checkpoint": 50,
+  "windows": {
+    "suites": {
+      "managed": {
+        "assemblies": [
+          "SharpTestBench"
+        ],
+        "lines": {
+          "covered": 570,
+          "valid": 2164,
+          "percent": 26.34011090573013
+        },
+        "branches": {
+          "covered": 384,
+          "valid": 1335,
+          "percent": 28.764044943820224
+        }
+      },
+      "generators": {
+        "assemblies": [
+          "SharpTestBench.Generators"
+        ],
+        "lines": {
+          "covered": 60,
+          "valid": 68,
+          "percent": 88.23529411764706
+        },
+        "branches": {
+          "covered": 52,
+          "valid": 72,
+          "percent": 72.22222222222223
+        }
+      },
+      "helpers": {
+        "assemblies": [
+          "SharpTestBench.Tools"
+        ],
+        "lines": {
+          "covered": 1845,
+          "valid": 3585,
+          "percent": 51.46443514644351
+        },
+        "branches": {
+          "covered": 1306,
+          "valid": 3551,
+          "percent": 36.77837228949592
+        }
+      },
+      "contracts": {
+        "assemblies": [
+          "SharpTestBench.Tools"
+        ],
+        "lines": {
+          "covered": 488,
+          "valid": 3585,
+          "percent": 13.612273361227336
+        },
+        "branches": {
+          "covered": 651,
+          "valid": 3551,
+          "percent": 18.332863981976907
+        }
+      },
+      "runner": {
+        "assemblies": [
+          "SharpTestBench.Runner"
+        ],
+        "lines": {
+          "covered": 1663,
+          "valid": 3277,
+          "percent": 50.7476350320415
+        },
+        "branches": {
+          "covered": 369,
+          "valid": 700,
+          "percent": 52.714285714285715
+        }
+      },
+      "runner-cli": {
+        "assemblies": [
+          "SharpTestBench.Runner"
+        ],
+        "lines": {
+          "covered": 2148,
+          "valid": 3277,
+          "percent": 65.54775709490387
+        },
+        "branches": {
+          "covered": 302,
+          "valid": 700,
+          "percent": 43.142857142857146
+        }
+      }
+    },
+    "combined": {
+      "assemblies": [
+        "SharpTestBench",
+        "SharpTestBench.Generators",
+        "SharpTestBench.Runner",
+        "SharpTestBench.Tools"
+      ],
+      "lines": {
+        "covered": 4880,
+        "valid": 9094,
+        "percent": 53.66175500329888
+      },
+      "branches": {
+        "covered": 2438,
+        "valid": 5636,
+        "percent": 43.25762952448545
+      }
+    }
+  },
+  "linux": {
+    "suites": {
+      "managed": {
+        "assemblies": [
+          "SharpTestBench"
+        ],
+        "lines": {
+          "covered": 570,
+          "valid": 2164,
+          "percent": 26.34011090573013
+        },
+        "branches": {
+          "covered": 384,
+          "valid": 1335,
+          "percent": 28.764044943820224
+        }
+      },
+      "generators": {
+        "assemblies": [
+          "SharpTestBench.Generators"
+        ],
+        "lines": {
+          "covered": 60,
+          "valid": 68,
+          "percent": 88.23529411764706
+        },
+        "branches": {
+          "covered": 52,
+          "valid": 72,
+          "percent": 72.22222222222223
+        }
+      },
+      "helpers": {
+        "assemblies": [
+          "SharpTestBench.Tools"
+        ],
+        "lines": {
+          "covered": 1845,
+          "valid": 3585,
+          "percent": 51.46443514644351
+        },
+        "branches": {
+          "covered": 1316,
+          "valid": 3551,
+          "percent": 37.05998310335117
+        }
+      },
+      "contracts": {
+        "assemblies": [
+          "SharpTestBench.Tools"
+        ],
+        "lines": {
+          "covered": 488,
+          "valid": 3585,
+          "percent": 13.612273361227336
+        },
+        "branches": {
+          "covered": 652,
+          "valid": 3551,
+          "percent": 18.361025063362433
+        }
+      },
+      "runner": {
+        "assemblies": [
+          "SharpTestBench.Runner"
+        ],
+        "lines": {
+          "covered": 1663,
+          "valid": 3277,
+          "percent": 50.7476350320415
+        },
+        "branches": {
+          "covered": 369,
+          "valid": 700,
+          "percent": 52.714285714285715
+        }
+      },
+      "runner-cli": {
+        "assemblies": [
+          "SharpTestBench.Runner"
+        ],
+        "lines": {
+          "covered": 2148,
+          "valid": 3277,
+          "percent": 65.54775709490387
+        },
+        "branches": {
+          "covered": 303,
+          "valid": 700,
+          "percent": 43.285714285714285
+        }
+      }
+    },
+    "combined": {
+      "assemblies": [
+        "SharpTestBench",
+        "SharpTestBench.Generators",
+        "SharpTestBench.Runner",
+        "SharpTestBench.Tools"
+      ],
+      "lines": {
+        "covered": 4880,
+        "valid": 9094,
+        "percent": 53.66175500329888
+      },
+      "branches": {
+        "covered": 2449,
+        "valid": 5636,
+        "percent": 43.4528034066714
+      }
+    }
+  },
+  "source_presentation": {
+    "sourceFiles": 136,
+    "generatedSourceFiles": 43,
+    "generatedHtmlSections": 43,
+    "missing": []
+  },
+  "cli_scope": {
+    "programCoveredLines": 78,
+    "programValidLines": 135,
+    "productionJsonReflectionEnabled": false
+  },
+  "exclusions": [
+    "HDL",
+    "Native instructions and NativeAOT instruction coverage",
+    "Complete CLI success/runtime-feature matrix",
+    "All upstream or simulator behavior"
+  ]
+}
