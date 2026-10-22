@@ -177,6 +177,7 @@ public sealed class TestContext
     {
         Runtime.CheckThread();
         ArgumentNullException.ThrowIfNull(body);
+        if(name is not null)ArgumentException.ThrowIfNullOrWhiteSpace(name);
         var child = CancellationTokenSource.CreateLinkedTokenSource(Cancellation, parent);
         var started = new TaskCompletionSource<T>();
         var job = new SimJob<T>(child, name ?? $"job-{jobs.Count + 1}", started.Task);

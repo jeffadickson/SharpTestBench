@@ -29,3 +29,9 @@ errors. TASKS.md specifies their behavior, including how it differs from trigger
 subscription cancellation. Full upstream scheduler/conformance tests remain open.
 
 See [the cocotb 2.1 concurrency comparison](CONCURRENCY_COMPARISON.md): First/Combine are not gather/select equivalents. Typed Gather/Select with explicit owned/borrowed inputs implement #44; the comparison records intentional cancellation differences.
+
+
+Initial StartSoon names, when supplied, must be nonblank strings, matching SetName.
+Rejection occurs before job registration and does not consume an automatic name.
+This differs from upstream str(value) naming. RequirementContracts R046 qualifies
+the failure and subsequent automatic-name recovery on both local Icarus runners on Windows/Linux, plus Linux Verilator.

@@ -1,0 +1,59 @@
+{
+  "initialJobName": {
+    "sourceSha256": "32923c25a16dbee992f3aa11824936161bad6ef4016673fd6d0ef4f3b80c6633",
+    "records": {
+      "windows": {
+        "legacy": {
+          "Name": "R046_InvalidInitialNameCannotEnqueueAJob",
+          "Status": "failed",
+          "Seed": 128,
+          "StartStep": 293,
+          "EndStep": 294,
+          "Seconds": 0.0010053,
+          "Error": "System.IO.InvalidDataException: Expected ArgumentException\r\n   at Entry.Throws[T](Action action) in C:\\dev\\SharpTestBench\\tests\\RequirementContracts\\Entry.cs:line 10\r\n   at Entry.R046_InvalidInitialNameCannotEnqueueAJob(TestContext c) in C:\\dev\\SharpTestBench\\tests\\RequirementContracts\\JobContracts50.cs:line 7\r\n   at SharpTestBench.Regression.Run(Assembly assembly) in C:\\dev\\SharpTestBench\\src\\SharpTestBench\\Regression.cs:line 375",
+          "QualifiedName": "Entry.R046_InvalidInitialNameCannotEnqueueAJob",
+          "Stage": 0,
+          "CaseIndex": 0
+        },
+        "native": {
+          "Name": "R046_InvalidInitialNameCannotEnqueueAJob",
+          "Status": "failed",
+          "Seed": 128,
+          "StartStep": 293,
+          "EndStep": 294,
+          "Seconds": 0.0005835,
+          "Error": "System.IO.InvalidDataException: Expected ArgumentException\r\n   at Entry.Throws[T](Action action) in C:\\dev\\SharpTestBench\\tests\\RequirementContracts\\Entry.cs:line 10\r\n   at Entry.R046_InvalidInitialNameCannotEnqueueAJob(TestContext c) in C:\\dev\\SharpTestBench\\tests\\RequirementContracts\\JobContracts50.cs:line 7\r\n   at SharpTestBench.Regression.Run(Assembly assembly) in C:\\dev\\SharpTestBench\\src\\SharpTestBench\\Regression.cs:line 375",
+          "QualifiedName": "Entry.R046_InvalidInitialNameCannotEnqueueAJob",
+          "Stage": 0,
+          "CaseIndex": 0
+        }
+      },
+      "linux": {
+        "legacy": {
+          "Name": "R046_InvalidInitialNameCannotEnqueueAJob",
+          "Status": "failed",
+          "Seed": 128,
+          "StartStep": 293,
+          "EndStep": 294,
+          "Seconds": 0.0010422,
+          "Error": "System.IO.InvalidDataException: Expected ArgumentException\n   at Entry.Throws[T](Action action) in /home/jeffd/src/SharpTestBench/tests/RequirementContracts/Entry.cs:line 10\n   at Entry.R046_InvalidInitialNameCannotEnqueueAJob(TestContext c) in /home/jeffd/src/SharpTestBench/tests/RequirementContracts/JobContracts50.cs:line 7\n   at SharpTestBench.Regression.Run(Assembly assembly) in /home/jeffd/src/SharpTestBench/src/SharpTestBench/Regression.cs:line 375",
+          "QualifiedName": "Entry.R046_InvalidInitialNameCannotEnqueueAJob",
+          "Stage": 0,
+          "CaseIndex": 0
+        },
+        "native": {
+          "Name": "R046_InvalidInitialNameCannotEnqueueAJob",
+          "Status": "failed",
+          "Seed": 128,
+          "StartStep": 293,
+          "EndStep": 294,
+          "Seconds": 0.0036285,
+          "Error": "System.IO.InvalidDataException: Expected ArgumentException\n   at Entry.Throws[T](Action action) in /home/jeffd/src/SharpTestBench/tests/RequirementContracts/Entry.cs:line 10\n   at Entry.R046_InvalidInitialNameCannotEnqueueAJob(TestContext c) in /home/jeffd/src/SharpTestBench/tests/RequirementContracts/JobContracts50.cs:line 7\n   at SharpTestBench.Regression.Run(Assembly assembly) in /home/jeffd/src/SharpTestBench/src/SharpTestBench/Regression.cs:line 375",
+          "QualifiedName": "Entry.R046_InvalidInitialNameCannotEnqueueAJob",
+          "Stage": 0,
+          "CaseIndex": 0
+        }
+      }
+    }
+  }
+}

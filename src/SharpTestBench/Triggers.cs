@@ -185,14 +185,21 @@ public static class Triggers
     public static Trigger First(params Trigger[] triggers) => new CompositeTrigger(false, triggers);
     public static Trigger Combine(params Trigger[] triggers) => new CompositeTrigger(true, triggers);
     public static Trigger WithTimeout(Trigger trigger, ulong steps) => new TimeoutTrigger(trigger, Timer(steps));
-    public static async Task ClockCycles(Signal clock, int count, CancellationToken? cancellation = null)
+    /// <summary>Wait for rising clock edges; a zero count validates ownership without registering callbacks.</summary>
+    public static Task ClockCycles(Signal clock, int count, CancellationToken? cancellation = null) => ClockCycles(clock,count,cancellation,ClockEdge.Rising);
+
+    /// <summary>Count selected transitions of a one-bit clock. Cancellation detaches only this wait.</summary>
+    public static async Task ClockCycles(Signal clock, int count, CancellationToken? cancellation, ClockEdge edge)
     {
-        if (count < 0)
-            throw new ArgumentOutOfRangeException(nameof(count));
-        var token = cancellation ?? (SimRuntime.Active ?? throw new InvalidOperationException("No runtime")).DefaultCancellation;
+        ArgumentNullException.ThrowIfNull(clock);
+        if (count < 0) throw new ArgumentOutOfRangeException(nameof(count));
+        if (!Enum.IsDefined(edge)) throw new ArgumentOutOfRangeException(nameof(edge));
+        clock.Runtime.CheckThread();
+        if (clock.Width != 1) throw new ArgumentException("Clock must be one bit",nameof(clock));
+        var token = cancellation ?? clock.Runtime.DefaultCancellation;
         token.ThrowIfCancellationRequested();
         for (int i = 0; i < count; i++)
-            await RisingEdge(clock).WithCancellation(token);
+            await (edge switch { ClockEdge.Rising=>RisingEdge(clock),ClockEdge.Falling=>FallingEdge(clock),_=>ValueChange(clock) }).WithCancellation(token);
     }
 
     sealed class NativeTrigger(CallbackKind kind, ulong steps = 0, nint signal = 0, int edge = 0) : Trigger

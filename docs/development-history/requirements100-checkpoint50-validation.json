@@ -1,0 +1,64 @@
+{
+  "baseCommit": "ca0d4ef94305b70539a229095a24d9076027816b",
+  "engineeringUnits": 50,
+  "managedTotals": {
+    "core": 493,
+    "generators": 17,
+    "helpers": 1229
+  },
+  "retainedContracts": 951,
+  "windows": {
+    "passed": 2675,
+    "skipped": 15,
+    "logSha256": "f2433ff556358a0b401f886c5171c0a7e633470760b7541a19db0a83e00242aa",
+    "apiAudit": {
+      "inventoried_definitions": 302,
+      "reviewed_definitions": 138,
+      "unreviewed_definitions": 164,
+      "classifications": {
+        "internal-adapter": 9,
+        "idiomatic-equivalent": 24,
+        "intentional-difference": 87,
+        "deprecated-omission": 17,
+        "gap": 1
+      },
+      "note": "Review counts are not a parity percentage; aliases and dynamic exports remain outside this inventory."
+    }
+  },
+  "linux": {
+    "passed": 2690,
+    "skipped": 0,
+    "logSha256": "ef78deebca71854ff44645eecd0356c2adea4482af8cabbcd5b482359531e26e",
+    "apiAudit": {
+      "inventoried_definitions": 302,
+      "reviewed_definitions": 138,
+      "unreviewed_definitions": 164,
+      "classifications": {
+        "internal-adapter": 9,
+        "idiomatic-equivalent": 24,
+        "intentional-difference": 87,
+        "deprecated-omission": 17,
+        "gap": 1
+      },
+      "note": "Review counts are not a parity percentage; aliases and dynamic exports remain outside this inventory."
+    },
+    "verilator": {
+      "passed": 50,
+      "failed": 0,
+      "skipped": 0,
+      "resultsSha256": "526f74ed1362892c2307ee7307a75bcaf22a2cdb9d86cd73a8fc940ba414c03d"
+    }
+  },
+  "actualIcarus": {
+    "contractsPerRunner": 50,
+    "runners": [
+      "legacy",
+      "managed standalone Runner"
+    ],
+    "operatingSystems": [
+      "Windows x64",
+      "Linux x64"
+    ]
+  },
+  "pushed": false
+}

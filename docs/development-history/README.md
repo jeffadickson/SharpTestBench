@@ -146,3 +146,14 @@ completed historical campaign and is not recounted as current work.
 Requirements200 is complete and locally verified on main; no push. Fresh final tests:
 Windows2665passed15Unixskips/Linux2680passed. Broader open requirements are retained
 in the bounded closure matrix; archived round8 evidence is not new-machine evidence.
+
+
+## Requirements100 follow-up (local milestone50)
+
+The verified requirements200 main commits through ca0d4ef were normally pushed on
+2026-10-21 at the user's explicit request. Those historical reports describe their
+pre-push state. The new100-unit batch is separate and currently50/100verified:
+[report](requirements100-report.md), [ledger](requirements100-iterations.jsonl),
+[reviews](requirements100-reviews.jsonl), [full50validation](requirements100-checkpoint50-validation.json)
+and [pre-fix reproductions](requirements100-reproductions.json). New work stays local;
+final100deepreview remains required. CI is disabled and PR62unchanged.

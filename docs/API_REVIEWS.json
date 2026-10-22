@@ -13,7 +13,9 @@
     "cocotb.types._resolve": "7c2a1087a6e791306f73a323f7e1aa5f9216dd440b8eee6110d831b13ee59935",
     "cocotb._outcomes": "45aef3bbcd6c489e8dbd5cc105cce29e7a50905a6e01a2c2f14e9e132d497858",
     "cocotb._concurrent_waiters": "dadac9b16e60c4a107f9063661ce8e2281541bda0ea22f62880a91ee1f372020",
-    "cocotb._xunit_reporter": "9911a6d4edc796af788a5b88da4a9efaa2ea62c703a96193cb151750279888ad"
+    "cocotb._xunit_reporter": "9911a6d4edc796af788a5b88da4a9efaa2ea62c703a96193cb151750279888ad",
+    "cocotb._extended_awaitables": "6a3a26ea29c3b77e98d60da5c2ecfa305375c30858fc21437297ec7b31453b5f",
+    "cocotb.task": "f1e42ab76887d6309e7b4012174c254ac87a42d2aecf1fa5154803bc750912fa"
   },
   "reviews": [
     {
@@ -2298,6 +2300,331 @@
         {
           "path": "tests/SharpTestBench.Tests/JunitRequirementTests.cs",
           "contains": "IllegalExceptionCharactersCannotBreakXmlEvidence"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._extended_awaitables",
+      "definition": "Waitable",
+      "source_line": 28,
+      "classification": "internal-adapter",
+      "reason": "Python coroutine protocol base maps to C# awaitable Trigger/Task infrastructure. No exported Python _wait or await-protocol identity is reproduced.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Triggers.cs",
+          "contains": "public abstract class Trigger"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._extended_awaitables",
+      "definition": "Combine",
+      "source_line": 42,
+      "classification": "intentional-difference",
+      "reason": "C# trigger Combine owns subscriptions; SimTasks.Combine borrows tasks and waits all even after fault/cancellation. Upstream deprecated task inputs and FIRST_EXCEPTION cancellation differ; no exact semantic parity claim.",
+      "evidence": [
+        {
+          "path": "tests/RequirementContracts/WaitContracts20.cs",
+          "contains": "R016_CombineDefersFaultUntilAllSettle"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._extended_awaitables",
+      "definition": "First",
+      "source_line": 113,
+      "classification": "intentional-difference",
+      "reason": "C# SimTasks.First returns winning Task and leaves losers caller-owned, including external cancellation. Trigger First returns its trigger identity; mixed upstream coroutine result semantics are separate.",
+      "evidence": [
+        {
+          "path": "tests/RequirementContracts/WaitContracts15.cs",
+          "contains": "R014_FirstCancellationOnlyCancelsWaiter"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._extended_awaitables",
+      "definition": "ClockCycles",
+      "source_line": 200,
+      "classification": "intentional-difference",
+      "reason": "One-bit C# cycle wait supports rising/falling/any through explicit ClockEdge, preserves original cancellation overload, validates zero count and rejects negative count. Returns Task rather than an inspectable Python Waitable.",
+      "evidence": [
+        {
+          "path": "tests/RequirementContracts/Entry.cs",
+          "contains": "R008_AnyCyclesCountBothTransitions"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._extended_awaitables",
+      "definition": "ClockCycles.signal",
+      "source_line": 266,
+      "classification": "intentional-difference",
+      "reason": "Clock operand is supplied to the C# asynchronous method; returned Task has no reverse signal property. Operand ownership/width is validated even for zero cycles.",
+      "evidence": [
+        {
+          "path": "tests/RequirementContracts/Entry.cs",
+          "contains": "R004_ZeroCountCannotBypassClockWidth"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._extended_awaitables",
+      "definition": "ClockCycles.num_cycles",
+      "source_line": 271,
+      "classification": "intentional-difference",
+      "reason": "Count is an explicit C# method argument, not stored on an inspectable Waitable. Negative counts reject and zero validates without callbacks.",
+      "evidence": [
+        {
+          "path": "tests/RequirementContracts/Entry.cs",
+          "contains": "R006_ZeroCountDoesNotAdvanceOrRegister"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._extended_awaitables",
+      "definition": "ClockCycles.edge_type",
+      "source_line": 276,
+      "classification": "intentional-difference",
+      "reason": "C# exposes ClockEdge enum as a required fourth argument, not a Python trigger class stored on a returned Waitable. Original rising-only overload remains source-compatible.",
+      "evidence": [
+        {
+          "path": "tests/SharpTestBench.Tests/ClockCycleCompatibilityTests.cs",
+          "contains": "DefaultLiteralStillSelectsTheOriginalCancellationOverload"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._extended_awaitables",
+      "definition": "SimTimeoutError",
+      "source_line": 292,
+      "classification": "intentional-difference",
+      "reason": "C# uses System.TimeoutException for simulation deadlines, not a dedicated cocotb exception class. Classification is shared with other managed timeout sources.",
+      "evidence": [
+        {
+          "path": "tests/RequirementContracts/WaitContracts20.cs",
+          "contains": "R019_TimeoutDoesNotCancelBorrowedTask"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._extended_awaitables",
+      "definition": "with_timeout",
+      "source_line": 296,
+      "classification": "intentional-difference",
+      "reason": "Borrowed C# tasks survive deadline expiry; typed values and original faults propagate and the internal timer is joined. Owned deferred operations use explicit ownership APIs, and completed-task ties win; Python select result/coroutine policy differs.",
+      "evidence": [
+        {
+          "path": "tests/RequirementContracts/WaitContracts20.cs",
+          "contains": "R020_CompletedFaultWinsOverDeadline"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.task",
+      "definition": "Task",
+      "source_line": 66,
+      "classification": "intentional-difference",
+      "reason": "SimJob wraps scheduled C# delegates/.NET Task rather than a Python coroutine/state-machine object; construction, introspection and exception surfaces differ.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Regression.cs",
+          "contains": "public class SimJob"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.task",
+      "definition": "Task.locals",
+      "source_line": 155,
+      "classification": "intentional-difference",
+      "reason": "SimTaskLocal<T> uses typed identity keys, distinguishes missing/null and isolates nested jobs; Python arbitrary attribute namespaces are not copied.",
+      "evidence": [
+        {
+          "path": "tests/RequirementContracts/JobContracts50.cs",
+          "contains": "R047_TaskLocalDistinguishesStoredNullFromMissing"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.task",
+      "definition": "Task.get_name",
+      "source_line": 183,
+      "classification": "idiomatic-equivalent",
+      "reason": "SimJob.Name exposes the diagnostic name; automatic names are assigned per test job registration. Initial blank names reject without reserving an ordinal.",
+      "evidence": [
+        {
+          "path": "tests/RequirementContracts/JobContracts50.cs",
+          "contains": "R046_InvalidInitialNameCannotEnqueueAJob"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.task",
+      "definition": "Task.set_name",
+      "source_line": 191,
+      "classification": "intentional-difference",
+      "reason": "SetName takes a nonblank string on the simulator thread; upstream stringifies arbitrary objects and accepts empty strings.",
+      "evidence": [
+        {
+          "path": "tests/Integration/Tests.cs",
+          "contains": "public static async Task AK_TaskNames"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.task",
+      "definition": "Task.kill",
+      "source_line": 455,
+      "classification": "gap",
+      "reason": "Abrupt Python coroutine kill/result=None has no managed counterpart; cooperative Cancel deliberately runs C# cleanup. Do not treat cancellation as abrupt-kill parity.",
+      "evidence": [
+        {
+          "path": "docs/TASK_API_MAP.md",
+          "contains": "No abrupt kill"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.task",
+      "definition": "Task.complete",
+      "source_line": 493,
+      "classification": "intentional-difference",
+      "reason": "SimJob.Complete waits terminal state without propagating the result, fault or cancellation; the original Task retains its outcome. Its await result is void rather than a Python TaskComplete object.",
+      "evidence": [
+        {
+          "path": "tests/RequirementContracts/JobContracts45.cs",
+          "contains": "R044_CancelledJobPreservesItsTokenIdentity"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.task",
+      "definition": "Task.join",
+      "source_line": 514,
+      "classification": "deprecated-omission",
+      "reason": "Deprecated Python join wrapper is omitted; await SimJob/SimJob<T> propagates completion/result directly.",
+      "evidence": [
+        {
+          "path": "docs/TASK_API_MAP.md",
+          "contains": "Task.join() / Join"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.task",
+      "definition": "Task.cancel",
+      "source_line": 543,
+      "classification": "intentional-difference",
+      "reason": "Cancel requests cooperative cancellation using the job token, returns void and accepts no message; completed results are not rewritten. Python cancellation request/suppression and return-value semantics differ.",
+      "evidence": [
+        {
+          "path": "tests/RequirementContracts/JobContracts45.cs",
+          "contains": "R045_LateCancelCannotRewriteCompletedResult"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.task",
+      "definition": "Task.cancelled",
+      "source_line": 634,
+      "classification": "intentional-difference",
+      "reason": "Task.IsCanceled exposes .NET terminal cancellation after joining. An uncancelled OperationCanceledException can fault a managed job; Python CancelledError state rules are not copied.",
+      "evidence": [
+        {
+          "path": "tests/RequirementContracts/JobContracts45.cs",
+          "contains": "R044_CancelledJobPreservesItsTokenIdentity"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.task",
+      "definition": "Task.done",
+      "source_line": 638,
+      "classification": "idiomatic-equivalent",
+      "reason": "IsCompleted/Task.IsCompleted reports all terminal .NET task states, including success and cancellation, without blocking.",
+      "evidence": [
+        {
+          "path": "tests/RequirementContracts/JobContracts45.cs",
+          "contains": "R043_UnfinishedResultCannotBlockSimulator"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.task",
+      "definition": "Task.result",
+      "source_line": 646,
+      "classification": "intentional-difference",
+      "reason": "Typed Result returns/throws the original terminal outcome; unfinished access rejects synchronously instead of blocking, using managed exception types.",
+      "evidence": [
+        {
+          "path": "tests/RequirementContracts/JobContracts45.cs",
+          "contains": "R043_UnfinishedResultCannotBlockSimulator"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.task",
+      "definition": "Task.exception",
+      "source_line": 664,
+      "classification": "intentional-difference",
+      "reason": "SimJob.Exception uses .NET Task.Exception: AggregateException on fault and null for unfinished/success/cancelled; upstream throws for unfinished/cancelled and returns the original fault.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Regression.cs",
+          "contains": "public AggregateException? Exception => Task.Exception;"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.task",
+      "definition": "current_task",
+      "source_line": 721,
+      "classification": "intentional-difference",
+      "reason": "SimJob.Current identifies StartSoon async flow and is null in the test body; upstream raises when no task runs. Nested continuation identity is preserved.",
+      "evidence": [
+        {
+          "path": "tests/RequirementContracts/JobContracts45.cs",
+          "contains": "R042_NestedJobRestoresParentIdentity"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.task",
+      "definition": "TaskComplete",
+      "source_line": 732,
+      "classification": "intentional-difference",
+      "reason": "The completion-only concept is exposed as a reusable Trigger rather than a public Python TaskComplete class/protocol. It does not propagate a job outcome.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Regression.cs",
+          "contains": "public Trigger Complete => new CompletionTrigger(this);"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.task",
+      "definition": "TaskComplete.task",
+      "source_line": 767,
+      "classification": "intentional-difference",
+      "reason": "C# callers retain the originating SimJob reference; completion triggers do not publicly expose a reverse task lookup.",
+      "evidence": [
+        {
+          "path": "docs/TASK_API_MAP.md",
+          "contains": "Completion trigger does not expose a reverse lookup"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.task",
+      "definition": "Join",
+      "source_line": 772,
+      "classification": "deprecated-omission",
+      "reason": "Deprecated Python Join wrapper is omitted in favor of directly awaiting typed/untyped SimJob.",
+      "evidence": [
+        {
+          "path": "docs/TASK_API_MAP.md",
+          "contains": "Deprecated Python API is not copied"
         }
       ]
     }
