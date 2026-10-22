@@ -1,0 +1,25 @@
+using SharpTestBench;
+using static SharpTestBench.Triggers;
+public static partial class Entry
+{
+    [SimTest] public static async Task R031_EmptyGatherDoesNotAdvanceOrRegister(TestContext c)
+    {ulong time=c.Runtime.Now;int callbacks=c.Runtime.PendingCallbacks;var result=await SimTasks.Gather<int>(c,Array.Empty<SimAwaitable<int>>());Check(result.Length==0&&time==c.Runtime.Now&&callbacks==c.Runtime.PendingCallbacks,"empty gather");}
+    [SimTest] public static async Task R032_EmptySelectRejectsBeforeScheduling(TestContext c)
+    {int before=c.Runtime.PendingCallbacks;await Fails<ArgumentException>(()=>SimTasks.Select<int>(c,Array.Empty<SimAwaitable<int>>()));Check(c.Runtime.PendingCallbacks==before,"empty select registration");}
+    [SimTest] public static async Task R033_GatherRetainsInputOrderDespiteReverseCompletion(TestContext c)
+    {ulong time=c.Runtime.Now;var values=await SimTasks.Gather(c,SimTasks.Owned(async token=>{await Timer(4).WithCancellation(token);return 1;}),SimTasks.Owned(async token=>{await Timer(2).WithCancellation(token);return 2;}));Check(values.SequenceEqual(new[]{1,2})&&c.Runtime.Now==time+4,"owned gather order and join timing");}
+    [SimTest] public static async Task R034_SelectJoinsCancelledOwnedLoser(TestContext c)
+    {ulong start=c.Runtime.Now;bool cleaned=false,cancelled=false;var winner=await SimTasks.Select(c,SimTasks.Owned(async token=>{try{await Timer(10000).WithCancellation(token);return 0;}finally{cancelled=token.IsCancellationRequested;cleaned=true;}}),SimTasks.Owned(async token=>{await Timer(2).WithCancellation(token);return 7;}));Check(winner.Index==1&&winner.Value==7&&cleaned&&cancelled&&c.Runtime.Now==start+2,"select loser joined before success");}
+    [SimTest] public static async Task R035_SelectLeavesBorrowedLoserRunning(TestContext c)
+    {var borrowed=c.StartSoon(async token=>{await Timer(6).WithCancellation(token);return 9;});var winner=await SimTasks.Select(c,SimTasks.Owned(async token=>{await Timer(1).WithCancellation(token);return 3;}),SimTasks.Borrowed(borrowed));Check(winner.Index==0&&winner.Value==3&&!borrowed.IsCompleted,"borrowed ownership retained");Check(await borrowed==9,"borrowed job completes after select");}
+    [SimTest] public static async Task R036_GatherFailureJoinsAsynchronousLoserCleanup(TestContext c)
+    {ulong start=c.Runtime.Now;var marker=new FormatException("gather primary");bool cleaned=false,cancelled=false;var error=await Fails<FormatException>(()=>SimTasks.Gather(c,SimTasks.Owned<int>(async token=>{await Timer(2).WithCancellation(token);throw marker;}),SimTasks.Owned(async token=>{try{await Timer(10000).WithCancellation(token);return 0;}finally{cancelled=token.IsCancellationRequested;await Timer(1).WithCancellation(CancellationToken.None);cleaned=true;}})));Check(ReferenceEquals(error,marker)&&cleaned&&cancelled&&c.Runtime.Now==start+3,"primary preserved after cleanup join");}
+    [SimTest] public static async Task R037_SelectCannotHideLoserCleanupFailure(TestContext c)
+    {var marker=new IOException("loser cleanup");var error=await Fails<IOException>(()=>SimTasks.Select(c,SimTasks.Owned(async token=>{await Timer(1).WithCancellation(token);return 1;}),SimTasks.Owned<int>(async token=>{try{await Timer(10000).WithCancellation(token);return 0;}finally{throw marker;}})));Check(ReferenceEquals(error,marker),"cleanup failure survives successful winner");}
+    [SimTest] public static async Task R038_GatherExternalCancellationJoinsChildren(TestContext c)
+    {ulong start=c.Runtime.Now;using var cancel=new CancellationTokenSource();bool cleaned=false,cancelled=false;var pending=SimTasks.Gather(c,cancel.Token,SimTasks.Owned(async token=>{try{await Timer(10000).WithCancellation(token);return 1;}finally{cancelled=token.IsCancellationRequested;await Timer(1).WithCancellation(CancellationToken.None);cleaned=true;}}));await Yield();cancel.Cancel();await Fails<OperationCanceledException>(()=>pending);Check(cleaned&&cancelled&&c.Runtime.Now==start+1,"external cancellation joined cleanup");}
+    [SimTest] public static async Task R039_GatherSnapshotsOwnedInputArray(TestContext c)
+    {bool invalidStarted=false;var first=SimTasks.Owned(async token=>{await Timer(2).WithCancellation(token);return 1;});var second=SimTasks.Owned(async token=>{await Timer(1).WithCancellation(token);return 2;});SimAwaitable<int>[] inputs=[first,second];var pending=SimTasks.Gather(c,inputs);inputs[0]=SimTasks.Owned<int>(_=>{invalidStarted=true;return Task.FromResult(99);});Check((await pending).SequenceEqual(new[]{1,2})&&!invalidStarted,"input array ownership snapshot");}
+    [SimTest] public static async Task R040_PreCancelledGatherNeverStartsFactory(TestContext c)
+    {bool started=false;int before=c.Runtime.PendingCallbacks;await Fails<OperationCanceledException>(()=>SimTasks.Gather(c,new CancellationToken(true),SimTasks.Owned<int>(_=>{started=true;return Task.FromResult(1);})));Check(!started&&before==c.Runtime.PendingCallbacks,"pre-cancelled owned factory refused");}
+}

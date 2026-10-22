@@ -176,3 +176,13 @@ The new [closure100 report](closure100-report.md), [ledger](closure100-iteration
 [checkpoint50](closure100-checkpoint50-validation.json) describe a separate batch.
 Fifty units are locally verified;50remain. Final deep review precedes final commit.
 This batch remains local, with CI disabled and PR62 unchanged.
+
+
+## Closure100 final (local)
+
+All100distinct units are now locally verified:30managed acceptance and70actual
+simulator contracts. The midpoint entry above is historical progress. Read the
+[final report](closure100-report.md), [fresh validation](closure100-checkpoint100-validation.json),
+[pre-fix reproductions](closure100-reproductions.json) and [independent deep review](closure100-deep-review.md).
+The initial push covered prior work through f02e163; closure100 remains local.
+CI is disabled and PR62 is unchanged.

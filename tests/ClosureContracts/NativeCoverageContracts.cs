@@ -1,0 +1,27 @@
+using SharpTestBench;
+using static SharpTestBench.Triggers;
+public static partial class Entry
+{
+    static async Task<uint> ReadWrittenWord(TestContext c,uint value)
+    {await Timer(1);var word=c.Dut.Child("packed_word").Signal<WordWidth>();word.Write(new UInt<WordWidth>(value));await ReadOnly();return (uint)word.ReadUInt().Value;}
+    [SimTest] public static async Task R051_FunctionalBinsObserveActualFifoOccupancy(TestContext c)
+    {var f=await Fifo.Open(c);var p=c.Coverage.AddPoint<int>("occupancy",new CoverageBin<int>("empty",x=>x==0),new CoverageBin<int>("partial",x=>x>0&&x<3),new CoverageBin<int>("full",x=>x==3));p.Sample(f.Count);for(byte i=0;i<3;i++){await f.Step(push:true,value:i);p.Sample((int)c.Dut.Child("count").Signal<WordWidth>().ReadUInt().Value);}var s=p.Snapshot();Check(s.Samples==4&&s.Bins.Select(x=>x.Hits).SequenceEqual(new ulong[]{1,2,1})&&s.Percent==100,"native occupancy coverage bins");}
+    [SimTest] public static async Task R052_ResetSeparatesNativeWarmupFromMeasurementWindow(TestContext c)
+    {var p=c.Coverage.AddPoint<uint>("window",new CoverageBin<uint>("measured",x=>x==7));p.Sample(await ReadWrittenWord(c,1));p.Reset();p.Sample(await ReadWrittenWord(c,7));var s=p.Snapshot();Check(s.Samples==1&&s.Unmatched==0&&s.Bins[0].Hits==1,"warmup discarded before measured native sample");}
+    [SimTest] public static async Task R053_MergeRestoresNativeSampleEpochThenContinuesSampling(TestContext c)
+    {var p=c.Coverage.AddPoint<uint>("epochs",new CoverageBin<uint>("one",x=>x==1),new CoverageBin<uint>("two",x=>x==2));p.Sample(await ReadWrittenWord(c,1));var old=c.Coverage.Snapshot();p.Reset();c.Coverage.Merge(old);p.Sample(await ReadWrittenWord(c,2));Check(p.Snapshot().Samples==2&&p.Snapshot().Bins.All(x=>x.Hits==1),"additive restored epoch and live native sample");}
+    [SimTest] public static async Task R054_InvalidNativeCoverageMergeCannotPartiallyCommit(TestContext c)
+    {var p=c.Coverage.AddPoint<uint>("atomic",new CoverageBin<uint>("b",x=>x==4));p.Sample(await ReadWrittenWord(c,4));var snap=p.Snapshot();int before=c.Runtime.PendingCallbacks;Throws<ArgumentException>(()=>c.Coverage.Merge(new([snap,new("unknown",0,0,[new("b",0,1)])])));Check(p.Snapshot().Samples==1&&p.Snapshot().Bins[0].Hits==1&&before==c.Runtime.PendingCallbacks,"failed merge leaves live native coverage intact");}
+    [SimTest] public static async Task R055_ExplicitTupleBinsSplitSettledHdlWord(TestContext c)
+    {var p=c.Coverage.AddPoint<(uint Hi,uint Lo)>("cross",new CoverageBin<(uint Hi,uint Lo)>("pattern",x=>x.Hi==0xA5&&x.Lo==0xB6),new CoverageBin<(uint Hi,uint Lo)>("zero",x=>x.Hi==0&&x.Lo==0));uint value=await ReadWrittenWord(c,0xA5B6);p.Sample((value>>8,value&255));value=await ReadWrittenWord(c,0);p.Sample((value>>8,value&255));Check(p.Snapshot().Samples==2&&p.Snapshot().Percent==100,"explicit tuple bins from settled HDL word");}
+    [SimTest] public static async Task R056_ReadOnlyPhaseAllowsManagedCoverageBookkeeping(TestContext c)
+    {uint value=await ReadWrittenWord(c,6);var p=c.Coverage.AddPoint<uint>("readonly",new CoverageBin<uint>("b",x=>x==6));ulong time=c.Runtime.Now;int callbacks=c.Runtime.PendingCallbacks;p.Sample(value);var old=c.Coverage.Snapshot();c.Coverage.Reset();c.Coverage.Merge(old);Check(c.Runtime.Now==time&&callbacks==c.Runtime.PendingCallbacks&&p.Snapshot().Samples==1,"coverage mutates no HDL or callbacks during ReadOnly");}
+    [SimTest] public static async Task R057_NativeSamplePredicateFailureIsTransactionalAndRecoverable(TestContext c)
+    {bool fail=true;var marker=new FormatException("sample predicate");var p=c.Coverage.AddPoint<uint>("predicate",new CoverageBin<uint>("b",x=>fail?throw marker:x==9));uint value=await ReadWrittenWord(c,9);Check(ReferenceEquals(Throws<FormatException>(()=>p.Sample(value)),marker)&&p.Snapshot().Samples==0,"native sample predicate rollback");fail=false;p.Sample(value);Check(p.Snapshot().Bins[0].Hits==1,"subsequent sample recovers");}
+    [SimTest] public static async Task R058_CapturedCoverageEpochSurvivesLaterResetAndSampling(TestContext c)
+    {var p=c.Coverage.AddPoint<uint>("isolation",new CoverageBin<uint>("b",x=>x==12));p.Sample(await ReadWrittenWord(c,12));var old=c.Coverage.Snapshot();p.Reset();p.Sample(await ReadWrittenWord(c,13));Check(old.Points[0].Bins[0].Hits==1&&old.Points[0].Unmatched==0&&p.Snapshot().Bins[0].Hits==0&&p.Snapshot().Unmatched==1,"native epochs retain snapshot isolation");}
+    [SimTest] public static async Task R059_CounterOverflowDoesNotBreakSubsequentNativeSampling(TestContext c)
+    {var p=c.Coverage.AddPoint<uint>("overflow",new CoverageBin<uint>("b",x=>x==0));uint value=await ReadWrittenWord(c,0);c.Coverage.Merge(new([new("overflow",ulong.MaxValue,ulong.MaxValue,[new("b",0,1)])]));Throws<OverflowException>(()=>p.Sample(value));Check(p.Snapshot().Samples==ulong.MaxValue&&p.Snapshot().Bins[0].Hits==0,"overflow preserves merged epoch");p.Reset();p.Sample(value);Check(p.Snapshot().Samples==1&&p.Snapshot().Bins[0].Hits==1,"native sample recovers after reset");}
+    [SimTest] public static async Task R060_RejectedMergeCannotCorruptSchedulerPhaseOrSignal(TestContext c)
+    {var p=c.Coverage.AddPoint<uint>("phase",new CoverageBin<uint>("b",x=>x==3));p.Sample(await ReadWrittenWord(c,3));Throws<ArgumentException>(()=>c.Coverage.Merge(new([new("phase",1,0,[new("b",1,2)])])));Check(await ReadWrittenWord(c,4)==4&&p.Snapshot().Samples==1,"phase and native access survive merge rejection");}
+}

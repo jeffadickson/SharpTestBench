@@ -1,13 +1,10 @@
-# Local closure contracts
+# Closure acceptance fixture
 
-At midpoint50 this independent assembly has20 executed FIFO contracts. It preserves
-existing RequirementContracts and Integration case discovery/seed order. The FIFO
-is a local deterministic depth-three design, not the pinned AXIS FIFO or a general
-all-depth certification. A C# Queue model checks each sampled pre/post-edge state.
+70 distinct contracts qualify a local depth-three FIFO and selected typed-access,
+owned-task, structured-group, functional-coverage and discovery/failure behavior.
+Use the C# helper `contracts-ci --suite closure --through 70`; the default suite
+remains the prior 100 requirement contracts. Names/seeds derive from full discovery.
 
-    dotnet tools/SharpTestBench.Tools/bin/Release/net10.0/SharpTestBench.Tools.dll contracts-ci --suite closure --through 20
-
-The configured suite limit/default70 is the planned final native scope; it is not
-currently70executedcases. Final engineering-unit scope combines30managedcontracts
-and70nativecontracts. The command verifies discovery input attestation and exact
-case identities/statuses/effective seeds. See docs/development-history/closure100-report.md.
+Icarus is qualified on Windows/Linux with both runners; Linux Verilator is a
+separate backend gate. This fixture is not an upstream AXIS FIFO or arbitrary-depth
+qualification. See docs/development-history/closure100-report.md for exact evidence.

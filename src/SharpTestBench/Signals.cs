@@ -241,6 +241,7 @@ public class Signal : HdlObject
     public void WriteBits(string value, WriteAction action = WriteAction.Deposit)
     {
         Runtime.CheckWrite();
+        ArgumentNullException.ThrowIfNull(value);
         if (value.Length != Width)
             throw new ArgumentException($"Expected {Width} bits, got {value.Length}");
         string normalized = new LogicArray(value).ToString();

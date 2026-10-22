@@ -25,7 +25,19 @@ public sealed class SimTaskGroup
     void Fail(Exception error)
     {
         failures.Add(error);
-        source.Cancel();
+        CancelChildren();
+    }
+
+    void CancelChildren()
+    {
+        try
+        {
+            source.Cancel();
+        }
+        catch (Exception error)
+        {
+            failures.Add(error);
+        }
     }
 
     public SimJob StartSoon(Func<CancellationToken, Task> body, string? name = null)
@@ -65,7 +77,7 @@ public sealed class SimTaskGroup
         finally
         {
             group.closed = true;
-            source.Cancel();
+            group.CancelChildren();
             try
             {
                 await Task.WhenAll(group.jobs.Select(j => j.Task));

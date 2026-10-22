@@ -28,6 +28,8 @@ module closure_top;
  wire [15:0] packed_low=packed_word[15:0];
  reg signed [7:0] signed_data=0;
  reg [0:7] ascending=0;
+ wire ascending_left=ascending[0];
+ wire ascending_right=ascending[7];
  integer integer_value=0;
  real real_value=0.0;
  reg [7:0] memory[0:3];
