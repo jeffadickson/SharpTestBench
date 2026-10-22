@@ -2,7 +2,7 @@
 
 Base 4856001ca523bddec2deaa7ed4a9a383c5afed29 was pushed on2026-10-22 at the user's request. Prior closure100/requirements100/requirements200 work is not recounted. This campaign remains local. Builds every10, independent reviews every15, final deep review before final commit. CI stays disabled and PR62 untouched. UnknownAGENTS.md is preserved.
 
-Initial scope: bounded automatic cross-bin generation (#29), hostile width validation, selected simulator lifecycle/failure and HDL acceptance gaps. Units are distinct tested acceptance behaviors, not parameter rows or separate feature claims. Broad issues remain open unless their full criteria are established.
+Initial scope: bounded automatic cross-bin generation (#29), hostile width validation, selected simulator lifecycle/failure and HDL acceptance gaps. Units comprise distinct acceptance/regression contracts and separately labeled pinned-source semantic audit decisions, not parameter rows or separate feature claims. Broad issues remain open unless their full criteria are established.
 
 
 ## Verified milestone 50 of 200
@@ -101,3 +101,81 @@ No fresh coverage percentage or native publication is claimed at this milestone.
 
 This milestone stays local. Initial authorized push ended at4856001; CI remains
 disabled, PR62 untouched, final deep review and final200commit remain pending.
+
+
+## Completed 200-unit batch
+
+Exactly200 new engineering units:42 managed acceptance/regression contracts,
+58 pinned-source audit decisions covering62 declarations, and100 new simulator
+contracts. Audit decisions are not implemented features or executed parity.
+The four checkpoint commits at50/100/150/200 remain local after the initial
+normal push through4856001. No old campaign units are recounted.
+
+Selected requirement outcomes:
+
+- #29: implemented bounded two-axis automatic crosses, exclusions, independent
+  goals, deterministic lossless in-memory names, full-product budgets, and existing
+  atomic snapshot/reset/merge semantics.40 managed and21 native cross contracts
+  cover accepted behavior. Arbitrary multidimensional crosses remain outside this API.
+- Width validation: fixed repeated evaluation of user-supplied width getters;
+  two before-fix failures reproduced on each OS now pass with one validated value.
+- #7/#1: fixed parent-linked cancellation callback errors escaping cancellation
+  requests instead of appearing in joined group results. Four pre-fix runner/OS
+  reproductions are saved. Twenty new parent-cancellation/resource contracts and
+  retained group suites establish cooperative simulator-thread semantics.
+- #1:200/302 pinned declarations are reviewed, leaving102. Freeze, clock action
+  selection, aggregate array assignment and full native integer-domain gaps remain.
+  No GitHub issue is closed merely from this selected evidence.
+
+New SystemVerilog is locally authored: elastic two-stage transport, a byte-enabled
+register bank, and a signed saturating accumulator. Test oracles include independent
+transaction queues, integer arithmetic, byte stores, asymmetric native aliases and
+explicit failure identities. This is not external-design or protocol certification.
+
+Final fresh locked Release/full retained gates passed on both Windows and WSL
+environments:567 Core,17 Generators,1234 helper tests and951 retained contracts.
+Windows2754passed/15Unixskips; Linux2769passed/0skips. Separately, both Icarus runners
+passed100retained requirement,70closure,8integration and100new conformance contracts
+on each OS with exact source-derived names, statuses and discovery seeds verified.
+Builds/tests ran every10 units. Full local gates and commits occurred at50-unit
+milestones; review cadence, fixes and the75/90 dispatch delay are recorded above.
+
+Verilator exposed five incorrect test portability assumptions: its selected HDL
+integer appears as a packed object. Native Integer view rejection is preserved;
+R070/R087..090 are explicitly Icarus-only. The saved before-run had95passes/5failures;
+the corrected run has95passes/5metadata skips, zero failures. Both Icarus runners
+on both OSes were rebuilt and rerun after those annotations. Full managed/retained
+logs precede this test-only metadata correction; production code was unchanged.
+
+Fresh windows four-assembly managed coverage: 6602/10354 lines (63.76%), 3574/7010 branches (50.98%).
+
+Fresh linux four-assembly managed coverage: 6603/10354 lines (63.77%), 3595/7010 branches (51.28%).
+
+Coverage includes all four required production assemblies and generated code.
+Every counted source resolves, and every generated source has an actual HTML/code
+page. Runner production contract collection and selected reflection-disabled CLI
+startup/preflight/failure paths are collected; this does not establish all successful
+CLI entry/runtime-switch paths. Simulator contracts, NativeAOT instructions and HDL
+line/branch coverage are not instrumented. No percentage comparison to round8 is made.
+
+Fresh publications executed actual100-test conformance simulation: Windows x64
+Tools and Linux x64 Tools use self-contained ReadyToRun with bundled CLR/JIT;
+Linux x64 standalone Runner uses NativeAOT. Its100pass result matches expected
+names/seeds and compiled-image hash. Simulator assemblies still run in a separate
+CoreCLR/hostfxr process. No Windows NativeAOT Runner or six-platform qualification
+is claimed. Linux Verilator95/5 is separate from Icarus100/0.
+
+Peer reviews found and resolved two P2 issues: add an independent pipeline queue
+instead of relying on mirrored timing equations; execute the full replacement that
+R068's name promised. Compilers caught new-test constructor ambiguity/local-name
+collision; those were fixed and rerun without extra units. Final independent source
+review and portability follow-up found no actionable production defect. Final
+independent evidence review also completed with no actionable findings before
+this batch's final commit, reconciling current source/raw-log hashes, counts,
+actual executions and all stated scope limits.
+
+See conformance200-checkpoint200-full-validation.json for exact counters, source/
+log hashes, actual paired/published results and coverage scope. Raw coverage HTML
+was retained under the task outputs/conformance200/checkpoint200 directory.
+All12GitHub workflows remain disabled. PR62 remains open/draft/unmerged at
+0318a864d9b570f9ffbc4857e7365ec9ed6a4736. Unknown local AGENTS.md is preserved.

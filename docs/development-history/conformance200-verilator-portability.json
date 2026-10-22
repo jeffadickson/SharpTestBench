@@ -1,0 +1,72 @@
+{
+  "resultsSha256": "acb876a8fafe3b665a77098e25ded3bfb487f1a81a8cf066b64c386593ea7c9e",
+  "passed": 95,
+  "failed": 5,
+  "failures": [
+    {
+      "Name": "R070_NativeIntegerSignCrossUsesIndependentPackedAlias",
+      "Status": "failed",
+      "Seed": 152,
+      "StartStep": 4521,
+      "EndStep": 4522,
+      "Seconds": 0.0008428,
+      "Error": "System.ArgumentException: Expected HDL integer or enumeration\n   at SharpTestBench.IntegerSignal..ctor(SimRuntime runtime, IntPtr handle) in /home/jeffd/src/SharpTestBench/src/SharpTestBench/AdditionalSignals.cs:line 8\n   at SharpTestBench.HdlObject.Integer() in /home/jeffd/src/SharpTestBench/src/SharpTestBench/Signals.cs:line 196\n   at Entry.R070_NativeIntegerSignCrossUsesIndependentPackedAlias(TestContext c) in /home/jeffd/src/SharpTestBench/tests/ConformanceContracts/CrossContracts.cs:line 54\n   at SharpTestBench.Regression.Run(Assembly assembly) in /home/jeffd/src/SharpTestBench/src/SharpTestBench/Regression.cs:line 376",
+      "QualifiedName": "Entry.R070_NativeIntegerSignCrossUsesIndependentPackedAlias",
+      "Stage": 0,
+      "CaseIndex": 0
+    },
+    {
+      "Name": "R087_IntegerEndpointsMatchIndependentNativePackedBits",
+      "Status": "failed",
+      "Seed": 169,
+      "StartStep": 4692,
+      "EndStep": 4693,
+      "Seconds": 0.0008227,
+      "Error": "System.ArgumentException: Expected HDL integer or enumeration\n   at SharpTestBench.IntegerSignal..ctor(SimRuntime runtime, IntPtr handle) in /home/jeffd/src/SharpTestBench/src/SharpTestBench/AdditionalSignals.cs:line 8\n   at SharpTestBench.HdlObject.Integer() in /home/jeffd/src/SharpTestBench/src/SharpTestBench/Signals.cs:line 196\n   at Entry.R087_IntegerEndpointsMatchIndependentNativePackedBits(TestContext c) in /home/jeffd/src/SharpTestBench/tests/ConformanceContracts/NativeContracts.cs:line 18\n   at SharpTestBench.Regression.Run(Assembly assembly) in /home/jeffd/src/SharpTestBench/src/SharpTestBench/Regression.cs:line 376",
+      "QualifiedName": "Entry.R087_IntegerEndpointsMatchIndependentNativePackedBits",
+      "Stage": 0,
+      "CaseIndex": 0
+    },
+    {
+      "Name": "R088_IntegerCoalescingUpdatesAliasWithFinalSignedValue",
+      "Status": "failed",
+      "Seed": 170,
+      "StartStep": 4694,
+      "EndStep": 4695,
+      "Seconds": 0.0007749,
+      "Error": "System.ArgumentException: Expected HDL integer or enumeration\n   at SharpTestBench.IntegerSignal..ctor(SimRuntime runtime, IntPtr handle) in /home/jeffd/src/SharpTestBench/src/SharpTestBench/AdditionalSignals.cs:line 8\n   at SharpTestBench.HdlObject.Integer() in /home/jeffd/src/SharpTestBench/src/SharpTestBench/Signals.cs:line 196\n   at Entry.R088_IntegerCoalescingUpdatesAliasWithFinalSignedValue(TestContext c) in /home/jeffd/src/SharpTestBench/tests/ConformanceContracts/NativeContracts.cs:line 20\n   at SharpTestBench.Regression.Run(Assembly assembly) in /home/jeffd/src/SharpTestBench/src/SharpTestBench/Regression.cs:line 376",
+      "QualifiedName": "Entry.R088_IntegerCoalescingUpdatesAliasWithFinalSignedValue",
+      "Stage": 0,
+      "CaseIndex": 0
+    },
+    {
+      "Name": "R089_InvalidIntegerActionCannotReplacePendingAssignment",
+      "Status": "failed",
+      "Seed": 171,
+      "StartStep": 4696,
+      "EndStep": 4697,
+      "Seconds": 0.0007102,
+      "Error": "System.ArgumentException: Expected HDL integer or enumeration\n   at SharpTestBench.IntegerSignal..ctor(SimRuntime runtime, IntPtr handle) in /home/jeffd/src/SharpTestBench/src/SharpTestBench/AdditionalSignals.cs:line 8\n   at SharpTestBench.HdlObject.Integer() in /home/jeffd/src/SharpTestBench/src/SharpTestBench/Signals.cs:line 196\n   at Entry.R089_InvalidIntegerActionCannotReplacePendingAssignment(TestContext c) in /home/jeffd/src/SharpTestBench/tests/ConformanceContracts/NativeContracts.cs:line 22\n   at SharpTestBench.Regression.Run(Assembly assembly) in /home/jeffd/src/SharpTestBench/src/SharpTestBench/Regression.cs:line 376",
+      "QualifiedName": "Entry.R089_InvalidIntegerActionCannotReplacePendingAssignment",
+      "Stage": 0,
+      "CaseIndex": 0
+    },
+    {
+      "Name": "R090_ReadOnlyIntegerWriteCannotMutateAlias",
+      "Status": "failed",
+      "Seed": 172,
+      "StartStep": 4698,
+      "EndStep": 4699,
+      "Seconds": 0.0007831,
+      "Error": "System.ArgumentException: Expected HDL integer or enumeration\n   at SharpTestBench.IntegerSignal..ctor(SimRuntime runtime, IntPtr handle) in /home/jeffd/src/SharpTestBench/src/SharpTestBench/AdditionalSignals.cs:line 8\n   at SharpTestBench.HdlObject.Integer() in /home/jeffd/src/SharpTestBench/src/SharpTestBench/Signals.cs:line 196\n   at Entry.R090_ReadOnlyIntegerWriteCannotMutateAlias(TestContext c) in /home/jeffd/src/SharpTestBench/tests/ConformanceContracts/NativeContracts.cs:line 24\n   at SharpTestBench.Regression.Run(Assembly assembly) in /home/jeffd/src/SharpTestBench/src/SharpTestBench/Regression.cs:line 376",
+      "QualifiedName": "Entry.R090_ReadOnlyIntegerWriteCannotMutateAlias",
+      "Stage": 0,
+      "CaseIndex": 0
+    }
+  ],
+  "sourceSha256": {
+    "tests/ConformanceContracts/CrossContracts.cs": "4948dc84f9cbb87c13ccf02e7cb4a9a0c5b6c445e23376759e3d4668930d4b47",
+    "tests/ConformanceContracts/NativeContracts.cs": "f7cc5103b6f527864cdbf7b4f70988f6e5a41e10c3b531686a510213c4744089"
+  },
+  "resolution": "Verilator reports selected HDL integer as a packed object. Native Integer view correctly rejects that kind; mark these five native-integer-specific contracts Icarus-only. No packed object silently accepted as native integer. Expected final Verilator95passes/5metadata skips. Not additional engineering units."
+}

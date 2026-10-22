@@ -94,4 +94,64 @@ public static partial class Entry
     }
 
     static SimJob<Exception?> GroupParent(TestContext c,Func<SimTaskGroup,Task> body)=>c.StartSoon<Exception?>(async token=>{try{await c.RunGroup(body);}catch(Exception error){return error;}return null;});
+    [SimTest(TimeoutSteps=10000000)] public static async Task R051_ParentCancelledEventWaiterCannotConsumeFutureSet(TestContext c)
+    {
+        var ev=new SimEvent();var ready=new SimEvent();bool woke=false;var parent=GroupParent(c,async group=>{_ = group.StartSoon(async child=>{ready.Set();await ev.Wait();woke=true;});await Timer(10000);});
+        await ready.Wait();parent.Cancel();Check(await parent is OperationCanceledException&&!woke,"canceled child did not wake successfully");ev.Set();await ev.Wait();Check(!woke&&ev.IsSet,"future root waiter observes set without reviving canceled child");
+    }
+    [SimTest(TimeoutSteps=10000000)] public static async Task R052_ParentCancelledSemaphoreWaiterCannotStealReleasedPermit(TestContext c)
+    {
+        var semaphore=new SimSemaphore(0,1);var ready=new SimEvent();bool acquired=false;var parent=GroupParent(c,async group=>{_ = group.StartSoon(async child=>{ready.Set();await semaphore.Acquire();acquired=true;});await Timer(10000);});
+        await ready.Wait();parent.Cancel();Check(await parent is OperationCanceledException&&!acquired,"canceled acquisition");semaphore.Release();await semaphore.Acquire();Check(!acquired&&semaphore.CurrentCount==0,"released permit belongs to surviving root consumer");
+    }
+    [SimTest(TimeoutSteps=10000000)] public static async Task R053_ParentCancellationAwaitsLockReleaseBeforeJoin(TestContext c)
+    {
+        var gate=new SimLock();var ready=new SimEvent();bool released=false;var parent=GroupParent(c,async group=>{_ = group.StartSoon(async child=>{using(await gate.Acquire()){ready.Set();try{await Timer(10000);}finally{await Timer(2).WithCancellation(CancellationToken.None);}}released=true;});await Timer(10000);});
+        await ready.Wait();parent.Cancel();Check(await parent is OperationCanceledException,"lock owner canceled");using(await gate.Acquire()){Check(!released,"post-cancellation code skipped but using released owned lock");}await Timer(1);
+    }
+    [SimTest(TimeoutSteps=10000000)] public static async Task R054_ParentCancelledBoundedProducerPreservesExistingQueueItem(TestContext c)
+    {
+        var queue=new SimQueue<int>(1);await queue.Put(71);var ready=new SimEvent();bool inserted=false;var parent=GroupParent(c,async group=>{_ = group.StartSoon(async child=>{ready.Set();await queue.Put(72);inserted=true;});await Timer(10000);});
+        await ready.Wait();parent.Cancel();Check(await parent is OperationCanceledException&&queue.Count==1&&!inserted,"blocked producer detached");Check(await queue.Get()==71&&queue.Count==0,"existing item not overwritten");await queue.Put(73);Check(await queue.Get()==73&&!inserted,"free slot not stolen by canceled producer");
+    }
+    [SimTest(TimeoutSteps=10000000)] public static async Task R055_ParentCancelledQueueConsumerDoesNotRemoveFutureItem(TestContext c)
+    {
+        var queue=new SimQueue<int>(1);var ready=new SimEvent();bool removed=false;var parent=GroupParent(c,async group=>{_ = group.StartSoon(async child=>{ready.Set();await queue.Get();removed=true;});await Timer(10000);});
+        await ready.Wait();parent.Cancel();Check(await parent is OperationCanceledException&&!removed,"blocked consumer detached");await queue.Put(0x59);Check(await queue.Get()==0x59&&queue.IsEmpty&&!removed,"future item consumed only by surviving root");
+    }
+    [SimTest(TimeoutSteps=10000000)] public static async Task R056_ParentCancelledMiddleSemaphoreWaiterPreservesSurvivorOrder(TestContext c)
+    {
+        var semaphore=new SimSemaphore(0,3);var firstReady=new SimEvent();var middleReady=new SimEvent();var lastReady=new SimEvent();var order=new List<int>();
+        var first=c.StartSoon(async token=>{firstReady.Set();await semaphore.Acquire();order.Add(1);});await firstReady.Wait();
+        var parent=GroupParent(c,async group=>{_ = group.StartSoon(async child=>{middleReady.Set();await semaphore.Acquire();order.Add(2);});await Timer(10000);});await middleReady.Wait();
+        var last=c.StartSoon(async token=>{lastReady.Set();await semaphore.Acquire();order.Add(3);});await lastReady.Wait();parent.Cancel();Check(await parent is OperationCanceledException,"middle owner canceled");
+        semaphore.Release();semaphore.Release();await first;await last;Check(order.SequenceEqual(new[]{1,3})&&semaphore.CurrentCount==0,"canceled middle waiter neither steals nor reorders surviving permits");
+    }
+    [SimTest(TimeoutSteps=10000000)] public static async Task R057_ForeignParentCancelCannotMutateLiveGroup(TestContext c)
+    {
+        var ready=new SimEvent();bool cleaned=false;var parent=GroupParent(c,async group=>{_ = group.StartSoon(async child=>{ready.Set();try{await Timer(10000);}finally{cleaned=true;}});await Timer(10000);});await ready.Wait();
+        int before=c.Runtime.PendingCallbacks;Exception? rejected=null;var thread=new Thread(()=>{try{parent.Cancel();}catch(Exception error){rejected=error;}});thread.Start();thread.Join();
+        Check(rejected is InvalidOperationException&&!cleaned&&!parent.IsCompleted&&c.Runtime.PendingCallbacks==before,"foreign cancel rejected before cancellation state changes");parent.Cancel();Check(await parent is OperationCanceledException&&cleaned,"owning thread can still cancel and join");
+    }
+    [SimTest(TimeoutSteps=10000000)] public static async Task R058_ParentCancellationRetainsFailuresAtBothNestedGroupLevels(TestContext c)
+    {
+        var ready=new SimEvent();var outerError=new IOException("outer callback");var innerError=new FormatException("inner callback");int cleaned=0;
+        var parent=GroupParent(c,async outer=>{
+            _ = outer.StartSoon(async child=>{using var registration=child.Register(()=>throw outerError);try{await c.RunGroup(async inner=>{
+                _ = inner.StartSoon(async grandchild=>{using var nested=grandchild.Register(()=>throw innerError);ready.Set();try{await Timer(10000);}finally{await Timer(1).WithCancellation(CancellationToken.None);cleaned++;}});await Timer(10000);
+            });}finally{cleaned++;}});await Timer(10000);
+        });await ready.Wait();Exception? escaped=null;try{parent.Cancel();}catch(Exception cancelError){escaped=cancelError;}var result=await parent;var errors=(result as AggregateException)?.Flatten().InnerExceptions;
+        Check(escaped is null&&cleaned==2&&errors?.Count==2&&errors.Any(e=>ReferenceEquals(e,outerError))&&errors.Any(e=>ReferenceEquals(e,innerError)),"nested callback failures preserved once after both cleanup levels");
+    }
+    [SimTest(TimeoutSteps=10000000)] public static async Task R059_CancelledBorrowerCannotCancelGroupOwnedTypedChild(TestContext c)
+    {
+        var ready=new SimEvent();SimJob<int>? owned=null;var parent=GroupParent(c,async group=>{owned=group.StartSoon(async token=>{await Timer(5);return 59;});ready.Set();Check(await owned==59,"owner sees typed result");});await ready.Wait();
+        using var cancel=new CancellationTokenSource();var borrower=c.StartSoon(async token=>{try{await owned!.Complete.WithCancellation(cancel.Token);return false;}catch(OperationCanceledException){return true;}});await Yield();cancel.Cancel();Check(await borrower,"borrowed completion waiter canceled");Check(await parent is null&&owned!.Result==59,"group-owned job survives canceled borrower");
+    }
+    [SimTest(TimeoutSteps=10000000)] public static async Task R060_ClosingGroupRejectsLateChildWhileAsynchronousJoinIsPending(TestContext c)
+    {
+        var cleanupStarted=new SimEvent();var ready=new SimEvent();SimTaskGroup? saved=null;bool lateRan=false,joined=false;
+        var parent=GroupParent(c,async group=>{saved=group;_ = group.StartSoon(async child=>{ready.Set();try{await Timer(10000);}finally{cleanupStarted.Set();await Timer(3).WithCancellation(CancellationToken.None);joined=true;}});await Timer(10000);});
+        await ready.Wait();parent.Cancel();await cleanupStarted.Wait();await Yield();Check(!parent.IsCompleted,"join still awaits cleanup");Throws<InvalidOperationException>(()=>saved!.StartSoon(_=>{lateRan=true;return Task.CompletedTask;}));Check(await parent is OperationCanceledException&&joined&&!lateRan,"closed registration cannot escape parent join");
+    }
 }

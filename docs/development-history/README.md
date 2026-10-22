@@ -188,11 +188,13 @@ The initial push covered prior work through f02e163; closure100 remains local.
 CI is disabled and PR62 is unchanged.
 
 
-## Conformance200 follow-up — local milestone50
+## Conformance200 follow-up — completed locally
 
-Prior closure100 work through4856001 was normally pushed on explicit request on
-2026-10-22. The new [conformance200 report](conformance200-report.md),
-[ledger](conformance200-iterations.jsonl), [reviews](conformance200-reviews.jsonl),
-[fresh baseline](conformance200-baseline.json) and [full50validation](conformance200-checkpoint50-full-validation.json)
-record a separate batch, currently50/200verified. New commits remain local;
-CI is disabled, PR62 untouched, final deep review still required before final commit.
+Prior work through4856001 was normally pushed on explicit request on2026-10-22.
+The separate [final report](conformance200-report.md), [ledger](conformance200-iterations.jsonl),
+[reviews](conformance200-reviews.jsonl), [fresh baseline](conformance200-baseline.json)
+and [final validation](conformance200-checkpoint200-full-validation.json) record
+42managed contracts,58audit decisions/62declarations,100new simulator contracts.
+These are200engineering units, not200features. New commits remain local.
+Read the explicit Icarus100 and Verilator95/5 portability/coverage limits.
+CI is disabled and PR62 is untouched.
