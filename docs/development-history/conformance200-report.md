@@ -67,3 +67,37 @@ New HDL fixture drafts remain outside the repository and are not execution
 evidence.100units remain, followed by final coverage/publication qualification
 and independent deep review before final commit. This milestone remains local;
 CI stays disabled and PR62 untouched. No fresh coverage percentage is claimed.
+
+
+## Verified milestone 150 of 200
+
+Added a separate ConformanceContracts project and fixed conformance suite route,
+leaving prior fixture discovery and evidence schemas intact. Fifty new native
+contracts exercise locally authored SystemVerilog: two-stage elastic transport,
+byte-enabled register bank, signed saturating accumulator, and owned group
+cancellation. Pipeline transport has an independent handshake-driven queue for
+ordering and conservation, plus a separately described two-register timing model.
+Review105 required that oracle separation; follow-up confirmed the fix. Reviews
+120/135/150 found no actionable issues. Compilation150 caught a local catch-name
+collision in a new test; corrected before the full gate was rerun.
+
+R041 reproduced a production defect with the old source under both runners on
+both OSes: a throwing linked child cancellation callback escaped parent.Cancel
+and was absent from the joined group result. SimTaskGroup now owns its source
+and routes parent/context cancellation through its existing error capture.
+Registrations remain alive until children join, then dispose; identical tokens
+avoid duplicate registration. R041..050 cover original error identity, cleanup,
+nesting, unrelated jobs, completed typed results, multiple failures and detachment.
+This establishes cooperative owner-thread behavior, not noncooperative termination
+or arbitrary foreign-thread cancellation. Retained group tests also passed.
+
+Every10 checkpoint through150 passed locked Release/all3managed on both OSes.
+Fresh full150: Windows2754passes/15Unixskips, Linux2769passes/0skips, including951
+retained contracts. Separately, both Icarus runners passed retained100requirement,
+70closure,8integration and50new conformance tests on both OSes. New fixture names
+were independently derived from source and compared with produced identities,
+statuses and discovery-seeded results. All150 units are verified;50remain.
+No fresh coverage percentage or native publication is claimed at this milestone.
+
+This milestone stays local. Initial authorized push ended at4856001; CI remains
+disabled, PR62 untouched, final deep review and final200commit remain pending.

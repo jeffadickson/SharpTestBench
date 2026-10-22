@@ -1,0 +1,478 @@
+{
+  "windows": {
+    "report": {
+      "schemaVersion": 1,
+      "legacy": [
+        [
+          "Entry.R001_ElasticResetPublishesEmptyReadyState",
+          "passed"
+        ],
+        [
+          "Entry.R002_ElasticSingleItemHasTwoRegisterLatency",
+          "passed"
+        ],
+        [
+          "Entry.R003_ElasticFullStateRefusesAnotherAcceptance",
+          "passed"
+        ],
+        [
+          "Entry.R004_ElasticOutputRemainsStableThroughoutStall",
+          "passed"
+        ],
+        [
+          "Entry.R005_ElasticDrainPreservesTwoHeldItemsInOrder",
+          "passed"
+        ],
+        [
+          "Entry.R006_ElasticFullReplacementTransfersBothEnds",
+          "passed"
+        ],
+        [
+          "Entry.R007_ElasticBubblesDoNotCreatePhantomTransfers",
+          "passed"
+        ],
+        [
+          "Entry.R008_ElasticContinuousTrafficSustainsOneTransferPerCycle",
+          "passed"
+        ],
+        [
+          "Entry.R009_ElasticResetDiscardsBothInflightItems",
+          "passed"
+        ],
+        [
+          "Entry.R010_ElasticResetDominatesCoincidentValidInput",
+          "passed"
+        ],
+        [
+          "Entry.R011_ElasticInvalidInputChangesCannotFillStorage",
+          "passed"
+        ],
+        [
+          "Entry.R012_ElasticRejectedPayloadCannotOverwriteTheHiddenStage",
+          "passed"
+        ],
+        [
+          "Entry.R013_ElasticEqualAndZeroPayloadsRetainMultiplicity",
+          "passed"
+        ],
+        [
+          "Entry.R014_ElasticSeededBackpressureAndResetMatchIndependentModel",
+          "passed"
+        ],
+        [
+          "Entry.R015_ElasticNativeOccupancyTransferCrossCoversAllLegalCells",
+          "passed"
+        ],
+        [
+          "Entry.R016_RegisterResetClearsEveryWritableWord",
+          "passed"
+        ],
+        [
+          "Entry.R017_RegisterFullWriteMatchesIndependentBitPattern",
+          "passed"
+        ],
+        [
+          "Entry.R018_RegisterEachByteEnablePreservesOtherLanes",
+          "passed"
+        ],
+        [
+          "Entry.R019_RegisterZeroByteEnableCannotMutateStorage",
+          "passed"
+        ],
+        [
+          "Entry.R020_RegisterSparseLaneWritesComposeWithoutLostBytes",
+          "passed"
+        ]
+      ],
+      "native": [
+        [
+          "Entry.R001_ElasticResetPublishesEmptyReadyState",
+          "passed"
+        ],
+        [
+          "Entry.R002_ElasticSingleItemHasTwoRegisterLatency",
+          "passed"
+        ],
+        [
+          "Entry.R003_ElasticFullStateRefusesAnotherAcceptance",
+          "passed"
+        ],
+        [
+          "Entry.R004_ElasticOutputRemainsStableThroughoutStall",
+          "passed"
+        ],
+        [
+          "Entry.R005_ElasticDrainPreservesTwoHeldItemsInOrder",
+          "passed"
+        ],
+        [
+          "Entry.R006_ElasticFullReplacementTransfersBothEnds",
+          "passed"
+        ],
+        [
+          "Entry.R007_ElasticBubblesDoNotCreatePhantomTransfers",
+          "passed"
+        ],
+        [
+          "Entry.R008_ElasticContinuousTrafficSustainsOneTransferPerCycle",
+          "passed"
+        ],
+        [
+          "Entry.R009_ElasticResetDiscardsBothInflightItems",
+          "passed"
+        ],
+        [
+          "Entry.R010_ElasticResetDominatesCoincidentValidInput",
+          "passed"
+        ],
+        [
+          "Entry.R011_ElasticInvalidInputChangesCannotFillStorage",
+          "passed"
+        ],
+        [
+          "Entry.R012_ElasticRejectedPayloadCannotOverwriteTheHiddenStage",
+          "passed"
+        ],
+        [
+          "Entry.R013_ElasticEqualAndZeroPayloadsRetainMultiplicity",
+          "passed"
+        ],
+        [
+          "Entry.R014_ElasticSeededBackpressureAndResetMatchIndependentModel",
+          "passed"
+        ],
+        [
+          "Entry.R015_ElasticNativeOccupancyTransferCrossCoversAllLegalCells",
+          "passed"
+        ],
+        [
+          "Entry.R016_RegisterResetClearsEveryWritableWord",
+          "passed"
+        ],
+        [
+          "Entry.R017_RegisterFullWriteMatchesIndependentBitPattern",
+          "passed"
+        ],
+        [
+          "Entry.R018_RegisterEachByteEnablePreservesOtherLanes",
+          "passed"
+        ],
+        [
+          "Entry.R019_RegisterZeroByteEnableCannotMutateStorage",
+          "passed"
+        ],
+        [
+          "Entry.R020_RegisterSparseLaneWritesComposeWithoutLostBytes",
+          "passed"
+        ]
+      ],
+      "expected": [
+        "Entry.R001_ElasticResetPublishesEmptyReadyState",
+        "Entry.R002_ElasticSingleItemHasTwoRegisterLatency",
+        "Entry.R003_ElasticFullStateRefusesAnotherAcceptance",
+        "Entry.R004_ElasticOutputRemainsStableThroughoutStall",
+        "Entry.R005_ElasticDrainPreservesTwoHeldItemsInOrder",
+        "Entry.R006_ElasticFullReplacementTransfersBothEnds",
+        "Entry.R007_ElasticBubblesDoNotCreatePhantomTransfers",
+        "Entry.R008_ElasticContinuousTrafficSustainsOneTransferPerCycle",
+        "Entry.R009_ElasticResetDiscardsBothInflightItems",
+        "Entry.R010_ElasticResetDominatesCoincidentValidInput",
+        "Entry.R011_ElasticInvalidInputChangesCannotFillStorage",
+        "Entry.R012_ElasticRejectedPayloadCannotOverwriteTheHiddenStage",
+        "Entry.R013_ElasticEqualAndZeroPayloadsRetainMultiplicity",
+        "Entry.R014_ElasticSeededBackpressureAndResetMatchIndependentModel",
+        "Entry.R015_ElasticNativeOccupancyTransferCrossCoversAllLegalCells",
+        "Entry.R016_RegisterResetClearsEveryWritableWord",
+        "Entry.R017_RegisterFullWriteMatchesIndependentBitPattern",
+        "Entry.R018_RegisterEachByteEnablePreservesOtherLanes",
+        "Entry.R019_RegisterZeroByteEnableCannotMutateStorage",
+        "Entry.R020_RegisterSparseLaneWritesComposeWithoutLostBytes"
+      ],
+      "missing": {
+        "legacy": [],
+        "native": []
+      },
+      "unexpected": {
+        "legacy": [],
+        "native": []
+      },
+      "seedMismatches": [],
+      "matched": true,
+      "expectedSeedMatched": true,
+      "exitCodes": {
+        "legacy": 0,
+        "native": 0
+      },
+      "contracts": 20,
+      "fixture": "conformance-contracts"
+    },
+    "sourceInventory": [
+      "Entry.R001_ElasticResetPublishesEmptyReadyState",
+      "Entry.R002_ElasticSingleItemHasTwoRegisterLatency",
+      "Entry.R003_ElasticFullStateRefusesAnotherAcceptance",
+      "Entry.R004_ElasticOutputRemainsStableThroughoutStall",
+      "Entry.R005_ElasticDrainPreservesTwoHeldItemsInOrder",
+      "Entry.R006_ElasticFullReplacementTransfersBothEnds",
+      "Entry.R007_ElasticBubblesDoNotCreatePhantomTransfers",
+      "Entry.R008_ElasticContinuousTrafficSustainsOneTransferPerCycle",
+      "Entry.R009_ElasticResetDiscardsBothInflightItems",
+      "Entry.R010_ElasticResetDominatesCoincidentValidInput",
+      "Entry.R011_ElasticInvalidInputChangesCannotFillStorage",
+      "Entry.R012_ElasticRejectedPayloadCannotOverwriteTheHiddenStage",
+      "Entry.R013_ElasticEqualAndZeroPayloadsRetainMultiplicity",
+      "Entry.R014_ElasticSeededBackpressureAndResetMatchIndependentModel",
+      "Entry.R015_ElasticNativeOccupancyTransferCrossCoversAllLegalCells",
+      "Entry.R016_RegisterResetClearsEveryWritableWord",
+      "Entry.R017_RegisterFullWriteMatchesIndependentBitPattern",
+      "Entry.R018_RegisterEachByteEnablePreservesOtherLanes",
+      "Entry.R019_RegisterZeroByteEnableCannotMutateStorage",
+      "Entry.R020_RegisterSparseLaneWritesComposeWithoutLostBytes"
+    ],
+    "sourceSha256": {
+      "tests/ConformanceContracts/ConformanceContracts.csproj": "0f78182710f66e27561128048775792fa17ec35df0cf1677a4559e5cfd446a0b",
+      "tests/ConformanceContracts/conformance_top.sv": "28863dfe1fa19f70fa7a45932415fee5e4aa3291a75c29e857d90172e1d79ef9",
+      "tests/ConformanceContracts/Entry.cs": "c4e135768338e674a544914ddc9299dc70d49fc1d5aed3d7a85a455f39bfced1",
+      "tests/ConformanceContracts/PipelineContracts.cs": "ad20de0ea7230f1f637ff1a9641b3657142e97db03012ab605d4c781fa5c7fea",
+      "tests/ConformanceContracts/RegisterContracts.cs": "56cf628e47d96534d9e1e0931d1f3cc56c6083eec303755b02b1c209ed61fd8c"
+    },
+    "logSha256": "ec36396853920a94c184d1cec11bf8975a268c9551f8ee6e646ed7043d4bdfb2"
+  },
+  "linux": {
+    "report": {
+      "schemaVersion": 1,
+      "legacy": [
+        [
+          "Entry.R001_ElasticResetPublishesEmptyReadyState",
+          "passed"
+        ],
+        [
+          "Entry.R002_ElasticSingleItemHasTwoRegisterLatency",
+          "passed"
+        ],
+        [
+          "Entry.R003_ElasticFullStateRefusesAnotherAcceptance",
+          "passed"
+        ],
+        [
+          "Entry.R004_ElasticOutputRemainsStableThroughoutStall",
+          "passed"
+        ],
+        [
+          "Entry.R005_ElasticDrainPreservesTwoHeldItemsInOrder",
+          "passed"
+        ],
+        [
+          "Entry.R006_ElasticFullReplacementTransfersBothEnds",
+          "passed"
+        ],
+        [
+          "Entry.R007_ElasticBubblesDoNotCreatePhantomTransfers",
+          "passed"
+        ],
+        [
+          "Entry.R008_ElasticContinuousTrafficSustainsOneTransferPerCycle",
+          "passed"
+        ],
+        [
+          "Entry.R009_ElasticResetDiscardsBothInflightItems",
+          "passed"
+        ],
+        [
+          "Entry.R010_ElasticResetDominatesCoincidentValidInput",
+          "passed"
+        ],
+        [
+          "Entry.R011_ElasticInvalidInputChangesCannotFillStorage",
+          "passed"
+        ],
+        [
+          "Entry.R012_ElasticRejectedPayloadCannotOverwriteTheHiddenStage",
+          "passed"
+        ],
+        [
+          "Entry.R013_ElasticEqualAndZeroPayloadsRetainMultiplicity",
+          "passed"
+        ],
+        [
+          "Entry.R014_ElasticSeededBackpressureAndResetMatchIndependentModel",
+          "passed"
+        ],
+        [
+          "Entry.R015_ElasticNativeOccupancyTransferCrossCoversAllLegalCells",
+          "passed"
+        ],
+        [
+          "Entry.R016_RegisterResetClearsEveryWritableWord",
+          "passed"
+        ],
+        [
+          "Entry.R017_RegisterFullWriteMatchesIndependentBitPattern",
+          "passed"
+        ],
+        [
+          "Entry.R018_RegisterEachByteEnablePreservesOtherLanes",
+          "passed"
+        ],
+        [
+          "Entry.R019_RegisterZeroByteEnableCannotMutateStorage",
+          "passed"
+        ],
+        [
+          "Entry.R020_RegisterSparseLaneWritesComposeWithoutLostBytes",
+          "passed"
+        ]
+      ],
+      "native": [
+        [
+          "Entry.R001_ElasticResetPublishesEmptyReadyState",
+          "passed"
+        ],
+        [
+          "Entry.R002_ElasticSingleItemHasTwoRegisterLatency",
+          "passed"
+        ],
+        [
+          "Entry.R003_ElasticFullStateRefusesAnotherAcceptance",
+          "passed"
+        ],
+        [
+          "Entry.R004_ElasticOutputRemainsStableThroughoutStall",
+          "passed"
+        ],
+        [
+          "Entry.R005_ElasticDrainPreservesTwoHeldItemsInOrder",
+          "passed"
+        ],
+        [
+          "Entry.R006_ElasticFullReplacementTransfersBothEnds",
+          "passed"
+        ],
+        [
+          "Entry.R007_ElasticBubblesDoNotCreatePhantomTransfers",
+          "passed"
+        ],
+        [
+          "Entry.R008_ElasticContinuousTrafficSustainsOneTransferPerCycle",
+          "passed"
+        ],
+        [
+          "Entry.R009_ElasticResetDiscardsBothInflightItems",
+          "passed"
+        ],
+        [
+          "Entry.R010_ElasticResetDominatesCoincidentValidInput",
+          "passed"
+        ],
+        [
+          "Entry.R011_ElasticInvalidInputChangesCannotFillStorage",
+          "passed"
+        ],
+        [
+          "Entry.R012_ElasticRejectedPayloadCannotOverwriteTheHiddenStage",
+          "passed"
+        ],
+        [
+          "Entry.R013_ElasticEqualAndZeroPayloadsRetainMultiplicity",
+          "passed"
+        ],
+        [
+          "Entry.R014_ElasticSeededBackpressureAndResetMatchIndependentModel",
+          "passed"
+        ],
+        [
+          "Entry.R015_ElasticNativeOccupancyTransferCrossCoversAllLegalCells",
+          "passed"
+        ],
+        [
+          "Entry.R016_RegisterResetClearsEveryWritableWord",
+          "passed"
+        ],
+        [
+          "Entry.R017_RegisterFullWriteMatchesIndependentBitPattern",
+          "passed"
+        ],
+        [
+          "Entry.R018_RegisterEachByteEnablePreservesOtherLanes",
+          "passed"
+        ],
+        [
+          "Entry.R019_RegisterZeroByteEnableCannotMutateStorage",
+          "passed"
+        ],
+        [
+          "Entry.R020_RegisterSparseLaneWritesComposeWithoutLostBytes",
+          "passed"
+        ]
+      ],
+      "expected": [
+        "Entry.R001_ElasticResetPublishesEmptyReadyState",
+        "Entry.R002_ElasticSingleItemHasTwoRegisterLatency",
+        "Entry.R003_ElasticFullStateRefusesAnotherAcceptance",
+        "Entry.R004_ElasticOutputRemainsStableThroughoutStall",
+        "Entry.R005_ElasticDrainPreservesTwoHeldItemsInOrder",
+        "Entry.R006_ElasticFullReplacementTransfersBothEnds",
+        "Entry.R007_ElasticBubblesDoNotCreatePhantomTransfers",
+        "Entry.R008_ElasticContinuousTrafficSustainsOneTransferPerCycle",
+        "Entry.R009_ElasticResetDiscardsBothInflightItems",
+        "Entry.R010_ElasticResetDominatesCoincidentValidInput",
+        "Entry.R011_ElasticInvalidInputChangesCannotFillStorage",
+        "Entry.R012_ElasticRejectedPayloadCannotOverwriteTheHiddenStage",
+        "Entry.R013_ElasticEqualAndZeroPayloadsRetainMultiplicity",
+        "Entry.R014_ElasticSeededBackpressureAndResetMatchIndependentModel",
+        "Entry.R015_ElasticNativeOccupancyTransferCrossCoversAllLegalCells",
+        "Entry.R016_RegisterResetClearsEveryWritableWord",
+        "Entry.R017_RegisterFullWriteMatchesIndependentBitPattern",
+        "Entry.R018_RegisterEachByteEnablePreservesOtherLanes",
+        "Entry.R019_RegisterZeroByteEnableCannotMutateStorage",
+        "Entry.R020_RegisterSparseLaneWritesComposeWithoutLostBytes"
+      ],
+      "missing": {
+        "legacy": [],
+        "native": []
+      },
+      "unexpected": {
+        "legacy": [],
+        "native": []
+      },
+      "seedMismatches": [],
+      "matched": true,
+      "expectedSeedMatched": true,
+      "exitCodes": {
+        "legacy": 0,
+        "native": 0
+      },
+      "contracts": 20,
+      "fixture": "conformance-contracts"
+    },
+    "sourceInventory": [
+      "Entry.R001_ElasticResetPublishesEmptyReadyState",
+      "Entry.R002_ElasticSingleItemHasTwoRegisterLatency",
+      "Entry.R003_ElasticFullStateRefusesAnotherAcceptance",
+      "Entry.R004_ElasticOutputRemainsStableThroughoutStall",
+      "Entry.R005_ElasticDrainPreservesTwoHeldItemsInOrder",
+      "Entry.R006_ElasticFullReplacementTransfersBothEnds",
+      "Entry.R007_ElasticBubblesDoNotCreatePhantomTransfers",
+      "Entry.R008_ElasticContinuousTrafficSustainsOneTransferPerCycle",
+      "Entry.R009_ElasticResetDiscardsBothInflightItems",
+      "Entry.R010_ElasticResetDominatesCoincidentValidInput",
+      "Entry.R011_ElasticInvalidInputChangesCannotFillStorage",
+      "Entry.R012_ElasticRejectedPayloadCannotOverwriteTheHiddenStage",
+      "Entry.R013_ElasticEqualAndZeroPayloadsRetainMultiplicity",
+      "Entry.R014_ElasticSeededBackpressureAndResetMatchIndependentModel",
+      "Entry.R015_ElasticNativeOccupancyTransferCrossCoversAllLegalCells",
+      "Entry.R016_RegisterResetClearsEveryWritableWord",
+      "Entry.R017_RegisterFullWriteMatchesIndependentBitPattern",
+      "Entry.R018_RegisterEachByteEnablePreservesOtherLanes",
+      "Entry.R019_RegisterZeroByteEnableCannotMutateStorage",
+      "Entry.R020_RegisterSparseLaneWritesComposeWithoutLostBytes"
+    ],
+    "sourceSha256": {
+      "tests/ConformanceContracts/PipelineContracts.cs": "ad20de0ea7230f1f637ff1a9641b3657142e97db03012ab605d4c781fa5c7fea",
+      "tests/ConformanceContracts/conformance_top.sv": "28863dfe1fa19f70fa7a45932415fee5e4aa3291a75c29e857d90172e1d79ef9",
+      "tests/ConformanceContracts/Entry.cs": "c4e135768338e674a544914ddc9299dc70d49fc1d5aed3d7a85a455f39bfced1",
+      "tests/ConformanceContracts/ConformanceContracts.csproj": "0f78182710f66e27561128048775792fa17ec35df0cf1677a4559e5cfd446a0b",
+      "tests/ConformanceContracts/RegisterContracts.cs": "56cf628e47d96534d9e1e0931d1f3cc56c6083eec303755b02b1c209ed61fd8c"
+    },
+    "logSha256": "ab09e8b848f09c06448bfd94d5f00d6eb93a5f12b33f2095ffc78e4fd8f9d562"
+  }
+}

@@ -62,8 +62,14 @@ public sealed class SimTaskGroup
         ArgumentNullException.ThrowIfNull(body);
         var parent = context.Runtime.DefaultCancellation;
         parent.ThrowIfCancellationRequested();
-        using var source = CancellationTokenSource.CreateLinkedTokenSource(parent, context.Cancellation);
+        using var source = new CancellationTokenSource();
         var group = new SimTaskGroup(context, source);
+        // Linked CTS callbacks otherwise let child cancellation errors escape the
+        // parent's Cancel call, bypassing this group's failure accounting. Route
+        // both owners through the same error capture used for lexical teardown.
+        using var parentRegistration = parent.Register(group.CancelChildren);
+        using var contextRegistration = parent == context.Cancellation
+            ? default : context.Cancellation.Register(group.CancelChildren);
         context.Runtime.DefaultCancellation = source.Token;
         Exception? bodyFailure = null;
         try

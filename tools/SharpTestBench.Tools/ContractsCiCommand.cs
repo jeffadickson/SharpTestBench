@@ -33,6 +33,7 @@ internal static class ContractsCiCommand
     {
         "requirements" => ("RequirementContracts","contract_top",100),
         "closure" => ("ClosureContracts","closure_top",70),
+        "conformance" => ("ConformanceContracts","conformance_top",100),
         _ => throw new ArgumentException("Unknown contract suite", nameof(suite))
     };
     public static void Execute(ToolContext context,string[] arguments)
@@ -43,11 +44,12 @@ internal static class ContractsCiCommand
         if(integration&&options.Has("--suite"))throw new ArgumentException("Integration regressions do not accept --suite.");
         var suite=ContractSuite(options.Get("--suite","requirements")!);
         bool closure=suite.Project=="ClosureContracts";
+        bool conformance=suite.Project=="ConformanceContracts";
         if(!int.TryParse(options.Get("--through",suite.Count.ToString(CultureInfo.InvariantCulture)),NumberStyles.None,CultureInfo.InvariantCulture,out int through)||through<1||through>suite.Count)throw new ArgumentException("Invalid contract milestone.");
         if(!ulong.TryParse(options.Get("--seed","83"),NumberStyles.None,CultureInfo.InvariantCulture,out ulong seed))throw new ArgumentException("Invalid contract seed.");
         string project=integration?"Integration":suite.Project;
         string top=integration?"top":suite.Top;
-        var name=integration?$"requirements100-integration-{seed}":closure?$"closure100-contracts-{through}-{seed}":$"requirements100-{through}-{seed}";
+        var name=integration?$"requirements100-integration-{seed}":conformance?$"conformance200-contracts-{through}-{seed}":closure?$"closure100-contracts-{through}-{seed}":$"requirements100-{through}-{seed}";
         ParityCiCommand.InWorkspace(context,name,(work,environment)=>{
             context.Run(["dotnet","build",context.At("tests/"+project),"-c","Release","-p:RestoreLockedMode=true","--disable-build-servers","-m:1"],environment:environment);
             NativeBuildCommand.Build(context);
@@ -63,7 +65,7 @@ internal static class ContractsCiCommand
             var inputs=PairedInputs.Capture(work,ParityLegacyCommand.Read(manifest));
             using var producer=StrictJson.Read(Path.Combine(work,"discovery/discovery-input-manifest.json"));ManifestCheckCommand.VerifyDiscoveryInputs(producer.RootElement,inputs);
             var report=ParityCiCommand.Compare(context,work,manifest,seed,environment,null,null,null,null);
-            report["contracts"]=selected.Count;report["fixture"]=integration?"integration-regressions":closure?"closure-contracts":"requirement-contracts";return report;
+            report["contracts"]=selected.Count;report["fixture"]=integration?"integration-regressions":conformance?"conformance-contracts":closure?"closure-contracts":"requirement-contracts";return report;
         });
     }
 }
