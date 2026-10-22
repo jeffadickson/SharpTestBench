@@ -22,7 +22,15 @@
     "cocotb.logging": "70cc51803cc5a283071d7951ee1b068b7243ca0ef5228b1355f18ee26cdc5c8f",
     "cocotb.simtime": "a8a03695632d8005189e315ed25f60fe9af1a468b9a411919553248b73a501e9",
     "cocotb.utils": "1f77165d69cf46172600934a75465872aae1d2c0190a947995e7536670f5dd6c",
-    "cocotb._bridge": "4a01c725f98ab6560dcde44781d94c98ebb6d660d6ff102c9df0bb6b4eae64e3"
+    "cocotb._bridge": "4a01c725f98ab6560dcde44781d94c98ebb6d660d6ff102c9df0bb6b4eae64e3",
+    "cocotb._decorators": "afc339841441cda15c34162f4ff52ba5ef12eb8a48d51e048b3cc11b6f64c0ff",
+    "cocotb._event_loop": "778b2063c8ffcf3fc67e3092e3285b06264e64aeddd692981fcfd228339ff142",
+    "cocotb._init": "d105c3581721bc62960ec694cdee0c8ae69897850c481f716fe13d96003cd28e",
+    "cocotb._shutdown": "779a1325dda2b365c427904fd3e6fab0184afdb2da6199a6bbc1724ceef45a03",
+    "cocotb._task_manager": "2b5b2967f0992c1edbeafeab69c537dc076d6b4713b971f54031e577866896c5",
+    "cocotb._test_factory": "3e1fad5d538f569d075d16df673e077f46d3727c89b4804d92687af5d3d7d04a",
+    "cocotb._test_manager": "8e1d1537f9a14914bf1ce0e7d9b6be5de52cfa4a4fb43b6b326d35f2ff2a31f4",
+    "cocotb._utils": "97c6620a7a5a87b2dfc73439dfacdf824e001b576f6f8ab424e1760fdd2c7701"
   },
   "reviews": [
     {
@@ -3516,6 +3524,877 @@
         {
           "path": "src/SharpTestBench/Capabilities.cs",
           "contains": "External work has no deterministic native simulator wakeup bridge."
+        }
+      ]
+    },
+    {
+      "module": "cocotb._bridge",
+      "definition": "external_waiter.thread_suspend",
+      "source_line": 148,
+      "classification": "gap",
+      "reason": "Suspends an external bridge thread by propagating PAUSED and waking its scheduler-side condition. No C# external thread suspension handshake is implemented.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Capabilities.cs",
+          "contains": "External work has no deterministic native simulator wakeup bridge."
+        }
+      ]
+    },
+    {
+      "module": "cocotb._bridge",
+      "definition": "external_waiter.thread_start",
+      "source_line": 151,
+      "classification": "gap",
+      "reason": "Starts an INIT external thread only once and propagates RUNNING before start. C# has no equivalent external waiter lifecycle; CLR task scheduling is not this contract.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Capabilities.cs",
+          "contains": "External work has no deterministic native simulator wakeup bridge."
+        }
+      ]
+    },
+    {
+      "module": "cocotb._bridge",
+      "definition": "external_waiter.thread_resume",
+      "source_line": 159,
+      "classification": "gap",
+      "reason": "Propagates RUNNING when simulator-side work resumes a blocked bridge thread. External bridge resumption is absent in C#.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Capabilities.cs",
+          "contains": "External work has no deterministic native simulator wakeup bridge."
+        }
+      ]
+    },
+    {
+      "module": "cocotb._bridge",
+      "definition": "external_waiter.thread_wait",
+      "source_line": 162,
+      "classification": "gap",
+      "reason": "Blocks the scheduler on a condition until a bridge thread exits or pauses, rejecting INIT. C# does not implement this bridge quiescence barrier.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Capabilities.cs",
+          "contains": "External work has no deterministic native simulator wakeup bridge."
+        }
+      ]
+    },
+    {
+      "module": "cocotb._bridge",
+      "definition": "queue_function",
+      "source_line": 193,
+      "classification": "gap",
+      "reason": "Queues a coroutine from a recognized bridge thread, suspends that thread, and returns the captured outcome after scheduler-side execution, including cancellation propagation. C# simulator-thread guards do not provide this bidirectional bridge.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Capabilities.cs",
+          "contains": "External work has no deterministic native simulator wakeup bridge."
+        }
+      ]
+    },
+    {
+      "module": "cocotb._bridge",
+      "definition": "run_in_executor",
+      "source_line": 251,
+      "classification": "gap",
+      "reason": "Creates an external thread and waiter, captures its outcome and awaits simulator-side notification. Arbitrary Task.Run work cannot safely provide this native wakeup guarantee in C#.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Capabilities.cs",
+          "contains": "External work has no deterministic native simulator wakeup bridge."
+        }
+      ]
+    },
+    {
+      "module": "cocotb._bridge",
+      "definition": "run_bridge_threads",
+      "source_line": 284,
+      "classification": "gap",
+      "reason": "Starts pending bridge threads, waits for each to pause or exit and signals completed waiters before returning to simulation. This external-thread progress loop remains unsupported.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Capabilities.cs",
+          "contains": "External work has no deterministic native simulator wakeup bridge."
+        }
+      ]
+    },
+    {
+      "module": "cocotb._decorators",
+      "definition": "Test",
+      "source_line": 25,
+      "classification": "intentional-difference",
+      "reason": "Python Test stores function, positional/keyword arguments, docstring, timeout units, expected failures/errors, skip and stage. C# reflection descriptors and attributes cover bounded discovery metadata but do not expose this mutable Python callable container or pytest expectation semantics.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Regression.cs",
+          "contains": "public sealed record TestDescriptor("
+        }
+      ]
+    },
+    {
+      "module": "cocotb._decorators",
+      "definition": "Test.fullname",
+      "source_line": 102,
+      "classification": "intentional-difference",
+      "reason": "Python fullname joins module and chosen name. C# QualifiedName joins declaring CLR type and case name; nested type and case naming differ, so identities are stable within each implementation rather than Python-string equivalent.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Regression.cs",
+          "contains": "string qualifiedName = method.DeclaringType!.FullName + \".\" + name;"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._decorators",
+      "definition": "Param",
+      "source_line": 110,
+      "classification": "gap",
+      "reason": "Param associates arbitrary Python values with custom generated name fragments. C# SimCase carries CLR attribute arguments without per-argument custom names; no equivalent Param wrapper is provided.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Regression.cs",
+          "contains": "public sealed class SimCaseAttribute(params object[] arguments)"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._decorators",
+      "definition": "TestGenerator",
+      "source_line": 144,
+      "classification": "gap",
+      "reason": "TestGenerator holds mutable decorator options, metadata and Cartesian parameter definitions. C# reflected SimCase rows do not implement this mutable generator or Python naming rules.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Regression.cs",
+          "contains": "var cases = method.GetCustomAttributes<SimCaseAttribute>().Select(c => c.Arguments).ToArray();"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._decorators",
+      "definition": "TestGenerator.generate_tests",
+      "source_line": 168,
+      "classification": "gap",
+      "reason": "generate_tests expands a Cartesian product, grouped argument packs and Param display names into keyword-driven Test records. C# executes explicit SimCase rows and does not perform this expansion or naming contract.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Regression.cs",
+          "contains": "var cases = method.GetCustomAttributes<SimCaseAttribute>().Select(c => c.Arguments).ToArray();"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._decorators",
+      "definition": "test",
+      "source_line": 266,
+      "classification": "intentional-difference",
+      "reason": "The three test decorator declarations share one implementation composing mutable generator metadata. C# SimTest supports timeout steps, skip, stage, simulator restrictions and one expected exception type; Python decorator composition, custom name and assertion-only expect_fail are not equivalent.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Regression.cs",
+          "contains": "public sealed class SimTestAttribute : Attribute"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._decorators",
+      "definition": "test",
+      "source_line": 270,
+      "classification": "intentional-difference",
+      "reason": "The three test decorator declarations share one implementation composing mutable generator metadata. C# SimTest supports timeout steps, skip, stage, simulator restrictions and one expected exception type; Python decorator composition, custom name and assertion-only expect_fail are not equivalent.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Regression.cs",
+          "contains": "public sealed class SimTestAttribute : Attribute"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._decorators",
+      "definition": "test",
+      "source_line": 282,
+      "classification": "intentional-difference",
+      "reason": "The three test decorator declarations share one implementation composing mutable generator metadata. C# SimTest supports timeout steps, skip, stage, simulator restrictions and one expected exception type; Python decorator composition, custom name and assertion-only expect_fail are not equivalent.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Regression.cs",
+          "contains": "public sealed class SimTestAttribute : Attribute"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._decorators",
+      "definition": "parametrize",
+      "source_line": 434,
+      "classification": "gap",
+      "reason": "All parametrize overloads validate Python identifiers and grouped tuple arity then prepend options for Cartesian generation. Explicit CLR SimCase arguments do not supply this decorator API, validation domain or product ordering.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Regression.cs",
+          "contains": "public sealed class SimCaseAttribute(params object[] arguments)"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._decorators",
+      "definition": "parametrize",
+      "source_line": 441,
+      "classification": "gap",
+      "reason": "All parametrize overloads validate Python identifiers and grouped tuple arity then prepend options for Cartesian generation. Explicit CLR SimCase arguments do not supply this decorator API, validation domain or product ordering.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Regression.cs",
+          "contains": "public sealed class SimCaseAttribute(params object[] arguments)"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._decorators",
+      "definition": "parametrize",
+      "source_line": 446,
+      "classification": "gap",
+      "reason": "All parametrize overloads validate Python identifiers and grouped tuple arity then prepend options for Cartesian generation. Explicit CLR SimCase arguments do not supply this decorator API, validation domain or product ordering.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Regression.cs",
+          "contains": "public sealed class SimCaseAttribute(params object[] arguments)"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._decorators",
+      "definition": "skipif",
+      "source_line": 560,
+      "classification": "intentional-difference",
+      "reason": "skipif ORs a runtime condition into generator skip metadata; its reason is documentation only. C# offers static SimTest.Skip and simulator filtering but no runtime conditional decorator composition.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Regression.cs",
+          "contains": "public bool Skip { get; set; }"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._decorators",
+      "definition": "xfail",
+      "source_line": 608,
+      "classification": "gap",
+      "reason": "xfail conditionally composes assertion failure or exception/pytest matcher expectations. C# supports a single assignable ExpectedException type and refuses unexpected success, but has no assertion-only expected failure or RaisesGroup matching.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Regression.cs",
+          "contains": "public Type? ExpectedException { get; set; }"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._event_loop",
+      "definition": "ScheduledCallback",
+      "source_line": 15,
+      "classification": "internal-adapter",
+      "reason": "Python ScheduledCallback stores a callable and cancellation flag for its private event loop. C# queues Action continuations and owns cancellation through trigger registrations; no public ScheduledCallback compatibility type is claimed.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Runtime.cs",
+          "contains": "readonly ConcurrentQueue<Action> ready = new();"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._event_loop",
+      "definition": "ScheduledCallback.cancel",
+      "source_line": 28,
+      "classification": "internal-adapter",
+      "reason": "Python callback cancellation sets a flag so its event loop skips execution. C# uses owned subscription disposal and token-aware continuation lifetimes, not this callback handle API.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Runtime.cs",
+          "contains": "readonly ConcurrentQueue<Action> ready = new();"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._event_loop",
+      "definition": "EventLoop",
+      "source_line": 35,
+      "classification": "internal-adapter",
+      "reason": "Python EventLoop drains a deque and progresses external bridge threads. C# Runtime drains queued simulator continuations; its different scheduler has no external bridge loop and is not claimed to reproduce Python event-loop internals.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Runtime.cs",
+          "contains": "internal void Drain()"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._event_loop",
+      "definition": "EventLoop.log",
+      "source_line": 41,
+      "classification": "intentional-difference",
+      "reason": "EventLoop.log lazily obtains Python logging.Logger cocotb.event_loop. C# simulation diagnostics use structured SimulationLog events rather than a Python logger property.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Regression.cs",
+          "contains": "SimulationLog.Write(runtime!, \"test-start\""
+        }
+      ]
+    },
+    {
+      "module": "cocotb._event_loop",
+      "definition": "EventLoop.run",
+      "source_line": 44,
+      "classification": "intentional-difference",
+      "reason": "Python run drains scheduled callbacks, skips cancelled handles and progresses bridge threads; C# drains managed continuations under its synchronization context with a fatal continuation guard. The debug warning and external-thread progress contracts differ.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Runtime.cs",
+          "contains": "internal void Drain()"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._event_loop",
+      "definition": "EventLoop.schedule",
+      "source_line": 66,
+      "classification": "intentional-difference",
+      "reason": "Python schedule appends a callback and returns an independently cancellable handle. C# internal Enqueue schedules FIFO Action continuations without that returned handle contract.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Runtime.cs",
+          "contains": "internal void Enqueue(Action a)"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._event_loop",
+      "definition": "EventLoop.schedule_left",
+      "source_line": 73,
+      "classification": "gap",
+      "reason": "Python schedule_left inserts a new cancellable callback at the front. C# ConcurrentQueue continuation scheduling has no front-insertion operation.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Runtime.cs",
+          "contains": "readonly ConcurrentQueue<Action> ready"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._init",
+      "definition": "init_package_from_simulation",
+      "source_line": 31,
+      "classification": "intentional-difference",
+      "reason": "Python initializes package globals, simulator configuration, plusargs/packages, profiling and Python coverage. C# Initialize establishes managed regression/runtime services; it does not reproduce package initialization semantics.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Regression.cs",
+          "contains": "public static int Initialize(Assembly assembly)"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._shutdown",
+      "definition": "register",
+      "source_line": 12,
+      "classification": "gap",
+      "reason": "Python register appends process-wide end-of-simulation callbacks in FIFO order. C# CleanupScope.Defer is per-scope LIFO ownership cleanup, not that registration API.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/CleanupScope.cs",
+          "contains": "public void Defer(Action cleanup)"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._task_manager",
+      "definition": "TaskManager",
+      "source_line": 32,
+      "classification": "intentional-difference",
+      "reason": "TaskManager owns tasks under Python parent-task restrictions with configurable continue_on_error and exception groups. C# SimTaskGroup provides structured cancellation/join ownership but no equivalent configurable error admission policy.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/SimTaskGroup.cs",
+          "contains": "internal static async Task Run"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._task_manager",
+      "definition": "TaskManager.start_soon",
+      "source_line": 79,
+      "classification": "intentional-difference",
+      "reason": "Python manager starts arbitrary awaitables and enforces parent-task/admission rules. C# StartSoon accepts delegates, checks simulator thread and group open state, and owns created jobs; post-error admission is not claimed equivalent.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/SimTaskGroup.cs",
+          "contains": "public SimJob StartSoon"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._task_manager",
+      "definition": "TaskManager.fork",
+      "source_line": 126,
+      "classification": "gap",
+      "reason": "Python fork is a decorator/factory for manager-owned work with per-task continue_on_error overrides. Explicit C# group.StartSoon does not implement this decorator or policy API.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/SimTaskGroup.cs",
+          "contains": "public SimJob StartSoon"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._task_manager",
+      "definition": "TaskManager.fork",
+      "source_line": 133,
+      "classification": "gap",
+      "reason": "Python fork is a decorator/factory for manager-owned work with per-task continue_on_error overrides. Explicit C# group.StartSoon does not implement this decorator or policy API.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/SimTaskGroup.cs",
+          "contains": "public SimJob StartSoon"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._task_manager",
+      "definition": "TaskManager.fork",
+      "source_line": 137,
+      "classification": "gap",
+      "reason": "Python fork is a decorator/factory for manager-owned work with per-task continue_on_error overrides. Explicit C# group.StartSoon does not implement this decorator or policy API.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/SimTaskGroup.cs",
+          "contains": "public SimJob StartSoon"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._test_factory",
+      "definition": "TestFactory",
+      "source_line": 19,
+      "classification": "deprecated-omission",
+      "reason": "Deprecated Python TestFactory accumulates options and dynamically generates module tests. C# supports explicit SimCase attributes; the factory object is omitted.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Regression.cs",
+          "contains": "public sealed class SimCaseAttribute"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._test_factory",
+      "definition": "TestFactory.add_option",
+      "source_line": 104,
+      "classification": "deprecated-omission",
+      "reason": "Deprecated TestFactory.add_option accumulates scalar/grouped option tuples for Cartesian generation. Explicit SimCase rows do not provide this factory configuration operation.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Regression.cs",
+          "contains": "public sealed class SimCaseAttribute"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._test_factory",
+      "definition": "TestFactory.add_option",
+      "source_line": 107,
+      "classification": "deprecated-omission",
+      "reason": "Deprecated TestFactory.add_option accumulates scalar/grouped option tuples for Cartesian generation. Explicit SimCase rows do not provide this factory configuration operation.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Regression.cs",
+          "contains": "public sealed class SimCaseAttribute"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._test_factory",
+      "definition": "TestFactory.add_option",
+      "source_line": 111,
+      "classification": "deprecated-omission",
+      "reason": "Deprecated TestFactory.add_option accumulates scalar/grouped option tuples for Cartesian generation. Explicit SimCase rows do not provide this factory configuration operation.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Regression.cs",
+          "contains": "public sealed class SimCaseAttribute"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._test_factory",
+      "definition": "TestFactory.generate_tests",
+      "source_line": 140,
+      "classification": "deprecated-omission",
+      "reason": "Deprecated factory generate_tests injects generated Python tests with naming callbacks. C# reflection discovers explicit SimCase rows rather than mutating modules.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Regression.cs",
+          "contains": "method.GetCustomAttributes<SimCaseAttribute>()"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._test_manager",
+      "definition": "TestManager",
+      "source_line": 34,
+      "classification": "intentional-difference",
+      "reason": "Python TestManager exposes a manager object/protocol for main task and children. C# static regression orchestration owns contexts, deadlines, cleanup and result records; it is not this public object protocol.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Regression.cs",
+          "contains": "public static class Regression"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._test_manager",
+      "definition": "TestManager.start",
+      "source_line": 84,
+      "classification": "intentional-difference",
+      "reason": "Python starts a main coroutine task on its event loop. C# reflects a managed Task body then drives simulator continuations and deadlines; startup and failure mechanics differ.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Regression.cs",
+          "contains": "method.Invoke("
+        }
+      ]
+    },
+    {
+      "module": "cocotb._test_manager",
+      "definition": "TestManager.exception",
+      "source_line": 104,
+      "classification": "intentional-difference",
+      "reason": "Python exception() exposes manager failure state including grouped child errors. C# teardown aggregates/classifies failures and serializes diagnostics without an equivalent public manager exception method.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Regression.cs",
+          "contains": "cleanupError"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._test_manager",
+      "definition": "TestManager.result",
+      "source_line": 112,
+      "classification": "intentional-difference",
+      "reason": "Python result() returns or rethrows manager outcomes. C# regression publishes status records; SimJob<T>.Result is a child-job abstraction and not an equivalent manager method.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Regression.cs",
+          "contains": "string status = error == null || expected ? \"passed\" : \"failed\""
+        }
+      ]
+    },
+    {
+      "module": "cocotb._test_manager",
+      "definition": "TestManager.done",
+      "source_line": 117,
+      "classification": "intentional-difference",
+      "reason": "Python done() queries terminal manager state. C# internal JobsComplete tracks retained child completion for teardown rather than exposing this manager query.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Regression.cs",
+          "contains": "internal bool JobsComplete"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._test_manager",
+      "definition": "TestManager.cancel",
+      "source_line": 121,
+      "classification": "intentional-difference",
+      "reason": "Python manager cancel supports immediate test cancellation messaging and coroutine cancellation semantics. C# internal Cancel requests token-based cancellation; no public message-bearing manager abort protocol is provided.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Regression.cs",
+          "contains": "internal void Cancel()"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._test_manager",
+      "definition": "TestManager.add_task",
+      "source_line": 170,
+      "classification": "intentional-difference",
+      "reason": "Python add_task adopts tasks and observes top-level exceptions. C# tracks jobs when it creates them; it has no public arbitrary existing-task adoption operation.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Regression.cs",
+          "contains": "jobs.Add(job)"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._test_manager",
+      "definition": "TestManager.remove_task",
+      "source_line": 175,
+      "classification": "intentional-difference",
+      "reason": "Python remove_task detaches tasks from its active dictionary. C# retains child jobs through context disposal and tests all for completion; there is no public detach counterpart.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Regression.cs",
+          "contains": "JobsComplete => jobs.All"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._test_manager",
+      "definition": "start_soon",
+      "source_line": 204,
+      "classification": "intentional-difference",
+      "reason": "Python start_soon accepts or reuses arbitrary awaitables/tasks. C# StartSoon schedules owned delegate-created jobs for later execution and does not adopt arbitrary existing tasks.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Regression.cs",
+          "contains": "public SimJob StartSoon"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._test_manager",
+      "definition": "start_soon",
+      "source_line": 214,
+      "classification": "intentional-difference",
+      "reason": "Python start_soon accepts or reuses arbitrary awaitables/tasks. C# StartSoon schedules owned delegate-created jobs for later execution and does not adopt arbitrary existing tasks.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Regression.cs",
+          "contains": "public SimJob StartSoon"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._test_manager",
+      "definition": "start_soon",
+      "source_line": 221,
+      "classification": "intentional-difference",
+      "reason": "Python start_soon accepts or reuses arbitrary awaitables/tasks. C# StartSoon schedules owned delegate-created jobs for later execution and does not adopt arbitrary existing tasks.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Regression.cs",
+          "contains": "public SimJob StartSoon"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._test_manager",
+      "definition": "start",
+      "source_line": 263,
+      "classification": "deprecated-omission",
+      "reason": "Deprecated Python start schedules and yields control once before returning a task. C# StartSoon plus an explicit application handshake is available, without that wrapper or yield guarantee.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Regression.cs",
+          "contains": "Runtime.Enqueue(async () =>"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._test_manager",
+      "definition": "start",
+      "source_line": 273,
+      "classification": "deprecated-omission",
+      "reason": "Deprecated Python start schedules and yields control once before returning a task. C# StartSoon plus an explicit application handshake is available, without that wrapper or yield guarantee.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Regression.cs",
+          "contains": "Runtime.Enqueue(async () =>"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._test_manager",
+      "definition": "start",
+      "source_line": 281,
+      "classification": "deprecated-omission",
+      "reason": "Deprecated Python start schedules and yields control once before returning a task. C# StartSoon plus an explicit application handshake is available, without that wrapper or yield guarantee.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Regression.cs",
+          "contains": "Runtime.Enqueue(async () =>"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._test_manager",
+      "definition": "create_task",
+      "source_line": 336,
+      "classification": "gap",
+      "reason": "Python create_task constructs unscheduled tasks and can reuse or rename existing tasks. C# public jobs are created and enqueued together; no create-without-scheduling operation exists.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Regression.cs",
+          "contains": "Runtime.Enqueue(async () =>"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._test_manager",
+      "definition": "create_task",
+      "source_line": 346,
+      "classification": "gap",
+      "reason": "Python create_task constructs unscheduled tasks and can reuse or rename existing tasks. C# public jobs are created and enqueued together; no create-without-scheduling operation exists.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Regression.cs",
+          "contains": "Runtime.Enqueue(async () =>"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._test_manager",
+      "definition": "create_task",
+      "source_line": 353,
+      "classification": "gap",
+      "reason": "Python create_task constructs unscheduled tasks and can reuse or rename existing tasks. C# public jobs are created and enqueued together; no create-without-scheduling operation exists.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Regression.cs",
+          "contains": "Runtime.Enqueue(async () =>"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._test_manager",
+      "definition": "TestSuccess",
+      "source_line": 398,
+      "classification": "deprecated-omission",
+      "reason": "TestSuccess is the sentinel used by deprecated pass_test to force success independently of expectation policy. C# ordinary return still applies ExpectedException rules and is not this forced-pass sentinel.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Regression.cs",
+          "contains": "attr.ExpectedException"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._test_manager",
+      "definition": "pass_test",
+      "source_line": 412,
+      "classification": "deprecated-omission",
+      "reason": "Deprecated pass_test forces test success. C# ordinary completion does not override expected exception policy and no forced-pass operation is implemented.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Regression.cs",
+          "contains": "attr.ExpectedException"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._test_manager",
+      "definition": "EndTest",
+      "source_line": 433,
+      "classification": "gap",
+      "reason": "EndTest is a dedicated nonlocal ending sentinel with special expectation treatment. C# has no corresponding sentinel; ExpectedException is not a termination operation.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Regression.cs",
+          "contains": "attr.ExpectedException"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._test_manager",
+      "definition": "end_test",
+      "source_line": 444,
+      "classification": "gap",
+      "reason": "end_test can end a test through nested helpers or child tasks. Returning from the managed body does not reproduce this nonlocal termination operation.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Regression.cs",
+          "contains": "await body"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._utils",
+      "definition": "remove_traceback_frames",
+      "source_line": 32,
+      "classification": "intentional-difference",
+      "reason": "Python removes traceback frames by mutating exception traceback chains. C# preserves managed exception propagation and does not expose traceback-chain editing.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/SimTaskGroup.cs",
+          "contains": "ExceptionDispatchInfo.Capture("
+        }
+      ]
+    },
+    {
+      "module": "cocotb._utils",
+      "definition": "remove_traceback_frames",
+      "source_line": 38,
+      "classification": "intentional-difference",
+      "reason": "Python removes traceback frames by mutating exception traceback chains. C# preserves managed exception propagation and does not expose traceback-chain editing.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/SimTaskGroup.cs",
+          "contains": "ExceptionDispatchInfo.Capture("
+        }
+      ]
+    },
+    {
+      "module": "cocotb._utils",
+      "definition": "remove_traceback_frames",
+      "source_line": 44,
+      "classification": "intentional-difference",
+      "reason": "Python removes traceback frames by mutating exception traceback chains. C# preserves managed exception propagation and does not expose traceback-chain editing.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/SimTaskGroup.cs",
+          "contains": "ExceptionDispatchInfo.Capture("
+        }
+      ]
+    },
+    {
+      "module": "cocotb._utils",
+      "definition": "remove_traceback_frames",
+      "source_line": 49,
+      "classification": "intentional-difference",
+      "reason": "Python removes traceback frames by mutating exception traceback chains. C# preserves managed exception propagation and does not expose traceback-chain editing.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/SimTaskGroup.cs",
+          "contains": "ExceptionDispatchInfo.Capture("
+        }
+      ]
+    },
+    {
+      "module": "cocotb._utils",
+      "definition": "walk_coro_stack",
+      "source_line": 90,
+      "classification": "intentional-difference",
+      "reason": "Python walks live suspended coroutine frames. Exposing a CLR Task does not provide active async-frame traversal; no such traversal counterpart is implemented.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Regression.cs",
+          "contains": "public Task Task { get; }"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._utils",
+      "definition": "extract_coro_stack",
+      "source_line": 113,
+      "classification": "intentional-difference",
+      "reason": "Python extracts live coroutine stacks into StackSummary. C# bounded exception diagnostics format thrown errors, not suspended-coroutine stack extraction.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/SimulationLog.cs",
+          "contains": "ExceptionDetail = Limit(error?.ToString())"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._utils",
+      "definition": "DocEnum",
+      "source_line": 138,
+      "classification": "intentional-difference",
+      "reason": "Python DocEnum constructs enum members with runtime per-member docstrings. C# declared enums and XML documentation use a different metadata model.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Runtime.cs",
+          "contains": "public enum TimeUnit"
         }
       ]
     }
