@@ -157,6 +157,9 @@ public sealed class SimRuntime
 
     ulong ConvertSteps(decimal value, TimeUnit unit, TimeRounding rounding, bool clampTimer)
     {
+        CheckThread();
+        if (!Enum.IsDefined(unit)) throw new ArgumentOutOfRangeException(nameof(unit));
+        if (!Enum.IsDefined(rounding)) throw new ArgumentOutOfRangeException(nameof(rounding));
         if (value <= 0)
             throw new ArgumentOutOfRangeException(nameof(value));
         decimal scaled = value;

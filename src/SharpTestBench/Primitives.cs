@@ -93,6 +93,9 @@ public sealed class SimSemaphore
         try
         {
             await w.Ready.Wait().WithCancellation(effectiveToken);
+            // Grant delivery may have queued this continuation before cancellation.
+            // Do not transfer ownership of a cancelled, unconsumed reservation.
+            effectiveToken.ThrowIfCancellationRequested();
         }
         catch
         {
@@ -300,6 +303,19 @@ public sealed class SimClock
         this.implementation = implementation;
         SetPeriod(period, highSteps);
     }
+
+    /// <summary>The signal driven by this clock; access requires its simulator thread.</summary>
+    public Signal Signal { get { signal.Runtime.CheckThread(); return signal; } }
+    /// <summary>Configured period for the next full cycle, in simulator steps.</summary>
+    public ulong PeriodSteps { get { signal.Runtime.CheckThread(); return high + low; } }
+    /// <summary>Configured high duration for the next full cycle.</summary>
+    public ulong HighSteps { get { signal.Runtime.CheckThread(); return high; } }
+    /// <summary>Configured low duration for the next full cycle.</summary>
+    public ulong LowSteps { get { signal.Runtime.CheckThread(); return low; } }
+    /// <summary>Requested implementation policy; Auto does not describe the resolved backend.</summary>
+    public ClockImplementation Implementation { get { signal.Runtime.CheckThread(); return implementation; } }
+    /// <summary>Whether a run owns this clock, including native cleanup until ownership is released.</summary>
+    public bool IsRunning { get { signal.Runtime.CheckThread(); return running; } }
 
     /// <summary>Set timing for the next full cycle; the current pulse pair keeps its original timing.</summary>
     public void SetPeriod(ulong period, ulong? highSteps = null)

@@ -177,6 +177,7 @@ public static class Triggers
     }
     static Trigger Edge(Signal s, int edge)
     {
+        ArgumentNullException.ThrowIfNull(s);
         if (edge != 0 && s.Width != 1)
             throw new ArgumentException("Rising/falling edge requires a one-bit signal");
         return new NativeTrigger(CallbackKind.Edge, signal: s.Handle, edge: edge);
@@ -184,7 +185,11 @@ public static class Triggers
 
     public static Trigger First(params Trigger[] triggers) => new CompositeTrigger(false, triggers);
     public static Trigger Combine(params Trigger[] triggers) => new CompositeTrigger(true, triggers);
-    public static Trigger WithTimeout(Trigger trigger, ulong steps) => new TimeoutTrigger(trigger, Timer(steps));
+    public static Trigger WithTimeout(Trigger trigger, ulong steps)
+    {
+        ArgumentNullException.ThrowIfNull(trigger);
+        return new TimeoutTrigger(trigger, Timer(steps));
+    }
     /// <summary>Wait for rising clock edges; a zero count validates ownership without registering callbacks.</summary>
     public static Task ClockCycles(Signal clock, int count, CancellationToken? cancellation = null) => ClockCycles(clock,count,cancellation,ClockEdge.Rising);
 
@@ -213,6 +218,7 @@ public static class Triggers
         readonly Trigger[] items;
         internal CompositeTrigger(bool all, Trigger[] items)
         {
+            ArgumentNullException.ThrowIfNull(items);
             if (items.Length == 0)
                 throw new ArgumentException("At least one trigger required");
             this.all = all;

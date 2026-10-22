@@ -157,3 +157,12 @@ pre-push state. The new100-unit batch is separate and currently50/100verified:
 [reviews](requirements100-reviews.jsonl), [full50validation](requirements100-checkpoint50-validation.json)
 and [pre-fix reproductions](requirements100-reproductions.json). New work stays local;
 final100deepreview remains required. CI is disabled and PR62unchanged.
+
+
+## Requirements100 final local milestone
+
+The separate100-unit follow-up is now locally complete: [final report](requirements100-report.md),
+[validation](requirements100-checkpoint100-validation.json), [reviews](requirements100-reviews.jsonl)
+and [ledger](requirements100-iterations.jsonl). The earlier midpoint50 entry is
+historical progress. Final deep review preceded the final local commit. This new
+batch was not pushed; the prior campaign through ca0d4ef alone was pushed on request.

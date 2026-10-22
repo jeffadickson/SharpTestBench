@@ -55,5 +55,282 @@
         }
       }
     }
+  },
+  "cancelledPermitHandoff": {
+    "sourceSha256": "2a609065ad79da8162d73cba35275ac1123da36e15d8c301ac3907a66f97a4a2",
+    "records": {
+      "windows": {
+        "legacy": [
+          {
+            "Name": "R057_CancelAfterPermitGrantReturnsReservation",
+            "Status": "failed",
+            "Seed": 139,
+            "StartStep": 319,
+            "EndStep": 320,
+            "Seconds": 0.0022348,
+            "Error": "System.IO.InvalidDataException: Expected OperationCanceledException\r\n   at Entry.Fails[T](Func`1 action) in C:\\dev\\SharpTestBench\\tests\\RequirementContracts\\Entry.cs:line 12\r\n   at Entry.R057_CancelAfterPermitGrantReturnsReservation(TestContext c) in C:\\dev\\SharpTestBench\\tests\\RequirementContracts\\OwnershipContracts60.cs:line 39\r\n   at SharpTestBench.Regression.Run(Assembly assembly) in C:\\dev\\SharpTestBench\\src\\SharpTestBench\\Regression.cs:line 376",
+            "QualifiedName": "Entry.R057_CancelAfterPermitGrantReturnsReservation",
+            "Stage": 0,
+            "CaseIndex": 0
+          },
+          {
+            "Name": "R058_CancelAfterLockHandoffCannotLeakLease",
+            "Status": "failed",
+            "Seed": 140,
+            "StartStep": 321,
+            "EndStep": 322,
+            "Seconds": 0.0027262,
+            "Error": "System.IO.InvalidDataException: Expected OperationCanceledException\r\n   at Entry.Fails[T](Func`1 action) in C:\\dev\\SharpTestBench\\tests\\RequirementContracts\\Entry.cs:line 12\r\n   at Entry.R058_CancelAfterLockHandoffCannotLeakLease(TestContext c) in C:\\dev\\SharpTestBench\\tests\\RequirementContracts\\OwnershipContracts60.cs:line 45\r\n   at SharpTestBench.Regression.Run(Assembly assembly) in C:\\dev\\SharpTestBench\\src\\SharpTestBench\\Regression.cs:line 376",
+            "QualifiedName": "Entry.R058_CancelAfterLockHandoffCannotLeakLease",
+            "Stage": 0,
+            "CaseIndex": 0
+          }
+        ],
+        "native": [
+          {
+            "Name": "R057_CancelAfterPermitGrantReturnsReservation",
+            "Status": "failed",
+            "Seed": 139,
+            "StartStep": 319,
+            "EndStep": 320,
+            "Seconds": 0.0016267,
+            "Error": "System.IO.InvalidDataException: Expected OperationCanceledException\r\n   at Entry.Fails[T](Func`1 action) in C:\\dev\\SharpTestBench\\tests\\RequirementContracts\\Entry.cs:line 12\r\n   at Entry.R057_CancelAfterPermitGrantReturnsReservation(TestContext c) in C:\\dev\\SharpTestBench\\tests\\RequirementContracts\\OwnershipContracts60.cs:line 39\r\n   at SharpTestBench.Regression.Run(Assembly assembly) in C:\\dev\\SharpTestBench\\src\\SharpTestBench\\Regression.cs:line 376",
+            "QualifiedName": "Entry.R057_CancelAfterPermitGrantReturnsReservation",
+            "Stage": 0,
+            "CaseIndex": 0
+          },
+          {
+            "Name": "R058_CancelAfterLockHandoffCannotLeakLease",
+            "Status": "failed",
+            "Seed": 140,
+            "StartStep": 321,
+            "EndStep": 322,
+            "Seconds": 0.0031374,
+            "Error": "System.IO.InvalidDataException: Expected OperationCanceledException\r\n   at Entry.Fails[T](Func`1 action) in C:\\dev\\SharpTestBench\\tests\\RequirementContracts\\Entry.cs:line 12\r\n   at Entry.R058_CancelAfterLockHandoffCannotLeakLease(TestContext c) in C:\\dev\\SharpTestBench\\tests\\RequirementContracts\\OwnershipContracts60.cs:line 45\r\n   at SharpTestBench.Regression.Run(Assembly assembly) in C:\\dev\\SharpTestBench\\src\\SharpTestBench\\Regression.cs:line 376",
+            "QualifiedName": "Entry.R058_CancelAfterLockHandoffCannotLeakLease",
+            "Stage": 0,
+            "CaseIndex": 0
+          }
+        ]
+      },
+      "linux": {
+        "legacy": [
+          {
+            "Name": "R057_CancelAfterPermitGrantReturnsReservation",
+            "Status": "failed",
+            "Seed": 139,
+            "StartStep": 319,
+            "EndStep": 320,
+            "Seconds": 0.0017549,
+            "Error": "System.IO.InvalidDataException: Expected OperationCanceledException\n   at Entry.Fails[T](Func`1 action) in /home/jeffd/src/SharpTestBench/tests/RequirementContracts/Entry.cs:line 12\n   at Entry.R057_CancelAfterPermitGrantReturnsReservation(TestContext c) in /home/jeffd/src/SharpTestBench/tests/RequirementContracts/OwnershipContracts60.cs:line 39\n   at SharpTestBench.Regression.Run(Assembly assembly) in /home/jeffd/src/SharpTestBench/src/SharpTestBench/Regression.cs:line 376",
+            "QualifiedName": "Entry.R057_CancelAfterPermitGrantReturnsReservation",
+            "Stage": 0,
+            "CaseIndex": 0
+          },
+          {
+            "Name": "R058_CancelAfterLockHandoffCannotLeakLease",
+            "Status": "failed",
+            "Seed": 140,
+            "StartStep": 321,
+            "EndStep": 322,
+            "Seconds": 0.0029071,
+            "Error": "System.IO.InvalidDataException: Expected OperationCanceledException\n   at Entry.Fails[T](Func`1 action) in /home/jeffd/src/SharpTestBench/tests/RequirementContracts/Entry.cs:line 12\n   at Entry.R058_CancelAfterLockHandoffCannotLeakLease(TestContext c) in /home/jeffd/src/SharpTestBench/tests/RequirementContracts/OwnershipContracts60.cs:line 45\n   at SharpTestBench.Regression.Run(Assembly assembly) in /home/jeffd/src/SharpTestBench/src/SharpTestBench/Regression.cs:line 376",
+            "QualifiedName": "Entry.R058_CancelAfterLockHandoffCannotLeakLease",
+            "Stage": 0,
+            "CaseIndex": 0
+          }
+        ],
+        "native": [
+          {
+            "Name": "R057_CancelAfterPermitGrantReturnsReservation",
+            "Status": "failed",
+            "Seed": 139,
+            "StartStep": 319,
+            "EndStep": 320,
+            "Seconds": 0.0024794,
+            "Error": "System.IO.InvalidDataException: Expected OperationCanceledException\n   at Entry.Fails[T](Func`1 action) in /home/jeffd/src/SharpTestBench/tests/RequirementContracts/Entry.cs:line 12\n   at Entry.R057_CancelAfterPermitGrantReturnsReservation(TestContext c) in /home/jeffd/src/SharpTestBench/tests/RequirementContracts/OwnershipContracts60.cs:line 39\n   at SharpTestBench.Regression.Run(Assembly assembly) in /home/jeffd/src/SharpTestBench/src/SharpTestBench/Regression.cs:line 376",
+            "QualifiedName": "Entry.R057_CancelAfterPermitGrantReturnsReservation",
+            "Stage": 0,
+            "CaseIndex": 0
+          },
+          {
+            "Name": "R058_CancelAfterLockHandoffCannotLeakLease",
+            "Status": "failed",
+            "Seed": 140,
+            "StartStep": 321,
+            "EndStep": 322,
+            "Seconds": 0.0025397,
+            "Error": "System.IO.InvalidDataException: Expected OperationCanceledException\n   at Entry.Fails[T](Func`1 action) in /home/jeffd/src/SharpTestBench/tests/RequirementContracts/Entry.cs:line 12\n   at Entry.R058_CancelAfterLockHandoffCannotLeakLease(TestContext c) in /home/jeffd/src/SharpTestBench/tests/RequirementContracts/OwnershipContracts60.cs:line 45\n   at SharpTestBench.Regression.Run(Assembly assembly) in /home/jeffd/src/SharpTestBench/src/SharpTestBench/Regression.cs:line 376",
+            "QualifiedName": "Entry.R058_CancelAfterLockHandoffCannotLeakLease",
+            "Stage": 0,
+            "CaseIndex": 0
+          }
+        ]
+      }
+    }
+  },
+  "triggerAndTimeValidation": {
+    "sourceSha256": {
+      "src/SharpTestBench/Triggers.cs": "117e013399a9789e603eb55ac59c34a8cb6e57045ce4c099336722d19f3b5f38",
+      "src/SharpTestBench/Runtime.cs": "37a33fb59a77a8e1ca5fb7d501f7d40108c19a07e4fafe905d92f37df0730223"
+    },
+    "records": {
+      "windows": {
+        "legacy": [
+          {
+            "Name": "R082_TriggerFactoriesRejectNullBeforeAcquiringResources",
+            "Status": "failed",
+            "Seed": 164,
+            "StartStep": 374,
+            "EndStep": 375,
+            "Seconds": 0.002466,
+            "Error": "System.IO.InvalidDataException: REQUIREMENT_CONTRACT: null factory outcomes: NullReferenceException,NullReferenceException,NullReferenceException,NullReferenceException\r\n   at Entry.Check(Boolean value, String message) in C:\\dev\\SharpTestBench\\tests\\RequirementContracts\\Entry.cs:line 8\r\n   at Entry.R082_TriggerFactoriesRejectNullBeforeAcquiringResources(TestContext c) in C:\\dev\\SharpTestBench\\tests\\RequirementContracts\\TriggerContracts90.cs:line 17\r\n   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)\r\n   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)",
+            "QualifiedName": "Entry.R082_TriggerFactoriesRejectNullBeforeAcquiringResources",
+            "Stage": 0,
+            "CaseIndex": 0
+          },
+          {
+            "Name": "R083_TimeoutValidationPrecedesSubscription",
+            "Status": "failed",
+            "Seed": 165,
+            "StartStep": 376,
+            "EndStep": 377,
+            "Seconds": 0.0007568,
+            "Error": "System.IO.InvalidDataException: Expected ArgumentNullException\r\n   at Entry.Throws[T](Action action) in C:\\dev\\SharpTestBench\\tests\\RequirementContracts\\Entry.cs:line 10\r\n   at Entry.R083_TimeoutValidationPrecedesSubscription(TestContext c) in C:\\dev\\SharpTestBench\\tests\\RequirementContracts\\TriggerContracts90.cs:line 21\r\n   at SharpTestBench.Regression.Run(Assembly assembly) in C:\\dev\\SharpTestBench\\src\\SharpTestBench\\Regression.cs:line 376",
+            "QualifiedName": "Entry.R083_TimeoutValidationPrecedesSubscription",
+            "Stage": 0,
+            "CaseIndex": 0
+          },
+          {
+            "Name": "R084_TimeConversionRejectsUndefinedPoliciesAndForeignThread",
+            "Status": "failed",
+            "Seed": 166,
+            "StartStep": 378,
+            "EndStep": 379,
+            "Seconds": 0.0018743,
+            "Error": "System.IO.InvalidDataException: REQUIREMENT_CONTRACT: conversion outcomes: success,success,success\r\n   at Entry.Check(Boolean value, String message) in C:\\dev\\SharpTestBench\\tests\\RequirementContracts\\Entry.cs:line 8\r\n   at Entry.R084_TimeConversionRejectsUndefinedPoliciesAndForeignThread(TestContext c) in C:\\dev\\SharpTestBench\\tests\\RequirementContracts\\TriggerContracts90.cs:line 29\r\n   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)\r\n   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)",
+            "QualifiedName": "Entry.R084_TimeConversionRejectsUndefinedPoliciesAndForeignThread",
+            "Stage": 0,
+            "CaseIndex": 0
+          }
+        ],
+        "native": [
+          {
+            "Name": "R082_TriggerFactoriesRejectNullBeforeAcquiringResources",
+            "Status": "failed",
+            "Seed": 164,
+            "StartStep": 374,
+            "EndStep": 375,
+            "Seconds": 0.0010525,
+            "Error": "System.IO.InvalidDataException: REQUIREMENT_CONTRACT: null factory outcomes: NullReferenceException,NullReferenceException,NullReferenceException,NullReferenceException\r\n   at Entry.Check(Boolean value, String message) in C:\\dev\\SharpTestBench\\tests\\RequirementContracts\\Entry.cs:line 8\r\n   at Entry.R082_TriggerFactoriesRejectNullBeforeAcquiringResources(TestContext c) in C:\\dev\\SharpTestBench\\tests\\RequirementContracts\\TriggerContracts90.cs:line 17\r\n   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)\r\n   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)",
+            "QualifiedName": "Entry.R082_TriggerFactoriesRejectNullBeforeAcquiringResources",
+            "Stage": 0,
+            "CaseIndex": 0
+          },
+          {
+            "Name": "R083_TimeoutValidationPrecedesSubscription",
+            "Status": "failed",
+            "Seed": 165,
+            "StartStep": 376,
+            "EndStep": 377,
+            "Seconds": 0.0006118,
+            "Error": "System.IO.InvalidDataException: Expected ArgumentNullException\r\n   at Entry.Throws[T](Action action) in C:\\dev\\SharpTestBench\\tests\\RequirementContracts\\Entry.cs:line 10\r\n   at Entry.R083_TimeoutValidationPrecedesSubscription(TestContext c) in C:\\dev\\SharpTestBench\\tests\\RequirementContracts\\TriggerContracts90.cs:line 21\r\n   at SharpTestBench.Regression.Run(Assembly assembly) in C:\\dev\\SharpTestBench\\src\\SharpTestBench\\Regression.cs:line 376",
+            "QualifiedName": "Entry.R083_TimeoutValidationPrecedesSubscription",
+            "Stage": 0,
+            "CaseIndex": 0
+          },
+          {
+            "Name": "R084_TimeConversionRejectsUndefinedPoliciesAndForeignThread",
+            "Status": "failed",
+            "Seed": 166,
+            "StartStep": 378,
+            "EndStep": 379,
+            "Seconds": 0.0022311,
+            "Error": "System.IO.InvalidDataException: REQUIREMENT_CONTRACT: conversion outcomes: success,success,success\r\n   at Entry.Check(Boolean value, String message) in C:\\dev\\SharpTestBench\\tests\\RequirementContracts\\Entry.cs:line 8\r\n   at Entry.R084_TimeConversionRejectsUndefinedPoliciesAndForeignThread(TestContext c) in C:\\dev\\SharpTestBench\\tests\\RequirementContracts\\TriggerContracts90.cs:line 29\r\n   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)\r\n   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)",
+            "QualifiedName": "Entry.R084_TimeConversionRejectsUndefinedPoliciesAndForeignThread",
+            "Stage": 0,
+            "CaseIndex": 0
+          }
+        ]
+      },
+      "linux": {
+        "legacy": [
+          {
+            "Name": "R082_TriggerFactoriesRejectNullBeforeAcquiringResources",
+            "Status": "failed",
+            "Seed": 164,
+            "StartStep": 374,
+            "EndStep": 375,
+            "Seconds": 0.0011268,
+            "Error": "System.IO.InvalidDataException: REQUIREMENT_CONTRACT: null factory outcomes: NullReferenceException,NullReferenceException,NullReferenceException,NullReferenceException\n   at Entry.Check(Boolean value, String message) in /home/jeffd/src/SharpTestBench/tests/RequirementContracts/Entry.cs:line 8\n   at Entry.R082_TriggerFactoriesRejectNullBeforeAcquiringResources(TestContext c) in /home/jeffd/src/SharpTestBench/tests/RequirementContracts/TriggerContracts90.cs:line 17\n   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)\n   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)",
+            "QualifiedName": "Entry.R082_TriggerFactoriesRejectNullBeforeAcquiringResources",
+            "Stage": 0,
+            "CaseIndex": 0
+          },
+          {
+            "Name": "R083_TimeoutValidationPrecedesSubscription",
+            "Status": "failed",
+            "Seed": 165,
+            "StartStep": 376,
+            "EndStep": 377,
+            "Seconds": 0.0005819,
+            "Error": "System.IO.InvalidDataException: Expected ArgumentNullException\n   at Entry.Throws[T](Action action) in /home/jeffd/src/SharpTestBench/tests/RequirementContracts/Entry.cs:line 10\n   at Entry.R083_TimeoutValidationPrecedesSubscription(TestContext c) in /home/jeffd/src/SharpTestBench/tests/RequirementContracts/TriggerContracts90.cs:line 21\n   at SharpTestBench.Regression.Run(Assembly assembly) in /home/jeffd/src/SharpTestBench/src/SharpTestBench/Regression.cs:line 376",
+            "QualifiedName": "Entry.R083_TimeoutValidationPrecedesSubscription",
+            "Stage": 0,
+            "CaseIndex": 0
+          },
+          {
+            "Name": "R084_TimeConversionRejectsUndefinedPoliciesAndForeignThread",
+            "Status": "failed",
+            "Seed": 166,
+            "StartStep": 378,
+            "EndStep": 379,
+            "Seconds": 0.0017308,
+            "Error": "System.IO.InvalidDataException: REQUIREMENT_CONTRACT: conversion outcomes: success,success,success\n   at Entry.Check(Boolean value, String message) in /home/jeffd/src/SharpTestBench/tests/RequirementContracts/Entry.cs:line 8\n   at Entry.R084_TimeConversionRejectsUndefinedPoliciesAndForeignThread(TestContext c) in /home/jeffd/src/SharpTestBench/tests/RequirementContracts/TriggerContracts90.cs:line 29\n   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)\n   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)",
+            "QualifiedName": "Entry.R084_TimeConversionRejectsUndefinedPoliciesAndForeignThread",
+            "Stage": 0,
+            "CaseIndex": 0
+          }
+        ],
+        "native": [
+          {
+            "Name": "R082_TriggerFactoriesRejectNullBeforeAcquiringResources",
+            "Status": "failed",
+            "Seed": 164,
+            "StartStep": 374,
+            "EndStep": 375,
+            "Seconds": 0.0009037,
+            "Error": "System.IO.InvalidDataException: REQUIREMENT_CONTRACT: null factory outcomes: NullReferenceException,NullReferenceException,NullReferenceException,NullReferenceException\n   at Entry.Check(Boolean value, String message) in /home/jeffd/src/SharpTestBench/tests/RequirementContracts/Entry.cs:line 8\n   at Entry.R082_TriggerFactoriesRejectNullBeforeAcquiringResources(TestContext c) in /home/jeffd/src/SharpTestBench/tests/RequirementContracts/TriggerContracts90.cs:line 17\n   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)\n   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)",
+            "QualifiedName": "Entry.R082_TriggerFactoriesRejectNullBeforeAcquiringResources",
+            "Stage": 0,
+            "CaseIndex": 0
+          },
+          {
+            "Name": "R083_TimeoutValidationPrecedesSubscription",
+            "Status": "failed",
+            "Seed": 165,
+            "StartStep": 376,
+            "EndStep": 377,
+            "Seconds": 0.0006004,
+            "Error": "System.IO.InvalidDataException: Expected ArgumentNullException\n   at Entry.Throws[T](Action action) in /home/jeffd/src/SharpTestBench/tests/RequirementContracts/Entry.cs:line 10\n   at Entry.R083_TimeoutValidationPrecedesSubscription(TestContext c) in /home/jeffd/src/SharpTestBench/tests/RequirementContracts/TriggerContracts90.cs:line 21\n   at SharpTestBench.Regression.Run(Assembly assembly) in /home/jeffd/src/SharpTestBench/src/SharpTestBench/Regression.cs:line 376",
+            "QualifiedName": "Entry.R083_TimeoutValidationPrecedesSubscription",
+            "Stage": 0,
+            "CaseIndex": 0
+          },
+          {
+            "Name": "R084_TimeConversionRejectsUndefinedPoliciesAndForeignThread",
+            "Status": "failed",
+            "Seed": 166,
+            "StartStep": 378,
+            "EndStep": 379,
+            "Seconds": 0.0016367,
+            "Error": "System.IO.InvalidDataException: REQUIREMENT_CONTRACT: conversion outcomes: success,success,success\n   at Entry.Check(Boolean value, String message) in /home/jeffd/src/SharpTestBench/tests/RequirementContracts/Entry.cs:line 8\n   at Entry.R084_TimeConversionRejectsUndefinedPoliciesAndForeignThread(TestContext c) in /home/jeffd/src/SharpTestBench/tests/RequirementContracts/TriggerContracts90.cs:line 29\n   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)\n   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)",
+            "QualifiedName": "Entry.R084_TimeConversionRejectsUndefinedPoliciesAndForeignThread",
+            "Stage": 0,
+            "CaseIndex": 0
+          }
+        ]
+      }
+    }
   }
 }

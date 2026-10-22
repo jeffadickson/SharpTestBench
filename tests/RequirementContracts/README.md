@@ -1,15 +1,15 @@
 # Local requirement contracts
 
-This separate simulator assembly adds explicit behavior assertions without changing
-Integration discovery or seed order. Current milestone50 covers edge selection,
-owned subscriptions/borrowed tasks, deadlines, managed-clock lifecycle and job-local
-identity/state. It is not full cocotb conformance or a native-clock implementation
-qualification. The C# qualification command runs both Icarus orchestration paths:
+All 100 distinct behavior contracts cover clocks, waits, jobs, primitives, queues,
+handles, writes, callbacks and cleanup. This separate assembly preserves Integration
+case discovery/seed order. Explicit failures complement cross-runner agreement.
 
-    dotnet tools/SharpTestBench.Tools/bin/Release/net10.0/SharpTestBench.Tools.dll contracts-ci --through 50 --seed 83
+    dotnet tools/SharpTestBench.Tools/bin/Release/net10.0/SharpTestBench.Tools.dll contracts-ci --through 100 --seed 83
+    dotnet tools/SharpTestBench.Tools/bin/Release/net10.0/SharpTestBench.Tools.dll contracts-ci --integration-regressions
 
-The command derives effective per-case seeds from full discovery, verifies producer
-inputs, selects exactly the requested numbered contracts and checks both runs.
-Public simulation tests throw explicit failures instead of trusting agreement alone.
-100 is the planned final milestone, not the current executed case count. See the
-requirements100 development report for actual OS/backend runs and scope limits.
+The command verifies discovery producer inputs and exact effective per-case seeds.
+Windows/Linux both Icarus runners and Linux Verilator executed100/100. The eight
+integration regressions are existing tests, not additional numbered engineering units.
+See docs/development-history/requirements100-report.md for fresh managed coverage,
+publication evidence and scope limits. This is selected conformance, not complete
+cocotb equivalence or native-clock implementation qualification.

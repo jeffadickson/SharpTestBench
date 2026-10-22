@@ -1,74 +1,119 @@
-# Requirements and coverage campaign100
+# Requirements and coverage campaign 100
 
-Base main ca0d4ef94305b70539a229095a24d9076027816b. The prior verified200-unit
-campaign was normally pushed at the user's explicit request on2026-10-21. It is
-not recounted as this new work. All12workflows disabled and PR62unchanged at push.
-This new batch remains local through its final reviewed commit; no second push
-is inferred. Build every10, independent review every15, final independent deep
-review before finalcommit. Meaningful units are distinct behavior contracts with
-concrete tests/fixes/source-backed decisions, never parameter rows or reruns.
+All 100 distinct engineering units are implemented and locally verified. Each is
+an explicit simulator behavior contract, with fixes/features where evidence exposed
+a gap. Parameter rows, reruns, review corrections and prior campaign work are not
+counted as additional iterations or features.
 
-Existing fresh base evidence: requirements200 finalRelease lockedrestore all3managed
-and951retainedcontracts, Windows2665passed15Unixskips/Linux2680passed; serial4assembly
-coverage and actual RTRToolsWin/Linux, LinuxAOTRunner. These are prior campaign
-results at this exact base revision, not newly recounted100campaign runs.
+The base is ca0d4ef94305b70539a229095a24d9076027816b. That completed prior 200-unit
+campaign was normally pushed at the user's explicit request. The new batch has a
+verified local midpoint commit 0c788f9 and a final local commit containing this
+report. No second push was made. Windows main and the separate native-filesystem
+WSL checkout use independent build outputs. Unknown Windows AGENTS.md is preserved.
 
-Initial gap: ClockCycles supported only rising edges. Zero count with an explicit
-token bypassed runtime/thread and operand validation. New falling/any selection
-preserves original overload, while all waits require a valid one-bit simulator-owned
-clock. Independent pinned cocotb source has edge_type/rising choices; C# returnsTask,
-uses cooperative cancellation and rejects negativecounts, so exact parity is not
-claimed. The new requirement fixture is separate from Integration to preserve its
-existing discovery/seed ordering. Production qualification orchestration remains C#.
+## Concrete changes and requirement scope
 
-Checkpoint10 is pending execution. No iterations are yet claimed verified.
+- R001–R010: selectable rising/falling/any ClockCycles, zero-count validation,
+  cancellation detachment and original overload/default-literal compatibility.
+- R011–R030: borrowed-task joins/selects, deadline races, original exception and
+  result identity, duplicate-subscription accounting and timeout cleanup.
+- R031–R040: managed-clock restart, update timing, single-owner refusal, phase and
+  thread guards, and absence of transitions after cancellation.
+- R041–R050: job identity, cancellation/result contracts and task-local isolation.
+  Invalid initial names now fail before scheduling or consuming an automatic name.
+- R051–R070: event delivery and semaphore/lock/queue ownership. Reproduced a real
+  cancellation-after-grant race; Acquire now returns an unconsumed reservation.
+  Successor and anti-stealing tests cover permits, lock leases and queue slots/items.
+  Priority-comparer faults/reentry roll back capacity; FIFO/LIFO/tied priorities hold.
+- R071–R080: handle identity/cache recovery, constant/vector/phase guards, invalid
+  writes preserving queued deposits, and settled combinational HDL output.
+- R081–R090: thread-checked clock inspection, factory validation and callback
+  lifecycle. Reproduced null-factory NREs/null timeout acceptance and acceptance of
+  undefined time policies/foreign-thread Step conversion; guards now reject them.
+- R091–R100: cleanup LIFO, continued cleanup after cancellation/failure, exception
+  identity, asynchronous disposal, shared/reentrant completion and thread ownership.
 
+The C# contracts-ci command binds exact numbered selections and effective seeds to
+full discovery and producer-input attestation. Its integration-regressions mode runs
+eight existing fairness, teardown, task, cancellation and external-trigger cases.
+Production helper orchestration remains C#; independent Python oracles/RPC tests and
+pinned narrow native adapters remain intentional. Existing evidence schemas/pins
+and Integration discovery ordering are preserved. The standalone fixture includes
+clock, vector, constant, memory and combinational Verilog constructs. An unused
+memory declaration initially disappeared from Icarus discovery; fixture initialization
+corrected the test setup. That was not reported as a production defect.
 
-Checkpoint10: locked Release build/all3managed passed both OSes. All10 actual Icarus simulator contracts passed bothrunnersbothOS with exact discovery-derived identity/seed binding. Evidence requirements100-checkpoint10-parity.json. No new coverage/nativeAOT claim; no new push.
+The ledger maps selected acceptance behaviors to repository requirement IDs
+STB-001–007,019,040,044 and traversal013 as applicable. This does not close those
+entire GitHub issues. Additional pinned-source decisions cover 25 awaitable/task
+definitions: 138/302 definitions reviewed, 164 unreviewed. Abrupt Task.kill remains
+an explicit gap; cooperative cancellation and other documented .NET differences
+remain. Review counts are not a parity percentage; aliases/dynamic exports are
+outside the inventory. No remote issue or PR state was changed.
 
+## Validation and independent review
 
-Checkpoint20: locked Release build/all3managed passed both OSes. All20 actual Icarus simulator contracts passed bothrunnersbothOS with exact discovery-derived identity/seed binding. Evidence requirements100-checkpoint20-parity.json. No new coverage/nativeAOT claim; no new push.
+Locked Release builds and all three managed suites passed at every ten-unit
+checkpoint. Full local validation and commits occurred at 50 and 100; the reproduced
+semaphore fix also received an extra full retained run at 60. Linux full gates used
+make test. Final fresh totals:
 
+| Local platform | Managed suites and retained contracts | Separate actual simulator evidence |
+|---|---|---|
+| Windows x64 | 2,677 passed, 15 Unix skips | 100 new contracts + 8 existing integration regressions, both Icarus runners |
+| Linux x64 | 2,692 passed, no skips | Same paired Icarus sets; 100/100 Verilator contracts, no skips |
 
-Checkpoint30: locked Release build/all3managed passed both OSes. All30 actual Icarus simulator contracts passed bothrunnersbothOS with exact discovery-derived identity/seed binding. Evidence requirements100-checkpoint30-parity.json. No new coverage/nativeAOT claim; no new push.
+Managed totals are 495 core, 17 generator, 1,229 helper tests, plus 951 retained
+contracts. The 100 new simulator contracts are separate from those totals. Each
+contract has an explicit state/timing/ownership/error assertion; cross-runner status,
+identity and full-discovery-derived seeds must also match. Raw traces are not
+compared for the100 requirement contracts. Fresh C# doctors and pinned-source audits passed on both systems.
 
+Reviews occurred at 15, 30, 45, 60, 75, 90, with an additional midpoint review. Findings
+resolved an ambiguous default-literal overload, strengthened duplicate detach counts
+and replaced a final-level-only clock assertion with a no-transition window. The
+60 review suggested direct successor handoff coverage, supplied in R061. Independent
+final deep source/test reviews found no actionable defects. Final executed-evidence
+and documentation review was completed before the final commit; see the review
+ledger for findings and resolutions. Review fixes/reruns are not new iterations.
 
-Checkpoint40: locked Release build/all3managed passed both OSes. All40 actual Icarus simulator contracts passed bothrunnersbothOS with exact discovery-derived identity/seed binding. Evidence requirements100-checkpoint40-parity.json. No new coverage/nativeAOT claim; no new push.
+## Fresh coverage and publication evidence
 
+Merged managed coverage includes all four production assemblies: SharpTestBench,
+SharpTestBench.Generators, SharpTestBench.Tools and SharpTestBench.Runner.
 
-Checkpoint50: locked Release build/all3managed passed both OSes. All50 actual Icarus simulator contracts passed bothrunnersbothOS with exact discovery-derived identity/seed binding. Evidence requirements100-checkpoint50-parity.json. No new coverage/nativeAOT claim; no new push.
+| Platform | Covered lines | Covered branches |
+|---|---|---|
+| Windows | 6,516/10,252 (63.55833%) | 3,490/6,916 (50.46270%) |
+| Linux | 6,517/10,252 (63.56808%) | 3,511/6,916 (50.76634%) |
 
+Generated code contributes to these denominators. All recorded physical sources
+and generated HTML pages were checked; exact inventories and production CLI scope
+are in checkpoint100-validation.json. The separate production Runner collection
+and selected CLI entry-point/preflight/failure collection are present; the latter
+retains production-disabled JSON reflection. This is not complete CLI success-path
+or runtime-switch coverage. The new simulator-only contracts are not instrumented
+by this managed collection. Their behavioral coverage does not imply an increase
+in the managed percentage, NativeAOT instruction coverage or HDL coverage.
 
-## Verified local milestone 50
+Fresh self-contained ReadyToRun Tools publications on Windows x64 and Linux x64
+executed all 100 paired Icarus contracts and reporting/arbiter/frame/drop regressions.
+Images were inspected for ReadyToRun and bundled CLR/JIT fallback. Linux x64
+standalone NativeAOT Runner executed all 100 contracts with exact names/seeds and
+compiled artifact attestation, plus arbiter/frame/drop cases checked by independent
+oracles. Simulator test assemblies still use a separate CoreCLR/hostfxr process.
+No Windows Runner NativeAOT or six-platform execution is claimed. Clock tests here
+primarily select Managed; native-clock cleanup and every backend schedule remain
+outside this campaign's claims.
 
-Fifty distinct simulator behavior contracts are implemented and verified, rather
-than fifty parameter rows or claimed independent features. They close selected
-cycle-wait, borrowed-task/deadline, managed-clock lifecycle and task-local boundaries.
-ClockCycles now supports falling/all-change edges through a required fourth argument,
-preserving the original cancellation overload. Zero-count waits enforce signal and
-simulator-thread ownership. StartSoon rejects blank initial names before creating
-or enqueueing jobs; the four real worker/OS pre-fix failures are retained in the
-reproduction JSON. Other 49 contracts passed in that pre-fix probe.
+Fresh read-only GitHub inspection verified all 12 workflows disabled_manually and
+PR62 open/draft/unmerged at0318a864d9b570f9ffbc4857e7365ec9ed6a4736. No hosted job
+was dispatched, PR modified or new campaign commit pushed.
 
-Scheduled reviews15/30/45 resolved a default-literal overload ambiguity, insufficient
-duplicate-subscription instrumentation and a final-level-only clock check. Actual
-reruns prove two registrations/two detachments and no transition throughout the
-post-cancellation window. The extra50source review found no actionable defect.
-These corrections/reruns are not counted as additional engineering units.
-
-Fresh Release locked restore/all3managed and951retained passed: Windows2,675passed
-plus15Unixskips; Linux2,690passed(493core/17generator/1,229helper/951retained).
-Linux full validation used make test. Separately, all50newcases passed both Icarus
-runners on bothOS with exact discovery-derived identities/statuses/seeds; Linux
-Verilator executed all50passed/0failed/0skipped. These include real native callbacks,
-but clock contracts31..40 explicitly select managed clock generation. There is no
-raw trace comparison or native-clock implementation coverage claim for these cases.
-Both C# doctors and pinned source audits passed. API decisions now cover138/302
-inventoried definitions,164unreviewed; this is review work, not a parity percentage.
-Abrupt Task.kill remains an explicit gap; C# cancellation/return/introspection
-semantics remain intentional differences. Aliases/dynamic exports are outside the
-inventory. No fresh coverage percentage or NativeAOT publication is claimed at50.
-
-All50are verified locally;50remain. Final100deepreview and full final evidence are
-still required. The earlier200campaign alone was pushed at the user's request;
-this new milestone remains local, with CI and PR62unchanged.
+Evidence: [iteration ledger](requirements100-iterations.jsonl),
+[reviews](requirements100-reviews.jsonl), [independent deep review](requirements100-deep-review.md),
+[pre-fix failures](requirements100-reproductions.json),
+[final validation](requirements100-checkpoint100-validation.json),
+[final paired results](requirements100-checkpoint100-parity.json). Coverage HTML is
+retained in this task's outputs/requirements100/checkpoint100/coverage-windows and
+coverage-linux directories. Historical requirements200 evidence remains historical.
