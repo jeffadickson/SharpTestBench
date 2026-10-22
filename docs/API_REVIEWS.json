@@ -21,7 +21,8 @@
     "cocotb.handle": "14298d307ec7dd2b0f325e04b001118e8d6ec389a0d37bcce2022ae5ae65abec",
     "cocotb.logging": "70cc51803cc5a283071d7951ee1b068b7243ca0ef5228b1355f18ee26cdc5c8f",
     "cocotb.simtime": "a8a03695632d8005189e315ed25f60fe9af1a468b9a411919553248b73a501e9",
-    "cocotb.utils": "1f77165d69cf46172600934a75465872aae1d2c0190a947995e7536670f5dd6c"
+    "cocotb.utils": "1f77165d69cf46172600934a75465872aae1d2c0190a947995e7536670f5dd6c",
+    "cocotb._bridge": "4a01c725f98ab6560dcde44781d94c98ebb6d660d6ff102c9df0bb6b4eae64e3"
   },
   "reviews": [
     {
@@ -3437,6 +3438,84 @@
         {
           "path": "src/SharpTestBench/Runtime.cs",
           "contains": "public ulong Steps(decimal value"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._bridge",
+      "definition": "resume",
+      "source_line": 34,
+      "classification": "gap",
+      "reason": "resume wraps a coroutine into a blocking function and queues it back from a bridge-created thread. C# has no deterministic simulator wakeup bridge; simulator-thread guards are not an equivalent blocking resume API.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Capabilities.cs",
+          "contains": "External work has no deterministic native simulator wakeup bridge."
+        }
+      ]
+    },
+    {
+      "module": "cocotb._bridge",
+      "definition": "bridge",
+      "source_line": 72,
+      "classification": "gap",
+      "reason": "bridge wraps blocking work in an awaitable executor and requires bridge threads to finish or suspend before returning to simulation. External thread wakeup is explicitly unsupported in C#; ordinary CLR tasks do not establish this scheduling contract.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Capabilities.cs",
+          "contains": "External work has no deterministic native simulator wakeup bridge."
+        }
+      ]
+    },
+    {
+      "module": "cocotb._bridge",
+      "definition": "external_state",
+      "source_line": 112,
+      "classification": "gap",
+      "reason": "external_state describes INIT/RUNNING/PAUSED/EXITED transitions for blocking bridge threads. C# job states describe simulator-owned async jobs, not these external thread transitions; the bridge gap remains.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Capabilities.cs",
+          "contains": "External work has no deterministic native simulator wakeup bridge."
+        }
+      ]
+    },
+    {
+      "module": "cocotb._bridge",
+      "definition": "external_waiter",
+      "source_line": 119,
+      "classification": "gap",
+      "reason": "external_waiter owns a Python thread, event, condition variable and outcome, coordinating suspension before simulation resumes. C# has no corresponding external-thread bridge waiter; simulator tasks must not be treated as an equivalent.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Capabilities.cs",
+          "contains": "External work has no deterministic native simulator wakeup bridge."
+        }
+      ]
+    },
+    {
+      "module": "cocotb._bridge",
+      "definition": "external_waiter.result",
+      "source_line": 129,
+      "classification": "gap",
+      "reason": "external_waiter.result refuses access before the external outcome exists and unwraps success or failure afterwards. No external bridge waiter exists in C#; typed simulator-job results do not close this external-thread contract.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Capabilities.cs",
+          "contains": "External work has no deterministic native simulator wakeup bridge."
+        }
+      ]
+    },
+    {
+      "module": "cocotb._bridge",
+      "definition": "external_waiter.thread_done",
+      "source_line": 143,
+      "classification": "gap",
+      "reason": "external_waiter.thread_done propagates EXITED and notifies the external waiter condition. C# has no deterministic external thread completion-to-simulator wakeup contract.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Capabilities.cs",
+          "contains": "External work has no deterministic native simulator wakeup bridge."
         }
       ]
     }

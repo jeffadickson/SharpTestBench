@@ -198,3 +198,12 @@ and [final validation](conformance200-checkpoint200-full-validation.json) record
 These are200engineering units, not200features. New commits remain local.
 Read the explicit Icarus100 and Verilator95/5 portability/coverage limits.
 CI is disabled and PR62 is untouched.
+
+
+## Scope200 follow-up — local milestone50
+
+Prior work through f203e00 was normally pushed on explicit request. The new
+[scope200 report](scope200-report.md), [ledger](scope200-iterations.jsonl),
+[reviews](scope200-reviews.jsonl) and [full50 evidence](scope200-checkpoint50-full-validation.json)
+record 50/200 verified engineering units. New work remains local; CI disabled,
+PR62 untouched, final deep review still due before the final commit.

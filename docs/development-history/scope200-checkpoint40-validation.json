@@ -1,0 +1,42 @@
+{
+  "windows": {
+    "managed": [
+      [
+        "SharpTestBench.Tests",
+        "607",
+        "0"
+      ],
+      [
+        "SharpTestBench.Generators.Tests",
+        "17",
+        "0"
+      ],
+      [
+        "SharpTestBench.Tools.Tests",
+        "1234",
+        "12"
+      ]
+    ],
+    "logSha256": "c0890553bde0433ce70d77515ff79bc7bb9a6e5e710b7c15b39233a04eb9c542"
+  },
+  "linux": {
+    "managed": [
+      [
+        "SharpTestBench.Tests",
+        "607",
+        "0"
+      ],
+      [
+        "SharpTestBench.Generators.Tests",
+        "17",
+        "0"
+      ],
+      [
+        "SharpTestBench.Tools.Tests",
+        "1234",
+        "0"
+      ]
+    ],
+    "logSha256": "7b2588b21b0f1446d72f3dc15166463b039b0bc3d4aaf5df07b21713a0812431"
+  }
+}

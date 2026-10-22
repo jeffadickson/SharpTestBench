@@ -17,7 +17,7 @@ public sealed record CoverageSnapshot(CoveragePointSnapshot[] Points)
 
 /// <summary>Explicit functional coverage, with typed samples and caller-defined bins.
 /// It measures observed scenarios, not managed or HDL code coverage.</summary>
-public sealed class FunctionalCoverage
+public sealed partial class FunctionalCoverage
 {
     readonly int owner = Environment.CurrentManagedThreadId;
     readonly Dictionary<string, (Func<CoveragePointSnapshot> Snapshot, Action CheckReset, Action Reset, Func<CoveragePointSnapshot, Action> PrepareMerge)> points = new(StringComparer.Ordinal);

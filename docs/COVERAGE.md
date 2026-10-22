@@ -89,6 +89,27 @@ axis names: `4:zero3:one` represents (`zero`,`one`). Names are not joined with a
 ambiguous delimiter. Snapshot fields and functional export SchemaVersion1 are
 unchanged: cells are ordinary bins. Reset, atomic sample rollback and transactional
 additive merges apply. Merge checks identities/goals, not classifier equivalence;
-callers retain equivalent predicates and run/seed provenance. This is bounded
-explicit two-axis crossing, not inferred multidimensional HDL metadata or arbitrary
-automatic higher-order crossing. It does not measure HDL/code coverage.
+callers retain equivalent predicates and run/seed provenance. This overload explicitly crosses two separately typed values. It does not infer
+HDL metadata or measure HDL/code coverage.
+
+
+## Shared-sample N-dimensional crosses
+
+`coverage.AddCross(name, axes, goal: 1, maximumBins: 4096, excluded: coordinates)`
+accepts `CoverageBin<T>[][]`: one to 32 axes classify the same explicitly supplied
+sample `T`. Use a record or tuple when classifiers need different fields. The
+full Cartesian product must fit the positive bin budget before exclusions are
+applied. The last axis varies fastest; construction iterates without recursion.
+
+Each excluded coordinate is a string array containing exactly one existing bin
+name per axis. Duplicate coordinates, unknown names and excluding every cell
+reject construction without reserving the point name. Axis and exclusion arrays
+are copied; classifiers must stay pure and may run repeatedly. Entirely excluded
+planes invoke no classifiers. Names use the same invariant UTF-16 length-prefix
+encoding in axis order; a two-axis cross can merge a legacy tuple-cross snapshot
+when cell names/goals and caller-maintained predicate semantics agree.
+
+Cells retain ordinary SchemaVersion1 bin counters, atomic sampling/reset/merge,
+and bin-weighted percentages. This is explicitly bounded shared-sample crossing;
+it does not discover HDL dimensions, establish predicate equivalence, or measure
+HDL/code coverage. Managed acceptance tests are in `ScopeCross*.cs`.
