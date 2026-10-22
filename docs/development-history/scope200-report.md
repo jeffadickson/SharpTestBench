@@ -43,3 +43,32 @@ closure70,integration8,conformance100 with exact identities/effective seeds on b
 Pinned source reviews verify 273/302 declarations; audit counts are not parity percentages.
 
 This milestone remains local. Final deep review/final200 validation and final commit remain due.
+
+
+## Verified milestone 150 of 200
+
+Locked Release/all three managed suites passed every10. Full150 gates passed
+Windows2,804 tests/15 Unix skips and Linux2,819/no skips, including951 retained
+contracts (make test in Linux). Both Icarus runners passed retained requirements100,
+closure70,integration8,conformance100 with exact identities/effective seeds on bothOS.
+Pinned source reviews verify 302/302 declarations; audit counts are not parity percentages.
+
+New scope fixture selected21 contracts on bothOS/bothIcarus runners:
+18 passed and 3 declared backend exclusions (not required CI cases). Native evidence is separate
+from managed/retained totals. Verilator string/capability probe passed9/skipped12
+at150; this is a single simulator run, not paired-runner Verilator qualification.
+
+This milestone remains local. Final deep review/final200 validation and final commit remain due.
+
+
+Milestone150 correction: the first native gate exposed unavailable Icarus string
+handles, then the strict required-manifest no-skips boundary. String/refusal
+contracts now declare Verilator requirements. SelectForIcarus validates the full
+identity/seed/domain and simulator metadata before selecting eligible cases;
+required Runner/Parity attestation still rejects skips. Six additional corrective
+xUnit facts cover metadata, seeds, empty selection and domain failures. These are
+additional tests within the batch correction, not six manufactured ledger units:
+the numbered plan remains44 managed units,85 audit decisions and71 native units.
+Actual new managed fact count is50. Refusal diagnostics distinguish kind from
+capability failures. Full150 reruns passed after the correction. Preserved failed
+attempt logs document the discovery and required-skip failures.

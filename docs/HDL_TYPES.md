@@ -95,3 +95,22 @@ GHDL's five skipped tests have simulator requirements recorded in JSON/JUnit.
 `HdlObject.Direction` and `RequireDirection` expose checked simulator metadata.
 Roslyn manifests can require a direction; runtime `Bindings.Generate` does not
 automatically add those guards. See [port directions](PORT_DIRECTIONS.md).
+
+
+## Capture and freeze a committed value
+
+`hdlObject.Freeze()` captures the currently committed native value and applies
+force. Logic, packed, integer/enum encodings use complete binary readback with
+width validation; real objects use the native real value. This operation checks
+the simulator thread, writable phase, supported object kind, constness and
+ForceRelease capability before reading the value. Strings, containers and
+constants are rejected. Current force policy enables Icarus; it rejects
+unsupported or unverified backend force behavior.
+
+Queued deposits are not the captured value. They remain queued and may execute
+while the object is forced. Release explicitly with `obj.Signal().Release()` or
+`obj.Real().Write(0, WriteAction.Release)` in a `finally` block; normal backend
+release semantics then apply. This is a bounded C# operation, not the complete
+Python generic Freeze action-dispatch/value surface. ScopeContracts supplies
+actual backend acceptance and refusal tests; managed coverage does not measure
+these simulator-only paths.

@@ -30,7 +30,10 @@
     "cocotb._task_manager": "2b5b2967f0992c1edbeafeab69c537dc076d6b4713b971f54031e577866896c5",
     "cocotb._test_factory": "3e1fad5d538f569d075d16df673e077f46d3727c89b4804d92687af5d3d7d04a",
     "cocotb._test_manager": "8e1d1537f9a14914bf1ce0e7d9b6be5de52cfa4a4fb43b6b326d35f2ff2a31f4",
-    "cocotb._utils": "97c6620a7a5a87b2dfc73439dfacdf824e001b576f6f8ab424e1760fdd2c7701"
+    "cocotb._utils": "97c6620a7a5a87b2dfc73439dfacdf824e001b576f6f8ab424e1760fdd2c7701",
+    "cocotb.preview": "c81f8cd051d21c2b7afba51f55592fff7af050b17a8fcac3675ce3f39a3149e2",
+    "cocotb.regression": "fa7cb4460b4457764c92e86049653cabc72973708b33c0cae357866615146fb0",
+    "cocotb.types._indexing": "7be4dbe215c5cfaa119a50e17ebc6fb24e85d5a099f838c028c94417415670f8"
   },
   "reviews": [
     {
@@ -2869,11 +2872,11 @@
       "definition": "Freeze",
       "source_line": 688,
       "classification": "gap",
-      "reason": "Upstream Freeze captures an object current value and forces it through generic action dispatch. C# exposes force/release but no generic Freeze action or equivalent operation. A manually composed read-then-force is not implementation evidence for this API.",
+      "reason": "C# HdlObject.Freeze now captures committed native logic/packed/integer/enum binary values or real values and forces them after phase/thread/kind/constant/capability checks. This bounded operation does not implement the generic upstream action-dispatch object, string/container behavior or complete integer-domain parity; the broad API remains a gap.",
       "evidence": [
         {
-          "path": "src/SharpTestBench/Runtime.cs",
-          "contains": "public enum WriteAction"
+          "path": "src/SharpTestBench/HdlFreeze.cs",
+          "contains": "public void Freeze()"
         }
       ]
     },
@@ -4395,6 +4398,383 @@
         {
           "path": "src/SharpTestBench/Runtime.cs",
           "contains": "public enum TimeUnit"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._utils",
+      "definition": "DocIntEnum",
+      "source_line": 167,
+      "classification": "internal-adapter",
+      "reason": "Python DocIntEnum customizes enum construction and runtime per-member documentation. Declared CLR integer enums use language metadata and XML documentation without reproducing Python allocation/docstring machinery.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/ClockEdge.cs",
+          "contains": "public enum ClockEdge"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._utils",
+      "definition": "DocStrEnum",
+      "source_line": 178,
+      "classification": "internal-adapter",
+      "reason": "Python DocStrEnum customizes string-enum member construction and documentation. CLR log-level enums are not Python string-enum equivalents; no runtime construction contract is claimed.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/SimulationLog.cs",
+          "contains": "public enum SimLogLevel"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._utils",
+      "definition": "singleton",
+      "source_line": 192,
+      "classification": "internal-adapter",
+      "reason": "Python singleton decorates arbitrary classes by changing allocation/initialization. C# enforces a single active simulation runtime as a narrower internal invariant, not a generic singleton decorator.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Runtime.cs",
+          "contains": "public SimRuntime("
+        }
+      ]
+    },
+    {
+      "module": "cocotb._utils",
+      "definition": "pointer_str",
+      "source_line": 217,
+      "classification": "internal-adapter",
+      "reason": "pointer_str formats Python object addresses for diagnostics. C# logs job IDs/names without a promise of object-address identity or Python hexadecimal formatting.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/SimulationLog.cs",
+          "contains": "TaskId = job?.Task.Id"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._utils",
+      "definition": "safe_divide",
+      "source_line": 227,
+      "classification": "internal-adapter",
+      "reason": "safe_divide is an internal report-ratio helper, returning positive infinity for any nonzero numerator over zero. C# stores elapsed seconds and simulation steps without exporting this arithmetic API or claiming identical IEEE zero behavior.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Regression.cs",
+          "contains": "public sealed record TestResult"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.logging",
+      "definition": "default_config",
+      "source_line": 54,
+      "classification": "intentional-difference",
+      "reason": "Python default_config installs root logging handlers, warning capture and configurable formatters. C# initializes optional structured JSON and writes console diagnostics through a different configuration surface.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/SimulationLog.cs",
+          "contains": "internal static void Initialize()"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.logging",
+      "definition": "SimTimeContextFilter.filter",
+      "source_line": 235,
+      "classification": "intentional-difference",
+      "reason": "Python filter mutates LogRecord with created_sim_time or None outside simulation. C# writes simulator steps directly into structured entries and requires simulator-thread access.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/SimulationLog.cs",
+          "contains": "SchemaVersion = 1, Kind = kind, TimeStep = runtime.Now"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.logging",
+      "definition": "SimLogFormatter.strip_ansi",
+      "source_line": 352,
+      "classification": "intentional-difference",
+      "reason": "Python strip_ansi resolves global/per-formatter ANSI policy. C# structured logging does not expose that mutable presentation policy or formatter property.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/SimulationLog.cs",
+          "contains": "Level = level.ToString(), Message = Limit(message)"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.logging",
+      "definition": "SimLogFormatter.ljust",
+      "source_line": 357,
+      "classification": "internal-adapter",
+      "reason": "Python ljust performs ANSI-aware diagnostic padding. C# logging has its own structured presentation and no corresponding public padding helper; CLR PadRight alone would not establish equivalence.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/SimulationLog.cs",
+          "contains": "Level = level.ToString(), Message = Limit(message)"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.logging",
+      "definition": "SimLogFormatter.rjust",
+      "source_line": 361,
+      "classification": "internal-adapter",
+      "reason": "Python rjust performs ANSI-aware diagnostic padding. C# exposes no corresponding formatter method; structured log fields have no column-padding contract.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/SimulationLog.cs",
+          "contains": "Level = level.ToString(), Message = Limit(message)"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.logging",
+      "definition": "SimLogFormatter.formatExcInfo",
+      "source_line": 364,
+      "classification": "intentional-difference",
+      "reason": "Python formatExcInfo caches traceback text and combines exception/stack info. C# records bounded exception type/message/detail; it does not reproduce Python traceback caching or stack_info composition.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/SimulationLog.cs",
+          "contains": "ExceptionMessage = Limit(error?.Message), ExceptionDetail = Limit(error?.ToString())"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.logging",
+      "definition": "SimLogFormatter.format",
+      "source_line": 381,
+      "classification": "intentional-difference",
+      "reason": "Python format renders configurable prefixes, ANSI restoration and multiline indentation. C# emits JSON fields with bounded diagnostics, a different presentation contract.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/SimulationLog.cs",
+          "contains": "SchemaVersion = 1, Kind = kind, TimeStep = runtime.Now"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.preview",
+      "definition": "Feature",
+      "source_line": 15,
+      "classification": "gap",
+      "reason": "Python Feature enumerates XFAIL_IN_RESULTS and STRICT_RESOLVE preview semantics. C# has no equivalent preview registry; optimization switches address different behavior.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/PerformanceOptions.cs",
+          "contains": "internal static class PerformanceOptions"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.preview",
+      "definition": "enable",
+      "source_line": 33,
+      "classification": "gap",
+      "reason": "Python enable mutates enabled preview-feature state. C# process-start optimization environment switches are unrelated and do not enable these preview semantics.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/PerformanceOptions.cs",
+          "contains": "internal static class PerformanceOptions"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.preview",
+      "definition": "disable",
+      "source_line": 44,
+      "classification": "gap",
+      "reason": "Python disable removes a feature from the mutable preview registry. C# has no equivalent registry-disable operation.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/PerformanceOptions.cs",
+          "contains": "internal static class PerformanceOptions"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.preview",
+      "definition": "is_enabled",
+      "source_line": 55,
+      "classification": "gap",
+      "reason": "Python is_enabled queries preview registry membership. Fixed strict value conversions and performance options are not equivalent state queries.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/PerformanceOptions.cs",
+          "contains": "internal static class PerformanceOptions"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.regression",
+      "definition": "SimFailure",
+      "source_line": 110,
+      "classification": "gap",
+      "reason": "Python SimFailure is a dedicated unexpected-simulator-failure exception usable by expected-error policy. C# can publish failed termination diagnostics but lacks that expected simulator-failure exception contract.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Regression.cs",
+          "contains": "attr.ExpectedException"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.regression",
+      "definition": "RegressionTerminated",
+      "source_line": 119,
+      "classification": "gap",
+      "reason": "Python RegressionTerminated controls failure-count termination. C# stop-after-stage is a distinct stage boundary policy and does not provide this exception/control contract.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Regression.cs",
+          "contains": "\"stop-after-stage\""
+        }
+      ]
+    },
+    {
+      "module": "cocotb.regression",
+      "definition": "RegressionMode",
+      "source_line": 142,
+      "classification": "gap",
+      "reason": "Python RegressionMode includes TESTCASE behavior that overrides skip flags. C# exact test selection still honors SimTest.Skip and has no equivalent mode.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Regression.cs",
+          "contains": "if (attr.Skip || unavailable || stoppedStage)"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.regression",
+      "definition": "RegressionManager",
+      "source_line": 181,
+      "classification": "internal-adapter",
+      "reason": "Python RegressionManager is a configurable builder/manager object. C# static Regression/native entry orchestration replaces internal lifecycle plumbing, while separately reviewed builder/filter/mode gaps remain open.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Regression.cs",
+          "contains": "public static class Regression"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.regression",
+      "definition": "RegressionManager.discover_tests",
+      "source_line": 246,
+      "classification": "intentional-difference",
+      "reason": "Python discover_tests imports modules, inspects variables and expands generators. C# discovers public static attributed methods and explicit SimCase rows through assembly reflection.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Regression.cs",
+          "contains": "method.GetCustomAttributes<SimCaseAttribute>()"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.regression",
+      "definition": "RegressionManager.add_filters",
+      "source_line": 284,
+      "classification": "gap",
+      "reason": "Python add_filters accumulates ORed regular-expression searches against full names. C# short-name ordinal substring filtering and exact-name selection do not implement that regex accumulation contract.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Regression.cs",
+          "contains": "StringComparison.Ordinal"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.regression",
+      "definition": "RegressionManager.set_mode",
+      "source_line": 300,
+      "classification": "gap",
+      "reason": "Python set_mode selects regression versus testcase skip behavior on a builder. C# has no such mode-setting API and selected skipped tests remain skipped.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Regression.cs",
+          "contains": "if (attr.Skip || unavailable || stoppedStage)"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.regression",
+      "definition": "RegressionManager.register_test",
+      "source_line": 311,
+      "classification": "gap",
+      "reason": "Python register_test imperatively appends Test objects to a manager queue. C# assembly/attribute discovery does not expose a public registration queue.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Regression.cs",
+          "contains": "public static int Initialize(Assembly assembly)"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.regression",
+      "definition": "RegressionManager.setup_pytest_assertion_rewriting",
+      "source_line": 323,
+      "classification": "intentional-difference",
+      "reason": "Python installs a pytest import hook for assertion rewriting. Compiled C# tests throw and report managed exceptions without Python import-time expression rewriting.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Regression.cs",
+          "contains": "attr.ExpectedException"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.regression",
+      "definition": "RegressionManager.start_regression",
+      "source_line": 344,
+      "classification": "intentional-difference",
+      "reason": "Python start_regression starts a configured manager queue with its ordering/filter behavior. C# native initialization automatically schedules regression execution; stage sorting alone does not qualify Python ordering semantics.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Regression.cs",
+          "contains": "public static int Initialize(Assembly assembly)"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.regression",
+      "definition": "RegressionManager.list_tests",
+      "source_line": 1130,
+      "classification": "intentional-difference",
+      "reason": "Python list_tests prints queued full names. C# list-only discovery publishes structured descriptors with effective seeds and selection metadata, rather than only printing the Python queue.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Regression.cs",
+          "contains": "public sealed record TestDescriptor("
+        }
+      ]
+    },
+    {
+      "module": "cocotb.types._indexing",
+      "definition": "indexing_changed",
+      "source_line": 12,
+      "classification": "internal-adapter",
+      "reason": "Python indexing_changed supports migration-warning detection for historical cocotb indexing changes; callers emit the warnings. C# explicit HdlRange and index/offset conversion avoid that migration helper; no warning equivalence is claimed.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Values.cs",
+          "contains": "public readonly record struct HdlRange"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.types._indexing",
+      "definition": "IndexingChangedWarning",
+      "source_line": 16,
+      "classification": "intentional-difference",
+      "reason": "Python IndexingChangedWarning is a historical migration warning category. C# has no Python warning category or cocotb1.x migration surface and uses explicit HDL range semantics.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Values.cs",
+          "contains": "public readonly record struct HdlRange"
         }
       ]
     }

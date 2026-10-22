@@ -1,0 +1,568 @@
+{
+  "windows": {
+    "report": {
+      "schemaVersion": 1,
+      "legacy": [
+        [
+          "Entry.R001_FreezeScalarHoldsUntilRelease",
+          "passed"
+        ],
+        [
+          "Entry.R002_FreezeBytePreservesAllBits",
+          "passed"
+        ],
+        [
+          "Entry.R003_FreezeWideDoesNotTruncateHighWord",
+          "passed"
+        ],
+        [
+          "Entry.R004_FreezeSignedIntegerUsesFullBinaryPattern",
+          "passed"
+        ],
+        [
+          "Entry.R005_FreezeEnumPreservesNativeEncodedValue",
+          "passed"
+        ],
+        [
+          "Entry.R006_FreezeRealRetainsFractionAndSign",
+          "passed"
+        ],
+        [
+          "Entry.R007_FreezeCapturesCommittedValueBeforeQueuedDeposit",
+          "passed"
+        ],
+        [
+          "Entry.R008_RepeatedFreezeRetainsExistingForcedValue",
+          "passed"
+        ],
+        [
+          "Entry.R009_FreezePreservesUnknownLogic",
+          "passed"
+        ],
+        [
+          "Entry.R010_FreezePreservesHighImpedance",
+          "passed"
+        ],
+        [
+          "Entry.R011_ReleaseRestoresContinuousDriver",
+          "passed"
+        ],
+        [
+          "Entry.R012_ReadOnlyFreezeRejectsWithoutCallbacksOrMutation",
+          "passed"
+        ],
+        [
+          "Entry.R013_ForeignThreadFreezeCannotReachNativeAccess",
+          "passed"
+        ],
+        [
+          "Entry.R014_ModuleFreezeRejectsBeforeIllegalValueRead",
+          "passed"
+        ],
+        [
+          "Entry.R015_UnpackedMemoryFreezeIsExplicitlyUnsupported",
+          "passed"
+        ],
+        [
+          "Entry.R017_ConstantFreezeRejectsWithoutChangingConstant",
+          "passed"
+        ],
+        [
+          "Entry.R020_ReadOnlyGuardPrecedesUnsupportedContainerKind",
+          "passed"
+        ],
+        [
+          "Entry.R021_FreezeWideMixedFourStatePattern",
+          "passed"
+        ]
+      ],
+      "native": [
+        [
+          "Entry.R001_FreezeScalarHoldsUntilRelease",
+          "passed"
+        ],
+        [
+          "Entry.R002_FreezeBytePreservesAllBits",
+          "passed"
+        ],
+        [
+          "Entry.R003_FreezeWideDoesNotTruncateHighWord",
+          "passed"
+        ],
+        [
+          "Entry.R004_FreezeSignedIntegerUsesFullBinaryPattern",
+          "passed"
+        ],
+        [
+          "Entry.R005_FreezeEnumPreservesNativeEncodedValue",
+          "passed"
+        ],
+        [
+          "Entry.R006_FreezeRealRetainsFractionAndSign",
+          "passed"
+        ],
+        [
+          "Entry.R007_FreezeCapturesCommittedValueBeforeQueuedDeposit",
+          "passed"
+        ],
+        [
+          "Entry.R008_RepeatedFreezeRetainsExistingForcedValue",
+          "passed"
+        ],
+        [
+          "Entry.R009_FreezePreservesUnknownLogic",
+          "passed"
+        ],
+        [
+          "Entry.R010_FreezePreservesHighImpedance",
+          "passed"
+        ],
+        [
+          "Entry.R011_ReleaseRestoresContinuousDriver",
+          "passed"
+        ],
+        [
+          "Entry.R012_ReadOnlyFreezeRejectsWithoutCallbacksOrMutation",
+          "passed"
+        ],
+        [
+          "Entry.R013_ForeignThreadFreezeCannotReachNativeAccess",
+          "passed"
+        ],
+        [
+          "Entry.R014_ModuleFreezeRejectsBeforeIllegalValueRead",
+          "passed"
+        ],
+        [
+          "Entry.R015_UnpackedMemoryFreezeIsExplicitlyUnsupported",
+          "passed"
+        ],
+        [
+          "Entry.R017_ConstantFreezeRejectsWithoutChangingConstant",
+          "passed"
+        ],
+        [
+          "Entry.R020_ReadOnlyGuardPrecedesUnsupportedContainerKind",
+          "passed"
+        ],
+        [
+          "Entry.R021_FreezeWideMixedFourStatePattern",
+          "passed"
+        ]
+      ],
+      "expected": [
+        "Entry.R001_FreezeScalarHoldsUntilRelease",
+        "Entry.R002_FreezeBytePreservesAllBits",
+        "Entry.R003_FreezeWideDoesNotTruncateHighWord",
+        "Entry.R004_FreezeSignedIntegerUsesFullBinaryPattern",
+        "Entry.R005_FreezeEnumPreservesNativeEncodedValue",
+        "Entry.R006_FreezeRealRetainsFractionAndSign",
+        "Entry.R007_FreezeCapturesCommittedValueBeforeQueuedDeposit",
+        "Entry.R008_RepeatedFreezeRetainsExistingForcedValue",
+        "Entry.R009_FreezePreservesUnknownLogic",
+        "Entry.R010_FreezePreservesHighImpedance",
+        "Entry.R011_ReleaseRestoresContinuousDriver",
+        "Entry.R012_ReadOnlyFreezeRejectsWithoutCallbacksOrMutation",
+        "Entry.R013_ForeignThreadFreezeCannotReachNativeAccess",
+        "Entry.R014_ModuleFreezeRejectsBeforeIllegalValueRead",
+        "Entry.R015_UnpackedMemoryFreezeIsExplicitlyUnsupported",
+        "Entry.R017_ConstantFreezeRejectsWithoutChangingConstant",
+        "Entry.R020_ReadOnlyGuardPrecedesUnsupportedContainerKind",
+        "Entry.R021_FreezeWideMixedFourStatePattern"
+      ],
+      "missing": {
+        "legacy": [],
+        "native": []
+      },
+      "unexpected": {
+        "legacy": [],
+        "native": []
+      },
+      "seedMismatches": [],
+      "matched": true,
+      "expectedSeedMatched": true,
+      "exitCodes": {
+        "legacy": 0,
+        "native": 0
+      },
+      "contracts": 18,
+      "fixture": "scope-contracts"
+    },
+    "expectedFromSource": [
+      [
+        "Entry.R001_FreezeScalarHoldsUntilRelease",
+        "passed"
+      ],
+      [
+        "Entry.R002_FreezeBytePreservesAllBits",
+        "passed"
+      ],
+      [
+        "Entry.R003_FreezeWideDoesNotTruncateHighWord",
+        "passed"
+      ],
+      [
+        "Entry.R004_FreezeSignedIntegerUsesFullBinaryPattern",
+        "passed"
+      ],
+      [
+        "Entry.R005_FreezeEnumPreservesNativeEncodedValue",
+        "passed"
+      ],
+      [
+        "Entry.R006_FreezeRealRetainsFractionAndSign",
+        "passed"
+      ],
+      [
+        "Entry.R007_FreezeCapturesCommittedValueBeforeQueuedDeposit",
+        "passed"
+      ],
+      [
+        "Entry.R008_RepeatedFreezeRetainsExistingForcedValue",
+        "passed"
+      ],
+      [
+        "Entry.R009_FreezePreservesUnknownLogic",
+        "passed"
+      ],
+      [
+        "Entry.R010_FreezePreservesHighImpedance",
+        "passed"
+      ],
+      [
+        "Entry.R011_ReleaseRestoresContinuousDriver",
+        "passed"
+      ],
+      [
+        "Entry.R012_ReadOnlyFreezeRejectsWithoutCallbacksOrMutation",
+        "passed"
+      ],
+      [
+        "Entry.R013_ForeignThreadFreezeCannotReachNativeAccess",
+        "passed"
+      ],
+      [
+        "Entry.R014_ModuleFreezeRejectsBeforeIllegalValueRead",
+        "passed"
+      ],
+      [
+        "Entry.R015_UnpackedMemoryFreezeIsExplicitlyUnsupported",
+        "passed"
+      ],
+      [
+        "Entry.R016_StringFreezeIsExplicitlyUnsupported",
+        "excluded"
+      ],
+      [
+        "Entry.R017_ConstantFreezeRejectsWithoutChangingConstant",
+        "passed"
+      ],
+      [
+        "Entry.R018_UnsupportedForceBackendPreservesQueuedDeposit",
+        "excluded"
+      ],
+      [
+        "Entry.R019_UnsupportedKindCannotRetractQueuedStringWrite",
+        "excluded"
+      ],
+      [
+        "Entry.R020_ReadOnlyGuardPrecedesUnsupportedContainerKind",
+        "passed"
+      ],
+      [
+        "Entry.R021_FreezeWideMixedFourStatePattern",
+        "passed"
+      ]
+    ],
+    "sourceSha256": {
+      "tests/ScopeContracts/Entry.cs": "f4f038af509d83f33fd5ba9a2e07a073bb2c0ba6113e4e77ff2df20a335ab47a",
+      "tests/ScopeContracts/FreezeContracts.cs": "44947d0cf6eee1aa02f9ec614355e1cdb01fa057fe26da6eb784f12e2c996532",
+      "tests/ScopeContracts/ScopeContracts.csproj": "0f78182710f66e27561128048775792fa17ec35df0cf1677a4559e5cfd446a0b",
+      "tests/ScopeContracts/scope_top.sv": "11c0b38a8e8ba919976a2bbafd989b494f78e25b69bddb8088e5a712da00a6b6"
+    },
+    "logSha256": "0c32993b45ef03ba4c0bdf49f15379ba47bb1879de0e7e79223347b44c27b0b7"
+  },
+  "linux": {
+    "report": {
+      "schemaVersion": 1,
+      "legacy": [
+        [
+          "Entry.R001_FreezeScalarHoldsUntilRelease",
+          "passed"
+        ],
+        [
+          "Entry.R002_FreezeBytePreservesAllBits",
+          "passed"
+        ],
+        [
+          "Entry.R003_FreezeWideDoesNotTruncateHighWord",
+          "passed"
+        ],
+        [
+          "Entry.R004_FreezeSignedIntegerUsesFullBinaryPattern",
+          "passed"
+        ],
+        [
+          "Entry.R005_FreezeEnumPreservesNativeEncodedValue",
+          "passed"
+        ],
+        [
+          "Entry.R006_FreezeRealRetainsFractionAndSign",
+          "passed"
+        ],
+        [
+          "Entry.R007_FreezeCapturesCommittedValueBeforeQueuedDeposit",
+          "passed"
+        ],
+        [
+          "Entry.R008_RepeatedFreezeRetainsExistingForcedValue",
+          "passed"
+        ],
+        [
+          "Entry.R009_FreezePreservesUnknownLogic",
+          "passed"
+        ],
+        [
+          "Entry.R010_FreezePreservesHighImpedance",
+          "passed"
+        ],
+        [
+          "Entry.R011_ReleaseRestoresContinuousDriver",
+          "passed"
+        ],
+        [
+          "Entry.R012_ReadOnlyFreezeRejectsWithoutCallbacksOrMutation",
+          "passed"
+        ],
+        [
+          "Entry.R013_ForeignThreadFreezeCannotReachNativeAccess",
+          "passed"
+        ],
+        [
+          "Entry.R014_ModuleFreezeRejectsBeforeIllegalValueRead",
+          "passed"
+        ],
+        [
+          "Entry.R015_UnpackedMemoryFreezeIsExplicitlyUnsupported",
+          "passed"
+        ],
+        [
+          "Entry.R017_ConstantFreezeRejectsWithoutChangingConstant",
+          "passed"
+        ],
+        [
+          "Entry.R020_ReadOnlyGuardPrecedesUnsupportedContainerKind",
+          "passed"
+        ],
+        [
+          "Entry.R021_FreezeWideMixedFourStatePattern",
+          "passed"
+        ]
+      ],
+      "native": [
+        [
+          "Entry.R001_FreezeScalarHoldsUntilRelease",
+          "passed"
+        ],
+        [
+          "Entry.R002_FreezeBytePreservesAllBits",
+          "passed"
+        ],
+        [
+          "Entry.R003_FreezeWideDoesNotTruncateHighWord",
+          "passed"
+        ],
+        [
+          "Entry.R004_FreezeSignedIntegerUsesFullBinaryPattern",
+          "passed"
+        ],
+        [
+          "Entry.R005_FreezeEnumPreservesNativeEncodedValue",
+          "passed"
+        ],
+        [
+          "Entry.R006_FreezeRealRetainsFractionAndSign",
+          "passed"
+        ],
+        [
+          "Entry.R007_FreezeCapturesCommittedValueBeforeQueuedDeposit",
+          "passed"
+        ],
+        [
+          "Entry.R008_RepeatedFreezeRetainsExistingForcedValue",
+          "passed"
+        ],
+        [
+          "Entry.R009_FreezePreservesUnknownLogic",
+          "passed"
+        ],
+        [
+          "Entry.R010_FreezePreservesHighImpedance",
+          "passed"
+        ],
+        [
+          "Entry.R011_ReleaseRestoresContinuousDriver",
+          "passed"
+        ],
+        [
+          "Entry.R012_ReadOnlyFreezeRejectsWithoutCallbacksOrMutation",
+          "passed"
+        ],
+        [
+          "Entry.R013_ForeignThreadFreezeCannotReachNativeAccess",
+          "passed"
+        ],
+        [
+          "Entry.R014_ModuleFreezeRejectsBeforeIllegalValueRead",
+          "passed"
+        ],
+        [
+          "Entry.R015_UnpackedMemoryFreezeIsExplicitlyUnsupported",
+          "passed"
+        ],
+        [
+          "Entry.R017_ConstantFreezeRejectsWithoutChangingConstant",
+          "passed"
+        ],
+        [
+          "Entry.R020_ReadOnlyGuardPrecedesUnsupportedContainerKind",
+          "passed"
+        ],
+        [
+          "Entry.R021_FreezeWideMixedFourStatePattern",
+          "passed"
+        ]
+      ],
+      "expected": [
+        "Entry.R001_FreezeScalarHoldsUntilRelease",
+        "Entry.R002_FreezeBytePreservesAllBits",
+        "Entry.R003_FreezeWideDoesNotTruncateHighWord",
+        "Entry.R004_FreezeSignedIntegerUsesFullBinaryPattern",
+        "Entry.R005_FreezeEnumPreservesNativeEncodedValue",
+        "Entry.R006_FreezeRealRetainsFractionAndSign",
+        "Entry.R007_FreezeCapturesCommittedValueBeforeQueuedDeposit",
+        "Entry.R008_RepeatedFreezeRetainsExistingForcedValue",
+        "Entry.R009_FreezePreservesUnknownLogic",
+        "Entry.R010_FreezePreservesHighImpedance",
+        "Entry.R011_ReleaseRestoresContinuousDriver",
+        "Entry.R012_ReadOnlyFreezeRejectsWithoutCallbacksOrMutation",
+        "Entry.R013_ForeignThreadFreezeCannotReachNativeAccess",
+        "Entry.R014_ModuleFreezeRejectsBeforeIllegalValueRead",
+        "Entry.R015_UnpackedMemoryFreezeIsExplicitlyUnsupported",
+        "Entry.R017_ConstantFreezeRejectsWithoutChangingConstant",
+        "Entry.R020_ReadOnlyGuardPrecedesUnsupportedContainerKind",
+        "Entry.R021_FreezeWideMixedFourStatePattern"
+      ],
+      "missing": {
+        "legacy": [],
+        "native": []
+      },
+      "unexpected": {
+        "legacy": [],
+        "native": []
+      },
+      "seedMismatches": [],
+      "matched": true,
+      "expectedSeedMatched": true,
+      "exitCodes": {
+        "legacy": 0,
+        "native": 0
+      },
+      "contracts": 18,
+      "fixture": "scope-contracts"
+    },
+    "expectedFromSource": [
+      [
+        "Entry.R001_FreezeScalarHoldsUntilRelease",
+        "passed"
+      ],
+      [
+        "Entry.R002_FreezeBytePreservesAllBits",
+        "passed"
+      ],
+      [
+        "Entry.R003_FreezeWideDoesNotTruncateHighWord",
+        "passed"
+      ],
+      [
+        "Entry.R004_FreezeSignedIntegerUsesFullBinaryPattern",
+        "passed"
+      ],
+      [
+        "Entry.R005_FreezeEnumPreservesNativeEncodedValue",
+        "passed"
+      ],
+      [
+        "Entry.R006_FreezeRealRetainsFractionAndSign",
+        "passed"
+      ],
+      [
+        "Entry.R007_FreezeCapturesCommittedValueBeforeQueuedDeposit",
+        "passed"
+      ],
+      [
+        "Entry.R008_RepeatedFreezeRetainsExistingForcedValue",
+        "passed"
+      ],
+      [
+        "Entry.R009_FreezePreservesUnknownLogic",
+        "passed"
+      ],
+      [
+        "Entry.R010_FreezePreservesHighImpedance",
+        "passed"
+      ],
+      [
+        "Entry.R011_ReleaseRestoresContinuousDriver",
+        "passed"
+      ],
+      [
+        "Entry.R012_ReadOnlyFreezeRejectsWithoutCallbacksOrMutation",
+        "passed"
+      ],
+      [
+        "Entry.R013_ForeignThreadFreezeCannotReachNativeAccess",
+        "passed"
+      ],
+      [
+        "Entry.R014_ModuleFreezeRejectsBeforeIllegalValueRead",
+        "passed"
+      ],
+      [
+        "Entry.R015_UnpackedMemoryFreezeIsExplicitlyUnsupported",
+        "passed"
+      ],
+      [
+        "Entry.R016_StringFreezeIsExplicitlyUnsupported",
+        "excluded"
+      ],
+      [
+        "Entry.R017_ConstantFreezeRejectsWithoutChangingConstant",
+        "passed"
+      ],
+      [
+        "Entry.R018_UnsupportedForceBackendPreservesQueuedDeposit",
+        "excluded"
+      ],
+      [
+        "Entry.R019_UnsupportedKindCannotRetractQueuedStringWrite",
+        "excluded"
+      ],
+      [
+        "Entry.R020_ReadOnlyGuardPrecedesUnsupportedContainerKind",
+        "passed"
+      ],
+      [
+        "Entry.R021_FreezeWideMixedFourStatePattern",
+        "passed"
+      ]
+    ],
+    "sourceSha256": {
+      "tests/ScopeContracts/Entry.cs": "f4f038af509d83f33fd5ba9a2e07a073bb2c0ba6113e4e77ff2df20a335ab47a",
+      "tests/ScopeContracts/ScopeContracts.csproj": "0f78182710f66e27561128048775792fa17ec35df0cf1677a4559e5cfd446a0b",
+      "tests/ScopeContracts/FreezeContracts.cs": "44947d0cf6eee1aa02f9ec614355e1cdb01fa057fe26da6eb784f12e2c996532",
+      "tests/ScopeContracts/scope_top.sv": "11c0b38a8e8ba919976a2bbafd989b494f78e25b69bddb8088e5a712da00a6b6"
+    },
+    "logSha256": "8a6453acf00ff23616ec97ce6725d65e42f8e65f71c60fd2cabb9957a0379df4"
+  }
+}

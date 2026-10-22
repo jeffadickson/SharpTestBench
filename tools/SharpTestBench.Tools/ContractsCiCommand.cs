@@ -24,6 +24,28 @@ internal static class ContractsCiCommand
         if(result.Count!=through)throw new InvalidDataException("Incomplete requested contract set.");
         return result;
     }
+    // Private qualification fixtures use stable simulator tags; required manifests never accept skips.
+    internal static Dictionary<string,ulong> SelectForIcarus(JsonElement discovery,int through,int maximum=100)
+    {
+        var selected=Select(discovery,through,maximum);
+        foreach(var row in discovery.GetProperty("Tests").EnumerateArray())
+        {
+            if(!row.TryGetProperty("Skip",out var skip)||skip.ValueKind!=JsonValueKind.False||
+               !row.TryGetProperty("Simulators",out var simulators)||simulators.ValueKind!=JsonValueKind.Array)
+                throw new InvalidDataException("Qualification requires explicit non-skipped simulator metadata.");
+            bool compatible=simulators.GetArrayLength()==0;
+            foreach(var value in simulators.EnumerateArray())
+            {
+                if(value.ValueKind!=JsonValueKind.String||value.GetString() is not {} tag||string.IsNullOrWhiteSpace(tag)||tag!=tag.Trim()||tag.Any(char.IsControl))
+                    throw new InvalidDataException("Invalid qualification simulator tag.");
+                compatible|=tag.Equals("icarus",StringComparison.OrdinalIgnoreCase)||tag.Equals("Icarus Verilog",StringComparison.OrdinalIgnoreCase);
+            }
+            if(!compatible)selected.Remove(ParityContracts.Identity(row));
+        }
+        if(selected.Count==0)throw new InvalidDataException("No Icarus-compatible contracts in requested milestone.");
+        return selected;
+    }
+
     internal static Dictionary<string,ulong> SelectRegressions(JsonElement discovery)
     {
         string[] names=["Tests.AO_PrimitiveFairnessStress","Tests.AP_MultipleFailureTeardownStress","Tests.AM_CancellationContract","Tests.AL_CompletionTriggers",
@@ -35,6 +57,7 @@ internal static class ContractsCiCommand
         "requirements" => ("RequirementContracts","contract_top",100),
         "closure" => ("ClosureContracts","closure_top",70),
         "conformance" => ("ConformanceContracts","conformance_top",100),
+        "scope" => ("ScopeContracts","scope_top",71),
         _ => throw new ArgumentException("Unknown contract suite", nameof(suite))
     };
     public static void Execute(ToolContext context,string[] arguments)
@@ -46,11 +69,12 @@ internal static class ContractsCiCommand
         var suite=ContractSuite(options.Get("--suite","requirements")!);
         bool closure=suite.Project=="ClosureContracts";
         bool conformance=suite.Project=="ConformanceContracts";
+        bool scope=suite.Project=="ScopeContracts";
         if(!int.TryParse(options.Get("--through",suite.Count.ToString(CultureInfo.InvariantCulture)),NumberStyles.None,CultureInfo.InvariantCulture,out int through)||through<1||through>suite.Count)throw new ArgumentException("Invalid contract milestone.");
         if(!ulong.TryParse(options.Get("--seed","83"),NumberStyles.None,CultureInfo.InvariantCulture,out ulong seed))throw new ArgumentException("Invalid contract seed.");
         string project=integration?"Integration":suite.Project;
         string top=integration?"top":suite.Top;
-        var name=integration?$"requirements100-integration-{seed}":conformance?$"conformance200-contracts-{through}-{seed}":closure?$"closure100-contracts-{through}-{seed}":$"requirements100-{through}-{seed}";
+        var name=integration?$"requirements100-integration-{seed}":scope?$"scope200-contracts-{through}-{seed}":conformance?$"conformance200-contracts-{through}-{seed}":closure?$"closure100-contracts-{through}-{seed}":$"requirements100-{through}-{seed}";
         ParityCiCommand.InWorkspace(context,name,(work,environment)=>{
             context.Run(["dotnet","build",context.At("tests/"+project),"-c","Release","-p:RestoreLockedMode=true","--disable-build-servers","-m:1"],environment:environment);
             NativeBuildCommand.Build(context);
@@ -60,13 +84,13 @@ internal static class ContractsCiCommand
             StrictJson.Write(Path.Combine(work,"manifest.json"),manifest);
             context.Run([..ToolContext.Self,"run","--sim","icarus","--no-build","--assembly",(string)manifest["assembly"],"--source",((string[])manifest["sources"])[0],"--top",(string)manifest["top"],"--entry-type",(string)manifest["entryType"],"--seed",seed.ToString(CultureInfo.InvariantCulture),"--work-dir",Path.Combine(work,"discovery"),"--label","discovery","--list"],environment:environment);
             using var discovery=StrictJson.Read(Path.Combine(work,"discovery/discovery-results.discovery.json"));
-            var selected=integration?SelectRegressions(discovery.RootElement):Select(discovery.RootElement,through,suite.Count);
+            var selected=integration?SelectRegressions(discovery.RootElement):SelectForIcarus(discovery.RootElement,through,suite.Count);
             manifest["testNames"]=selected.Keys.ToArray();manifest["expectedNames"]=selected.Keys.ToArray();manifest["expectedTests"]=selected.Count;manifest["expectedSeeds"]=selected;
             StrictJson.Write(Path.Combine(work,"manifest.json"),manifest);
             var inputs=PairedInputs.Capture(work,ParityLegacyCommand.Read(manifest));
             using var producer=StrictJson.Read(Path.Combine(work,"discovery/discovery-input-manifest.json"));ManifestCheckCommand.VerifyDiscoveryInputs(producer.RootElement,inputs);
             var report=ParityCiCommand.Compare(context,work,manifest,seed,environment,null,null,null,null);
-            report["contracts"]=selected.Count;report["fixture"]=integration?"integration-regressions":conformance?"conformance-contracts":closure?"closure-contracts":"requirement-contracts";return report;
+            report["contracts"]=selected.Count;report["fixture"]=integration?"integration-regressions":scope?"scope-contracts":conformance?"conformance-contracts":closure?"closure-contracts":"requirement-contracts";return report;
         });
     }
 }

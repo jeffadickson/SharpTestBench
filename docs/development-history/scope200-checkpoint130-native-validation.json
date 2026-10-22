@@ -1,0 +1,102 @@
+{
+  "windows": {
+    "report": {
+      "schemaVersion": 1,
+      "legacy": [
+        [
+          "Entry.R001_FreezeScalarHoldsUntilRelease",
+          "passed"
+        ]
+      ],
+      "native": [
+        [
+          "Entry.R001_FreezeScalarHoldsUntilRelease",
+          "passed"
+        ]
+      ],
+      "expected": [
+        "Entry.R001_FreezeScalarHoldsUntilRelease"
+      ],
+      "missing": {
+        "legacy": [],
+        "native": []
+      },
+      "unexpected": {
+        "legacy": [],
+        "native": []
+      },
+      "seedMismatches": [],
+      "matched": true,
+      "expectedSeedMatched": true,
+      "exitCodes": {
+        "legacy": 0,
+        "native": 0
+      },
+      "contracts": 1,
+      "fixture": "scope-contracts"
+    },
+    "expectedFromSource": [
+      [
+        "Entry.R001_FreezeScalarHoldsUntilRelease",
+        "passed"
+      ]
+    ],
+    "sourceSha256": {
+      "tests/ScopeContracts/Entry.cs": "f4f038af509d83f33fd5ba9a2e07a073bb2c0ba6113e4e77ff2df20a335ab47a",
+      "tests/ScopeContracts/FreezeContracts.cs": "019aebb9d84a7d9117cfe102468ed5a7d432dbf1cf64718d7197ba86bfc07eda",
+      "tests/ScopeContracts/ScopeContracts.csproj": "0f78182710f66e27561128048775792fa17ec35df0cf1677a4559e5cfd446a0b",
+      "tests/ScopeContracts/scope_top.sv": "e47fe4a762c388eb00a7e0f3dd103666a5bd41c90405591e56e870167de7abc5"
+    },
+    "logSha256": "11cdbb4c357e9064b7b71d863c84e6493ee8351d949757226b7ae8a92bbb0e58"
+  },
+  "linux": {
+    "report": {
+      "schemaVersion": 1,
+      "legacy": [
+        [
+          "Entry.R001_FreezeScalarHoldsUntilRelease",
+          "passed"
+        ]
+      ],
+      "native": [
+        [
+          "Entry.R001_FreezeScalarHoldsUntilRelease",
+          "passed"
+        ]
+      ],
+      "expected": [
+        "Entry.R001_FreezeScalarHoldsUntilRelease"
+      ],
+      "missing": {
+        "legacy": [],
+        "native": []
+      },
+      "unexpected": {
+        "legacy": [],
+        "native": []
+      },
+      "seedMismatches": [],
+      "matched": true,
+      "expectedSeedMatched": true,
+      "exitCodes": {
+        "legacy": 0,
+        "native": 0
+      },
+      "contracts": 1,
+      "fixture": "scope-contracts"
+    },
+    "expectedFromSource": [
+      [
+        "Entry.R001_FreezeScalarHoldsUntilRelease",
+        "passed"
+      ]
+    ],
+    "sourceSha256": {
+      "tests/ScopeContracts/Entry.cs": "f4f038af509d83f33fd5ba9a2e07a073bb2c0ba6113e4e77ff2df20a335ab47a",
+      "tests/ScopeContracts/ScopeContracts.csproj": "0f78182710f66e27561128048775792fa17ec35df0cf1677a4559e5cfd446a0b",
+      "tests/ScopeContracts/FreezeContracts.cs": "019aebb9d84a7d9117cfe102468ed5a7d432dbf1cf64718d7197ba86bfc07eda",
+      "tests/ScopeContracts/scope_top.sv": "e47fe4a762c388eb00a7e0f3dd103666a5bd41c90405591e56e870167de7abc5"
+    },
+    "logSha256": "ff7d47ec40db4c6945cb49fa441c219d22245c80047d7f15198408b6dfceb3b5"
+  }
+}
