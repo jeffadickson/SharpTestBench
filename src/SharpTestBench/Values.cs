@@ -57,7 +57,12 @@ internal static class Width<W>
     public static readonly int Bits = Validate();
     public static readonly BigInteger Modulus = BigInteger.One << Bits;
     public static readonly BigInteger Mask = Modulus - 1;
-    static int Validate() => W.Bits > 0 && W.Bits <= 1048576 ? W.Bits : throw new ArgumentOutOfRangeException(nameof(W), "Width must be 1..1048576");
+    static int Validate()
+    {
+        // A user-defined getter must not change between validation and caching.
+        int bits = W.Bits;
+        return bits > 0 && bits <= 1048576 ? bits : throw new ArgumentOutOfRangeException(nameof(W), "Width must be 1..1048576");
+    }
 }
 
 public readonly record struct UInt<W>

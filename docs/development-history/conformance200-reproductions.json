@@ -1,0 +1,31 @@
+{
+  "widthProvider": {
+    "sourceSha256": "6b8cdc0e615a43d36f8fb0f341fccabc807160c75855e0415bb45af64c80a097",
+    "records": {
+      "windows": [
+        {
+          "name": "ConformanceWidthTests.C042_IllegalInitialWidthCannotBeRescuedByLaterGetterValues",
+          "result": "Fail",
+          "failure": "<failure exception-type=\"Xunit.Sdk.ThrowsException\"><message>Assert.Throws() Failure: No exception was thrown\nExpected: typeof(System.TypeInitializationException)</message><stack-trace>   at ConformanceWidthTests.C042_IllegalInitialWidthCannotBeRescuedByLaterGetterValues() in C:\\dev\\SharpTestBench\\tests\\SharpTestBench.Tests\\ConformanceWidthTests.cs:line 12\n   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)\n   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)</stack-trace></failure>"
+        },
+        {
+          "name": "ConformanceWidthTests.C041_WidthGetterIsSampledOnceAndSharedAcrossValueTypes",
+          "result": "Fail",
+          "failure": "<failure exception-type=\"Xunit.Sdk.EqualException\"><message>Assert.Equal() Failure: Values differ\nExpected: 8\nActual:   0</message><stack-trace>   at ConformanceWidthTests.C041_WidthGetterIsSampledOnceAndSharedAcrossValueTypes() in C:\\dev\\SharpTestBench\\tests\\SharpTestBench.Tests\\ConformanceWidthTests.cs:line 10\n   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)\n   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)</stack-trace></failure>"
+        }
+      ],
+      "linux": [
+        {
+          "name": "ConformanceWidthTests.C041_WidthGetterIsSampledOnceAndSharedAcrossValueTypes",
+          "result": "Fail",
+          "failure": "<failure exception-type=\"Xunit.Sdk.EqualException\"><message>Assert.Equal() Failure: Values differ\nExpected: 8\nActual:   0</message><stack-trace>   at ConformanceWidthTests.C041_WidthGetterIsSampledOnceAndSharedAcrossValueTypes() in /home/jeffd/src/SharpTestBench/tests/SharpTestBench.Tests/ConformanceWidthTests.cs:line 10\n   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)\n   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)</stack-trace></failure>"
+        },
+        {
+          "name": "ConformanceWidthTests.C042_IllegalInitialWidthCannotBeRescuedByLaterGetterValues",
+          "result": "Fail",
+          "failure": "<failure exception-type=\"Xunit.Sdk.ThrowsException\"><message>Assert.Throws() Failure: No exception was thrown\nExpected: typeof(System.TypeInitializationException)</message><stack-trace>   at ConformanceWidthTests.C042_IllegalInitialWidthCannotBeRescuedByLaterGetterValues() in /home/jeffd/src/SharpTestBench/tests/SharpTestBench.Tests/ConformanceWidthTests.cs:line 12\n   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)\n   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)</stack-trace></failure>"
+        }
+      ]
+    }
+  }
+}

@@ -15,7 +15,9 @@
     "cocotb._concurrent_waiters": "dadac9b16e60c4a107f9063661ce8e2281541bda0ea22f62880a91ee1f372020",
     "cocotb._xunit_reporter": "9911a6d4edc796af788a5b88da4a9efaa2ea62c703a96193cb151750279888ad",
     "cocotb._extended_awaitables": "6a3a26ea29c3b77e98d60da5c2ecfa305375c30858fc21437297ec7b31453b5f",
-    "cocotb.task": "f1e42ab76887d6309e7b4012174c254ac87a42d2aecf1fa5154803bc750912fa"
+    "cocotb.task": "f1e42ab76887d6309e7b4012174c254ac87a42d2aecf1fa5154803bc750912fa",
+    "cocotb._ansi": "e13ceb4af0d7842ef1e9bda2b2a465ac1c55e5fb214cd0e2ab8832af84eb7889",
+    "cocotb.clock": "7f7e4cae4bdc240e72676ee5ed5bcb0dfa4cffaa57f0687c38f1972f8b209766"
   },
   "reviews": [
     {
@@ -2625,6 +2627,110 @@
         {
           "path": "docs/TASK_API_MAP.md",
           "contains": "Deprecated Python API is not copied"
+        }
+      ]
+    },
+    {
+      "module": "cocotb._ansi",
+      "definition": "ANSI",
+      "source_line": 13,
+      "classification": "internal-adapter",
+      "reason": "Private Python ANSI colour constants are not a public C# object model. Structured SimulationLog emits typed JSON events; no matching escape-code namespace or colour-format equivalence is claimed.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/SimulationLog.cs",
+          "contains": "internal static class SimulationLog"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.clock",
+      "definition": "Clock",
+      "source_line": 53,
+      "classification": "intentional-difference",
+      "reason": "SimClock is an explicitly owned managed/native-capability driver with simulator-step timing and cycle-boundary updates. Upstream retains requested physical units and value types, chooses its own auto policy and default set action, and rejects an odd default half-period; C# deliberately permits unequal integer halves. No constructor/default-policy equivalence is claimed.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Primitives.cs",
+          "contains": "public sealed class SimClock"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.clock",
+      "definition": "Clock.signal",
+      "source_line": 225,
+      "classification": "intentional-difference",
+      "reason": "Signal returns the same driven C# Signal instance after an owner-thread check. Upstream returns its LogicObject without reproducing the managed ownership guard or wrapper type; matching driven-handle intent does not imply wrapper identity across languages.",
+      "evidence": [
+        {
+          "path": "tests/RequirementContracts/TriggerContracts90.cs",
+          "contains": "R081_ClockIntrospectionTracksConfiguredTimingAndOwnership"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.clock",
+      "definition": "Clock.period",
+      "source_line": 230,
+      "classification": "intentional-difference",
+      "reason": "PeriodSteps reports configured integer simulator steps, including the next-cycle pending setting. Python period retains the original numeric value in its requested unit; this is not a dimensionally identical property or a statement about the pulse currently in flight.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Primitives.cs",
+          "contains": "public ulong PeriodSteps"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.clock",
+      "definition": "Clock.period_high",
+      "source_line": 238,
+      "classification": "intentional-difference",
+      "reason": "HighSteps is the configured next-cycle integer high duration. Upstream period_high retains requested-unit numeric form; C# updates preserve the current whole pulse pair. No current-pulse timing or numeric-type equivalence is claimed.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Primitives.cs",
+          "contains": "public ulong HighSteps"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.clock",
+      "definition": "Clock.unit",
+      "source_line": 248,
+      "classification": "intentional-difference",
+      "reason": "SimClock accepts simulator-step counts and exposes PeriodSteps/HighSteps/LowSteps, with no retained physical-unit property. Runtime.Steps performs an explicit positive decimal conversion; physical-unit preservation is not implemented by the clock.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Primitives.cs",
+          "contains": "public ulong LowSteps"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.clock",
+      "definition": "Clock.impl",
+      "source_line": 256,
+      "classification": "intentional-difference",
+      "reason": "Implementation reports the requested Auto/Managed/Native policy. Upstream impl reports its resolved py/gpi implementation; Auto in this C# property must not be used to infer which backend actually drives a run.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Primitives.cs",
+          "contains": "public ClockImplementation Implementation"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.clock",
+      "definition": "Clock.set_action",
+      "source_line": 267,
+      "classification": "gap",
+      "reason": "Upstream exposes the selected Immediate/Deposit/Force clock action. SimClock has no set-action constructor/property and its managed loop uses the default WriteBit deposit. General Signal write actions are not evidence that configurable clock actions are implemented.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Primitives.cs",
+          "contains": "signal.WriteBit(false);"
         }
       ]
     }

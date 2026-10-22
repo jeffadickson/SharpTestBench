@@ -26,9 +26,8 @@ counters unchanged; recursive sampling is rejected. Sample uses fixed storage pe
 bin, allocating no per-sample framework objects. Predicates can allocate their own
 objects. Snapshots/export allocate in proportion to configured points and bins,
 not the number of samples. Access is restricted to the creating thread. Snapshots
-copy counter values so later samples do not change earlier reports. Explicitly
-sample tuples to define cross scenarios; automatic cross-bin generation, exclusion
-rules are not supplied. Validated additive snapshot merges are supported as described below.
+copy counter values so later samples do not change earlier reports. Use explicit tuple bins for arbitrary classifiers, or AddCross for bounded two-axis
+Cartesian generation with explicit excluded pairs. Validated additive snapshot merges are supported as described below.
 
 Every regression writes a sibling `*-results.coverage.json` alongside JSON/JUnit.
 The versioned document has SchemaVersion=1, Kind=functional and test entries with
@@ -65,3 +64,31 @@ represent equivalent predicates and retain any required seed/status provenance.
 The API merges functional counters, not entire test-result envelopes or external
 HDL/code-coverage databases. Existing SchemaVersion=1 export fields are unchanged;
 a regression still exports the final per-test counter snapshot.
+
+
+## Bounded automatic cross bins
+
+`coverage.AddCross(name, leftAxis, rightAxis, goal: 1, maximumBins: 4096,
+excluded: [("left name", "right name")])` returns a
+`CoveragePoint<(TLeft Left, TRight Right)>`. Sample `(leftValue,rightValue)` explicitly.
+Axes use CoverageBin classifiers with unique names, nonnull pure predicates and
+positive goals. Their classifier goals are validated; every generated cell instead
+uses the independent cross goal. Left-major Cartesian order is deterministic.
+Overlapping classifiers can hit several cells for one tuple. A tuple matching no surviving cell
+increments Unmatched once. Fully excluded rows invoke no classifier.
+Predicates may be evaluated repeatedly across cells and must remain pure.
+
+Construction checks the full axis product against maximumBins before exclusions;
+exclusions cannot evade the allocation budget. Null/empty/invalid axes, unknown or
+duplicate excluded pairs, zero goals, nonpositive budgets and removing every cell
+reject without registering the point or reserving its name. Cross calls require the
+creating thread. Caller array replacements after construction do not change it.
+
+Cell identity is a lossless invariant length-prefix encoding of left then right
+axis names: `4:zero3:one` represents (`zero`,`one`). Names are not joined with an
+ambiguous delimiter. Snapshot fields and functional export SchemaVersion1 are
+unchanged: cells are ordinary bins. Reset, atomic sample rollback and transactional
+additive merges apply. Merge checks identities/goals, not classifier equivalence;
+callers retain equivalent predicates and run/seed provenance. This is bounded
+explicit two-axis crossing, not inferred multidimensional HDL metadata or arbitrary
+automatic higher-order crossing. It does not measure HDL/code coverage.

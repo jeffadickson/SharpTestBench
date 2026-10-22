@@ -37,6 +37,53 @@ public sealed class FunctionalCoverage
         return point;
     }
 
+    /// <summary>Create bounded Cartesian bins from two classifier axes. Excluded name pairs are omitted before sampling.</summary>
+    /// <remarks>Axis predicates must be pure; axis goals are validated but the independent cross goal is used. Bin names use invariant length prefixes. The full product is bounded before exclusions; at least one cell must remain.</remarks>
+    public CoveragePoint<(TLeft Left, TRight Right)> AddCross<TLeft, TRight>(string name,
+        CoverageBin<TLeft>[] left, CoverageBin<TRight>[] right, ulong goal = 1,
+        int maximumBins = 4096, params (string Left, string Right)[] excluded)
+    {
+        CheckThread();
+        ArgumentException.ThrowIfNullOrWhiteSpace(name);
+        if (points.ContainsKey(name)) throw new ArgumentException("Duplicate coverage point", nameof(name));
+        ArgumentNullException.ThrowIfNull(left);
+        ArgumentNullException.ThrowIfNull(right);
+        ArgumentNullException.ThrowIfNull(excluded);
+        if (goal == 0) throw new ArgumentOutOfRangeException(nameof(goal));
+        if (maximumBins < 1) throw new ArgumentOutOfRangeException(nameof(maximumBins));
+        var leftBins = (CoverageBin<TLeft>[])left.Clone();
+        var rightBins = (CoverageBin<TRight>[])right.Clone();
+        static HashSet<string> Validate<T>(CoverageBin<T>[] bins, string parameter)
+        {
+            if (bins.Length == 0) throw new ArgumentException("Cross axis must not be empty", parameter);
+            var names = new HashSet<string>(StringComparer.Ordinal);
+            foreach (var bin in bins)
+                if (bin is null || string.IsNullOrWhiteSpace(bin.Name) || bin.Matches is null || bin.Goal == 0 || !names.Add(bin.Name))
+                    throw new ArgumentException("Cross axis needs unique named predicates and positive goals", parameter);
+            return names;
+        }
+        var leftNames = Validate(leftBins, nameof(left));
+        var rightNames = Validate(rightBins, nameof(right));
+        if ((long)leftBins.Length * rightBins.Length > maximumBins)
+            throw new ArgumentOutOfRangeException(nameof(maximumBins), "Cross product exceeds the bin limit");
+        var omitted = new HashSet<(string Left, string Right)>();
+        foreach (var pair in excluded)
+            if (pair.Left is null || pair.Right is null || !leftNames.Contains(pair.Left) || !rightNames.Contains(pair.Right) || !omitted.Add(pair))
+                throw new ArgumentException("Cross exclusions must be unique existing axis pairs", nameof(excluded));
+        var bins = new List<CoverageBin<(TLeft Left, TRight Right)>>();
+        foreach (var x in leftBins)
+            foreach (var y in rightBins)
+            {
+                if (omitted.Contains((x.Name, y.Name))) continue;
+                string cell = string.Concat(x.Name.Length.ToString(System.Globalization.CultureInfo.InvariantCulture), ":", x.Name,
+                    y.Name.Length.ToString(System.Globalization.CultureInfo.InvariantCulture), ":", y.Name);
+                bins.Add(new(cell, value => x.Matches(value.Left) && y.Matches(value.Right), goal));
+            }
+        if (bins.Count == 0) throw new ArgumentException("Cross exclusions remove every cell", nameof(excluded));
+        return AddPoint(name, bins.ToArray());
+    }
+
+
     /// <summary>Clear sample counters while retaining definitions. Validation is atomic across all points.</summary>
     public void Reset()
     {
