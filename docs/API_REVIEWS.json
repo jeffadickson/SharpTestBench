@@ -17,7 +17,11 @@
     "cocotb._extended_awaitables": "6a3a26ea29c3b77e98d60da5c2ecfa305375c30858fc21437297ec7b31453b5f",
     "cocotb.task": "f1e42ab76887d6309e7b4012174c254ac87a42d2aecf1fa5154803bc750912fa",
     "cocotb._ansi": "e13ceb4af0d7842ef1e9bda2b2a465ac1c55e5fb214cd0e2ab8832af84eb7889",
-    "cocotb.clock": "7f7e4cae4bdc240e72676ee5ed5bcb0dfa4cffaa57f0687c38f1972f8b209766"
+    "cocotb.clock": "7f7e4cae4bdc240e72676ee5ed5bcb0dfa4cffaa57f0687c38f1972f8b209766",
+    "cocotb.handle": "14298d307ec7dd2b0f325e04b001118e8d6ec389a0d37bcce2022ae5ae65abec",
+    "cocotb.logging": "70cc51803cc5a283071d7951ee1b068b7243ca0ef5228b1355f18ee26cdc5c8f",
+    "cocotb.simtime": "a8a03695632d8005189e315ed25f60fe9af1a468b9a411919553248b73a501e9",
+    "cocotb.utils": "1f77165d69cf46172600934a75465872aae1d2c0190a947995e7536670f5dd6c"
   },
   "reviews": [
     {
@@ -2731,6 +2735,708 @@
         {
           "path": "src/SharpTestBench/Primitives.cs",
           "contains": "signal.WriteBit(false);"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.clock",
+      "definition": "Clock.start",
+      "source_line": 274,
+      "classification": "intentional-difference",
+      "reason": "Upstream start schedules and retains its own task and defaults to an initial high pulse. C# Run is a caller-owned Task using cooperative cancellation and initially drives low. Duplicate ownership is rejected, but initial phase, scheduling and returned-task lifecycle are not exact equivalents.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Primitives.cs",
+          "contains": "public async Task Run(CancellationToken token)"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.clock",
+      "definition": "Clock.stop",
+      "source_line": 344,
+      "classification": "intentional-difference",
+      "reason": "Upstream stop requests cancellation and immediately drops its stored task, permitting restart without joining. C# callers cancel and join the run; ownership remains held through cleanup. There is no Clock.stop method or equivalent unjoined restart guarantee.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Primitives.cs",
+          "contains": "native?.Dispose(); native = null; running = false;"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.clock",
+      "definition": "Clock.cycles",
+      "source_line": 359,
+      "classification": "intentional-difference",
+      "reason": "C# ClockCycles counts subscribed selected transitions and validates zero-count operands/ownership. Python Clock.cycles synchronizes on an edge and may substitute timers derived from its configured period. External/changing clocks, zero counts and timer optimizations are not interchangeable.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Triggers.cs",
+          "contains": "public static async Task ClockCycles"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.handle",
+      "definition": "SimHandleBase",
+      "source_line": 76,
+      "classification": "intentional-difference",
+      "reason": "HdlObject owns a native handle and enforces simulator-thread access. Child/index caches preserve selected wrapper identities, but repeated Root/conversion calls are not a global native-handle identity/equality cache like the Python handle factory/base protocol.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Signals.cs",
+          "contains": "public partial class HdlObject"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.handle",
+      "definition": "GPIDiscovery",
+      "source_line": 210,
+      "classification": "gap",
+      "reason": "Python exposes AUTO versus NATIVE lookup discovery. C# has status-bearing discovery queries but no public per-lookup native-only/automatic selection argument. Successful observations do not establish complete mixed-language discovery.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Discovery.cs",
+          "contains": "public static ObjectDiscovery Roots()"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.handle",
+      "definition": "HierarchyObject",
+      "source_line": 392,
+      "classification": "intentional-difference",
+      "reason": "C# uses Child/Children/Walk rather than Python attribute and dict-like discovery. Missing named children raise KeyNotFoundException; backend names and cached child wrappers are supported, but Python attribute rules and hierarchy mapping interfaces are not copied.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Signals.cs",
+          "contains": "public HdlObject Child(string name)"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.handle",
+      "definition": "HierarchyArrayObject",
+      "source_line": 528,
+      "classification": "intentional-difference",
+      "reason": "HdlArray<T> binds children by declared HDL indices and enumerates in Range order. Explicit converters, checked offset/index exceptions and backend range availability differ from the Python hierarchy-array factory/protocol.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/HdlArray.cs",
+          "contains": "public sealed class HdlArray<T>"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.handle",
+      "definition": "Deposit",
+      "source_line": 639,
+      "classification": "intentional-difference",
+      "reason": "WriteAction.Deposit queues a checked C# write; last deferred writes can coalesce before a ReadWrite flush. Python Deposit is a typed action object dispatched through generic value setters. Matching deposition intent does not establish arbitrary backend delta or action-object protocol parity.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Runtime.cs",
+          "contains": "Deposit = 0"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.handle",
+      "definition": "Force",
+      "source_line": 660,
+      "classification": "intentional-difference",
+      "reason": "C# exposes WriteAction.Force and typed force helpers with thread/phase/constant/capability guards. There is no generic Python Force action object, and supported force/release behavior is qualified per backend, not universally across HDL types.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Runtime.cs",
+          "contains": "Force = 1"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.handle",
+      "definition": "Freeze",
+      "source_line": 688,
+      "classification": "gap",
+      "reason": "Upstream Freeze captures an object current value and forces it through generic action dispatch. C# exposes force/release but no generic Freeze action or equivalent operation. A manually composed read-then-force is not implementation evidence for this API.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Runtime.cs",
+          "contains": "public enum WriteAction"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.handle",
+      "definition": "Release",
+      "source_line": 713,
+      "classification": "intentional-difference",
+      "reason": "Signal.Release requests the checked Release write action with a dummy packed payload. Python Release is a generic action supporting value-object dispatch. Driver recomputation and retained register values remain backend-specific; no generic all-type release equivalence is claimed.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Signals.cs",
+          "contains": "public void Release()"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.handle",
+      "definition": "Immediate",
+      "source_line": 743,
+      "classification": "intentional-difference",
+      "reason": "WriteAction.Immediate applies a guarded C# write without deferred deposit scheduling. This is the immediate-write concept, not a Python generic Immediate wrapper or a promise of identical VHDL/Verilog delta ordering on unqualified backends.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Runtime.cs",
+          "contains": "Immediate = 3"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.handle",
+      "definition": "ValueObjectBase",
+      "source_line": 847,
+      "classification": "intentional-difference",
+      "reason": "C# separates typed Signal, IntegerSignal, RealSignal and StringSignal wrappers under HdlObject rather than a generic value-bearing Python base. Conversions and write actions are explicit; generic action/assignment coercion and factory behavior are not reproduced.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Signals.cs",
+          "contains": "public class Signal : HdlObject"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.handle",
+      "definition": "ValueObjectBase.value",
+      "source_line": 854,
+      "classification": "intentional-difference",
+      "reason": "Python value getter forwards to the per-type get implementation. C# requires explicit typed reads and has no universal value property, dynamic return factory or wrapper identity guarantee.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Signals.cs",
+          "contains": "public string ReadBits()"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.handle",
+      "definition": "ValueObjectBase.value",
+      "source_line": 878,
+      "classification": "intentional-difference",
+      "reason": "Python value setter rejects ReadOnly/constants then dispatches generic action wrappers or a default deposit. C# typed writes use runtime guards and explicit actions, without the full assignment union or Freeze dispatcher.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Signals.cs",
+          "contains": "public void WriteBits(string value"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.handle",
+      "definition": "ValueObjectBase.get",
+      "source_line": 899,
+      "classification": "intentional-difference",
+      "reason": "The abstract Python get contract is implemented by per-type wrappers. C# uses explicit Read/ReadBits/ReadUInt/ReadSInt methods with typed returns and thread guards; there is no universal generic value-get method.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Signals.cs",
+          "contains": "public string ReadBits()"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.handle",
+      "definition": "ValueObjectBase.set",
+      "source_line": 903,
+      "classification": "intentional-difference",
+      "reason": "C# typed Write methods and WriteAction implement selected mutations with runtime validation. They do not accept the entire Python action/value union, arbitrary assignment conversions or a generic Freeze action.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Signals.cs",
+          "contains": "public void WriteBits(string value"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.handle",
+      "definition": "ValueObjectBase.setimmediatevalue",
+      "source_line": 929,
+      "classification": "deprecated-omission",
+      "reason": "The deprecated Python setter rewrites deposits/unwrapped values to a legacy immediate action before value dispatch. C# omits that alias; WriteAction.Immediate is explicit and does not claim the alias historical timing/coercion semantics.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Runtime.cs",
+          "contains": "Immediate = 3"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.handle",
+      "definition": "ValueObjectBase.is_const",
+      "source_line": 956,
+      "classification": "idiomatic-equivalent",
+      "reason": "HdlObject.IsConstant queries the same native GPI constant metadata on the owning thread. Writes separately reject constants. This is the constness-query concept only, not generic wrapper/factory equality or metadata support on every backend.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Signals.cs",
+          "contains": "public bool IsConstant"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.handle",
+      "definition": "ArrayObject",
+      "source_line": 986,
+      "classification": "intentional-difference",
+      "reason": "HdlArray<T> is a typed cached child binding with declared HDL range, not a generic Python array value object. ValueArray<T> is separate managed value storage; child wrappers versus aggregate values and assignment operations remain distinct.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/HdlArray.cs",
+          "contains": "public sealed class HdlArray<T>"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.handle",
+      "definition": "ArrayObject.get",
+      "source_line": 1023,
+      "classification": "intentional-difference",
+      "reason": "C# callers explicitly enumerate typed HdlArray bindings and read chosen leaf types; there is no generic aggregate live-handle get returning Python Array values. Range-aware ValueArray storage is an explicit alternative, not evidence of automatic aggregate snapshot equivalence.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/HdlArray.cs",
+          "contains": "public IEnumerator<T> GetEnumerator()"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.handle",
+      "definition": "ArrayObject.set",
+      "source_line": 1043,
+      "classification": "gap",
+      "reason": "Python writes aggregate arrays element-by-element in positional order with generic actions. HdlArray<T> exposes bindings through IReadOnlyCollection and no aggregate write/action operation. Manually looping over leaves does not implement this setter contract.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/HdlArray.cs",
+          "contains": "IReadOnlyCollection<T>"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.handle",
+      "definition": "LogicObject",
+      "source_line": 1128,
+      "classification": "intentional-difference",
+      "reason": "C# scalar signals use Signal/Signal<W1>, strict bool conversion or LogicArray readback rather than a dynamically selected Python LogicObject with generic value assignment. State preservation and allowed writes remain capability-qualified.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Signals.cs",
+          "contains": "public bool ReadBit()"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.handle",
+      "definition": "LogicObject.get",
+      "source_line": 1176,
+      "classification": "intentional-difference",
+      "reason": "ReadBit returns a strict bool conversion while ReadLogic preserves logic text/range. Neither is the Python Logic return type; unresolved/weak-state conversion and exception types require explicit C# choices.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Signals.cs",
+          "contains": "public LogicArray ReadLogic()"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.handle",
+      "definition": "LogicObject.set",
+      "source_line": 1181,
+      "classification": "intentional-difference",
+      "reason": "C# offers bool WriteBit and checked-width WriteBits/typed writes with explicit actions. It does not reproduce the entire Python int/string/Logic/LogicArray assignment coercion union, action objects or exception classes.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Signals.cs",
+          "contains": "public void WriteBit(bool value"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.handle",
+      "definition": "LogicObject.rising_edge",
+      "source_line": 1205,
+      "classification": "intentional-difference",
+      "reason": "Triggers.RisingEdge creates a new checked one-bit trigger. Python exposes a cached handle property that rejects constants before returning its edge trigger. C# factory identity and constant-edge preflight are not declared equivalent.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Triggers.cs",
+          "contains": "public static Trigger RisingEdge"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.handle",
+      "definition": "LogicObject.falling_edge",
+      "source_line": 1212,
+      "classification": "intentional-difference",
+      "reason": "Triggers.FallingEdge creates an independently subscribed one-bit trigger. Python cached property identity and immutable-handle rejection are separate behavior; C# transition tests do not establish property/factory parity for constants or every backend transition.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Triggers.cs",
+          "contains": "public static Trigger FallingEdge"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.handle",
+      "definition": "PackedObject",
+      "source_line": 1420,
+      "classification": "intentional-difference",
+      "reason": "C# packed transport and explicit PackedStruct/PackedArray views use checked schemas and available bit ranges. Python dynamically exposes packed handles/bit children. Explicit schemas do not establish automatic field inference or packed metadata beyond qualified backends.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/PackedViews.cs",
+          "contains": "public sealed class PackedArray"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.handle",
+      "definition": "LogicArrayObject",
+      "source_line": 1439,
+      "classification": "intentional-difference",
+      "reason": "C# Signal<W>/LogicSignal<W> provide explicit fixed-width/range-aware values with capability checks. Python dynamically maps HDL logic arrays and indexes child LogicObjects. Type factories, width limits, indexed-object behavior and numeric coercion are not identical.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/AdditionalSignals.cs",
+          "contains": "public sealed class LogicSignal<W>"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.handle",
+      "definition": "RealObject",
+      "source_line": 1472,
+      "classification": "intentional-difference",
+      "reason": "RealSignal explicitly validates native kind and uses double read/write APIs. Python real objects participate in generic value/action assignment and accept float/int conversion. Matching native floating transport does not establish the generic object protocol or backend availability.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Signals.cs",
+          "contains": "public sealed class RealSignal"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.handle",
+      "definition": "RealObject.get",
+      "source_line": 1496,
+      "classification": "idiomatic-equivalent",
+      "reason": "RealSignal.Read obtains the native floating getter as C# double on the simulator thread, corresponding narrowly to the Python float read concept. This does not certify real-object discovery, unusual values or all backend floating semantics.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Signals.cs",
+          "contains": "Native.gpi_get_signal_value_real(Handle)"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.handle",
+      "definition": "RealObject.set",
+      "source_line": 1500,
+      "classification": "intentional-difference",
+      "reason": "RealSignal.Write accepts double plus explicit WriteAction and runtime guards. Python dispatches its float/int/action union. There is no generic Freeze action, Python conversion protocol or universal real-force capability claim.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Signals.cs",
+          "contains": "public void Write(double value"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.handle",
+      "definition": "EnumObject",
+      "source_line": 1526,
+      "classification": "intentional-difference",
+      "reason": "IntegerSignal exposes raw native enums, while EnumSignal<T> requires explicit defined C# numeric members. Upstream returns integer representations with width/signedness correction and does not infer declaration names. These mapping and validation policies differ.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/AdditionalSignals.cs",
+          "contains": "public sealed class EnumSignal<T>"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.handle",
+      "definition": "EnumObject.get",
+      "source_line": 1579,
+      "classification": "gap",
+      "reason": "Raw IntegerSignal.Read returns the native long without upstream width/signedness correction or wide binary fallback. EnumSignal<T> additionally rejects unmapped values. Neither establishes the full Python enum integer-get domain.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/AdditionalSignals.cs",
+          "contains": "return Native.gpi_get_signal_value_long(Handle);"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.handle",
+      "definition": "EnumObject.set",
+      "source_line": 1601,
+      "classification": "intentional-difference",
+      "reason": "EnumSignal<T>.Write requires a defined C# member and checked int32 conversion. Python accepts any fitting integer representation without named-member validation, including wider underlying values. Raw IntegerSignal.Write is an int32 alternative, not full enum assignment parity.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/AdditionalSignals.cs",
+          "contains": "if (!System.Enum.IsDefined(value))"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.handle",
+      "definition": "IntegerObject",
+      "source_line": 1631,
+      "classification": "gap",
+      "reason": "The native IntegerSignal wrapper reads native long and writes int32. Upstream determines declared width/signedness, adjusts reads and uses binary transport for wide writes. Explicit fixed-width packed APIs are alternatives only on suitable objects, not completion of the native integer contract.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/AdditionalSignals.cs",
+          "contains": "public sealed class IntegerSignal"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.handle",
+      "definition": "IntegerObject.get",
+      "source_line": 1709,
+      "classification": "gap",
+      "reason": "IntegerSignal.Read does not perform narrow sign-extension correction, unsigned negative normalization or the greater-than-32-bit binary fallback present upstream. Platform native-long behavior must not be reported as portable declared-integer equivalence.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/AdditionalSignals.cs",
+          "contains": "return Native.gpi_get_signal_value_long(Handle);"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.handle",
+      "definition": "IntegerObject.set",
+      "source_line": 1728,
+      "classification": "gap",
+      "reason": "IntegerSignal.Write accepts int32 and delegates to GPI, rather than validating against every declared width/signedness and supporting wider binary values as upstream does. Runtime phase/constant checks do not fill those numeric-domain gaps.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/AdditionalSignals.cs",
+          "contains": "public void Write(int value"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.handle",
+      "definition": "StringObject",
+      "source_line": 1756,
+      "classification": "intentional-difference",
+      "reason": "StringSignal uses Latin-1 C# string and explicit kind/phase/capability guards, while Python uses bytes/bytearray. Fixed and dynamic reads differ, and dynamic embedded NUL is not an arbitrary byte-string round-trip guarantee.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Signals.cs",
+          "contains": "public sealed class StringSignal"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.handle",
+      "definition": "StringObject.get",
+      "source_line": 1781,
+      "classification": "intentional-difference",
+      "reason": "C# reads fixed strings by declared length and dynamic strings by scanning to terminating NUL, then decodes Latin-1. Python returns native bytes. Encoding, return type and dynamic NUL limitations prevent generic byte-for-byte equivalence.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Signals.cs",
+          "contains": "return System.Text.Encoding.Latin1.GetString(bytes);"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.handle",
+      "definition": "StringObject.set",
+      "source_line": 1785,
+      "classification": "intentional-difference",
+      "reason": "C# rejects non-Latin-1 characters, requires exact fixed length and uses checked character handles for NUL. Python accepts bytes/bytearray and generic actions. Native padding/truncation descriptions are not a promise that C# reproduces arbitrary byte assignments.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Signals.cs",
+          "contains": "if (value.Any(c => c > 255))"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.handle",
+      "definition": "FixedStringObject",
+      "source_line": 1835,
+      "classification": "intentional-difference",
+      "reason": "Upstream fixed-string override rejects oversized byte values but permits shorter values for native padding; C# requires exact fixed length. Fixed-length NUL transport is supported through checked character handles, without reproducing Python bytes/action or short-value padding behavior.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Signals.cs",
+          "contains": "throw new ArgumentException(\"Fixed HDL string length mismatch\")"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.logging",
+      "definition": "SimLog",
+      "source_line": 206,
+      "classification": "deprecated-omission",
+      "reason": "Upstream deprecated SimLog returns a Python logging.Logger with an optional hexadecimal name suffix. C# structured events use explicit test/task identity; the deprecated logger-factory alias and Python logger identity/handler tree are not implemented.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/SimulationLog.cs",
+          "contains": "TaskId = job?.Task.Id, TaskName = Limit(job?.Name)"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.logging",
+      "definition": "SimTimeContextFilter",
+      "source_line": 225,
+      "classification": "intentional-difference",
+      "reason": "Python mutates LogRecord with a simulator-time field and catches recursion/runtime-unavailable failures. C# writes TimeStep from a thread-checked runtime into an event; it exposes no Python filter/LogRecord mutation or None-time fallback protocol.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/SimulationLog.cs",
+          "contains": "TimeStep = runtime.Now"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.logging",
+      "definition": "SimLogFormatter",
+      "source_line": 267,
+      "classification": "intentional-difference",
+      "reason": "C# emits versioned structured JSON with bounded strings, task/source fields and explicit failure handling. It does not reproduce Python prefix evaluation, ANSI stripping, handlers, traceback formatting or multiline indentation.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/SimulationLog.cs",
+          "contains": "JsonSerializer.Serialize(entry)"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.logging",
+      "definition": "SimColourLogFormatter",
+      "source_line": 428,
+      "classification": "deprecated-omission",
+      "reason": "Upstream deprecated coloured formatter delegates to its text formatter with colour enabled. C# structured JSON has no equivalent coloured Python formatter class; omission is not a tested terminal-colour equivalence.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/SimulationLog.cs",
+          "contains": "internal static class SimulationLog"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.simtime",
+      "definition": "convert",
+      "source_line": 57,
+      "classification": "intentional-difference",
+      "reason": "The two typing overloads and implementation form one conversion decision. Python converts between arbitrary supported units and accepts float/Fraction/Decimal domains; C# Runtime.Steps is positive decimal-to-UInt64 conversion, with explicit enum/thread/rounding checks. It is not a general bidirectional utility.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Runtime.cs",
+          "contains": "public ulong Steps(decimal value"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.simtime",
+      "definition": "convert",
+      "source_line": 67,
+      "classification": "intentional-difference",
+      "reason": "The two typing overloads and implementation form one conversion decision. Python converts between arbitrary supported units and accepts float/Fraction/Decimal domains; C# Runtime.Steps is positive decimal-to-UInt64 conversion, with explicit enum/thread/rounding checks. It is not a general bidirectional utility.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Runtime.cs",
+          "contains": "public ulong Steps(decimal value"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.simtime",
+      "definition": "convert",
+      "source_line": 76,
+      "classification": "intentional-difference",
+      "reason": "The two typing overloads and implementation form one conversion decision. Python converts between arbitrary supported units and accepts float/Fraction/Decimal domains; C# Runtime.Steps is positive decimal-to-UInt64 conversion, with explicit enum/thread/rounding checks. It is not a general bidirectional utility.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Runtime.cs",
+          "contains": "public ulong Steps(decimal value"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.simtime",
+      "definition": "get_sim_time",
+      "source_line": 117,
+      "classification": "intentional-difference",
+      "reason": "The overloads and implementation form one time-query decision. C# Now exposes thread-checked UInt64 steps; there is no general physical-unit time-query method. Python returns steps or physical-unit floats and accepts a legacy units keyword; arbitrary unit selection and numeric domains are not copied.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Runtime.cs",
+          "contains": "public ulong Now"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.simtime",
+      "definition": "get_sim_time",
+      "source_line": 121,
+      "classification": "intentional-difference",
+      "reason": "The overloads and implementation form one time-query decision. C# Now exposes thread-checked UInt64 steps; there is no general physical-unit time-query method. Python returns steps or physical-unit floats and accepts a legacy units keyword; arbitrary unit selection and numeric domains are not copied.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Runtime.cs",
+          "contains": "public ulong Now"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.simtime",
+      "definition": "get_sim_time",
+      "source_line": 126,
+      "classification": "intentional-difference",
+      "reason": "The overloads and implementation form one time-query decision. C# Now exposes thread-checked UInt64 steps; there is no general physical-unit time-query method. Python returns steps or physical-unit floats and accepts a legacy units keyword; arbitrary unit selection and numeric domains are not copied.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Runtime.cs",
+          "contains": "public ulong Now"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.utils",
+      "definition": "get_time_from_sim_steps",
+      "source_line": 30,
+      "classification": "intentional-difference",
+      "reason": "This pinned public wrapper forwards steps-to-physical-time conversion; the function itself is not deprecated, only its legacy units keyword warns. C# Now/Steps provide narrower explicit runtime APIs, with no arbitrary-step-to-physical-unit conversion or keyword-warning protocol.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Runtime.cs",
+          "contains": "public ulong Now"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.utils",
+      "definition": "get_sim_steps",
+      "source_line": 65,
+      "classification": "intentional-difference",
+      "reason": "The pinned public utils wrapper forwards numeric time conversion; only the legacy units argument warns. C# Steps is owner-thread-bound, positive-only decimal/enum conversion to UInt64, not full float/Fraction/Decimal or Python keyword/exception equivalence.",
+      "evidence": [
+        {
+          "path": "src/SharpTestBench/Runtime.cs",
+          "contains": "public ulong Steps(decimal value"
         }
       ]
     }
