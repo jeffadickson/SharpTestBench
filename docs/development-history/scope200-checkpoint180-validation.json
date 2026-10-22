@@ -1,0 +1,68 @@
+{
+  "windows": {
+    "managed": [
+      [
+        "SharpTestBench.Tests",
+        "607",
+        "0"
+      ],
+      [
+        "SharpTestBench.Generators.Tests",
+        "17",
+        "0"
+      ],
+      [
+        "SharpTestBench.Tools.Tests",
+        "1244",
+        "12"
+      ]
+    ],
+    "logSha256": "43e20df5133985ab7c574bf31a25c5d376a485c929adec509a70b4df1e3044d7",
+    "pinnedAudit": {
+      "inventoried_definitions": 302,
+      "reviewed_definitions": 302,
+      "unreviewed_definitions": 0,
+      "classifications": {
+        "internal-adapter": 22,
+        "idiomatic-equivalent": 26,
+        "intentional-difference": 175,
+        "deprecated-omission": 30,
+        "gap": 49
+      },
+      "note": "Review counts are not a parity percentage; aliases and dynamic exports remain outside this inventory."
+    }
+  },
+  "linux": {
+    "managed": [
+      [
+        "SharpTestBench.Tests",
+        "607",
+        "0"
+      ],
+      [
+        "SharpTestBench.Generators.Tests",
+        "17",
+        "0"
+      ],
+      [
+        "SharpTestBench.Tools.Tests",
+        "1244",
+        "0"
+      ]
+    ],
+    "logSha256": "5f3bc75eabbdd76ed8a841798c6750b1ef34381174f74a462e0aac01c35b3dcb",
+    "pinnedAudit": {
+      "inventoried_definitions": 302,
+      "reviewed_definitions": 302,
+      "unreviewed_definitions": 0,
+      "classifications": {
+        "internal-adapter": 22,
+        "idiomatic-equivalent": 26,
+        "intentional-difference": 175,
+        "deprecated-omission": 30,
+        "gap": 49
+      },
+      "note": "Review counts are not a parity percentage; aliases and dynamic exports remain outside this inventory."
+    }
+  }
+}

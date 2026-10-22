@@ -36,4 +36,12 @@ public static partial class Entry
     [SimTest] public static async Task R020_ReadOnlyGuardPrecedesUnsupportedContainerKind(TestContext c)
     {await ReadOnly();var error=Throws<InvalidOperationException>(()=>c.Dut.Freeze());Check(error.Message.Contains("ReadOnly",StringComparison.Ordinal),"phase guard precedes object value access");}
     [SimTest(Simulators=["Icarus Verilog"])] public static Task R021_FreezeWideMixedFourStatePattern(TestContext c)=>Held(c,"f_wide",string.Concat(Enumerable.Repeat("10XZ",24)),new string('1',96));
+    [SimTest(Simulators=["Icarus Verilog"])] public static async Task R022_ReleaseThenRecaptureUsesNewCommittedValue(TestContext c)
+    {var s=S(c,"f_byte");Put(c,"f_byte",22);try{s.Freeze();Check(N(c,"f_byte")==22,"first force");}finally{s.Release();}Put(c,"f_byte",44);try{s.Freeze();s.WriteBits("00000000");await Timer(1);Check(N(c,"f_byte")==44,"recapture after release");}finally{s.Release();}}
+    [SimTest(Simulators=["Icarus Verilog"])] public static async Task R023_CoalescedDepositsDoNotAlterCapturedCommit(TestContext c)
+    {Put(c,"f_byte",23);var s=S(c,"f_byte");s.WriteBits("00000001");s.WriteBits("00000010");try{s.Freeze();await Timer(1);Check(N(c,"f_byte")==23,"coalesced preview not committed capture");}finally{s.Release();}s.WriteBits("00000011");await Timer(1);Check(N(c,"f_byte")==3,"write scheduler remains usable");}
+    [SimTest(Simulators=["Icarus Verilog"])] public static async Task R024_ReadWritePhaseFreezeCapturesCommittedValue(TestContext c)
+    {var s=S(c,"f_byte");Put(c,"f_byte",24);await ReadWrite();Check(c.Runtime.Phase==SimPhase.ReadWrite,"readwrite test phase");try{s.Freeze();s.WriteBits("00011001",WriteAction.Immediate);Check(N(c,"f_byte")==24,"readwrite freeze holds explicitly committed value");}finally{s.Release();}await Timer(1);s.WriteBits("00011001");await Timer(1);Check(N(c,"f_byte")==25,"phase test release restores writes");}
+    [SimTest] public static async Task R025_ConstantRefusalPreservesUnrelatedPendingWrite(TestContext c)
+    {S(c,"f_byte").WriteBits("00011001");int before=c.Runtime.PendingCallbacks;Throws<InvalidOperationException>(()=>c.Dut.Child("F_CONSTANT").Freeze());Check(c.Runtime.PendingCallbacks==before,"constant refusal cannot steal scheduled write");await Timer(1);Check(N(c,"f_byte")==25,"unrelated pending write retained");}
 }

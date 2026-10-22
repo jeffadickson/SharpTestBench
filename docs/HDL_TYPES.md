@@ -114,3 +114,7 @@ release semantics then apply. This is a bounded C# operation, not the complete
 Python generic Freeze action-dispatch/value surface. ScopeContracts supplies
 actual backend acceptance and refusal tests; managed coverage does not measure
 these simulator-only paths.
+
+The ScopeContracts dynamic-string fixture is exposed on tested Verilator, but
+its Icarus GPI lookup is unavailable. String-refusal and string-readback contracts
+therefore declare Verilator requirements; no Icarus string result is inferred.

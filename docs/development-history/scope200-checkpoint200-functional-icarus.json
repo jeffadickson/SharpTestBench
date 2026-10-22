@@ -1,0 +1,30 @@
+{
+  "windows": [
+    {
+      "path": "build/scope200-contracts-71-83/legacy/legacy-results.coverage.json",
+      "sha256": "9e7ba005584ad849eb097be7d4082bcf94c5952767817f0a422eea960ebab46d",
+      "testEntries": 25,
+      "points": 26
+    },
+    {
+      "path": "build/scope200-contracts-71-83/native/icarus-results.coverage.json",
+      "sha256": "9e7ba005584ad849eb097be7d4082bcf94c5952767817f0a422eea960ebab46d",
+      "testEntries": 25,
+      "points": 26
+    }
+  ],
+  "linux": [
+    {
+      "path": "build/scope200-contracts-71-83/legacy/legacy-results.coverage.json",
+      "sha256": "872ccbed159025cdb048400434ba1c58d7dccca06e103f07d99e1edec05a9826",
+      "testEntries": 25,
+      "points": 26
+    },
+    {
+      "path": "build/scope200-contracts-71-83/native/icarus-results.coverage.json",
+      "sha256": "872ccbed159025cdb048400434ba1c58d7dccca06e103f07d99e1edec05a9826",
+      "testEntries": 25,
+      "points": 26
+    }
+  ]
+}

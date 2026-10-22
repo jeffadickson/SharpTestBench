@@ -11,8 +11,10 @@ is made. Native simulator adapters are reused, not reimplemented in C#.
 
 - [ ] Audit the public surface item by item against the pinned upstream source.
       `UPSTREAM_API_INVENTORY.csv` lists 302 public definitions, including definitions
-      from internal modules. Aliases, dynamic attributes and some exported imports
-      require additional review; the inventory is not a completeness percentage.
+      from internal modules. All 302 now have pinned-source decisions in
+      `API_REVIEWS.json`, validated by the C# audit command. Aliases, dynamic
+      attributes and exported imports still require review; this parent task stays
+      open and the inventory is not a parity or completeness percentage.
 - [x] Define and test child-scoped cancellation and suppression, task status/exception
       access, named jobs, task combinators and structured task groups (see TASKS.md).
 - [x] Typed StartSoon results and aggregate multi-failure reporting, including

@@ -6,14 +6,14 @@ are not established. GitHub issues are authoritative for completion state.
 
 | Area | Present evidence | Remaining work |
 |---|---|---|
-| Object model | Typed signals, explicit packed schemas, arrays, discovery and selected force/release tests | Named-field inference, broader packed metadata, package/structure matrix, connectivity and dynamic-string edges (#8, #10–#14) |
+| Object model | Typed signals, explicit packed schemas, arrays, discovery, force/release and committed-value Freeze tests | Named-field inference, broader packed metadata, package/structure matrix, connectivity and dynamic-string edges (#8, #10–#14) |
 | Simulator compatibility | Linux Icarus/Verilator/GHDL/NVC; native Icarus on Windows x64 and Mac ARM64 | Licensed commercial fixtures and actual mixed-language traversal (#9, #26); other OS/backend combinations remain unverified |
 | Timing and concurrency | Ordering traces, cancellation stress, native callback faults, structured groups with joined parent-cancellation callback failures | Full timing conformance beyond the Gather/Select tests (#44), full upstream audit (#1), shutdown investigation (#16), external-thread wakeups (#36) |
 | Packaging | Native packages and fresh installed Icarus consumers pass on Linux x64 / Windows x64 / Mac ARM64; concurrent workspaces tested | Public publication and broader adapter/architecture distribution (#22–#23) |
 | Performance | Microbenchmarks plus AXI-Lite-shaped memory comparison with repeated runs and fault negatives | Broader AXI bursts/concurrency, DSP and CPU workloads, with comparable correctness and throughput measurements (#18); native transport/clock work (#17, #19) |
 | Debugging | Linux managed breakpoint/local/exception and separate GDB startup/finish checks pass | Broader OS and simultaneous mixed debugger validation (#45) |
-| Functional coverage | Explicit bins and bounded two-axis automatic crosses with exclusions, atomic counters and stable flat snapshots; managed and native acceptance contracts | General multidimensional crosses and broader coverage planning remain outside the bounded API (#29); functional bins do not measure HDL instructions |
-| API compatibility | Inventory and explicit task ownership mapping | Audit every entry; classify essential semantics, idiomatic .NET alternatives, and Python-only conveniences (#1, #35, #37) |
+| Functional coverage | Explicit bins, bounded two-axis and shared-sample one-to-32-axis crosses, exclusions, atomic counters and stable flat snapshots; managed/native contracts | Broader coverage planning and automatic HDL metadata inference remain outside the bounded API (#29); functional bins do not measure HDL instructions |
+| API compatibility | All 302 counted pinned-source declarations reviewed with classifications/hashes/evidence; explicit task ownership mapping | Aliases, dynamic exports/imports, essential semantic gaps and Python-only convenience decisions remain (#1, #35, #37) |
 
 ## Release order
 

@@ -1,0 +1,10 @@
+{
+  "linux": [
+    {
+      "path": "build/scope200-200-verilator-results.coverage.json",
+      "sha256": "d93f1d3c2c99bbe53228666ea190bf9076f5a7e2ca1df9d3f6cdad7492330ebd",
+      "testEntries": 24,
+      "points": 25
+    }
+  ]
+}

@@ -15,3 +15,11 @@ Suggested prompt:
 ```text
 Continue SharpTestBench development on this OptiPlex. Read and follow docs/handoff/RESTART-PROMPT.txt from this checkout. Check and reuse existing Windows/WSL dependencies first, then verify a fresh local baseline. Use only Git for the handoff; keep CI disabled and PR #62 untouched.
 ```
+
+
+Latest local follow-up: [scope200](../development-history/scope200-report.md) records
+200 engineering units, current tests/coverage, native qualification and deep
+reviews. Its initial push reached f203e00; its subsequent four checkpoint commits
+remain local unless a later delivery record explicitly says they were pushed.
+Read actual Git history/status and the latest report before continuing; do not
+reset to historical SHAs or reuse old results as a fresh baseline.
