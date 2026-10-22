@@ -17,6 +17,7 @@
   </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/RequirementContracts/RequirementContracts.csproj" />
+    <Project Path="tests/ClosureContracts/ClosureContracts.csproj" />
     <Project Path="tests/RunnerProcessFixture/RunnerProcessFixture.csproj" />
     <Project Path="tests/RunnerValidation/RunnerValidation.csproj" />
     <Project Path="tests/SharpTestBench.Tools.Tests/SharpTestBench.Tools.Tests.csproj" />

@@ -29,20 +29,30 @@ internal static class ContractsCiCommand
             "Tests.AB_AggregateAndNestedGroups","Tests.AA_TypedJobResults","TriggerExtensionTests.ExternalTriggerComposition","TriggerExtensionTests.ExternalTriggerLifecycle"];
         return names.ToDictionary(name=>name,name=>ManifestCheckCommand.SelectionSeed(discovery,name),StringComparer.Ordinal);
     }
+    internal static (string Project,string Top,int Count) ContractSuite(string suite) => suite switch
+    {
+        "requirements" => ("RequirementContracts","contract_top",100),
+        "closure" => ("ClosureContracts","closure_top",70),
+        _ => throw new ArgumentException("Unknown contract suite", nameof(suite))
+    };
     public static void Execute(ToolContext context,string[] arguments)
     {
-        var options=new Options(arguments,"--integration-regressions");options.Only("--through","--seed","--integration-regressions");
+        var options=new Options(arguments,"--integration-regressions");options.Only("--through","--seed","--integration-regressions","--suite");
         bool integration=options.Has("--integration-regressions");
         if(integration&&options.Get("--through") is not null)throw new ArgumentException("Integration regression selection does not accept --through.");
-        if(!int.TryParse(options.Get("--through","100"),NumberStyles.None,CultureInfo.InvariantCulture,out int through)||through is <1 or >100)throw new ArgumentException("Invalid contract milestone.");
+        if(integration&&options.Has("--suite"))throw new ArgumentException("Integration regressions do not accept --suite.");
+        var suite=ContractSuite(options.Get("--suite","requirements")!);
+        bool closure=suite.Project=="ClosureContracts";
+        if(!int.TryParse(options.Get("--through",suite.Count.ToString(CultureInfo.InvariantCulture)),NumberStyles.None,CultureInfo.InvariantCulture,out int through)||through<1||through>suite.Count)throw new ArgumentException("Invalid contract milestone.");
         if(!ulong.TryParse(options.Get("--seed","83"),NumberStyles.None,CultureInfo.InvariantCulture,out ulong seed))throw new ArgumentException("Invalid contract seed.");
-        string project=integration?"Integration":"RequirementContracts";
-        var name=integration?$"requirements100-integration-{seed}":$"requirements100-{through}-{seed}";
+        string project=integration?"Integration":suite.Project;
+        string top=integration?"top":suite.Top;
+        var name=integration?$"requirements100-integration-{seed}":closure?$"closure100-contracts-{through}-{seed}":$"requirements100-{through}-{seed}";
         ParityCiCommand.InWorkspace(context,name,(work,environment)=>{
             context.Run(["dotnet","build",context.At("tests/"+project),"-c","Release","-p:RestoreLockedMode=true","--disable-build-servers","-m:1"],environment:environment);
             NativeBuildCommand.Build(context);
             var manifest=RunnerManifestCommand.Make(context.Root,"counter",seed,RunnerManifestCommand.InstalledAdapter(context),Path.Combine(work,"native"));
-            manifest["top"]=integration?"top":"contract_top";manifest["sources"]=new[]{context.At("tests/"+project+"/"+(integration?"top.sv":"contract_top.sv"))};
+            manifest["top"]=top;manifest["sources"]=new[]{context.At("tests/"+project+"/"+top+".sv")};
             manifest["assembly"]=context.At("tests/"+project+"/bin/Release/net10.0/"+project+".dll");manifest["entryType"]="Entry, "+project;
             StrictJson.Write(Path.Combine(work,"manifest.json"),manifest);
             context.Run([..ToolContext.Self,"run","--sim","icarus","--no-build","--assembly",(string)manifest["assembly"],"--source",((string[])manifest["sources"])[0],"--top",(string)manifest["top"],"--entry-type",(string)manifest["entryType"],"--seed",seed.ToString(CultureInfo.InvariantCulture),"--work-dir",Path.Combine(work,"discovery"),"--label","discovery","--list"],environment:environment);
@@ -53,7 +63,7 @@ internal static class ContractsCiCommand
             var inputs=PairedInputs.Capture(work,ParityLegacyCommand.Read(manifest));
             using var producer=StrictJson.Read(Path.Combine(work,"discovery/discovery-input-manifest.json"));ManifestCheckCommand.VerifyDiscoveryInputs(producer.RootElement,inputs);
             var report=ParityCiCommand.Compare(context,work,manifest,seed,environment,null,null,null,null);
-            report["contracts"]=selected.Count;report["fixture"]=integration?"integration-regressions":"requirement-contracts";return report;
+            report["contracts"]=selected.Count;report["fixture"]=integration?"integration-regressions":closure?"closure-contracts":"requirement-contracts";return report;
         });
     }
 }

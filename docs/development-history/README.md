@@ -166,3 +166,13 @@ The separate100-unit follow-up is now locally complete: [final report](requireme
 and [ledger](requirements100-iterations.jsonl). The earlier midpoint50 entry is
 historical progress. Final deep review preceded the final local commit. This new
 batch was not pushed; the prior campaign through ca0d4ef alone was pushed on request.
+
+
+## Closure100 follow-up (local midpoint50)
+
+Prior requirements100 work through f02e163 was normally pushed on explicit request.
+The new [closure100 report](closure100-report.md), [ledger](closure100-iterations.jsonl),
+[reviews](closure100-reviews.jsonl), [fresh baseline](closure100-baseline.json) and
+[checkpoint50](closure100-checkpoint50-validation.json) describe a separate batch.
+Fifty units are locally verified;50remain. Final deep review precedes final commit.
+This batch remains local, with CI disabled and PR62 unchanged.

@@ -28,7 +28,7 @@ objects. Snapshots/export allocate in proportion to configured points and bins,
 not the number of samples. Access is restricted to the creating thread. Snapshots
 copy counter values so later samples do not change earlier reports. Explicitly
 sample tuples to define cross scenarios; automatic cross-bin generation, exclusion
-rules and multi-run merges are not supplied in this initial API.
+rules are not supplied. Validated additive snapshot merges are supported as described below.
 
 Every regression writes a sibling `*-results.coverage.json` alongside JSON/JUnit.
 The versioned document has SchemaVersion=1, Kind=functional and test entries with
@@ -44,3 +44,24 @@ identity against the regression result. Managed unit tests cover overlapping bin
 null percentage, immutable counter snapshots, invalid definitions, predicate failure,
 recursion, thread checks and JSON counts. Managed/HDL code coverage remains outside
 this functional API's support contract.
+
+
+## Reset and additive snapshot merge
+
+`point.Reset()` clears that point's hits, samples and unmatched count, retaining
+bin names, goals and predicates. `coverage.Reset()` clears all points only after
+checking every point can be changed. Both require the creating thread. Point reset rejects that point's active sample;
+suite reset/merge reject sampling active on any point. Predicates must remain pure. Previously returned snapshots retain
+their values. Reset deliberately discards earlier-window counts from the final
+per-test export unless the caller saves those snapshots.
+
+`coverage.Merge(snapshot)` adds a caller-supplied CoverageSnapshot. A subset of
+existing points is allowed; every included point must have exactly the configured
+bin names and goals. Point/bin ordering is irrelevant. Duplicate/unknown identities,
+null shapes, impossible matched/unmatched counters and overflow reject the whole
+merge before changing any point. Overlapping bins remain supported. Repeated merges
+are additive, not deduplicated by run identity. Callers must ensure matching names
+represent equivalent predicates and retain any required seed/status provenance.
+The API merges functional counters, not entire test-result envelopes or external
+HDL/code-coverage databases. Existing SchemaVersion=1 export fields are unchanged;
+a regression still exports the final per-test counter snapshot.
