@@ -20,6 +20,7 @@
     <Project Path="tests/ClosureContracts/ClosureContracts.csproj" />
     <Project Path="tests/ConformanceContracts/ConformanceContracts.csproj" />
     <Project Path="tests/ScopeContracts/ScopeContracts.csproj" />
+    <Project Path="tests/ProtocolContracts/ProtocolContracts.csproj" />
     <Project Path="tests/RunnerProcessFixture/RunnerProcessFixture.csproj" />
     <Project Path="tests/RunnerValidation/RunnerValidation.csproj" />
     <Project Path="tests/SharpTestBench.Tools.Tests/SharpTestBench.Tools.Tests.csproj" />

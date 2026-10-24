@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "checkpoint": 150,
+  "scope": "Non-executable EOF formatting after measurement; original measured source hashes remain in coverage evidence",
+  "files": [
+    {
+      "path": "SharpTestBench.slnx",
+      "measuredSourceSha256": "64e86f1f5ebb297fc01ea78cf04a79c7506850524d0112f6ee09180dbec65c2a",
+      "committedSourceSha256": "0da303f5d15ff6b09ba286150338a62818ac91428dd4c94d18f44c81ab1b5377",
+      "change": "Removed one extra blank line at EOF after validation; executable statements and measured binaries unchanged"
+    },
+    {
+      "path": "tools/SharpTestBench.Tools/ContractsCiCommand.cs",
+      "measuredSourceSha256": "017aa8f24fb824b0d8ba4902afb31588e0c102682cd64cb85a9ecd9990b1ae70",
+      "committedSourceSha256": "b194f5d8082670933e1a573e034c274faa5088932be5e0ba275721ff687f598b",
+      "change": "Removed one extra blank line at EOF after validation; executable statements and measured binaries unchanged"
+    }
+  ]
+}

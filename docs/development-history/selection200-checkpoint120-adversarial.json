@@ -1,0 +1,149 @@
+{
+  "schemaVersion": 1,
+  "checkpoint": 120,
+  "requirementIds": [
+    "STB-PRO-001",
+    "STB-VER-002"
+  ],
+  "scope": "One coherent throughput-bubble mutant of locally authored RTL, with an unchanged control. Separate from the twelve production C# mutants and from unmeasured HDL line/branch coverage.",
+  "windows": {
+    "evidence": {
+      "schemaVersion": 1,
+      "status": "verified",
+      "scope": "One locally authored RTL fixture mutant, separate from production C# mutants and HDL line/branch coverage",
+      "baseSeed": 83,
+      "caseSeed": 95,
+      "variants": [
+        {
+          "schemaVersion": 1,
+          "legacy": [
+            [
+              "Entry.R013_ContinuousAcceptedBurst",
+              "passed"
+            ]
+          ],
+          "native": [
+            [
+              "Entry.R013_ContinuousAcceptedBurst",
+              "passed"
+            ]
+          ],
+          "expected": [
+            "Entry.R013_ContinuousAcceptedBurst"
+          ],
+          "missing": {
+            "legacy": [],
+            "native": []
+          },
+          "unexpected": {
+            "legacy": [],
+            "native": []
+          },
+          "seedMismatches": [],
+          "matched": true,
+          "expectedSeedMatched": true,
+          "exitCodes": {
+            "legacy": 0,
+            "native": 0
+          },
+          "fixture": "protocol-throughput-sensitivity",
+          "variant": "unchanged control",
+          "hdlSourceSha256": "6ac5e8760d6aec4509bbaa6de376ebf8d6093bed50c040edf1c02d20e777684d",
+          "fixtureAssemblySha256": "b46b8f47686cb912a4cac6cc8cc8209e0e34cd53ccf2e29495c14b60f1c2b449"
+        },
+        {
+          "schemaVersion": 1,
+          "negativeControl": true,
+          "legacyDetected": true,
+          "nativeDetected": true,
+          "matched": true,
+          "expectedSeedMatched": true,
+          "exitCodes": {
+            "legacy": 1,
+            "native": 1
+          },
+          "fixture": "protocol-throughput-sensitivity",
+          "variant": "coherent replacement bubble",
+          "hdlSourceSha256": "3d0a25fbd2ef9abcfdde41dc8a85c446ed2dfb4d8a91bec8adf0b952529f1744",
+          "fixtureAssemblySha256": "b46b8f47686cb912a4cac6cc8cc8209e0e34cd53ccf2e29495c14b60f1c2b449"
+        }
+      ]
+    },
+    "reportSha256": "62dedc2ebf58de0b644ec661d686e25a97d5523e7aee94ceb7e4eafd08ebaaa9",
+    "logSha256": "f71521b3ce5ca3a2135e02d95915065ed51afaa2d8785a78a2715b7efd102ca9",
+    "verifierSourceSha256": "9224f253a83b75c706b20f39f06c9cb2a810212df9b4b02ebbdf509f6abb36ec",
+    "caseSourceSha256": "adb15cae9bca7bce34186e4b4a165052297d2d658e3dad325a3053d751c7ed28",
+    "modelSourceSha256": "363405dcdd5cbe870047e89cd9b88233fa4a709cb39843609120aac54e0c3548",
+    "unmodifiedHdlSha256": "6ac5e8760d6aec4509bbaa6de376ebf8d6093bed50c040edf1c02d20e777684d"
+  },
+  "linux": {
+    "evidence": {
+      "schemaVersion": 1,
+      "status": "verified",
+      "scope": "One locally authored RTL fixture mutant, separate from production C# mutants and HDL line/branch coverage",
+      "baseSeed": 83,
+      "caseSeed": 95,
+      "variants": [
+        {
+          "schemaVersion": 1,
+          "legacy": [
+            [
+              "Entry.R013_ContinuousAcceptedBurst",
+              "passed"
+            ]
+          ],
+          "native": [
+            [
+              "Entry.R013_ContinuousAcceptedBurst",
+              "passed"
+            ]
+          ],
+          "expected": [
+            "Entry.R013_ContinuousAcceptedBurst"
+          ],
+          "missing": {
+            "legacy": [],
+            "native": []
+          },
+          "unexpected": {
+            "legacy": [],
+            "native": []
+          },
+          "seedMismatches": [],
+          "matched": true,
+          "expectedSeedMatched": true,
+          "exitCodes": {
+            "legacy": 0,
+            "native": 0
+          },
+          "fixture": "protocol-throughput-sensitivity",
+          "variant": "unchanged control",
+          "hdlSourceSha256": "6ac5e8760d6aec4509bbaa6de376ebf8d6093bed50c040edf1c02d20e777684d",
+          "fixtureAssemblySha256": "d0881274e44d4d31987fa8f31c0bb19c62c8db8527dae7cb558e1c6fec630be2"
+        },
+        {
+          "schemaVersion": 1,
+          "negativeControl": true,
+          "legacyDetected": true,
+          "nativeDetected": true,
+          "matched": true,
+          "expectedSeedMatched": true,
+          "exitCodes": {
+            "legacy": 1,
+            "native": 1
+          },
+          "fixture": "protocol-throughput-sensitivity",
+          "variant": "coherent replacement bubble",
+          "hdlSourceSha256": "3d0a25fbd2ef9abcfdde41dc8a85c446ed2dfb4d8a91bec8adf0b952529f1744",
+          "fixtureAssemblySha256": "d0881274e44d4d31987fa8f31c0bb19c62c8db8527dae7cb558e1c6fec630be2"
+        }
+      ]
+    },
+    "reportSha256": "8e82073a39608ed1bb51ec6a110b49552a982a8a46d9f80ff56c16d44d717d6a",
+    "logSha256": "72d9ab3183ebb035471c78f46f1da80c93fbfa6e1b73babcd90d321efdc37705",
+    "verifierSourceSha256": "9224f253a83b75c706b20f39f06c9cb2a810212df9b4b02ebbdf509f6abb36ec",
+    "caseSourceSha256": "adb15cae9bca7bce34186e4b4a165052297d2d658e3dad325a3053d751c7ed28",
+    "modelSourceSha256": "363405dcdd5cbe870047e89cd9b88233fa4a709cb39843609120aac54e0c3548",
+    "unmodifiedHdlSha256": "6ac5e8760d6aec4509bbaa6de376ebf8d6093bed50c040edf1c02d20e777684d"
+  }
+}

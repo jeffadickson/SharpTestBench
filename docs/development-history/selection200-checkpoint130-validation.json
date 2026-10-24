@@ -1,0 +1,654 @@
+{
+  "windows": {
+    "managed": [
+      {
+        "suite": "SharpTestBench.Tests",
+        "total": 669,
+        "skipped": 0
+      },
+      {
+        "suite": "SharpTestBench.Generators.Tests",
+        "total": 17,
+        "skipped": 0
+      },
+      {
+        "suite": "SharpTestBench.Tools.Tests",
+        "total": 1262,
+        "skipped": 12
+      }
+    ],
+    "logSha256": "de7a90aa690d22f3189c3bb5e51941d0a17717bbecd29acfcf2de0e6b0a3df13",
+    "exportAudit": {
+      "schemaVersion": 1,
+      "literalExports": 44,
+      "reviewedExports": 30,
+      "unreviewedExports": 14,
+      "note": "Bounded literal __all__ review only. Other modules, dynamic names and runtime import behavior are unmeasured; counts are not parity percentages."
+    },
+    "exportAuditSha256": "03cd6d8f15359345a9354dc1a830281fe9caa3a6706e44da80279d10e1715331",
+    "exportReviewSha256": "243187bdab67f37c54a76ee40585fb8ca7caf4125f28682853613bbd633fda81",
+    "newProtocolIcarus": {
+      "schemaVersion": 1,
+      "legacy": [
+        [
+          "Entry.R001_ZeroBytePacket",
+          "passed"
+        ],
+        [
+          "Entry.R002_AllOnesBytePacket",
+          "passed"
+        ],
+        [
+          "Entry.R003_PublishedCheckVector",
+          "passed"
+        ],
+        [
+          "Entry.R004_MostSignificantBitPacket",
+          "passed"
+        ],
+        [
+          "Entry.R005_LeastSignificantBitPacket",
+          "passed"
+        ],
+        [
+          "Entry.R006_EachBitAsItsOwnPacket",
+          "passed"
+        ],
+        [
+          "Entry.R007_AllByteValuesOnePacket",
+          "passed"
+        ],
+        [
+          "Entry.R008_ZeroRunKeepsPolynomialZero",
+          "passed"
+        ],
+        [
+          "Entry.R009_OnesRunAccumulatesAcrossBytes",
+          "passed"
+        ],
+        [
+          "Entry.R010_AlternatingBitOrder",
+          "passed"
+        ],
+        [
+          "Entry.R011_AdjacentPacketBoundariesResetAccumulator",
+          "passed"
+        ],
+        [
+          "Entry.R012_SeededPacketLengthsAndPayloads",
+          "passed"
+        ],
+        [
+          "Entry.R013_ContinuousAcceptedBurst",
+          "passed"
+        ],
+        [
+          "Entry.R014_SourceGapsDoNotAdvancePacket",
+          "passed"
+        ],
+        [
+          "Entry.R015_SinkBackpressureHoldsCompleteWord",
+          "passed"
+        ],
+        [
+          "Entry.R016_IndependentSourceAndSinkGaps",
+          "passed"
+        ],
+        [
+          "Entry.R017_LastWordIsHeldUnderBackpressure",
+          "passed"
+        ],
+        [
+          "Entry.R018_LengthCrossesEightBitBoundary",
+          "passed"
+        ],
+        [
+          "Entry.R019_ResetEmptyStage",
+          "passed"
+        ],
+        [
+          "Entry.R020_ResetDiscardsFullStage",
+          "passed"
+        ],
+        [
+          "Entry.R021_ResetOverridesStalledLast",
+          "passed"
+        ],
+        [
+          "Entry.R022_BackToBackSingleBytePackets",
+          "passed"
+        ],
+        [
+          "Entry.R023_InvalidLastCannotResetPacket",
+          "passed"
+        ],
+        [
+          "Entry.R024_InvalidDataCannotEnterAccumulator",
+          "passed"
+        ],
+        [
+          "Entry.R025_BlockedInputChangesCannotCorruptHeldOutput",
+          "passed"
+        ],
+        [
+          "Entry.R026_CrcOracleRejectsWrongRemainder",
+          "passed"
+        ],
+        [
+          "Entry.R027_DataOracleRejectsCorruptedPayload",
+          "passed"
+        ],
+        [
+          "Entry.R028_LengthOracleRejectsCountingBubbles",
+          "passed"
+        ],
+        [
+          "Entry.R029_LastOracleRejectsBoundaryLoss",
+          "passed"
+        ],
+        [
+          "Entry.R030_NegativeProbeDoesNotPoisonLaterPacket",
+          "passed"
+        ]
+      ],
+      "native": [
+        [
+          "Entry.R001_ZeroBytePacket",
+          "passed"
+        ],
+        [
+          "Entry.R002_AllOnesBytePacket",
+          "passed"
+        ],
+        [
+          "Entry.R003_PublishedCheckVector",
+          "passed"
+        ],
+        [
+          "Entry.R004_MostSignificantBitPacket",
+          "passed"
+        ],
+        [
+          "Entry.R005_LeastSignificantBitPacket",
+          "passed"
+        ],
+        [
+          "Entry.R006_EachBitAsItsOwnPacket",
+          "passed"
+        ],
+        [
+          "Entry.R007_AllByteValuesOnePacket",
+          "passed"
+        ],
+        [
+          "Entry.R008_ZeroRunKeepsPolynomialZero",
+          "passed"
+        ],
+        [
+          "Entry.R009_OnesRunAccumulatesAcrossBytes",
+          "passed"
+        ],
+        [
+          "Entry.R010_AlternatingBitOrder",
+          "passed"
+        ],
+        [
+          "Entry.R011_AdjacentPacketBoundariesResetAccumulator",
+          "passed"
+        ],
+        [
+          "Entry.R012_SeededPacketLengthsAndPayloads",
+          "passed"
+        ],
+        [
+          "Entry.R013_ContinuousAcceptedBurst",
+          "passed"
+        ],
+        [
+          "Entry.R014_SourceGapsDoNotAdvancePacket",
+          "passed"
+        ],
+        [
+          "Entry.R015_SinkBackpressureHoldsCompleteWord",
+          "passed"
+        ],
+        [
+          "Entry.R016_IndependentSourceAndSinkGaps",
+          "passed"
+        ],
+        [
+          "Entry.R017_LastWordIsHeldUnderBackpressure",
+          "passed"
+        ],
+        [
+          "Entry.R018_LengthCrossesEightBitBoundary",
+          "passed"
+        ],
+        [
+          "Entry.R019_ResetEmptyStage",
+          "passed"
+        ],
+        [
+          "Entry.R020_ResetDiscardsFullStage",
+          "passed"
+        ],
+        [
+          "Entry.R021_ResetOverridesStalledLast",
+          "passed"
+        ],
+        [
+          "Entry.R022_BackToBackSingleBytePackets",
+          "passed"
+        ],
+        [
+          "Entry.R023_InvalidLastCannotResetPacket",
+          "passed"
+        ],
+        [
+          "Entry.R024_InvalidDataCannotEnterAccumulator",
+          "passed"
+        ],
+        [
+          "Entry.R025_BlockedInputChangesCannotCorruptHeldOutput",
+          "passed"
+        ],
+        [
+          "Entry.R026_CrcOracleRejectsWrongRemainder",
+          "passed"
+        ],
+        [
+          "Entry.R027_DataOracleRejectsCorruptedPayload",
+          "passed"
+        ],
+        [
+          "Entry.R028_LengthOracleRejectsCountingBubbles",
+          "passed"
+        ],
+        [
+          "Entry.R029_LastOracleRejectsBoundaryLoss",
+          "passed"
+        ],
+        [
+          "Entry.R030_NegativeProbeDoesNotPoisonLaterPacket",
+          "passed"
+        ]
+      ],
+      "expected": [
+        "Entry.R001_ZeroBytePacket",
+        "Entry.R002_AllOnesBytePacket",
+        "Entry.R003_PublishedCheckVector",
+        "Entry.R004_MostSignificantBitPacket",
+        "Entry.R005_LeastSignificantBitPacket",
+        "Entry.R006_EachBitAsItsOwnPacket",
+        "Entry.R007_AllByteValuesOnePacket",
+        "Entry.R008_ZeroRunKeepsPolynomialZero",
+        "Entry.R009_OnesRunAccumulatesAcrossBytes",
+        "Entry.R010_AlternatingBitOrder",
+        "Entry.R011_AdjacentPacketBoundariesResetAccumulator",
+        "Entry.R012_SeededPacketLengthsAndPayloads",
+        "Entry.R013_ContinuousAcceptedBurst",
+        "Entry.R014_SourceGapsDoNotAdvancePacket",
+        "Entry.R015_SinkBackpressureHoldsCompleteWord",
+        "Entry.R016_IndependentSourceAndSinkGaps",
+        "Entry.R017_LastWordIsHeldUnderBackpressure",
+        "Entry.R018_LengthCrossesEightBitBoundary",
+        "Entry.R019_ResetEmptyStage",
+        "Entry.R020_ResetDiscardsFullStage",
+        "Entry.R021_ResetOverridesStalledLast",
+        "Entry.R022_BackToBackSingleBytePackets",
+        "Entry.R023_InvalidLastCannotResetPacket",
+        "Entry.R024_InvalidDataCannotEnterAccumulator",
+        "Entry.R025_BlockedInputChangesCannotCorruptHeldOutput",
+        "Entry.R026_CrcOracleRejectsWrongRemainder",
+        "Entry.R027_DataOracleRejectsCorruptedPayload",
+        "Entry.R028_LengthOracleRejectsCountingBubbles",
+        "Entry.R029_LastOracleRejectsBoundaryLoss",
+        "Entry.R030_NegativeProbeDoesNotPoisonLaterPacket"
+      ],
+      "missing": {
+        "legacy": [],
+        "native": []
+      },
+      "unexpected": {
+        "legacy": [],
+        "native": []
+      },
+      "seedMismatches": [],
+      "matched": true,
+      "expectedSeedMatched": true,
+      "exitCodes": {
+        "legacy": 0,
+        "native": 0
+      },
+      "contracts": 30,
+      "fixture": "protocol-contracts"
+    },
+    "protocolLogSha256": "99c83e7747aa33ce378ec2ba1a491759579d0e480b36d28b94011db8777bd672"
+  },
+  "linux": {
+    "managed": [
+      {
+        "suite": "SharpTestBench.Tests",
+        "total": 669,
+        "skipped": 0
+      },
+      {
+        "suite": "SharpTestBench.Generators.Tests",
+        "total": 17,
+        "skipped": 0
+      },
+      {
+        "suite": "SharpTestBench.Tools.Tests",
+        "total": 1262,
+        "skipped": 0
+      }
+    ],
+    "logSha256": "3b650926e3a4ee1ad9a570fde107f673fce77ce61b13e612d19f320ca26c0686",
+    "exportAudit": {
+      "schemaVersion": 1,
+      "literalExports": 44,
+      "reviewedExports": 30,
+      "unreviewedExports": 14,
+      "note": "Bounded literal __all__ review only. Other modules, dynamic names and runtime import behavior are unmeasured; counts are not parity percentages."
+    },
+    "exportAuditSha256": "52e87c1aded41b3e3b775b9dde63f81de5aaad46ae138c4a8d86848dbc5eb435",
+    "exportReviewSha256": "243187bdab67f37c54a76ee40585fb8ca7caf4125f28682853613bbd633fda81",
+    "newProtocolIcarus": {
+      "schemaVersion": 1,
+      "legacy": [
+        [
+          "Entry.R001_ZeroBytePacket",
+          "passed"
+        ],
+        [
+          "Entry.R002_AllOnesBytePacket",
+          "passed"
+        ],
+        [
+          "Entry.R003_PublishedCheckVector",
+          "passed"
+        ],
+        [
+          "Entry.R004_MostSignificantBitPacket",
+          "passed"
+        ],
+        [
+          "Entry.R005_LeastSignificantBitPacket",
+          "passed"
+        ],
+        [
+          "Entry.R006_EachBitAsItsOwnPacket",
+          "passed"
+        ],
+        [
+          "Entry.R007_AllByteValuesOnePacket",
+          "passed"
+        ],
+        [
+          "Entry.R008_ZeroRunKeepsPolynomialZero",
+          "passed"
+        ],
+        [
+          "Entry.R009_OnesRunAccumulatesAcrossBytes",
+          "passed"
+        ],
+        [
+          "Entry.R010_AlternatingBitOrder",
+          "passed"
+        ],
+        [
+          "Entry.R011_AdjacentPacketBoundariesResetAccumulator",
+          "passed"
+        ],
+        [
+          "Entry.R012_SeededPacketLengthsAndPayloads",
+          "passed"
+        ],
+        [
+          "Entry.R013_ContinuousAcceptedBurst",
+          "passed"
+        ],
+        [
+          "Entry.R014_SourceGapsDoNotAdvancePacket",
+          "passed"
+        ],
+        [
+          "Entry.R015_SinkBackpressureHoldsCompleteWord",
+          "passed"
+        ],
+        [
+          "Entry.R016_IndependentSourceAndSinkGaps",
+          "passed"
+        ],
+        [
+          "Entry.R017_LastWordIsHeldUnderBackpressure",
+          "passed"
+        ],
+        [
+          "Entry.R018_LengthCrossesEightBitBoundary",
+          "passed"
+        ],
+        [
+          "Entry.R019_ResetEmptyStage",
+          "passed"
+        ],
+        [
+          "Entry.R020_ResetDiscardsFullStage",
+          "passed"
+        ],
+        [
+          "Entry.R021_ResetOverridesStalledLast",
+          "passed"
+        ],
+        [
+          "Entry.R022_BackToBackSingleBytePackets",
+          "passed"
+        ],
+        [
+          "Entry.R023_InvalidLastCannotResetPacket",
+          "passed"
+        ],
+        [
+          "Entry.R024_InvalidDataCannotEnterAccumulator",
+          "passed"
+        ],
+        [
+          "Entry.R025_BlockedInputChangesCannotCorruptHeldOutput",
+          "passed"
+        ],
+        [
+          "Entry.R026_CrcOracleRejectsWrongRemainder",
+          "passed"
+        ],
+        [
+          "Entry.R027_DataOracleRejectsCorruptedPayload",
+          "passed"
+        ],
+        [
+          "Entry.R028_LengthOracleRejectsCountingBubbles",
+          "passed"
+        ],
+        [
+          "Entry.R029_LastOracleRejectsBoundaryLoss",
+          "passed"
+        ],
+        [
+          "Entry.R030_NegativeProbeDoesNotPoisonLaterPacket",
+          "passed"
+        ]
+      ],
+      "native": [
+        [
+          "Entry.R001_ZeroBytePacket",
+          "passed"
+        ],
+        [
+          "Entry.R002_AllOnesBytePacket",
+          "passed"
+        ],
+        [
+          "Entry.R003_PublishedCheckVector",
+          "passed"
+        ],
+        [
+          "Entry.R004_MostSignificantBitPacket",
+          "passed"
+        ],
+        [
+          "Entry.R005_LeastSignificantBitPacket",
+          "passed"
+        ],
+        [
+          "Entry.R006_EachBitAsItsOwnPacket",
+          "passed"
+        ],
+        [
+          "Entry.R007_AllByteValuesOnePacket",
+          "passed"
+        ],
+        [
+          "Entry.R008_ZeroRunKeepsPolynomialZero",
+          "passed"
+        ],
+        [
+          "Entry.R009_OnesRunAccumulatesAcrossBytes",
+          "passed"
+        ],
+        [
+          "Entry.R010_AlternatingBitOrder",
+          "passed"
+        ],
+        [
+          "Entry.R011_AdjacentPacketBoundariesResetAccumulator",
+          "passed"
+        ],
+        [
+          "Entry.R012_SeededPacketLengthsAndPayloads",
+          "passed"
+        ],
+        [
+          "Entry.R013_ContinuousAcceptedBurst",
+          "passed"
+        ],
+        [
+          "Entry.R014_SourceGapsDoNotAdvancePacket",
+          "passed"
+        ],
+        [
+          "Entry.R015_SinkBackpressureHoldsCompleteWord",
+          "passed"
+        ],
+        [
+          "Entry.R016_IndependentSourceAndSinkGaps",
+          "passed"
+        ],
+        [
+          "Entry.R017_LastWordIsHeldUnderBackpressure",
+          "passed"
+        ],
+        [
+          "Entry.R018_LengthCrossesEightBitBoundary",
+          "passed"
+        ],
+        [
+          "Entry.R019_ResetEmptyStage",
+          "passed"
+        ],
+        [
+          "Entry.R020_ResetDiscardsFullStage",
+          "passed"
+        ],
+        [
+          "Entry.R021_ResetOverridesStalledLast",
+          "passed"
+        ],
+        [
+          "Entry.R022_BackToBackSingleBytePackets",
+          "passed"
+        ],
+        [
+          "Entry.R023_InvalidLastCannotResetPacket",
+          "passed"
+        ],
+        [
+          "Entry.R024_InvalidDataCannotEnterAccumulator",
+          "passed"
+        ],
+        [
+          "Entry.R025_BlockedInputChangesCannotCorruptHeldOutput",
+          "passed"
+        ],
+        [
+          "Entry.R026_CrcOracleRejectsWrongRemainder",
+          "passed"
+        ],
+        [
+          "Entry.R027_DataOracleRejectsCorruptedPayload",
+          "passed"
+        ],
+        [
+          "Entry.R028_LengthOracleRejectsCountingBubbles",
+          "passed"
+        ],
+        [
+          "Entry.R029_LastOracleRejectsBoundaryLoss",
+          "passed"
+        ],
+        [
+          "Entry.R030_NegativeProbeDoesNotPoisonLaterPacket",
+          "passed"
+        ]
+      ],
+      "expected": [
+        "Entry.R001_ZeroBytePacket",
+        "Entry.R002_AllOnesBytePacket",
+        "Entry.R003_PublishedCheckVector",
+        "Entry.R004_MostSignificantBitPacket",
+        "Entry.R005_LeastSignificantBitPacket",
+        "Entry.R006_EachBitAsItsOwnPacket",
+        "Entry.R007_AllByteValuesOnePacket",
+        "Entry.R008_ZeroRunKeepsPolynomialZero",
+        "Entry.R009_OnesRunAccumulatesAcrossBytes",
+        "Entry.R010_AlternatingBitOrder",
+        "Entry.R011_AdjacentPacketBoundariesResetAccumulator",
+        "Entry.R012_SeededPacketLengthsAndPayloads",
+        "Entry.R013_ContinuousAcceptedBurst",
+        "Entry.R014_SourceGapsDoNotAdvancePacket",
+        "Entry.R015_SinkBackpressureHoldsCompleteWord",
+        "Entry.R016_IndependentSourceAndSinkGaps",
+        "Entry.R017_LastWordIsHeldUnderBackpressure",
+        "Entry.R018_LengthCrossesEightBitBoundary",
+        "Entry.R019_ResetEmptyStage",
+        "Entry.R020_ResetDiscardsFullStage",
+        "Entry.R021_ResetOverridesStalledLast",
+        "Entry.R022_BackToBackSingleBytePackets",
+        "Entry.R023_InvalidLastCannotResetPacket",
+        "Entry.R024_InvalidDataCannotEnterAccumulator",
+        "Entry.R025_BlockedInputChangesCannotCorruptHeldOutput",
+        "Entry.R026_CrcOracleRejectsWrongRemainder",
+        "Entry.R027_DataOracleRejectsCorruptedPayload",
+        "Entry.R028_LengthOracleRejectsCountingBubbles",
+        "Entry.R029_LastOracleRejectsBoundaryLoss",
+        "Entry.R030_NegativeProbeDoesNotPoisonLaterPacket"
+      ],
+      "missing": {
+        "legacy": [],
+        "native": []
+      },
+      "unexpected": {
+        "legacy": [],
+        "native": []
+      },
+      "seedMismatches": [],
+      "matched": true,
+      "expectedSeedMatched": true,
+      "exitCodes": {
+        "legacy": 0,
+        "native": 0
+      },
+      "contracts": 30,
+      "fixture": "protocol-contracts"
+    },
+    "protocolLogSha256": "7773057f3e61df8e63f9c0e25c7f9a2b3a33885e515bbaeecda5494a61418997"
+  }
+}

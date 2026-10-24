@@ -169,10 +169,16 @@ RELATIONS:
 UID: STB-PRO-001
 STATUS: Active
 TITLE: CRC stream behavior
-STATEMENT: The local CRC stream fixture shall preserve accepted packet order and check its defined polynomial, packet-boundary state, backpressure, length and reset behavior against independent packet history.
+STATEMENT: The local CRC stream fixture shall preserve accepted packet order, sustain one acceptance per offered cycle with ready high, and check its defined polynomial, packet-boundary state, backpressure, length and reset behavior against independent packet history.
 RELATIONS:
 - TYPE: Parent
   VALUE: STB-007
+- TYPE: File
+  VALUE: tests/ProtocolContracts/Entry.cs
+- TYPE: File
+  VALUE: tests/ProtocolContracts/CrcContracts.cs
+- TYPE: File
+  VALUE: tests/ProtocolContracts/protocol_top.sv
 
 [REQUIREMENT]
 UID: STB-PRO-002
@@ -182,6 +188,12 @@ STATEMENT: The local four-request arbiter fixture shall check enabled grants, ac
 RELATIONS:
 - TYPE: Parent
   VALUE: STB-007
+- TYPE: File
+  VALUE: tests/ProtocolContracts/Entry.cs
+- TYPE: File
+  VALUE: tests/ProtocolContracts/ArbiterContracts.cs
+- TYPE: File
+  VALUE: tests/ProtocolContracts/protocol_top.sv
 
 [REQUIREMENT]
 UID: STB-PRO-003
@@ -191,6 +203,12 @@ STATEMENT: The local eight-word register bank shall check read enable, byte lane
 RELATIONS:
 - TYPE: Parent
   VALUE: STB-007
+- TYPE: File
+  VALUE: tests/ProtocolContracts/Entry.cs
+- TYPE: File
+  VALUE: tests/ProtocolContracts/BankContracts.cs
+- TYPE: File
+  VALUE: tests/ProtocolContracts/protocol_top.sv
 
 [REQUIREMENT]
 UID: STB-PRO-004
@@ -200,6 +218,16 @@ STATEMENT: Protocol negative controls shall demonstrate that a deliberate native
 RELATIONS:
 - TYPE: Parent
   VALUE: STB-007
+- TYPE: File
+  VALUE: tests/ProtocolContracts/Entry.cs
+- TYPE: File
+  VALUE: tests/ProtocolContracts/CrcContracts.cs
+- TYPE: File
+  VALUE: tests/ProtocolContracts/ArbiterContracts.cs
+- TYPE: File
+  VALUE: tests/ProtocolContracts/BankContracts.cs
+- TYPE: File
+  VALUE: tests/ProtocolContracts/protocol_top.sv
 
 [REQUIREMENT]
 UID: STB-VER-001
@@ -224,6 +252,8 @@ RELATIONS:
   VALUE: tests/SelectionQuality/Mutations.cs
 - TYPE: File
   VALUE: tests/SelectionQuality/PlannerMutations.cs
+- TYPE: File
+  VALUE: tests/SelectionQuality/NativeThroughputMutation.cs
 
 [REQUIREMENT]
 UID: STB-VER-003
@@ -237,6 +267,10 @@ RELATIONS:
   VALUE: tools/SharpTestBench.Tools/SelectionScenarioEvidence.cs
 - TYPE: File
   VALUE: tests/SharpTestBench.Tools.Tests/SelectionTools70.cs
+- TYPE: File
+  VALUE: tools/SharpTestBench.Tools/ProtocolContractInventory.cs
+- TYPE: File
+  VALUE: tests/SharpTestBench.Tools.Tests/SelectionToolsProtocolInventory.cs
 
 [REQUIREMENT]
 UID: STB-VER-004
