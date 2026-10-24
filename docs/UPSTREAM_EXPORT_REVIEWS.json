@@ -1,0 +1,442 @@
+{
+  "schema_version": 1,
+  "source_revision": "5fa952e92c46fd9cb58f55a8655312a4bf02e7de",
+  "source_hashes": {
+    "cocotb": "1b990636bfd55cfd1207c6090cec9a1620b8dac80023a222a0c8e63ef129cca8",
+    "cocotb.triggers": "06c5755d6465a7a1927bc06c73d494f85433e857bc4b440f54da5dd6cff41b7a"
+  },
+  "reviews": [
+    {
+      "module": "cocotb",
+      "export": "RANDOM_SEED",
+      "classification": "intentional-difference",
+      "reason": "TestContext.Seed is an unsigned per-case ordinal seed, not cocotb\u0027s mutable global Python PRNG seed/hash policy.",
+      "evidence": [
+        {
+          "path": "docs/UPSTREAM_EXPORT_MAP.md",
+          "contains": "| cocotb.RANDOM_SEED |"
+        },
+        {
+          "path": "src/SharpTestBench/Regression.cs",
+          "contains": "public ulong Seed"
+        }
+      ]
+    },
+    {
+      "module": "cocotb",
+      "export": "SIM_NAME",
+      "classification": "intentional-difference",
+      "reason": "Runtime.Simulator exposes the native product on the simulator thread rather than a module global.",
+      "evidence": [
+        {
+          "path": "docs/UPSTREAM_EXPORT_MAP.md",
+          "contains": "| cocotb.SIM_NAME |"
+        },
+        {
+          "path": "src/SharpTestBench/Runtime.cs",
+          "contains": "public string Simulator"
+        }
+      ]
+    },
+    {
+      "module": "cocotb",
+      "export": "SIM_VERSION",
+      "classification": "gap",
+      "reason": "A separate public simulator-version global/property is not mapped by this audit.",
+      "evidence": [
+        {
+          "path": "docs/UPSTREAM_EXPORT_MAP.md",
+          "contains": "| cocotb.SIM_VERSION |"
+        }
+      ]
+    },
+    {
+      "module": "cocotb",
+      "export": "Param",
+      "classification": "gap",
+      "reason": "The imported Python parametrization descriptor has no reviewed C# exposure; SimCase literals do not establish its options or descriptor semantics.",
+      "evidence": [
+        {
+          "path": "docs/UPSTREAM_EXPORT_MAP.md",
+          "contains": "| cocotb.Param |"
+        }
+      ]
+    },
+    {
+      "module": "cocotb",
+      "export": "__version__",
+      "classification": "gap",
+      "reason": "No dedicated cocotb version-export API is mapped. Standard managed assembly metadata identifies SharpTestBench rather than the upstream Python export.",
+      "evidence": [
+        {
+          "path": "docs/UPSTREAM_EXPORT_MAP.md",
+          "contains": "| cocotb.__version__ |"
+        }
+      ]
+    },
+    {
+      "module": "cocotb",
+      "export": "argv",
+      "classification": "gap",
+      "reason": "Simulator command construction is not a public runtime argv-list exposure.",
+      "evidence": [
+        {
+          "path": "docs/UPSTREAM_EXPORT_MAP.md",
+          "contains": "| cocotb.argv |"
+        }
+      ]
+    },
+    {
+      "module": "cocotb",
+      "export": "create_task",
+      "classification": "gap",
+      "reason": "Deferred unscheduled Python task construction has no reviewed public C# equivalent; owned StartSoon schedules work.",
+      "evidence": [
+        {
+          "path": "docs/UPSTREAM_EXPORT_MAP.md",
+          "contains": "| cocotb.create_task |"
+        }
+      ]
+    },
+    {
+      "module": "cocotb",
+      "export": "end_test",
+      "classification": "gap",
+      "reason": "Returning a managed body does not implement the imported immediate EndTest exception API or its expectation rules.",
+      "evidence": [
+        {
+          "path": "docs/UPSTREAM_EXPORT_MAP.md",
+          "contains": "| cocotb.end_test |"
+        }
+      ]
+    },
+    {
+      "module": "cocotb",
+      "export": "is_simulation",
+      "classification": "gap",
+      "reason": "Active runtime tracking is internal; no public equivalent of the exported Python is_simulation boolean global is mapped.",
+      "evidence": [
+        {
+          "path": "docs/UPSTREAM_EXPORT_MAP.md",
+          "contains": "| cocotb.is_simulation |"
+        },
+        {
+          "path": "src/SharpTestBench/Runtime.cs",
+          "contains": "internal static SimRuntime? Active"
+        }
+      ]
+    },
+    {
+      "module": "cocotb",
+      "export": "log",
+      "classification": "intentional-difference",
+      "reason": "Managed structured logging is not the module-level Python logging.Logger object or its handler hierarchy.",
+      "evidence": [
+        {
+          "path": "docs/UPSTREAM_EXPORT_MAP.md",
+          "contains": "| cocotb.log |"
+        },
+        {
+          "path": "src/SharpTestBench/Regression.cs",
+          "contains": "public void Log("
+        }
+      ]
+    },
+    {
+      "module": "cocotb",
+      "export": "packages",
+      "classification": "gap",
+      "reason": "Explicit HDL package discovery does not establish cocotb\u0027s populated SimpleNamespace global.",
+      "evidence": [
+        {
+          "path": "docs/UPSTREAM_EXPORT_MAP.md",
+          "contains": "| cocotb.packages |"
+        }
+      ]
+    },
+    {
+      "module": "cocotb",
+      "export": "parametrize",
+      "classification": "gap",
+      "reason": "Static SimCase argument lists do not implement the imported decorator\u0027s expansion/Param/keyword semantics.",
+      "evidence": [
+        {
+          "path": "docs/UPSTREAM_EXPORT_MAP.md",
+          "contains": "| cocotb.parametrize |"
+        }
+      ]
+    },
+    {
+      "module": "cocotb",
+      "export": "pass_test",
+      "classification": "deprecated-omission",
+      "reason": "Pinned source deprecates forcing pass in2.1. No C# force-pass escape is added; failure/isolation checks remain authoritative.",
+      "evidence": [
+        {
+          "path": "docs/UPSTREAM_EXPORT_MAP.md",
+          "contains": "| cocotb.pass_test |"
+        }
+      ]
+    },
+    {
+      "module": "cocotb",
+      "export": "plusargs",
+      "classification": "gap",
+      "reason": "Passing simulator arguments is not the public parsed bool-or-string plusargs dictionary contract.",
+      "evidence": [
+        {
+          "path": "docs/UPSTREAM_EXPORT_MAP.md",
+          "contains": "| cocotb.plusargs |"
+        }
+      ]
+    },
+    {
+      "module": "cocotb",
+      "export": "skipif",
+      "classification": "gap",
+      "reason": "Static SimTest.Skip is supported, but the imported conditional Python decorator is not mapped as an equivalent public operation.",
+      "evidence": [
+        {
+          "path": "docs/UPSTREAM_EXPORT_MAP.md",
+          "contains": "| cocotb.skipif |"
+        },
+        {
+          "path": "src/SharpTestBench/Regression.cs",
+          "contains": "public bool Skip"
+        }
+      ]
+    },
+    {
+      "module": "cocotb",
+      "export": "start",
+      "classification": "deprecated-omission",
+      "reason": "Pinned source deprecates start in favor of start_soon. No wrapper promising its coroutine-yield scheduling behavior is exposed.",
+      "evidence": [
+        {
+          "path": "docs/UPSTREAM_EXPORT_MAP.md",
+          "contains": "| cocotb.start |"
+        }
+      ]
+    },
+    {
+      "module": "cocotb",
+      "export": "start_soon",
+      "classification": "intentional-difference",
+      "reason": "Owned C# jobs start through delegates and cancellation tokens, not already-created Python coroutine/Task objects; cleanup ownership is explicit.",
+      "evidence": [
+        {
+          "path": "docs/UPSTREAM_EXPORT_MAP.md",
+          "contains": "| cocotb.start_soon |"
+        },
+        {
+          "path": "src/SharpTestBench/Regression.cs",
+          "contains": "StartSoon"
+        }
+      ]
+    },
+    {
+      "module": "cocotb",
+      "export": "test",
+      "classification": "intentional-difference",
+      "reason": "SimTest metadata plus Regression.Initialize replace the decorator, without claiming all decorator parameters or Python module collection semantics.",
+      "evidence": [
+        {
+          "path": "docs/UPSTREAM_EXPORT_MAP.md",
+          "contains": "| cocotb.test |"
+        },
+        {
+          "path": "src/SharpTestBench/Regression.cs",
+          "contains": "public sealed class SimTestAttribute"
+        }
+      ]
+    },
+    {
+      "module": "cocotb",
+      "export": "top",
+      "classification": "intentional-difference",
+      "reason": "TestContext.Dut is a typed native handle rooted per test/runtime rather than a mutable module-level SimHandle global.",
+      "evidence": [
+        {
+          "path": "docs/UPSTREAM_EXPORT_MAP.md",
+          "contains": "| cocotb.top |"
+        },
+        {
+          "path": "src/SharpTestBench/Regression.cs",
+          "contains": "public HdlObject Dut"
+        }
+      ]
+    },
+    {
+      "module": "cocotb",
+      "export": "xfail",
+      "classification": "intentional-difference",
+      "reason": "ExpectedException metadata handles typed managed exceptions but is not the imported conditional/strict Python xfail decorator surface.",
+      "evidence": [
+        {
+          "path": "docs/UPSTREAM_EXPORT_MAP.md",
+          "contains": "| cocotb.xfail |"
+        },
+        {
+          "path": "src/SharpTestBench/Regression.cs",
+          "contains": "public Type? ExpectedException"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.triggers",
+      "export": "ClockCycles",
+      "classification": "intentional-difference",
+      "reason": "Typed C# async clock-cycle helper and ClockEdge policy differ from the re-exported Python awaitable class identity and constructor options.",
+      "evidence": [
+        {
+          "path": "docs/UPSTREAM_EXPORT_MAP.md",
+          "contains": "| cocotb.triggers.ClockCycles |"
+        },
+        {
+          "path": "src/SharpTestBench/Triggers.cs",
+          "contains": "public static Task ClockCycles"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.triggers",
+      "export": "Combine",
+      "classification": "intentional-difference",
+      "reason": "C# factory returns a composed Trigger for typed inputs; imported Python object/class and heterogeneous-awaitable exposure is not claimed.",
+      "evidence": [
+        {
+          "path": "docs/UPSTREAM_EXPORT_MAP.md",
+          "contains": "| cocotb.triggers.Combine |"
+        },
+        {
+          "path": "src/SharpTestBench/Triggers.cs",
+          "contains": "public static Trigger Combine"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.triggers",
+      "export": "Edge",
+      "classification": "deprecated-omission",
+      "reason": "Pinned Edge is deprecated since2.0; C# exposes ValueChange rather than recreating the deprecated Python class alias.",
+      "evidence": [
+        {
+          "path": "docs/UPSTREAM_EXPORT_MAP.md",
+          "contains": "| cocotb.triggers.Edge |"
+        },
+        {
+          "path": "src/SharpTestBench/Triggers.cs",
+          "contains": "public static Trigger ValueChange(HdlObject signal)"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.triggers",
+      "export": "Event",
+      "classification": "intentional-difference",
+      "reason": "SimEvent is a typed resettable synchronization primitive; Python Event class identity/introspection and payload history are not implied.",
+      "evidence": [
+        {
+          "path": "docs/UPSTREAM_EXPORT_MAP.md",
+          "contains": "| cocotb.triggers.Event |"
+        },
+        {
+          "path": "src/SharpTestBench/Primitives.cs",
+          "contains": "public sealed class SimEvent"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.triggers",
+      "export": "FallingEdge",
+      "classification": "intentional-difference",
+      "reason": "Typed C# factory binds a one-bit native signal; it does not recreate Python class/caching identities.",
+      "evidence": [
+        {
+          "path": "docs/UPSTREAM_EXPORT_MAP.md",
+          "contains": "| cocotb.triggers.FallingEdge |"
+        },
+        {
+          "path": "src/SharpTestBench/Triggers.cs",
+          "contains": "public static Trigger FallingEdge"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.triggers",
+      "export": "First",
+      "classification": "intentional-difference",
+      "reason": "C# factory/owned-job overloads have typed borrowing and cleanup rules, not Python imported class/type identity.",
+      "evidence": [
+        {
+          "path": "docs/UPSTREAM_EXPORT_MAP.md",
+          "contains": "| cocotb.triggers.First |"
+        },
+        {
+          "path": "src/SharpTestBench/Triggers.cs",
+          "contains": "public static Trigger First"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.triggers",
+      "export": "GPITrigger",
+      "classification": "internal-adapter",
+      "reason": "Native callback triggers are an internal C# adapter; public Trigger extension is distinct from Python GPITrigger inheritance and callback-handle API.",
+      "evidence": [
+        {
+          "path": "docs/UPSTREAM_EXPORT_MAP.md",
+          "contains": "| cocotb.triggers.GPITrigger |"
+        },
+        {
+          "path": "src/SharpTestBench/Triggers.cs",
+          "contains": "sealed class NativeTrigger"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.triggers",
+      "export": "Lock",
+      "classification": "intentional-difference",
+      "reason": "SimLock exposes managed acquisition/lease ownership, not the imported Python Lock object/context-manager/introspection interface.",
+      "evidence": [
+        {
+          "path": "docs/UPSTREAM_EXPORT_MAP.md",
+          "contains": "| cocotb.triggers.Lock |"
+        },
+        {
+          "path": "src/SharpTestBench/Primitives.cs",
+          "contains": "public sealed class SimLock"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.triggers",
+      "export": "NextTimeStep",
+      "classification": "intentional-difference",
+      "reason": "C# factory maps the native next-step callback through a Trigger, without Python class identity/caching equivalence.",
+      "evidence": [
+        {
+          "path": "docs/UPSTREAM_EXPORT_MAP.md",
+          "contains": "| cocotb.triggers.NextTimeStep |"
+        },
+        {
+          "path": "src/SharpTestBench/Triggers.cs",
+          "contains": "public static Trigger NextTimeStep"
+        }
+      ]
+    },
+    {
+      "module": "cocotb.triggers",
+      "export": "NullTrigger",
+      "classification": "gap",
+      "reason": "No dedicated public immediately-firing Trigger factory/class is mapped; Task.CompletedTask alone does not establish the Python trigger scheduler contract.",
+      "evidence": [
+        {
+          "path": "docs/UPSTREAM_EXPORT_MAP.md",
+          "contains": "| cocotb.triggers.NullTrigger |"
+        }
+      ]
+    }
+  ]
+}

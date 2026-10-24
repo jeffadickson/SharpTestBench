@@ -1,0 +1,1923 @@
+{
+  "schemaVersion": 1,
+  "checkpoint": 100,
+  "scope": "Four production assemblies, including generated code. Test/fixture/harness assemblies, HDL and NativeAOT instructions are unmeasured. CLI collection covers selected production paths, not the complete runtime-switch matrix.",
+  "windows": {
+    "coverage": {
+      "suites": {
+        "managed": {
+          "assemblies": [
+            "SharpTestBench"
+          ],
+          "lines": {
+            "covered": 761,
+            "valid": 2385,
+            "percent": 31.90775681341719
+          },
+          "branches": {
+            "covered": 563,
+            "valid": 1543,
+            "percent": 36.48736228127025
+          }
+        },
+        "generators": {
+          "assemblies": [
+            "SharpTestBench.Generators"
+          ],
+          "lines": {
+            "covered": 60,
+            "valid": 68,
+            "percent": 88.23529411764706
+          },
+          "branches": {
+            "covered": 52,
+            "valid": 72,
+            "percent": 72.22222222222223
+          }
+        },
+        "helpers": {
+          "assemblies": [
+            "SharpTestBench.Tools"
+          ],
+          "lines": {
+            "covered": 2676,
+            "valid": 4786,
+            "percent": 55.91307981613038
+          },
+          "branches": {
+            "covered": 2271,
+            "valid": 5029,
+            "percent": 45.158083117916085
+          }
+        },
+        "contracts": {
+          "assemblies": [
+            "SharpTestBench.Tools"
+          ],
+          "lines": {
+            "covered": 1251,
+            "valid": 4786,
+            "percent": 26.13873798579189
+          },
+          "branches": {
+            "covered": 1418,
+            "valid": 5029,
+            "percent": 28.196460528932192
+          }
+        },
+        "runner": {
+          "assemblies": [
+            "SharpTestBench.Runner"
+          ],
+          "lines": {
+            "covered": 1674,
+            "valid": 3341,
+            "percent": 50.104759054175396
+          },
+          "branches": {
+            "covered": 377,
+            "valid": 740,
+            "percent": 50.945945945945944
+          }
+        },
+        "runner-cli": {
+          "assemblies": [
+            "SharpTestBench.Runner"
+          ],
+          "lines": {
+            "covered": 2893,
+            "valid": 3341,
+            "percent": 86.59084106554924
+          },
+          "branches": {
+            "covered": 445,
+            "valid": 740,
+            "percent": 60.13513513513514
+          }
+        }
+      },
+      "combined": {
+        "assemblies": [
+          "SharpTestBench",
+          "SharpTestBench.Generators",
+          "SharpTestBench.Runner",
+          "SharpTestBench.Tools"
+        ],
+        "lines": {
+          "covered": 6816,
+          "valid": 10580,
+          "percent": 64.4234404536862
+        },
+        "branches": {
+          "covered": 3880,
+          "valid": 7360,
+          "percent": 52.71739130434783
+        }
+      }
+    },
+    "sourceFiles": 167,
+    "generatedSourceFiles": 43,
+    "htmlPages": 239,
+    "validatedLocalLinks": 994,
+    "uniqueLocalTargets": 242,
+    "sources": [
+      {
+        "path": "C:\\dev\\SharpTestBench\\examples\\Arbiter\\Contract.cs",
+        "sha256": "6fa21bfd681e210c32e2373552e4a92244de85d93dffa4f5f50d1da07d7bf8c9",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\examples\\FrameDropFifo\\Contract.cs",
+        "sha256": "2cb1d5befaab937d9b8561c8b0c98cc8bed944d45ae43082fc2e13359b8a2103",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\examples\\FrameFifo\\Contract.cs",
+        "sha256": "58d594180a170474488536c4a662bdc52288d7ebd243a276543f5d519634c606",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\src\\Shared\\DiagnosticText.cs",
+        "sha256": "d824dfd1d36fce953ee5eb9c7d325244140d5c03306f5d98a42535b3a17c9876",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\src\\Shared\\ReportFailureEvidence.cs",
+        "sha256": "5588d5a39727d8db4818cf3858928beb136d6cab6bc6818ab7ac9984401b6482",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\src\\SharpTestBench.Generators\\BindingGenerator.cs",
+        "sha256": "ffdb76f35208cbe8047123eaa3657e7d389bad63769beb09ec4eecd4f2a40df7",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\src\\SharpTestBench\\AdditionalSignals.cs",
+        "sha256": "ddcbfc67aea99dcd9a25be9fc9d16b151b08851b6b7d54b7bb935f9663600d62",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\src\\SharpTestBench\\Bindings.cs",
+        "sha256": "9dba4f04fe394d2b0fa39a6b76440e126df4ecf00a63f31207a3a49383a7bbe0",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\src\\SharpTestBench\\Capabilities.cs",
+        "sha256": "6a0cdbc3c307eccc661c3cf23c7dbdd901349adabb2a031b258cc372e97bf265",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\src\\SharpTestBench\\CleanupScope.cs",
+        "sha256": "653da1a03944ebe65d383b3a0ff95933d67f92b1ce1e3738d701aa564d0ba21b",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\src\\SharpTestBench\\Coverage.cs",
+        "sha256": "15fa6964b2acc20071b9b6597c98054cabcb2bbc2d17c46a0c51d590e5f46f0c",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\src\\SharpTestBench\\CoverageCross.cs",
+        "sha256": "16ad7cfd73b02a6b18ea4515668551c007ca8945228a671c3c657449749aee5d",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\src\\SharpTestBench\\Discovery.cs",
+        "sha256": "330d1a0726e37478e2ba9e8bd7b05033b1d6c7c487f87b1ae3b3b907087a237c",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\src\\SharpTestBench\\HdlArray.cs",
+        "sha256": "bafff5310bd973edb879666e5edf42ef3ba9d3fa92a28e31974fbe99a16183c4",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\src\\SharpTestBench\\HdlFreeze.cs",
+        "sha256": "a0d24e69a2361c1bcb9e3396c5f56ea6d46eead55eb7c76a2b3ba3ebdd955987",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\src\\SharpTestBench\\JunitReport.cs",
+        "sha256": "28f1172dfb4703129a04520e587f9279b8c0faae9ba32d602b37d7eb3f33a5d7",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\src\\SharpTestBench\\LogicConversions.cs",
+        "sha256": "7c66900c5d6cb4970f80f56c2125b5978d574a9e9b2763400af6e232c12cd2c9",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\src\\SharpTestBench\\LogicTransforms.cs",
+        "sha256": "02aefb905e79068950bab819e7aa51ef378194c65b0e1959bfd3d2388787d052",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\src\\SharpTestBench\\Native.cs",
+        "sha256": "ea30fbfb5b818fba284cb2d78d65ccc023a6e3c1706f9cb962aef93ed85915d8",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\src\\SharpTestBench\\NativeClockSession.cs",
+        "sha256": "848e66fdaba4ac6ee65375df4ab7b1504e02a4d36a782755eb3aff48bbe825b0",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\src\\SharpTestBench\\NineState.cs",
+        "sha256": "55d1f6c57d4ec87e4528c884248d6a1a2999eadc86d834172383bcc589c8ffb0",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\src\\SharpTestBench\\PackedStruct.cs",
+        "sha256": "9e0e9157a9b8574d7fd5c5158f6f52dd7f02bdfa7f89e35ea1e57aae10356569",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\src\\SharpTestBench\\PackedTransport.cs",
+        "sha256": "1dcbfbace741bbce44d2132ca2e93d7efffedfbc8179870a885617b0d379c8df",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\src\\SharpTestBench\\PackedViews.cs",
+        "sha256": "83b2fd1d9974d018d3bf90791e6467e6b9eb79472e5444ebacc15c51bb608b6a",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\src\\SharpTestBench\\PerformanceOptions.cs",
+        "sha256": "d4915d6856a391c393d0c8379e177557aa4883560ee2e798618122fd0ad2e9bd",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\src\\SharpTestBench\\PortDirection.cs",
+        "sha256": "c88b894f7e3779b0e0b0b439eed4c87945558c3ded8802eb63c8c1ac19c5bd5e",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\src\\SharpTestBench\\Primitives.cs",
+        "sha256": "7326431b0edc6809f9aa2869eae16a8af73feb46add9e307630d9671464c5d6f",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\src\\SharpTestBench\\Regression.cs",
+        "sha256": "64d3edd2a8c8f2f758d8599e7adedaf546fd9b8506754def2cd119e4db88c83a",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\src\\SharpTestBench\\RegressionSelection.cs",
+        "sha256": "19853004d13ae102b1933d2a9b14af038f2a088015a8b8a97a049cb5d5a130c8",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\src\\SharpTestBench\\ResultPublication.cs",
+        "sha256": "7f77a42a6387a81d210e7713e924c7baf5cc3503ad0c21ba976f77cf0ea73f94",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\src\\SharpTestBench\\Runtime.cs",
+        "sha256": "5ac6427586d4e21763e91b6d374c26cff40988230266a323ecb7c746695b451e",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\src\\SharpTestBench\\SignalReadBatch.cs",
+        "sha256": "177e1655cd85fdebc6c6af7bb9594823685bcf94290ce5f1e14e75977b2b6a37",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\src\\SharpTestBench\\Signals.cs",
+        "sha256": "3e5787d5b3b937899810de882f4e94ee80399a33288b9f4e8e281f1cc4728560",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\src\\SharpTestBench\\SimTaskGroup.cs",
+        "sha256": "036ef945275b37295dd88ce85c41fadf3ebd67490794c716b865be03b7abacad",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\src\\SharpTestBench\\SimTaskLocal.cs",
+        "sha256": "92a22126661dad5cf67b739b58c2412ae9a24c540f3b40c921ddc42ddf710fe9",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\src\\SharpTestBench\\SimTasks.cs",
+        "sha256": "e65f2d701a6577f2dc76f7f543d5e1dab49761a90f607672050be1e79ffd6938",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\src\\SharpTestBench\\SimulationLog.cs",
+        "sha256": "e8721ef0f6bfc19b400af38a0ac60f30c729b83039ff36dc61fc1841ded55395",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\src\\SharpTestBench\\StructuredWaits.cs",
+        "sha256": "fc92bec050e99cf913bd9833e06bc47225ef7fceaffa1ccf4fb45a0bc1bc239b",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\src\\SharpTestBench\\Triggers.cs",
+        "sha256": "bd93381f5011dc99b19d85434f65dc423e2c3212d6ba3be91f61296b574780cb",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\src\\SharpTestBench\\ValueArray.cs",
+        "sha256": "7c78303739ca8754c0ec6caf563127227f7af28c2712faafebb6624e85bc8d66",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\src\\SharpTestBench\\Values.cs",
+        "sha256": "8817f5c3e8310f6cbba1521d11521e81c02b05e80f6ba0af165460df5a4e6661",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\src\\SharpTestBench\\VectorText.cs",
+        "sha256": "a77ed9fbf2938f92435cea7efb80cb921fdae15a4ff35aec2cacfbcde73f23dd",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Runner\\CompilePlan.cs",
+        "sha256": "4a1ef8d8fa479394086ad0d823b71308d4abbad8572a8c14b74a5b1dba6f59f7",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Runner\\EvidenceRecords.cs",
+        "sha256": "446664df2bf715bbd42cd7c5c7f3936cf8019820926d00c4eac19b57b3772ede",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Runner\\EvidenceWriter.cs",
+        "sha256": "9fdff9df2a502229bcd32a66a4fb9b03f05b871968106ad01be8a12077a47640",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Runner\\HdlCompileValidation.cs",
+        "sha256": "cc93172d48212418af56dd20f63ac704ba487aa6805daf2bd7cff4d52f2c5bfb",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Runner\\InputEvidence.cs",
+        "sha256": "dfed1f3178c1134f6990c971757907cbed0fc8a0cb2f0cb5d4031f8554c010ef",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Runner\\JsonInput.cs",
+        "sha256": "09d81cbd3a6327c467bc4584f82585fa99df1b6ae34748f0532f8085b88fee6a",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Runner\\ManifestValidation.cs",
+        "sha256": "82e559e01227b65615d6f84136a451693eed9e4e489806e1fc800239d25c528c",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Runner\\ProcessExecution.cs",
+        "sha256": "7fb6c2cbba06298eaef74a0dabc2f784ef7c015a033f224146ef657b25f847c2",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Runner\\Program.cs",
+        "sha256": "6dd73c40006d4eeeaef76827368e87b7675b0efe93881269cb4274172d11777a",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Runner\\ResultAttestation.cs",
+        "sha256": "88d13f404f05cd7768a24c7350c8fecf0af370ca8c8469e03c79b80c54f7fa47",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Runner\\RunManifest.cs",
+        "sha256": "29570ff6ea87e2c87fb11a23cc97984e9414b40960eac45c010d2de3f798bea9",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Runner\\RunWorkspace.cs",
+        "sha256": "9ddcb48b7ae1be2b791da6de03c954e4619e8ce83cf8de390a2404644d32ed0d",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Runner\\obj\\Release\\net10.0\\generated\\System.Text.Json.SourceGeneration\\System.Text.Json.SourceGeneration.JsonSourceGenerator\\EvidenceJsonContext.Boolean.g.cs",
+        "sha256": "e1ac52a9e530e92564bd01f1df2448419cd218148c7520521f02cf3969959497",
+        "generated": true
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Runner\\obj\\Release\\net10.0\\generated\\System.Text.Json.SourceGeneration\\System.Text.Json.SourceGeneration.JsonSourceGenerator\\EvidenceJsonContext.DateTimeOffset.g.cs",
+        "sha256": "a346151f569bb7082095a098ae511ed179c893e455c27b02f73bb497b037e253",
+        "generated": true
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Runner\\obj\\Release\\net10.0\\generated\\System.Text.Json.SourceGeneration\\System.Text.Json.SourceGeneration.JsonSourceGenerator\\EvidenceJsonContext.Double.g.cs",
+        "sha256": "e3ad5101df722bc3d6d0c2c0db94fff4f295bf2d2fb8c3d31725cca5293814c3",
+        "generated": true
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Runner\\obj\\Release\\net10.0\\generated\\System.Text.Json.SourceGeneration\\System.Text.Json.SourceGeneration.JsonSourceGenerator\\EvidenceJsonContext.DrainResult.g.cs",
+        "sha256": "fce35aa93082458591b48f276e1b5cd3a99327e1f8fcc87ee5e6cd823eba0dc6",
+        "generated": true
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Runner\\obj\\Release\\net10.0\\generated\\System.Text.Json.SourceGeneration\\System.Text.Json.SourceGeneration.JsonSourceGenerator\\EvidenceJsonContext.FailureEvidence.g.cs",
+        "sha256": "ed2fe1d79e10af7b93fe985d7669919f03a501fbbde8636f9d51bc264dff1149",
+        "generated": true
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Runner\\obj\\Release\\net10.0\\generated\\System.Text.Json.SourceGeneration\\System.Text.Json.SourceGeneration.JsonSourceGenerator\\EvidenceJsonContext.GetJsonTypeInfo.g.cs",
+        "sha256": "b34892fcade0e5d8328d9e3eb6518325764bf49816f1e7ce4444f787d4e30414",
+        "generated": true
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Runner\\obj\\Release\\net10.0\\generated\\System.Text.Json.SourceGeneration\\System.Text.Json.SourceGeneration.JsonSourceGenerator\\EvidenceJsonContext.InputFingerprint.g.cs",
+        "sha256": "220d26642c2ca5c8fd04ab06f73bccb59581e1380bd53e8e0eca4d260a61a434",
+        "generated": true
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Runner\\obj\\Release\\net10.0\\generated\\System.Text.Json.SourceGeneration\\System.Text.Json.SourceGeneration.JsonSourceGenerator\\EvidenceJsonContext.InputFingerprintArray.g.cs",
+        "sha256": "36cde1d53b4a459c68232d5dd688b1f00aa1d0a2d0f218440fdb6823e4942e75",
+        "generated": true
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Runner\\obj\\Release\\net10.0\\generated\\System.Text.Json.SourceGeneration\\System.Text.Json.SourceGeneration.JsonSourceGenerator\\EvidenceJsonContext.InputManifestEvidence.g.cs",
+        "sha256": "cb735a5783aaac17d7d20be0d6612d4c35942ff8469130c1e58a879e10f88740",
+        "generated": true
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Runner\\obj\\Release\\net10.0\\generated\\System.Text.Json.SourceGeneration\\System.Text.Json.SourceGeneration.JsonSourceGenerator\\EvidenceJsonContext.Int32.g.cs",
+        "sha256": "b24635a4a44bff87a96afca698e1adcdb878c6e43a6dcebd9a0d9b5a0f86315a",
+        "generated": true
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Runner\\obj\\Release\\net10.0\\generated\\System.Text.Json.SourceGeneration\\System.Text.Json.SourceGeneration.JsonSourceGenerator\\EvidenceJsonContext.Int64.g.cs",
+        "sha256": "40937b2e3f74750357cc22a5f1c6b9def67d36f2e69ce1d61cbb380c462ee864",
+        "generated": true
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Runner\\obj\\Release\\net10.0\\generated\\System.Text.Json.SourceGeneration\\System.Text.Json.SourceGeneration.JsonSourceGenerator\\EvidenceJsonContext.NullableInt32.g.cs",
+        "sha256": "55b738c2417b85f3f013d4965785c081a4deb6627138d0a3057a94be1296c943",
+        "generated": true
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Runner\\obj\\Release\\net10.0\\generated\\System.Text.Json.SourceGeneration\\System.Text.Json.SourceGeneration.JsonSourceGenerator\\EvidenceJsonContext.ProcessEvidence.g.cs",
+        "sha256": "5728e4ae0dad31b83cb3b4e651dfb81164948c279b782bd169336ec08c0a33b9",
+        "generated": true
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Runner\\obj\\Release\\net10.0\\generated\\System.Text.Json.SourceGeneration\\System.Text.Json.SourceGeneration.JsonSourceGenerator\\EvidenceJsonContext.PropertyNames.g.cs",
+        "sha256": "3c9f909a2eef274eae5fa521c24d329c1b2b190950c6b641ff38e5155a55870b",
+        "generated": true
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Runner\\obj\\Release\\net10.0\\generated\\System.Text.Json.SourceGeneration\\System.Text.Json.SourceGeneration.JsonSourceGenerator\\EvidenceJsonContext.RunEvidence.g.cs",
+        "sha256": "9b963bc65318bc253e8c687a9a5a74fb368327e1896d81e62f2382cd7e2d7cff",
+        "generated": true
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Runner\\obj\\Release\\net10.0\\generated\\System.Text.Json.SourceGeneration\\System.Text.Json.SourceGeneration.JsonSourceGenerator\\EvidenceJsonContext.SourceEvidence.g.cs",
+        "sha256": "b9aaa99f43a5ffd9c5e49031fdf6f624591b51f5ba7c8695eed9d76799cf8a28",
+        "generated": true
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Runner\\obj\\Release\\net10.0\\generated\\System.Text.Json.SourceGeneration\\System.Text.Json.SourceGeneration.JsonSourceGenerator\\EvidenceJsonContext.SourceEvidenceArray.g.cs",
+        "sha256": "ab152786c66dbc4e0cc65c6067c391f4096adad0b3297f05072d2298007661b6",
+        "generated": true
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Runner\\obj\\Release\\net10.0\\generated\\System.Text.Json.SourceGeneration\\System.Text.Json.SourceGeneration.JsonSourceGenerator\\EvidenceJsonContext.String.g.cs",
+        "sha256": "5d8dcf607a78a29a466431bab3d063a7b046bdf9b281376e25ef0f0a0520ce70",
+        "generated": true
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Runner\\obj\\Release\\net10.0\\generated\\System.Text.Json.SourceGeneration\\System.Text.Json.SourceGeneration.JsonSourceGenerator\\EvidenceJsonContext.StringArray.g.cs",
+        "sha256": "ec688f6393e8ee40bec48b8ab711a09c33d9bd9e45770905d7a0a3064f16d13d",
+        "generated": true
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Runner\\obj\\Release\\net10.0\\generated\\System.Text.Json.SourceGeneration\\System.Text.Json.SourceGeneration.JsonSourceGenerator\\EvidenceJsonContext.UInt64.g.cs",
+        "sha256": "b32a237c4a744032816eaff2dbe6bb7e7ebb485b647e5da3a6f67d173f940fc3",
+        "generated": true
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Runner\\obj\\Release\\net10.0\\generated\\System.Text.Json.SourceGeneration\\System.Text.Json.SourceGeneration.JsonSourceGenerator\\EvidenceJsonContext.g.cs",
+        "sha256": "ddcac8aa2fdbb24b2828ac9f294e5931b92f6efbfeaac94d5cd0253acf2f2ee9",
+        "generated": true
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Runner\\obj\\Release\\net10.0\\generated\\System.Text.Json.SourceGeneration\\System.Text.Json.SourceGeneration.JsonSourceGenerator\\ManifestJsonContext.DictionaryStringString.g.cs",
+        "sha256": "915a5f13fbfd225dee143a2b08728aca792cbad379aa4c1263786e9d8644b47d",
+        "generated": true
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Runner\\obj\\Release\\net10.0\\generated\\System.Text.Json.SourceGeneration\\System.Text.Json.SourceGeneration.JsonSourceGenerator\\ManifestJsonContext.DictionaryStringUInt64.g.cs",
+        "sha256": "ab7054f9ffb8857c5c49d43bc36d742f437afcbc6eb36b31a3b8cae8a2c62187",
+        "generated": true
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Runner\\obj\\Release\\net10.0\\generated\\System.Text.Json.SourceGeneration\\System.Text.Json.SourceGeneration.JsonSourceGenerator\\ManifestJsonContext.GetJsonTypeInfo.g.cs",
+        "sha256": "c472e1b29935cccd8518dc51c4120f67eb5f0d278d8a5ab16f60db52b032452f",
+        "generated": true
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Runner\\obj\\Release\\net10.0\\generated\\System.Text.Json.SourceGeneration\\System.Text.Json.SourceGeneration.JsonSourceGenerator\\ManifestJsonContext.Int32.g.cs",
+        "sha256": "cb26001545bef3d2701eac36b0e970c8c921870a16ef931c291b1856c2e26e59",
+        "generated": true
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Runner\\obj\\Release\\net10.0\\generated\\System.Text.Json.SourceGeneration\\System.Text.Json.SourceGeneration.JsonSourceGenerator\\ManifestJsonContext.NullableInt32.g.cs",
+        "sha256": "b09a1ed6a4d94f261acde21599bff0afc4367fbd792e2ed89d6450064b2ffa99",
+        "generated": true
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Runner\\obj\\Release\\net10.0\\generated\\System.Text.Json.SourceGeneration\\System.Text.Json.SourceGeneration.JsonSourceGenerator\\ManifestJsonContext.PropertyNames.g.cs",
+        "sha256": "3fbf2893d2b24b89dbba1cfec3ac523169b0c04ece5762f12a552254238573e5",
+        "generated": true
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Runner\\obj\\Release\\net10.0\\generated\\System.Text.Json.SourceGeneration\\System.Text.Json.SourceGeneration.JsonSourceGenerator\\ManifestJsonContext.RunManifest.g.cs",
+        "sha256": "76541a0efad414aa8f7dbe9174e4da3350dda470657ab8dfe9d401428f23f84b",
+        "generated": true
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Runner\\obj\\Release\\net10.0\\generated\\System.Text.Json.SourceGeneration\\System.Text.Json.SourceGeneration.JsonSourceGenerator\\ManifestJsonContext.String.g.cs",
+        "sha256": "89264d53674a8163d2e531e76763ae03e800e6ed85f52828d03cab43269824c2",
+        "generated": true
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Runner\\obj\\Release\\net10.0\\generated\\System.Text.Json.SourceGeneration\\System.Text.Json.SourceGeneration.JsonSourceGenerator\\ManifestJsonContext.StringArray.g.cs",
+        "sha256": "1771c3a35a4d45686e5c5153453fc28066f1e2480051fac1d5cbadc99d5fa603",
+        "generated": true
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Runner\\obj\\Release\\net10.0\\generated\\System.Text.Json.SourceGeneration\\System.Text.Json.SourceGeneration.JsonSourceGenerator\\ManifestJsonContext.UInt64.g.cs",
+        "sha256": "f979a451eaccfc996b6757b3d7cacdd7561d4ad27e235ae55aa14901ccea4a45",
+        "generated": true
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Runner\\obj\\Release\\net10.0\\generated\\System.Text.Json.SourceGeneration\\System.Text.Json.SourceGeneration.JsonSourceGenerator\\ManifestJsonContext.g.cs",
+        "sha256": "ac02b1d08e2d6babd910909669ca2452de2dfcceee4e4c7b1f34c70a4db46284",
+        "generated": true
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Tools\\ArbiterCiCommand.cs",
+        "sha256": "10d7d9c2519c11f1afe36ce8724a37d682a3686de0c88a782376465de36dc9f1",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Tools\\ArbiterFixture.cs",
+        "sha256": "bb840100c8b8cee945f9347632f6a132bf1df3182ab29841eec732943e996c39",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Tools\\AuditCommand.cs",
+        "sha256": "aeebb21906e108c6f0bd3f864aa5cfc042468c2d6244445d1eb0b28ac328fab8",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Tools\\AxisFixture.cs",
+        "sha256": "cf0e2ecffbb97e40972936a0fd1e8df3152558a8c890c875957e97311bf0c1cc",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Tools\\BenchmarkCommand.cs",
+        "sha256": "da242d06bf2846aea2bcc489975bd89bc4ac3f369218e4a0fad1e06762855114",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Tools\\BoundaryCommands.cs",
+        "sha256": "f51f38115254dc49826a857e9a29211f9c9407f42e63623c19cef3aa9dd79ad2",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Tools\\BoundedCapture.cs",
+        "sha256": "eb580fde5414ecbafdb155cde9e5adb8eb7792619da5c15d04e85068481659a7",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Tools\\CiCommands.cs",
+        "sha256": "b46b9ee497db0b768866b6e392777781324b516bab9d7eef304e9476b2650a10",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Tools\\CocotbAdapter.cs",
+        "sha256": "704b1a13b765bb22e08d051ea53858141c51a4ba5d5cd711b8863a2075b0116b",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Tools\\ContractsCiCommand.cs",
+        "sha256": "452cbc6d1d4d6ed57fcbb643ab78924d8fee0c1e609dcb3ca5e1fe3c0bdd6ca8",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Tools\\Core.cs",
+        "sha256": "24694fb69aaca90a5b0164f91de4ffee3e80cfb8178522703ebdf01203125c17",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Tools\\CoverageCommand.cs",
+        "sha256": "7c8d58690a36161ffe68a624b76b6042ea6fd8d4e92ab19fbef014507aa034d7",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Tools\\DebuggerCommand.cs",
+        "sha256": "35b4e1e495b89854654fd166e86939aebc7e4484067532af3730ff7af9f84b39",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Tools\\ExportAuditCommand.cs",
+        "sha256": "bb464b204c5fb62940aea8c1772c17e1d7a43143dbbaed40d9b5b43de683fb0f",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Tools\\FifoCiCommand.cs",
+        "sha256": "6958728fb869b6bf5b1d55700878394ad8a59917235cf4275e1f8a2811aa4ada",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Tools\\FifoFixture.cs",
+        "sha256": "548c29ce51a36da534a26ba1193a357ecf2e55214f9be3ece2617be05f68acec",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Tools\\FixtureContracts.cs",
+        "sha256": "f38095a17dd4130177aa0cfaf47625ae69f118646a6ca26a57b8db53c09f3f11",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Tools\\FrameCiCommand.cs",
+        "sha256": "f69836db44db697e7639106ac0e260045f45945f3e53c2852cd53706e588dc63",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Tools\\FrameDropCiCommand.cs",
+        "sha256": "9b3df4a53671a093e92e6add588e84e1ab00ec5617d5e4bc29052c4a02c9a2f8",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Tools\\FrameDropFixture.cs",
+        "sha256": "01e705754b30e77b419cefb91c40e8a3bbb4a5a08961fce639bac4b51ddaa065",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Tools\\FrameFixture.cs",
+        "sha256": "daf48b4e82d07a2b5a8a5ad7db848c39f499cb89877c45b3d7eeed593bdeb28e",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Tools\\IcarusLayoutsCommand.cs",
+        "sha256": "5bd02874e32854aecca62efe7d025b7a2445984dd66f645d0fd7f5cf264da155",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Tools\\InstalledRunCommand.cs",
+        "sha256": "44b193ac5eafe6713060d68de7f030ca99227673d5197460dfa97c7e6d5453cf",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Tools\\LegacyArtifacts.cs",
+        "sha256": "cd77871be72d6ac6ba4ceeb3fbc386de1e00640480c07d8ef1676126b8617231",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Tools\\LegacyCompileOptions.cs",
+        "sha256": "d2d16b87749cc7f4465ca7b76ca022ae4ab3c7cef156cf124e6530329ec7aebf",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Tools\\LegacyCompiler.cs",
+        "sha256": "62750f6d1be56de7970945208fb8fbf66d0d71e8a68284d0743f8ad07c51414c",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Tools\\LegacyFailure.cs",
+        "sha256": "58f8236f32bb0c2d25e93801b1e15711af1cdd4d1dcb488e0fd0c99e35ab2c7e",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Tools\\LegacyImage.cs",
+        "sha256": "20f57113ad7fb18f8dcb5a8494d9e73c6d62232beb7dc9c74775a809f6458334",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Tools\\LegacyInputs.cs",
+        "sha256": "11f783d265b1813343231da123fed7106dfdeb2e500182bde04a8114cd83bc8c",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Tools\\LegacyResults.cs",
+        "sha256": "f9fc61822f0898c044869796cb0edac92c4410591fa78e78102b19bfc5bf2f8e",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Tools\\LegacyRunCommand.cs",
+        "sha256": "d47b2b47efb80a882227af8a79bbf6b9376e8395ff2ab2cc93f6ff4f7b62d1c0",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Tools\\LegacySimulator.cs",
+        "sha256": "f87cc3b38612890934ad5176c0107a54db6fa7082c00612c3836e8f74d03a9a7",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Tools\\LfsrFixture.cs",
+        "sha256": "1b2a73d5822ab5a171449d4b03c7b436d1b7965d2b3b7c4b709d7418406876e1",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Tools\\LifecycleCommands.cs",
+        "sha256": "f21260b88bcb25d235c3cfcffd0094edc34504c48dbe3c5609bbbfeb7e8bb6ce",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Tools\\ManagedTestsCommand.cs",
+        "sha256": "dde0071bd0ab817ea721b9e7f4f7cc7100f2a7b6798e5f1d9821d545d49fa513",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Tools\\ManifestCheckCommand.cs",
+        "sha256": "901561c51353f4627a42472a498cbd1f894a2119556959d12170e8dc2521cd54",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Tools\\NativeBuildCommand.cs",
+        "sha256": "1520426c6f7bc2b846636e5c7856fa3327cd755d987d6df00b455f6ddfb98c11",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Tools\\NativeChecks.cs",
+        "sha256": "4f6c14df37ede9543daecc224c4b71190246693705265eceb3c75a5431e5de60",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Tools\\NativeDebuggerCommand.cs",
+        "sha256": "cf33c1b42da5eca5ca56542c4f19795b2a5dfc1302999df828debb0cb074d796",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Tools\\NativeFaultsCommand.cs",
+        "sha256": "775e8e3eaa96eb4d20afb322dac403186d5b3cf1748ab20fce7901126a3052f9",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Tools\\NativePerformanceCommand.cs",
+        "sha256": "b018ba5a6fab6b7f08132b08a7365271f0d03ba7993324f75d45449f5369ae44",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Tools\\OracleEvidence.cs",
+        "sha256": "e80ce68bb29ccbaf6699c8019cfa987e8ad0530bb9f0a0e8d152da3d6e58a26c",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Tools\\OracleFixturesCommand.cs",
+        "sha256": "84b3e082b5c88dd16132bce3b0e8d67a86ccc4770dcdd9d0223a8b98d959b1e9",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Tools\\PackageCommand.cs",
+        "sha256": "2e68e74faccac510eb4b6785f0d16264086ea44f3ec14630907b55d0dc78f959",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Tools\\PackageContainerCommand.cs",
+        "sha256": "0ab81e19cc9f16dd162545839ed89959e6a89051f8de2a5960e7bedc7aca3e7e",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Tools\\PairedInputs.cs",
+        "sha256": "26d37195695b6643ffcd504cb04f66f012789bd05b7e0dc48f49357313bc5ef3",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Tools\\ParityCiCommand.cs",
+        "sha256": "495d9e1541edc6b84029a011957b3b57e58ab33a37aab6e9e8f7ff8e0e5d84ec",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Tools\\ParityContracts.cs",
+        "sha256": "2943fd89bfa31d8b2579854e83548b6395c0a8f69366a437f7a63715a0dee993",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Tools\\ParityLegacyCommand.cs",
+        "sha256": "249064410dc2ec2f11ce514eaff00e6ca23ab069ec23cb60e991901a943f8993",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Tools\\PerformancePrepareCommand.cs",
+        "sha256": "0078bedf76e22b1ab1e3f44dc249e8c5320e9e2d9bb12e0279c59de7c43e2171",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Tools\\PrepareUpstreamCommand.cs",
+        "sha256": "5f14a5d9863fef45088f3722ec915fa1320347aab9462615340291b0bea53d35",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Tools\\PriorityFault.cs",
+        "sha256": "eddb8d5a10535ca1ccd3878574b10cf90a88289ed0d5cad8f250ab50a3f0a468",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Tools\\PriorityTrace.cs",
+        "sha256": "6e1b1093475d5077f3da53dd1c354116329120619d80bbc06ab0f126165f7ef5",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Tools\\Program.cs",
+        "sha256": "a1b49e7e5f0966bd01d59c4e98db29757f1bcbdd5f756876acb9f144d2baf2b6",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Tools\\ReferenceCommand.cs",
+        "sha256": "2141ff0ac90bbfde0b657124404175d0e98bfbf27a3555026abd8c1f6c3da3b1",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Tools\\ReleaseCommands.cs",
+        "sha256": "3b764bb4e06449721711a3d779577cb3d89889c151cde53d1e07976a0669e297",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Tools\\ReportingCheckCommand.cs",
+        "sha256": "8cb128d38410cce7ec14992259caee0eb4e27a8bed12ce119ab60100a88286f7",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Tools\\RunnerBenchmarkCommand.cs",
+        "sha256": "a66d4d379b773628be3fa11be9f30802b90cfbf72c432af76aee7fe15eb0906a",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Tools\\RunnerBenchmarkReport.cs",
+        "sha256": "92fa2333c5ee4d7e452bb11665f3f2bcfc7347ebf69f425be0df7e88684c753d",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Tools\\RunnerManifestCommand.cs",
+        "sha256": "29573a45756b594f8d29093db78e265f831652b83d4ff04fad273df223a0fb58",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Tools\\SelectionScenarioEvidence.cs",
+        "sha256": "00547f97b0365578d4629628d2c92fb35469d87b4de87fa654ff64fd9a2324d7",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Tools\\SelfInvocation.cs",
+        "sha256": "d26b011b326d388069e2cb33f5eac3b1d4f3e2920f63c6de1b5459b1900b54dd",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Tools\\StageCommand.cs",
+        "sha256": "41bc4ba0c5eab0e956cc9c99441c793c915653761a44bbbe0bce834ab35e998c",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Tools\\TestApiCommand.cs",
+        "sha256": "556f7b8b1fb7242ada4bab8a081d704bf2d613240c3b365857122bc90336765a",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Tools\\ValidationCommands.cs",
+        "sha256": "b3a1cc5538aff22176ca75db7a3bbbf432b4e6b45844f69591dfcd687cfe1c32",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Tools\\VerilatorBuildCommand.cs",
+        "sha256": "d19b7a834f63a4ac089bff5d294465f1ed04fb10db98d278686a4aaa5b049b55",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Tools\\WorkerArtifact.cs",
+        "sha256": "086f2d61d6656984316340f677de18095da149d44fa22f266a9ce00de45dc115",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Tools\\WorkerPublishCommand.cs",
+        "sha256": "d40040e596bd4ac82769b5162f184e6c1c432998fa4fb89697f2bee17cc4b1e3",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Tools\\WorkloadCommand.cs",
+        "sha256": "393d2f9f20151e5f55cbb6cf3da43233bf293c9d11b1f9f97b82128fcbe64abe",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Tools\\WorkloadPlans.cs",
+        "sha256": "5af0e95f7e1cd2632d6c43d267f4ee8ad42f5c6fd8bb85674bebb58399346e47",
+        "generated": false
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Tools\\obj\\Release\\net10.0\\generated\\System.Text.Json.SourceGeneration\\System.Text.Json.SourceGeneration.JsonSourceGenerator\\ManifestJsonContext.DictionaryStringString.g.cs",
+        "sha256": "915a5f13fbfd225dee143a2b08728aca792cbad379aa4c1263786e9d8644b47d",
+        "generated": true
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Tools\\obj\\Release\\net10.0\\generated\\System.Text.Json.SourceGeneration\\System.Text.Json.SourceGeneration.JsonSourceGenerator\\ManifestJsonContext.DictionaryStringUInt64.g.cs",
+        "sha256": "ab7054f9ffb8857c5c49d43bc36d742f437afcbc6eb36b31a3b8cae8a2c62187",
+        "generated": true
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Tools\\obj\\Release\\net10.0\\generated\\System.Text.Json.SourceGeneration\\System.Text.Json.SourceGeneration.JsonSourceGenerator\\ManifestJsonContext.GetJsonTypeInfo.g.cs",
+        "sha256": "c472e1b29935cccd8518dc51c4120f67eb5f0d278d8a5ab16f60db52b032452f",
+        "generated": true
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Tools\\obj\\Release\\net10.0\\generated\\System.Text.Json.SourceGeneration\\System.Text.Json.SourceGeneration.JsonSourceGenerator\\ManifestJsonContext.Int32.g.cs",
+        "sha256": "cb26001545bef3d2701eac36b0e970c8c921870a16ef931c291b1856c2e26e59",
+        "generated": true
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Tools\\obj\\Release\\net10.0\\generated\\System.Text.Json.SourceGeneration\\System.Text.Json.SourceGeneration.JsonSourceGenerator\\ManifestJsonContext.NullableInt32.g.cs",
+        "sha256": "b09a1ed6a4d94f261acde21599bff0afc4367fbd792e2ed89d6450064b2ffa99",
+        "generated": true
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Tools\\obj\\Release\\net10.0\\generated\\System.Text.Json.SourceGeneration\\System.Text.Json.SourceGeneration.JsonSourceGenerator\\ManifestJsonContext.PropertyNames.g.cs",
+        "sha256": "3fbf2893d2b24b89dbba1cfec3ac523169b0c04ece5762f12a552254238573e5",
+        "generated": true
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Tools\\obj\\Release\\net10.0\\generated\\System.Text.Json.SourceGeneration\\System.Text.Json.SourceGeneration.JsonSourceGenerator\\ManifestJsonContext.RunManifest.g.cs",
+        "sha256": "76541a0efad414aa8f7dbe9174e4da3350dda470657ab8dfe9d401428f23f84b",
+        "generated": true
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Tools\\obj\\Release\\net10.0\\generated\\System.Text.Json.SourceGeneration\\System.Text.Json.SourceGeneration.JsonSourceGenerator\\ManifestJsonContext.String.g.cs",
+        "sha256": "89264d53674a8163d2e531e76763ae03e800e6ed85f52828d03cab43269824c2",
+        "generated": true
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Tools\\obj\\Release\\net10.0\\generated\\System.Text.Json.SourceGeneration\\System.Text.Json.SourceGeneration.JsonSourceGenerator\\ManifestJsonContext.StringArray.g.cs",
+        "sha256": "1771c3a35a4d45686e5c5153453fc28066f1e2480051fac1d5cbadc99d5fa603",
+        "generated": true
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Tools\\obj\\Release\\net10.0\\generated\\System.Text.Json.SourceGeneration\\System.Text.Json.SourceGeneration.JsonSourceGenerator\\ManifestJsonContext.UInt64.g.cs",
+        "sha256": "f979a451eaccfc996b6757b3d7cacdd7561d4ad27e235ae55aa14901ccea4a45",
+        "generated": true
+      },
+      {
+        "path": "C:\\dev\\SharpTestBench\\tools\\SharpTestBench.Tools\\obj\\Release\\net10.0\\generated\\System.Text.Json.SourceGeneration\\System.Text.Json.SourceGeneration.JsonSourceGenerator\\ManifestJsonContext.g.cs",
+        "sha256": "ac02b1d08e2d6babd910909669ca2452de2dfcceee4e4c7b1f34c70a4db46284",
+        "generated": true
+      }
+    ],
+    "summarySha256": "21baa6df7a800ecf62014c50004a2489b7f284a11cc3e8a7d932cf9268cd40bb",
+    "coberturaSha256": "a8e40a53af1a353e0b6663d1f0bd84171a95dcc4c523bc290ad1bd370dcb98d7",
+    "cliReflectionEnabled": false
+  },
+  "linux": {
+    "coverage": {
+      "suites": {
+        "managed": {
+          "assemblies": [
+            "SharpTestBench"
+          ],
+          "lines": {
+            "covered": 761,
+            "valid": 2385,
+            "percent": 31.90775681341719
+          },
+          "branches": {
+            "covered": 563,
+            "valid": 1543,
+            "percent": 36.48736228127025
+          }
+        },
+        "generators": {
+          "assemblies": [
+            "SharpTestBench.Generators"
+          ],
+          "lines": {
+            "covered": 60,
+            "valid": 68,
+            "percent": 88.23529411764706
+          },
+          "branches": {
+            "covered": 52,
+            "valid": 72,
+            "percent": 72.22222222222223
+          }
+        },
+        "helpers": {
+          "assemblies": [
+            "SharpTestBench.Tools"
+          ],
+          "lines": {
+            "covered": 2677,
+            "valid": 4786,
+            "percent": 55.93397409109904
+          },
+          "branches": {
+            "covered": 2288,
+            "valid": 5029,
+            "percent": 45.49612248956055
+          }
+        },
+        "contracts": {
+          "assemblies": [
+            "SharpTestBench.Tools"
+          ],
+          "lines": {
+            "covered": 1251,
+            "valid": 4786,
+            "percent": 26.13873798579189
+          },
+          "branches": {
+            "covered": 1420,
+            "valid": 5029,
+            "percent": 28.236229866772717
+          }
+        },
+        "runner": {
+          "assemblies": [
+            "SharpTestBench.Runner"
+          ],
+          "lines": {
+            "covered": 1674,
+            "valid": 3341,
+            "percent": 50.104759054175396
+          },
+          "branches": {
+            "covered": 377,
+            "valid": 740,
+            "percent": 50.945945945945944
+          }
+        },
+        "runner-cli": {
+          "assemblies": [
+            "SharpTestBench.Runner"
+          ],
+          "lines": {
+            "covered": 2893,
+            "valid": 3341,
+            "percent": 86.59084106554924
+          },
+          "branches": {
+            "covered": 450,
+            "valid": 740,
+            "percent": 60.810810810810814
+          }
+        }
+      },
+      "combined": {
+        "assemblies": [
+          "SharpTestBench",
+          "SharpTestBench.Generators",
+          "SharpTestBench.Runner",
+          "SharpTestBench.Tools"
+        ],
+        "lines": {
+          "covered": 6817,
+          "valid": 10580,
+          "percent": 64.43289224952741
+        },
+        "branches": {
+          "covered": 3901,
+          "valid": 7360,
+          "percent": 53.00271739130435
+        }
+      }
+    },
+    "sourceFiles": 167,
+    "generatedSourceFiles": 43,
+    "htmlPages": 239,
+    "validatedLocalLinks": 994,
+    "uniqueLocalTargets": 242,
+    "sources": [
+      {
+        "path": "/home/jeffd/src/SharpTestBench/examples/Arbiter/Contract.cs",
+        "sha256": "6fa21bfd681e210c32e2373552e4a92244de85d93dffa4f5f50d1da07d7bf8c9",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/examples/FrameDropFifo/Contract.cs",
+        "sha256": "2cb1d5befaab937d9b8561c8b0c98cc8bed944d45ae43082fc2e13359b8a2103",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/examples/FrameFifo/Contract.cs",
+        "sha256": "58d594180a170474488536c4a662bdc52288d7ebd243a276543f5d519634c606",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/src/Shared/DiagnosticText.cs",
+        "sha256": "d824dfd1d36fce953ee5eb9c7d325244140d5c03306f5d98a42535b3a17c9876",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/src/Shared/ReportFailureEvidence.cs",
+        "sha256": "5588d5a39727d8db4818cf3858928beb136d6cab6bc6818ab7ac9984401b6482",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/src/SharpTestBench.Generators/BindingGenerator.cs",
+        "sha256": "ffdb76f35208cbe8047123eaa3657e7d389bad63769beb09ec4eecd4f2a40df7",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/src/SharpTestBench/AdditionalSignals.cs",
+        "sha256": "ddcbfc67aea99dcd9a25be9fc9d16b151b08851b6b7d54b7bb935f9663600d62",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/src/SharpTestBench/Bindings.cs",
+        "sha256": "9dba4f04fe394d2b0fa39a6b76440e126df4ecf00a63f31207a3a49383a7bbe0",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/src/SharpTestBench/Capabilities.cs",
+        "sha256": "6a0cdbc3c307eccc661c3cf23c7dbdd901349adabb2a031b258cc372e97bf265",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/src/SharpTestBench/CleanupScope.cs",
+        "sha256": "653da1a03944ebe65d383b3a0ff95933d67f92b1ce1e3738d701aa564d0ba21b",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/src/SharpTestBench/Coverage.cs",
+        "sha256": "15fa6964b2acc20071b9b6597c98054cabcb2bbc2d17c46a0c51d590e5f46f0c",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/src/SharpTestBench/CoverageCross.cs",
+        "sha256": "16ad7cfd73b02a6b18ea4515668551c007ca8945228a671c3c657449749aee5d",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/src/SharpTestBench/Discovery.cs",
+        "sha256": "330d1a0726e37478e2ba9e8bd7b05033b1d6c7c487f87b1ae3b3b907087a237c",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/src/SharpTestBench/HdlArray.cs",
+        "sha256": "bafff5310bd973edb879666e5edf42ef3ba9d3fa92a28e31974fbe99a16183c4",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/src/SharpTestBench/HdlFreeze.cs",
+        "sha256": "a0d24e69a2361c1bcb9e3396c5f56ea6d46eead55eb7c76a2b3ba3ebdd955987",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/src/SharpTestBench/JunitReport.cs",
+        "sha256": "28f1172dfb4703129a04520e587f9279b8c0faae9ba32d602b37d7eb3f33a5d7",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/src/SharpTestBench/LogicConversions.cs",
+        "sha256": "7c66900c5d6cb4970f80f56c2125b5978d574a9e9b2763400af6e232c12cd2c9",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/src/SharpTestBench/LogicTransforms.cs",
+        "sha256": "02aefb905e79068950bab819e7aa51ef378194c65b0e1959bfd3d2388787d052",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/src/SharpTestBench/Native.cs",
+        "sha256": "ea30fbfb5b818fba284cb2d78d65ccc023a6e3c1706f9cb962aef93ed85915d8",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/src/SharpTestBench/NativeClockSession.cs",
+        "sha256": "848e66fdaba4ac6ee65375df4ab7b1504e02a4d36a782755eb3aff48bbe825b0",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/src/SharpTestBench/NineState.cs",
+        "sha256": "55d1f6c57d4ec87e4528c884248d6a1a2999eadc86d834172383bcc589c8ffb0",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/src/SharpTestBench/PackedStruct.cs",
+        "sha256": "9e0e9157a9b8574d7fd5c5158f6f52dd7f02bdfa7f89e35ea1e57aae10356569",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/src/SharpTestBench/PackedTransport.cs",
+        "sha256": "1dcbfbace741bbce44d2132ca2e93d7efffedfbc8179870a885617b0d379c8df",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/src/SharpTestBench/PackedViews.cs",
+        "sha256": "83b2fd1d9974d018d3bf90791e6467e6b9eb79472e5444ebacc15c51bb608b6a",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/src/SharpTestBench/PerformanceOptions.cs",
+        "sha256": "d4915d6856a391c393d0c8379e177557aa4883560ee2e798618122fd0ad2e9bd",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/src/SharpTestBench/PortDirection.cs",
+        "sha256": "c88b894f7e3779b0e0b0b439eed4c87945558c3ded8802eb63c8c1ac19c5bd5e",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/src/SharpTestBench/Primitives.cs",
+        "sha256": "7326431b0edc6809f9aa2869eae16a8af73feb46add9e307630d9671464c5d6f",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/src/SharpTestBench/Regression.cs",
+        "sha256": "64d3edd2a8c8f2f758d8599e7adedaf546fd9b8506754def2cd119e4db88c83a",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/src/SharpTestBench/RegressionSelection.cs",
+        "sha256": "19853004d13ae102b1933d2a9b14af038f2a088015a8b8a97a049cb5d5a130c8",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/src/SharpTestBench/ResultPublication.cs",
+        "sha256": "7f77a42a6387a81d210e7713e924c7baf5cc3503ad0c21ba976f77cf0ea73f94",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/src/SharpTestBench/Runtime.cs",
+        "sha256": "5ac6427586d4e21763e91b6d374c26cff40988230266a323ecb7c746695b451e",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/src/SharpTestBench/SignalReadBatch.cs",
+        "sha256": "177e1655cd85fdebc6c6af7bb9594823685bcf94290ce5f1e14e75977b2b6a37",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/src/SharpTestBench/Signals.cs",
+        "sha256": "3e5787d5b3b937899810de882f4e94ee80399a33288b9f4e8e281f1cc4728560",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/src/SharpTestBench/SimTaskGroup.cs",
+        "sha256": "036ef945275b37295dd88ce85c41fadf3ebd67490794c716b865be03b7abacad",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/src/SharpTestBench/SimTaskLocal.cs",
+        "sha256": "92a22126661dad5cf67b739b58c2412ae9a24c540f3b40c921ddc42ddf710fe9",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/src/SharpTestBench/SimTasks.cs",
+        "sha256": "e65f2d701a6577f2dc76f7f543d5e1dab49761a90f607672050be1e79ffd6938",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/src/SharpTestBench/SimulationLog.cs",
+        "sha256": "e8721ef0f6bfc19b400af38a0ac60f30c729b83039ff36dc61fc1841ded55395",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/src/SharpTestBench/StructuredWaits.cs",
+        "sha256": "fc92bec050e99cf913bd9833e06bc47225ef7fceaffa1ccf4fb45a0bc1bc239b",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/src/SharpTestBench/Triggers.cs",
+        "sha256": "bd93381f5011dc99b19d85434f65dc423e2c3212d6ba3be91f61296b574780cb",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/src/SharpTestBench/ValueArray.cs",
+        "sha256": "7c78303739ca8754c0ec6caf563127227f7af28c2712faafebb6624e85bc8d66",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/src/SharpTestBench/Values.cs",
+        "sha256": "8817f5c3e8310f6cbba1521d11521e81c02b05e80f6ba0af165460df5a4e6661",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/src/SharpTestBench/VectorText.cs",
+        "sha256": "a77ed9fbf2938f92435cea7efb80cb921fdae15a4ff35aec2cacfbcde73f23dd",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Runner/CompilePlan.cs",
+        "sha256": "4a1ef8d8fa479394086ad0d823b71308d4abbad8572a8c14b74a5b1dba6f59f7",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Runner/EvidenceRecords.cs",
+        "sha256": "446664df2bf715bbd42cd7c5c7f3936cf8019820926d00c4eac19b57b3772ede",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Runner/EvidenceWriter.cs",
+        "sha256": "9fdff9df2a502229bcd32a66a4fb9b03f05b871968106ad01be8a12077a47640",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Runner/HdlCompileValidation.cs",
+        "sha256": "cc93172d48212418af56dd20f63ac704ba487aa6805daf2bd7cff4d52f2c5bfb",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Runner/InputEvidence.cs",
+        "sha256": "dfed1f3178c1134f6990c971757907cbed0fc8a0cb2f0cb5d4031f8554c010ef",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Runner/JsonInput.cs",
+        "sha256": "09d81cbd3a6327c467bc4584f82585fa99df1b6ae34748f0532f8085b88fee6a",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Runner/ManifestValidation.cs",
+        "sha256": "82e559e01227b65615d6f84136a451693eed9e4e489806e1fc800239d25c528c",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Runner/ProcessExecution.cs",
+        "sha256": "7fb6c2cbba06298eaef74a0dabc2f784ef7c015a033f224146ef657b25f847c2",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Runner/Program.cs",
+        "sha256": "6dd73c40006d4eeeaef76827368e87b7675b0efe93881269cb4274172d11777a",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Runner/ResultAttestation.cs",
+        "sha256": "88d13f404f05cd7768a24c7350c8fecf0af370ca8c8469e03c79b80c54f7fa47",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Runner/RunManifest.cs",
+        "sha256": "29570ff6ea87e2c87fb11a23cc97984e9414b40960eac45c010d2de3f798bea9",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Runner/RunWorkspace.cs",
+        "sha256": "9ddcb48b7ae1be2b791da6de03c954e4619e8ce83cf8de390a2404644d32ed0d",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Runner/obj/Release/net10.0/generated/System.Text.Json.SourceGeneration/System.Text.Json.SourceGeneration.JsonSourceGenerator/EvidenceJsonContext.Boolean.g.cs",
+        "sha256": "3136a4975424740fe4545687d628fb9b04cd7e35c6c4e35ee662f6ce65b97eb1",
+        "generated": true
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Runner/obj/Release/net10.0/generated/System.Text.Json.SourceGeneration/System.Text.Json.SourceGeneration.JsonSourceGenerator/EvidenceJsonContext.DateTimeOffset.g.cs",
+        "sha256": "2541a63723870d5927b5c692d953f0492fbc69c8519d019f443fc8d3d22a856d",
+        "generated": true
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Runner/obj/Release/net10.0/generated/System.Text.Json.SourceGeneration/System.Text.Json.SourceGeneration.JsonSourceGenerator/EvidenceJsonContext.Double.g.cs",
+        "sha256": "076ebe32e8f96b679e8e4ad21fcdd38141d717d471cfb9d5c610797d8c3b86ba",
+        "generated": true
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Runner/obj/Release/net10.0/generated/System.Text.Json.SourceGeneration/System.Text.Json.SourceGeneration.JsonSourceGenerator/EvidenceJsonContext.DrainResult.g.cs",
+        "sha256": "9c00fecfa4c0980fedb72fbc8ea7632bc7415e240f17f25bbb42d8fde4476073",
+        "generated": true
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Runner/obj/Release/net10.0/generated/System.Text.Json.SourceGeneration/System.Text.Json.SourceGeneration.JsonSourceGenerator/EvidenceJsonContext.FailureEvidence.g.cs",
+        "sha256": "bde167fb9918946b8f99952f3ec2df5ebb93b5fcac32a9e4c678416c1e7a7ee8",
+        "generated": true
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Runner/obj/Release/net10.0/generated/System.Text.Json.SourceGeneration/System.Text.Json.SourceGeneration.JsonSourceGenerator/EvidenceJsonContext.GetJsonTypeInfo.g.cs",
+        "sha256": "5f7e8cfdf5c0124a797b3d7b44af83dfd291135adbe538f907c24b269945c625",
+        "generated": true
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Runner/obj/Release/net10.0/generated/System.Text.Json.SourceGeneration/System.Text.Json.SourceGeneration.JsonSourceGenerator/EvidenceJsonContext.InputFingerprint.g.cs",
+        "sha256": "de5f2b595c8211b4eb962d71f3fbdb03e1ace4b0dc4bcd6c69a1e7eae905aba2",
+        "generated": true
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Runner/obj/Release/net10.0/generated/System.Text.Json.SourceGeneration/System.Text.Json.SourceGeneration.JsonSourceGenerator/EvidenceJsonContext.InputFingerprintArray.g.cs",
+        "sha256": "c35ed8c6ebecf3452abc421b42506d78f63cec55574297a44dff1a0b4b778a16",
+        "generated": true
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Runner/obj/Release/net10.0/generated/System.Text.Json.SourceGeneration/System.Text.Json.SourceGeneration.JsonSourceGenerator/EvidenceJsonContext.InputManifestEvidence.g.cs",
+        "sha256": "cda0bacea12c095c0466db4f1289826412647ac4146c0f8fe375b8667aced0d6",
+        "generated": true
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Runner/obj/Release/net10.0/generated/System.Text.Json.SourceGeneration/System.Text.Json.SourceGeneration.JsonSourceGenerator/EvidenceJsonContext.Int32.g.cs",
+        "sha256": "188df48f425dfa2bfa6155af4fca658f89954f6fe4044502567c70c15213f21f",
+        "generated": true
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Runner/obj/Release/net10.0/generated/System.Text.Json.SourceGeneration/System.Text.Json.SourceGeneration.JsonSourceGenerator/EvidenceJsonContext.Int64.g.cs",
+        "sha256": "5af713c4d9c710c710c1869760f63e87c0ab3298a76c879298ce273eb7b53107",
+        "generated": true
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Runner/obj/Release/net10.0/generated/System.Text.Json.SourceGeneration/System.Text.Json.SourceGeneration.JsonSourceGenerator/EvidenceJsonContext.NullableInt32.g.cs",
+        "sha256": "e6e8e8601ad071a918af9fc210e3445eb71983426f273372f966f3cee5d38bc1",
+        "generated": true
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Runner/obj/Release/net10.0/generated/System.Text.Json.SourceGeneration/System.Text.Json.SourceGeneration.JsonSourceGenerator/EvidenceJsonContext.ProcessEvidence.g.cs",
+        "sha256": "1db9a9c221b8f23a6c466fe8dcbb6d4e77c51adc047386beed42417b1dc0fb74",
+        "generated": true
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Runner/obj/Release/net10.0/generated/System.Text.Json.SourceGeneration/System.Text.Json.SourceGeneration.JsonSourceGenerator/EvidenceJsonContext.PropertyNames.g.cs",
+        "sha256": "f3cbe88b543f81fec6c5b7d27b409889aeabc07cb495b02d0f25c85faf52b64a",
+        "generated": true
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Runner/obj/Release/net10.0/generated/System.Text.Json.SourceGeneration/System.Text.Json.SourceGeneration.JsonSourceGenerator/EvidenceJsonContext.RunEvidence.g.cs",
+        "sha256": "eeaadaf6a4754d07647988f2d2f72023c4a42566ecd0e74c49ad546ed8c183f8",
+        "generated": true
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Runner/obj/Release/net10.0/generated/System.Text.Json.SourceGeneration/System.Text.Json.SourceGeneration.JsonSourceGenerator/EvidenceJsonContext.SourceEvidence.g.cs",
+        "sha256": "5c338f63de2081e667b9ec9972821a3454f809fdd5f6c141fe45e76830051cab",
+        "generated": true
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Runner/obj/Release/net10.0/generated/System.Text.Json.SourceGeneration/System.Text.Json.SourceGeneration.JsonSourceGenerator/EvidenceJsonContext.SourceEvidenceArray.g.cs",
+        "sha256": "f850864e58769ea0728538a3ef65cd6b3518e5b04cc782adb699063ad120d993",
+        "generated": true
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Runner/obj/Release/net10.0/generated/System.Text.Json.SourceGeneration/System.Text.Json.SourceGeneration.JsonSourceGenerator/EvidenceJsonContext.String.g.cs",
+        "sha256": "84448b54b7becde85f516260db2dd7114207405aa441bb7a0f04c7d7bf082917",
+        "generated": true
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Runner/obj/Release/net10.0/generated/System.Text.Json.SourceGeneration/System.Text.Json.SourceGeneration.JsonSourceGenerator/EvidenceJsonContext.StringArray.g.cs",
+        "sha256": "b0f15d7e2d3cffb68ddda13e64f30ec9031464858cf0bcb45aee0b1133ed11f2",
+        "generated": true
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Runner/obj/Release/net10.0/generated/System.Text.Json.SourceGeneration/System.Text.Json.SourceGeneration.JsonSourceGenerator/EvidenceJsonContext.UInt64.g.cs",
+        "sha256": "baafa74416b58ffe941159e83a61bab20fdd6842ff8fc34ecfe7f453f2ef5a6a",
+        "generated": true
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Runner/obj/Release/net10.0/generated/System.Text.Json.SourceGeneration/System.Text.Json.SourceGeneration.JsonSourceGenerator/EvidenceJsonContext.g.cs",
+        "sha256": "cc20c9e12fead71aa2d37c24f1791c0073c96283a439d9ad60f769000177a56e",
+        "generated": true
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Runner/obj/Release/net10.0/generated/System.Text.Json.SourceGeneration/System.Text.Json.SourceGeneration.JsonSourceGenerator/ManifestJsonContext.DictionaryStringString.g.cs",
+        "sha256": "70ce0220aa785bad64db8ace3e12b673ab0190066d8d64564b940ab777cbfcd9",
+        "generated": true
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Runner/obj/Release/net10.0/generated/System.Text.Json.SourceGeneration/System.Text.Json.SourceGeneration.JsonSourceGenerator/ManifestJsonContext.DictionaryStringUInt64.g.cs",
+        "sha256": "0d8816a30a947c41e20bbdb50ef43cd058feb3e33279275ebc90340783d0e73f",
+        "generated": true
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Runner/obj/Release/net10.0/generated/System.Text.Json.SourceGeneration/System.Text.Json.SourceGeneration.JsonSourceGenerator/ManifestJsonContext.GetJsonTypeInfo.g.cs",
+        "sha256": "948885e3d3b8bd6985bd71539fd51177f89b24b56b4f3699bf232b3990aea33b",
+        "generated": true
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Runner/obj/Release/net10.0/generated/System.Text.Json.SourceGeneration/System.Text.Json.SourceGeneration.JsonSourceGenerator/ManifestJsonContext.Int32.g.cs",
+        "sha256": "1a8de8c9c82682bb7dced5c3602fcbd5d1dea850c5aa0c4856b964c95d9f189d",
+        "generated": true
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Runner/obj/Release/net10.0/generated/System.Text.Json.SourceGeneration/System.Text.Json.SourceGeneration.JsonSourceGenerator/ManifestJsonContext.NullableInt32.g.cs",
+        "sha256": "6622630227cbf51aa75b48c84b36a047ca3024f3e3ef2e4ba76ec2c0ccbff454",
+        "generated": true
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Runner/obj/Release/net10.0/generated/System.Text.Json.SourceGeneration/System.Text.Json.SourceGeneration.JsonSourceGenerator/ManifestJsonContext.PropertyNames.g.cs",
+        "sha256": "4c488c7396d00b071b2b2e318d28b7be14575e5a2b8a73c5c96481a9a446a981",
+        "generated": true
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Runner/obj/Release/net10.0/generated/System.Text.Json.SourceGeneration/System.Text.Json.SourceGeneration.JsonSourceGenerator/ManifestJsonContext.RunManifest.g.cs",
+        "sha256": "aa202d14dcc0b9e4a504053241658ec9426573c871214b11b8a9bc48a63ca656",
+        "generated": true
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Runner/obj/Release/net10.0/generated/System.Text.Json.SourceGeneration/System.Text.Json.SourceGeneration.JsonSourceGenerator/ManifestJsonContext.String.g.cs",
+        "sha256": "187110e2e6c3a969068b1fe1639dd9f06c83c0ea260a9608b408a12753a03205",
+        "generated": true
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Runner/obj/Release/net10.0/generated/System.Text.Json.SourceGeneration/System.Text.Json.SourceGeneration.JsonSourceGenerator/ManifestJsonContext.StringArray.g.cs",
+        "sha256": "b1173f4f5b6ca80debd7b6ee526b9ad4a16c0367ef0de97797d26ba8b036e141",
+        "generated": true
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Runner/obj/Release/net10.0/generated/System.Text.Json.SourceGeneration/System.Text.Json.SourceGeneration.JsonSourceGenerator/ManifestJsonContext.UInt64.g.cs",
+        "sha256": "a16fdf47e165b04967e226927af4657e80c21622fdfbf54314aadf642746983f",
+        "generated": true
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Runner/obj/Release/net10.0/generated/System.Text.Json.SourceGeneration/System.Text.Json.SourceGeneration.JsonSourceGenerator/ManifestJsonContext.g.cs",
+        "sha256": "860aafdff669063b2539872c5dd4191d025913f3dc5b1654fc4a0d4531897650",
+        "generated": true
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Tools/ArbiterCiCommand.cs",
+        "sha256": "10d7d9c2519c11f1afe36ce8724a37d682a3686de0c88a782376465de36dc9f1",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Tools/ArbiterFixture.cs",
+        "sha256": "bb840100c8b8cee945f9347632f6a132bf1df3182ab29841eec732943e996c39",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Tools/AuditCommand.cs",
+        "sha256": "aeebb21906e108c6f0bd3f864aa5cfc042468c2d6244445d1eb0b28ac328fab8",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Tools/AxisFixture.cs",
+        "sha256": "cf0e2ecffbb97e40972936a0fd1e8df3152558a8c890c875957e97311bf0c1cc",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Tools/BenchmarkCommand.cs",
+        "sha256": "da242d06bf2846aea2bcc489975bd89bc4ac3f369218e4a0fad1e06762855114",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Tools/BoundaryCommands.cs",
+        "sha256": "f51f38115254dc49826a857e9a29211f9c9407f42e63623c19cef3aa9dd79ad2",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Tools/BoundedCapture.cs",
+        "sha256": "eb580fde5414ecbafdb155cde9e5adb8eb7792619da5c15d04e85068481659a7",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Tools/CiCommands.cs",
+        "sha256": "b46b9ee497db0b768866b6e392777781324b516bab9d7eef304e9476b2650a10",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Tools/CocotbAdapter.cs",
+        "sha256": "704b1a13b765bb22e08d051ea53858141c51a4ba5d5cd711b8863a2075b0116b",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Tools/ContractsCiCommand.cs",
+        "sha256": "452cbc6d1d4d6ed57fcbb643ab78924d8fee0c1e609dcb3ca5e1fe3c0bdd6ca8",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Tools/Core.cs",
+        "sha256": "24694fb69aaca90a5b0164f91de4ffee3e80cfb8178522703ebdf01203125c17",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Tools/CoverageCommand.cs",
+        "sha256": "7c8d58690a36161ffe68a624b76b6042ea6fd8d4e92ab19fbef014507aa034d7",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Tools/DebuggerCommand.cs",
+        "sha256": "35b4e1e495b89854654fd166e86939aebc7e4484067532af3730ff7af9f84b39",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Tools/ExportAuditCommand.cs",
+        "sha256": "bb464b204c5fb62940aea8c1772c17e1d7a43143dbbaed40d9b5b43de683fb0f",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Tools/FifoCiCommand.cs",
+        "sha256": "6958728fb869b6bf5b1d55700878394ad8a59917235cf4275e1f8a2811aa4ada",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Tools/FifoFixture.cs",
+        "sha256": "548c29ce51a36da534a26ba1193a357ecf2e55214f9be3ece2617be05f68acec",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Tools/FixtureContracts.cs",
+        "sha256": "f38095a17dd4130177aa0cfaf47625ae69f118646a6ca26a57b8db53c09f3f11",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Tools/FrameCiCommand.cs",
+        "sha256": "f69836db44db697e7639106ac0e260045f45945f3e53c2852cd53706e588dc63",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Tools/FrameDropCiCommand.cs",
+        "sha256": "9b3df4a53671a093e92e6add588e84e1ab00ec5617d5e4bc29052c4a02c9a2f8",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Tools/FrameDropFixture.cs",
+        "sha256": "01e705754b30e77b419cefb91c40e8a3bbb4a5a08961fce639bac4b51ddaa065",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Tools/FrameFixture.cs",
+        "sha256": "daf48b4e82d07a2b5a8a5ad7db848c39f499cb89877c45b3d7eeed593bdeb28e",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Tools/IcarusLayoutsCommand.cs",
+        "sha256": "5bd02874e32854aecca62efe7d025b7a2445984dd66f645d0fd7f5cf264da155",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Tools/InstalledRunCommand.cs",
+        "sha256": "44b193ac5eafe6713060d68de7f030ca99227673d5197460dfa97c7e6d5453cf",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Tools/LegacyArtifacts.cs",
+        "sha256": "cd77871be72d6ac6ba4ceeb3fbc386de1e00640480c07d8ef1676126b8617231",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Tools/LegacyCompileOptions.cs",
+        "sha256": "d2d16b87749cc7f4465ca7b76ca022ae4ab3c7cef156cf124e6530329ec7aebf",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Tools/LegacyCompiler.cs",
+        "sha256": "62750f6d1be56de7970945208fb8fbf66d0d71e8a68284d0743f8ad07c51414c",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Tools/LegacyFailure.cs",
+        "sha256": "58f8236f32bb0c2d25e93801b1e15711af1cdd4d1dcb488e0fd0c99e35ab2c7e",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Tools/LegacyImage.cs",
+        "sha256": "20f57113ad7fb18f8dcb5a8494d9e73c6d62232beb7dc9c74775a809f6458334",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Tools/LegacyInputs.cs",
+        "sha256": "11f783d265b1813343231da123fed7106dfdeb2e500182bde04a8114cd83bc8c",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Tools/LegacyResults.cs",
+        "sha256": "f9fc61822f0898c044869796cb0edac92c4410591fa78e78102b19bfc5bf2f8e",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Tools/LegacyRunCommand.cs",
+        "sha256": "d47b2b47efb80a882227af8a79bbf6b9376e8395ff2ab2cc93f6ff4f7b62d1c0",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Tools/LegacySimulator.cs",
+        "sha256": "f87cc3b38612890934ad5176c0107a54db6fa7082c00612c3836e8f74d03a9a7",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Tools/LfsrFixture.cs",
+        "sha256": "1b2a73d5822ab5a171449d4b03c7b436d1b7965d2b3b7c4b709d7418406876e1",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Tools/LifecycleCommands.cs",
+        "sha256": "f21260b88bcb25d235c3cfcffd0094edc34504c48dbe3c5609bbbfeb7e8bb6ce",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Tools/ManagedTestsCommand.cs",
+        "sha256": "dde0071bd0ab817ea721b9e7f4f7cc7100f2a7b6798e5f1d9821d545d49fa513",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Tools/ManifestCheckCommand.cs",
+        "sha256": "901561c51353f4627a42472a498cbd1f894a2119556959d12170e8dc2521cd54",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Tools/NativeBuildCommand.cs",
+        "sha256": "1520426c6f7bc2b846636e5c7856fa3327cd755d987d6df00b455f6ddfb98c11",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Tools/NativeChecks.cs",
+        "sha256": "4f6c14df37ede9543daecc224c4b71190246693705265eceb3c75a5431e5de60",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Tools/NativeDebuggerCommand.cs",
+        "sha256": "cf33c1b42da5eca5ca56542c4f19795b2a5dfc1302999df828debb0cb074d796",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Tools/NativeFaultsCommand.cs",
+        "sha256": "775e8e3eaa96eb4d20afb322dac403186d5b3cf1748ab20fce7901126a3052f9",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Tools/NativePerformanceCommand.cs",
+        "sha256": "b018ba5a6fab6b7f08132b08a7365271f0d03ba7993324f75d45449f5369ae44",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Tools/OracleEvidence.cs",
+        "sha256": "e80ce68bb29ccbaf6699c8019cfa987e8ad0530bb9f0a0e8d152da3d6e58a26c",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Tools/OracleFixturesCommand.cs",
+        "sha256": "84b3e082b5c88dd16132bce3b0e8d67a86ccc4770dcdd9d0223a8b98d959b1e9",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Tools/PackageCommand.cs",
+        "sha256": "2e68e74faccac510eb4b6785f0d16264086ea44f3ec14630907b55d0dc78f959",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Tools/PackageContainerCommand.cs",
+        "sha256": "0ab81e19cc9f16dd162545839ed89959e6a89051f8de2a5960e7bedc7aca3e7e",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Tools/PairedInputs.cs",
+        "sha256": "26d37195695b6643ffcd504cb04f66f012789bd05b7e0dc48f49357313bc5ef3",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Tools/ParityCiCommand.cs",
+        "sha256": "495d9e1541edc6b84029a011957b3b57e58ab33a37aab6e9e8f7ff8e0e5d84ec",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Tools/ParityContracts.cs",
+        "sha256": "2943fd89bfa31d8b2579854e83548b6395c0a8f69366a437f7a63715a0dee993",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Tools/ParityLegacyCommand.cs",
+        "sha256": "249064410dc2ec2f11ce514eaff00e6ca23ab069ec23cb60e991901a943f8993",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Tools/PerformancePrepareCommand.cs",
+        "sha256": "0078bedf76e22b1ab1e3f44dc249e8c5320e9e2d9bb12e0279c59de7c43e2171",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Tools/PrepareUpstreamCommand.cs",
+        "sha256": "5f14a5d9863fef45088f3722ec915fa1320347aab9462615340291b0bea53d35",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Tools/PriorityFault.cs",
+        "sha256": "eddb8d5a10535ca1ccd3878574b10cf90a88289ed0d5cad8f250ab50a3f0a468",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Tools/PriorityTrace.cs",
+        "sha256": "6e1b1093475d5077f3da53dd1c354116329120619d80bbc06ab0f126165f7ef5",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Tools/Program.cs",
+        "sha256": "a1b49e7e5f0966bd01d59c4e98db29757f1bcbdd5f756876acb9f144d2baf2b6",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Tools/ReferenceCommand.cs",
+        "sha256": "2141ff0ac90bbfde0b657124404175d0e98bfbf27a3555026abd8c1f6c3da3b1",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Tools/ReleaseCommands.cs",
+        "sha256": "3b764bb4e06449721711a3d779577cb3d89889c151cde53d1e07976a0669e297",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Tools/ReportingCheckCommand.cs",
+        "sha256": "8cb128d38410cce7ec14992259caee0eb4e27a8bed12ce119ab60100a88286f7",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Tools/RunnerBenchmarkCommand.cs",
+        "sha256": "a66d4d379b773628be3fa11be9f30802b90cfbf72c432af76aee7fe15eb0906a",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Tools/RunnerBenchmarkReport.cs",
+        "sha256": "92fa2333c5ee4d7e452bb11665f3f2bcfc7347ebf69f425be0df7e88684c753d",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Tools/RunnerManifestCommand.cs",
+        "sha256": "29573a45756b594f8d29093db78e265f831652b83d4ff04fad273df223a0fb58",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Tools/SelectionScenarioEvidence.cs",
+        "sha256": "00547f97b0365578d4629628d2c92fb35469d87b4de87fa654ff64fd9a2324d7",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Tools/SelfInvocation.cs",
+        "sha256": "d26b011b326d388069e2cb33f5eac3b1d4f3e2920f63c6de1b5459b1900b54dd",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Tools/StageCommand.cs",
+        "sha256": "41bc4ba0c5eab0e956cc9c99441c793c915653761a44bbbe0bce834ab35e998c",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Tools/TestApiCommand.cs",
+        "sha256": "556f7b8b1fb7242ada4bab8a081d704bf2d613240c3b365857122bc90336765a",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Tools/ValidationCommands.cs",
+        "sha256": "b3a1cc5538aff22176ca75db7a3bbbf432b4e6b45844f69591dfcd687cfe1c32",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Tools/VerilatorBuildCommand.cs",
+        "sha256": "d19b7a834f63a4ac089bff5d294465f1ed04fb10db98d278686a4aaa5b049b55",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Tools/WorkerArtifact.cs",
+        "sha256": "086f2d61d6656984316340f677de18095da149d44fa22f266a9ce00de45dc115",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Tools/WorkerPublishCommand.cs",
+        "sha256": "d40040e596bd4ac82769b5162f184e6c1c432998fa4fb89697f2bee17cc4b1e3",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Tools/WorkloadCommand.cs",
+        "sha256": "393d2f9f20151e5f55cbb6cf3da43233bf293c9d11b1f9f97b82128fcbe64abe",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Tools/WorkloadPlans.cs",
+        "sha256": "5af0e95f7e1cd2632d6c43d267f4ee8ad42f5c6fd8bb85674bebb58399346e47",
+        "generated": false
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Tools/obj/Release/net10.0/generated/System.Text.Json.SourceGeneration/System.Text.Json.SourceGeneration.JsonSourceGenerator/ManifestJsonContext.DictionaryStringString.g.cs",
+        "sha256": "70ce0220aa785bad64db8ace3e12b673ab0190066d8d64564b940ab777cbfcd9",
+        "generated": true
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Tools/obj/Release/net10.0/generated/System.Text.Json.SourceGeneration/System.Text.Json.SourceGeneration.JsonSourceGenerator/ManifestJsonContext.DictionaryStringUInt64.g.cs",
+        "sha256": "0d8816a30a947c41e20bbdb50ef43cd058feb3e33279275ebc90340783d0e73f",
+        "generated": true
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Tools/obj/Release/net10.0/generated/System.Text.Json.SourceGeneration/System.Text.Json.SourceGeneration.JsonSourceGenerator/ManifestJsonContext.GetJsonTypeInfo.g.cs",
+        "sha256": "948885e3d3b8bd6985bd71539fd51177f89b24b56b4f3699bf232b3990aea33b",
+        "generated": true
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Tools/obj/Release/net10.0/generated/System.Text.Json.SourceGeneration/System.Text.Json.SourceGeneration.JsonSourceGenerator/ManifestJsonContext.Int32.g.cs",
+        "sha256": "1a8de8c9c82682bb7dced5c3602fcbd5d1dea850c5aa0c4856b964c95d9f189d",
+        "generated": true
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Tools/obj/Release/net10.0/generated/System.Text.Json.SourceGeneration/System.Text.Json.SourceGeneration.JsonSourceGenerator/ManifestJsonContext.NullableInt32.g.cs",
+        "sha256": "6622630227cbf51aa75b48c84b36a047ca3024f3e3ef2e4ba76ec2c0ccbff454",
+        "generated": true
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Tools/obj/Release/net10.0/generated/System.Text.Json.SourceGeneration/System.Text.Json.SourceGeneration.JsonSourceGenerator/ManifestJsonContext.PropertyNames.g.cs",
+        "sha256": "4c488c7396d00b071b2b2e318d28b7be14575e5a2b8a73c5c96481a9a446a981",
+        "generated": true
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Tools/obj/Release/net10.0/generated/System.Text.Json.SourceGeneration/System.Text.Json.SourceGeneration.JsonSourceGenerator/ManifestJsonContext.RunManifest.g.cs",
+        "sha256": "aa202d14dcc0b9e4a504053241658ec9426573c871214b11b8a9bc48a63ca656",
+        "generated": true
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Tools/obj/Release/net10.0/generated/System.Text.Json.SourceGeneration/System.Text.Json.SourceGeneration.JsonSourceGenerator/ManifestJsonContext.String.g.cs",
+        "sha256": "187110e2e6c3a969068b1fe1639dd9f06c83c0ea260a9608b408a12753a03205",
+        "generated": true
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Tools/obj/Release/net10.0/generated/System.Text.Json.SourceGeneration/System.Text.Json.SourceGeneration.JsonSourceGenerator/ManifestJsonContext.StringArray.g.cs",
+        "sha256": "b1173f4f5b6ca80debd7b6ee526b9ad4a16c0367ef0de97797d26ba8b036e141",
+        "generated": true
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Tools/obj/Release/net10.0/generated/System.Text.Json.SourceGeneration/System.Text.Json.SourceGeneration.JsonSourceGenerator/ManifestJsonContext.UInt64.g.cs",
+        "sha256": "a16fdf47e165b04967e226927af4657e80c21622fdfbf54314aadf642746983f",
+        "generated": true
+      },
+      {
+        "path": "/home/jeffd/src/SharpTestBench/tools/SharpTestBench.Tools/obj/Release/net10.0/generated/System.Text.Json.SourceGeneration/System.Text.Json.SourceGeneration.JsonSourceGenerator/ManifestJsonContext.g.cs",
+        "sha256": "860aafdff669063b2539872c5dd4191d025913f3dc5b1654fc4a0d4531897650",
+        "generated": true
+      }
+    ],
+    "summarySha256": "ea175e9ce2b957781e73ae4bc71f641c2f1b6ee9131d3467f36aeb6f05431c1c",
+    "coberturaSha256": "947da9b45b929ce2f97f93be370619df4223e489ea9adede2808c49893ecc05c",
+    "cliReflectionEnabled": false
+  }
+}

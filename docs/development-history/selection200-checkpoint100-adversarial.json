@@ -1,0 +1,305 @@
+{
+  "schemaVersion": 1,
+  "checkpoint": 100,
+  "propertyTool": "FsCheck3.6.0",
+  "propertyReplaySeed": 91557096206384,
+  "fuzzSeed": 20261024,
+  "scope": "Three managed selector properties, bounded malformed-regex fuzzing, seven selector and five metadata-planner mutants, and current core-suite assertion-failure harness qualification. Runtime/HDL/NativeAOT instruction mutation strength is unmeasured. Assertion mutation is not a production mutant.",
+  "windows": {
+    "properties": 3,
+    "casesPerProperty": 1000,
+    "propertyLogSha256": "852e94417421a626eebb0a45438714e8a3f5ba7b403d9eb6baebac75d135fecf",
+    "propertySourceSha256": "9b9d9e78d9727801a10f85471a38078cf831152ba38b06494587cc7f1952522d",
+    "fuzzAccepted": 295,
+    "fuzzRejected": 1705,
+    "allowedMatchTimeouts": 0,
+    "timeoutObservationsScheduleDependent": true,
+    "failedCounterexamples": [],
+    "coreAssertionControl": {
+      "schemaVersion": 1,
+      "status": "verified",
+      "discoveredCases": 669,
+      "baselineFailures": 0,
+      "mutationFailures": 1,
+      "mutationTarget": "ManagedTests.IntegerBoundaries",
+      "probeDirectory": "C:\\dev\\SharpTestBench\\build\\managed-failure-probe\\95db0179ef44447998a67bc7825e11f6",
+      "scope": "Assertion-failure harness control; not production-code mutation strength"
+    },
+    "coreControlLogSha256": "0d6aeda064311d47f9ba41e65bc06a0e6948666a59b96a707968d89ee7492ad2",
+    "productionMutations": {
+      "mutation": {
+        "report": {
+          "schemaVersion": 1,
+          "productionSourceSha256": "19853004d13ae102b1933d2a9b14af038f2a088015a8b8a97a049cb5d5a130c8",
+          "scope": "Public selector configuration/matching only; planner and simulator runtime are outside this mutation collection",
+          "variants": [
+            {
+              "name": "control",
+              "exitCode": 0,
+              "probe": "",
+              "expectedProbe": "",
+              "expected": true
+            },
+            {
+              "name": "OR replaced by AND",
+              "exitCode": 42,
+              "probe": "PROBE_DETECTED:OR",
+              "expectedProbe": "OR",
+              "expected": true
+            },
+            {
+              "name": "case insensitive default",
+              "exitCode": 42,
+              "probe": "PROBE_DETECTED:case sensitivity",
+              "expectedProbe": "case sensitivity",
+              "expected": true
+            },
+            {
+              "name": "undefined mode accepted",
+              "exitCode": 42,
+              "probe": "PROBE_DETECTED:mode",
+              "expectedProbe": "mode",
+              "expected": true
+            },
+            {
+              "name": "empty alternatives reject",
+              "exitCode": 42,
+              "probe": "PROBE_DETECTED:empty alternatives",
+              "expectedProbe": "empty alternatives",
+              "expected": true
+            },
+            {
+              "name": "null patterns silently accepted",
+              "exitCode": 42,
+              "probe": "PROBE_DETECTED:null pattern",
+              "expectedProbe": "null pattern",
+              "expected": true
+            },
+            {
+              "name": "pattern count relaxed",
+              "exitCode": 42,
+              "probe": "PROBE_DETECTED:count bound",
+              "expectedProbe": "count bound",
+              "expected": true
+            },
+            {
+              "name": "pattern length relaxed",
+              "exitCode": 42,
+              "probe": "PROBE_DETECTED:length bound",
+              "expectedProbe": "length bound",
+              "expected": true
+            }
+          ]
+        },
+        "sha256": "be32b7b8bb20cf54ea3b859845de274183f5d91287807768c075485b79587cc6",
+        "verifierSourceSha256": "93b0a11e5e9e72c66f2e0a5dfccd247aa7008883594a8d57b05b2310f0a67fc3"
+      },
+      "planner-mutation": {
+        "report": {
+          "schemaVersion": 1,
+          "productionSourceSha256": "19853004d13ae102b1933d2a9b14af038f2a088015a8b8a97a049cb5d5a130c8",
+          "scope": "Managed metadata planning only; runtime skip/isolation execution is separately qualified, not mutated here",
+          "variants": [
+            {
+              "name": "control",
+              "exitCode": 0,
+              "probe": "",
+              "expectedProbe": "",
+              "expected": true
+            },
+            {
+              "name": "stage order removed",
+              "exitCode": 42,
+              "probe": "PROBE_DETECTED:stage ordering",
+              "expectedProbe": "stage ordering",
+              "expected": true
+            },
+            {
+              "name": "filtered cases lose ordinal seeds",
+              "exitCode": 42,
+              "probe": "PROBE_DETECTED:full-order seed",
+              "expectedProbe": "full-order seed",
+              "expected": true
+            },
+            {
+              "name": "intersection broadened to OR",
+              "exitCode": 42,
+              "probe": "PROBE_DETECTED:intersection",
+              "expectedProbe": "intersection",
+              "expected": true
+            },
+            {
+              "name": "duplicate identity guard removed",
+              "exitCode": 42,
+              "probe": "PROBE_DETECTED:duplicate identity",
+              "expectedProbe": "duplicate identity",
+              "expected": true
+            },
+            {
+              "name": "planning invokes a body",
+              "exitCode": 42,
+              "probe": "PROBE_DETECTED:no body invocation",
+              "expectedProbe": "no body invocation",
+              "expected": true
+            }
+          ]
+        },
+        "sha256": "b8a7d860def96b5afee2621a247f8098598508b0693a32220a16cd5f0e05508f",
+        "verifierSourceSha256": "6822f66d9407c6fa2523d88b45e75d24b19926c8dc5c1608cccfce501349994c"
+      }
+    },
+    "coverageCompletionSha256": "21baa6df7a800ecf62014c50004a2489b7f284a11cc3e8a7d932cf9268cd40bb"
+  },
+  "linux": {
+    "properties": 3,
+    "casesPerProperty": 1000,
+    "propertyLogSha256": "c99e10cfa4fd586697d0745b812297c5b0fca489325b6cb3ebd78bb7862c0224",
+    "propertySourceSha256": "9b9d9e78d9727801a10f85471a38078cf831152ba38b06494587cc7f1952522d",
+    "fuzzAccepted": 295,
+    "fuzzRejected": 1705,
+    "allowedMatchTimeouts": 2,
+    "timeoutObservationsScheduleDependent": true,
+    "failedCounterexamples": [],
+    "coreAssertionControl": {
+      "schemaVersion": 1,
+      "status": "verified",
+      "discoveredCases": 669,
+      "baselineFailures": 0,
+      "mutationFailures": 1,
+      "mutationTarget": "ManagedTests.IntegerBoundaries",
+      "probeDirectory": "/home/jeffd/src/SharpTestBench/build/managed-failure-probe/be4e34ce4dc649a4b1c45103993310ef",
+      "scope": "Assertion-failure harness control; not production-code mutation strength"
+    },
+    "coreControlLogSha256": "ee168459beb393e1f82012ae67e1004c8e9678a6c28eefbbb9f57c4b1de97dc5",
+    "productionMutations": {
+      "mutation": {
+        "report": {
+          "schemaVersion": 1,
+          "productionSourceSha256": "19853004d13ae102b1933d2a9b14af038f2a088015a8b8a97a049cb5d5a130c8",
+          "scope": "Public selector configuration/matching only; planner and simulator runtime are outside this mutation collection",
+          "variants": [
+            {
+              "name": "control",
+              "exitCode": 0,
+              "probe": "",
+              "expectedProbe": "",
+              "expected": true
+            },
+            {
+              "name": "OR replaced by AND",
+              "exitCode": 42,
+              "probe": "PROBE_DETECTED:OR",
+              "expectedProbe": "OR",
+              "expected": true
+            },
+            {
+              "name": "case insensitive default",
+              "exitCode": 42,
+              "probe": "PROBE_DETECTED:case sensitivity",
+              "expectedProbe": "case sensitivity",
+              "expected": true
+            },
+            {
+              "name": "undefined mode accepted",
+              "exitCode": 42,
+              "probe": "PROBE_DETECTED:mode",
+              "expectedProbe": "mode",
+              "expected": true
+            },
+            {
+              "name": "empty alternatives reject",
+              "exitCode": 42,
+              "probe": "PROBE_DETECTED:empty alternatives",
+              "expectedProbe": "empty alternatives",
+              "expected": true
+            },
+            {
+              "name": "null patterns silently accepted",
+              "exitCode": 42,
+              "probe": "PROBE_DETECTED:null pattern",
+              "expectedProbe": "null pattern",
+              "expected": true
+            },
+            {
+              "name": "pattern count relaxed",
+              "exitCode": 42,
+              "probe": "PROBE_DETECTED:count bound",
+              "expectedProbe": "count bound",
+              "expected": true
+            },
+            {
+              "name": "pattern length relaxed",
+              "exitCode": 42,
+              "probe": "PROBE_DETECTED:length bound",
+              "expectedProbe": "length bound",
+              "expected": true
+            }
+          ]
+        },
+        "sha256": "dcedc871ea3fc84a63633e3ecfd8891fb5f9b042213044d5921a06b2c7aac70c",
+        "verifierSourceSha256": "93b0a11e5e9e72c66f2e0a5dfccd247aa7008883594a8d57b05b2310f0a67fc3"
+      },
+      "planner-mutation": {
+        "report": {
+          "schemaVersion": 1,
+          "productionSourceSha256": "19853004d13ae102b1933d2a9b14af038f2a088015a8b8a97a049cb5d5a130c8",
+          "scope": "Managed metadata planning only; runtime skip/isolation execution is separately qualified, not mutated here",
+          "variants": [
+            {
+              "name": "control",
+              "exitCode": 0,
+              "probe": "",
+              "expectedProbe": "",
+              "expected": true
+            },
+            {
+              "name": "stage order removed",
+              "exitCode": 42,
+              "probe": "PROBE_DETECTED:stage ordering",
+              "expectedProbe": "stage ordering",
+              "expected": true
+            },
+            {
+              "name": "filtered cases lose ordinal seeds",
+              "exitCode": 42,
+              "probe": "PROBE_DETECTED:full-order seed",
+              "expectedProbe": "full-order seed",
+              "expected": true
+            },
+            {
+              "name": "intersection broadened to OR",
+              "exitCode": 42,
+              "probe": "PROBE_DETECTED:intersection",
+              "expectedProbe": "intersection",
+              "expected": true
+            },
+            {
+              "name": "duplicate identity guard removed",
+              "exitCode": 42,
+              "probe": "PROBE_DETECTED:duplicate identity",
+              "expectedProbe": "duplicate identity",
+              "expected": true
+            },
+            {
+              "name": "planning invokes a body",
+              "exitCode": 42,
+              "probe": "PROBE_DETECTED:no body invocation",
+              "expectedProbe": "no body invocation",
+              "expected": true
+            }
+          ]
+        },
+        "sha256": "700eba629b04c4a50fff97ddcce547cfc7f0d1264b3b83f9ac8be22525f92186",
+        "verifierSourceSha256": "6822f66d9407c6fa2523d88b45e75d24b19926c8dc5c1608cccfce501349994c"
+      }
+    },
+    "coverageCompletionSha256": "ea175e9ce2b957781e73ae4bc71f641c2f1b6ee9131d3467f36aeb6f05431c1c"
+  },
+  "strictdoc": {
+    "version": "0.30.4",
+    "exportLogSha256": "b213a9dd0a2b4b9ba098d72584e22b0b6603a4dba4b172446d796c6da0c9979f",
+    "requirementsSha256": "bb9de749ade14ae16ba369da69ad64e1430ba8b8969ff5376fe9baeb0c8455b5",
+    "configurationSha256": "3ecf6e91c87237f7515d82216050f963e43ab388a1cf129c19d84e313a8b9434",
+    "traceability": "Whole-file links; export does not attest execution or automatic symbol-to-coverage mapping"
+  }
+}

@@ -93,6 +93,10 @@ RELATIONS:
   VALUE: src/SharpTestBench/RegressionSelection.cs
 - TYPE: File
   VALUE: src/SharpTestBench/Regression.cs
+- TYPE: File
+  VALUE: tests/SharpTestBench.Tests/SelectionPlanning60.cs
+- TYPE: File
+  VALUE: tests/SharpTestBench.Tests/SelectionPlanning62rest.cs
 
 [REQUIREMENT]
 UID: STB-SEL-004
@@ -104,6 +108,8 @@ RELATIONS:
   VALUE: STB-033
 - TYPE: File
   VALUE: src/SharpTestBench/RegressionSelection.cs
+- TYPE: File
+  VALUE: tests/SharpTestBench.Tests/SelectionPlanning60.cs
 
 [REQUIREMENT]
 UID: STB-SEL-005
@@ -115,6 +121,8 @@ RELATIONS:
   VALUE: STB-033
 - TYPE: File
   VALUE: src/SharpTestBench/Regression.cs
+- TYPE: File
+  VALUE: tests/SharpTestBench.Tests/SelectionPlanning60.cs
 
 [REQUIREMENT]
 UID: STB-SEL-006
@@ -126,6 +134,10 @@ RELATIONS:
   VALUE: STB-033
 - TYPE: File
   VALUE: src/SharpTestBench/RegressionSelection.cs
+- TYPE: File
+  VALUE: tests/SharpTestBench.Tests/SelectionPlanning60.cs
+- TYPE: File
+  VALUE: tests/SharpTestBench.Tests/SelectionPlanning62rest.cs
 
 [REQUIREMENT]
 UID: STB-EXP-001
@@ -135,6 +147,10 @@ STATEMENT: Public-export decisions shall bind their reviewed module and explicit
 RELATIONS:
 - TYPE: Parent
   VALUE: STB-001
+- TYPE: File
+  VALUE: tools/SharpTestBench.Tools/ExportAuditCommand.cs
+- TYPE: File
+  VALUE: tests/SharpTestBench.Tools.Tests/SelectionTools66.cs
 
 [REQUIREMENT]
 UID: STB-EXP-002
@@ -144,6 +160,10 @@ STATEMENT: Export validation shall reject stale hashes, unknown or duplicate rev
 RELATIONS:
 - TYPE: Parent
   VALUE: STB-001
+- TYPE: File
+  VALUE: tools/SharpTestBench.Tools/ExportAuditCommand.cs
+- TYPE: File
+  VALUE: tests/SharpTestBench.Tools.Tests/SelectionTools66.cs
 
 [REQUIREMENT]
 UID: STB-PRO-001
@@ -202,6 +222,8 @@ RELATIONS:
   VALUE: tests/SelectionQuality/Properties.fsx
 - TYPE: File
   VALUE: tests/SelectionQuality/Mutations.cs
+- TYPE: File
+  VALUE: tests/SelectionQuality/PlannerMutations.cs
 
 [REQUIREMENT]
 UID: STB-VER-003
@@ -211,3 +233,20 @@ STATEMENT: Paired-runner qualification shall independently check expected qualif
 RELATIONS:
 - TYPE: Parent
   VALUE: STB-041
+- TYPE: File
+  VALUE: tools/SharpTestBench.Tools/SelectionScenarioEvidence.cs
+- TYPE: File
+  VALUE: tests/SharpTestBench.Tools.Tests/SelectionTools70.cs
+
+[REQUIREMENT]
+UID: STB-VER-004
+STATUS: Active
+TITLE: Discovered core-managed test inventory
+STATEMENT: The managed-tests CLI shall discover the current core-suite case inventory, require complete passing baseline evidence, and demonstrate exactly one named failing assertion in an isolated assembly without treating build failures or missing cases as success.
+RELATIONS:
+- TYPE: Parent
+  VALUE: STB-041
+- TYPE: File
+  VALUE: tools/SharpTestBench.Tools/ManagedTestsCommand.cs
+- TYPE: File
+  VALUE: tests/SharpTestBench.Tools.Tests/SelectionToolsManagedValidation.cs

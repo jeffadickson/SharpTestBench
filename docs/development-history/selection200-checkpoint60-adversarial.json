@@ -1,0 +1,135 @@
+{
+  "schemaVersion": 1,
+  "checkpoint": 60,
+  "scope": "Core-suite discovered-inventory assertion control and five production metadata-planner mutants. Assertion mutation is not a production mutant. Runtime skip/leak/native behavior remains separate.",
+  "windows": {
+    "managedControl": {
+      "schemaVersion": 1,
+      "status": "verified",
+      "discoveredCases": 667,
+      "baselineFailures": 0,
+      "mutationFailures": 1,
+      "mutationTarget": "ManagedTests.IntegerBoundaries",
+      "probeDirectory": "C:\\dev\\SharpTestBench\\build\\managed-failure-probe\\74ba4a379c854706bf51f870cba4657c",
+      "scope": "Assertion-failure harness control; not production-code mutation strength"
+    },
+    "planner": {
+      "schemaVersion": 1,
+      "productionSourceSha256": "19853004d13ae102b1933d2a9b14af038f2a088015a8b8a97a049cb5d5a130c8",
+      "scope": "Managed metadata planning only; runtime skip/isolation execution is separately qualified, not mutated here",
+      "variants": [
+        {
+          "name": "control",
+          "exitCode": 0,
+          "probe": "",
+          "expectedProbe": "",
+          "expected": true
+        },
+        {
+          "name": "stage order removed",
+          "exitCode": 42,
+          "probe": "PROBE_DETECTED:stage ordering",
+          "expectedProbe": "stage ordering",
+          "expected": true
+        },
+        {
+          "name": "filtered cases lose ordinal seeds",
+          "exitCode": 42,
+          "probe": "PROBE_DETECTED:full-order seed",
+          "expectedProbe": "full-order seed",
+          "expected": true
+        },
+        {
+          "name": "intersection broadened to OR",
+          "exitCode": 42,
+          "probe": "PROBE_DETECTED:intersection",
+          "expectedProbe": "intersection",
+          "expected": true
+        },
+        {
+          "name": "duplicate identity guard removed",
+          "exitCode": 42,
+          "probe": "PROBE_DETECTED:duplicate identity",
+          "expectedProbe": "duplicate identity",
+          "expected": true
+        },
+        {
+          "name": "planning invokes a body",
+          "exitCode": 42,
+          "probe": "PROBE_DETECTED:no body invocation",
+          "expectedProbe": "no body invocation",
+          "expected": true
+        }
+      ]
+    },
+    "managedReportSha256": "3594dde3549f4907734bc5f7ae2fe0796622c5e55b406547a5173c29e3d26989",
+    "plannerReportSha256": "b8a7d860def96b5afee2621a247f8098598508b0693a32220a16cd5f0e05508f",
+    "managedLogSha256": "8c6c6f49caba74879fd3e2241b27d0a31f61164a07f441cd0b1bbe0a2eceac7a",
+    "plannerLogSha256": "2db9e09b6ea0eb458fdbec3373af2797cea2defab97db9265e3e90d4ecbdeb1f"
+  },
+  "linux": {
+    "managedControl": {
+      "schemaVersion": 1,
+      "status": "verified",
+      "discoveredCases": 667,
+      "baselineFailures": 0,
+      "mutationFailures": 1,
+      "mutationTarget": "ManagedTests.IntegerBoundaries",
+      "probeDirectory": "/home/jeffd/src/SharpTestBench/build/managed-failure-probe/448c6ac1b6c947fb98cfc8c8df037e11",
+      "scope": "Assertion-failure harness control; not production-code mutation strength"
+    },
+    "planner": {
+      "schemaVersion": 1,
+      "productionSourceSha256": "19853004d13ae102b1933d2a9b14af038f2a088015a8b8a97a049cb5d5a130c8",
+      "scope": "Managed metadata planning only; runtime skip/isolation execution is separately qualified, not mutated here",
+      "variants": [
+        {
+          "name": "control",
+          "exitCode": 0,
+          "probe": "",
+          "expectedProbe": "",
+          "expected": true
+        },
+        {
+          "name": "stage order removed",
+          "exitCode": 42,
+          "probe": "PROBE_DETECTED:stage ordering",
+          "expectedProbe": "stage ordering",
+          "expected": true
+        },
+        {
+          "name": "filtered cases lose ordinal seeds",
+          "exitCode": 42,
+          "probe": "PROBE_DETECTED:full-order seed",
+          "expectedProbe": "full-order seed",
+          "expected": true
+        },
+        {
+          "name": "intersection broadened to OR",
+          "exitCode": 42,
+          "probe": "PROBE_DETECTED:intersection",
+          "expectedProbe": "intersection",
+          "expected": true
+        },
+        {
+          "name": "duplicate identity guard removed",
+          "exitCode": 42,
+          "probe": "PROBE_DETECTED:duplicate identity",
+          "expectedProbe": "duplicate identity",
+          "expected": true
+        },
+        {
+          "name": "planning invokes a body",
+          "exitCode": 42,
+          "probe": "PROBE_DETECTED:no body invocation",
+          "expectedProbe": "no body invocation",
+          "expected": true
+        }
+      ]
+    },
+    "managedReportSha256": "ab509f21f1f820e10f2989c1b2c7af8032c9b980801e20c8063d3c5ddd75ebad",
+    "plannerReportSha256": "700eba629b04c4a50fff97ddcce547cfc7f0d1264b3b83f9ac8be22525f92186",
+    "managedLogSha256": "dd1da68272b4537b9d8a72617afadfc31652363b90b1ceeb0e4a5fa6df0dc944",
+    "plannerLogSha256": "7a9da23b1057335a5ab1ab35a02e3df7f3c8df263d291191c8bb26a0b724372c"
+  }
+}

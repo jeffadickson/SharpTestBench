@@ -4,7 +4,7 @@ try
 {
     if (args.Length == 0 || args[0] is "--help" or "-h")
     {
-        Console.WriteLine("SharpTestBench managed helpers: contracts-ci, frame-drop-ci, frame-ci, arbiter-ci, array-reference, audit-reviews, audit-surface, axi-python, axi-workload, axis-ci, fifo-ci, priority-ci, benchmark, runner-benchmark, runner-benchmark-check, ci, cleanup-tests, clock-boundary, code-coverage, coverage-check, cpu-python, cpu-workload, debugger-tests, doctor, documentation, dsp-python, dsp-workload, dual-runner-ci, dual-runner-manifest, dual-runner-parity, icarus-layouts, icarus-layouts-check, installed-run, lfsr-ci, lifecycle, logging-check, logic-reference, managed-tests, native-build, native-build-check, native-debugger-tests, native-faults, native-package, native-performance, native-performance-prepare, package, package-container, packed-benchmark, publish-workers, verify-workers, packed-boundary, parity, prepare-upstream, queue-reference, release-bundle, release-preflight, run, reporting-check, runner-manifest-check, stage-tests, structured-reference, structured-reference-env, timing-parity, typecheck, wave-check, wave-tests, workspace-tests");
+        Console.WriteLine("SharpTestBench managed helpers: contracts-ci, frame-drop-ci, frame-ci, arbiter-ci, array-reference, audit-reviews, audit-surface, audit-exports, axi-python, axi-workload, axis-ci, fifo-ci, priority-ci, benchmark, runner-benchmark, runner-benchmark-check, ci, cleanup-tests, clock-boundary, code-coverage, coverage-check, cpu-python, cpu-workload, debugger-tests, doctor, documentation, dsp-python, dsp-workload, dual-runner-ci, dual-runner-manifest, dual-runner-parity, icarus-layouts, icarus-layouts-check, installed-run, lfsr-ci, lifecycle, logging-check, logic-reference, managed-tests, native-build, native-build-check, native-debugger-tests, native-faults, native-package, native-performance, native-performance-prepare, package, package-container, packed-benchmark, publish-workers, verify-workers, packed-boundary, parity, prepare-upstream, queue-reference, release-bundle, release-preflight, run, reporting-check, runner-manifest-check, stage-tests, structured-reference, structured-reference-env, timing-parity, typecheck, wave-check, wave-tests, workspace-tests");
         return 0;
     }
     if (args[0] == "installed-run") { InstalledRunCommand.Execute(args[1..]); return 0; }
@@ -44,6 +44,7 @@ try
         case "packed-benchmark": PackedBenchmarkCommand.Execute(context, args[1..]); break;
         case "axi-python" or "dsp-python" or "cpu-python" or "structured-reference-env" or "structured-reference" or "parity" or "timing-parity": ReferenceCommand.Execute(context, args[0], args[1..]); break;
         case "axi-workload" or "dsp-workload" or "cpu-workload": WorkloadCommand.Execute(context, args[0], args[1..]); break;
+        case "audit-exports": ExportAuditCommand.Execute(context, args[1..]); break;
         case "audit-reviews" or "audit-surface": AuditCommand.Execute(context, args[0], args[1..]); break;
         case "array-reference" or "logic-reference" or "queue-reference": OracleFixturesCommand.Execute(context, args[0], args[1..]); break;
         case "benchmark": BenchmarkCommand.Execute(context, args[1..]); break;

@@ -23,3 +23,5 @@ reviews. Its initial push reached f203e00; its subsequent four checkpoint commit
 remain local unless a later delivery record explicitly says they were pushed.
 Read actual Git history/status and the latest report before continuing; do not
 reset to historical SHAs or reuse old results as a fresh baseline.
+
+The active [selection200 follow-up](../development-history/selection200-report.md) records the subsequent requested push of fee2ace and new local milestone 50/100 work. Read its current completion and pending-work sections alongside Git status/history; pending fixture capacity is not executed qualification. Stable requirements and traceability are in docs/requirements/.

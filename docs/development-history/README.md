@@ -213,3 +213,7 @@ untouched. Final source and evidence deep reviews completed before the final com
 Scope200 final evidence: [validation](scope200-checkpoint200-full-validation.json),
 [deep source review](scope200-deep-source-review.md),
 [deep evidence review](scope200-deep-evidence-review.md).
+
+## Active selection and coverage follow-up
+
+[Selection200](selection200-report.md) records the new batch following the explicitly requested push of scope200 through fee2ace. Milestones 50 and 100 have fresh Windows/Linux validation and four-production-assembly coverage. This new batch remains local; inspect Git history for its checkpoint commits. The report distinguishes actual completed units from pending native protocol and selection/failure qualification, records review findings, and links stable StrictDoc requirements and reproducible adversarial evidence. Its counts do not recount the earlier 200-unit batch or claim 200 features.

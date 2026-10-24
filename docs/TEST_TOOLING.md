@@ -8,11 +8,7 @@ Update: xUnit v3 3.2.2 is now installed in the managed test project, with a depe
 
 ## Repository evidence
 
-`tests/SharpTestBench.Tests/Program.cs` now exposes 361 xUnit cases, preserving the
-previous 1,916 checks. Byte round trips and four-/nine-state truth tables are
-individually discovered theories. Other checks are grouped into named behavioral
-facts. `tools/SharpTestBench.Tools/ManagedTestsCommand.cs` verifies the result count and builds a disposable
-copy with one broken boundary assertion: that case fails and the other 360 pass.
+The original 361-case conversion preserved the previous 1,916 checks. The current suite also includes later behavioral contracts. `managed-tests` discovers the complete current inventory instead of retaining a historical count, verifies every baseline identity and outcome, and builds an isolated copy with the same friend-assembly name. One named boundary assertion must fail while every other discovered case passes. This assertion-failure control checks the validation harness; production mutation strength is measured separately.
 The native xUnit executable runner is used directly via dotnet run; no solution-wide
 MTP/VSTest configuration or simulator synchronization context is changed.
 
@@ -111,3 +107,5 @@ Apache-2.0 licensed. Remaining tool packages have not been restored or benchmark
 - [Testcontainers best practices](https://dotnet.testcontainers.org/api/best_practices/): resource isolation and input mapping.
 - [WireMock.Net stubbing](https://wiremock.org/dotnet/stubbing/): local servers, matching, verification and delays.
 - [WireMock.Net faults](https://wiremock.org/dotnet/faults/): response fault injection.
+
+Discovery explicitly enables xUnit3.2.2 theory pre-enumeration so argument cases match execution. Display names in its XML have an additional backslash/quote escape layer; validation encodes the expected discovery name once and requires exact equality. It never broadly unescapes an incoming name. Raw control characters in identities reject. This boundary follows the pinned [xUnit3.2.2 execution sink](https://github.com/xunit/xunit/blob/v3-3.2.2/src/xunit.v3.runner.common/Sinks/ExecutionSink.cs); future framework changes require requalification. The baseline and isolated assertion control both retain every discovered case, including string-valued theories.

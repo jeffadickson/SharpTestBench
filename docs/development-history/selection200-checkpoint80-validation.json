@@ -1,0 +1,60 @@
+{
+  "windows": {
+    "managed": [
+      {
+        "suite": "SharpTestBench.Tests",
+        "total": 669,
+        "skipped": 0
+      },
+      {
+        "suite": "SharpTestBench.Generators.Tests",
+        "total": 17,
+        "skipped": 0
+      },
+      {
+        "suite": "SharpTestBench.Tools.Tests",
+        "total": 1258,
+        "skipped": 12
+      }
+    ],
+    "logSha256": "954525f37f21a17bcea264a6cea2d98269a44fb46cea2d17db5aaa6cab40a6e6",
+    "exportAudit": {
+      "schemaVersion": 1,
+      "literalExports": 44,
+      "reviewedExports": 10,
+      "unreviewedExports": 34,
+      "note": "Bounded literal __all__ review only. Other modules, dynamic names and runtime import behavior are unmeasured; counts are not parity percentages."
+    },
+    "exportAuditSha256": "eb0cad6f721d9dc796f510f4f409055611a5f9da290651ed0fdea75823e9a194",
+    "exportReviewSha256": "acaba2835758bc05f9c25b9cd8a8e6d7e742a5df83d69801ffc421622263b8cf"
+  },
+  "linux": {
+    "managed": [
+      {
+        "suite": "SharpTestBench.Tests",
+        "total": 669,
+        "skipped": 0
+      },
+      {
+        "suite": "SharpTestBench.Generators.Tests",
+        "total": 17,
+        "skipped": 0
+      },
+      {
+        "suite": "SharpTestBench.Tools.Tests",
+        "total": 1258,
+        "skipped": 0
+      }
+    ],
+    "logSha256": "be08ff2a89543ce7c72993bf8d1ad0948db00110468a484f118177ef35bbf040",
+    "exportAudit": {
+      "schemaVersion": 1,
+      "literalExports": 44,
+      "reviewedExports": 10,
+      "unreviewedExports": 34,
+      "note": "Bounded literal __all__ review only. Other modules, dynamic names and runtime import behavior are unmeasured; counts are not parity percentages."
+    },
+    "exportAuditSha256": "a85a6b8bd15600a317d5468f375327a0b1c132c71b7c0ed8383b989fadfdf662",
+    "exportReviewSha256": "acaba2835758bc05f9c25b9cd8a8e6d7e742a5df83d69801ffc421622263b8cf"
+  }
+}
