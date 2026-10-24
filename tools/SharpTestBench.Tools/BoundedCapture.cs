@@ -17,10 +17,10 @@ internal static class BoundedCapture
     {
         readonly MemoryStream bytes=new();readonly object gate=new();
         internal bool Limited {get;private set;}
-        internal async Task Drain(Stream source,Action overflow)
+        internal async Task Drain(Stream source,Action overflow,CancellationToken stop)
         {
             var block=new byte[8192];int count;
-            while((count=await source.ReadAsync(block))!=0)
+            while((count=await source.ReadAsync(block.AsMemory(),stop))!=0)
             {
                 bool notify=false;
                 lock(gate)
@@ -49,9 +49,10 @@ internal static class BoundedCapture
         using var process=Process.Start(start)??throw new IOException("Unable to start "+start.FileName);
         bool capture=start.RedirectStandardOutput;
         var stdout=new Buffer();var stderr=new Buffer();
+        using var stopDrains=new CancellationTokenSource();
         Action signalOverflow=()=> { try { overflow.Cancel(); }catch(ObjectDisposedException) { } };
-        var outTask=capture?stdout.Drain(process.StandardOutput.BaseStream,signalOverflow):Task.CompletedTask;
-        var errTask=capture?stderr.Drain(process.StandardError.BaseStream,signalOverflow):Task.CompletedTask;
+        var outTask=capture?stdout.Drain(process.StandardOutput.BaseStream,signalOverflow,stopDrains.Token):Task.CompletedTask;
+        var errTask=capture?stderr.Drain(process.StandardError.BaseStream,signalOverflow,stopDrains.Token):Task.CompletedTask;
         var drains=Task.WhenAll(outTask,errTask);
         var completion=Task.WhenAll(process.WaitForExitAsync(),drains);
         bool settled=false;
@@ -63,10 +64,13 @@ internal static class BoundedCapture
             try { await drains.WaitAsync(TimeSpan.FromSeconds(1)); }catch(Exception) { }
             if(!drains.IsCompleted && capture)
             {
-                try { process.StandardOutput.Close();process.StandardError.Close(); }catch(IOException) { }
+                // Cancel pending pipe reads before closing handles. A descendant may
+                // retain writers indefinitely after the parent has already exited.
+                stopDrains.Cancel();
             }
             try { await drains.WaitAsync(TimeSpan.FromSeconds(2)); }catch(Exception) { }
             settled=drains.IsCompleted;
+            if(capture){try { process.StandardOutput.Close();process.StandardError.Close(); }catch(IOException) { }}
             // A descendant can retain pipes after its parent exits. Close local readers
             // and bound caller cleanup; this does not promise to kill orphan descendants.
             _=completion.ContinueWith(task=>{_=task.Exception;},TaskContinuationOptions.OnlyOnFaulted);

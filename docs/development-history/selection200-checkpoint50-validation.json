@@ -1,0 +1,42 @@
+{
+  "windows": {
+    "managed": [
+      {
+        "suite": "SharpTestBench.Tests",
+        "total": 657,
+        "skipped": 0
+      },
+      {
+        "suite": "SharpTestBench.Generators.Tests",
+        "total": 17,
+        "skipped": 0
+      },
+      {
+        "suite": "SharpTestBench.Tools.Tests",
+        "total": 1244,
+        "skipped": 12
+      }
+    ],
+    "logSha256": "007067b0fb9d9ef00c86cede4f0e2c028bcbe0a3780c14fa668e01018a990eae"
+  },
+  "linux": {
+    "managed": [
+      {
+        "suite": "SharpTestBench.Tests",
+        "total": 657,
+        "skipped": 0
+      },
+      {
+        "suite": "SharpTestBench.Generators.Tests",
+        "total": 17,
+        "skipped": 0
+      },
+      {
+        "suite": "SharpTestBench.Tools.Tests",
+        "total": 1244,
+        "skipped": 0
+      }
+    ],
+    "logSha256": "b1c664a485efa6eb2fa9682c63dc646cdbb9dbd5986c1d2bd91ad12dc6abf932"
+  }
+}

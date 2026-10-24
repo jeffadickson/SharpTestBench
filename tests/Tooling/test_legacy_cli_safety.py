@@ -97,7 +97,10 @@ class Tests(unittest.TestCase):
         if child_environment:env.update(child_environment)
         return subprocess.run(['dotnet',str(self.cli),'run','--no-build','--work-dir',str(self.work),'--label','guard',
                                '--assembly',str(assembly),'--source',str(source),'--host',str(host),*cli_options],cwd=ROOT,env=env,
-                               text=True,encoding='utf-8',capture_output=True,check=False,timeout=30)
+                               # The CLI defaults to 120s each for compilation and simulation. This
+                               # outer rescue must cover both phases plus instrumented startup;
+                               # status/error/lock assertions below remain the acceptance checks.
+                               text=True,encoding='utf-8',capture_output=True,check=False,timeout=300)
 
     def test_controlled_compilation_records_exact_image_and_accepts_results(self):
         import hashlib
@@ -135,8 +138,9 @@ class Tests(unittest.TestCase):
 
     def test_unknown_completion_status_is_not_a_success(self):
         for status in ['unknown','PASSED','',None,True,17]:
-            result=self.controlled(resultText=json.dumps([dict(Name='Contract',Seed=1,Status=status)]))
-            self.assertEqual(1,result.returncode);self.assertIn('test status',result.stderr);self.released()
+            with self.subTest(status=status):
+                result=self.controlled(resultText=json.dumps([dict(Name='Contract',Seed=1,Status=status)]))
+                self.assertEqual(1,result.returncode);self.assertIn('test status',result.stderr);self.released()
 
     def test_malformed_or_duplicate_completion_identities_are_rejected(self):
         for rows in [[dict(Name=name,Seed=1,Status='passed')] for name in ['', ' padded','bad\u0085name',True]]+[

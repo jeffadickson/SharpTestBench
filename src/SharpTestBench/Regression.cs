@@ -263,12 +263,21 @@ public static class Regression
     static readonly List<TestDescriptor> discovered = new();
     static bool listOnly;
     static bool finished;
-    public static int Initialize(Assembly assembly)
+    static RegressionSelection selection = new();
+    /// <summary>Start a regression with existing environment selection and ordinary declared-skip policy.</summary>
+    public static int Initialize(Assembly assembly) => Initialize(assembly, new RegressionSelection());
+    /// <summary>Start a regression with an immutable selection that intersects the existing environment selectors.</summary>
+    /// <remarks>Configuration is bound by the managed entry point. Testcase mode bypasses only explicit skips.</remarks>
+    public static int Initialize(Assembly assembly, RegressionSelection configuredSelection)
     {
         try
         {
+            ArgumentNullException.ThrowIfNull(assembly);
+            ArgumentNullException.ThrowIfNull(configuredSelection);
             SimulationLog.Initialize();
             runtime = new SimRuntime();
+            // Publish configuration only after acquiring the single runtime; a rejected second initialization cannot replace it.
+            selection = configuredSelection;
             runtime.FatalError = Fatal;
             runtime.Register(CallbackKind.End, () =>
             {
@@ -303,10 +312,6 @@ public static class Regression
     {
         try
         {
-            var methods = assembly.GetTypes().SelectMany(t => t.GetMethods(BindingFlags.Public | BindingFlags.Static))
-                .Where(m => m.IsDefined(typeof(SimTestAttribute)))
-                .OrderBy(m => m.GetCustomAttribute<SimTestAttribute>()!.Stage)
-                .ThenBy(m => m.DeclaringType!.FullName + "." + m.Name, StringComparer.Ordinal);
             string? stagesText = Environment.GetEnvironmentVariable("CS_TEST_STAGES");
             HashSet<int>? stages = stagesText == null ? null : stagesText.Split(',').Select(int.Parse).ToHashSet();
             string stagePolicy = Environment.GetEnvironmentVariable("CS_STAGE_FAILURE_POLICY") ?? "continue";
@@ -319,27 +324,24 @@ public static class Regression
                 ?? throw new ArgumentException("CS_TEST_NAMES must be a JSON string array")).ToHashSet(StringComparer.Ordinal);
             string? filter = Environment.GetEnvironmentVariable("CS_TEST_FILTER");
             ulong seed = ulong.Parse(Environment.GetEnvironmentVariable("CS_SEED") ?? "1");
-            int index = 0;
-            foreach (var method in methods)
+            var planned = RegressionPlanning.Build(assembly.GetTypes().SelectMany(type => type.GetMethods(BindingFlags.Public | BindingFlags.Static)),
+                selection, seed, descriptor => (stages == null || stages.Contains(descriptor.Stage)) &&
+                (filter == null || descriptor.Name.Contains(filter, StringComparison.Ordinal)) &&
+                (exact == null || exact.Contains(descriptor.Name) || exact.Contains(descriptor.QualifiedName)));
+            foreach (var plan in planned)
             {
-                var attr = method.GetCustomAttribute<SimTestAttribute>()!;
-                var cases = method.GetCustomAttributes<SimCaseAttribute>().Select(c => c.Arguments).ToArray();
-                if (cases.Length == 0)
-                    cases = [[]];
-                for (int ci = 0; ci < cases.Length; ci++)
-                {
-                    string name = method.Name + (cases.Length > 1 ? $"[{ci}]" : "");
-                    string qualifiedName = method.DeclaringType!.FullName + "." + name;
-                    // Allocate seeds from the complete discovery order, before selection.
-                    ulong testSeed = unchecked(seed + (ulong)index++);
-                    if (stages != null && !stages.Contains(attr.Stage)) continue;
-                    if (filter != null && !name.Contains(filter, StringComparison.Ordinal)) continue;
-                    if (exact != null && !exact.Contains(name) && !exact.Contains(qualifiedName)) continue;
-                    discovered.Add(new(name, qualifiedName, attr.Stage, ci, testSeed, attr.TimeoutSteps, attr.Skip, attr.Simulators));
+                    var method = plan.Method;
+                    var attr = plan.Attribute;
+                    var descriptor = plan.Descriptor;
+                    // Retain prior early-abort discovery behavior while all selection work has already succeeded.
+                    discovered.Add(descriptor);
+                    string name = descriptor.Name, qualifiedName = descriptor.QualifiedName;
+                    ulong testSeed = descriptor.Seed;
+                    int ci = descriptor.CaseIndex;
                     if (listOnly) continue;
                     bool unavailable = attr.Simulators.Length > 0 && !attr.Simulators.Any(s => runtime!.Simulator.Contains(s, StringComparison.OrdinalIgnoreCase));
                     bool stoppedStage = stagePolicy == "stop-after-stage" && failedStage.HasValue && attr.Stage > failedStage.Value;
-                    if (attr.Skip || unavailable || stoppedStage)
+                    if (attr.Skip && selection.Mode != RegressionMode.Testcase || unavailable || stoppedStage)
                     {
                         results.Add(new(name, "skipped", testSeed, runtime!.Now, runtime.Now, 0, stoppedStage ? $"Earlier stage {failedStage} failed" : unavailable ? "Requires simulator: " + string.Join(", ", attr.Simulators) : "Explicit skip") { QualifiedName = qualifiedName, Stage = attr.Stage, CaseIndex = ci });
                         continue;
@@ -368,7 +370,7 @@ public static class Regression
                         var arguments = new object[]
                         {
                             ctx
-                        }.Concat(cases[ci]).ToArray();
+                        }.Concat(plan.Arguments).ToArray();
                         body = (Task? )method.Invoke(null, arguments) ?? throw new InvalidOperationException("Tests must return Task");
                         var winner = await Task.WhenAny(body, deadline.Task);
                         if (winner == deadline.Task)
@@ -449,7 +451,6 @@ public static class Regression
                         Finish();
                         return;
                     }
-                }
             }
 
             if (discovered.Count == 0)

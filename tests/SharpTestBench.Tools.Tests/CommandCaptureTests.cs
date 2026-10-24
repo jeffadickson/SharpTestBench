@@ -30,12 +30,35 @@ public sealed class CommandCaptureTests
         var result=Run("import os,threading,sys; t=threading.Thread(target=lambda:os.write(1,b'o'*2097152));t.start();os.write(2,b'e'*2097152);t.join();sys.exit(7)");
         Assert.Equal(7,result.ExitCode);Assert.Equal(2097152,result.Output.Length);Assert.Equal(2097152,result.Error.Length);
     }
+    // Capture semantics are checked after a controlled child publishes readiness,
+    // with startup margin and an ownership-bound process termination assertion.
     [Fact] public void TimeoutRetainsBothPartialStreamsAndSettlesCaptures()
     {
-        var timer=Stopwatch.StartNew();
-        var error=Assert.Throws<CommandDeadlineException>(()=>Run("import sys,time;print('before stdout',flush=True);print('before stderr',file=sys.stderr,flush=True);time.sleep(6)",TimeSpan.FromSeconds(1)));
-        Assert.Contains("before stdout",error.Diagnostics.Output);Assert.Contains("before stderr",error.Diagnostics.Error);
-        Assert.True(error.Diagnostics.Settled);Assert.True(timer.Elapsed<TimeSpan.FromSeconds(9));
+        string ownership=Path.Combine(Path.GetTempPath(),"stb-capture-deadline-"+Guid.NewGuid().ToString("N"));
+        string fixture=Path.Combine(ToolContext.FindRoot(),"tests/RunnerProcessFixture/bin/Release/net10.0/RunnerProcessFixture.dll");
+        Process? Owned()
+        {
+            if(!File.Exists(ownership))return null;
+            string[] fields=File.ReadAllLines(ownership);
+            Process process;try{process=Process.GetProcessById(int.Parse(fields[0]));}catch(ArgumentException){return null;}
+            if(!process.HasExited&&process.StartTime.ToUniversalTime().Ticks!=long.Parse(fields[1])){process.Dispose();throw new InvalidOperationException("Capture PID ownership changed");}
+            return process;
+        }
+        try
+        {
+            var timer=Stopwatch.StartNew();
+            var error=Assert.Throws<CommandDeadlineException>(()=>new CommandRunner().Run(["dotnet",fixture,"--capture-deadline",ownership],Environment.CurrentDirectory,capture:true,check:false,timeout:TimeSpan.FromSeconds(10)));
+            Assert.Contains("before stdout",error.Diagnostics.Output);Assert.Contains("before stderr",error.Diagnostics.Error);
+            Assert.True(error.Diagnostics.Settled);Assert.False(error.Diagnostics.StdoutLimited);Assert.False(error.Diagnostics.StderrLimited);
+            Assert.True(timer.Elapsed<TimeSpan.FromSeconds(22),"Deadline and bounded cleanup must not wait for the60-second child");
+            Assert.True(File.Exists(ownership),"Controlled child must publish its ownership before timeout");
+            using var owned=Owned();Assert.True(owned is null||owned.HasExited,"Command timeout must terminate the controlled root process");
+        }
+        finally
+        {
+            using var owned=Owned();if(owned is not null&&!owned.HasExited){owned.Kill(entireProcessTree:true);owned.WaitForExit(5000);}
+            File.Delete(ownership);
+        }
     }
     [Fact] public void LiteralArgumentsUnicodeEnvironmentAndWorkingDirectorySurviveCapture()
     {
@@ -59,18 +82,40 @@ public sealed class CommandCaptureTests
         var error=Assert.Throws<IOException>(()=>Run("import os,sys;os.write(2,b'x'*5000);sys.exit(7)",check:true));
         Assert.Contains("(7)",error.Message);Assert.True(error.Message.Length<4300);
     }
-    [Fact] public void ExitedParentWithInheritedPipeHasBoundedLocalCleanup()
+    // STB-VER-002: prove the named inherited-pipe condition rather than relying on
+    // a one-second interpreter start and a fixed three-second descendant sleep.
+    [Fact] public async Task ExitedParentWithInheritedPipeHasBoundedLocalCleanup()
     {
-        var path=Path.Combine(Path.GetTempPath(),"stb-pipe-owner-"+Guid.NewGuid().ToString("N")+".txt");
+        var gate=Path.Combine(Path.GetTempPath(),"stb-capture-gate-"+Guid.NewGuid().ToString("N"));
+        var fixture=Path.Combine(ToolContext.FindRoot(),"tests/RunnerProcessFixture/bin/Release/net10.0/RunnerProcessFixture.dll");
+        using var rescue=new CancellationTokenSource();
+        bool watchdogReleased=false;
+        var watchdog=Task.Run(async()=>
+        {
+            try{await Task.Delay(TimeSpan.FromSeconds(20),rescue.Token);watchdogReleased=true;File.WriteAllText(gate,"watchdog");}
+            catch(OperationCanceledException) when(rescue.IsCancellationRequested){}
+        },TestContext.Current.CancellationToken);
         try
         {
-            var script="import subprocess,sys;child=subprocess.Popen([sys.executable,'-c','import time;time.sleep(3)'],stdout=sys.stdout,stderr=sys.stderr);open("+JsonSerializer.Serialize(path)+",'w').write(str(child.pid));print('parent exited',flush=True)";
             var timer=Stopwatch.StartNew();
-            var error=Assert.Throws<CommandDeadlineException>(()=>Run(script,TimeSpan.FromSeconds(1)));
-            Assert.Contains("parent exited",error.Diagnostics.Output);Assert.True(error.Diagnostics.Settled);
-            Assert.True(timer.Elapsed<TimeSpan.FromSeconds(9));
-            try { using var child=Process.GetProcessById(int.Parse(File.ReadAllText(path)));Assert.True(child.WaitForExit(5000)); }catch(ArgumentException) { }
+            var error=Assert.Throws<CommandDeadlineException>(()=>new CommandRunner().Run(
+                ["dotnet",fixture,"--capture-parent",gate],Environment.CurrentDirectory,
+                capture:true,check:false,timeout:TimeSpan.FromSeconds(10)));
+            Assert.Contains("parent exited",error.Diagnostics.Output);
+            Assert.True(File.Exists(gate+".ready"),"Descendant must confirm inherited streams before parent exit");
+            Assert.True(error.Diagnostics.Settled);
+            Assert.True(timer.Elapsed<TimeSpan.FromSeconds(18),"Local pipe cleanup must finish before the rescue release");
+            Assert.False(watchdogReleased,"Watchdog release is a failure, not a passing bounded cleanup");
         }
-        finally { File.Delete(path); }
+        finally
+        {
+            File.WriteAllText(gate,"test cleanup");rescue.Cancel();await watchdog;
+            if(File.Exists(gate+".pid"))
+            {
+                try{using var owned=Process.GetProcessById(int.Parse(File.ReadAllText(gate+".pid")));Assert.True(owned.WaitForExit(5000),"Controlled descendant must exit after gate release");}
+                catch(ArgumentException){}
+            }
+            foreach(var path in new[]{gate,gate+".ready",gate+".pid"})File.Delete(path);
+        }
     }
 }

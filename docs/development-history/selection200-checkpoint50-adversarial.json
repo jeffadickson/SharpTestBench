@@ -1,0 +1,165 @@
+{
+  "schemaVersion": 1,
+  "checkpoint": 50,
+  "propertyTool": "FsCheck 3.6.0",
+  "propertyReplaySeed": 91557096206384,
+  "properties": 3,
+  "casesPerProperty": 1000,
+  "fuzzSeed": 20261024,
+  "scope": "Public selector configuration/matching. Planner/runtime mutation strength, test/fixture assemblies, HDL and NativeAOT instructions are outside this collection.",
+  "windows": {
+    "fuzzAccepted": 295,
+    "fuzzRejected": 1705,
+    "fuzzMatchTimeouts": 1,
+    "fuzzTimeoutsAreSubsetOfAccepted": true,
+    "failedPropertyOrFuzzCounterexamples": [],
+    "mutationControlPassed": true,
+    "productionMutantsDetected": 7,
+    "mutations": {
+      "schemaVersion": 1,
+      "productionSourceSha256": "19853004d13ae102b1933d2a9b14af038f2a088015a8b8a97a049cb5d5a130c8",
+      "scope": "Public selector configuration/matching only; planner and simulator runtime are outside this mutation collection",
+      "variants": [
+        {
+          "name": "control",
+          "exitCode": 0,
+          "probe": "",
+          "expectedProbe": "",
+          "expected": true
+        },
+        {
+          "name": "OR replaced by AND",
+          "exitCode": 42,
+          "probe": "PROBE_DETECTED:OR",
+          "expectedProbe": "OR",
+          "expected": true
+        },
+        {
+          "name": "case insensitive default",
+          "exitCode": 42,
+          "probe": "PROBE_DETECTED:case sensitivity",
+          "expectedProbe": "case sensitivity",
+          "expected": true
+        },
+        {
+          "name": "undefined mode accepted",
+          "exitCode": 42,
+          "probe": "PROBE_DETECTED:mode",
+          "expectedProbe": "mode",
+          "expected": true
+        },
+        {
+          "name": "empty alternatives reject",
+          "exitCode": 42,
+          "probe": "PROBE_DETECTED:empty alternatives",
+          "expectedProbe": "empty alternatives",
+          "expected": true
+        },
+        {
+          "name": "null patterns silently accepted",
+          "exitCode": 42,
+          "probe": "PROBE_DETECTED:null pattern",
+          "expectedProbe": "null pattern",
+          "expected": true
+        },
+        {
+          "name": "pattern count relaxed",
+          "exitCode": 42,
+          "probe": "PROBE_DETECTED:count bound",
+          "expectedProbe": "count bound",
+          "expected": true
+        },
+        {
+          "name": "pattern length relaxed",
+          "exitCode": 42,
+          "probe": "PROBE_DETECTED:length bound",
+          "expectedProbe": "length bound",
+          "expected": true
+        }
+      ]
+    },
+    "propertyLogSha256": "6d6b4a7861d3a2745205d68983aa1df1a115627465ab0e500c6e518136a7ad09",
+    "mutationReportSha256": "be32b7b8bb20cf54ea3b859845de274183f5d91287807768c075485b79587cc6"
+  },
+  "linux": {
+    "fuzzAccepted": 295,
+    "fuzzRejected": 1705,
+    "fuzzMatchTimeouts": 0,
+    "fuzzTimeoutsAreSubsetOfAccepted": true,
+    "failedPropertyOrFuzzCounterexamples": [],
+    "mutationControlPassed": true,
+    "productionMutantsDetected": 7,
+    "mutations": {
+      "schemaVersion": 1,
+      "productionSourceSha256": "19853004d13ae102b1933d2a9b14af038f2a088015a8b8a97a049cb5d5a130c8",
+      "scope": "Public selector configuration/matching only; planner and simulator runtime are outside this mutation collection",
+      "variants": [
+        {
+          "name": "control",
+          "exitCode": 0,
+          "probe": "",
+          "expectedProbe": "",
+          "expected": true
+        },
+        {
+          "name": "OR replaced by AND",
+          "exitCode": 42,
+          "probe": "PROBE_DETECTED:OR",
+          "expectedProbe": "OR",
+          "expected": true
+        },
+        {
+          "name": "case insensitive default",
+          "exitCode": 42,
+          "probe": "PROBE_DETECTED:case sensitivity",
+          "expectedProbe": "case sensitivity",
+          "expected": true
+        },
+        {
+          "name": "undefined mode accepted",
+          "exitCode": 42,
+          "probe": "PROBE_DETECTED:mode",
+          "expectedProbe": "mode",
+          "expected": true
+        },
+        {
+          "name": "empty alternatives reject",
+          "exitCode": 42,
+          "probe": "PROBE_DETECTED:empty alternatives",
+          "expectedProbe": "empty alternatives",
+          "expected": true
+        },
+        {
+          "name": "null patterns silently accepted",
+          "exitCode": 42,
+          "probe": "PROBE_DETECTED:null pattern",
+          "expectedProbe": "null pattern",
+          "expected": true
+        },
+        {
+          "name": "pattern count relaxed",
+          "exitCode": 42,
+          "probe": "PROBE_DETECTED:count bound",
+          "expectedProbe": "count bound",
+          "expected": true
+        },
+        {
+          "name": "pattern length relaxed",
+          "exitCode": 42,
+          "probe": "PROBE_DETECTED:length bound",
+          "expectedProbe": "length bound",
+          "expected": true
+        }
+      ]
+    },
+    "propertyLogSha256": "b6c0812d48ae2618408f76de77d7fc3db8622f60289d2457f622111a11e27a0c",
+    "mutationReportSha256": "dcedc871ea3fc84a63633e3ecfd8891fb5f9b042213044d5921a06b2c7aac70c"
+  },
+  "strictdoc": {
+    "version": "0.30.4",
+    "exportCompleted": true,
+    "requirementsSha256": "60605295470c5595cc35f954200da45aa304ea7e81f60a402f91a3833021f673",
+    "configurationSha256": "efb086318e87ab96708bbe099d0f1caa6fb6bd5cb6a9ba9e0bb5de1f708adbc3",
+    "traceability": "Whole-file implementation/test relations; export does not attest execution or automatic symbol-to-coverage mapping"
+  }
+}

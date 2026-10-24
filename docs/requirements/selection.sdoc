@@ -1,0 +1,213 @@
+[DOCUMENT]
+TITLE: SharpTestBench selection and verification requirements
+UID: STB-SELECTION-SRS
+VERSION: 1
+
+[REQUIREMENT]
+UID: STB-033
+STATUS: Active
+TITLE: Deterministic regression selection
+STATEMENT: The regression runtime shall select cases deterministically without weakening backend or test-isolation safeguards.
+COMMENT: This existing task ID is retained. The refinements below cover selected behavior, not every criterion of the broader tracker issue.
+
+[REQUIREMENT]
+UID: STB-001
+STATUS: Active
+TITLE: Evidence-backed upstream surface mapping
+STATEMENT: Upstream surface decisions shall identify the pinned source, the reviewed public exposure and the bounded implementation or gap.
+COMMENT: Definition review does not establish completeness for aliases, dynamic exports or imported objects.
+
+[REQUIREMENT]
+UID: STB-007
+STATUS: Active
+TITLE: Native timing and failure qualification
+STATEMENT: Native verification shall check accepted transactions, timing boundaries, failures and recovery against independent expected behavior.
+
+[REQUIREMENT]
+UID: STB-041
+STATUS: Active
+TITLE: Reproducible verification evidence
+STATEMENT: Verification shall retain reproducible checks and distinguish execution evidence, code coverage and unmeasured behavior.
+
+[REQUIREMENT]
+UID: STB-SEL-001
+STATUS: Active
+TITLE: Qualified-name regex selection
+STATEMENT: An immutable selection shall OR its regex alternatives over qualified case names and intersect existing stage, substring and exact-name filters. Empty alternatives shall be unrestricted. Matching shall use the documented invariant-culture .NET regex dialect.
+RELATIONS:
+- TYPE: Parent
+  VALUE: STB-033
+- TYPE: File
+  VALUE: src/SharpTestBench/RegressionSelection.cs
+- TYPE: File
+  VALUE: tests/SharpTestBench.Tests/Selection10.cs
+- TYPE: File
+  VALUE: src/SharpTestBench/Regression.cs
+- TYPE: File
+  VALUE: tests/SharpTestBench.Tests/Selection15.cs
+- TYPE: File
+  VALUE: tests/SharpTestBench.Tests/Selection20rest.cs
+- TYPE: File
+  VALUE: tests/SharpTestBench.Tests/Selection30.cs
+- TYPE: File
+  VALUE: tests/SharpTestBench.Tests/Selection40.cs
+- TYPE: File
+  VALUE: tests/SharpTestBench.Tests/Selection45.cs
+- TYPE: File
+  VALUE: tests/SharpTestBench.Tests/Selection50rest.cs
+
+[REQUIREMENT]
+UID: STB-SEL-002
+STATUS: Active
+TITLE: Immutable and bounded matcher configuration
+STATEMENT: Configuration shall snapshot at most 64 non-null patterns of at most 4096 UTF-16 code units each and use a finite per-match timeout from one through 1000 milliseconds. Invalid mode, syntax or limits shall fail explicitly. Later caller mutation shall not change the selection.
+RELATIONS:
+- TYPE: Parent
+  VALUE: STB-033
+- TYPE: File
+  VALUE: src/SharpTestBench/RegressionSelection.cs
+- TYPE: File
+  VALUE: tests/SharpTestBench.Tests/Selection10.cs
+- TYPE: File
+  VALUE: tests/SharpTestBench.Tests/Selection15.cs
+- TYPE: File
+  VALUE: tests/SharpTestBench.Tests/Selection20rest.cs
+- TYPE: File
+  VALUE: tests/SharpTestBench.Tests/Selection30.cs
+- TYPE: File
+  VALUE: tests/SharpTestBench.Tests/Selection40.cs
+- TYPE: File
+  VALUE: tests/SharpTestBench.Tests/Selection45.cs
+- TYPE: File
+  VALUE: tests/SharpTestBench.Tests/Selection50rest.cs
+
+[REQUIREMENT]
+UID: STB-SEL-003
+STATUS: Active
+TITLE: Complete selection preflight
+STATEMENT: All applicable selection predicates shall be evaluated before any test body is invoked. A later malformed or timed-out regex shall not leave earlier test-body side effects.
+RELATIONS:
+- TYPE: Parent
+  VALUE: STB-033
+- TYPE: File
+  VALUE: src/SharpTestBench/RegressionSelection.cs
+- TYPE: File
+  VALUE: src/SharpTestBench/Regression.cs
+
+[REQUIREMENT]
+UID: STB-SEL-004
+STATUS: Active
+TITLE: Stable complete-order case seeds
+STATEMENT: Seeds shall be allocated in complete stage and ordinal-qualified-name order before filtering. Case variants shall retain declaration order. Seed addition shall wrap modulo 2^64 and selected cases shall keep their full-discovery seeds.
+RELATIONS:
+- TYPE: Parent
+  VALUE: STB-033
+- TYPE: File
+  VALUE: src/SharpTestBench/RegressionSelection.cs
+
+[REQUIREMENT]
+UID: STB-SEL-005
+STATUS: Active
+TITLE: Explicit testcase skip override
+STATEMENT: Testcase mode shall bypass only an explicit SimTest.Skip declaration. Backend exclusion, stopped-stage policy, expected-exception rules, cancellation, cleanup and leak guards shall remain effective. Discovery shall retain declared skip metadata.
+RELATIONS:
+- TYPE: Parent
+  VALUE: STB-033
+- TYPE: File
+  VALUE: src/SharpTestBench/Regression.cs
+
+[REQUIREMENT]
+UID: STB-SEL-006
+STATUS: Active
+TITLE: Unambiguous planned identities
+STATEMENT: Duplicate qualified case identities shall be rejected during complete planning before any test body executes.
+RELATIONS:
+- TYPE: Parent
+  VALUE: STB-033
+- TYPE: File
+  VALUE: src/SharpTestBench/RegressionSelection.cs
+
+[REQUIREMENT]
+UID: STB-EXP-001
+STATUS: Active
+TITLE: Bounded public-export review
+STATEMENT: Public-export decisions shall bind their reviewed module and explicit export name to source hashes, the upstream pin and implementation or gap evidence. Reviewed export counts shall not be reported as parity percentages or full dynamic-surface completeness.
+RELATIONS:
+- TYPE: Parent
+  VALUE: STB-001
+
+[REQUIREMENT]
+UID: STB-EXP-002
+STATUS: Active
+TITLE: Export evidence rejection
+STATEMENT: Export validation shall reject stale hashes, unknown or duplicate reviewed exports, malformed metadata, missing anchors and evidence paths outside the repository.
+RELATIONS:
+- TYPE: Parent
+  VALUE: STB-001
+
+[REQUIREMENT]
+UID: STB-PRO-001
+STATUS: Active
+TITLE: CRC stream behavior
+STATEMENT: The local CRC stream fixture shall preserve accepted packet order and check its defined polynomial, packet-boundary state, backpressure, length and reset behavior against independent packet history.
+RELATIONS:
+- TYPE: Parent
+  VALUE: STB-007
+
+[REQUIREMENT]
+UID: STB-PRO-002
+STATUS: Active
+TITLE: Round-robin arbitration behavior
+STATEMENT: The local four-request arbiter fixture shall check enabled grants, acknowledged rotation, pointer hold, request withdrawal and reset against independent request and fairness expectations.
+RELATIONS:
+- TYPE: Parent
+  VALUE: STB-007
+
+[REQUIREMENT]
+UID: STB-PRO-003
+STATUS: Active
+TITLE: Byte-enabled register-bank behavior
+STATEMENT: The local eight-word register bank shall check read enable, byte lanes, write qualification, read-before-write collisions and reset against an independent byte store.
+RELATIONS:
+- TYPE: Parent
+  VALUE: STB-007
+
+[REQUIREMENT]
+UID: STB-PRO-004
+STATUS: Active
+TITLE: Oracle sensitivity and recovery
+STATEMENT: Protocol negative controls shall demonstrate that a deliberate native-output fault is detected before transaction consumption and that reset or cancellation recovery retains the defined accounting invariants.
+RELATIONS:
+- TYPE: Parent
+  VALUE: STB-007
+
+[REQUIREMENT]
+UID: STB-VER-001
+STATUS: Active
+TITLE: Scoped managed coverage
+STATEMENT: Verification shall collect line and branch coverage for all four production assemblies, identify generated-source contributions and document unmeasured native, HDL and CLI execution scope. Coverage shall not be treated as proof of correctness.
+RELATIONS:
+- TYPE: Parent
+  VALUE: STB-041
+
+[REQUIREMENT]
+UID: STB-VER-002
+STATUS: Active
+TITLE: Adversarial and property verification
+STATEMENT: Relevant interfaces shall be checked with malformed inputs, negative tests, deliberate code mutations, seeded fuzzing and randomized property checks. Evidence shall retain replay seeds, counterexamples, mutation outcomes and limitations, distinguishing compile failures from killed mutants.
+RELATIONS:
+- TYPE: Parent
+  VALUE: STB-041
+- TYPE: File
+  VALUE: tests/SelectionQuality/Properties.fsx
+- TYPE: File
+  VALUE: tests/SelectionQuality/Mutations.cs
+
+[REQUIREMENT]
+UID: STB-VER-003
+STATUS: Active
+TITLE: Preserved runner attestation
+STATEMENT: Paired-runner qualification shall independently check expected qualified identities, effective seeds, statuses and bound inputs. Required manifests shall continue rejecting skipped cases, and existing result, discovery, coverage and run-evidence schemas shall remain unchanged.
+RELATIONS:
+- TYPE: Parent
+  VALUE: STB-041

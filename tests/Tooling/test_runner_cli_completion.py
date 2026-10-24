@@ -30,7 +30,8 @@ class Tests(unittest.TestCase):
         env=os.environ.copy()
         if environment:env.update(environment)
         return subprocess.run(['dotnet',str(self.cli),'run',str(path)],cwd=self.folder,env=env,
-                              text=True,encoding='utf-8',capture_output=True,check=False,timeout=30)
+                              # Cover the default120s compile and120s simulation budgets plus startup.
+                              text=True,encoding='utf-8',capture_output=True,check=False,timeout=300)
 
     def artifact(self,name):
         return json.loads((self.folder/'output'/name).read_text(encoding='utf-8'))
@@ -122,8 +123,13 @@ class Tests(unittest.TestCase):
                 self.assertFalse((self.folder/'output/run-manifest.json').exists());self.released()
 
     def test_simulation_timeout_retains_evidence_then_releases_workspace_for_recovery(self):
-        path,data=self.prepare(simulateDelayMs=2500);data['timeoutSeconds']=1;path.write_text(json.dumps(data),encoding='utf-8')
+        # Compilation and simulation share one per-phase deadline. Give the controlled
+        # compiler startup margin, then force only simulation beyond that budget.
+        path,data=self.prepare(simulateDelayMs=30000);data['timeoutSeconds']=10;path.write_text(json.dumps(data),encoding='utf-8')
         result=self.run_cli(path);self.assertEqual(1,result.returncode,result.stderr)
+        compiled=self.artifact('compile-process.json')
+        self.assertTrue(compiled['Started']);self.assertFalse(compiled['TimedOut'],result.stderr)
+        self.assertEqual(0,compiled['ExitCode'],result.stderr)
         failure=self.artifact('failure-manifest.json');process=self.artifact('simulate-process.json')
         self.assertEqual('timeout',failure['Kind']);self.assertTrue(process['Started']);self.assertTrue(process['TimedOut'])
         self.assertIn('simulate-process.json',failure['LogFiles']);self.released()

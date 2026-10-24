@@ -233,7 +233,7 @@
         },
         {
           "path": "src/SharpTestBench/Primitives.cs",
-          "contains": "Task<IDisposable> Acquire"
+          "contains": "Task\u003CIDisposable\u003E Acquire"
         }
       ]
     },
@@ -293,7 +293,7 @@
         },
         {
           "path": "src/SharpTestBench/Primitives.cs",
-          "contains": "Task<IDisposable> Acquire"
+          "contains": "Task\u003CIDisposable\u003E Acquire"
         }
       ]
     },
@@ -310,7 +310,7 @@
         },
         {
           "path": "src/SharpTestBench/Primitives.cs",
-          "contains": "Task<IDisposable> Acquire"
+          "contains": "Task\u003CIDisposable\u003E Acquire"
         }
       ]
     },
@@ -340,7 +340,7 @@
         },
         {
           "path": "src/SharpTestBench/Runtime.cs",
-          "contains": "if (clampTimer && integral == 0) return 1;"
+          "contains": "if (clampTimer \u0026\u0026 integral == 0) return 1;"
         }
       ]
     },
@@ -526,7 +526,7 @@
         },
         {
           "path": "src/SharpTestBench/Primitives.cs",
-          "contains": "public sealed class SimQueue<T>"
+          "contains": "public sealed class SimQueue\u003CT\u003E"
         },
         {
           "path": "tests/Integration/QueueContractTests.cs",
@@ -555,7 +555,7 @@
         },
         {
           "path": "src/SharpTestBench/Primitives.cs",
-          "contains": "public sealed class SimQueue<T>"
+          "contains": "public sealed class SimQueue\u003CT\u003E"
         },
         {
           "path": "tests/Integration/QueueContractTests.cs",
@@ -609,7 +609,7 @@
         },
         {
           "path": "src/SharpTestBench/Primitives.cs",
-          "contains": "public sealed class SimQueue<T>"
+          "contains": "public sealed class SimQueue\u003CT\u003E"
         },
         {
           "path": "tests/Integration/QueueContractTests.cs",
@@ -638,7 +638,7 @@
         },
         {
           "path": "src/SharpTestBench/Primitives.cs",
-          "contains": "public sealed class SimQueue<T>"
+          "contains": "public sealed class SimQueue\u003CT\u003E"
         },
         {
           "path": "tests/Integration/QueueContractTests.cs",
@@ -667,7 +667,7 @@
         },
         {
           "path": "src/SharpTestBench/Primitives.cs",
-          "contains": "public sealed class SimQueue<T>"
+          "contains": "public sealed class SimQueue\u003CT\u003E"
         },
         {
           "path": "tests/Integration/QueueContractTests.cs",
@@ -696,7 +696,7 @@
         },
         {
           "path": "src/SharpTestBench/Primitives.cs",
-          "contains": "public sealed class SimQueue<T>"
+          "contains": "public sealed class SimQueue\u003CT\u003E"
         },
         {
           "path": "tests/Integration/QueueContractTests.cs",
@@ -725,7 +725,7 @@
         },
         {
           "path": "src/SharpTestBench/Primitives.cs",
-          "contains": "public sealed class SimQueue<T>"
+          "contains": "public sealed class SimQueue\u003CT\u003E"
         },
         {
           "path": "tests/Integration/QueueContractTests.cs",
@@ -754,7 +754,7 @@
         },
         {
           "path": "src/SharpTestBench/Primitives.cs",
-          "contains": "public sealed class SimQueue<T>"
+          "contains": "public sealed class SimQueue\u003CT\u003E"
         },
         {
           "path": "tests/Integration/QueueContractTests.cs",
@@ -783,7 +783,7 @@
         },
         {
           "path": "src/SharpTestBench/Primitives.cs",
-          "contains": "public sealed class SimQueue<T>"
+          "contains": "public sealed class SimQueue\u003CT\u003E"
         },
         {
           "path": "tests/Integration/QueueContractTests.cs",
@@ -812,7 +812,7 @@
         },
         {
           "path": "src/SharpTestBench/Primitives.cs",
-          "contains": "public sealed class SimQueue<T>"
+          "contains": "public sealed class SimQueue\u003CT\u003E"
         },
         {
           "path": "tests/Integration/QueueContractTests.cs",
@@ -833,7 +833,7 @@
       "definition": "Queue",
       "source_line": 172,
       "classification": "intentional-difference",
-      "reason": "SimQueue<T> provides FIFO payload ordering and bounded waiting with positive-capacity, explicit cancellation and reservation semantics. Those differences are documented and tested rather than claimed exact Python behavior.",
+      "reason": "SimQueue\u003CT\u003E provides FIFO payload ordering and bounded waiting with positive-capacity, explicit cancellation and reservation semantics. Those differences are documented and tested rather than claimed exact Python behavior.",
       "evidence": [
         {
           "path": "docs/QUEUES.md",
@@ -841,7 +841,7 @@
         },
         {
           "path": "src/SharpTestBench/Primitives.cs",
-          "contains": "public sealed class SimQueue<T>"
+          "contains": "public sealed class SimQueue\u003CT\u003E"
         },
         {
           "path": "tests/Integration/QueueContractTests.cs",
@@ -862,7 +862,7 @@
       "definition": "SupportsRichComparison",
       "source_line": 192,
       "classification": "intentional-difference",
-      "reason": "SimPriorityQueue consumes IComparer<T>/Comparer<T>.Default instead of Python rich comparison; payload and null ordering follow the selected comparer.",
+      "reason": "SimPriorityQueue consumes IComparer\u003CT\u003E/Comparer\u003CT\u003E.Default instead of Python rich comparison; payload and null ordering follow the selected comparer.",
       "evidence": [
         {
           "path": "docs/QUEUES.md",
@@ -937,7 +937,7 @@
       "definition": "AbstractArray",
       "source_line": 16,
       "classification": "intentional-difference",
-      "reason": "ValueArray<T> provides built-in value-array operations and IEnumerable<T>; external abstract storage subclassing and Python object protocols are unsupported.",
+      "reason": "ValueArray\u003CT\u003E provides built-in value-array operations and IEnumerable\u003CT\u003E; external abstract storage subclassing and Python object protocols are unsupported.",
       "evidence": [
         {
           "path": "docs/VALUE_ARRAYS.md",
@@ -949,7 +949,7 @@
         },
         {
           "path": "tools/SharpTestBench.Tools/OracleFixturesCommand.cs",
-          "contains": "static List<object> Arrays"
+          "contains": "static List\u003Cobject\u003E Arrays"
         }
       ]
     },
@@ -970,7 +970,7 @@
         },
         {
           "path": "tools/SharpTestBench.Tools/OracleFixturesCommand.cs",
-          "contains": "static List<object> Arrays"
+          "contains": "static List\u003Cobject\u003E Arrays"
         }
       ]
     },
@@ -991,7 +991,7 @@
         },
         {
           "path": "tools/SharpTestBench.Tools/OracleFixturesCommand.cs",
-          "contains": "static List<object> Arrays"
+          "contains": "static List\u003Cobject\u003E Arrays"
         }
       ]
     },
@@ -1012,7 +1012,7 @@
         },
         {
           "path": "tools/SharpTestBench.Tools/OracleFixturesCommand.cs",
-          "contains": "static List<object> Arrays"
+          "contains": "static List\u003Cobject\u003E Arrays"
         }
       ]
     },
@@ -1033,7 +1033,7 @@
         },
         {
           "path": "tools/SharpTestBench.Tools/OracleFixturesCommand.cs",
-          "contains": "static List<object> Arrays"
+          "contains": "static List\u003Cobject\u003E Arrays"
         }
       ]
     },
@@ -1054,7 +1054,7 @@
         },
         {
           "path": "tools/SharpTestBench.Tools/OracleFixturesCommand.cs",
-          "contains": "static List<object> Arrays"
+          "contains": "static List\u003Cobject\u003E Arrays"
         }
       ]
     },
@@ -1075,7 +1075,7 @@
         },
         {
           "path": "tools/SharpTestBench.Tools/OracleFixturesCommand.cs",
-          "contains": "static List<object> Arrays"
+          "contains": "static List\u003Cobject\u003E Arrays"
         }
       ]
     },
@@ -1084,7 +1084,7 @@
       "definition": "AbstractArray.count",
       "source_line": 117,
       "classification": "intentional-difference",
-      "reason": "CountOf counts values using EqualityComparer<T>.Default or a custom comparer rather than Python equality.",
+      "reason": "CountOf counts values using EqualityComparer\u003CT\u003E.Default or a custom comparer rather than Python equality.",
       "evidence": [
         {
           "path": "docs/VALUE_ARRAYS.md",
@@ -1096,7 +1096,7 @@
         },
         {
           "path": "tools/SharpTestBench.Tools/OracleFixturesCommand.cs",
-          "contains": "static List<object> Arrays"
+          "contains": "static List\u003Cobject\u003E Arrays"
         }
       ]
     },
@@ -1105,7 +1105,7 @@
       "definition": "AbstractMutableArray",
       "source_line": 133,
       "classification": "intentional-difference",
-      "reason": "ValueArray<T> indexer and transactional SetSlice provide fixed-size mutation; external abstract storage hooks are unsupported.",
+      "reason": "ValueArray\u003CT\u003E indexer and transactional SetSlice provide fixed-size mutation; external abstract storage hooks are unsupported.",
       "evidence": [
         {
           "path": "docs/VALUE_ARRAYS.md",
@@ -1117,7 +1117,7 @@
         },
         {
           "path": "tools/SharpTestBench.Tools/OracleFixturesCommand.cs",
-          "contains": "static List<object> Arrays"
+          "contains": "static List\u003Cobject\u003E Arrays"
         }
       ]
     },
@@ -1126,7 +1126,7 @@
       "definition": "Array",
       "source_line": 18,
       "classification": "intentional-difference",
-      "reason": "ValueArray<T> copies input, indexes by HDL bounds and supports reindexing, slicing and transactional slice assignment. Explicit constructor bounds, null slices, reference equality and lack of Python protocols are documented differences.",
+      "reason": "ValueArray\u003CT\u003E copies input, indexes by HDL bounds and supports reindexing, slicing and transactional slice assignment. Explicit constructor bounds, null slices, reference equality and lack of Python protocols are documented differences.",
       "evidence": [
         {
           "path": "docs/VALUE_ARRAYS.md",
@@ -1138,7 +1138,7 @@
         },
         {
           "path": "tools/SharpTestBench.Tools/OracleFixturesCommand.cs",
-          "contains": "static List<object> Arrays"
+          "contains": "static List\u003Cobject\u003E Arrays"
         }
       ]
     },
@@ -1159,7 +1159,7 @@
         },
         {
           "path": "tools/SharpTestBench.Tools/OracleFixturesCommand.cs",
-          "contains": "static List<object> Arrays"
+          "contains": "static List\u003Cobject\u003E Arrays"
         }
       ]
     },
@@ -1180,7 +1180,7 @@
         },
         {
           "path": "tools/SharpTestBench.Tools/OracleFixturesCommand.cs",
-          "contains": "static List<object> Arrays"
+          "contains": "static List\u003Cobject\u003E Arrays"
         }
       ]
     },
@@ -1201,7 +1201,7 @@
         },
         {
           "path": "tools/SharpTestBench.Tools/OracleFixturesCommand.cs",
-          "contains": "static List<object> Arrays"
+          "contains": "static List\u003Cobject\u003E Arrays"
         }
       ]
     },
@@ -1222,7 +1222,7 @@
         },
         {
           "path": "tools/SharpTestBench.Tools/OracleFixturesCommand.cs",
-          "contains": "static List<object> Arrays"
+          "contains": "static List\u003Cobject\u003E Arrays"
         }
       ]
     },
@@ -1243,7 +1243,7 @@
         },
         {
           "path": "tools/SharpTestBench.Tools/OracleFixturesCommand.cs",
-          "contains": "static List<object> Arrays"
+          "contains": "static List\u003Cobject\u003E Arrays"
         }
       ]
     },
@@ -1252,7 +1252,7 @@
       "definition": "Range.to_range",
       "source_line": 118,
       "classification": "intentional-difference",
-      "reason": "HdlRange implements IEnumerable<int> instead of returning a Python range or incompatible half-open System.Range.",
+      "reason": "HdlRange implements IEnumerable\u003Cint\u003E instead of returning a Python range or incompatible half-open System.Range.",
       "evidence": [
         {
           "path": "docs/VALUE_ARRAYS.md",
@@ -1264,7 +1264,7 @@
         },
         {
           "path": "tools/SharpTestBench.Tools/OracleFixturesCommand.cs",
-          "contains": "static List<object> Arrays"
+          "contains": "static List\u003Cobject\u003E Arrays"
         }
       ]
     },
@@ -1285,7 +1285,7 @@
         },
         {
           "path": "tools/SharpTestBench.Tools/OracleFixturesCommand.cs",
-          "contains": "static List<object> Arrays"
+          "contains": "static List\u003Cobject\u003E Arrays"
         }
       ]
     },
@@ -1306,7 +1306,7 @@
         },
         {
           "path": "tools/SharpTestBench.Tools/OracleFixturesCommand.cs",
-          "contains": "static List<object> Arrays"
+          "contains": "static List\u003Cobject\u003E Arrays"
         }
       ]
     },
@@ -1327,7 +1327,7 @@
         },
         {
           "path": "tools/SharpTestBench.Tools/OracleFixturesCommand.cs",
-          "contains": "static List<object> Arrays"
+          "contains": "static List\u003Cobject\u003E Arrays"
         }
       ]
     },
@@ -1348,7 +1348,7 @@
         },
         {
           "path": "tools/SharpTestBench.Tools/OracleFixturesCommand.cs",
-          "contains": "static List<object> Arrays"
+          "contains": "static List\u003Cobject\u003E Arrays"
         }
       ]
     },
@@ -1516,7 +1516,7 @@
       "definition": "LogicArray.from_bytes",
       "source_line": 512,
       "classification": "intentional-difference",
-      "reason": "FromBytes uses ReadOnlySpan<byte>, explicit ByteOrder and optional exactly matching range; empty inputs fail and .NET exceptions differ.",
+      "reason": "FromBytes uses ReadOnlySpan\u003Cbyte\u003E, explicit ByteOrder and optional exactly matching range; empty inputs fail and .NET exceptions differ.",
       "evidence": [
         {
           "path": "docs/LOGIC_CONVERSIONS.md",
@@ -1885,7 +1885,7 @@
         },
         {
           "path": "tests/Integration/Tests.cs",
-          "contains": "Throws<FormatException>(() => failed.Task.GetAwaiter().GetResult());"
+          "contains": "Throws\u003CFormatException\u003E(() =\u003E failed.Task.GetAwaiter().GetResult());"
         }
       ]
     },
@@ -1894,7 +1894,7 @@
       "definition": "Outcome",
       "source_line": 33,
       "classification": "internal-adapter",
-      "reason": "The pinned completed-outcome abstraction has Value/Error subclasses. C# uses Task/Task<T> completion state and SimJob wrappers; no public Outcome class or Python outcome protocol is provided. Pending and cancelled tasks are separate .NET states, not additional Python Outcome variants.",
+      "reason": "The pinned completed-outcome abstraction has Value/Error subclasses. C# uses Task/Task\u003CT\u003E completion state and SimJob wrappers; no public Outcome class or Python outcome protocol is provided. Pending and cancelled tasks are separate .NET states, not additional Python Outcome variants.",
       "evidence": [
         {
           "path": "src/SharpTestBench/Regression.cs",
@@ -1906,7 +1906,7 @@
         },
         {
           "path": "tests/Integration/Tests.cs",
-          "contains": "Throws<FormatException>(() => failed.Task.GetAwaiter().GetResult());"
+          "contains": "Throws\u003CFormatException\u003E(() =\u003E failed.Task.GetAwaiter().GetResult());"
         }
       ]
     },
@@ -1927,7 +1927,7 @@
         },
         {
           "path": "tests/Integration/Tests.cs",
-          "contains": "Throws<FormatException>(() => failed.Task.GetAwaiter().GetResult());"
+          "contains": "Throws\u003CFormatException\u003E(() =\u003E failed.Task.GetAwaiter().GetResult());"
         }
       ]
     },
@@ -1936,11 +1936,11 @@
       "definition": "Value",
       "source_line": 39,
       "classification": "idiomatic-equivalent",
-      "reason": "A successful typed job retains its value in Task<T>, exposed by await and completed Result. This covers value propagation, not Python wrapper construction, representation, identity or direct value-field mutation.",
+      "reason": "A successful typed job retains its value in Task\u003CT\u003E, exposed by await and completed Result. This covers value propagation, not Python wrapper construction, representation, identity or direct value-field mutation.",
       "evidence": [
         {
           "path": "src/SharpTestBench/Regression.cs",
-          "contains": "public sealed class SimJob<T>"
+          "contains": "public sealed class SimJob\u003CT\u003E"
         },
         {
           "path": "tests/Integration/Tests.cs",
@@ -1948,7 +1948,7 @@
         },
         {
           "path": "tests/Integration/Tests.cs",
-          "contains": "Throws<FormatException>(() => failed.Task.GetAwaiter().GetResult());"
+          "contains": "Throws\u003CFormatException\u003E(() =\u003E failed.Task.GetAwaiter().GetResult());"
         }
       ]
     },
@@ -1961,7 +1961,7 @@
       "evidence": [
         {
           "path": "src/SharpTestBench/Regression.cs",
-          "contains": "public T Result => Task.IsCompleted"
+          "contains": "public T Result =\u003E Task.IsCompleted"
         },
         {
           "path": "tests/Integration/Tests.cs",
@@ -1969,7 +1969,7 @@
         },
         {
           "path": "tests/Integration/Tests.cs",
-          "contains": "Throws<FormatException>(() => failed.Task.GetAwaiter().GetResult());"
+          "contains": "Throws\u003CFormatException\u003E(() =\u003E failed.Task.GetAwaiter().GetResult());"
         }
       ]
     },
@@ -1978,11 +1978,11 @@
       "definition": "Error",
       "source_line": 50,
       "classification": "internal-adapter",
-      "reason": "Pinned Error stores a Python BaseException. C# faults Task<T> and exposes AggregateException through Task.Exception while await/GetAwaiter.GetResult rethrows the underlying .NET exception. Python traceback manipulation and BaseException taxonomy are outside this mapping.",
+      "reason": "Pinned Error stores a Python BaseException. C# faults Task\u003CT\u003E and exposes AggregateException through Task.Exception while await/GetAwaiter.GetResult rethrows the underlying .NET exception. Python traceback manipulation and BaseException taxonomy are outside this mapping.",
       "evidence": [
         {
           "path": "src/SharpTestBench/Regression.cs",
-          "contains": "public AggregateException? Exception => Task.Exception;"
+          "contains": "public AggregateException? Exception =\u003E Task.Exception;"
         },
         {
           "path": "tests/Integration/Tests.cs",
@@ -1990,7 +1990,7 @@
         },
         {
           "path": "tests/Integration/Tests.cs",
-          "contains": "Throws<FormatException>(() => failed.Task.GetAwaiter().GetResult());"
+          "contains": "Throws\u003CFormatException\u003E(() =\u003E failed.Task.GetAwaiter().GetResult());"
         }
       ]
     },
@@ -2011,7 +2011,7 @@
         },
         {
           "path": "tests/Integration/Tests.cs",
-          "contains": "Throws<FormatException>(() => failed.Task.GetAwaiter().GetResult());"
+          "contains": "Throws\u003CFormatException\u003E(() =\u003E failed.Task.GetAwaiter().GetResult());"
         }
       ]
     },
@@ -2024,7 +2024,7 @@
       "evidence": [
         {
           "path": "src/SharpTestBench/StructuredWaits.cs",
-          "contains": "static async Task<(int Index, Task<T>[] Tasks)> Structured<T>"
+          "contains": "static async Task\u003C(int Index, Task\u003CT\u003E[] Tasks)\u003E Structured\u003CT\u003E"
         },
         {
           "path": "docs/CONCURRENCY_COMPARISON.md",
@@ -2041,7 +2041,7 @@
       "evidence": [
         {
           "path": "src/SharpTestBench/StructuredWaits.cs",
-          "contains": "static async Task<(int Index, Task<T>[] Tasks)> Structured<T>"
+          "contains": "static async Task\u003C(int Index, Task\u003CT\u003E[] Tasks)\u003E Structured\u003CT\u003E"
         },
         {
           "path": "docs/CONCURRENCY_COMPARISON.md",
@@ -2058,7 +2058,7 @@
       "evidence": [
         {
           "path": "src/SharpTestBench/StructuredWaits.cs",
-          "contains": "static async Task<(int Index, Task<T>[] Tasks)> Structured<T>"
+          "contains": "static async Task\u003C(int Index, Task\u003CT\u003E[] Tasks)\u003E Structured\u003CT\u003E"
         },
         {
           "path": "docs/CONCURRENCY_COMPARISON.md",
@@ -2075,7 +2075,7 @@
       "evidence": [
         {
           "path": "src/SharpTestBench/StructuredWaits.cs",
-          "contains": "static async Task<(int Index, Task<T>[] Tasks)> Structured<T>"
+          "contains": "static async Task\u003C(int Index, Task\u003CT\u003E[] Tasks)\u003E Structured\u003CT\u003E"
         },
         {
           "path": "docs/CONCURRENCY_COMPARISON.md",
@@ -2092,7 +2092,7 @@
       "evidence": [
         {
           "path": "src/SharpTestBench/StructuredWaits.cs",
-          "contains": "static async Task<(int Index, Task<T>[] Tasks)> Structured<T>"
+          "contains": "static async Task\u003C(int Index, Task\u003CT\u003E[] Tasks)\u003E Structured\u003CT\u003E"
         },
         {
           "path": "docs/CONCURRENCY_COMPARISON.md",
@@ -2109,7 +2109,7 @@
       "evidence": [
         {
           "path": "src/SharpTestBench/StructuredWaits.cs",
-          "contains": "static async Task<(int Index, Task<T>[] Tasks)> Structured<T>"
+          "contains": "static async Task\u003C(int Index, Task\u003CT\u003E[] Tasks)\u003E Structured\u003CT\u003E"
         },
         {
           "path": "tests/Integration/StructuredWaitTests.cs",
@@ -2126,7 +2126,7 @@
       "evidence": [
         {
           "path": "src/SharpTestBench/StructuredWaits.cs",
-          "contains": "static async Task<(int Index, Task<T>[] Tasks)> Structured<T>"
+          "contains": "static async Task\u003C(int Index, Task\u003CT\u003E[] Tasks)\u003E Structured\u003CT\u003E"
         },
         {
           "path": "tests/Integration/StructuredWaitTests.cs",
@@ -2143,7 +2143,7 @@
       "evidence": [
         {
           "path": "src/SharpTestBench/StructuredWaits.cs",
-          "contains": "static async Task<(int Index, Task<T>[] Tasks)> Structured<T>"
+          "contains": "static async Task\u003C(int Index, Task\u003CT\u003E[] Tasks)\u003E Structured\u003CT\u003E"
         },
         {
           "path": "tests/Integration/StructuredWaitTests.cs",
@@ -2160,7 +2160,7 @@
       "evidence": [
         {
           "path": "src/SharpTestBench/StructuredWaits.cs",
-          "contains": "static async Task<(int Index, Task<T>[] Tasks)> Structured<T>"
+          "contains": "static async Task\u003C(int Index, Task\u003CT\u003E[] Tasks)\u003E Structured\u003CT\u003E"
         },
         {
           "path": "tests/Integration/StructuredWaitTests.cs",
@@ -2177,7 +2177,7 @@
       "evidence": [
         {
           "path": "src/SharpTestBench/StructuredWaits.cs",
-          "contains": "static async Task<(int Index, Task<T>[] Tasks)> Structured<T>"
+          "contains": "static async Task\u003C(int Index, Task\u003CT\u003E[] Tasks)\u003E Structured\u003CT\u003E"
         },
         {
           "path": "tests/Integration/StructuredWaitTests.cs",
@@ -2194,7 +2194,7 @@
       "evidence": [
         {
           "path": "src/SharpTestBench/StructuredWaits.cs",
-          "contains": "static async Task<(int Index, Task<T>[] Tasks)> Structured<T>"
+          "contains": "static async Task\u003C(int Index, Task\u003CT\u003E[] Tasks)\u003E Structured\u003CT\u003E"
         },
         {
           "path": "tests/Integration/StructuredWaitTests.cs",
@@ -2211,7 +2211,7 @@
       "evidence": [
         {
           "path": "src/SharpTestBench/StructuredWaits.cs",
-          "contains": "static async Task<(int Index, Task<T>[] Tasks)> Structured<T>"
+          "contains": "static async Task\u003C(int Index, Task\u003CT\u003E[] Tasks)\u003E Structured\u003CT\u003E"
         },
         {
           "path": "tests/Integration/StructuredWaitTests.cs",
@@ -2228,7 +2228,7 @@
       "evidence": [
         {
           "path": "src/SharpTestBench/JunitReport.cs",
-          "contains": "var suite = new XElement(\"testsuite\","
+          "contains": "var suite = new XElement(\u0022testsuite\u0022,"
         },
         {
           "path": "tests/SharpTestBench.Tests/JunitRequirementTests.cs",
@@ -2245,7 +2245,7 @@
       "evidence": [
         {
           "path": "src/SharpTestBench/JunitReport.cs",
-          "contains": "new XAttribute(\"failures\", results.Count(x => x.Status == \"failed\"))"
+          "contains": "new XAttribute(\u0022failures\u0022, results.Count(x =\u003E x.Status == \u0022failed\u0022))"
         },
         {
           "path": "tests/SharpTestBench.Tests/JunitRequirementTests.cs",
@@ -2313,7 +2313,7 @@
       "evidence": [
         {
           "path": "src/SharpTestBench/JunitReport.cs",
-          "contains": "else result.Append(\"#x\")"
+          "contains": "else result.Append(\u0022#x\u0022)"
         },
         {
           "path": "tests/SharpTestBench.Tests/JunitRequirementTests.cs",
@@ -2456,7 +2456,7 @@
       "definition": "Task.locals",
       "source_line": 155,
       "classification": "intentional-difference",
-      "reason": "SimTaskLocal<T> uses typed identity keys, distinguishes missing/null and isolates nested jobs; Python arbitrary attribute namespaces are not copied.",
+      "reason": "SimTaskLocal\u003CT\u003E uses typed identity keys, distinguishes missing/null and isolates nested jobs; Python arbitrary attribute namespaces are not copied.",
       "evidence": [
         {
           "path": "tests/RequirementContracts/JobContracts50.cs",
@@ -2521,7 +2521,7 @@
       "definition": "Task.join",
       "source_line": 514,
       "classification": "deprecated-omission",
-      "reason": "Deprecated Python join wrapper is omitted; await SimJob/SimJob<T> propagates completion/result directly.",
+      "reason": "Deprecated Python join wrapper is omitted; await SimJob/SimJob\u003CT\u003E propagates completion/result directly.",
       "evidence": [
         {
           "path": "docs/TASK_API_MAP.md",
@@ -2590,7 +2590,7 @@
       "evidence": [
         {
           "path": "src/SharpTestBench/Regression.cs",
-          "contains": "public AggregateException? Exception => Task.Exception;"
+          "contains": "public AggregateException? Exception =\u003E Task.Exception;"
         }
       ]
     },
@@ -2616,7 +2616,7 @@
       "evidence": [
         {
           "path": "src/SharpTestBench/Regression.cs",
-          "contains": "public Trigger Complete => new CompletionTrigger(this);"
+          "contains": "public Trigger Complete =\u003E new CompletionTrigger(this);"
         }
       ]
     },
@@ -2833,11 +2833,11 @@
       "definition": "HierarchyArrayObject",
       "source_line": 528,
       "classification": "intentional-difference",
-      "reason": "HdlArray<T> binds children by declared HDL indices and enumerates in Range order. Explicit converters, checked offset/index exceptions and backend range availability differ from the Python hierarchy-array factory/protocol.",
+      "reason": "HdlArray\u003CT\u003E binds children by declared HDL indices and enumerates in Range order. Explicit converters, checked offset/index exceptions and backend range availability differ from the Python hierarchy-array factory/protocol.",
       "evidence": [
         {
           "path": "src/SharpTestBench/HdlArray.cs",
-          "contains": "public sealed class HdlArray<T>"
+          "contains": "public sealed class HdlArray\u003CT\u003E"
         }
       ]
     },
@@ -3002,11 +3002,11 @@
       "definition": "ArrayObject",
       "source_line": 986,
       "classification": "intentional-difference",
-      "reason": "HdlArray<T> is a typed cached child binding with declared HDL range, not a generic Python array value object. ValueArray<T> is separate managed value storage; child wrappers versus aggregate values and assignment operations remain distinct.",
+      "reason": "HdlArray\u003CT\u003E is a typed cached child binding with declared HDL range, not a generic Python array value object. ValueArray\u003CT\u003E is separate managed value storage; child wrappers versus aggregate values and assignment operations remain distinct.",
       "evidence": [
         {
           "path": "src/SharpTestBench/HdlArray.cs",
-          "contains": "public sealed class HdlArray<T>"
+          "contains": "public sealed class HdlArray\u003CT\u003E"
         }
       ]
     },
@@ -3019,7 +3019,7 @@
       "evidence": [
         {
           "path": "src/SharpTestBench/HdlArray.cs",
-          "contains": "public IEnumerator<T> GetEnumerator()"
+          "contains": "public IEnumerator\u003CT\u003E GetEnumerator()"
         }
       ]
     },
@@ -3028,11 +3028,11 @@
       "definition": "ArrayObject.set",
       "source_line": 1043,
       "classification": "gap",
-      "reason": "Python writes aggregate arrays element-by-element in positional order with generic actions. HdlArray<T> exposes bindings through IReadOnlyCollection and no aggregate write/action operation. Manually looping over leaves does not implement this setter contract.",
+      "reason": "Python writes aggregate arrays element-by-element in positional order with generic actions. HdlArray\u003CT\u003E exposes bindings through IReadOnlyCollection and no aggregate write/action operation. Manually looping over leaves does not implement this setter contract.",
       "evidence": [
         {
           "path": "src/SharpTestBench/HdlArray.cs",
-          "contains": "IReadOnlyCollection<T>"
+          "contains": "IReadOnlyCollection\u003CT\u003E"
         }
       ]
     },
@@ -3041,7 +3041,7 @@
       "definition": "LogicObject",
       "source_line": 1128,
       "classification": "intentional-difference",
-      "reason": "C# scalar signals use Signal/Signal<W1>, strict bool conversion or LogicArray readback rather than a dynamically selected Python LogicObject with generic value assignment. State preservation and allowed writes remain capability-qualified.",
+      "reason": "C# scalar signals use Signal/Signal\u003CW1\u003E, strict bool conversion or LogicArray readback rather than a dynamically selected Python LogicObject with generic value assignment. State preservation and allowed writes remain capability-qualified.",
       "evidence": [
         {
           "path": "src/SharpTestBench/Signals.cs",
@@ -3119,11 +3119,11 @@
       "definition": "LogicArrayObject",
       "source_line": 1439,
       "classification": "intentional-difference",
-      "reason": "C# Signal<W>/LogicSignal<W> provide explicit fixed-width/range-aware values with capability checks. Python dynamically maps HDL logic arrays and indexes child LogicObjects. Type factories, width limits, indexed-object behavior and numeric coercion are not identical.",
+      "reason": "C# Signal\u003CW\u003E/LogicSignal\u003CW\u003E provide explicit fixed-width/range-aware values with capability checks. Python dynamically maps HDL logic arrays and indexes child LogicObjects. Type factories, width limits, indexed-object behavior and numeric coercion are not identical.",
       "evidence": [
         {
           "path": "src/SharpTestBench/AdditionalSignals.cs",
-          "contains": "public sealed class LogicSignal<W>"
+          "contains": "public sealed class LogicSignal\u003CW\u003E"
         }
       ]
     },
@@ -3171,11 +3171,11 @@
       "definition": "EnumObject",
       "source_line": 1526,
       "classification": "intentional-difference",
-      "reason": "IntegerSignal exposes raw native enums, while EnumSignal<T> requires explicit defined C# numeric members. Upstream returns integer representations with width/signedness correction and does not infer declaration names. These mapping and validation policies differ.",
+      "reason": "IntegerSignal exposes raw native enums, while EnumSignal\u003CT\u003E requires explicit defined C# numeric members. Upstream returns integer representations with width/signedness correction and does not infer declaration names. These mapping and validation policies differ.",
       "evidence": [
         {
           "path": "src/SharpTestBench/AdditionalSignals.cs",
-          "contains": "public sealed class EnumSignal<T>"
+          "contains": "public sealed class EnumSignal\u003CT\u003E"
         }
       ]
     },
@@ -3184,7 +3184,7 @@
       "definition": "EnumObject.get",
       "source_line": 1579,
       "classification": "gap",
-      "reason": "Raw IntegerSignal.Read returns the native long without upstream width/signedness correction or wide binary fallback. EnumSignal<T> additionally rejects unmapped values. Neither establishes the full Python enum integer-get domain.",
+      "reason": "Raw IntegerSignal.Read returns the native long without upstream width/signedness correction or wide binary fallback. EnumSignal\u003CT\u003E additionally rejects unmapped values. Neither establishes the full Python enum integer-get domain.",
       "evidence": [
         {
           "path": "src/SharpTestBench/AdditionalSignals.cs",
@@ -3197,7 +3197,7 @@
       "definition": "EnumObject.set",
       "source_line": 1601,
       "classification": "intentional-difference",
-      "reason": "EnumSignal<T>.Write requires a defined C# member and checked int32 conversion. Python accepts any fitting integer representation without named-member validation, including wider underlying values. Raw IntegerSignal.Write is an int32 alternative, not full enum assignment parity.",
+      "reason": "EnumSignal\u003CT\u003E.Write requires a defined C# member and checked int32 conversion. Python accepts any fitting integer representation without named-member validation, including wider underlying values. Raw IntegerSignal.Write is an int32 alternative, not full enum assignment parity.",
       "evidence": [
         {
           "path": "src/SharpTestBench/AdditionalSignals.cs",
@@ -3279,7 +3279,7 @@
       "evidence": [
         {
           "path": "src/SharpTestBench/Signals.cs",
-          "contains": "if (value.Any(c => c > 255))"
+          "contains": "if (value.Any(c =\u003E c \u003E 255))"
         }
       ]
     },
@@ -3292,7 +3292,7 @@
       "evidence": [
         {
           "path": "src/SharpTestBench/Signals.cs",
-          "contains": "throw new ArgumentException(\"Fixed HDL string length mismatch\")"
+          "contains": "throw new ArgumentException(\u0022Fixed HDL string length mismatch\u0022)"
         }
       ]
     },
@@ -3642,8 +3642,8 @@
       "reason": "Python fullname joins module and chosen name. C# QualifiedName joins declaring CLR type and case name; nested type and case naming differ, so identities are stable within each implementation rather than Python-string equivalent.",
       "evidence": [
         {
-          "path": "src/SharpTestBench/Regression.cs",
-          "contains": "string qualifiedName = method.DeclaringType!.FullName + \".\" + name;"
+          "path": "src/SharpTestBench/RegressionSelection.cs",
+          "contains": "string qualifiedName = method.DeclaringType!.FullName \u002B \u0022.\u0022 \u002B name;"
         }
       ]
     },
@@ -3668,8 +3668,8 @@
       "reason": "TestGenerator holds mutable decorator options, metadata and Cartesian parameter definitions. C# reflected SimCase rows do not implement this mutable generator or Python naming rules.",
       "evidence": [
         {
-          "path": "src/SharpTestBench/Regression.cs",
-          "contains": "var cases = method.GetCustomAttributes<SimCaseAttribute>().Select(c => c.Arguments).ToArray();"
+          "path": "src/SharpTestBench/RegressionSelection.cs",
+          "contains": "method.GetCustomAttributes\u003CSimCaseAttribute\u003E()"
         }
       ]
     },
@@ -3681,8 +3681,8 @@
       "reason": "generate_tests expands a Cartesian product, grouped argument packs and Param display names into keyword-driven Test records. C# executes explicit SimCase rows and does not perform this expansion or naming contract.",
       "evidence": [
         {
-          "path": "src/SharpTestBench/Regression.cs",
-          "contains": "var cases = method.GetCustomAttributes<SimCaseAttribute>().Select(c => c.Arguments).ToArray();"
+          "path": "src/SharpTestBench/RegressionSelection.cs",
+          "contains": "method.GetCustomAttributes\u003CSimCaseAttribute\u003E()"
         }
       ]
     },
@@ -3799,7 +3799,7 @@
       "evidence": [
         {
           "path": "src/SharpTestBench/Runtime.cs",
-          "contains": "readonly ConcurrentQueue<Action> ready = new();"
+          "contains": "readonly ConcurrentQueue\u003CAction\u003E ready = new();"
         }
       ]
     },
@@ -3812,7 +3812,7 @@
       "evidence": [
         {
           "path": "src/SharpTestBench/Runtime.cs",
-          "contains": "readonly ConcurrentQueue<Action> ready = new();"
+          "contains": "readonly ConcurrentQueue\u003CAction\u003E ready = new();"
         }
       ]
     },
@@ -3838,7 +3838,7 @@
       "evidence": [
         {
           "path": "src/SharpTestBench/Regression.cs",
-          "contains": "SimulationLog.Write(runtime!, \"test-start\""
+          "contains": "SimulationLog.Write(runtime!, \u0022test-start\u0022"
         }
       ]
     },
@@ -3877,7 +3877,7 @@
       "evidence": [
         {
           "path": "src/SharpTestBench/Runtime.cs",
-          "contains": "readonly ConcurrentQueue<Action> ready"
+          "contains": "readonly ConcurrentQueue\u003CAction\u003E ready"
         }
       ]
     },
@@ -4032,8 +4032,8 @@
       "reason": "Deprecated factory generate_tests injects generated Python tests with naming callbacks. C# reflection discovers explicit SimCase rows rather than mutating modules.",
       "evidence": [
         {
-          "path": "src/SharpTestBench/Regression.cs",
-          "contains": "method.GetCustomAttributes<SimCaseAttribute>()"
+          "path": "src/SharpTestBench/RegressionSelection.cs",
+          "contains": "method.GetCustomAttributes\u003CSimCaseAttribute\u003E()"
         }
       ]
     },
@@ -4081,11 +4081,11 @@
       "definition": "TestManager.result",
       "source_line": 112,
       "classification": "intentional-difference",
-      "reason": "Python result() returns or rethrows manager outcomes. C# regression publishes status records; SimJob<T>.Result is a child-job abstraction and not an equivalent manager method.",
+      "reason": "Python result() returns or rethrows manager outcomes. C# regression publishes status records; SimJob\u003CT\u003E.Result is a child-job abstraction and not an equivalent manager method.",
       "evidence": [
         {
           "path": "src/SharpTestBench/Regression.cs",
-          "contains": "string status = error == null || expected ? \"passed\" : \"failed\""
+          "contains": "string status = error == null || expected ? \u0022passed\u0022 : \u0022failed\u0022"
         }
       ]
     },
@@ -4137,7 +4137,7 @@
       "evidence": [
         {
           "path": "src/SharpTestBench/Regression.cs",
-          "contains": "JobsComplete => jobs.All"
+          "contains": "JobsComplete =\u003E jobs.All"
         }
       ]
     },
@@ -4189,7 +4189,7 @@
       "evidence": [
         {
           "path": "src/SharpTestBench/Regression.cs",
-          "contains": "Runtime.Enqueue(async () =>"
+          "contains": "Runtime.Enqueue(async () =\u003E"
         }
       ]
     },
@@ -4202,7 +4202,7 @@
       "evidence": [
         {
           "path": "src/SharpTestBench/Regression.cs",
-          "contains": "Runtime.Enqueue(async () =>"
+          "contains": "Runtime.Enqueue(async () =\u003E"
         }
       ]
     },
@@ -4215,7 +4215,7 @@
       "evidence": [
         {
           "path": "src/SharpTestBench/Regression.cs",
-          "contains": "Runtime.Enqueue(async () =>"
+          "contains": "Runtime.Enqueue(async () =\u003E"
         }
       ]
     },
@@ -4228,7 +4228,7 @@
       "evidence": [
         {
           "path": "src/SharpTestBench/Regression.cs",
-          "contains": "Runtime.Enqueue(async () =>"
+          "contains": "Runtime.Enqueue(async () =\u003E"
         }
       ]
     },
@@ -4241,7 +4241,7 @@
       "evidence": [
         {
           "path": "src/SharpTestBench/Regression.cs",
-          "contains": "Runtime.Enqueue(async () =>"
+          "contains": "Runtime.Enqueue(async () =\u003E"
         }
       ]
     },
@@ -4254,7 +4254,7 @@
       "evidence": [
         {
           "path": "src/SharpTestBench/Regression.cs",
-          "contains": "Runtime.Enqueue(async () =>"
+          "contains": "Runtime.Enqueue(async () =\u003E"
         }
       ]
     },
@@ -4631,7 +4631,7 @@
       "evidence": [
         {
           "path": "src/SharpTestBench/Regression.cs",
-          "contains": "\"stop-after-stage\""
+          "contains": "\u0022stop-after-stage\u0022"
         }
       ]
     },
@@ -4639,12 +4639,12 @@
       "module": "cocotb.regression",
       "definition": "RegressionMode",
       "source_line": 142,
-      "classification": "gap",
-      "reason": "Python RegressionMode includes TESTCASE behavior that overrides skip flags. C# exact test selection still honors SimTest.Skip and has no equivalent mode.",
+      "classification": "intentional-difference",
+      "reason": "Immutable C# RegressionSelection passed to Initialize provides explicit Regression/Testcase mode; Testcase bypasses only declared Skip, not backend, stage-stop or isolation guards. No mutable Python builder operation or enum representation equivalence is claimed.",
       "evidence": [
         {
-          "path": "src/SharpTestBench/Regression.cs",
-          "contains": "if (attr.Skip || unavailable || stoppedStage)"
+          "path": "src/SharpTestBench/RegressionSelection.cs",
+          "contains": "public enum RegressionMode"
         }
       ]
     },
@@ -4669,8 +4669,8 @@
       "reason": "Python discover_tests imports modules, inspects variables and expands generators. C# discovers public static attributed methods and explicit SimCase rows through assembly reflection.",
       "evidence": [
         {
-          "path": "src/SharpTestBench/Regression.cs",
-          "contains": "method.GetCustomAttributes<SimCaseAttribute>()"
+          "path": "src/SharpTestBench/RegressionSelection.cs",
+          "contains": "method.GetCustomAttributes\u003CSimCaseAttribute\u003E()"
         }
       ]
     },
@@ -4678,12 +4678,12 @@
       "module": "cocotb.regression",
       "definition": "RegressionManager.add_filters",
       "source_line": 284,
-      "classification": "gap",
-      "reason": "Python add_filters accumulates ORed regular-expression searches against full names. C# short-name ordinal substring filtering and exact-name selection do not implement that regex accumulation contract.",
+      "classification": "intentional-difference",
+      "reason": "C# immutable RegressionSelection snapshots ORed qualified-name regex filters and intersects existing selection during complete preflight. The .NET regex dialect, invariant culture, bounded count/length and per-match timeout differ from Python re and mutable builder accumulation.",
       "evidence": [
         {
-          "path": "src/SharpTestBench/Regression.cs",
-          "contains": "StringComparison.Ordinal"
+          "path": "src/SharpTestBench/RegressionSelection.cs",
+          "contains": "public bool Matches(string qualifiedName)"
         }
       ]
     },
@@ -4691,12 +4691,12 @@
       "module": "cocotb.regression",
       "definition": "RegressionManager.set_mode",
       "source_line": 300,
-      "classification": "gap",
-      "reason": "Python set_mode selects regression versus testcase skip behavior on a builder. C# has no such mode-setting API and selected skipped tests remain skipped.",
+      "classification": "intentional-difference",
+      "reason": "Immutable C# RegressionSelection passed to Initialize provides explicit Regression/Testcase mode; Testcase bypasses only declared Skip, not backend, stage-stop or isolation guards. No mutable Python builder operation or enum representation equivalence is claimed.",
       "evidence": [
         {
-          "path": "src/SharpTestBench/Regression.cs",
-          "contains": "if (attr.Skip || unavailable || stoppedStage)"
+          "path": "src/SharpTestBench/RegressionSelection.cs",
+          "contains": "public enum RegressionMode"
         }
       ]
     },

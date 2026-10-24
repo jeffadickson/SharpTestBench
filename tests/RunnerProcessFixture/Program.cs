@@ -1,6 +1,47 @@
 // Controlled child executable for production CLI contracts. Does not simulate HDL.
 using System.Text.Json;
+using System.Diagnostics;
+using System.Reflection;
 
+// A live root process with both streams published. Its PID and creation time
+// let the caller prove termination and avoid killing a reused/unrelated PID.
+if (args is ["--capture-deadline", var ownershipFile])
+{
+    using var self=Process.GetCurrentProcess();
+    File.WriteAllText(ownershipFile,Environment.ProcessId.ToString(System.Globalization.CultureInfo.InvariantCulture)+"\n"+self.StartTime.ToUniversalTime().Ticks.ToString(System.Globalization.CultureInfo.InvariantCulture));
+    Console.WriteLine("before stdout");Console.Out.Flush();
+    Console.Error.WriteLine("before stderr");Console.Error.Flush();
+    await Task.Delay(TimeSpan.FromSeconds(60));
+    return 0;
+}
+// Capture tests need a readiness handshake and a descendant lifetime independent
+// of the command deadline. These controlled modes bypass simulator-fixture JSON.
+if (args is ["--capture-descendant", var descendantGate])
+{
+    Console.Out.Flush();
+    File.WriteAllText(descendantGate + ".pid", Environment.ProcessId.ToString());
+    File.WriteAllText(descendantGate + ".ready", "inherited streams open");
+    var fallback = Stopwatch.StartNew();
+    while (!File.Exists(descendantGate) && fallback.Elapsed < TimeSpan.FromSeconds(60))
+        await Task.Delay(25);
+    return 0;
+}
+if (args is ["--capture-parent", var parentGate])
+{
+    var childStart = new ProcessStartInfo(Environment.ProcessPath!) { UseShellExecute = false };
+    if (string.Equals(Path.GetFileNameWithoutExtension(Environment.ProcessPath), "dotnet", StringComparison.OrdinalIgnoreCase))
+        childStart.ArgumentList.Add(Assembly.GetExecutingAssembly().Location);
+    childStart.ArgumentList.Add("--capture-descendant");
+    childStart.ArgumentList.Add(parentGate);
+    using var descendant = Process.Start(childStart) ?? throw new IOException("Capture descendant did not start");
+    var ready = Stopwatch.StartNew();
+    while (!File.Exists(parentGate + ".ready") && ready.Elapsed < TimeSpan.FromSeconds(30))
+        await Task.Delay(10);
+    if (!File.Exists(parentGate + ".ready")) return 75;
+    Console.WriteLine("parent exited");
+    Console.Out.Flush();
+    return 0;
+}
 var behaviorPath = Environment.GetEnvironmentVariable("STB_PROCESS_FIXTURE_CONFIG") ?? Path.Combine(Directory.GetCurrentDirectory(), "..", "process-fixture.json");
 using var behavior = JsonDocument.Parse(File.ReadAllText(behaviorPath));
 var config = behavior.RootElement;
