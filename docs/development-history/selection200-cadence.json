@@ -1,0 +1,1232 @@
+{
+  "schemaVersion": 1,
+  "scope": "Retained final available build/test attempts at every ten units; earlier overwritten retries are not claimed as separately retained",
+  "gates": [
+    {
+      "checkpoint": 10,
+      "platform": "windows",
+      "buildSucceeded": true,
+      "allThreeManagedSuitesPassed": true,
+      "suites": [
+        {
+          "suite": "SharpTestBench.Tests",
+          "total": 617,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "SharpTestBench.Generators.Tests",
+          "total": 17,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "SharpTestBench.Tools.Tests",
+          "total": 1244,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 12
+        }
+      ],
+      "logSha256": "fd85c3c5cae2570a8b5d8793b181a2185b085a6c0edc9b672abb03e507d78b9d",
+      "note": "Retained passing attempt"
+    },
+    {
+      "checkpoint": 10,
+      "platform": "linux",
+      "buildSucceeded": true,
+      "allThreeManagedSuitesPassed": true,
+      "suites": [
+        {
+          "suite": "SharpTestBench.Tests",
+          "total": 617,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "SharpTestBench.Generators.Tests",
+          "total": 17,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "SharpTestBench.Tools.Tests",
+          "total": 1244,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        }
+      ],
+      "logSha256": "820f51c3da7d250b2fcb67196a6ad675adf2eb84a6e2b7e5b2dfdfb7c4419fd6",
+      "note": "Retained passing attempt"
+    },
+    {
+      "checkpoint": 20,
+      "platform": "windows",
+      "buildSucceeded": true,
+      "allThreeManagedSuitesPassed": true,
+      "suites": [
+        {
+          "suite": "SharpTestBench.Tests",
+          "total": 627,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "SharpTestBench.Generators.Tests",
+          "total": 17,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "SharpTestBench.Tools.Tests",
+          "total": 1244,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 12
+        }
+      ],
+      "logSha256": "a1fcf87057d2e70c5009b609d3580e3461f50a79b7d7ab3a7d12d337bf65daf2",
+      "note": "Retained passing attempt"
+    },
+    {
+      "checkpoint": 20,
+      "platform": "linux",
+      "buildSucceeded": true,
+      "allThreeManagedSuitesPassed": true,
+      "suites": [
+        {
+          "suite": "SharpTestBench.Tests",
+          "total": 627,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "SharpTestBench.Generators.Tests",
+          "total": 17,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "SharpTestBench.Tools.Tests",
+          "total": 1244,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        }
+      ],
+      "logSha256": "2bcfd1c354941f59bb1928ccb542065c5491043044ec4a20459cb9c9082b9cb7",
+      "note": "Retained passing attempt"
+    },
+    {
+      "checkpoint": 30,
+      "platform": "windows",
+      "buildSucceeded": true,
+      "allThreeManagedSuitesPassed": true,
+      "suites": [
+        {
+          "suite": "SharpTestBench.Tests",
+          "total": 637,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "SharpTestBench.Generators.Tests",
+          "total": 17,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "SharpTestBench.Tools.Tests",
+          "total": 1244,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 12
+        }
+      ],
+      "logSha256": "f895df371ed22fb4148b15ba4830bb6058fa670126049270a51a6cd79378a853",
+      "note": "Retained passing attempt"
+    },
+    {
+      "checkpoint": 30,
+      "platform": "linux",
+      "buildSucceeded": true,
+      "allThreeManagedSuitesPassed": false,
+      "suites": [
+        {
+          "suite": "SharpTestBench.Tests",
+          "total": 637,
+          "errors": 0,
+          "failed": 1,
+          "skipped": 0
+        }
+      ],
+      "logSha256": "afeed0e61e678d68400caae3288cef55adc829dd80a7c9c196b61ef06d9b49a6",
+      "note": "Core S024_MinimumTimeoutAllowsOrdinaryMatching exceeded its 1ms budget; this attempt stopped before other suites. Configuration acceptance was separated from semantic matching and checkpoint40 passed."
+    },
+    {
+      "checkpoint": 40,
+      "platform": "windows",
+      "buildSucceeded": true,
+      "allThreeManagedSuitesPassed": true,
+      "suites": [
+        {
+          "suite": "SharpTestBench.Tests",
+          "total": 647,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "SharpTestBench.Generators.Tests",
+          "total": 17,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "SharpTestBench.Tools.Tests",
+          "total": 1244,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 12
+        }
+      ],
+      "logSha256": "6d08438c20bd90e6eead9a1337861bc6daf38cd307a2ac25cd814bba31cafde5",
+      "note": "Retained passing attempt"
+    },
+    {
+      "checkpoint": 40,
+      "platform": "linux",
+      "buildSucceeded": true,
+      "allThreeManagedSuitesPassed": true,
+      "suites": [
+        {
+          "suite": "SharpTestBench.Tests",
+          "total": 647,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "SharpTestBench.Generators.Tests",
+          "total": 17,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "SharpTestBench.Tools.Tests",
+          "total": 1244,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        }
+      ],
+      "logSha256": "c03a1106375942e4081f053822ab3f1308572cd44db6d78f5126fe320a4bfdfe",
+      "note": "Retained passing attempt"
+    },
+    {
+      "checkpoint": 50,
+      "platform": "windows",
+      "buildSucceeded": true,
+      "allThreeManagedSuitesPassed": true,
+      "suites": [
+        {
+          "suite": "SharpTestBench.Tests",
+          "total": 657,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "SharpTestBench.Generators.Tests",
+          "total": 17,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "SharpTestBench.Tools.Tests",
+          "total": 1244,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 12
+        }
+      ],
+      "logSha256": "007067b0fb9d9ef00c86cede4f0e2c028bcbe0a3780c14fa668e01018a990eae",
+      "note": "Retained passing attempt"
+    },
+    {
+      "checkpoint": 50,
+      "platform": "linux",
+      "buildSucceeded": true,
+      "allThreeManagedSuitesPassed": true,
+      "suites": [
+        {
+          "suite": "SharpTestBench.Tests",
+          "total": 657,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "SharpTestBench.Generators.Tests",
+          "total": 17,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "SharpTestBench.Tools.Tests",
+          "total": 1244,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        }
+      ],
+      "logSha256": "b1c664a485efa6eb2fa9682c63dc646cdbb9dbd5986c1d2bd91ad12dc6abf932",
+      "note": "Retained passing attempt"
+    },
+    {
+      "checkpoint": 60,
+      "platform": "windows",
+      "buildSucceeded": true,
+      "allThreeManagedSuitesPassed": true,
+      "suites": [
+        {
+          "suite": "SharpTestBench.Tests",
+          "total": 667,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "SharpTestBench.Generators.Tests",
+          "total": 17,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "SharpTestBench.Tools.Tests",
+          "total": 1250,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 12
+        }
+      ],
+      "logSha256": "956ef981c5ee8cdcd81e7fcc868caa29ee8789135f824dcf5c45c8c2e77da607",
+      "note": "Retained passing attempt"
+    },
+    {
+      "checkpoint": 60,
+      "platform": "linux",
+      "buildSucceeded": true,
+      "allThreeManagedSuitesPassed": true,
+      "suites": [
+        {
+          "suite": "SharpTestBench.Tests",
+          "total": 667,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "SharpTestBench.Generators.Tests",
+          "total": 17,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "SharpTestBench.Tools.Tests",
+          "total": 1250,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        }
+      ],
+      "logSha256": "5b6c2a1b4f88fe9015ffbbdfcc96bec49113c2fa53d186a48f77754a48bcc74f",
+      "note": "Retained passing attempt"
+    },
+    {
+      "checkpoint": 70,
+      "platform": "windows",
+      "buildSucceeded": true,
+      "allThreeManagedSuitesPassed": true,
+      "suites": [
+        {
+          "suite": "SharpTestBench.Tests",
+          "total": 669,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "SharpTestBench.Generators.Tests",
+          "total": 17,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "SharpTestBench.Tools.Tests",
+          "total": 1258,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 12
+        }
+      ],
+      "logSha256": "102e877e7cff85769b042dd3782943e3dc52e4faac916d698c4baf1a5dd4441e",
+      "note": "Retained passing attempt"
+    },
+    {
+      "checkpoint": 70,
+      "platform": "linux",
+      "buildSucceeded": true,
+      "allThreeManagedSuitesPassed": true,
+      "suites": [
+        {
+          "suite": "SharpTestBench.Tests",
+          "total": 669,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "SharpTestBench.Generators.Tests",
+          "total": 17,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "SharpTestBench.Tools.Tests",
+          "total": 1258,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        }
+      ],
+      "logSha256": "5f56b2a8d1a393d5a31d0bcd9b897c12b7f965c0d11dfde841d2d272b208f157",
+      "note": "Retained passing attempt"
+    },
+    {
+      "checkpoint": 80,
+      "platform": "windows",
+      "buildSucceeded": true,
+      "allThreeManagedSuitesPassed": true,
+      "suites": [
+        {
+          "suite": "SharpTestBench.Tests",
+          "total": 669,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "SharpTestBench.Generators.Tests",
+          "total": 17,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "SharpTestBench.Tools.Tests",
+          "total": 1258,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 12
+        }
+      ],
+      "logSha256": "954525f37f21a17bcea264a6cea2d98269a44fb46cea2d17db5aaa6cab40a6e6",
+      "note": "Retained passing attempt"
+    },
+    {
+      "checkpoint": 80,
+      "platform": "linux",
+      "buildSucceeded": true,
+      "allThreeManagedSuitesPassed": true,
+      "suites": [
+        {
+          "suite": "SharpTestBench.Tests",
+          "total": 669,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "SharpTestBench.Generators.Tests",
+          "total": 17,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "SharpTestBench.Tools.Tests",
+          "total": 1258,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        }
+      ],
+      "logSha256": "be08ff2a89543ce7c72993bf8d1ad0948db00110468a484f118177ef35bbf040",
+      "note": "Retained passing attempt"
+    },
+    {
+      "checkpoint": 90,
+      "platform": "windows",
+      "buildSucceeded": true,
+      "allThreeManagedSuitesPassed": true,
+      "suites": [
+        {
+          "suite": "SharpTestBench.Tests",
+          "total": 669,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "SharpTestBench.Generators.Tests",
+          "total": 17,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "SharpTestBench.Tools.Tests",
+          "total": 1258,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 12
+        }
+      ],
+      "logSha256": "b65bd188c72ce7a5fd2fe77b710fa1888cff1969da358188a8af641650de521f",
+      "note": "Retained passing attempt"
+    },
+    {
+      "checkpoint": 90,
+      "platform": "linux",
+      "buildSucceeded": true,
+      "allThreeManagedSuitesPassed": true,
+      "suites": [
+        {
+          "suite": "SharpTestBench.Tests",
+          "total": 669,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "SharpTestBench.Generators.Tests",
+          "total": 17,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "SharpTestBench.Tools.Tests",
+          "total": 1258,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        }
+      ],
+      "logSha256": "fd9a3bfbd57a99d58012e086ddc1b7a8a25e6a92ab9a9179e7cd02448823417c",
+      "note": "Retained passing attempt"
+    },
+    {
+      "checkpoint": 100,
+      "platform": "windows",
+      "buildSucceeded": true,
+      "allThreeManagedSuitesPassed": true,
+      "suites": [
+        {
+          "suite": "SharpTestBench.Tests",
+          "total": 669,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "SharpTestBench.Generators.Tests",
+          "total": 17,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "SharpTestBench.Tools.Tests",
+          "total": 1258,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 12
+        }
+      ],
+      "logSha256": "371f09c46038fbbf48114c9bb74f32490bbaa6db13347e1719fcb5284b205d89",
+      "note": "Retained passing attempt"
+    },
+    {
+      "checkpoint": 100,
+      "platform": "linux",
+      "buildSucceeded": true,
+      "allThreeManagedSuitesPassed": true,
+      "suites": [
+        {
+          "suite": "SharpTestBench.Tests",
+          "total": 669,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "SharpTestBench.Generators.Tests",
+          "total": 17,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "SharpTestBench.Tools.Tests",
+          "total": 1258,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        }
+      ],
+      "logSha256": "9788d383758b597e9b755dfae778dabcdbb1ad42544c27b65128b56a663bae88",
+      "note": "Retained passing attempt"
+    },
+    {
+      "checkpoint": 110,
+      "platform": "windows",
+      "buildSucceeded": true,
+      "allThreeManagedSuitesPassed": true,
+      "suites": [
+        {
+          "suite": "SharpTestBench.Tests",
+          "total": 669,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "SharpTestBench.Generators.Tests",
+          "total": 17,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "SharpTestBench.Tools.Tests",
+          "total": 1262,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 12
+        }
+      ],
+      "logSha256": "d26e5dc1a1bd0ed48720adaff4459e6c60ba41fde33d5293cbca397911b6563d",
+      "note": "Retained passing attempt"
+    },
+    {
+      "checkpoint": 110,
+      "platform": "linux",
+      "buildSucceeded": true,
+      "allThreeManagedSuitesPassed": true,
+      "suites": [
+        {
+          "suite": "SharpTestBench.Tests",
+          "total": 669,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "SharpTestBench.Generators.Tests",
+          "total": 17,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "SharpTestBench.Tools.Tests",
+          "total": 1262,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        }
+      ],
+      "logSha256": "a0f3ebe80d3f3d75b92fdac429468743270585758dff6634a86d7cecb924508a",
+      "note": "Retained passing attempt"
+    },
+    {
+      "checkpoint": 120,
+      "platform": "windows",
+      "buildSucceeded": true,
+      "allThreeManagedSuitesPassed": true,
+      "suites": [
+        {
+          "suite": "SharpTestBench.Tests",
+          "total": 669,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "SharpTestBench.Generators.Tests",
+          "total": 17,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "SharpTestBench.Tools.Tests",
+          "total": 1262,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 12
+        }
+      ],
+      "logSha256": "2585170a74d8561242c905ef7a835725a98b9aab1e275d02e65de57df43e1919",
+      "note": "Retained passing attempt"
+    },
+    {
+      "checkpoint": 120,
+      "platform": "linux",
+      "buildSucceeded": true,
+      "allThreeManagedSuitesPassed": true,
+      "suites": [
+        {
+          "suite": "SharpTestBench.Tests",
+          "total": 669,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "SharpTestBench.Generators.Tests",
+          "total": 17,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "SharpTestBench.Tools.Tests",
+          "total": 1262,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        }
+      ],
+      "logSha256": "0ba07353311a49bd4f1fbb849f3b0bac8c632b99307c6fd4c4f4cfd922ffaae6",
+      "note": "Retained passing attempt"
+    },
+    {
+      "checkpoint": 130,
+      "platform": "windows",
+      "buildSucceeded": true,
+      "allThreeManagedSuitesPassed": true,
+      "suites": [
+        {
+          "suite": "SharpTestBench.Tests",
+          "total": 669,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "SharpTestBench.Generators.Tests",
+          "total": 17,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "SharpTestBench.Tools.Tests",
+          "total": 1262,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 12
+        }
+      ],
+      "logSha256": "de7a90aa690d22f3189c3bb5e51941d0a17717bbecd29acfcf2de0e6b0a3df13",
+      "note": "Retained passing attempt"
+    },
+    {
+      "checkpoint": 130,
+      "platform": "linux",
+      "buildSucceeded": true,
+      "allThreeManagedSuitesPassed": true,
+      "suites": [
+        {
+          "suite": "SharpTestBench.Tests",
+          "total": 669,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "SharpTestBench.Generators.Tests",
+          "total": 17,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "SharpTestBench.Tools.Tests",
+          "total": 1262,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        }
+      ],
+      "logSha256": "3b650926e3a4ee1ad9a570fde107f673fce77ce61b13e612d19f320ca26c0686",
+      "note": "Retained passing attempt"
+    },
+    {
+      "checkpoint": 140,
+      "platform": "windows",
+      "buildSucceeded": true,
+      "allThreeManagedSuitesPassed": true,
+      "suites": [
+        {
+          "suite": "SharpTestBench.Tests",
+          "total": 669,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "SharpTestBench.Generators.Tests",
+          "total": 17,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "SharpTestBench.Tools.Tests",
+          "total": 1262,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 12
+        }
+      ],
+      "logSha256": "e93825ed65d60e986ebd6a7785e307fe3d507e5fe00807910b5512119a9827ee",
+      "note": "Retained passing attempt"
+    },
+    {
+      "checkpoint": 140,
+      "platform": "linux",
+      "buildSucceeded": true,
+      "allThreeManagedSuitesPassed": true,
+      "suites": [
+        {
+          "suite": "SharpTestBench.Tests",
+          "total": 669,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "SharpTestBench.Generators.Tests",
+          "total": 17,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "SharpTestBench.Tools.Tests",
+          "total": 1262,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        }
+      ],
+      "logSha256": "9bcc1c978f89cce3b55b7c348eb38c0f98d206453f17114e48e82520efc8ac77",
+      "note": "Retained passing attempt"
+    },
+    {
+      "checkpoint": 150,
+      "platform": "windows",
+      "buildSucceeded": true,
+      "allThreeManagedSuitesPassed": true,
+      "suites": [
+        {
+          "suite": "SharpTestBench.Tests",
+          "total": 669,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "SharpTestBench.Generators.Tests",
+          "total": 17,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "SharpTestBench.Tools.Tests",
+          "total": 1262,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 12
+        }
+      ],
+      "logSha256": "e499f1fb6c3bb7dda811a748423e44fdee82c86853c175743b301f9dcd21902f",
+      "note": "Retained passing attempt"
+    },
+    {
+      "checkpoint": 150,
+      "platform": "linux",
+      "buildSucceeded": true,
+      "allThreeManagedSuitesPassed": true,
+      "suites": [
+        {
+          "suite": "SharpTestBench.Tests",
+          "total": 669,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "SharpTestBench.Generators.Tests",
+          "total": 17,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "SharpTestBench.Tools.Tests",
+          "total": 1262,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        }
+      ],
+      "logSha256": "bf33925436ceb0e51879672dbb558c5f9bbcb8af4fc5d6784a1ee89df96ec993",
+      "note": "Retained passing attempt"
+    },
+    {
+      "checkpoint": 160,
+      "platform": "windows",
+      "buildSucceeded": true,
+      "allThreeManagedSuitesPassed": true,
+      "suites": [
+        {
+          "suite": "SharpTestBench.Tests",
+          "total": 669,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "SharpTestBench.Generators.Tests",
+          "total": 17,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "SharpTestBench.Tools.Tests",
+          "total": 1262,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 12
+        }
+      ],
+      "logSha256": "3c7d7daad2058dee2d196d5607ea9bbb28d561d7652a2c8fcd1077768fa02889",
+      "note": "Retained passing attempt"
+    },
+    {
+      "checkpoint": 160,
+      "platform": "linux",
+      "buildSucceeded": true,
+      "allThreeManagedSuitesPassed": true,
+      "suites": [
+        {
+          "suite": "SharpTestBench.Tests",
+          "total": 669,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "SharpTestBench.Generators.Tests",
+          "total": 17,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "SharpTestBench.Tools.Tests",
+          "total": 1262,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        }
+      ],
+      "logSha256": "116bbc85d0419dea63d1f44cecc8f3b4945761f77ca65be0e6838703c434319f",
+      "note": "Retained passing attempt"
+    },
+    {
+      "checkpoint": 170,
+      "platform": "windows",
+      "buildSucceeded": true,
+      "allThreeManagedSuitesPassed": true,
+      "suites": [
+        {
+          "suite": "SharpTestBench.Tests",
+          "total": 669,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "SharpTestBench.Generators.Tests",
+          "total": 17,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "SharpTestBench.Tools.Tests",
+          "total": 1262,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 12
+        }
+      ],
+      "logSha256": "8d13060b54cadb77d07057a09afb150ca398a311370e7dc51e23c1e79fa76b4d",
+      "note": "Retained passing attempt"
+    },
+    {
+      "checkpoint": 170,
+      "platform": "linux",
+      "buildSucceeded": true,
+      "allThreeManagedSuitesPassed": true,
+      "suites": [
+        {
+          "suite": "SharpTestBench.Tests",
+          "total": 669,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "SharpTestBench.Generators.Tests",
+          "total": 17,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "SharpTestBench.Tools.Tests",
+          "total": 1262,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        }
+      ],
+      "logSha256": "4ee3de94845c7b36ad2253626ebcde3f87343a20ff9571081a738f35bd90fcc3",
+      "note": "Retained passing attempt"
+    },
+    {
+      "checkpoint": 180,
+      "platform": "windows",
+      "buildSucceeded": true,
+      "allThreeManagedSuitesPassed": true,
+      "suites": [
+        {
+          "suite": "SharpTestBench.Tests",
+          "total": 669,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "SharpTestBench.Generators.Tests",
+          "total": 17,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "SharpTestBench.Tools.Tests",
+          "total": 1266,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 12
+        }
+      ],
+      "logSha256": "6c89de637df5bb4ed0a84d2ae1ea7695b788ccc7a79bf0a6e396d0b9c4170173",
+      "note": "Retained passing attempt"
+    },
+    {
+      "checkpoint": 180,
+      "platform": "linux",
+      "buildSucceeded": true,
+      "allThreeManagedSuitesPassed": true,
+      "suites": [
+        {
+          "suite": "SharpTestBench.Tests",
+          "total": 669,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "SharpTestBench.Generators.Tests",
+          "total": 17,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "SharpTestBench.Tools.Tests",
+          "total": 1266,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        }
+      ],
+      "logSha256": "c45b9d89b09a8c5eee6f495f95fbba3125a62db0a9a7a4047253532bf666b370",
+      "note": "Retained passing attempt"
+    },
+    {
+      "checkpoint": 190,
+      "platform": "windows",
+      "buildSucceeded": true,
+      "allThreeManagedSuitesPassed": true,
+      "suites": [
+        {
+          "suite": "SharpTestBench.Tests",
+          "total": 669,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "SharpTestBench.Generators.Tests",
+          "total": 17,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "SharpTestBench.Tools.Tests",
+          "total": 1266,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 12
+        }
+      ],
+      "logSha256": "f3956b6381e986105c2a3b93313f922089d7a26506a182bfb96cff568b209666",
+      "note": "Retained passing attempt"
+    },
+    {
+      "checkpoint": 190,
+      "platform": "linux",
+      "buildSucceeded": true,
+      "allThreeManagedSuitesPassed": true,
+      "suites": [
+        {
+          "suite": "SharpTestBench.Tests",
+          "total": 669,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "SharpTestBench.Generators.Tests",
+          "total": 17,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "SharpTestBench.Tools.Tests",
+          "total": 1266,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        }
+      ],
+      "logSha256": "6a3ae9e072abd11a86bb83642f1b7301e151de5ea52c2ac9e00681c5aaa91ac5",
+      "note": "Retained passing attempt"
+    },
+    {
+      "checkpoint": 200,
+      "platform": "windows",
+      "buildSucceeded": true,
+      "allThreeManagedSuitesPassed": true,
+      "suites": [
+        {
+          "suite": "SharpTestBench.Tests",
+          "total": 669,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "SharpTestBench.Generators.Tests",
+          "total": 17,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "SharpTestBench.Tools.Tests",
+          "total": 1269,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 12
+        }
+      ],
+      "logSha256": "54362ad0aa0f48453c8438fb7622b094516f958f17ff323eccbfbe20dff5affd",
+      "note": "Retained passing attempt"
+    },
+    {
+      "checkpoint": 200,
+      "platform": "linux",
+      "buildSucceeded": true,
+      "allThreeManagedSuitesPassed": true,
+      "suites": [
+        {
+          "suite": "SharpTestBench.Tests",
+          "total": 669,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "SharpTestBench.Generators.Tests",
+          "total": 17,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "SharpTestBench.Tools.Tests",
+          "total": 1269,
+          "errors": 0,
+          "failed": 0,
+          "skipped": 0
+        }
+      ],
+      "logSha256": "81a75b88f3526243939f8bbb4364e6c217c9a21c7d992a4fb6511ac1d02a848a",
+      "note": "Retained passing attempt"
+    }
+  ]
+}

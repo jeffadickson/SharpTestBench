@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "checkpoint": 170,
+  "scope": "Portable-PDB SHA256 checksums for the five actual fixture C# source files; not HDL or NativeAOT instruction coverage",
+  "windows": {
+    "assemblySha256": "aaeff987a0a422e3a482f57fcdf7cec3002c5c50f3ad28155f676827240e261b",
+    "pdbSha256": "6d07e1b93fb66018296cee8ab7fd6f5163f8e64c4fdb6fbfc97b53724fd2bb0e",
+    "sources": [
+      {
+        "file": "tests/ProtocolContracts/ArbiterContracts.cs",
+        "sha256": "80aa1476de7a5c3b6e7a659b255434f110a3cefe58c56e31ba41ceab4cb836a4"
+      },
+      {
+        "file": "tests/ProtocolContracts/BankContracts.cs",
+        "sha256": "6af50497f60157a6d217b88d1078abf77300b93abd2caa37e7197bd1b43b12a4"
+      },
+      {
+        "file": "tests/ProtocolContracts/CrcContracts.cs",
+        "sha256": "ebef1885e46ccec5767ede4a3f9175a997490a10021d8216640e723f21e90c3f"
+      },
+      {
+        "file": "tests/ProtocolContracts/Entry.cs",
+        "sha256": "33e0f745eff15003b5bc2bbf1a245377237c16c67ee5cafb92e8ca4e8ec21557"
+      },
+      {
+        "file": "tests/ProtocolContracts/SelectionProfiles.cs",
+        "sha256": "8d25ab58ef20501f09800fd19e672870ece14d116c5e04788050e347c9c5507b"
+      }
+    ]
+  },
+  "linux": {
+    "assemblySha256": "c43849fd33196eda612e2fa1886999bd499e6bb4ed84edb10f1428a4e9ad703f",
+    "pdbSha256": "f6ac4452b1a4478d0a6e4d3410cad0a08acf280d718667361168597d65babf55",
+    "sources": [
+      {
+        "file": "tests/ProtocolContracts/ArbiterContracts.cs",
+        "sha256": "80aa1476de7a5c3b6e7a659b255434f110a3cefe58c56e31ba41ceab4cb836a4"
+      },
+      {
+        "file": "tests/ProtocolContracts/BankContracts.cs",
+        "sha256": "6af50497f60157a6d217b88d1078abf77300b93abd2caa37e7197bd1b43b12a4"
+      },
+      {
+        "file": "tests/ProtocolContracts/CrcContracts.cs",
+        "sha256": "ebef1885e46ccec5767ede4a3f9175a997490a10021d8216640e723f21e90c3f"
+      },
+      {
+        "file": "tests/ProtocolContracts/Entry.cs",
+        "sha256": "33e0f745eff15003b5bc2bbf1a245377237c16c67ee5cafb92e8ca4e8ec21557"
+      },
+      {
+        "file": "tests/ProtocolContracts/SelectionProfiles.cs",
+        "sha256": "8d25ab58ef20501f09800fd19e672870ece14d116c5e04788050e347c9c5507b"
+      }
+    ]
+  }
+}

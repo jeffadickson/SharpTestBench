@@ -1,0 +1,441 @@
+{
+  "schemaVersion": 1,
+  "checkpoint": 200,
+  "propertyTool": "FsCheck3.6.0",
+  "propertyReplaySeed": 91557096206384,
+  "fuzzSeed": 20261024,
+  "scope": "Three managed selector properties, bounded malformed-regex fuzzing, seven selector and five metadata-planner mutants, and current core-suite assertion-failure harness qualification. Broad runtime/HDL mutation strength and NativeAOT instruction mutation strength remain unmeasured. A targeted local RTL-fixture check is recorded separately when present. Assertion mutation is not a production mutant.",
+  "windows": {
+    "properties": 3,
+    "casesPerProperty": 1000,
+    "propertyLogSha256": "852e94417421a626eebb0a45438714e8a3f5ba7b403d9eb6baebac75d135fecf",
+    "propertySourceSha256": "9b9d9e78d9727801a10f85471a38078cf831152ba38b06494587cc7f1952522d",
+    "fuzzAccepted": 295,
+    "fuzzRejected": 1705,
+    "allowedMatchTimeouts": 0,
+    "timeoutObservationsScheduleDependent": true,
+    "failedCounterexamples": [],
+    "coreAssertionControl": {
+      "schemaVersion": 1,
+      "status": "verified",
+      "discoveredCases": 669,
+      "baselineFailures": 0,
+      "mutationFailures": 1,
+      "mutationTarget": "ManagedTests.IntegerBoundaries",
+      "probeDirectory": "C:\\dev\\SharpTestBench\\build\\managed-failure-probe\\fb73f0922e5447f78cbb55db99ec14d6",
+      "scope": "Assertion-failure harness control; not production-code mutation strength"
+    },
+    "coreControlLogSha256": "f260eaa6ddc2a796d8551bbd531184aff5d36ff5c0ea3ef58f193108ee766a94",
+    "productionMutations": {
+      "mutation": {
+        "report": {
+          "schemaVersion": 1,
+          "productionSourceSha256": "19853004d13ae102b1933d2a9b14af038f2a088015a8b8a97a049cb5d5a130c8",
+          "scope": "Public selector configuration/matching only; planner and simulator runtime are outside this mutation collection",
+          "variants": [
+            {
+              "name": "control",
+              "exitCode": 0,
+              "probe": "",
+              "expectedProbe": "",
+              "expected": true
+            },
+            {
+              "name": "OR replaced by AND",
+              "exitCode": 42,
+              "probe": "PROBE_DETECTED:OR",
+              "expectedProbe": "OR",
+              "expected": true
+            },
+            {
+              "name": "case insensitive default",
+              "exitCode": 42,
+              "probe": "PROBE_DETECTED:case sensitivity",
+              "expectedProbe": "case sensitivity",
+              "expected": true
+            },
+            {
+              "name": "undefined mode accepted",
+              "exitCode": 42,
+              "probe": "PROBE_DETECTED:mode",
+              "expectedProbe": "mode",
+              "expected": true
+            },
+            {
+              "name": "empty alternatives reject",
+              "exitCode": 42,
+              "probe": "PROBE_DETECTED:empty alternatives",
+              "expectedProbe": "empty alternatives",
+              "expected": true
+            },
+            {
+              "name": "null patterns silently accepted",
+              "exitCode": 42,
+              "probe": "PROBE_DETECTED:null pattern",
+              "expectedProbe": "null pattern",
+              "expected": true
+            },
+            {
+              "name": "pattern count relaxed",
+              "exitCode": 42,
+              "probe": "PROBE_DETECTED:count bound",
+              "expectedProbe": "count bound",
+              "expected": true
+            },
+            {
+              "name": "pattern length relaxed",
+              "exitCode": 42,
+              "probe": "PROBE_DETECTED:length bound",
+              "expectedProbe": "length bound",
+              "expected": true
+            }
+          ]
+        },
+        "sha256": "be32b7b8bb20cf54ea3b859845de274183f5d91287807768c075485b79587cc6",
+        "verifierSourceSha256": "93b0a11e5e9e72c66f2e0a5dfccd247aa7008883594a8d57b05b2310f0a67fc3"
+      },
+      "planner-mutation": {
+        "report": {
+          "schemaVersion": 1,
+          "productionSourceSha256": "19853004d13ae102b1933d2a9b14af038f2a088015a8b8a97a049cb5d5a130c8",
+          "scope": "Managed metadata planning only; runtime skip/isolation execution is separately qualified, not mutated here",
+          "variants": [
+            {
+              "name": "control",
+              "exitCode": 0,
+              "probe": "",
+              "expectedProbe": "",
+              "expected": true
+            },
+            {
+              "name": "stage order removed",
+              "exitCode": 42,
+              "probe": "PROBE_DETECTED:stage ordering",
+              "expectedProbe": "stage ordering",
+              "expected": true
+            },
+            {
+              "name": "filtered cases lose ordinal seeds",
+              "exitCode": 42,
+              "probe": "PROBE_DETECTED:full-order seed",
+              "expectedProbe": "full-order seed",
+              "expected": true
+            },
+            {
+              "name": "intersection broadened to OR",
+              "exitCode": 42,
+              "probe": "PROBE_DETECTED:intersection",
+              "expectedProbe": "intersection",
+              "expected": true
+            },
+            {
+              "name": "duplicate identity guard removed",
+              "exitCode": 42,
+              "probe": "PROBE_DETECTED:duplicate identity",
+              "expectedProbe": "duplicate identity",
+              "expected": true
+            },
+            {
+              "name": "planning invokes a body",
+              "exitCode": 42,
+              "probe": "PROBE_DETECTED:no body invocation",
+              "expectedProbe": "no body invocation",
+              "expected": true
+            }
+          ]
+        },
+        "sha256": "b8a7d860def96b5afee2621a247f8098598508b0693a32220a16cd5f0e05508f",
+        "verifierSourceSha256": "6822f66d9407c6fa2523d88b45e75d24b19926c8dc5c1608cccfce501349994c"
+      }
+    },
+    "coverageCompletionSha256": "e5d3b6fa793db7f34b7b32d87f730fa888f2be7339110ae6da733cd196ef2493",
+    "localRtlMutation": {
+      "report": {
+        "schemaVersion": 1,
+        "status": "verified",
+        "scope": "One locally authored RTL fixture mutant, separate from production C# mutants and HDL line/branch coverage",
+        "baseSeed": 83,
+        "caseSeed": 95,
+        "variants": [
+          {
+            "schemaVersion": 1,
+            "legacy": [
+              [
+                "Entry.R013_ContinuousAcceptedBurst",
+                "passed"
+              ]
+            ],
+            "native": [
+              [
+                "Entry.R013_ContinuousAcceptedBurst",
+                "passed"
+              ]
+            ],
+            "expected": [
+              "Entry.R013_ContinuousAcceptedBurst"
+            ],
+            "missing": {
+              "legacy": [],
+              "native": []
+            },
+            "unexpected": {
+              "legacy": [],
+              "native": []
+            },
+            "seedMismatches": [],
+            "matched": true,
+            "expectedSeedMatched": true,
+            "exitCodes": {
+              "legacy": 0,
+              "native": 0
+            },
+            "fixture": "protocol-throughput-sensitivity",
+            "variant": "unchanged control",
+            "hdlSourceSha256": "6ac5e8760d6aec4509bbaa6de376ebf8d6093bed50c040edf1c02d20e777684d",
+            "fixtureAssemblySha256": "aaeff987a0a422e3a482f57fcdf7cec3002c5c50f3ad28155f676827240e261b"
+          },
+          {
+            "schemaVersion": 1,
+            "negativeControl": true,
+            "legacyDetected": true,
+            "nativeDetected": true,
+            "matched": true,
+            "expectedSeedMatched": true,
+            "exitCodes": {
+              "legacy": 1,
+              "native": 1
+            },
+            "fixture": "protocol-throughput-sensitivity",
+            "variant": "coherent replacement bubble",
+            "hdlSourceSha256": "3d0a25fbd2ef9abcfdde41dc8a85c446ed2dfb4d8a91bec8adf0b952529f1744",
+            "fixtureAssemblySha256": "aaeff987a0a422e3a482f57fcdf7cec3002c5c50f3ad28155f676827240e261b"
+          }
+        ]
+      },
+      "sha256": "c2e6246137c8df4d7e980f84a9e85a614622517ea15a978287b937c87d5f3949",
+      "logSha256": "f2ebf736fb6f578c306f84887a03bafeff17fde45d35ddf32767ab97da01c061",
+      "verifierSourceSha256": "9224f253a83b75c706b20f39f06c9cb2a810212df9b4b02ebbdf509f6abb36ec",
+      "scope": "One local RTL fixture mutant; separate from twelve production C# mutants and HDL line/branch coverage"
+    }
+  },
+  "linux": {
+    "properties": 3,
+    "casesPerProperty": 1000,
+    "propertyLogSha256": "b6c0812d48ae2618408f76de77d7fc3db8622f60289d2457f622111a11e27a0c",
+    "propertySourceSha256": "9b9d9e78d9727801a10f85471a38078cf831152ba38b06494587cc7f1952522d",
+    "fuzzAccepted": 295,
+    "fuzzRejected": 1705,
+    "allowedMatchTimeouts": 0,
+    "timeoutObservationsScheduleDependent": true,
+    "failedCounterexamples": [],
+    "coreAssertionControl": {
+      "schemaVersion": 1,
+      "status": "verified",
+      "discoveredCases": 669,
+      "baselineFailures": 0,
+      "mutationFailures": 1,
+      "mutationTarget": "ManagedTests.IntegerBoundaries",
+      "probeDirectory": "/home/jeffd/src/SharpTestBench/build/managed-failure-probe/1a39e87b5b264835843b1aa0b7c056ab",
+      "scope": "Assertion-failure harness control; not production-code mutation strength"
+    },
+    "coreControlLogSha256": "0b673fa980375c3b9ea9d716ff5032ae13e9347d9c1f524482f697fc9037f350",
+    "productionMutations": {
+      "mutation": {
+        "report": {
+          "schemaVersion": 1,
+          "productionSourceSha256": "19853004d13ae102b1933d2a9b14af038f2a088015a8b8a97a049cb5d5a130c8",
+          "scope": "Public selector configuration/matching only; planner and simulator runtime are outside this mutation collection",
+          "variants": [
+            {
+              "name": "control",
+              "exitCode": 0,
+              "probe": "",
+              "expectedProbe": "",
+              "expected": true
+            },
+            {
+              "name": "OR replaced by AND",
+              "exitCode": 42,
+              "probe": "PROBE_DETECTED:OR",
+              "expectedProbe": "OR",
+              "expected": true
+            },
+            {
+              "name": "case insensitive default",
+              "exitCode": 42,
+              "probe": "PROBE_DETECTED:case sensitivity",
+              "expectedProbe": "case sensitivity",
+              "expected": true
+            },
+            {
+              "name": "undefined mode accepted",
+              "exitCode": 42,
+              "probe": "PROBE_DETECTED:mode",
+              "expectedProbe": "mode",
+              "expected": true
+            },
+            {
+              "name": "empty alternatives reject",
+              "exitCode": 42,
+              "probe": "PROBE_DETECTED:empty alternatives",
+              "expectedProbe": "empty alternatives",
+              "expected": true
+            },
+            {
+              "name": "null patterns silently accepted",
+              "exitCode": 42,
+              "probe": "PROBE_DETECTED:null pattern",
+              "expectedProbe": "null pattern",
+              "expected": true
+            },
+            {
+              "name": "pattern count relaxed",
+              "exitCode": 42,
+              "probe": "PROBE_DETECTED:count bound",
+              "expectedProbe": "count bound",
+              "expected": true
+            },
+            {
+              "name": "pattern length relaxed",
+              "exitCode": 42,
+              "probe": "PROBE_DETECTED:length bound",
+              "expectedProbe": "length bound",
+              "expected": true
+            }
+          ]
+        },
+        "sha256": "dcedc871ea3fc84a63633e3ecfd8891fb5f9b042213044d5921a06b2c7aac70c",
+        "verifierSourceSha256": "93b0a11e5e9e72c66f2e0a5dfccd247aa7008883594a8d57b05b2310f0a67fc3"
+      },
+      "planner-mutation": {
+        "report": {
+          "schemaVersion": 1,
+          "productionSourceSha256": "19853004d13ae102b1933d2a9b14af038f2a088015a8b8a97a049cb5d5a130c8",
+          "scope": "Managed metadata planning only; runtime skip/isolation execution is separately qualified, not mutated here",
+          "variants": [
+            {
+              "name": "control",
+              "exitCode": 0,
+              "probe": "",
+              "expectedProbe": "",
+              "expected": true
+            },
+            {
+              "name": "stage order removed",
+              "exitCode": 42,
+              "probe": "PROBE_DETECTED:stage ordering",
+              "expectedProbe": "stage ordering",
+              "expected": true
+            },
+            {
+              "name": "filtered cases lose ordinal seeds",
+              "exitCode": 42,
+              "probe": "PROBE_DETECTED:full-order seed",
+              "expectedProbe": "full-order seed",
+              "expected": true
+            },
+            {
+              "name": "intersection broadened to OR",
+              "exitCode": 42,
+              "probe": "PROBE_DETECTED:intersection",
+              "expectedProbe": "intersection",
+              "expected": true
+            },
+            {
+              "name": "duplicate identity guard removed",
+              "exitCode": 42,
+              "probe": "PROBE_DETECTED:duplicate identity",
+              "expectedProbe": "duplicate identity",
+              "expected": true
+            },
+            {
+              "name": "planning invokes a body",
+              "exitCode": 42,
+              "probe": "PROBE_DETECTED:no body invocation",
+              "expectedProbe": "no body invocation",
+              "expected": true
+            }
+          ]
+        },
+        "sha256": "700eba629b04c4a50fff97ddcce547cfc7f0d1264b3b83f9ac8be22525f92186",
+        "verifierSourceSha256": "6822f66d9407c6fa2523d88b45e75d24b19926c8dc5c1608cccfce501349994c"
+      }
+    },
+    "coverageCompletionSha256": "d209ff5ef6464e13bc1e00056b6c6f7ea8613a27fb9562b46816d79f26f721ae",
+    "localRtlMutation": {
+      "report": {
+        "schemaVersion": 1,
+        "status": "verified",
+        "scope": "One locally authored RTL fixture mutant, separate from production C# mutants and HDL line/branch coverage",
+        "baseSeed": 83,
+        "caseSeed": 95,
+        "variants": [
+          {
+            "schemaVersion": 1,
+            "legacy": [
+              [
+                "Entry.R013_ContinuousAcceptedBurst",
+                "passed"
+              ]
+            ],
+            "native": [
+              [
+                "Entry.R013_ContinuousAcceptedBurst",
+                "passed"
+              ]
+            ],
+            "expected": [
+              "Entry.R013_ContinuousAcceptedBurst"
+            ],
+            "missing": {
+              "legacy": [],
+              "native": []
+            },
+            "unexpected": {
+              "legacy": [],
+              "native": []
+            },
+            "seedMismatches": [],
+            "matched": true,
+            "expectedSeedMatched": true,
+            "exitCodes": {
+              "legacy": 0,
+              "native": 0
+            },
+            "fixture": "protocol-throughput-sensitivity",
+            "variant": "unchanged control",
+            "hdlSourceSha256": "6ac5e8760d6aec4509bbaa6de376ebf8d6093bed50c040edf1c02d20e777684d",
+            "fixtureAssemblySha256": "c43849fd33196eda612e2fa1886999bd499e6bb4ed84edb10f1428a4e9ad703f"
+          },
+          {
+            "schemaVersion": 1,
+            "negativeControl": true,
+            "legacyDetected": true,
+            "nativeDetected": true,
+            "matched": true,
+            "expectedSeedMatched": true,
+            "exitCodes": {
+              "legacy": 1,
+              "native": 1
+            },
+            "fixture": "protocol-throughput-sensitivity",
+            "variant": "coherent replacement bubble",
+            "hdlSourceSha256": "3d0a25fbd2ef9abcfdde41dc8a85c446ed2dfb4d8a91bec8adf0b952529f1744",
+            "fixtureAssemblySha256": "c43849fd33196eda612e2fa1886999bd499e6bb4ed84edb10f1428a4e9ad703f"
+          }
+        ]
+      },
+      "sha256": "e49a1b7e8a0c7615bdd16b1dc9f3fe90ff6d1e63f77dfc187504544a4fb4acb5",
+      "logSha256": "487ae2f77df5be9c0f49686afa0d77282bcc3a9736593f1577e8a803e625f997",
+      "verifierSourceSha256": "9224f253a83b75c706b20f39f06c9cb2a810212df9b4b02ebbdf509f6abb36ec",
+      "scope": "One local RTL fixture mutant; separate from twelve production C# mutants and HDL line/branch coverage"
+    }
+  },
+  "strictdoc": {
+    "version": "0.30.4",
+    "exportLogSha256": "88848a2725ad1126393e4294955546d4b4aaad974f8477bda71d33a436f3759e",
+    "requirementsSha256": "730b9cfdb05158f2dd222afc8f6f1cd775fb9285d5e5ddd8e038ed079cd6f5ed",
+    "configurationSha256": "3ecf6e91c87237f7515d82216050f963e43ab388a1cf129c19d84e313a8b9434",
+    "traceability": "Whole-file links; export does not attest execution or automatic symbol-to-coverage mapping"
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "checkedUtc": "2026-10-24T23:18:50.7048196Z",
+  "originMain": "fee2ace78df3984317660ded75cc09d1d2a8f761",
+  "workflows": [
+    {
+      "name": "Build and simulator tests",
+      "state": "disabled_manually"
+    },
+    {
+      "name": "Managed code coverage",
+      "state": "disabled_manually"
+    },
+    {
+      "name": "API documentation",
+      "state": "disabled_manually"
+    },
+    {
+      "name": "Dual runner parity (Icarus)",
+      "state": "disabled_manually"
+    },
+    {
+      "name": "Independent C++20 VPI probe",
+      "state": "disabled_manually"
+    },
+    {
+      "name": "Native runner Icarus integration",
+      "state": "disabled_manually"
+    },
+    {
+      "name": "Native .NET runner spike",
+      "state": "disabled_manually"
+    },
+    {
+      "name": "Prepare or publish validated NuGet release",
+      "state": "disabled_manually"
+    },
+    {
+      "name": "Upstream AXI Stream parity",
+      "state": "disabled_manually"
+    },
+    {
+      "name": "Upstream LFSR CRC parity",
+      "state": "disabled_manually"
+    },
+    {
+      "name": "Direct Verilator C++ model proof",
+      "state": "disabled_manually"
+    },
+    {
+      "name": "Windows ARM64 native validation",
+      "state": "disabled_manually"
+    }
+  ],
+  "pr62": {
+    "url": "https://github.com/jeffadickson/SharpTestBench/pull/62",
+    "state": "open",
+    "draft": true,
+    "merged": false,
+    "head": "0318a864d9b570f9ffbc4857e7365ec9ed6a4736"
+  },
+  "newBatchPushed": false
+}

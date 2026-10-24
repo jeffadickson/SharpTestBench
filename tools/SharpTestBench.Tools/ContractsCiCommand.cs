@@ -58,7 +58,7 @@ internal static class ContractsCiCommand
         "closure" => ("ClosureContracts","closure_top",70),
         "conformance" => ("ConformanceContracts","conformance_top",100),
         "scope" => ("ScopeContracts","scope_top",71),
-        "protocol" => ("ProtocolContracts","protocol_top",50),
+        "protocol" => ("ProtocolContracts","protocol_top",70),
         _ => throw new ArgumentException("Unknown contract suite", nameof(suite))
     };
     public static void Execute(ToolContext context,string[] arguments)

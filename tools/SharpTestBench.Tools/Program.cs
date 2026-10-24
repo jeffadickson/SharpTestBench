@@ -4,7 +4,7 @@ try
 {
     if (args.Length == 0 || args[0] is "--help" or "-h")
     {
-        Console.WriteLine("SharpTestBench managed helpers: contracts-ci, frame-drop-ci, frame-ci, arbiter-ci, array-reference, audit-reviews, audit-surface, audit-exports, axi-python, axi-workload, axis-ci, fifo-ci, priority-ci, benchmark, runner-benchmark, runner-benchmark-check, ci, cleanup-tests, clock-boundary, code-coverage, coverage-check, cpu-python, cpu-workload, debugger-tests, doctor, documentation, dsp-python, dsp-workload, dual-runner-ci, dual-runner-manifest, dual-runner-parity, icarus-layouts, icarus-layouts-check, installed-run, lfsr-ci, lifecycle, logging-check, logic-reference, managed-tests, native-build, native-build-check, native-debugger-tests, native-faults, native-package, native-performance, native-performance-prepare, package, package-container, packed-benchmark, publish-workers, verify-workers, packed-boundary, parity, prepare-upstream, queue-reference, release-bundle, release-preflight, run, reporting-check, runner-manifest-check, stage-tests, structured-reference, structured-reference-env, timing-parity, typecheck, wave-check, wave-tests, workspace-tests");
+        Console.WriteLine("SharpTestBench managed helpers: contracts-ci, selection-ci, frame-drop-ci, frame-ci, arbiter-ci, array-reference, audit-reviews, audit-surface, audit-exports, axi-python, axi-workload, axis-ci, fifo-ci, priority-ci, benchmark, runner-benchmark, runner-benchmark-check, ci, cleanup-tests, clock-boundary, code-coverage, coverage-check, cpu-python, cpu-workload, debugger-tests, doctor, documentation, dsp-python, dsp-workload, dual-runner-ci, dual-runner-manifest, dual-runner-parity, icarus-layouts, icarus-layouts-check, installed-run, lfsr-ci, lifecycle, logging-check, logic-reference, managed-tests, native-build, native-build-check, native-debugger-tests, native-faults, native-package, native-performance, native-performance-prepare, package, package-container, packed-benchmark, publish-workers, verify-workers, packed-boundary, parity, prepare-upstream, queue-reference, release-bundle, release-preflight, run, reporting-check, runner-manifest-check, stage-tests, structured-reference, structured-reference-env, timing-parity, typecheck, wave-check, wave-tests, workspace-tests");
         return 0;
     }
     if (args[0] == "installed-run") { InstalledRunCommand.Execute(args[1..]); return 0; }
@@ -12,6 +12,7 @@ try
     var context = new ToolContext(ToolContext.FindRoot());
     switch (args[0])
     {
+        case "selection-ci": SelectionCiCommand.Execute(context, args[1..]); break;
         case "contracts-ci": ContractsCiCommand.Execute(context,args[1..]); break;
         case "prepare-upstream": PrepareUpstreamCommand.Execute(context, args[1..]); break;
         case "logging-check" or "coverage-check" or "wave-check" or "typecheck" or "documentation": ValidationCommands.Execute(context, args[0], args[1..]); break;

@@ -55,6 +55,10 @@ RELATIONS:
   VALUE: tests/SharpTestBench.Tests/Selection45.cs
 - TYPE: File
   VALUE: tests/SharpTestBench.Tests/Selection50rest.cs
+- TYPE: File
+  VALUE: tests/ProtocolContracts/SelectionProfiles.cs
+- TYPE: File
+  VALUE: tools/SharpTestBench.Tools/SelectionCiCommand.cs
 
 [REQUIREMENT]
 UID: STB-SEL-002
@@ -80,6 +84,10 @@ RELATIONS:
   VALUE: tests/SharpTestBench.Tests/Selection45.cs
 - TYPE: File
   VALUE: tests/SharpTestBench.Tests/Selection50rest.cs
+- TYPE: File
+  VALUE: tests/ProtocolContracts/SelectionProfiles.cs
+- TYPE: File
+  VALUE: tools/SharpTestBench.Tools/SelectionCiCommand.cs
 
 [REQUIREMENT]
 UID: STB-SEL-003
@@ -97,6 +105,10 @@ RELATIONS:
   VALUE: tests/SharpTestBench.Tests/SelectionPlanning60.cs
 - TYPE: File
   VALUE: tests/SharpTestBench.Tests/SelectionPlanning62rest.cs
+- TYPE: File
+  VALUE: tests/ProtocolContracts/SelectionProfiles.cs
+- TYPE: File
+  VALUE: tools/SharpTestBench.Tools/SelectionCiCommand.cs
 
 [REQUIREMENT]
 UID: STB-SEL-004
@@ -110,6 +122,10 @@ RELATIONS:
   VALUE: src/SharpTestBench/RegressionSelection.cs
 - TYPE: File
   VALUE: tests/SharpTestBench.Tests/SelectionPlanning60.cs
+- TYPE: File
+  VALUE: tests/ProtocolContracts/SelectionProfiles.cs
+- TYPE: File
+  VALUE: tools/SharpTestBench.Tools/SelectionCiCommand.cs
 
 [REQUIREMENT]
 UID: STB-SEL-005
@@ -123,6 +139,10 @@ RELATIONS:
   VALUE: src/SharpTestBench/Regression.cs
 - TYPE: File
   VALUE: tests/SharpTestBench.Tests/SelectionPlanning60.cs
+- TYPE: File
+  VALUE: tests/ProtocolContracts/SelectionProfiles.cs
+- TYPE: File
+  VALUE: tools/SharpTestBench.Tools/SelectionCiCommand.cs
 
 [REQUIREMENT]
 UID: STB-SEL-006
@@ -138,6 +158,10 @@ RELATIONS:
   VALUE: tests/SharpTestBench.Tests/SelectionPlanning60.cs
 - TYPE: File
   VALUE: tests/SharpTestBench.Tests/SelectionPlanning62rest.cs
+- TYPE: File
+  VALUE: tests/ProtocolContracts/SelectionProfiles.cs
+- TYPE: File
+  VALUE: tools/SharpTestBench.Tools/SelectionCiCommand.cs
 
 [REQUIREMENT]
 UID: STB-EXP-001
@@ -271,6 +295,16 @@ RELATIONS:
   VALUE: tools/SharpTestBench.Tools/ProtocolContractInventory.cs
 - TYPE: File
   VALUE: tests/SharpTestBench.Tools.Tests/SelectionToolsProtocolInventory.cs
+- TYPE: File
+  VALUE: tests/ProtocolContracts/SelectionProfiles.cs
+- TYPE: File
+  VALUE: tools/SharpTestBench.Tools/SelectionCiCommand.cs
+- TYPE: File
+  VALUE: tests/SharpTestBench.Tools.Tests/SelectionToolsSelectionSummary.cs
+- TYPE: File
+  VALUE: tests/SharpTestBench.Tools.Tests/SelectionToolsCapture.cs
+- TYPE: File
+  VALUE: tests/SharpTestBench.Tools.Tests/SelectionToolsCompletion.cs
 
 [REQUIREMENT]
 UID: STB-VER-004

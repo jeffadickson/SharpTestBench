@@ -1,0 +1,3776 @@
+{
+  "windows": {
+    "managed": [
+      {
+        "suite": "SharpTestBench.Tests",
+        "total": 669,
+        "skipped": 0
+      },
+      {
+        "suite": "SharpTestBench.Generators.Tests",
+        "total": 17,
+        "skipped": 0
+      },
+      {
+        "suite": "SharpTestBench.Tools.Tests",
+        "total": 1269,
+        "skipped": 12
+      }
+    ],
+    "logSha256": "54362ad0aa0f48453c8438fb7622b094516f958f17ff323eccbfbe20dff5affd",
+    "exportAudit": {
+      "schemaVersion": 1,
+      "literalExports": 44,
+      "reviewedExports": 30,
+      "unreviewedExports": 14,
+      "note": "Bounded literal __all__ review only. Other modules, dynamic names and runtime import behavior are unmeasured; counts are not parity percentages."
+    },
+    "exportAuditSha256": "03cd6d8f15359345a9354dc1a830281fe9caa3a6706e44da80279d10e1715331",
+    "exportReviewSha256": "243187bdab67f37c54a76ee40585fb8ca7caf4125f28682853613bbd633fda81",
+    "newProtocolIcarus": {
+      "schemaVersion": 1,
+      "legacy": [
+        [
+          "Entry.R001_ZeroBytePacket",
+          "passed"
+        ],
+        [
+          "Entry.R002_AllOnesBytePacket",
+          "passed"
+        ],
+        [
+          "Entry.R003_PublishedCheckVector",
+          "passed"
+        ],
+        [
+          "Entry.R004_MostSignificantBitPacket",
+          "passed"
+        ],
+        [
+          "Entry.R005_LeastSignificantBitPacket",
+          "passed"
+        ],
+        [
+          "Entry.R006_EachBitAsItsOwnPacket",
+          "passed"
+        ],
+        [
+          "Entry.R007_AllByteValuesOnePacket",
+          "passed"
+        ],
+        [
+          "Entry.R008_ZeroRunKeepsPolynomialZero",
+          "passed"
+        ],
+        [
+          "Entry.R009_OnesRunAccumulatesAcrossBytes",
+          "passed"
+        ],
+        [
+          "Entry.R010_AlternatingBitOrder",
+          "passed"
+        ],
+        [
+          "Entry.R011_AdjacentPacketBoundariesResetAccumulator",
+          "passed"
+        ],
+        [
+          "Entry.R012_SeededPacketLengthsAndPayloads",
+          "passed"
+        ],
+        [
+          "Entry.R013_ContinuousAcceptedBurst",
+          "passed"
+        ],
+        [
+          "Entry.R014_SourceGapsDoNotAdvancePacket",
+          "passed"
+        ],
+        [
+          "Entry.R015_SinkBackpressureHoldsCompleteWord",
+          "passed"
+        ],
+        [
+          "Entry.R016_IndependentSourceAndSinkGaps",
+          "passed"
+        ],
+        [
+          "Entry.R017_LastWordIsHeldUnderBackpressure",
+          "passed"
+        ],
+        [
+          "Entry.R018_LengthCrossesEightBitBoundary",
+          "passed"
+        ],
+        [
+          "Entry.R019_ResetEmptyStage",
+          "passed"
+        ],
+        [
+          "Entry.R020_ResetDiscardsFullStage",
+          "passed"
+        ],
+        [
+          "Entry.R021_ResetOverridesStalledLast",
+          "passed"
+        ],
+        [
+          "Entry.R022_BackToBackSingleBytePackets",
+          "passed"
+        ],
+        [
+          "Entry.R023_InvalidLastCannotResetPacket",
+          "passed"
+        ],
+        [
+          "Entry.R024_InvalidDataCannotEnterAccumulator",
+          "passed"
+        ],
+        [
+          "Entry.R025_BlockedInputChangesCannotCorruptHeldOutput",
+          "passed"
+        ],
+        [
+          "Entry.R026_CrcOracleRejectsWrongRemainder",
+          "passed"
+        ],
+        [
+          "Entry.R027_DataOracleRejectsCorruptedPayload",
+          "passed"
+        ],
+        [
+          "Entry.R028_LengthOracleRejectsCountingBubbles",
+          "passed"
+        ],
+        [
+          "Entry.R029_LastOracleRejectsBoundaryLoss",
+          "passed"
+        ],
+        [
+          "Entry.R030_NegativeProbeDoesNotPoisonLaterPacket",
+          "passed"
+        ],
+        [
+          "Entry.R031_OneValidPulseProducesExactlyOneDelivery",
+          "passed"
+        ],
+        [
+          "Entry.R032_DifferentPacketLengthsRestartAtOne",
+          "passed"
+        ],
+        [
+          "Entry.R033_NoRequestProducesNoGrant",
+          "passed"
+        ],
+        [
+          "Entry.R034_PortZeroCanWinAlone",
+          "passed"
+        ],
+        [
+          "Entry.R035_PortOneCanWinAlone",
+          "passed"
+        ],
+        [
+          "Entry.R036_PortTwoCanWinAlone",
+          "passed"
+        ],
+        [
+          "Entry.R037_PortThreeCanWinAlone",
+          "passed"
+        ],
+        [
+          "Entry.R038_AllRequestsRotateInLiteralOrder",
+          "passed"
+        ],
+        [
+          "Entry.R039_TwoContendersAlternate",
+          "passed"
+        ],
+        [
+          "Entry.R040_LastPortWrapsToPortZero",
+          "passed"
+        ],
+        [
+          "Entry.R041_NoAcknowledgeKeepsPriority",
+          "passed"
+        ],
+        [
+          "Entry.R042_DisableSuppressesAllGrants",
+          "passed"
+        ],
+        [
+          "Entry.R043_DisabledAcknowledgeCannotRotate",
+          "passed"
+        ],
+        [
+          "Entry.R044_EmptyAcknowledgementCannotRotate",
+          "passed"
+        ],
+        [
+          "Entry.R045_RequestWithdrawalReselectsWithoutOwnerLock",
+          "passed"
+        ],
+        [
+          "Entry.R046_LateRequestUsesCurrentPriority",
+          "passed"
+        ],
+        [
+          "Entry.R047_AllRequestMasksAtEveryPointer",
+          "passed"
+        ],
+        [
+          "Entry.R048_SeededRequestEnableAckInterleaving",
+          "passed"
+        ],
+        [
+          "Entry.R049_PersistentRequestsBoundServiceToFourAcks",
+          "passed"
+        ],
+        [
+          "Entry.R050_ResetRestartsAtPortZero",
+          "passed"
+        ],
+        [
+          "Entry.R051_ResetDominatesAcknowledgement",
+          "passed"
+        ],
+        [
+          "Entry.R052_NativePriorityFaultIsDetectedAndRestored",
+          "passed"
+        ],
+        [
+          "Entry.R053_ResetClearsEveryWordAndOutput",
+          "passed"
+        ],
+        [
+          "Entry.R054_FullWordWriteAtEveryAddress",
+          "passed"
+        ],
+        [
+          "Entry.R055_LowByteWritePreservesHighLane",
+          "passed"
+        ],
+        [
+          "Entry.R056_HighByteWritePreservesLowLane",
+          "passed"
+        ],
+        [
+          "Entry.R057_ZeroMaskCannotChangeStoredWord",
+          "passed"
+        ],
+        [
+          "Entry.R058_WriteDisableDominatesAllByteEnables",
+          "passed"
+        ],
+        [
+          "Entry.R059_ReadDisableHoldsPriorOutput",
+          "passed"
+        ],
+        [
+          "Entry.R060_ReadIsSynchronousRatherThanCombinational",
+          "passed"
+        ],
+        [
+          "Entry.R061_SameAddressCollisionReadsOldWord",
+          "passed"
+        ],
+        [
+          "Entry.R062_WritingOneAddressCannotModifyNeighbors",
+          "passed"
+        ],
+        [
+          "Entry.R063_ResetDominatesConcurrentReadAndWrite",
+          "passed"
+        ],
+        [
+          "Entry.R064_ResetClearsHeldReadOutput",
+          "passed"
+        ],
+        [
+          "Entry.R065_AlternatingLaneUpdatesComposeOneWord",
+          "passed"
+        ],
+        [
+          "Entry.R066_SeededMixedBankOperations",
+          "passed"
+        ],
+        [
+          "Entry.R067_FirstAndLastAddressesDoNotAlias",
+          "passed"
+        ],
+        [
+          "Entry.R068_ZeroAndOnesLaneDataCanOverwriteEveryBit",
+          "passed"
+        ],
+        [
+          "Entry.R069_OracleRejectsSwappedByteLanes",
+          "passed"
+        ],
+        [
+          "Entry.R070_AfterNegativeProbeLaterWriteAndReadRecover",
+          "passed"
+        ]
+      ],
+      "native": [
+        [
+          "Entry.R001_ZeroBytePacket",
+          "passed"
+        ],
+        [
+          "Entry.R002_AllOnesBytePacket",
+          "passed"
+        ],
+        [
+          "Entry.R003_PublishedCheckVector",
+          "passed"
+        ],
+        [
+          "Entry.R004_MostSignificantBitPacket",
+          "passed"
+        ],
+        [
+          "Entry.R005_LeastSignificantBitPacket",
+          "passed"
+        ],
+        [
+          "Entry.R006_EachBitAsItsOwnPacket",
+          "passed"
+        ],
+        [
+          "Entry.R007_AllByteValuesOnePacket",
+          "passed"
+        ],
+        [
+          "Entry.R008_ZeroRunKeepsPolynomialZero",
+          "passed"
+        ],
+        [
+          "Entry.R009_OnesRunAccumulatesAcrossBytes",
+          "passed"
+        ],
+        [
+          "Entry.R010_AlternatingBitOrder",
+          "passed"
+        ],
+        [
+          "Entry.R011_AdjacentPacketBoundariesResetAccumulator",
+          "passed"
+        ],
+        [
+          "Entry.R012_SeededPacketLengthsAndPayloads",
+          "passed"
+        ],
+        [
+          "Entry.R013_ContinuousAcceptedBurst",
+          "passed"
+        ],
+        [
+          "Entry.R014_SourceGapsDoNotAdvancePacket",
+          "passed"
+        ],
+        [
+          "Entry.R015_SinkBackpressureHoldsCompleteWord",
+          "passed"
+        ],
+        [
+          "Entry.R016_IndependentSourceAndSinkGaps",
+          "passed"
+        ],
+        [
+          "Entry.R017_LastWordIsHeldUnderBackpressure",
+          "passed"
+        ],
+        [
+          "Entry.R018_LengthCrossesEightBitBoundary",
+          "passed"
+        ],
+        [
+          "Entry.R019_ResetEmptyStage",
+          "passed"
+        ],
+        [
+          "Entry.R020_ResetDiscardsFullStage",
+          "passed"
+        ],
+        [
+          "Entry.R021_ResetOverridesStalledLast",
+          "passed"
+        ],
+        [
+          "Entry.R022_BackToBackSingleBytePackets",
+          "passed"
+        ],
+        [
+          "Entry.R023_InvalidLastCannotResetPacket",
+          "passed"
+        ],
+        [
+          "Entry.R024_InvalidDataCannotEnterAccumulator",
+          "passed"
+        ],
+        [
+          "Entry.R025_BlockedInputChangesCannotCorruptHeldOutput",
+          "passed"
+        ],
+        [
+          "Entry.R026_CrcOracleRejectsWrongRemainder",
+          "passed"
+        ],
+        [
+          "Entry.R027_DataOracleRejectsCorruptedPayload",
+          "passed"
+        ],
+        [
+          "Entry.R028_LengthOracleRejectsCountingBubbles",
+          "passed"
+        ],
+        [
+          "Entry.R029_LastOracleRejectsBoundaryLoss",
+          "passed"
+        ],
+        [
+          "Entry.R030_NegativeProbeDoesNotPoisonLaterPacket",
+          "passed"
+        ],
+        [
+          "Entry.R031_OneValidPulseProducesExactlyOneDelivery",
+          "passed"
+        ],
+        [
+          "Entry.R032_DifferentPacketLengthsRestartAtOne",
+          "passed"
+        ],
+        [
+          "Entry.R033_NoRequestProducesNoGrant",
+          "passed"
+        ],
+        [
+          "Entry.R034_PortZeroCanWinAlone",
+          "passed"
+        ],
+        [
+          "Entry.R035_PortOneCanWinAlone",
+          "passed"
+        ],
+        [
+          "Entry.R036_PortTwoCanWinAlone",
+          "passed"
+        ],
+        [
+          "Entry.R037_PortThreeCanWinAlone",
+          "passed"
+        ],
+        [
+          "Entry.R038_AllRequestsRotateInLiteralOrder",
+          "passed"
+        ],
+        [
+          "Entry.R039_TwoContendersAlternate",
+          "passed"
+        ],
+        [
+          "Entry.R040_LastPortWrapsToPortZero",
+          "passed"
+        ],
+        [
+          "Entry.R041_NoAcknowledgeKeepsPriority",
+          "passed"
+        ],
+        [
+          "Entry.R042_DisableSuppressesAllGrants",
+          "passed"
+        ],
+        [
+          "Entry.R043_DisabledAcknowledgeCannotRotate",
+          "passed"
+        ],
+        [
+          "Entry.R044_EmptyAcknowledgementCannotRotate",
+          "passed"
+        ],
+        [
+          "Entry.R045_RequestWithdrawalReselectsWithoutOwnerLock",
+          "passed"
+        ],
+        [
+          "Entry.R046_LateRequestUsesCurrentPriority",
+          "passed"
+        ],
+        [
+          "Entry.R047_AllRequestMasksAtEveryPointer",
+          "passed"
+        ],
+        [
+          "Entry.R048_SeededRequestEnableAckInterleaving",
+          "passed"
+        ],
+        [
+          "Entry.R049_PersistentRequestsBoundServiceToFourAcks",
+          "passed"
+        ],
+        [
+          "Entry.R050_ResetRestartsAtPortZero",
+          "passed"
+        ],
+        [
+          "Entry.R051_ResetDominatesAcknowledgement",
+          "passed"
+        ],
+        [
+          "Entry.R052_NativePriorityFaultIsDetectedAndRestored",
+          "passed"
+        ],
+        [
+          "Entry.R053_ResetClearsEveryWordAndOutput",
+          "passed"
+        ],
+        [
+          "Entry.R054_FullWordWriteAtEveryAddress",
+          "passed"
+        ],
+        [
+          "Entry.R055_LowByteWritePreservesHighLane",
+          "passed"
+        ],
+        [
+          "Entry.R056_HighByteWritePreservesLowLane",
+          "passed"
+        ],
+        [
+          "Entry.R057_ZeroMaskCannotChangeStoredWord",
+          "passed"
+        ],
+        [
+          "Entry.R058_WriteDisableDominatesAllByteEnables",
+          "passed"
+        ],
+        [
+          "Entry.R059_ReadDisableHoldsPriorOutput",
+          "passed"
+        ],
+        [
+          "Entry.R060_ReadIsSynchronousRatherThanCombinational",
+          "passed"
+        ],
+        [
+          "Entry.R061_SameAddressCollisionReadsOldWord",
+          "passed"
+        ],
+        [
+          "Entry.R062_WritingOneAddressCannotModifyNeighbors",
+          "passed"
+        ],
+        [
+          "Entry.R063_ResetDominatesConcurrentReadAndWrite",
+          "passed"
+        ],
+        [
+          "Entry.R064_ResetClearsHeldReadOutput",
+          "passed"
+        ],
+        [
+          "Entry.R065_AlternatingLaneUpdatesComposeOneWord",
+          "passed"
+        ],
+        [
+          "Entry.R066_SeededMixedBankOperations",
+          "passed"
+        ],
+        [
+          "Entry.R067_FirstAndLastAddressesDoNotAlias",
+          "passed"
+        ],
+        [
+          "Entry.R068_ZeroAndOnesLaneDataCanOverwriteEveryBit",
+          "passed"
+        ],
+        [
+          "Entry.R069_OracleRejectsSwappedByteLanes",
+          "passed"
+        ],
+        [
+          "Entry.R070_AfterNegativeProbeLaterWriteAndReadRecover",
+          "passed"
+        ]
+      ],
+      "expected": [
+        "Entry.R001_ZeroBytePacket",
+        "Entry.R002_AllOnesBytePacket",
+        "Entry.R003_PublishedCheckVector",
+        "Entry.R004_MostSignificantBitPacket",
+        "Entry.R005_LeastSignificantBitPacket",
+        "Entry.R006_EachBitAsItsOwnPacket",
+        "Entry.R007_AllByteValuesOnePacket",
+        "Entry.R008_ZeroRunKeepsPolynomialZero",
+        "Entry.R009_OnesRunAccumulatesAcrossBytes",
+        "Entry.R010_AlternatingBitOrder",
+        "Entry.R011_AdjacentPacketBoundariesResetAccumulator",
+        "Entry.R012_SeededPacketLengthsAndPayloads",
+        "Entry.R013_ContinuousAcceptedBurst",
+        "Entry.R014_SourceGapsDoNotAdvancePacket",
+        "Entry.R015_SinkBackpressureHoldsCompleteWord",
+        "Entry.R016_IndependentSourceAndSinkGaps",
+        "Entry.R017_LastWordIsHeldUnderBackpressure",
+        "Entry.R018_LengthCrossesEightBitBoundary",
+        "Entry.R019_ResetEmptyStage",
+        "Entry.R020_ResetDiscardsFullStage",
+        "Entry.R021_ResetOverridesStalledLast",
+        "Entry.R022_BackToBackSingleBytePackets",
+        "Entry.R023_InvalidLastCannotResetPacket",
+        "Entry.R024_InvalidDataCannotEnterAccumulator",
+        "Entry.R025_BlockedInputChangesCannotCorruptHeldOutput",
+        "Entry.R026_CrcOracleRejectsWrongRemainder",
+        "Entry.R027_DataOracleRejectsCorruptedPayload",
+        "Entry.R028_LengthOracleRejectsCountingBubbles",
+        "Entry.R029_LastOracleRejectsBoundaryLoss",
+        "Entry.R030_NegativeProbeDoesNotPoisonLaterPacket",
+        "Entry.R031_OneValidPulseProducesExactlyOneDelivery",
+        "Entry.R032_DifferentPacketLengthsRestartAtOne",
+        "Entry.R033_NoRequestProducesNoGrant",
+        "Entry.R034_PortZeroCanWinAlone",
+        "Entry.R035_PortOneCanWinAlone",
+        "Entry.R036_PortTwoCanWinAlone",
+        "Entry.R037_PortThreeCanWinAlone",
+        "Entry.R038_AllRequestsRotateInLiteralOrder",
+        "Entry.R039_TwoContendersAlternate",
+        "Entry.R040_LastPortWrapsToPortZero",
+        "Entry.R041_NoAcknowledgeKeepsPriority",
+        "Entry.R042_DisableSuppressesAllGrants",
+        "Entry.R043_DisabledAcknowledgeCannotRotate",
+        "Entry.R044_EmptyAcknowledgementCannotRotate",
+        "Entry.R045_RequestWithdrawalReselectsWithoutOwnerLock",
+        "Entry.R046_LateRequestUsesCurrentPriority",
+        "Entry.R047_AllRequestMasksAtEveryPointer",
+        "Entry.R048_SeededRequestEnableAckInterleaving",
+        "Entry.R049_PersistentRequestsBoundServiceToFourAcks",
+        "Entry.R050_ResetRestartsAtPortZero",
+        "Entry.R051_ResetDominatesAcknowledgement",
+        "Entry.R052_NativePriorityFaultIsDetectedAndRestored",
+        "Entry.R053_ResetClearsEveryWordAndOutput",
+        "Entry.R054_FullWordWriteAtEveryAddress",
+        "Entry.R055_LowByteWritePreservesHighLane",
+        "Entry.R056_HighByteWritePreservesLowLane",
+        "Entry.R057_ZeroMaskCannotChangeStoredWord",
+        "Entry.R058_WriteDisableDominatesAllByteEnables",
+        "Entry.R059_ReadDisableHoldsPriorOutput",
+        "Entry.R060_ReadIsSynchronousRatherThanCombinational",
+        "Entry.R061_SameAddressCollisionReadsOldWord",
+        "Entry.R062_WritingOneAddressCannotModifyNeighbors",
+        "Entry.R063_ResetDominatesConcurrentReadAndWrite",
+        "Entry.R064_ResetClearsHeldReadOutput",
+        "Entry.R065_AlternatingLaneUpdatesComposeOneWord",
+        "Entry.R066_SeededMixedBankOperations",
+        "Entry.R067_FirstAndLastAddressesDoNotAlias",
+        "Entry.R068_ZeroAndOnesLaneDataCanOverwriteEveryBit",
+        "Entry.R069_OracleRejectsSwappedByteLanes",
+        "Entry.R070_AfterNegativeProbeLaterWriteAndReadRecover"
+      ],
+      "missing": {
+        "legacy": [],
+        "native": []
+      },
+      "unexpected": {
+        "legacy": [],
+        "native": []
+      },
+      "seedMismatches": [],
+      "matched": true,
+      "expectedSeedMatched": true,
+      "exitCodes": {
+        "legacy": 0,
+        "native": 0
+      },
+      "contracts": 70,
+      "fixture": "protocol-contracts"
+    },
+    "protocolLogSha256": "0cdf1c54fad7bfc745626a6886717f855c71b737699f08bace87b9de32ddd31c",
+    "selectionRecipes": {
+      "schemaVersion": 1,
+      "matched": true,
+      "recipes": 30,
+      "deployment": "managed",
+      "nativeRunnerSha256": "706aa438bef351c2f8273c9f40fd4e949e77d23ff696f845a07bb908bf100dd1",
+      "runtimeAssemblySha256": "e4522ab82775c4adbd699b1153b4db804a579c56839f5a759712bf3fca98234a",
+      "scenarios": [
+        {
+          "schemaVersion": 1,
+          "matched": true,
+          "negativeControl": false,
+          "qualification": "selection-recipe",
+          "recipe": 1,
+          "name": "qualified substring search",
+          "seed": 83,
+          "expectedNames": [
+            "ProbeCases.A_Pass",
+            "ProbeSibling.A_Pass"
+          ],
+          "expectedSeeds": {
+            "ProbeCases.A_Pass": 153,
+            "ProbeSibling.A_Pass": 165
+          },
+          "expectedBodies": [
+            "ProbeCases.A_Pass",
+            "ProbeSibling.A_Pass"
+          ],
+          "exitCodes": {
+            "legacy": 0,
+            "native": 0
+          },
+          "expectedExitCodes": {
+            "legacy": 0,
+            "native": 0
+          },
+          "listOnly": false,
+          "processBoundariesMatched": true,
+          "producerInputsMatched": true,
+          "nativeCompletionMatched": true,
+          "nativeRunnerSha256": "706aa438bef351c2f8273c9f40fd4e949e77d23ff696f845a07bb908bf100dd1",
+          "runtimeAssemblySha256": "e4522ab82775c4adbd699b1153b4db804a579c56839f5a759712bf3fca98234a",
+          "deployment": "managed",
+          "note": "Verified recipe outcomes include strict-attestation failure boundaries; this is not an all-passed or identical-exit-code claim."
+        },
+        {
+          "schemaVersion": 1,
+          "matched": true,
+          "negativeControl": false,
+          "qualification": "selection-recipe",
+          "recipe": 2,
+          "name": "anchored qualified identity",
+          "seed": 83,
+          "expectedNames": [
+            "ProbeCases.A_Pass"
+          ],
+          "expectedSeeds": {
+            "ProbeCases.A_Pass": 153
+          },
+          "expectedBodies": [
+            "ProbeCases.A_Pass"
+          ],
+          "exitCodes": {
+            "legacy": 0,
+            "native": 0
+          },
+          "expectedExitCodes": {
+            "legacy": 0,
+            "native": 0
+          },
+          "listOnly": false,
+          "processBoundariesMatched": true,
+          "producerInputsMatched": true,
+          "nativeCompletionMatched": true,
+          "nativeRunnerSha256": "706aa438bef351c2f8273c9f40fd4e949e77d23ff696f845a07bb908bf100dd1",
+          "runtimeAssemblySha256": "e4522ab82775c4adbd699b1153b4db804a579c56839f5a759712bf3fca98234a",
+          "deployment": "managed",
+          "note": "Verified recipe outcomes include strict-attestation failure boundaries; this is not an all-passed or identical-exit-code claim."
+        },
+        {
+          "schemaVersion": 1,
+          "matched": true,
+          "negativeControl": false,
+          "qualification": "selection-recipe",
+          "recipe": 3,
+          "name": "regex alternation",
+          "seed": 83,
+          "expectedNames": [
+            "ProbeCases.A_Pass",
+            "ProbeSibling.A_Pass"
+          ],
+          "expectedSeeds": {
+            "ProbeCases.A_Pass": 153,
+            "ProbeSibling.A_Pass": 165
+          },
+          "expectedBodies": [
+            "ProbeCases.A_Pass",
+            "ProbeSibling.A_Pass"
+          ],
+          "exitCodes": {
+            "legacy": 0,
+            "native": 0
+          },
+          "expectedExitCodes": {
+            "legacy": 0,
+            "native": 0
+          },
+          "listOnly": false,
+          "processBoundariesMatched": true,
+          "producerInputsMatched": true,
+          "nativeCompletionMatched": true,
+          "nativeRunnerSha256": "706aa438bef351c2f8273c9f40fd4e949e77d23ff696f845a07bb908bf100dd1",
+          "runtimeAssemblySha256": "e4522ab82775c4adbd699b1153b4db804a579c56839f5a759712bf3fca98234a",
+          "deployment": "managed",
+          "note": "Verified recipe outcomes include strict-attestation failure boundaries; this is not an all-passed or identical-exit-code claim."
+        },
+        {
+          "schemaVersion": 1,
+          "matched": true,
+          "negativeControl": false,
+          "qualification": "selection-recipe",
+          "recipe": 4,
+          "name": "disjoint pattern OR",
+          "seed": 83,
+          "expectedNames": [
+            "ProbeCases.A_Pass",
+            "ProbeCases.D_Param[1]"
+          ],
+          "expectedSeeds": {
+            "ProbeCases.A_Pass": 153,
+            "ProbeCases.D_Param[1]": 157
+          },
+          "expectedBodies": [
+            "ProbeCases.A_Pass",
+            "ProbeCases.D_Param[1]"
+          ],
+          "exitCodes": {
+            "legacy": 0,
+            "native": 0
+          },
+          "expectedExitCodes": {
+            "legacy": 0,
+            "native": 0
+          },
+          "listOnly": false,
+          "processBoundariesMatched": true,
+          "producerInputsMatched": true,
+          "nativeCompletionMatched": true,
+          "nativeRunnerSha256": "706aa438bef351c2f8273c9f40fd4e949e77d23ff696f845a07bb908bf100dd1",
+          "runtimeAssemblySha256": "e4522ab82775c4adbd699b1153b4db804a579c56839f5a759712bf3fca98234a",
+          "deployment": "managed",
+          "note": "Verified recipe outcomes include strict-attestation failure boundaries; this is not an all-passed or identical-exit-code claim."
+        },
+        {
+          "schemaVersion": 1,
+          "matched": true,
+          "negativeControl": false,
+          "qualification": "selection-recipe",
+          "recipe": 5,
+          "name": "same short name in sibling type",
+          "seed": 83,
+          "expectedNames": [
+            "ProbeSibling.A_Pass"
+          ],
+          "expectedSeeds": {
+            "ProbeSibling.A_Pass": 165
+          },
+          "expectedBodies": [
+            "ProbeSibling.A_Pass"
+          ],
+          "exitCodes": {
+            "legacy": 0,
+            "native": 0
+          },
+          "expectedExitCodes": {
+            "legacy": 0,
+            "native": 0
+          },
+          "listOnly": false,
+          "processBoundariesMatched": true,
+          "producerInputsMatched": true,
+          "nativeCompletionMatched": true,
+          "nativeRunnerSha256": "706aa438bef351c2f8273c9f40fd4e949e77d23ff696f845a07bb908bf100dd1",
+          "runtimeAssemblySha256": "e4522ab82775c4adbd699b1153b4db804a579c56839f5a759712bf3fca98234a",
+          "deployment": "managed",
+          "note": "Verified recipe outcomes include strict-attestation failure boundaries; this is not an all-passed or identical-exit-code claim."
+        },
+        {
+          "schemaVersion": 1,
+          "matched": true,
+          "negativeControl": false,
+          "qualification": "selection-recipe",
+          "recipe": 6,
+          "name": "parameter suffix selection",
+          "seed": 83,
+          "expectedNames": [
+            "ProbeCases.D_Param[1]"
+          ],
+          "expectedSeeds": {
+            "ProbeCases.D_Param[1]": 157
+          },
+          "expectedBodies": [
+            "ProbeCases.D_Param[1]"
+          ],
+          "exitCodes": {
+            "legacy": 0,
+            "native": 0
+          },
+          "expectedExitCodes": {
+            "legacy": 0,
+            "native": 0
+          },
+          "listOnly": false,
+          "processBoundariesMatched": true,
+          "producerInputsMatched": true,
+          "nativeCompletionMatched": true,
+          "nativeRunnerSha256": "706aa438bef351c2f8273c9f40fd4e949e77d23ff696f845a07bb908bf100dd1",
+          "runtimeAssemblySha256": "e4522ab82775c4adbd699b1153b4db804a579c56839f5a759712bf3fca98234a",
+          "deployment": "managed",
+          "note": "Verified recipe outcomes include strict-attestation failure boundaries; this is not an all-passed or identical-exit-code claim."
+        },
+        {
+          "schemaVersion": 1,
+          "matched": true,
+          "negativeControl": false,
+          "qualification": "selection-recipe",
+          "recipe": 7,
+          "name": "unsigned seed wrap including zero",
+          "seed": 18446744073709551615,
+          "expectedNames": [
+            "Entry.R001_ZeroBytePacket",
+            "Entry.R002_AllOnesBytePacket",
+            "ProbeCases.D_Param[0]",
+            "ProbeCases.D_Param[1]"
+          ],
+          "expectedSeeds": {
+            "Entry.R001_ZeroBytePacket": 18446744073709551615,
+            "Entry.R002_AllOnesBytePacket": 0,
+            "ProbeCases.D_Param[0]": 72,
+            "ProbeCases.D_Param[1]": 73
+          },
+          "expectedBodies": [
+            "ProbeCases.D_Param[0]",
+            "ProbeCases.D_Param[1]"
+          ],
+          "exitCodes": {
+            "legacy": 0,
+            "native": 0
+          },
+          "expectedExitCodes": {
+            "legacy": 0,
+            "native": 0
+          },
+          "listOnly": false,
+          "processBoundariesMatched": true,
+          "producerInputsMatched": true,
+          "nativeCompletionMatched": true,
+          "nativeRunnerSha256": "706aa438bef351c2f8273c9f40fd4e949e77d23ff696f845a07bb908bf100dd1",
+          "runtimeAssemblySha256": "e4522ab82775c4adbd699b1153b4db804a579c56839f5a759712bf3fca98234a",
+          "deployment": "managed",
+          "note": "Verified recipe outcomes include strict-attestation failure boundaries; this is not an all-passed or identical-exit-code claim."
+        },
+        {
+          "schemaVersion": 1,
+          "matched": true,
+          "negativeControl": false,
+          "qualification": "selection-recipe",
+          "recipe": 8,
+          "name": "invariant inline ignore-case under Turkish locale",
+          "seed": 83,
+          "expectedNames": [
+            "ProbeCases.I_Case"
+          ],
+          "expectedSeeds": {
+            "ProbeCases.I_Case": 162
+          },
+          "expectedBodies": [
+            "ProbeCases.I_Case"
+          ],
+          "exitCodes": {
+            "legacy": 0,
+            "native": 0
+          },
+          "expectedExitCodes": {
+            "legacy": 0,
+            "native": 0
+          },
+          "listOnly": false,
+          "processBoundariesMatched": true,
+          "producerInputsMatched": true,
+          "nativeCompletionMatched": true,
+          "nativeRunnerSha256": "706aa438bef351c2f8273c9f40fd4e949e77d23ff696f845a07bb908bf100dd1",
+          "runtimeAssemblySha256": "e4522ab82775c4adbd699b1153b4db804a579c56839f5a759712bf3fca98234a",
+          "deployment": "managed",
+          "note": "Verified recipe outcomes include strict-attestation failure boundaries; this is not an all-passed or identical-exit-code claim."
+        },
+        {
+          "schemaVersion": 1,
+          "matched": true,
+          "negativeControl": false,
+          "qualification": "selection-recipe",
+          "recipe": 9,
+          "name": "Unicode qualified identity",
+          "seed": 83,
+          "expectedNames": [
+            "ProbeCases.\u03A9_Unicode"
+          ],
+          "expectedSeeds": {
+            "ProbeCases.\u03A9_Unicode": 163
+          },
+          "expectedBodies": [
+            "ProbeCases.\u03A9_Unicode"
+          ],
+          "exitCodes": {
+            "legacy": 0,
+            "native": 0
+          },
+          "expectedExitCodes": {
+            "legacy": 0,
+            "native": 0
+          },
+          "listOnly": false,
+          "processBoundariesMatched": true,
+          "producerInputsMatched": true,
+          "nativeCompletionMatched": true,
+          "nativeRunnerSha256": "706aa438bef351c2f8273c9f40fd4e949e77d23ff696f845a07bb908bf100dd1",
+          "runtimeAssemblySha256": "e4522ab82775c4adbd699b1153b4db804a579c56839f5a759712bf3fca98234a",
+          "deployment": "managed",
+          "note": "Verified recipe outcomes include strict-attestation failure boundaries; this is not an all-passed or identical-exit-code claim."
+        },
+        {
+          "schemaVersion": 1,
+          "matched": true,
+          "negativeControl": false,
+          "qualification": "selection-recipe",
+          "recipe": 10,
+          "name": "qualified lookbehind",
+          "seed": 83,
+          "expectedNames": [
+            "ProbeCases.A_Pass"
+          ],
+          "expectedSeeds": {
+            "ProbeCases.A_Pass": 153
+          },
+          "expectedBodies": [
+            "ProbeCases.A_Pass"
+          ],
+          "exitCodes": {
+            "legacy": 0,
+            "native": 0
+          },
+          "expectedExitCodes": {
+            "legacy": 0,
+            "native": 0
+          },
+          "listOnly": false,
+          "processBoundariesMatched": true,
+          "producerInputsMatched": true,
+          "nativeCompletionMatched": true,
+          "nativeRunnerSha256": "706aa438bef351c2f8273c9f40fd4e949e77d23ff696f845a07bb908bf100dd1",
+          "runtimeAssemblySha256": "e4522ab82775c4adbd699b1153b4db804a579c56839f5a759712bf3fca98234a",
+          "deployment": "managed",
+          "note": "Verified recipe outcomes include strict-attestation failure boundaries; this is not an all-passed or identical-exit-code claim."
+        },
+        {
+          "schemaVersion": 1,
+          "matched": true,
+          "negativeControl": false,
+          "qualification": "selection-recipe",
+          "recipe": 11,
+          "name": "negative lookahead",
+          "seed": 83,
+          "expectedNames": [
+            "ProbeCases.A_Pass",
+            "ProbeCases.D_Param[0]",
+            "ProbeCases.D_Param[1]"
+          ],
+          "expectedSeeds": {
+            "ProbeCases.A_Pass": 153,
+            "ProbeCases.D_Param[0]": 156,
+            "ProbeCases.D_Param[1]": 157
+          },
+          "expectedBodies": [
+            "ProbeCases.A_Pass",
+            "ProbeCases.D_Param[0]",
+            "ProbeCases.D_Param[1]"
+          ],
+          "exitCodes": {
+            "legacy": 0,
+            "native": 0
+          },
+          "expectedExitCodes": {
+            "legacy": 0,
+            "native": 0
+          },
+          "listOnly": false,
+          "processBoundariesMatched": true,
+          "producerInputsMatched": true,
+          "nativeCompletionMatched": true,
+          "nativeRunnerSha256": "706aa438bef351c2f8273c9f40fd4e949e77d23ff696f845a07bb908bf100dd1",
+          "runtimeAssemblySha256": "e4522ab82775c4adbd699b1153b4db804a579c56839f5a759712bf3fca98234a",
+          "deployment": "managed",
+          "note": "Verified recipe outcomes include strict-attestation failure boundaries; this is not an all-passed or identical-exit-code claim."
+        },
+        {
+          "schemaVersion": 1,
+          "matched": true,
+          "negativeControl": false,
+          "qualification": "selection-recipe",
+          "recipe": 12,
+          "name": "escaped nested type separator",
+          "seed": 83,
+          "expectedNames": [
+            "ProbeContainer\u002BNested.A_Same"
+          ],
+          "expectedSeeds": {
+            "ProbeContainer\u002BNested.A_Same": 164
+          },
+          "expectedBodies": [
+            "ProbeContainer\u002BNested.A_Same"
+          ],
+          "exitCodes": {
+            "legacy": 0,
+            "native": 0
+          },
+          "expectedExitCodes": {
+            "legacy": 0,
+            "native": 0
+          },
+          "listOnly": false,
+          "processBoundariesMatched": true,
+          "producerInputsMatched": true,
+          "nativeCompletionMatched": true,
+          "nativeRunnerSha256": "706aa438bef351c2f8273c9f40fd4e949e77d23ff696f845a07bb908bf100dd1",
+          "runtimeAssemblySha256": "e4522ab82775c4adbd699b1153b4db804a579c56839f5a759712bf3fca98234a",
+          "deployment": "managed",
+          "note": "Verified recipe outcomes include strict-attestation failure boundaries; this is not an all-passed or identical-exit-code claim."
+        },
+        {
+          "schemaVersion": 1,
+          "matched": true,
+          "negativeControl": false,
+          "qualification": "selection-recipe",
+          "recipe": 13,
+          "name": "Testcase overrides declared skip",
+          "seed": 83,
+          "expectedNames": [
+            "ProbeCases.B_ExplicitSkip"
+          ],
+          "expectedSeeds": {
+            "ProbeCases.B_ExplicitSkip": 154
+          },
+          "expectedBodies": [
+            "ProbeCases.B_ExplicitSkip"
+          ],
+          "exitCodes": {
+            "legacy": 0,
+            "native": 0
+          },
+          "expectedExitCodes": {
+            "legacy": 0,
+            "native": 0
+          },
+          "listOnly": false,
+          "processBoundariesMatched": true,
+          "producerInputsMatched": true,
+          "nativeCompletionMatched": true,
+          "nativeRunnerSha256": "706aa438bef351c2f8273c9f40fd4e949e77d23ff696f845a07bb908bf100dd1",
+          "runtimeAssemblySha256": "e4522ab82775c4adbd699b1153b4db804a579c56839f5a759712bf3fca98234a",
+          "deployment": "managed",
+          "note": "Verified recipe outcomes include strict-attestation failure boundaries; this is not an all-passed or identical-exit-code claim."
+        },
+        {
+          "schemaVersion": 1,
+          "matched": true,
+          "negativeControl": false,
+          "qualification": "selection-recipe",
+          "recipe": 14,
+          "name": "Testcase preserves expected exception",
+          "seed": 83,
+          "expectedNames": [
+            "ProbeCases.H_SkipExpected"
+          ],
+          "expectedSeeds": {
+            "ProbeCases.H_SkipExpected": 161
+          },
+          "expectedBodies": [
+            "ProbeCases.H_SkipExpected"
+          ],
+          "exitCodes": {
+            "legacy": 0,
+            "native": 0
+          },
+          "expectedExitCodes": {
+            "legacy": 0,
+            "native": 0
+          },
+          "listOnly": false,
+          "processBoundariesMatched": true,
+          "producerInputsMatched": true,
+          "nativeCompletionMatched": true,
+          "nativeRunnerSha256": "706aa438bef351c2f8273c9f40fd4e949e77d23ff696f845a07bb908bf100dd1",
+          "runtimeAssemblySha256": "e4522ab82775c4adbd699b1153b4db804a579c56839f5a759712bf3fca98234a",
+          "deployment": "managed",
+          "note": "Verified recipe outcomes include strict-attestation failure boundaries; this is not an all-passed or identical-exit-code claim."
+        },
+        {
+          "schemaVersion": 1,
+          "matched": true,
+          "negativeControl": false,
+          "qualification": "selection-recipe",
+          "recipe": 15,
+          "name": "ordinary expected exception",
+          "seed": 83,
+          "expectedNames": [
+            "ProbeCases.E_Expected"
+          ],
+          "expectedSeeds": {
+            "ProbeCases.E_Expected": 158
+          },
+          "expectedBodies": [
+            "ProbeCases.E_Expected"
+          ],
+          "exitCodes": {
+            "legacy": 0,
+            "native": 0
+          },
+          "expectedExitCodes": {
+            "legacy": 0,
+            "native": 0
+          },
+          "listOnly": false,
+          "processBoundariesMatched": true,
+          "producerInputsMatched": true,
+          "nativeCompletionMatched": true,
+          "nativeRunnerSha256": "706aa438bef351c2f8273c9f40fd4e949e77d23ff696f845a07bb908bf100dd1",
+          "runtimeAssemblySha256": "e4522ab82775c4adbd699b1153b4db804a579c56839f5a759712bf3fca98234a",
+          "deployment": "managed",
+          "note": "Verified recipe outcomes include strict-attestation failure boundaries; this is not an all-passed or identical-exit-code claim."
+        },
+        {
+          "schemaVersion": 1,
+          "matched": true,
+          "negativeControl": true,
+          "qualification": "selection-recipe",
+          "recipe": 16,
+          "name": "stage stop still dominates Testcase",
+          "seed": 83,
+          "expectedNames": [
+            "ProbeCases.F_Fail",
+            "ProbeLater.A_Skip"
+          ],
+          "expectedSeeds": {
+            "ProbeCases.F_Fail": 159,
+            "ProbeLater.A_Skip": 166
+          },
+          "expectedBodies": [
+            "ProbeCases.F_Fail"
+          ],
+          "exitCodes": {
+            "legacy": 1,
+            "native": 1
+          },
+          "expectedExitCodes": {
+            "legacy": 1,
+            "native": 1
+          },
+          "listOnly": false,
+          "processBoundariesMatched": true,
+          "producerInputsMatched": true,
+          "nativeCompletionMatched": true,
+          "nativeRunnerSha256": "706aa438bef351c2f8273c9f40fd4e949e77d23ff696f845a07bb908bf100dd1",
+          "runtimeAssemblySha256": "e4522ab82775c4adbd699b1153b4db804a579c56839f5a759712bf3fca98234a",
+          "deployment": "managed",
+          "note": "Verified recipe outcomes include strict-attestation failure boundaries; this is not an all-passed or identical-exit-code claim."
+        },
+        {
+          "schemaVersion": 1,
+          "matched": true,
+          "negativeControl": false,
+          "qualification": "selection-recipe",
+          "recipe": 17,
+          "name": "unmatched OR alternative",
+          "seed": 83,
+          "expectedNames": [
+            "ProbeCases.A_Pass"
+          ],
+          "expectedSeeds": {
+            "ProbeCases.A_Pass": 153
+          },
+          "expectedBodies": [
+            "ProbeCases.A_Pass"
+          ],
+          "exitCodes": {
+            "legacy": 0,
+            "native": 0
+          },
+          "expectedExitCodes": {
+            "legacy": 0,
+            "native": 0
+          },
+          "listOnly": false,
+          "processBoundariesMatched": true,
+          "producerInputsMatched": true,
+          "nativeCompletionMatched": true,
+          "nativeRunnerSha256": "706aa438bef351c2f8273c9f40fd4e949e77d23ff696f845a07bb908bf100dd1",
+          "runtimeAssemblySha256": "e4522ab82775c4adbd699b1153b4db804a579c56839f5a759712bf3fca98234a",
+          "deployment": "managed",
+          "note": "Verified recipe outcomes include strict-attestation failure boundaries; this is not an all-passed or identical-exit-code claim."
+        },
+        {
+          "schemaVersion": 1,
+          "matched": true,
+          "negativeControl": true,
+          "qualification": "selection-recipe",
+          "recipe": 18,
+          "name": "unrestricted list preflight",
+          "seed": 83,
+          "expectedNames": [
+            "Entry.R001_ZeroBytePacket",
+            "Entry.R002_AllOnesBytePacket",
+            "Entry.R003_PublishedCheckVector",
+            "Entry.R004_MostSignificantBitPacket",
+            "Entry.R005_LeastSignificantBitPacket",
+            "Entry.R006_EachBitAsItsOwnPacket",
+            "Entry.R007_AllByteValuesOnePacket",
+            "Entry.R008_ZeroRunKeepsPolynomialZero",
+            "Entry.R009_OnesRunAccumulatesAcrossBytes",
+            "Entry.R010_AlternatingBitOrder",
+            "Entry.R011_AdjacentPacketBoundariesResetAccumulator",
+            "Entry.R012_SeededPacketLengthsAndPayloads",
+            "Entry.R013_ContinuousAcceptedBurst",
+            "Entry.R014_SourceGapsDoNotAdvancePacket",
+            "Entry.R015_SinkBackpressureHoldsCompleteWord",
+            "Entry.R016_IndependentSourceAndSinkGaps",
+            "Entry.R017_LastWordIsHeldUnderBackpressure",
+            "Entry.R018_LengthCrossesEightBitBoundary",
+            "Entry.R019_ResetEmptyStage",
+            "Entry.R020_ResetDiscardsFullStage",
+            "Entry.R021_ResetOverridesStalledLast",
+            "Entry.R022_BackToBackSingleBytePackets",
+            "Entry.R023_InvalidLastCannotResetPacket",
+            "Entry.R024_InvalidDataCannotEnterAccumulator",
+            "Entry.R025_BlockedInputChangesCannotCorruptHeldOutput",
+            "Entry.R026_CrcOracleRejectsWrongRemainder",
+            "Entry.R027_DataOracleRejectsCorruptedPayload",
+            "Entry.R028_LengthOracleRejectsCountingBubbles",
+            "Entry.R029_LastOracleRejectsBoundaryLoss",
+            "Entry.R030_NegativeProbeDoesNotPoisonLaterPacket",
+            "Entry.R031_OneValidPulseProducesExactlyOneDelivery",
+            "Entry.R032_DifferentPacketLengthsRestartAtOne",
+            "Entry.R033_NoRequestProducesNoGrant",
+            "Entry.R034_PortZeroCanWinAlone",
+            "Entry.R035_PortOneCanWinAlone",
+            "Entry.R036_PortTwoCanWinAlone",
+            "Entry.R037_PortThreeCanWinAlone",
+            "Entry.R038_AllRequestsRotateInLiteralOrder",
+            "Entry.R039_TwoContendersAlternate",
+            "Entry.R040_LastPortWrapsToPortZero",
+            "Entry.R041_NoAcknowledgeKeepsPriority",
+            "Entry.R042_DisableSuppressesAllGrants",
+            "Entry.R043_DisabledAcknowledgeCannotRotate",
+            "Entry.R044_EmptyAcknowledgementCannotRotate",
+            "Entry.R045_RequestWithdrawalReselectsWithoutOwnerLock",
+            "Entry.R046_LateRequestUsesCurrentPriority",
+            "Entry.R047_AllRequestMasksAtEveryPointer",
+            "Entry.R048_SeededRequestEnableAckInterleaving",
+            "Entry.R049_PersistentRequestsBoundServiceToFourAcks",
+            "Entry.R050_ResetRestartsAtPortZero",
+            "Entry.R051_ResetDominatesAcknowledgement",
+            "Entry.R052_NativePriorityFaultIsDetectedAndRestored",
+            "Entry.R053_ResetClearsEveryWordAndOutput",
+            "Entry.R054_FullWordWriteAtEveryAddress",
+            "Entry.R055_LowByteWritePreservesHighLane",
+            "Entry.R056_HighByteWritePreservesLowLane",
+            "Entry.R057_ZeroMaskCannotChangeStoredWord",
+            "Entry.R058_WriteDisableDominatesAllByteEnables",
+            "Entry.R059_ReadDisableHoldsPriorOutput",
+            "Entry.R060_ReadIsSynchronousRatherThanCombinational",
+            "Entry.R061_SameAddressCollisionReadsOldWord",
+            "Entry.R062_WritingOneAddressCannotModifyNeighbors",
+            "Entry.R063_ResetDominatesConcurrentReadAndWrite",
+            "Entry.R064_ResetClearsHeldReadOutput",
+            "Entry.R065_AlternatingLaneUpdatesComposeOneWord",
+            "Entry.R066_SeededMixedBankOperations",
+            "Entry.R067_FirstAndLastAddressesDoNotAlias",
+            "Entry.R068_ZeroAndOnesLaneDataCanOverwriteEveryBit",
+            "Entry.R069_OracleRejectsSwappedByteLanes",
+            "Entry.R070_AfterNegativeProbeLaterWriteAndReadRecover",
+            "ProbeCases.A_Pass",
+            "ProbeCases.B_ExplicitSkip",
+            "ProbeCases.C_Backend",
+            "ProbeCases.D_Param[0]",
+            "ProbeCases.D_Param[1]",
+            "ProbeCases.E_Expected",
+            "ProbeCases.F_Fail",
+            "ProbeCases.G_SkipExpectedLeak",
+            "ProbeCases.H_SkipExpected",
+            "ProbeCases.I_Case",
+            "ProbeCases.\u03A9_Unicode",
+            "ProbeContainer\u002BNested.A_Same",
+            "ProbeSibling.A_Pass",
+            "ProbeLater.A_Skip",
+            "ProbeAdversarial.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaB"
+          ],
+          "expectedSeeds": {
+            "Entry.R001_ZeroBytePacket": 83,
+            "Entry.R002_AllOnesBytePacket": 84,
+            "Entry.R003_PublishedCheckVector": 85,
+            "Entry.R004_MostSignificantBitPacket": 86,
+            "Entry.R005_LeastSignificantBitPacket": 87,
+            "Entry.R006_EachBitAsItsOwnPacket": 88,
+            "Entry.R007_AllByteValuesOnePacket": 89,
+            "Entry.R008_ZeroRunKeepsPolynomialZero": 90,
+            "Entry.R009_OnesRunAccumulatesAcrossBytes": 91,
+            "Entry.R010_AlternatingBitOrder": 92,
+            "Entry.R011_AdjacentPacketBoundariesResetAccumulator": 93,
+            "Entry.R012_SeededPacketLengthsAndPayloads": 94,
+            "Entry.R013_ContinuousAcceptedBurst": 95,
+            "Entry.R014_SourceGapsDoNotAdvancePacket": 96,
+            "Entry.R015_SinkBackpressureHoldsCompleteWord": 97,
+            "Entry.R016_IndependentSourceAndSinkGaps": 98,
+            "Entry.R017_LastWordIsHeldUnderBackpressure": 99,
+            "Entry.R018_LengthCrossesEightBitBoundary": 100,
+            "Entry.R019_ResetEmptyStage": 101,
+            "Entry.R020_ResetDiscardsFullStage": 102,
+            "Entry.R021_ResetOverridesStalledLast": 103,
+            "Entry.R022_BackToBackSingleBytePackets": 104,
+            "Entry.R023_InvalidLastCannotResetPacket": 105,
+            "Entry.R024_InvalidDataCannotEnterAccumulator": 106,
+            "Entry.R025_BlockedInputChangesCannotCorruptHeldOutput": 107,
+            "Entry.R026_CrcOracleRejectsWrongRemainder": 108,
+            "Entry.R027_DataOracleRejectsCorruptedPayload": 109,
+            "Entry.R028_LengthOracleRejectsCountingBubbles": 110,
+            "Entry.R029_LastOracleRejectsBoundaryLoss": 111,
+            "Entry.R030_NegativeProbeDoesNotPoisonLaterPacket": 112,
+            "Entry.R031_OneValidPulseProducesExactlyOneDelivery": 113,
+            "Entry.R032_DifferentPacketLengthsRestartAtOne": 114,
+            "Entry.R033_NoRequestProducesNoGrant": 115,
+            "Entry.R034_PortZeroCanWinAlone": 116,
+            "Entry.R035_PortOneCanWinAlone": 117,
+            "Entry.R036_PortTwoCanWinAlone": 118,
+            "Entry.R037_PortThreeCanWinAlone": 119,
+            "Entry.R038_AllRequestsRotateInLiteralOrder": 120,
+            "Entry.R039_TwoContendersAlternate": 121,
+            "Entry.R040_LastPortWrapsToPortZero": 122,
+            "Entry.R041_NoAcknowledgeKeepsPriority": 123,
+            "Entry.R042_DisableSuppressesAllGrants": 124,
+            "Entry.R043_DisabledAcknowledgeCannotRotate": 125,
+            "Entry.R044_EmptyAcknowledgementCannotRotate": 126,
+            "Entry.R045_RequestWithdrawalReselectsWithoutOwnerLock": 127,
+            "Entry.R046_LateRequestUsesCurrentPriority": 128,
+            "Entry.R047_AllRequestMasksAtEveryPointer": 129,
+            "Entry.R048_SeededRequestEnableAckInterleaving": 130,
+            "Entry.R049_PersistentRequestsBoundServiceToFourAcks": 131,
+            "Entry.R050_ResetRestartsAtPortZero": 132,
+            "Entry.R051_ResetDominatesAcknowledgement": 133,
+            "Entry.R052_NativePriorityFaultIsDetectedAndRestored": 134,
+            "Entry.R053_ResetClearsEveryWordAndOutput": 135,
+            "Entry.R054_FullWordWriteAtEveryAddress": 136,
+            "Entry.R055_LowByteWritePreservesHighLane": 137,
+            "Entry.R056_HighByteWritePreservesLowLane": 138,
+            "Entry.R057_ZeroMaskCannotChangeStoredWord": 139,
+            "Entry.R058_WriteDisableDominatesAllByteEnables": 140,
+            "Entry.R059_ReadDisableHoldsPriorOutput": 141,
+            "Entry.R060_ReadIsSynchronousRatherThanCombinational": 142,
+            "Entry.R061_SameAddressCollisionReadsOldWord": 143,
+            "Entry.R062_WritingOneAddressCannotModifyNeighbors": 144,
+            "Entry.R063_ResetDominatesConcurrentReadAndWrite": 145,
+            "Entry.R064_ResetClearsHeldReadOutput": 146,
+            "Entry.R065_AlternatingLaneUpdatesComposeOneWord": 147,
+            "Entry.R066_SeededMixedBankOperations": 148,
+            "Entry.R067_FirstAndLastAddressesDoNotAlias": 149,
+            "Entry.R068_ZeroAndOnesLaneDataCanOverwriteEveryBit": 150,
+            "Entry.R069_OracleRejectsSwappedByteLanes": 151,
+            "Entry.R070_AfterNegativeProbeLaterWriteAndReadRecover": 152,
+            "ProbeCases.A_Pass": 153,
+            "ProbeCases.B_ExplicitSkip": 154,
+            "ProbeCases.C_Backend": 155,
+            "ProbeCases.D_Param[0]": 156,
+            "ProbeCases.D_Param[1]": 157,
+            "ProbeCases.E_Expected": 158,
+            "ProbeCases.F_Fail": 159,
+            "ProbeCases.G_SkipExpectedLeak": 160,
+            "ProbeCases.H_SkipExpected": 161,
+            "ProbeCases.I_Case": 162,
+            "ProbeCases.\u03A9_Unicode": 163,
+            "ProbeContainer\u002BNested.A_Same": 164,
+            "ProbeSibling.A_Pass": 165,
+            "ProbeLater.A_Skip": 166,
+            "ProbeAdversarial.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaB": 167
+          },
+          "expectedBodies": [],
+          "exitCodes": {
+            "legacy": 0,
+            "native": 1
+          },
+          "expectedExitCodes": {
+            "legacy": 0,
+            "native": 1
+          },
+          "listOnly": true,
+          "processBoundariesMatched": true,
+          "producerInputsMatched": true,
+          "nativeCompletionMatched": true,
+          "nativeRunnerSha256": "706aa438bef351c2f8273c9f40fd4e949e77d23ff696f845a07bb908bf100dd1",
+          "runtimeAssemblySha256": "e4522ab82775c4adbd699b1153b4db804a579c56839f5a759712bf3fca98234a",
+          "deployment": "managed",
+          "note": "Verified recipe outcomes include strict-attestation failure boundaries; this is not an all-passed or identical-exit-code claim."
+        },
+        {
+          "schemaVersion": 1,
+          "matched": true,
+          "negativeControl": true,
+          "qualification": "selection-recipe",
+          "recipe": 19,
+          "name": "selected parameter list",
+          "seed": 83,
+          "expectedNames": [
+            "ProbeCases.D_Param[1]"
+          ],
+          "expectedSeeds": {
+            "ProbeCases.D_Param[1]": 157
+          },
+          "expectedBodies": [],
+          "exitCodes": {
+            "legacy": 0,
+            "native": 1
+          },
+          "expectedExitCodes": {
+            "legacy": 0,
+            "native": 1
+          },
+          "listOnly": true,
+          "processBoundariesMatched": true,
+          "producerInputsMatched": true,
+          "nativeCompletionMatched": true,
+          "nativeRunnerSha256": "706aa438bef351c2f8273c9f40fd4e949e77d23ff696f845a07bb908bf100dd1",
+          "runtimeAssemblySha256": "e4522ab82775c4adbd699b1153b4db804a579c56839f5a759712bf3fca98234a",
+          "deployment": "managed",
+          "note": "Verified recipe outcomes include strict-attestation failure boundaries; this is not an all-passed or identical-exit-code claim."
+        },
+        {
+          "schemaVersion": 1,
+          "matched": true,
+          "negativeControl": true,
+          "qualification": "selection-recipe",
+          "recipe": 20,
+          "name": "Testcase list retains declared skip",
+          "seed": 83,
+          "expectedNames": [
+            "ProbeCases.B_ExplicitSkip"
+          ],
+          "expectedSeeds": {
+            "ProbeCases.B_ExplicitSkip": 154
+          },
+          "expectedBodies": [],
+          "exitCodes": {
+            "legacy": 0,
+            "native": 1
+          },
+          "expectedExitCodes": {
+            "legacy": 0,
+            "native": 1
+          },
+          "listOnly": true,
+          "processBoundariesMatched": true,
+          "producerInputsMatched": true,
+          "nativeCompletionMatched": true,
+          "nativeRunnerSha256": "706aa438bef351c2f8273c9f40fd4e949e77d23ff696f845a07bb908bf100dd1",
+          "runtimeAssemblySha256": "e4522ab82775c4adbd699b1153b4db804a579c56839f5a759712bf3fca98234a",
+          "deployment": "managed",
+          "note": "Verified recipe outcomes include strict-attestation failure boundaries; this is not an all-passed or identical-exit-code claim."
+        },
+        {
+          "schemaVersion": 1,
+          "matched": true,
+          "negativeControl": true,
+          "qualification": "selection-recipe",
+          "recipe": 21,
+          "name": "no match fails without bodies",
+          "seed": 83,
+          "expectedNames": [
+            "runtime"
+          ],
+          "expectedSeeds": {
+            "runtime": 0
+          },
+          "expectedBodies": [],
+          "exitCodes": {
+            "legacy": 1,
+            "native": 1
+          },
+          "expectedExitCodes": {
+            "legacy": 1,
+            "native": 1
+          },
+          "listOnly": false,
+          "processBoundariesMatched": true,
+          "producerInputsMatched": true,
+          "nativeCompletionMatched": true,
+          "nativeRunnerSha256": "706aa438bef351c2f8273c9f40fd4e949e77d23ff696f845a07bb908bf100dd1",
+          "runtimeAssemblySha256": "e4522ab82775c4adbd699b1153b4db804a579c56839f5a759712bf3fca98234a",
+          "deployment": "managed",
+          "note": "Verified recipe outcomes include strict-attestation failure boundaries; this is not an all-passed or identical-exit-code claim."
+        },
+        {
+          "schemaVersion": 1,
+          "matched": true,
+          "negativeControl": true,
+          "qualification": "selection-recipe",
+          "recipe": 22,
+          "name": "malformed regex rejects initialization",
+          "seed": 83,
+          "expectedNames": [
+            "runtime"
+          ],
+          "expectedSeeds": {
+            "runtime": 0
+          },
+          "expectedBodies": [],
+          "exitCodes": {
+            "legacy": 1,
+            "native": 1
+          },
+          "expectedExitCodes": {
+            "legacy": 1,
+            "native": 1
+          },
+          "listOnly": false,
+          "processBoundariesMatched": true,
+          "producerInputsMatched": true,
+          "nativeCompletionMatched": true,
+          "nativeRunnerSha256": "706aa438bef351c2f8273c9f40fd4e949e77d23ff696f845a07bb908bf100dd1",
+          "runtimeAssemblySha256": "e4522ab82775c4adbd699b1153b4db804a579c56839f5a759712bf3fca98234a",
+          "deployment": "managed",
+          "note": "Verified recipe outcomes include strict-attestation failure boundaries; this is not an all-passed or identical-exit-code claim."
+        },
+        {
+          "schemaVersion": 1,
+          "matched": true,
+          "negativeControl": true,
+          "qualification": "selection-recipe",
+          "recipe": 23,
+          "name": "invalid mode rejects initialization",
+          "seed": 83,
+          "expectedNames": [
+            "runtime"
+          ],
+          "expectedSeeds": {
+            "runtime": 0
+          },
+          "expectedBodies": [],
+          "exitCodes": {
+            "legacy": 1,
+            "native": 1
+          },
+          "expectedExitCodes": {
+            "legacy": 1,
+            "native": 1
+          },
+          "listOnly": false,
+          "processBoundariesMatched": true,
+          "producerInputsMatched": true,
+          "nativeCompletionMatched": true,
+          "nativeRunnerSha256": "706aa438bef351c2f8273c9f40fd4e949e77d23ff696f845a07bb908bf100dd1",
+          "runtimeAssemblySha256": "e4522ab82775c4adbd699b1153b4db804a579c56839f5a759712bf3fca98234a",
+          "deployment": "managed",
+          "note": "Verified recipe outcomes include strict-attestation failure boundaries; this is not an all-passed or identical-exit-code claim."
+        },
+        {
+          "schemaVersion": 1,
+          "matched": true,
+          "negativeControl": true,
+          "qualification": "selection-recipe",
+          "recipe": 24,
+          "name": "invalid timeout rejects initialization",
+          "seed": 83,
+          "expectedNames": [
+            "runtime"
+          ],
+          "expectedSeeds": {
+            "runtime": 0
+          },
+          "expectedBodies": [],
+          "exitCodes": {
+            "legacy": 1,
+            "native": 1
+          },
+          "expectedExitCodes": {
+            "legacy": 1,
+            "native": 1
+          },
+          "listOnly": false,
+          "processBoundariesMatched": true,
+          "producerInputsMatched": true,
+          "nativeCompletionMatched": true,
+          "nativeRunnerSha256": "706aa438bef351c2f8273c9f40fd4e949e77d23ff696f845a07bb908bf100dd1",
+          "runtimeAssemblySha256": "e4522ab82775c4adbd699b1153b4db804a579c56839f5a759712bf3fca98234a",
+          "deployment": "managed",
+          "note": "Verified recipe outcomes include strict-attestation failure boundaries; this is not an all-passed or identical-exit-code claim."
+        },
+        {
+          "schemaVersion": 1,
+          "matched": true,
+          "negativeControl": true,
+          "qualification": "selection-recipe",
+          "recipe": 25,
+          "name": "duplicate identity rejects complete plan",
+          "seed": 83,
+          "expectedNames": [
+            "runtime"
+          ],
+          "expectedSeeds": {
+            "runtime": 0
+          },
+          "expectedBodies": [],
+          "exitCodes": {
+            "legacy": 1,
+            "native": 1
+          },
+          "expectedExitCodes": {
+            "legacy": 1,
+            "native": 1
+          },
+          "listOnly": false,
+          "processBoundariesMatched": true,
+          "producerInputsMatched": true,
+          "nativeCompletionMatched": true,
+          "nativeRunnerSha256": "706aa438bef351c2f8273c9f40fd4e949e77d23ff696f845a07bb908bf100dd1",
+          "runtimeAssemblySha256": "e4522ab82775c4adbd699b1153b4db804a579c56839f5a759712bf3fca98234a",
+          "deployment": "managed",
+          "note": "Verified recipe outcomes include strict-attestation failure boundaries; this is not an all-passed or identical-exit-code claim."
+        },
+        {
+          "schemaVersion": 1,
+          "matched": true,
+          "negativeControl": true,
+          "qualification": "selection-recipe",
+          "recipe": 26,
+          "name": "late regex timeout precedes all bodies",
+          "seed": 83,
+          "expectedNames": [
+            "runtime"
+          ],
+          "expectedSeeds": {
+            "runtime": 0
+          },
+          "expectedBodies": [],
+          "exitCodes": {
+            "legacy": 1,
+            "native": 1
+          },
+          "expectedExitCodes": {
+            "legacy": 1,
+            "native": 1
+          },
+          "listOnly": false,
+          "processBoundariesMatched": true,
+          "producerInputsMatched": true,
+          "nativeCompletionMatched": true,
+          "nativeRunnerSha256": "706aa438bef351c2f8273c9f40fd4e949e77d23ff696f845a07bb908bf100dd1",
+          "runtimeAssemblySha256": "e4522ab82775c4adbd699b1153b4db804a579c56839f5a759712bf3fca98234a",
+          "deployment": "managed",
+          "note": "Verified recipe outcomes include strict-attestation failure boundaries; this is not an all-passed or identical-exit-code claim."
+        },
+        {
+          "schemaVersion": 1,
+          "matched": true,
+          "negativeControl": true,
+          "qualification": "selection-recipe",
+          "recipe": 27,
+          "name": "ordinary declared skip remains required-pass rejection",
+          "seed": 83,
+          "expectedNames": [
+            "ProbeCases.B_ExplicitSkip"
+          ],
+          "expectedSeeds": {
+            "ProbeCases.B_ExplicitSkip": 154
+          },
+          "expectedBodies": [],
+          "exitCodes": {
+            "legacy": 0,
+            "native": 1
+          },
+          "expectedExitCodes": {
+            "legacy": 0,
+            "native": 1
+          },
+          "listOnly": false,
+          "processBoundariesMatched": true,
+          "producerInputsMatched": true,
+          "nativeCompletionMatched": true,
+          "nativeRunnerSha256": "706aa438bef351c2f8273c9f40fd4e949e77d23ff696f845a07bb908bf100dd1",
+          "runtimeAssemblySha256": "e4522ab82775c4adbd699b1153b4db804a579c56839f5a759712bf3fca98234a",
+          "deployment": "managed",
+          "note": "Verified recipe outcomes include strict-attestation failure boundaries; this is not an all-passed or identical-exit-code claim."
+        },
+        {
+          "schemaVersion": 1,
+          "matched": true,
+          "negativeControl": true,
+          "qualification": "selection-recipe",
+          "recipe": 28,
+          "name": "Testcase cannot authorize unavailable backend",
+          "seed": 83,
+          "expectedNames": [
+            "ProbeCases.C_Backend"
+          ],
+          "expectedSeeds": {
+            "ProbeCases.C_Backend": 155
+          },
+          "expectedBodies": [],
+          "exitCodes": {
+            "legacy": 0,
+            "native": 1
+          },
+          "expectedExitCodes": {
+            "legacy": 0,
+            "native": 1
+          },
+          "listOnly": false,
+          "processBoundariesMatched": true,
+          "producerInputsMatched": true,
+          "nativeCompletionMatched": true,
+          "nativeRunnerSha256": "706aa438bef351c2f8273c9f40fd4e949e77d23ff696f845a07bb908bf100dd1",
+          "runtimeAssemblySha256": "e4522ab82775c4adbd699b1153b4db804a579c56839f5a759712bf3fca98234a",
+          "deployment": "managed",
+          "note": "Verified recipe outcomes include strict-attestation failure boundaries; this is not an all-passed or identical-exit-code claim."
+        },
+        {
+          "schemaVersion": 1,
+          "matched": true,
+          "negativeControl": true,
+          "qualification": "selection-recipe",
+          "recipe": 29,
+          "name": "Testcase cannot waive unexpected failure",
+          "seed": 83,
+          "expectedNames": [
+            "ProbeCases.F_Fail"
+          ],
+          "expectedSeeds": {
+            "ProbeCases.F_Fail": 159
+          },
+          "expectedBodies": [
+            "ProbeCases.F_Fail"
+          ],
+          "exitCodes": {
+            "legacy": 1,
+            "native": 1
+          },
+          "expectedExitCodes": {
+            "legacy": 1,
+            "native": 1
+          },
+          "listOnly": false,
+          "processBoundariesMatched": true,
+          "producerInputsMatched": true,
+          "nativeCompletionMatched": true,
+          "nativeRunnerSha256": "706aa438bef351c2f8273c9f40fd4e949e77d23ff696f845a07bb908bf100dd1",
+          "runtimeAssemblySha256": "e4522ab82775c4adbd699b1153b4db804a579c56839f5a759712bf3fca98234a",
+          "deployment": "managed",
+          "note": "Verified recipe outcomes include strict-attestation failure boundaries; this is not an all-passed or identical-exit-code claim."
+        },
+        {
+          "schemaVersion": 1,
+          "matched": true,
+          "negativeControl": true,
+          "qualification": "selection-recipe",
+          "recipe": 30,
+          "name": "Testcase expected error cannot waive leak",
+          "seed": 83,
+          "expectedNames": [
+            "ProbeCases.G_SkipExpectedLeak"
+          ],
+          "expectedSeeds": {
+            "ProbeCases.G_SkipExpectedLeak": 160
+          },
+          "expectedBodies": [
+            "ProbeCases.G_SkipExpectedLeak"
+          ],
+          "exitCodes": {
+            "legacy": 1,
+            "native": 1
+          },
+          "expectedExitCodes": {
+            "legacy": 1,
+            "native": 1
+          },
+          "listOnly": false,
+          "processBoundariesMatched": true,
+          "producerInputsMatched": true,
+          "nativeCompletionMatched": true,
+          "nativeRunnerSha256": "706aa438bef351c2f8273c9f40fd4e949e77d23ff696f845a07bb908bf100dd1",
+          "runtimeAssemblySha256": "e4522ab82775c4adbd699b1153b4db804a579c56839f5a759712bf3fca98234a",
+          "deployment": "managed",
+          "note": "Verified recipe outcomes include strict-attestation failure boundaries; this is not an all-passed or identical-exit-code claim."
+        }
+      ]
+    },
+    "selectionLogSha256": "170e7051442d147adedd4f6f275f0c9bd451752d380703264fc34a0659ebc769"
+  },
+  "linux": {
+    "managed": [
+      {
+        "suite": "SharpTestBench.Tests",
+        "total": 669,
+        "skipped": 0
+      },
+      {
+        "suite": "SharpTestBench.Generators.Tests",
+        "total": 17,
+        "skipped": 0
+      },
+      {
+        "suite": "SharpTestBench.Tools.Tests",
+        "total": 1269,
+        "skipped": 0
+      }
+    ],
+    "logSha256": "81a75b88f3526243939f8bbb4364e6c217c9a21c7d992a4fb6511ac1d02a848a",
+    "exportAudit": {
+      "schemaVersion": 1,
+      "literalExports": 44,
+      "reviewedExports": 30,
+      "unreviewedExports": 14,
+      "note": "Bounded literal __all__ review only. Other modules, dynamic names and runtime import behavior are unmeasured; counts are not parity percentages."
+    },
+    "exportAuditSha256": "52e87c1aded41b3e3b775b9dde63f81de5aaad46ae138c4a8d86848dbc5eb435",
+    "exportReviewSha256": "243187bdab67f37c54a76ee40585fb8ca7caf4125f28682853613bbd633fda81",
+    "newProtocolIcarus": {
+      "schemaVersion": 1,
+      "legacy": [
+        [
+          "Entry.R001_ZeroBytePacket",
+          "passed"
+        ],
+        [
+          "Entry.R002_AllOnesBytePacket",
+          "passed"
+        ],
+        [
+          "Entry.R003_PublishedCheckVector",
+          "passed"
+        ],
+        [
+          "Entry.R004_MostSignificantBitPacket",
+          "passed"
+        ],
+        [
+          "Entry.R005_LeastSignificantBitPacket",
+          "passed"
+        ],
+        [
+          "Entry.R006_EachBitAsItsOwnPacket",
+          "passed"
+        ],
+        [
+          "Entry.R007_AllByteValuesOnePacket",
+          "passed"
+        ],
+        [
+          "Entry.R008_ZeroRunKeepsPolynomialZero",
+          "passed"
+        ],
+        [
+          "Entry.R009_OnesRunAccumulatesAcrossBytes",
+          "passed"
+        ],
+        [
+          "Entry.R010_AlternatingBitOrder",
+          "passed"
+        ],
+        [
+          "Entry.R011_AdjacentPacketBoundariesResetAccumulator",
+          "passed"
+        ],
+        [
+          "Entry.R012_SeededPacketLengthsAndPayloads",
+          "passed"
+        ],
+        [
+          "Entry.R013_ContinuousAcceptedBurst",
+          "passed"
+        ],
+        [
+          "Entry.R014_SourceGapsDoNotAdvancePacket",
+          "passed"
+        ],
+        [
+          "Entry.R015_SinkBackpressureHoldsCompleteWord",
+          "passed"
+        ],
+        [
+          "Entry.R016_IndependentSourceAndSinkGaps",
+          "passed"
+        ],
+        [
+          "Entry.R017_LastWordIsHeldUnderBackpressure",
+          "passed"
+        ],
+        [
+          "Entry.R018_LengthCrossesEightBitBoundary",
+          "passed"
+        ],
+        [
+          "Entry.R019_ResetEmptyStage",
+          "passed"
+        ],
+        [
+          "Entry.R020_ResetDiscardsFullStage",
+          "passed"
+        ],
+        [
+          "Entry.R021_ResetOverridesStalledLast",
+          "passed"
+        ],
+        [
+          "Entry.R022_BackToBackSingleBytePackets",
+          "passed"
+        ],
+        [
+          "Entry.R023_InvalidLastCannotResetPacket",
+          "passed"
+        ],
+        [
+          "Entry.R024_InvalidDataCannotEnterAccumulator",
+          "passed"
+        ],
+        [
+          "Entry.R025_BlockedInputChangesCannotCorruptHeldOutput",
+          "passed"
+        ],
+        [
+          "Entry.R026_CrcOracleRejectsWrongRemainder",
+          "passed"
+        ],
+        [
+          "Entry.R027_DataOracleRejectsCorruptedPayload",
+          "passed"
+        ],
+        [
+          "Entry.R028_LengthOracleRejectsCountingBubbles",
+          "passed"
+        ],
+        [
+          "Entry.R029_LastOracleRejectsBoundaryLoss",
+          "passed"
+        ],
+        [
+          "Entry.R030_NegativeProbeDoesNotPoisonLaterPacket",
+          "passed"
+        ],
+        [
+          "Entry.R031_OneValidPulseProducesExactlyOneDelivery",
+          "passed"
+        ],
+        [
+          "Entry.R032_DifferentPacketLengthsRestartAtOne",
+          "passed"
+        ],
+        [
+          "Entry.R033_NoRequestProducesNoGrant",
+          "passed"
+        ],
+        [
+          "Entry.R034_PortZeroCanWinAlone",
+          "passed"
+        ],
+        [
+          "Entry.R035_PortOneCanWinAlone",
+          "passed"
+        ],
+        [
+          "Entry.R036_PortTwoCanWinAlone",
+          "passed"
+        ],
+        [
+          "Entry.R037_PortThreeCanWinAlone",
+          "passed"
+        ],
+        [
+          "Entry.R038_AllRequestsRotateInLiteralOrder",
+          "passed"
+        ],
+        [
+          "Entry.R039_TwoContendersAlternate",
+          "passed"
+        ],
+        [
+          "Entry.R040_LastPortWrapsToPortZero",
+          "passed"
+        ],
+        [
+          "Entry.R041_NoAcknowledgeKeepsPriority",
+          "passed"
+        ],
+        [
+          "Entry.R042_DisableSuppressesAllGrants",
+          "passed"
+        ],
+        [
+          "Entry.R043_DisabledAcknowledgeCannotRotate",
+          "passed"
+        ],
+        [
+          "Entry.R044_EmptyAcknowledgementCannotRotate",
+          "passed"
+        ],
+        [
+          "Entry.R045_RequestWithdrawalReselectsWithoutOwnerLock",
+          "passed"
+        ],
+        [
+          "Entry.R046_LateRequestUsesCurrentPriority",
+          "passed"
+        ],
+        [
+          "Entry.R047_AllRequestMasksAtEveryPointer",
+          "passed"
+        ],
+        [
+          "Entry.R048_SeededRequestEnableAckInterleaving",
+          "passed"
+        ],
+        [
+          "Entry.R049_PersistentRequestsBoundServiceToFourAcks",
+          "passed"
+        ],
+        [
+          "Entry.R050_ResetRestartsAtPortZero",
+          "passed"
+        ],
+        [
+          "Entry.R051_ResetDominatesAcknowledgement",
+          "passed"
+        ],
+        [
+          "Entry.R052_NativePriorityFaultIsDetectedAndRestored",
+          "passed"
+        ],
+        [
+          "Entry.R053_ResetClearsEveryWordAndOutput",
+          "passed"
+        ],
+        [
+          "Entry.R054_FullWordWriteAtEveryAddress",
+          "passed"
+        ],
+        [
+          "Entry.R055_LowByteWritePreservesHighLane",
+          "passed"
+        ],
+        [
+          "Entry.R056_HighByteWritePreservesLowLane",
+          "passed"
+        ],
+        [
+          "Entry.R057_ZeroMaskCannotChangeStoredWord",
+          "passed"
+        ],
+        [
+          "Entry.R058_WriteDisableDominatesAllByteEnables",
+          "passed"
+        ],
+        [
+          "Entry.R059_ReadDisableHoldsPriorOutput",
+          "passed"
+        ],
+        [
+          "Entry.R060_ReadIsSynchronousRatherThanCombinational",
+          "passed"
+        ],
+        [
+          "Entry.R061_SameAddressCollisionReadsOldWord",
+          "passed"
+        ],
+        [
+          "Entry.R062_WritingOneAddressCannotModifyNeighbors",
+          "passed"
+        ],
+        [
+          "Entry.R063_ResetDominatesConcurrentReadAndWrite",
+          "passed"
+        ],
+        [
+          "Entry.R064_ResetClearsHeldReadOutput",
+          "passed"
+        ],
+        [
+          "Entry.R065_AlternatingLaneUpdatesComposeOneWord",
+          "passed"
+        ],
+        [
+          "Entry.R066_SeededMixedBankOperations",
+          "passed"
+        ],
+        [
+          "Entry.R067_FirstAndLastAddressesDoNotAlias",
+          "passed"
+        ],
+        [
+          "Entry.R068_ZeroAndOnesLaneDataCanOverwriteEveryBit",
+          "passed"
+        ],
+        [
+          "Entry.R069_OracleRejectsSwappedByteLanes",
+          "passed"
+        ],
+        [
+          "Entry.R070_AfterNegativeProbeLaterWriteAndReadRecover",
+          "passed"
+        ]
+      ],
+      "native": [
+        [
+          "Entry.R001_ZeroBytePacket",
+          "passed"
+        ],
+        [
+          "Entry.R002_AllOnesBytePacket",
+          "passed"
+        ],
+        [
+          "Entry.R003_PublishedCheckVector",
+          "passed"
+        ],
+        [
+          "Entry.R004_MostSignificantBitPacket",
+          "passed"
+        ],
+        [
+          "Entry.R005_LeastSignificantBitPacket",
+          "passed"
+        ],
+        [
+          "Entry.R006_EachBitAsItsOwnPacket",
+          "passed"
+        ],
+        [
+          "Entry.R007_AllByteValuesOnePacket",
+          "passed"
+        ],
+        [
+          "Entry.R008_ZeroRunKeepsPolynomialZero",
+          "passed"
+        ],
+        [
+          "Entry.R009_OnesRunAccumulatesAcrossBytes",
+          "passed"
+        ],
+        [
+          "Entry.R010_AlternatingBitOrder",
+          "passed"
+        ],
+        [
+          "Entry.R011_AdjacentPacketBoundariesResetAccumulator",
+          "passed"
+        ],
+        [
+          "Entry.R012_SeededPacketLengthsAndPayloads",
+          "passed"
+        ],
+        [
+          "Entry.R013_ContinuousAcceptedBurst",
+          "passed"
+        ],
+        [
+          "Entry.R014_SourceGapsDoNotAdvancePacket",
+          "passed"
+        ],
+        [
+          "Entry.R015_SinkBackpressureHoldsCompleteWord",
+          "passed"
+        ],
+        [
+          "Entry.R016_IndependentSourceAndSinkGaps",
+          "passed"
+        ],
+        [
+          "Entry.R017_LastWordIsHeldUnderBackpressure",
+          "passed"
+        ],
+        [
+          "Entry.R018_LengthCrossesEightBitBoundary",
+          "passed"
+        ],
+        [
+          "Entry.R019_ResetEmptyStage",
+          "passed"
+        ],
+        [
+          "Entry.R020_ResetDiscardsFullStage",
+          "passed"
+        ],
+        [
+          "Entry.R021_ResetOverridesStalledLast",
+          "passed"
+        ],
+        [
+          "Entry.R022_BackToBackSingleBytePackets",
+          "passed"
+        ],
+        [
+          "Entry.R023_InvalidLastCannotResetPacket",
+          "passed"
+        ],
+        [
+          "Entry.R024_InvalidDataCannotEnterAccumulator",
+          "passed"
+        ],
+        [
+          "Entry.R025_BlockedInputChangesCannotCorruptHeldOutput",
+          "passed"
+        ],
+        [
+          "Entry.R026_CrcOracleRejectsWrongRemainder",
+          "passed"
+        ],
+        [
+          "Entry.R027_DataOracleRejectsCorruptedPayload",
+          "passed"
+        ],
+        [
+          "Entry.R028_LengthOracleRejectsCountingBubbles",
+          "passed"
+        ],
+        [
+          "Entry.R029_LastOracleRejectsBoundaryLoss",
+          "passed"
+        ],
+        [
+          "Entry.R030_NegativeProbeDoesNotPoisonLaterPacket",
+          "passed"
+        ],
+        [
+          "Entry.R031_OneValidPulseProducesExactlyOneDelivery",
+          "passed"
+        ],
+        [
+          "Entry.R032_DifferentPacketLengthsRestartAtOne",
+          "passed"
+        ],
+        [
+          "Entry.R033_NoRequestProducesNoGrant",
+          "passed"
+        ],
+        [
+          "Entry.R034_PortZeroCanWinAlone",
+          "passed"
+        ],
+        [
+          "Entry.R035_PortOneCanWinAlone",
+          "passed"
+        ],
+        [
+          "Entry.R036_PortTwoCanWinAlone",
+          "passed"
+        ],
+        [
+          "Entry.R037_PortThreeCanWinAlone",
+          "passed"
+        ],
+        [
+          "Entry.R038_AllRequestsRotateInLiteralOrder",
+          "passed"
+        ],
+        [
+          "Entry.R039_TwoContendersAlternate",
+          "passed"
+        ],
+        [
+          "Entry.R040_LastPortWrapsToPortZero",
+          "passed"
+        ],
+        [
+          "Entry.R041_NoAcknowledgeKeepsPriority",
+          "passed"
+        ],
+        [
+          "Entry.R042_DisableSuppressesAllGrants",
+          "passed"
+        ],
+        [
+          "Entry.R043_DisabledAcknowledgeCannotRotate",
+          "passed"
+        ],
+        [
+          "Entry.R044_EmptyAcknowledgementCannotRotate",
+          "passed"
+        ],
+        [
+          "Entry.R045_RequestWithdrawalReselectsWithoutOwnerLock",
+          "passed"
+        ],
+        [
+          "Entry.R046_LateRequestUsesCurrentPriority",
+          "passed"
+        ],
+        [
+          "Entry.R047_AllRequestMasksAtEveryPointer",
+          "passed"
+        ],
+        [
+          "Entry.R048_SeededRequestEnableAckInterleaving",
+          "passed"
+        ],
+        [
+          "Entry.R049_PersistentRequestsBoundServiceToFourAcks",
+          "passed"
+        ],
+        [
+          "Entry.R050_ResetRestartsAtPortZero",
+          "passed"
+        ],
+        [
+          "Entry.R051_ResetDominatesAcknowledgement",
+          "passed"
+        ],
+        [
+          "Entry.R052_NativePriorityFaultIsDetectedAndRestored",
+          "passed"
+        ],
+        [
+          "Entry.R053_ResetClearsEveryWordAndOutput",
+          "passed"
+        ],
+        [
+          "Entry.R054_FullWordWriteAtEveryAddress",
+          "passed"
+        ],
+        [
+          "Entry.R055_LowByteWritePreservesHighLane",
+          "passed"
+        ],
+        [
+          "Entry.R056_HighByteWritePreservesLowLane",
+          "passed"
+        ],
+        [
+          "Entry.R057_ZeroMaskCannotChangeStoredWord",
+          "passed"
+        ],
+        [
+          "Entry.R058_WriteDisableDominatesAllByteEnables",
+          "passed"
+        ],
+        [
+          "Entry.R059_ReadDisableHoldsPriorOutput",
+          "passed"
+        ],
+        [
+          "Entry.R060_ReadIsSynchronousRatherThanCombinational",
+          "passed"
+        ],
+        [
+          "Entry.R061_SameAddressCollisionReadsOldWord",
+          "passed"
+        ],
+        [
+          "Entry.R062_WritingOneAddressCannotModifyNeighbors",
+          "passed"
+        ],
+        [
+          "Entry.R063_ResetDominatesConcurrentReadAndWrite",
+          "passed"
+        ],
+        [
+          "Entry.R064_ResetClearsHeldReadOutput",
+          "passed"
+        ],
+        [
+          "Entry.R065_AlternatingLaneUpdatesComposeOneWord",
+          "passed"
+        ],
+        [
+          "Entry.R066_SeededMixedBankOperations",
+          "passed"
+        ],
+        [
+          "Entry.R067_FirstAndLastAddressesDoNotAlias",
+          "passed"
+        ],
+        [
+          "Entry.R068_ZeroAndOnesLaneDataCanOverwriteEveryBit",
+          "passed"
+        ],
+        [
+          "Entry.R069_OracleRejectsSwappedByteLanes",
+          "passed"
+        ],
+        [
+          "Entry.R070_AfterNegativeProbeLaterWriteAndReadRecover",
+          "passed"
+        ]
+      ],
+      "expected": [
+        "Entry.R001_ZeroBytePacket",
+        "Entry.R002_AllOnesBytePacket",
+        "Entry.R003_PublishedCheckVector",
+        "Entry.R004_MostSignificantBitPacket",
+        "Entry.R005_LeastSignificantBitPacket",
+        "Entry.R006_EachBitAsItsOwnPacket",
+        "Entry.R007_AllByteValuesOnePacket",
+        "Entry.R008_ZeroRunKeepsPolynomialZero",
+        "Entry.R009_OnesRunAccumulatesAcrossBytes",
+        "Entry.R010_AlternatingBitOrder",
+        "Entry.R011_AdjacentPacketBoundariesResetAccumulator",
+        "Entry.R012_SeededPacketLengthsAndPayloads",
+        "Entry.R013_ContinuousAcceptedBurst",
+        "Entry.R014_SourceGapsDoNotAdvancePacket",
+        "Entry.R015_SinkBackpressureHoldsCompleteWord",
+        "Entry.R016_IndependentSourceAndSinkGaps",
+        "Entry.R017_LastWordIsHeldUnderBackpressure",
+        "Entry.R018_LengthCrossesEightBitBoundary",
+        "Entry.R019_ResetEmptyStage",
+        "Entry.R020_ResetDiscardsFullStage",
+        "Entry.R021_ResetOverridesStalledLast",
+        "Entry.R022_BackToBackSingleBytePackets",
+        "Entry.R023_InvalidLastCannotResetPacket",
+        "Entry.R024_InvalidDataCannotEnterAccumulator",
+        "Entry.R025_BlockedInputChangesCannotCorruptHeldOutput",
+        "Entry.R026_CrcOracleRejectsWrongRemainder",
+        "Entry.R027_DataOracleRejectsCorruptedPayload",
+        "Entry.R028_LengthOracleRejectsCountingBubbles",
+        "Entry.R029_LastOracleRejectsBoundaryLoss",
+        "Entry.R030_NegativeProbeDoesNotPoisonLaterPacket",
+        "Entry.R031_OneValidPulseProducesExactlyOneDelivery",
+        "Entry.R032_DifferentPacketLengthsRestartAtOne",
+        "Entry.R033_NoRequestProducesNoGrant",
+        "Entry.R034_PortZeroCanWinAlone",
+        "Entry.R035_PortOneCanWinAlone",
+        "Entry.R036_PortTwoCanWinAlone",
+        "Entry.R037_PortThreeCanWinAlone",
+        "Entry.R038_AllRequestsRotateInLiteralOrder",
+        "Entry.R039_TwoContendersAlternate",
+        "Entry.R040_LastPortWrapsToPortZero",
+        "Entry.R041_NoAcknowledgeKeepsPriority",
+        "Entry.R042_DisableSuppressesAllGrants",
+        "Entry.R043_DisabledAcknowledgeCannotRotate",
+        "Entry.R044_EmptyAcknowledgementCannotRotate",
+        "Entry.R045_RequestWithdrawalReselectsWithoutOwnerLock",
+        "Entry.R046_LateRequestUsesCurrentPriority",
+        "Entry.R047_AllRequestMasksAtEveryPointer",
+        "Entry.R048_SeededRequestEnableAckInterleaving",
+        "Entry.R049_PersistentRequestsBoundServiceToFourAcks",
+        "Entry.R050_ResetRestartsAtPortZero",
+        "Entry.R051_ResetDominatesAcknowledgement",
+        "Entry.R052_NativePriorityFaultIsDetectedAndRestored",
+        "Entry.R053_ResetClearsEveryWordAndOutput",
+        "Entry.R054_FullWordWriteAtEveryAddress",
+        "Entry.R055_LowByteWritePreservesHighLane",
+        "Entry.R056_HighByteWritePreservesLowLane",
+        "Entry.R057_ZeroMaskCannotChangeStoredWord",
+        "Entry.R058_WriteDisableDominatesAllByteEnables",
+        "Entry.R059_ReadDisableHoldsPriorOutput",
+        "Entry.R060_ReadIsSynchronousRatherThanCombinational",
+        "Entry.R061_SameAddressCollisionReadsOldWord",
+        "Entry.R062_WritingOneAddressCannotModifyNeighbors",
+        "Entry.R063_ResetDominatesConcurrentReadAndWrite",
+        "Entry.R064_ResetClearsHeldReadOutput",
+        "Entry.R065_AlternatingLaneUpdatesComposeOneWord",
+        "Entry.R066_SeededMixedBankOperations",
+        "Entry.R067_FirstAndLastAddressesDoNotAlias",
+        "Entry.R068_ZeroAndOnesLaneDataCanOverwriteEveryBit",
+        "Entry.R069_OracleRejectsSwappedByteLanes",
+        "Entry.R070_AfterNegativeProbeLaterWriteAndReadRecover"
+      ],
+      "missing": {
+        "legacy": [],
+        "native": []
+      },
+      "unexpected": {
+        "legacy": [],
+        "native": []
+      },
+      "seedMismatches": [],
+      "matched": true,
+      "expectedSeedMatched": true,
+      "exitCodes": {
+        "legacy": 0,
+        "native": 0
+      },
+      "contracts": 70,
+      "fixture": "protocol-contracts"
+    },
+    "protocolLogSha256": "9a3a3c0c1f2ade058badf22b88f577b955b12563fe88db5e68dff62cd4e9c094",
+    "selectionRecipes": {
+      "schemaVersion": 1,
+      "matched": true,
+      "recipes": 30,
+      "deployment": "managed",
+      "nativeRunnerSha256": "7c4dc87dff6f464c4ff09578d098643944ca849ffa4438098f64785801eb2c0a",
+      "runtimeAssemblySha256": "95a76d91acb29a70cabf0e5c242b4af4cbf72b80a50b8831cd88350062e2d03d",
+      "scenarios": [
+        {
+          "schemaVersion": 1,
+          "matched": true,
+          "negativeControl": false,
+          "qualification": "selection-recipe",
+          "recipe": 1,
+          "name": "qualified substring search",
+          "seed": 83,
+          "expectedNames": [
+            "ProbeCases.A_Pass",
+            "ProbeSibling.A_Pass"
+          ],
+          "expectedSeeds": {
+            "ProbeCases.A_Pass": 153,
+            "ProbeSibling.A_Pass": 165
+          },
+          "expectedBodies": [
+            "ProbeCases.A_Pass",
+            "ProbeSibling.A_Pass"
+          ],
+          "exitCodes": {
+            "legacy": 0,
+            "native": 0
+          },
+          "expectedExitCodes": {
+            "legacy": 0,
+            "native": 0
+          },
+          "listOnly": false,
+          "processBoundariesMatched": true,
+          "producerInputsMatched": true,
+          "nativeCompletionMatched": true,
+          "nativeRunnerSha256": "7c4dc87dff6f464c4ff09578d098643944ca849ffa4438098f64785801eb2c0a",
+          "runtimeAssemblySha256": "95a76d91acb29a70cabf0e5c242b4af4cbf72b80a50b8831cd88350062e2d03d",
+          "deployment": "managed",
+          "note": "Verified recipe outcomes include strict-attestation failure boundaries; this is not an all-passed or identical-exit-code claim."
+        },
+        {
+          "schemaVersion": 1,
+          "matched": true,
+          "negativeControl": false,
+          "qualification": "selection-recipe",
+          "recipe": 2,
+          "name": "anchored qualified identity",
+          "seed": 83,
+          "expectedNames": [
+            "ProbeCases.A_Pass"
+          ],
+          "expectedSeeds": {
+            "ProbeCases.A_Pass": 153
+          },
+          "expectedBodies": [
+            "ProbeCases.A_Pass"
+          ],
+          "exitCodes": {
+            "legacy": 0,
+            "native": 0
+          },
+          "expectedExitCodes": {
+            "legacy": 0,
+            "native": 0
+          },
+          "listOnly": false,
+          "processBoundariesMatched": true,
+          "producerInputsMatched": true,
+          "nativeCompletionMatched": true,
+          "nativeRunnerSha256": "7c4dc87dff6f464c4ff09578d098643944ca849ffa4438098f64785801eb2c0a",
+          "runtimeAssemblySha256": "95a76d91acb29a70cabf0e5c242b4af4cbf72b80a50b8831cd88350062e2d03d",
+          "deployment": "managed",
+          "note": "Verified recipe outcomes include strict-attestation failure boundaries; this is not an all-passed or identical-exit-code claim."
+        },
+        {
+          "schemaVersion": 1,
+          "matched": true,
+          "negativeControl": false,
+          "qualification": "selection-recipe",
+          "recipe": 3,
+          "name": "regex alternation",
+          "seed": 83,
+          "expectedNames": [
+            "ProbeCases.A_Pass",
+            "ProbeSibling.A_Pass"
+          ],
+          "expectedSeeds": {
+            "ProbeCases.A_Pass": 153,
+            "ProbeSibling.A_Pass": 165
+          },
+          "expectedBodies": [
+            "ProbeCases.A_Pass",
+            "ProbeSibling.A_Pass"
+          ],
+          "exitCodes": {
+            "legacy": 0,
+            "native": 0
+          },
+          "expectedExitCodes": {
+            "legacy": 0,
+            "native": 0
+          },
+          "listOnly": false,
+          "processBoundariesMatched": true,
+          "producerInputsMatched": true,
+          "nativeCompletionMatched": true,
+          "nativeRunnerSha256": "7c4dc87dff6f464c4ff09578d098643944ca849ffa4438098f64785801eb2c0a",
+          "runtimeAssemblySha256": "95a76d91acb29a70cabf0e5c242b4af4cbf72b80a50b8831cd88350062e2d03d",
+          "deployment": "managed",
+          "note": "Verified recipe outcomes include strict-attestation failure boundaries; this is not an all-passed or identical-exit-code claim."
+        },
+        {
+          "schemaVersion": 1,
+          "matched": true,
+          "negativeControl": false,
+          "qualification": "selection-recipe",
+          "recipe": 4,
+          "name": "disjoint pattern OR",
+          "seed": 83,
+          "expectedNames": [
+            "ProbeCases.A_Pass",
+            "ProbeCases.D_Param[1]"
+          ],
+          "expectedSeeds": {
+            "ProbeCases.A_Pass": 153,
+            "ProbeCases.D_Param[1]": 157
+          },
+          "expectedBodies": [
+            "ProbeCases.A_Pass",
+            "ProbeCases.D_Param[1]"
+          ],
+          "exitCodes": {
+            "legacy": 0,
+            "native": 0
+          },
+          "expectedExitCodes": {
+            "legacy": 0,
+            "native": 0
+          },
+          "listOnly": false,
+          "processBoundariesMatched": true,
+          "producerInputsMatched": true,
+          "nativeCompletionMatched": true,
+          "nativeRunnerSha256": "7c4dc87dff6f464c4ff09578d098643944ca849ffa4438098f64785801eb2c0a",
+          "runtimeAssemblySha256": "95a76d91acb29a70cabf0e5c242b4af4cbf72b80a50b8831cd88350062e2d03d",
+          "deployment": "managed",
+          "note": "Verified recipe outcomes include strict-attestation failure boundaries; this is not an all-passed or identical-exit-code claim."
+        },
+        {
+          "schemaVersion": 1,
+          "matched": true,
+          "negativeControl": false,
+          "qualification": "selection-recipe",
+          "recipe": 5,
+          "name": "same short name in sibling type",
+          "seed": 83,
+          "expectedNames": [
+            "ProbeSibling.A_Pass"
+          ],
+          "expectedSeeds": {
+            "ProbeSibling.A_Pass": 165
+          },
+          "expectedBodies": [
+            "ProbeSibling.A_Pass"
+          ],
+          "exitCodes": {
+            "legacy": 0,
+            "native": 0
+          },
+          "expectedExitCodes": {
+            "legacy": 0,
+            "native": 0
+          },
+          "listOnly": false,
+          "processBoundariesMatched": true,
+          "producerInputsMatched": true,
+          "nativeCompletionMatched": true,
+          "nativeRunnerSha256": "7c4dc87dff6f464c4ff09578d098643944ca849ffa4438098f64785801eb2c0a",
+          "runtimeAssemblySha256": "95a76d91acb29a70cabf0e5c242b4af4cbf72b80a50b8831cd88350062e2d03d",
+          "deployment": "managed",
+          "note": "Verified recipe outcomes include strict-attestation failure boundaries; this is not an all-passed or identical-exit-code claim."
+        },
+        {
+          "schemaVersion": 1,
+          "matched": true,
+          "negativeControl": false,
+          "qualification": "selection-recipe",
+          "recipe": 6,
+          "name": "parameter suffix selection",
+          "seed": 83,
+          "expectedNames": [
+            "ProbeCases.D_Param[1]"
+          ],
+          "expectedSeeds": {
+            "ProbeCases.D_Param[1]": 157
+          },
+          "expectedBodies": [
+            "ProbeCases.D_Param[1]"
+          ],
+          "exitCodes": {
+            "legacy": 0,
+            "native": 0
+          },
+          "expectedExitCodes": {
+            "legacy": 0,
+            "native": 0
+          },
+          "listOnly": false,
+          "processBoundariesMatched": true,
+          "producerInputsMatched": true,
+          "nativeCompletionMatched": true,
+          "nativeRunnerSha256": "7c4dc87dff6f464c4ff09578d098643944ca849ffa4438098f64785801eb2c0a",
+          "runtimeAssemblySha256": "95a76d91acb29a70cabf0e5c242b4af4cbf72b80a50b8831cd88350062e2d03d",
+          "deployment": "managed",
+          "note": "Verified recipe outcomes include strict-attestation failure boundaries; this is not an all-passed or identical-exit-code claim."
+        },
+        {
+          "schemaVersion": 1,
+          "matched": true,
+          "negativeControl": false,
+          "qualification": "selection-recipe",
+          "recipe": 7,
+          "name": "unsigned seed wrap including zero",
+          "seed": 18446744073709551615,
+          "expectedNames": [
+            "Entry.R001_ZeroBytePacket",
+            "Entry.R002_AllOnesBytePacket",
+            "ProbeCases.D_Param[0]",
+            "ProbeCases.D_Param[1]"
+          ],
+          "expectedSeeds": {
+            "Entry.R001_ZeroBytePacket": 18446744073709551615,
+            "Entry.R002_AllOnesBytePacket": 0,
+            "ProbeCases.D_Param[0]": 72,
+            "ProbeCases.D_Param[1]": 73
+          },
+          "expectedBodies": [
+            "ProbeCases.D_Param[0]",
+            "ProbeCases.D_Param[1]"
+          ],
+          "exitCodes": {
+            "legacy": 0,
+            "native": 0
+          },
+          "expectedExitCodes": {
+            "legacy": 0,
+            "native": 0
+          },
+          "listOnly": false,
+          "processBoundariesMatched": true,
+          "producerInputsMatched": true,
+          "nativeCompletionMatched": true,
+          "nativeRunnerSha256": "7c4dc87dff6f464c4ff09578d098643944ca849ffa4438098f64785801eb2c0a",
+          "runtimeAssemblySha256": "95a76d91acb29a70cabf0e5c242b4af4cbf72b80a50b8831cd88350062e2d03d",
+          "deployment": "managed",
+          "note": "Verified recipe outcomes include strict-attestation failure boundaries; this is not an all-passed or identical-exit-code claim."
+        },
+        {
+          "schemaVersion": 1,
+          "matched": true,
+          "negativeControl": false,
+          "qualification": "selection-recipe",
+          "recipe": 8,
+          "name": "invariant inline ignore-case under Turkish locale",
+          "seed": 83,
+          "expectedNames": [
+            "ProbeCases.I_Case"
+          ],
+          "expectedSeeds": {
+            "ProbeCases.I_Case": 162
+          },
+          "expectedBodies": [
+            "ProbeCases.I_Case"
+          ],
+          "exitCodes": {
+            "legacy": 0,
+            "native": 0
+          },
+          "expectedExitCodes": {
+            "legacy": 0,
+            "native": 0
+          },
+          "listOnly": false,
+          "processBoundariesMatched": true,
+          "producerInputsMatched": true,
+          "nativeCompletionMatched": true,
+          "nativeRunnerSha256": "7c4dc87dff6f464c4ff09578d098643944ca849ffa4438098f64785801eb2c0a",
+          "runtimeAssemblySha256": "95a76d91acb29a70cabf0e5c242b4af4cbf72b80a50b8831cd88350062e2d03d",
+          "deployment": "managed",
+          "note": "Verified recipe outcomes include strict-attestation failure boundaries; this is not an all-passed or identical-exit-code claim."
+        },
+        {
+          "schemaVersion": 1,
+          "matched": true,
+          "negativeControl": false,
+          "qualification": "selection-recipe",
+          "recipe": 9,
+          "name": "Unicode qualified identity",
+          "seed": 83,
+          "expectedNames": [
+            "ProbeCases.\u03A9_Unicode"
+          ],
+          "expectedSeeds": {
+            "ProbeCases.\u03A9_Unicode": 163
+          },
+          "expectedBodies": [
+            "ProbeCases.\u03A9_Unicode"
+          ],
+          "exitCodes": {
+            "legacy": 0,
+            "native": 0
+          },
+          "expectedExitCodes": {
+            "legacy": 0,
+            "native": 0
+          },
+          "listOnly": false,
+          "processBoundariesMatched": true,
+          "producerInputsMatched": true,
+          "nativeCompletionMatched": true,
+          "nativeRunnerSha256": "7c4dc87dff6f464c4ff09578d098643944ca849ffa4438098f64785801eb2c0a",
+          "runtimeAssemblySha256": "95a76d91acb29a70cabf0e5c242b4af4cbf72b80a50b8831cd88350062e2d03d",
+          "deployment": "managed",
+          "note": "Verified recipe outcomes include strict-attestation failure boundaries; this is not an all-passed or identical-exit-code claim."
+        },
+        {
+          "schemaVersion": 1,
+          "matched": true,
+          "negativeControl": false,
+          "qualification": "selection-recipe",
+          "recipe": 10,
+          "name": "qualified lookbehind",
+          "seed": 83,
+          "expectedNames": [
+            "ProbeCases.A_Pass"
+          ],
+          "expectedSeeds": {
+            "ProbeCases.A_Pass": 153
+          },
+          "expectedBodies": [
+            "ProbeCases.A_Pass"
+          ],
+          "exitCodes": {
+            "legacy": 0,
+            "native": 0
+          },
+          "expectedExitCodes": {
+            "legacy": 0,
+            "native": 0
+          },
+          "listOnly": false,
+          "processBoundariesMatched": true,
+          "producerInputsMatched": true,
+          "nativeCompletionMatched": true,
+          "nativeRunnerSha256": "7c4dc87dff6f464c4ff09578d098643944ca849ffa4438098f64785801eb2c0a",
+          "runtimeAssemblySha256": "95a76d91acb29a70cabf0e5c242b4af4cbf72b80a50b8831cd88350062e2d03d",
+          "deployment": "managed",
+          "note": "Verified recipe outcomes include strict-attestation failure boundaries; this is not an all-passed or identical-exit-code claim."
+        },
+        {
+          "schemaVersion": 1,
+          "matched": true,
+          "negativeControl": false,
+          "qualification": "selection-recipe",
+          "recipe": 11,
+          "name": "negative lookahead",
+          "seed": 83,
+          "expectedNames": [
+            "ProbeCases.A_Pass",
+            "ProbeCases.D_Param[0]",
+            "ProbeCases.D_Param[1]"
+          ],
+          "expectedSeeds": {
+            "ProbeCases.A_Pass": 153,
+            "ProbeCases.D_Param[0]": 156,
+            "ProbeCases.D_Param[1]": 157
+          },
+          "expectedBodies": [
+            "ProbeCases.A_Pass",
+            "ProbeCases.D_Param[0]",
+            "ProbeCases.D_Param[1]"
+          ],
+          "exitCodes": {
+            "legacy": 0,
+            "native": 0
+          },
+          "expectedExitCodes": {
+            "legacy": 0,
+            "native": 0
+          },
+          "listOnly": false,
+          "processBoundariesMatched": true,
+          "producerInputsMatched": true,
+          "nativeCompletionMatched": true,
+          "nativeRunnerSha256": "7c4dc87dff6f464c4ff09578d098643944ca849ffa4438098f64785801eb2c0a",
+          "runtimeAssemblySha256": "95a76d91acb29a70cabf0e5c242b4af4cbf72b80a50b8831cd88350062e2d03d",
+          "deployment": "managed",
+          "note": "Verified recipe outcomes include strict-attestation failure boundaries; this is not an all-passed or identical-exit-code claim."
+        },
+        {
+          "schemaVersion": 1,
+          "matched": true,
+          "negativeControl": false,
+          "qualification": "selection-recipe",
+          "recipe": 12,
+          "name": "escaped nested type separator",
+          "seed": 83,
+          "expectedNames": [
+            "ProbeContainer\u002BNested.A_Same"
+          ],
+          "expectedSeeds": {
+            "ProbeContainer\u002BNested.A_Same": 164
+          },
+          "expectedBodies": [
+            "ProbeContainer\u002BNested.A_Same"
+          ],
+          "exitCodes": {
+            "legacy": 0,
+            "native": 0
+          },
+          "expectedExitCodes": {
+            "legacy": 0,
+            "native": 0
+          },
+          "listOnly": false,
+          "processBoundariesMatched": true,
+          "producerInputsMatched": true,
+          "nativeCompletionMatched": true,
+          "nativeRunnerSha256": "7c4dc87dff6f464c4ff09578d098643944ca849ffa4438098f64785801eb2c0a",
+          "runtimeAssemblySha256": "95a76d91acb29a70cabf0e5c242b4af4cbf72b80a50b8831cd88350062e2d03d",
+          "deployment": "managed",
+          "note": "Verified recipe outcomes include strict-attestation failure boundaries; this is not an all-passed or identical-exit-code claim."
+        },
+        {
+          "schemaVersion": 1,
+          "matched": true,
+          "negativeControl": false,
+          "qualification": "selection-recipe",
+          "recipe": 13,
+          "name": "Testcase overrides declared skip",
+          "seed": 83,
+          "expectedNames": [
+            "ProbeCases.B_ExplicitSkip"
+          ],
+          "expectedSeeds": {
+            "ProbeCases.B_ExplicitSkip": 154
+          },
+          "expectedBodies": [
+            "ProbeCases.B_ExplicitSkip"
+          ],
+          "exitCodes": {
+            "legacy": 0,
+            "native": 0
+          },
+          "expectedExitCodes": {
+            "legacy": 0,
+            "native": 0
+          },
+          "listOnly": false,
+          "processBoundariesMatched": true,
+          "producerInputsMatched": true,
+          "nativeCompletionMatched": true,
+          "nativeRunnerSha256": "7c4dc87dff6f464c4ff09578d098643944ca849ffa4438098f64785801eb2c0a",
+          "runtimeAssemblySha256": "95a76d91acb29a70cabf0e5c242b4af4cbf72b80a50b8831cd88350062e2d03d",
+          "deployment": "managed",
+          "note": "Verified recipe outcomes include strict-attestation failure boundaries; this is not an all-passed or identical-exit-code claim."
+        },
+        {
+          "schemaVersion": 1,
+          "matched": true,
+          "negativeControl": false,
+          "qualification": "selection-recipe",
+          "recipe": 14,
+          "name": "Testcase preserves expected exception",
+          "seed": 83,
+          "expectedNames": [
+            "ProbeCases.H_SkipExpected"
+          ],
+          "expectedSeeds": {
+            "ProbeCases.H_SkipExpected": 161
+          },
+          "expectedBodies": [
+            "ProbeCases.H_SkipExpected"
+          ],
+          "exitCodes": {
+            "legacy": 0,
+            "native": 0
+          },
+          "expectedExitCodes": {
+            "legacy": 0,
+            "native": 0
+          },
+          "listOnly": false,
+          "processBoundariesMatched": true,
+          "producerInputsMatched": true,
+          "nativeCompletionMatched": true,
+          "nativeRunnerSha256": "7c4dc87dff6f464c4ff09578d098643944ca849ffa4438098f64785801eb2c0a",
+          "runtimeAssemblySha256": "95a76d91acb29a70cabf0e5c242b4af4cbf72b80a50b8831cd88350062e2d03d",
+          "deployment": "managed",
+          "note": "Verified recipe outcomes include strict-attestation failure boundaries; this is not an all-passed or identical-exit-code claim."
+        },
+        {
+          "schemaVersion": 1,
+          "matched": true,
+          "negativeControl": false,
+          "qualification": "selection-recipe",
+          "recipe": 15,
+          "name": "ordinary expected exception",
+          "seed": 83,
+          "expectedNames": [
+            "ProbeCases.E_Expected"
+          ],
+          "expectedSeeds": {
+            "ProbeCases.E_Expected": 158
+          },
+          "expectedBodies": [
+            "ProbeCases.E_Expected"
+          ],
+          "exitCodes": {
+            "legacy": 0,
+            "native": 0
+          },
+          "expectedExitCodes": {
+            "legacy": 0,
+            "native": 0
+          },
+          "listOnly": false,
+          "processBoundariesMatched": true,
+          "producerInputsMatched": true,
+          "nativeCompletionMatched": true,
+          "nativeRunnerSha256": "7c4dc87dff6f464c4ff09578d098643944ca849ffa4438098f64785801eb2c0a",
+          "runtimeAssemblySha256": "95a76d91acb29a70cabf0e5c242b4af4cbf72b80a50b8831cd88350062e2d03d",
+          "deployment": "managed",
+          "note": "Verified recipe outcomes include strict-attestation failure boundaries; this is not an all-passed or identical-exit-code claim."
+        },
+        {
+          "schemaVersion": 1,
+          "matched": true,
+          "negativeControl": true,
+          "qualification": "selection-recipe",
+          "recipe": 16,
+          "name": "stage stop still dominates Testcase",
+          "seed": 83,
+          "expectedNames": [
+            "ProbeCases.F_Fail",
+            "ProbeLater.A_Skip"
+          ],
+          "expectedSeeds": {
+            "ProbeCases.F_Fail": 159,
+            "ProbeLater.A_Skip": 166
+          },
+          "expectedBodies": [
+            "ProbeCases.F_Fail"
+          ],
+          "exitCodes": {
+            "legacy": 1,
+            "native": 1
+          },
+          "expectedExitCodes": {
+            "legacy": 1,
+            "native": 1
+          },
+          "listOnly": false,
+          "processBoundariesMatched": true,
+          "producerInputsMatched": true,
+          "nativeCompletionMatched": true,
+          "nativeRunnerSha256": "7c4dc87dff6f464c4ff09578d098643944ca849ffa4438098f64785801eb2c0a",
+          "runtimeAssemblySha256": "95a76d91acb29a70cabf0e5c242b4af4cbf72b80a50b8831cd88350062e2d03d",
+          "deployment": "managed",
+          "note": "Verified recipe outcomes include strict-attestation failure boundaries; this is not an all-passed or identical-exit-code claim."
+        },
+        {
+          "schemaVersion": 1,
+          "matched": true,
+          "negativeControl": false,
+          "qualification": "selection-recipe",
+          "recipe": 17,
+          "name": "unmatched OR alternative",
+          "seed": 83,
+          "expectedNames": [
+            "ProbeCases.A_Pass"
+          ],
+          "expectedSeeds": {
+            "ProbeCases.A_Pass": 153
+          },
+          "expectedBodies": [
+            "ProbeCases.A_Pass"
+          ],
+          "exitCodes": {
+            "legacy": 0,
+            "native": 0
+          },
+          "expectedExitCodes": {
+            "legacy": 0,
+            "native": 0
+          },
+          "listOnly": false,
+          "processBoundariesMatched": true,
+          "producerInputsMatched": true,
+          "nativeCompletionMatched": true,
+          "nativeRunnerSha256": "7c4dc87dff6f464c4ff09578d098643944ca849ffa4438098f64785801eb2c0a",
+          "runtimeAssemblySha256": "95a76d91acb29a70cabf0e5c242b4af4cbf72b80a50b8831cd88350062e2d03d",
+          "deployment": "managed",
+          "note": "Verified recipe outcomes include strict-attestation failure boundaries; this is not an all-passed or identical-exit-code claim."
+        },
+        {
+          "schemaVersion": 1,
+          "matched": true,
+          "negativeControl": true,
+          "qualification": "selection-recipe",
+          "recipe": 18,
+          "name": "unrestricted list preflight",
+          "seed": 83,
+          "expectedNames": [
+            "Entry.R001_ZeroBytePacket",
+            "Entry.R002_AllOnesBytePacket",
+            "Entry.R003_PublishedCheckVector",
+            "Entry.R004_MostSignificantBitPacket",
+            "Entry.R005_LeastSignificantBitPacket",
+            "Entry.R006_EachBitAsItsOwnPacket",
+            "Entry.R007_AllByteValuesOnePacket",
+            "Entry.R008_ZeroRunKeepsPolynomialZero",
+            "Entry.R009_OnesRunAccumulatesAcrossBytes",
+            "Entry.R010_AlternatingBitOrder",
+            "Entry.R011_AdjacentPacketBoundariesResetAccumulator",
+            "Entry.R012_SeededPacketLengthsAndPayloads",
+            "Entry.R013_ContinuousAcceptedBurst",
+            "Entry.R014_SourceGapsDoNotAdvancePacket",
+            "Entry.R015_SinkBackpressureHoldsCompleteWord",
+            "Entry.R016_IndependentSourceAndSinkGaps",
+            "Entry.R017_LastWordIsHeldUnderBackpressure",
+            "Entry.R018_LengthCrossesEightBitBoundary",
+            "Entry.R019_ResetEmptyStage",
+            "Entry.R020_ResetDiscardsFullStage",
+            "Entry.R021_ResetOverridesStalledLast",
+            "Entry.R022_BackToBackSingleBytePackets",
+            "Entry.R023_InvalidLastCannotResetPacket",
+            "Entry.R024_InvalidDataCannotEnterAccumulator",
+            "Entry.R025_BlockedInputChangesCannotCorruptHeldOutput",
+            "Entry.R026_CrcOracleRejectsWrongRemainder",
+            "Entry.R027_DataOracleRejectsCorruptedPayload",
+            "Entry.R028_LengthOracleRejectsCountingBubbles",
+            "Entry.R029_LastOracleRejectsBoundaryLoss",
+            "Entry.R030_NegativeProbeDoesNotPoisonLaterPacket",
+            "Entry.R031_OneValidPulseProducesExactlyOneDelivery",
+            "Entry.R032_DifferentPacketLengthsRestartAtOne",
+            "Entry.R033_NoRequestProducesNoGrant",
+            "Entry.R034_PortZeroCanWinAlone",
+            "Entry.R035_PortOneCanWinAlone",
+            "Entry.R036_PortTwoCanWinAlone",
+            "Entry.R037_PortThreeCanWinAlone",
+            "Entry.R038_AllRequestsRotateInLiteralOrder",
+            "Entry.R039_TwoContendersAlternate",
+            "Entry.R040_LastPortWrapsToPortZero",
+            "Entry.R041_NoAcknowledgeKeepsPriority",
+            "Entry.R042_DisableSuppressesAllGrants",
+            "Entry.R043_DisabledAcknowledgeCannotRotate",
+            "Entry.R044_EmptyAcknowledgementCannotRotate",
+            "Entry.R045_RequestWithdrawalReselectsWithoutOwnerLock",
+            "Entry.R046_LateRequestUsesCurrentPriority",
+            "Entry.R047_AllRequestMasksAtEveryPointer",
+            "Entry.R048_SeededRequestEnableAckInterleaving",
+            "Entry.R049_PersistentRequestsBoundServiceToFourAcks",
+            "Entry.R050_ResetRestartsAtPortZero",
+            "Entry.R051_ResetDominatesAcknowledgement",
+            "Entry.R052_NativePriorityFaultIsDetectedAndRestored",
+            "Entry.R053_ResetClearsEveryWordAndOutput",
+            "Entry.R054_FullWordWriteAtEveryAddress",
+            "Entry.R055_LowByteWritePreservesHighLane",
+            "Entry.R056_HighByteWritePreservesLowLane",
+            "Entry.R057_ZeroMaskCannotChangeStoredWord",
+            "Entry.R058_WriteDisableDominatesAllByteEnables",
+            "Entry.R059_ReadDisableHoldsPriorOutput",
+            "Entry.R060_ReadIsSynchronousRatherThanCombinational",
+            "Entry.R061_SameAddressCollisionReadsOldWord",
+            "Entry.R062_WritingOneAddressCannotModifyNeighbors",
+            "Entry.R063_ResetDominatesConcurrentReadAndWrite",
+            "Entry.R064_ResetClearsHeldReadOutput",
+            "Entry.R065_AlternatingLaneUpdatesComposeOneWord",
+            "Entry.R066_SeededMixedBankOperations",
+            "Entry.R067_FirstAndLastAddressesDoNotAlias",
+            "Entry.R068_ZeroAndOnesLaneDataCanOverwriteEveryBit",
+            "Entry.R069_OracleRejectsSwappedByteLanes",
+            "Entry.R070_AfterNegativeProbeLaterWriteAndReadRecover",
+            "ProbeCases.A_Pass",
+            "ProbeCases.B_ExplicitSkip",
+            "ProbeCases.C_Backend",
+            "ProbeCases.D_Param[0]",
+            "ProbeCases.D_Param[1]",
+            "ProbeCases.E_Expected",
+            "ProbeCases.F_Fail",
+            "ProbeCases.G_SkipExpectedLeak",
+            "ProbeCases.H_SkipExpected",
+            "ProbeCases.I_Case",
+            "ProbeCases.\u03A9_Unicode",
+            "ProbeContainer\u002BNested.A_Same",
+            "ProbeSibling.A_Pass",
+            "ProbeLater.A_Skip",
+            "ProbeAdversarial.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaB"
+          ],
+          "expectedSeeds": {
+            "Entry.R001_ZeroBytePacket": 83,
+            "Entry.R002_AllOnesBytePacket": 84,
+            "Entry.R003_PublishedCheckVector": 85,
+            "Entry.R004_MostSignificantBitPacket": 86,
+            "Entry.R005_LeastSignificantBitPacket": 87,
+            "Entry.R006_EachBitAsItsOwnPacket": 88,
+            "Entry.R007_AllByteValuesOnePacket": 89,
+            "Entry.R008_ZeroRunKeepsPolynomialZero": 90,
+            "Entry.R009_OnesRunAccumulatesAcrossBytes": 91,
+            "Entry.R010_AlternatingBitOrder": 92,
+            "Entry.R011_AdjacentPacketBoundariesResetAccumulator": 93,
+            "Entry.R012_SeededPacketLengthsAndPayloads": 94,
+            "Entry.R013_ContinuousAcceptedBurst": 95,
+            "Entry.R014_SourceGapsDoNotAdvancePacket": 96,
+            "Entry.R015_SinkBackpressureHoldsCompleteWord": 97,
+            "Entry.R016_IndependentSourceAndSinkGaps": 98,
+            "Entry.R017_LastWordIsHeldUnderBackpressure": 99,
+            "Entry.R018_LengthCrossesEightBitBoundary": 100,
+            "Entry.R019_ResetEmptyStage": 101,
+            "Entry.R020_ResetDiscardsFullStage": 102,
+            "Entry.R021_ResetOverridesStalledLast": 103,
+            "Entry.R022_BackToBackSingleBytePackets": 104,
+            "Entry.R023_InvalidLastCannotResetPacket": 105,
+            "Entry.R024_InvalidDataCannotEnterAccumulator": 106,
+            "Entry.R025_BlockedInputChangesCannotCorruptHeldOutput": 107,
+            "Entry.R026_CrcOracleRejectsWrongRemainder": 108,
+            "Entry.R027_DataOracleRejectsCorruptedPayload": 109,
+            "Entry.R028_LengthOracleRejectsCountingBubbles": 110,
+            "Entry.R029_LastOracleRejectsBoundaryLoss": 111,
+            "Entry.R030_NegativeProbeDoesNotPoisonLaterPacket": 112,
+            "Entry.R031_OneValidPulseProducesExactlyOneDelivery": 113,
+            "Entry.R032_DifferentPacketLengthsRestartAtOne": 114,
+            "Entry.R033_NoRequestProducesNoGrant": 115,
+            "Entry.R034_PortZeroCanWinAlone": 116,
+            "Entry.R035_PortOneCanWinAlone": 117,
+            "Entry.R036_PortTwoCanWinAlone": 118,
+            "Entry.R037_PortThreeCanWinAlone": 119,
+            "Entry.R038_AllRequestsRotateInLiteralOrder": 120,
+            "Entry.R039_TwoContendersAlternate": 121,
+            "Entry.R040_LastPortWrapsToPortZero": 122,
+            "Entry.R041_NoAcknowledgeKeepsPriority": 123,
+            "Entry.R042_DisableSuppressesAllGrants": 124,
+            "Entry.R043_DisabledAcknowledgeCannotRotate": 125,
+            "Entry.R044_EmptyAcknowledgementCannotRotate": 126,
+            "Entry.R045_RequestWithdrawalReselectsWithoutOwnerLock": 127,
+            "Entry.R046_LateRequestUsesCurrentPriority": 128,
+            "Entry.R047_AllRequestMasksAtEveryPointer": 129,
+            "Entry.R048_SeededRequestEnableAckInterleaving": 130,
+            "Entry.R049_PersistentRequestsBoundServiceToFourAcks": 131,
+            "Entry.R050_ResetRestartsAtPortZero": 132,
+            "Entry.R051_ResetDominatesAcknowledgement": 133,
+            "Entry.R052_NativePriorityFaultIsDetectedAndRestored": 134,
+            "Entry.R053_ResetClearsEveryWordAndOutput": 135,
+            "Entry.R054_FullWordWriteAtEveryAddress": 136,
+            "Entry.R055_LowByteWritePreservesHighLane": 137,
+            "Entry.R056_HighByteWritePreservesLowLane": 138,
+            "Entry.R057_ZeroMaskCannotChangeStoredWord": 139,
+            "Entry.R058_WriteDisableDominatesAllByteEnables": 140,
+            "Entry.R059_ReadDisableHoldsPriorOutput": 141,
+            "Entry.R060_ReadIsSynchronousRatherThanCombinational": 142,
+            "Entry.R061_SameAddressCollisionReadsOldWord": 143,
+            "Entry.R062_WritingOneAddressCannotModifyNeighbors": 144,
+            "Entry.R063_ResetDominatesConcurrentReadAndWrite": 145,
+            "Entry.R064_ResetClearsHeldReadOutput": 146,
+            "Entry.R065_AlternatingLaneUpdatesComposeOneWord": 147,
+            "Entry.R066_SeededMixedBankOperations": 148,
+            "Entry.R067_FirstAndLastAddressesDoNotAlias": 149,
+            "Entry.R068_ZeroAndOnesLaneDataCanOverwriteEveryBit": 150,
+            "Entry.R069_OracleRejectsSwappedByteLanes": 151,
+            "Entry.R070_AfterNegativeProbeLaterWriteAndReadRecover": 152,
+            "ProbeCases.A_Pass": 153,
+            "ProbeCases.B_ExplicitSkip": 154,
+            "ProbeCases.C_Backend": 155,
+            "ProbeCases.D_Param[0]": 156,
+            "ProbeCases.D_Param[1]": 157,
+            "ProbeCases.E_Expected": 158,
+            "ProbeCases.F_Fail": 159,
+            "ProbeCases.G_SkipExpectedLeak": 160,
+            "ProbeCases.H_SkipExpected": 161,
+            "ProbeCases.I_Case": 162,
+            "ProbeCases.\u03A9_Unicode": 163,
+            "ProbeContainer\u002BNested.A_Same": 164,
+            "ProbeSibling.A_Pass": 165,
+            "ProbeLater.A_Skip": 166,
+            "ProbeAdversarial.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaB": 167
+          },
+          "expectedBodies": [],
+          "exitCodes": {
+            "legacy": 0,
+            "native": 1
+          },
+          "expectedExitCodes": {
+            "legacy": 0,
+            "native": 1
+          },
+          "listOnly": true,
+          "processBoundariesMatched": true,
+          "producerInputsMatched": true,
+          "nativeCompletionMatched": true,
+          "nativeRunnerSha256": "7c4dc87dff6f464c4ff09578d098643944ca849ffa4438098f64785801eb2c0a",
+          "runtimeAssemblySha256": "95a76d91acb29a70cabf0e5c242b4af4cbf72b80a50b8831cd88350062e2d03d",
+          "deployment": "managed",
+          "note": "Verified recipe outcomes include strict-attestation failure boundaries; this is not an all-passed or identical-exit-code claim."
+        },
+        {
+          "schemaVersion": 1,
+          "matched": true,
+          "negativeControl": true,
+          "qualification": "selection-recipe",
+          "recipe": 19,
+          "name": "selected parameter list",
+          "seed": 83,
+          "expectedNames": [
+            "ProbeCases.D_Param[1]"
+          ],
+          "expectedSeeds": {
+            "ProbeCases.D_Param[1]": 157
+          },
+          "expectedBodies": [],
+          "exitCodes": {
+            "legacy": 0,
+            "native": 1
+          },
+          "expectedExitCodes": {
+            "legacy": 0,
+            "native": 1
+          },
+          "listOnly": true,
+          "processBoundariesMatched": true,
+          "producerInputsMatched": true,
+          "nativeCompletionMatched": true,
+          "nativeRunnerSha256": "7c4dc87dff6f464c4ff09578d098643944ca849ffa4438098f64785801eb2c0a",
+          "runtimeAssemblySha256": "95a76d91acb29a70cabf0e5c242b4af4cbf72b80a50b8831cd88350062e2d03d",
+          "deployment": "managed",
+          "note": "Verified recipe outcomes include strict-attestation failure boundaries; this is not an all-passed or identical-exit-code claim."
+        },
+        {
+          "schemaVersion": 1,
+          "matched": true,
+          "negativeControl": true,
+          "qualification": "selection-recipe",
+          "recipe": 20,
+          "name": "Testcase list retains declared skip",
+          "seed": 83,
+          "expectedNames": [
+            "ProbeCases.B_ExplicitSkip"
+          ],
+          "expectedSeeds": {
+            "ProbeCases.B_ExplicitSkip": 154
+          },
+          "expectedBodies": [],
+          "exitCodes": {
+            "legacy": 0,
+            "native": 1
+          },
+          "expectedExitCodes": {
+            "legacy": 0,
+            "native": 1
+          },
+          "listOnly": true,
+          "processBoundariesMatched": true,
+          "producerInputsMatched": true,
+          "nativeCompletionMatched": true,
+          "nativeRunnerSha256": "7c4dc87dff6f464c4ff09578d098643944ca849ffa4438098f64785801eb2c0a",
+          "runtimeAssemblySha256": "95a76d91acb29a70cabf0e5c242b4af4cbf72b80a50b8831cd88350062e2d03d",
+          "deployment": "managed",
+          "note": "Verified recipe outcomes include strict-attestation failure boundaries; this is not an all-passed or identical-exit-code claim."
+        },
+        {
+          "schemaVersion": 1,
+          "matched": true,
+          "negativeControl": true,
+          "qualification": "selection-recipe",
+          "recipe": 21,
+          "name": "no match fails without bodies",
+          "seed": 83,
+          "expectedNames": [
+            "runtime"
+          ],
+          "expectedSeeds": {
+            "runtime": 0
+          },
+          "expectedBodies": [],
+          "exitCodes": {
+            "legacy": 1,
+            "native": 1
+          },
+          "expectedExitCodes": {
+            "legacy": 1,
+            "native": 1
+          },
+          "listOnly": false,
+          "processBoundariesMatched": true,
+          "producerInputsMatched": true,
+          "nativeCompletionMatched": true,
+          "nativeRunnerSha256": "7c4dc87dff6f464c4ff09578d098643944ca849ffa4438098f64785801eb2c0a",
+          "runtimeAssemblySha256": "95a76d91acb29a70cabf0e5c242b4af4cbf72b80a50b8831cd88350062e2d03d",
+          "deployment": "managed",
+          "note": "Verified recipe outcomes include strict-attestation failure boundaries; this is not an all-passed or identical-exit-code claim."
+        },
+        {
+          "schemaVersion": 1,
+          "matched": true,
+          "negativeControl": true,
+          "qualification": "selection-recipe",
+          "recipe": 22,
+          "name": "malformed regex rejects initialization",
+          "seed": 83,
+          "expectedNames": [
+            "runtime"
+          ],
+          "expectedSeeds": {
+            "runtime": 0
+          },
+          "expectedBodies": [],
+          "exitCodes": {
+            "legacy": 1,
+            "native": 1
+          },
+          "expectedExitCodes": {
+            "legacy": 1,
+            "native": 1
+          },
+          "listOnly": false,
+          "processBoundariesMatched": true,
+          "producerInputsMatched": true,
+          "nativeCompletionMatched": true,
+          "nativeRunnerSha256": "7c4dc87dff6f464c4ff09578d098643944ca849ffa4438098f64785801eb2c0a",
+          "runtimeAssemblySha256": "95a76d91acb29a70cabf0e5c242b4af4cbf72b80a50b8831cd88350062e2d03d",
+          "deployment": "managed",
+          "note": "Verified recipe outcomes include strict-attestation failure boundaries; this is not an all-passed or identical-exit-code claim."
+        },
+        {
+          "schemaVersion": 1,
+          "matched": true,
+          "negativeControl": true,
+          "qualification": "selection-recipe",
+          "recipe": 23,
+          "name": "invalid mode rejects initialization",
+          "seed": 83,
+          "expectedNames": [
+            "runtime"
+          ],
+          "expectedSeeds": {
+            "runtime": 0
+          },
+          "expectedBodies": [],
+          "exitCodes": {
+            "legacy": 1,
+            "native": 1
+          },
+          "expectedExitCodes": {
+            "legacy": 1,
+            "native": 1
+          },
+          "listOnly": false,
+          "processBoundariesMatched": true,
+          "producerInputsMatched": true,
+          "nativeCompletionMatched": true,
+          "nativeRunnerSha256": "7c4dc87dff6f464c4ff09578d098643944ca849ffa4438098f64785801eb2c0a",
+          "runtimeAssemblySha256": "95a76d91acb29a70cabf0e5c242b4af4cbf72b80a50b8831cd88350062e2d03d",
+          "deployment": "managed",
+          "note": "Verified recipe outcomes include strict-attestation failure boundaries; this is not an all-passed or identical-exit-code claim."
+        },
+        {
+          "schemaVersion": 1,
+          "matched": true,
+          "negativeControl": true,
+          "qualification": "selection-recipe",
+          "recipe": 24,
+          "name": "invalid timeout rejects initialization",
+          "seed": 83,
+          "expectedNames": [
+            "runtime"
+          ],
+          "expectedSeeds": {
+            "runtime": 0
+          },
+          "expectedBodies": [],
+          "exitCodes": {
+            "legacy": 1,
+            "native": 1
+          },
+          "expectedExitCodes": {
+            "legacy": 1,
+            "native": 1
+          },
+          "listOnly": false,
+          "processBoundariesMatched": true,
+          "producerInputsMatched": true,
+          "nativeCompletionMatched": true,
+          "nativeRunnerSha256": "7c4dc87dff6f464c4ff09578d098643944ca849ffa4438098f64785801eb2c0a",
+          "runtimeAssemblySha256": "95a76d91acb29a70cabf0e5c242b4af4cbf72b80a50b8831cd88350062e2d03d",
+          "deployment": "managed",
+          "note": "Verified recipe outcomes include strict-attestation failure boundaries; this is not an all-passed or identical-exit-code claim."
+        },
+        {
+          "schemaVersion": 1,
+          "matched": true,
+          "negativeControl": true,
+          "qualification": "selection-recipe",
+          "recipe": 25,
+          "name": "duplicate identity rejects complete plan",
+          "seed": 83,
+          "expectedNames": [
+            "runtime"
+          ],
+          "expectedSeeds": {
+            "runtime": 0
+          },
+          "expectedBodies": [],
+          "exitCodes": {
+            "legacy": 1,
+            "native": 1
+          },
+          "expectedExitCodes": {
+            "legacy": 1,
+            "native": 1
+          },
+          "listOnly": false,
+          "processBoundariesMatched": true,
+          "producerInputsMatched": true,
+          "nativeCompletionMatched": true,
+          "nativeRunnerSha256": "7c4dc87dff6f464c4ff09578d098643944ca849ffa4438098f64785801eb2c0a",
+          "runtimeAssemblySha256": "95a76d91acb29a70cabf0e5c242b4af4cbf72b80a50b8831cd88350062e2d03d",
+          "deployment": "managed",
+          "note": "Verified recipe outcomes include strict-attestation failure boundaries; this is not an all-passed or identical-exit-code claim."
+        },
+        {
+          "schemaVersion": 1,
+          "matched": true,
+          "negativeControl": true,
+          "qualification": "selection-recipe",
+          "recipe": 26,
+          "name": "late regex timeout precedes all bodies",
+          "seed": 83,
+          "expectedNames": [
+            "runtime"
+          ],
+          "expectedSeeds": {
+            "runtime": 0
+          },
+          "expectedBodies": [],
+          "exitCodes": {
+            "legacy": 1,
+            "native": 1
+          },
+          "expectedExitCodes": {
+            "legacy": 1,
+            "native": 1
+          },
+          "listOnly": false,
+          "processBoundariesMatched": true,
+          "producerInputsMatched": true,
+          "nativeCompletionMatched": true,
+          "nativeRunnerSha256": "7c4dc87dff6f464c4ff09578d098643944ca849ffa4438098f64785801eb2c0a",
+          "runtimeAssemblySha256": "95a76d91acb29a70cabf0e5c242b4af4cbf72b80a50b8831cd88350062e2d03d",
+          "deployment": "managed",
+          "note": "Verified recipe outcomes include strict-attestation failure boundaries; this is not an all-passed or identical-exit-code claim."
+        },
+        {
+          "schemaVersion": 1,
+          "matched": true,
+          "negativeControl": true,
+          "qualification": "selection-recipe",
+          "recipe": 27,
+          "name": "ordinary declared skip remains required-pass rejection",
+          "seed": 83,
+          "expectedNames": [
+            "ProbeCases.B_ExplicitSkip"
+          ],
+          "expectedSeeds": {
+            "ProbeCases.B_ExplicitSkip": 154
+          },
+          "expectedBodies": [],
+          "exitCodes": {
+            "legacy": 0,
+            "native": 1
+          },
+          "expectedExitCodes": {
+            "legacy": 0,
+            "native": 1
+          },
+          "listOnly": false,
+          "processBoundariesMatched": true,
+          "producerInputsMatched": true,
+          "nativeCompletionMatched": true,
+          "nativeRunnerSha256": "7c4dc87dff6f464c4ff09578d098643944ca849ffa4438098f64785801eb2c0a",
+          "runtimeAssemblySha256": "95a76d91acb29a70cabf0e5c242b4af4cbf72b80a50b8831cd88350062e2d03d",
+          "deployment": "managed",
+          "note": "Verified recipe outcomes include strict-attestation failure boundaries; this is not an all-passed or identical-exit-code claim."
+        },
+        {
+          "schemaVersion": 1,
+          "matched": true,
+          "negativeControl": true,
+          "qualification": "selection-recipe",
+          "recipe": 28,
+          "name": "Testcase cannot authorize unavailable backend",
+          "seed": 83,
+          "expectedNames": [
+            "ProbeCases.C_Backend"
+          ],
+          "expectedSeeds": {
+            "ProbeCases.C_Backend": 155
+          },
+          "expectedBodies": [],
+          "exitCodes": {
+            "legacy": 0,
+            "native": 1
+          },
+          "expectedExitCodes": {
+            "legacy": 0,
+            "native": 1
+          },
+          "listOnly": false,
+          "processBoundariesMatched": true,
+          "producerInputsMatched": true,
+          "nativeCompletionMatched": true,
+          "nativeRunnerSha256": "7c4dc87dff6f464c4ff09578d098643944ca849ffa4438098f64785801eb2c0a",
+          "runtimeAssemblySha256": "95a76d91acb29a70cabf0e5c242b4af4cbf72b80a50b8831cd88350062e2d03d",
+          "deployment": "managed",
+          "note": "Verified recipe outcomes include strict-attestation failure boundaries; this is not an all-passed or identical-exit-code claim."
+        },
+        {
+          "schemaVersion": 1,
+          "matched": true,
+          "negativeControl": true,
+          "qualification": "selection-recipe",
+          "recipe": 29,
+          "name": "Testcase cannot waive unexpected failure",
+          "seed": 83,
+          "expectedNames": [
+            "ProbeCases.F_Fail"
+          ],
+          "expectedSeeds": {
+            "ProbeCases.F_Fail": 159
+          },
+          "expectedBodies": [
+            "ProbeCases.F_Fail"
+          ],
+          "exitCodes": {
+            "legacy": 1,
+            "native": 1
+          },
+          "expectedExitCodes": {
+            "legacy": 1,
+            "native": 1
+          },
+          "listOnly": false,
+          "processBoundariesMatched": true,
+          "producerInputsMatched": true,
+          "nativeCompletionMatched": true,
+          "nativeRunnerSha256": "7c4dc87dff6f464c4ff09578d098643944ca849ffa4438098f64785801eb2c0a",
+          "runtimeAssemblySha256": "95a76d91acb29a70cabf0e5c242b4af4cbf72b80a50b8831cd88350062e2d03d",
+          "deployment": "managed",
+          "note": "Verified recipe outcomes include strict-attestation failure boundaries; this is not an all-passed or identical-exit-code claim."
+        },
+        {
+          "schemaVersion": 1,
+          "matched": true,
+          "negativeControl": true,
+          "qualification": "selection-recipe",
+          "recipe": 30,
+          "name": "Testcase expected error cannot waive leak",
+          "seed": 83,
+          "expectedNames": [
+            "ProbeCases.G_SkipExpectedLeak"
+          ],
+          "expectedSeeds": {
+            "ProbeCases.G_SkipExpectedLeak": 160
+          },
+          "expectedBodies": [
+            "ProbeCases.G_SkipExpectedLeak"
+          ],
+          "exitCodes": {
+            "legacy": 1,
+            "native": 1
+          },
+          "expectedExitCodes": {
+            "legacy": 1,
+            "native": 1
+          },
+          "listOnly": false,
+          "processBoundariesMatched": true,
+          "producerInputsMatched": true,
+          "nativeCompletionMatched": true,
+          "nativeRunnerSha256": "7c4dc87dff6f464c4ff09578d098643944ca849ffa4438098f64785801eb2c0a",
+          "runtimeAssemblySha256": "95a76d91acb29a70cabf0e5c242b4af4cbf72b80a50b8831cd88350062e2d03d",
+          "deployment": "managed",
+          "note": "Verified recipe outcomes include strict-attestation failure boundaries; this is not an all-passed or identical-exit-code claim."
+        }
+      ]
+    },
+    "selectionLogSha256": "8d5652607d02efe20f01bd8dc83a217526688a5860665b0266afab8c55189a0a"
+  }
+}

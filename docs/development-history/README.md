@@ -17,7 +17,7 @@ This is a curated development record, not a complete chat transcript. Reports de
 | 7 | [Validation](round7-validation-report.md) | [Summary](round7-development-summary.json) |
 | 8 | [Validation](round8-validation-report.md) | [Summary](round8-development-summary.json) |
 
-## Latest completed development state
+## Archived round 8 development state
 
 - Code handoff commit: `6de9bb705df190f7e15a2341cd979f6af3e66d5a` on `main`, already pushed before this history import.
 - Completed round 8: 200 numbered source/test edits, four checkpoint commits, 171 added helper cases, 13 interval reviews and three final deep reviews.
@@ -214,6 +214,7 @@ Scope200 final evidence: [validation](scope200-checkpoint200-full-validation.jso
 [deep source review](scope200-deep-source-review.md),
 [deep evidence review](scope200-deep-evidence-review.md).
 
-## Active selection and coverage follow-up
+## Completed selection and coverage follow-up
 
-[Selection200](selection200-report.md) records the new batch following the explicitly requested push of scope200 through fee2ace. Milestones 50, 100 and 150 have fresh Windows/Linux validation and four-production-assembly coverage. This new batch remains local; inspect Git history for its checkpoint commits. The report distinguishes actual completed units from pending native protocol and selection/failure qualification, records review findings, and links stable StrictDoc requirements and reproducible adversarial evidence. Its counts do not recount the earlier 200-unit batch or claim 200 features.
+[Selection200](selection200-report.md) records the completed new batch after the requested push through fee2ace: 70 managed acceptance contracts, 30 pinned export decisions, 70 native protocol contracts and 30 paired selection/failure recipes, plus 17 unnumbered corrective facts. New checkpoint commits remain local. See [final functional validation](selection200-checkpoint200-full.json), [coverage](selection200-checkpoint200-coverage.json), [requirements](selection200-checkpoint200-requirements.json), [publication](selection200-checkpoint200-publication.json), [cadence](selection200-cadence.json) and [reviews](selection200-reviews.jsonl). The report retains scope limits and the earlier Linux30 stopped gate. This is not a recount of prior work or a claim of 200 features. CI remains disabled and PR #62 untouched.
+Final Selection200 independent reviews: [source](selection200-deep-source-review.md) and [evidence/requirements](selection200-deep-evidence-review.md).

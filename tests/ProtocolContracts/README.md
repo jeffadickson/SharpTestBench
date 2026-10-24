@@ -1,4 +1,4 @@
-Current source milestone: 50 of 70 planned protocol contracts are included. Executed runner qualification is recorded separately in selection200 checkpoint evidence.
+Current source milestone: 70 of 70 planned protocol contracts are included. Executed runner qualification is recorded separately in selection200 checkpoint evidence.
 
 # Local protocol and selection contracts
 
