@@ -15,6 +15,8 @@ See [migration and examples](docs/MIGRATION_0_8.md).
 
 ## Project navigation
 
+- [Current chat / VS Code continuation prompt](prompt.md) — update before every commit.
+
 - [Documentation](docs/README.md)
 - [Repository layout and contributing](CONTRIBUTING.md)
 - [Resume development on another computer](docs/handoff/README.md)

@@ -23,6 +23,9 @@ SharpTestBench.slnx -c Release` and `dotnet run --project tests/SharpTestBench.T
 
 ## Change and review rules
 
+Before every commit, update the root [prompt.md](prompt.md) with the current work, actual validation, remaining tasks and delivery state. Include it in the same commit so another chat or VS Code session can resume without earlier conversation history. Read it before starting work; preserve historical evidence as historical.
+
+
 Use a focused branch and reference the relevant issue. Include the problem,
 behavior change and actual validation results in the PR. Keep generated build
 output out of git; retain intentional evidence snapshots under docs/evidence.
