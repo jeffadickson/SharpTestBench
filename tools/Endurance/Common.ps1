@@ -56,7 +56,8 @@ function Start-EnduranceDetached {
  if($IsLinux){
   # A new session has no controlling terminal and survives the caller's SSH
   # terminal disappearing. Do not silently claim detach if setsid is missing.
-  $setsid=Get-Command setsid -CommandType Application -ErrorAction Stop
+  # PATH can expose both /usr/bin and /bin; FilePath requires one executable.
+  $setsid=@(Get-Command setsid -CommandType Application -ErrorAction Stop)[0]
   $launchParameters.ArgumentList=@('--wait','--',('"'+$launchParameters.FilePath.Replace('"','\"')+'"'))+$launchParameters.ArgumentList
   $launchParameters.FilePath=$setsid.Source
  }

@@ -93,6 +93,9 @@ disabled for the standalone command; configure Git authentication beforehand.
 The baseline builds the solution and executes Core, Generators and `Endurance*`
 Tools tests with exact discovery/result inventory checks, plus StrictDoc export.
 It does not replace the complete repository managed/retained-contract baseline.
+Full discovery JSON has a separate16MiB capture bound so the complete inventory
+can exceed the128KiB diagnostic prefix without being silently truncated. These
+larger baseline discovery files remain local; they are not result-branch payloads.
 Campaign coverage measures only production `SharpTestBench.Tools.Endurance*`
 types through their unit/integration tests. Reports carry covered/valid line and
 branch counts; unavailable measurements remain null. Other production types,

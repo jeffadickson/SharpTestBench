@@ -63,7 +63,9 @@ if(!$sdk){
   }finally{$output.Dispose();$downloadStream.Dispose();$response.Dispose()}
  }finally{$timeout.Dispose();$http.Dispose()}
  if((Get-FileHash -LiteralPath $archive -Algorithm SHA512).Hash.ToLowerInvariant() -ne $download.sha512){throw 'SDK SHA512 mismatch; nothing was extracted or executed'}
- $staging=Join-Path $store ('sdk-staging-'+[Guid]::NewGuid().ToString('N'));[IO.Directory]::CreateDirectory($staging)|Out-Null
+ $staging=Join-Path $store ('sdk-staging-'+[Guid]::NewGuid().ToString('N'))
+ if(Test-Path -LiteralPath $staging){throw 'SDK staging directory already exists; preserve it'}
+ [IO.Directory]::CreateDirectory($staging)|Out-Null
  if($IsWindows){[IO.Compression.ZipFile]::ExtractToDirectory($archive,$staging,$false)}else{
   $file=[IO.File]::OpenRead($archive);$gzip=[IO.Compression.GZipStream]::new($file,[IO.Compression.CompressionMode]::Decompress)
   try{[System.Formats.Tar.TarFile]::ExtractToDirectory($gzip,$staging,$false)}finally{$gzip.Dispose();$file.Dispose()}

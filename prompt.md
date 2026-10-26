@@ -16,6 +16,14 @@ An earlier Linux campaign22f8cee662ce4d669180c353cf696ed2 was partial after300.4
 
 Preserve unknown untracked AGENTS.md. Work on main; all12 workflows remain disabled_manually, and PR62 remains open/draft/unmerged at0318a864d9b570f9ffbc4857e7365ec9ed6a4736 (read-only checks performed). Windows system SDK is now10.0.403: reuse the profile-derived .dotnet installation containing10.0.402 and set DOTNET_ROOT/CS_DOTNET_ROOT/PATH. Keep independent WSL-native outputs. Do not reinstall working tools or use Dell shares/ZIP/WSL imports.
 
+## Standalone corrective checkpoint (2026-10-26)
+
+Implementation41bdf3c2b0a0e642ddea63312015d3e47470a283 is local, not pushed. Linux standard four-assembly coverage finished7567/11565 lines and4711/8819 branches; Windows8232/12634 and4752/8987. These are checkpoint collections, not normalized platform comparisons.
+
+Fresh standalone clones of41bdf3c passed full builds/StrictDoc but correctly failed baseline discovery when Core's full JSON exceeded128KiB. Valid failure data was published only to temporary local bare remotes: Windowsf083e392befe40b806dade6490eebecb59a32581 and Linux9ed8cfa987201ef94f8fc6d1928b0ce09ad6c32d. Source/main remained unchanged. This is not positive standalone qualification.
+
+The commit containing this corrective update separates structured discovery into a16MiB bound, with a1250-case real child regression passed on both OSes. The full115-case focused Windows suite also passed after this fix. Linux's multiple setsid PATH matches now select one executable. Nine Linux PowerShell tests passed with installed Pester3.4.0, TEMP set to the native temp path, and an OS-metadata warning; terminal disconnect remains untested. SDK staging now rejects even an unexpected GUID collision rather than reusing a directory. Deep source review accepted the discovery/setsid fixes. Finish positive clean standalone qualification from this corrective commit, collect updated coverage, review/import the real published reports, update this prompt/report and perform final evidence review before the final commit/push. No hours run/schedule or GitHub result upload has started. Keep CI disabled and PR62 untouched.
+
 ## Start here
 
 Continue on main. Preserve unknown local changes; fetch normally and inspect newer commits. Never hard-reset, clean unknown files, or force-push. Use this checkout as the complete handoff: no earlier chat, Dell share, ZIP or WSL import is needed.

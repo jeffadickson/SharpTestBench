@@ -164,7 +164,7 @@ linked xUnitv2 driver then killed10 selected one-guard mutants before the later
 all-six-guard runs recorded above. This is an observed compatibility choice for
 the pinned tool configuration, not a general claim that xUnitv3 is defective.
 
-## Pending qualification / delivery at this checkpoint
+## Pending qualification / delivery at the first checkpoint
 
 The implementation is not yet pushed. Linux standard merged coverage, clean dedicated
 standalone runs against local bare remotes, passive review/import checks on that
@@ -178,3 +178,40 @@ Read-only GitHub checks confirmed all12 workflows disabled_manually and PR62
 open/draft/unmerged at0318a864d9b570f9ffbc4857e7365ec9ed6a4736. No dispatch or PR
 mutation occurred. Source development commits include root prompt.md; automated
 data-only result commits contain only the allowlisted JSON/checksum files.
+
+## Standalone findings after checkpoint41bdf3c
+
+Linux standard four-assembly collection completed:7567/11565 lines
+(65.43017725897103%) and4711/8819 branches (53.418754960879916%). Counters and
+assembly sets were validated by the existing collector. Cross-collection emitted
+inventories differ; these values are not a normalized platform comparison.
+
+Clean standalone clones of41bdf3c built the full Release solution and exported
+requirements successfully on both OSes, then correctly rejected baseline success
+because Core's full discovery JSON exceeded the128KiB diagnostic retention cap.
+Both reported baseline-failed with zero completed campaign work. They published
+valid failure-only JSON/checksums to temporary **local bare remotes**, not GitHub:
+
+- Windows run36e3d86ed8094ebabfc0ba1928e9ed05,
+  result commitf083e392befe40b806dade6490eebecb59a32581.
+- Linux run036e4a6b184c4c23a7feff9bd99cd60e,
+  result commit9ed8cfa987201ef94f8fc6d1928b0ce09ad6c32d.
+
+Windows result-tree inspection confirmed exactly two allowlisted files and its
+temporary remote main remained41bdf3c2b0a0e642ddea63312015d3e47470a283. No success
+was inferred from these failed baselines.
+
+The fix gives full structured discovery its own16MiB capture budget while keeping
+strict inventory validation. A real-child regression emits1250 valid cases above
+128KiB, proves the ordinary prefix truncates, and parses all1250 with the new
+bound. It passed on Windows and Linux. The focused inventory is now115 cases.
+
+Linux execution of the nine PowerShell boundary cases also found multiple
+`setsid` matches on PATH. Selecting one ApplicationInfo fixes FilePath binding;
+the exact-source native fixture rerun passed all9 cases, including actual Linux
+session-separated background execution. The existing Pester3.4.0 was reused from
+its installed files, with TEMP set to the actual native temp directory. Pester
+warned that its OS metadata was partial; no full system-profile claim is made.
+Actual terminal-disconnect survival remains untested. A read-only deep source
+review accepted both fixes without actionable findings. Positive fresh standalone
+reruns are the next qualification step; no GitHub push has occurred yet.

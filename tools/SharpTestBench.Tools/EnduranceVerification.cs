@@ -5,6 +5,9 @@ namespace SharpTestBench.Tools;
 /// <summary>Baseline and coverage checks have their own bounded deadlines outside the campaign clock.</summary>
 internal static class EnduranceVerification
 {
+    // Full xUnit discovery is structured evidence, not a diagnostic prefix. The
+    // complete inventory can exceed normal logs; retain it within a separate cap.
+    internal const int DiscoveryBytes = 16777216;
     internal const string BaselineScope = "Core, Generators and Endurance Tools tests; no simulator qualification";
     internal static string Quote(string path)
     {
@@ -55,7 +58,7 @@ internal static class EnduranceVerification
             {
                 string assembly = Path.Combine(root, "tests", suite, "bin/Release/net10.0", suite + ".dll");
                 string[] filter = suite == "SharpTestBench.Tools.Tests" ? ["-class", "Endurance*"] : [];
-                var discovered = EnduranceProcess.Run("dotnet", [assembly, "-preEnumerateTheories", "-list", "full/json", .. filter], root, TimeSpan.FromSeconds(120)); Save(suite + "-discovery", discovered);
+                var discovered = EnduranceProcess.Run("dotnet", [assembly, "-preEnumerateTheories", "-list", "full/json", .. filter], root, TimeSpan.FromSeconds(120), DiscoveryBytes); Save(suite + "-discovery", discovered);
                 if (!discovered.Passed) { status = "failed"; break; }
                 var inventory = ManagedTestsCommand.Inventory(discovered.Output, requireMutationTarget: false);
                 string xml = Path.Combine(work, suite + ".xml");

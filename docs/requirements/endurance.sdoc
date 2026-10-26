@@ -86,6 +86,8 @@ RELATIONS:
   VALUE: tools/SharpTestBench.Tools/EnduranceVerification.cs
 - TYPE: File
   VALUE: tests/Endurance/Launcher.Tests.ps1
+- TYPE: File
+  VALUE: tests/SharpTestBench.Tools.Tests/EnduranceVerificationTests.cs
 
 [REQUIREMENT]
 UID: STB-END-007
