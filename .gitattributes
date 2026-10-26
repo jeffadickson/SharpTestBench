@@ -4,3 +4,5 @@ tests/Fixtures/verilog-lfsr/* text eol=lf
 tests/Fixtures/verilog-priority/* text eol=lf
 Makefile text eol=lf
 tools/Makefile text eol=lf
+# Preserve exact hash-bound report bytes, including original Windows newlines.
+docs/evidence/endurance/**/*.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol

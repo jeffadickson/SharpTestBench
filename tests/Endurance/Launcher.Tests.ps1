@@ -13,6 +13,11 @@ try {
    $literal=ConvertTo-EnduranceLiteral $value
    (& ([ScriptBlock]::Create($literal))) | Should Be $value
   }
+  It 'Retains a complete large structured response under an explicit bound' {
+   $result=Invoke-EnduranceNative -Executable (Get-Process -Id $PID).Path -Arguments @('-NoProfile','-Command',"[Console]::Out.Write(('x' * 200000))") -Directory $owned -Seconds 20 -MaximumBytes 524288
+   $result.Passed | Should Be $true
+   $result.Stdout.Length | Should Be 200000
+  }
   It 'Rejects an existing standalone workspace before cloning' {
    $result=Invoke-EnduranceNative -Executable (Get-Process -Id $PID).Path -Arguments @('-NoProfile','-File',(Join-Path $repository 'tools/Remote-Endurance.ps1'),'-Workspace',$owned) -Directory $repository -Seconds 20
    $result.ExitCode | Should Be 1

@@ -20,9 +20,9 @@ function Assert-EnduranceOwnedPath {
  }
 }
 function Invoke-EnduranceNative {
- param([string]$Executable,[string[]]$Arguments,[string]$Directory,[int]$Seconds=120,[string]$Log)
+ param([string]$Executable,[string[]]$Arguments,[string]$Directory,[int]$Seconds=120,[string]$Log,[int]$MaximumBytes=131072)
  if(!(Test-Path -LiteralPath $Directory -PathType Container)){throw 'Child working directory missing'}
- $result=[SharpTestBench.Tools.EnduranceProcess]::Run($Executable,$Arguments,$Directory,[TimeSpan]::FromSeconds($Seconds),131072,[Threading.CancellationToken]::None,$null,$null)
+ $result=[SharpTestBench.Tools.EnduranceProcess]::Run($Executable,$Arguments,$Directory,[TimeSpan]::FromSeconds($Seconds),$MaximumBytes,[Threading.CancellationToken]::None,$null,$null)
  if($Log){
   $parent=Split-Path -Parent $Log
   if($parent -and !(Test-Path -LiteralPath $parent -PathType Container)){[IO.Directory]::CreateDirectory($parent)|Out-Null}

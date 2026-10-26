@@ -133,6 +133,12 @@ with an exact seed/count replay. An interrupted shrink is not claimed minimal.
 
 ## Lifecycle, resources and recovery
 
+On memory-constrained machines, serialize heavy coverage and standalone baseline
+jobs even when their output directories are independent. Each campaign launches
+one child at a time, but test runners retain their own bounded parallelism.
+Concurrent qualification on the16GiB OptiPlex produced Git fixture failures and
+a Stryker timeout; those failed attempts were retained, not counted as passes.
+
 Each run owns `build/endurance/<GUID>/` with an immutable-input snapshot, local
 owner identity, atomic report checkpoints and bounded logs. A checkout lease
 rejects overlap. Children run serially; default timeout is 300 seconds through

@@ -14,7 +14,7 @@ internal sealed class EnduranceGit(string root)
         var clean = new Dictionary<string,string?> { ["GIT_OPTIONAL_LOCKS"]="0", ["GIT_DIR"]=null, ["GIT_WORK_TREE"]=null, ["GIT_COMMON_DIR"]=null, ["GIT_INDEX_FILE"]=null };
         if(environment is not null)foreach(var item in environment)clean[item.Key]=item.Value;
         var result = EnduranceProcess.Run("git", ["--no-replace-objects", .. arguments], Root, TimeSpan.FromSeconds(30), 16777216, environment: clean, stdin: input);
-        if (!result.Passed) throw new IOException("Git operation failed: " + arguments[0]);
+        if (!result.Passed) throw new IOException($"Git operation failed: {arguments[0]} (exit={result.ExitCode}, timedOut={result.TimedOut}, interrupted={result.Interrupted}, truncated={result.Truncated}, settled={result.Settled})");
         return result.Stdout;
     }
     internal string Text(params string[] arguments) => new UTF8Encoding(false, true).GetString(Bytes(arguments)).Trim();

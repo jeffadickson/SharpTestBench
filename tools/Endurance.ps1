@@ -65,7 +65,11 @@ switch($Mode){
 }
 if($Mode -in @('Preflight','Publish','Import','Review')){Add-Option '--expected-source' $ExpectedSource}
 $seconds=if($Mode -eq 'Run'){[int][Math]::Ceiling($budget.TotalSeconds+900)}elseif($Mode -eq 'Baseline'){1800}else{300}
-$result=Invoke-EnduranceNative -Executable $environment.Dotnet -Arguments $arguments.ToArray() -Directory $repository -Seconds $seconds -Log ($bootstrap+'-host')
+# The persisted report is capped at512KiB; allow a bounded envelope for console
+# serialization/newline differences rather than truncating valid report JSON.
+$captureBytes=if($Mode -eq 'Review'){1048576}else{131072}
+$result=Invoke-EnduranceNative -Executable $environment.Dotnet -Arguments $arguments.ToArray() -Directory $repository -Seconds $seconds -Log ($bootstrap+'-host') -MaximumBytes $captureBytes
+if($Mode -eq 'Review' -and $result.Truncated){throw 'Structured review response exceeded its bound; partial JSON is not a successful review'}
 [Console]::Out.Write($result.Output);[Console]::Error.Write([Text.Encoding]::UTF8.GetString($result.Stderr))
 if($result.TimedOut -or !$result.Settled){Write-Error 'Outer host deadline/cleanup failure; retain evidence and use Recover for a dead running checkpoint';exit 1}
 if($null -eq $result.ExitCode){exit 1};exit $result.ExitCode
