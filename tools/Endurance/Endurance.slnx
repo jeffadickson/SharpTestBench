@@ -1,0 +1,8 @@
+<Solution>
+  <!-- Compile the actual campaign dependencies, including the inherited-pipe
+       fixture used by scoped coverage. Full-product baseline stays separate. -->
+  <Project Path="../../src/SharpTestBench/SharpTestBench.csproj" />
+  <Project Path="../../tests/SharpTestBench.Tools.Tests/SharpTestBench.Tools.Tests.csproj" />
+  <Project Path="../../tests/RunnerProcessFixture/RunnerProcessFixture.csproj" />
+  <Project Path="../../tests/SharpTestBench.Endurance.Mutation.Tests/SharpTestBench.Endurance.Mutation.Tests.csproj" />
+</Solution>

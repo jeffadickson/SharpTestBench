@@ -1,5 +1,9 @@
 # Requirements and verification traceability
 
+`endurance.sdoc` defines stable STB-END-001 through STB-END-009 requirements for
+bounded Stryker.NET/property campaigns and data-only results transport. See
+[ENDURANCE.md](../ENDURANCE.md) for scope and commands. Active does not mean closed.
+
 `selection.sdoc` uses stable parent/task IDs and stable refinement IDs. Active means an applicable obligation, not completed verification or closure of the broader tracker issue. Whole-file File relations link implementation and tests; the batch ledger and validation/coverage reports under `docs/development-history/selection200-*` identify actual execution and remaining scope. Source links do not prove a test ran, and StrictDoc export is not a verifier of runtime evidence.
 
 Use StrictDoc0.30.4 from a separate tooling environment. The package is pinned in `requirements.txt`; this computer reuses the isolated ignored `build/strictdoc-env`. From the checkout run `build/strictdoc-env/Scripts/strictdoc.exe export docs/requirements --output-dir build/selection200-strictdoc --no-parallelization` on Windows, or the corresponding environment's `strictdoc` command on Linux. The required Python configuration derives the repository root from its own location. It is tool configuration, while engineering automation uses C#/F#/PowerShell.

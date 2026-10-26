@@ -1,0 +1,123 @@
+[DOCUMENT]
+TITLE: SharpTestBench endurance verification requirements
+UID: STB-ENDURANCE-SRS
+VERSION: 1
+
+[REQUIREMENT]
+UID: STB-END-001
+STATUS: Active
+TITLE: Bounded reproducible campaign
+STATEMENT: A campaign shall default to a five-hour monotonic budget, accept explicit durations from one second through 24 hours, and include compilation, mutation and randomized batches in that budget. Setup and optional coverage shall be timed separately. Only complete verified batches shall contribute case counts.
+RELATIONS:
+- TYPE: File
+  VALUE: tools/SharpTestBench.Tools/EnduranceCampaign.cs
+- TYPE: File
+  VALUE: tests/SharpTestBench.Tools.Tests/EnduranceCampaignTests.cs
+
+[REQUIREMENT]
+UID: STB-END-002
+STATUS: Active
+TITLE: Actual mutation sensitivity
+STATEMENT: Stryker.NET shall mutate selected production evidence guards through an isolated source-linked subject. Reports shall distinguish killed, survived, invalid, timed-out, uncovered, ignored and pending outcomes and excluded mutants. Selected unresolved findings shall prevent successful campaign completion. Supplemental deliberate guard deletions shall retain separate outcomes.
+RELATIONS:
+- TYPE: File
+  VALUE: tools/SharpTestBench.Tools/EnduranceStryker.cs
+- TYPE: File
+  VALUE: tools/SharpTestBench.Tools/EnduranceMutations.cs
+- TYPE: File
+  VALUE: tests/SharpTestBench.Tools.Tests/EnduranceStrykerTests.cs
+- TYPE: File
+  VALUE: tests/SharpTestBench.Endurance.Mutation.Tests/EvidenceGuardMutationTests.cs
+
+[REQUIREMENT]
+UID: STB-END-003
+STATUS: Active
+TITLE: Changing seeds and reproducible failure input
+STATEMENT: Every verified randomized batch shall record a deterministic changing seed, exact completed property and malformed-input counts, and the next seed. Failure evidence shall preserve replay parameters and a checksum of the retained local counterexample. Unfinished work shall not be counted as completed.
+RELATIONS:
+- TYPE: File
+  VALUE: tools/Endurance/Properties.fsx
+- TYPE: File
+  VALUE: tools/SharpTestBench.Tools/EnduranceCampaign.cs
+- TYPE: File
+  VALUE: tests/SharpTestBench.Tools.Tests/EnduranceCampaignTests.cs
+
+[REQUIREMENT]
+UID: STB-END-004
+STATUS: Active
+TITLE: Resource and overlap boundaries
+STATEMENT: Campaigns shall hold a checkout-exclusive lease, execute one child at a time, bound child deadlines and retained diagnostics, cancel inherited pipe reads before closing handles, and preserve earlier run directories. Artifact scanning shall request a stop when the configured retention bound is exceeded without claiming a hard disk quota.
+RELATIONS:
+- TYPE: File
+  VALUE: tools/SharpTestBench.Tools/EnduranceProcess.cs
+- TYPE: File
+  VALUE: tools/SharpTestBench.Tools/EnduranceStorage.cs
+- TYPE: File
+  VALUE: tests/SharpTestBench.Tools.Tests/EnduranceProcessTests.cs
+- TYPE: File
+  VALUE: tests/SharpTestBench.Tools.Tests/EnduranceStorageTests.cs
+
+[REQUIREMENT]
+UID: STB-END-005
+STATUS: Active
+TITLE: Atomic honest lifecycle evidence
+STATEMENT: Atomic bounded-retry checkpoints shall identify source commit and hashes, dirty state, platform, tools, requested and actual duration, seeds, limits and measured testing scope. Setup failure shall leave valid finished evidence. Recovery shall reject live owners and label recovered duration as a lower bound. Unknown coverage shall remain unknown.
+RELATIONS:
+- TYPE: File
+  VALUE: tools/SharpTestBench.Tools/EnduranceModels.cs
+- TYPE: File
+  VALUE: tools/SharpTestBench.Tools/EnduranceRules.cs
+- TYPE: File
+  VALUE: tools/SharpTestBench.Tools/EnduranceCommand.cs
+- TYPE: File
+  VALUE: tests/SharpTestBench.Tools.Tests/EnduranceStorageTests.cs
+
+[REQUIREMENT]
+UID: STB-END-006
+STATUS: Active
+TITLE: Isolated verified setup
+STATEMENT: Setup shall reuse matching installed dependencies before offering explicit missing-tool installation. Downloads shall use pinned official locations and checksums. A standalone launcher shall reject an existing destination, preserve other checkouts and source branches, and perform baseline and requirement checks before its campaign. Authentication and system prerequisite installation shall remain explicit.
+RELATIONS:
+- TYPE: File
+  VALUE: tools/Setup-Endurance.ps1
+- TYPE: File
+  VALUE: tools/Remote-Endurance.ps1
+- TYPE: File
+  VALUE: tools/SharpTestBench.Tools/EnduranceVerification.cs
+- TYPE: File
+  VALUE: tests/Endurance/Launcher.Tests.ps1
+
+[REQUIREMENT]
+UID: STB-END-007
+STATUS: Active
+TITLE: Data-only results transport
+STATEMENT: Results publication shall verify clean committed source identity and create a unique remote-runs branch with only a bounded allowlisted JSON summary and checksums. It shall never checkout, merge, force-push or update main. Failed uploads shall retain a local commit and retry command. Credentials, absolute paths, raw logs, binaries and corpora shall remain local.
+RELATIONS:
+- TYPE: File
+  VALUE: tools/SharpTestBench.Tools/EndurancePublication.cs
+- TYPE: File
+  VALUE: tools/SharpTestBench.Tools/EnduranceGit.cs
+- TYPE: File
+  VALUE: tests/SharpTestBench.Tools.Tests/EndurancePublicationTests.cs
+
+[REQUIREMENT]
+UID: STB-END-008
+STATUS: Active
+TITLE: Checksummed import and passive review
+STATEMENT: Import shall require checksum-bound completed original evidence and exact source identity, label the report imported and state that checks were not reexecuted. Review shall parse a results commit as data without checking out or executing its contents. Malformed, unsafe, stale, dirty and unfinished evidence shall be rejected.
+RELATIONS:
+- TYPE: File
+  VALUE: tools/SharpTestBench.Tools/EndurancePublication.cs
+- TYPE: File
+  VALUE: tests/SharpTestBench.Tools.Tests/EndurancePublicationTests.cs
+
+[REQUIREMENT]
+UID: STB-END-009
+STATUS: Active
+TITLE: Scoped coverage and limitations
+STATEMENT: Coverage shall identify measured assembly and type scope and report line and branch numerators and denominators. A guard mutation score or scoped coverage measurement shall not claim whole-product mutation adequacy, native instruction coverage, HDL coverage, benchmarking or requirements closure.
+RELATIONS:
+- TYPE: File
+  VALUE: tools/SharpTestBench.Tools/EnduranceVerification.cs
+- TYPE: File
+  VALUE: docs/ENDURANCE.md

@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><TargetFramework>net10.0</TargetFramework><ImplicitUsings>enable</ImplicitUsings><Nullable>enable</Nullable><TreatWarningsAsErrors>true</TreatWarningsAsErrors><EnableDefaultCompileItems>false</EnableDefaultCompileItems></PropertyGroup>
+  <!-- Exact production sources, without unrelated helper orchestration. This
+       avoids instrumenting every existing CLI when selecting guard conditions. -->
+  <ItemGroup>
+    <Compile Include="../../tools/SharpTestBench.Tools/EnduranceRules.cs" Link="EnduranceRules.cs" />
+    <Compile Include="../../tools/SharpTestBench.Tools/EnduranceModels.cs" Link="EnduranceModels.cs" />
+    <InternalsVisibleTo Include="SharpTestBench.Endurance.Mutation.Tests" />
+  </ItemGroup>
+</Project>

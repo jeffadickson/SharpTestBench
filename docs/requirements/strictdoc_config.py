@@ -12,6 +12,6 @@ def create_config() -> ProjectConfig:
         project_title="SharpTestBench requirements",
         project_features=["REQUIREMENT_TO_SOURCE_TRACEABILITY"],
         source_root_path=str(Path(__file__).resolve().parents[2]),
-        include_source_paths=["src/SharpTestBench/**", "tests/SharpTestBench.Tests/Selection*.cs", "tests/SharpTestBench.Tools.Tests/Selection*.cs", "tests/ProtocolContracts/**", "tests/SelectionQuality/**", "tools/SharpTestBench.Tools/*AuditCommand.cs", "tools/SharpTestBench.Tools/SelectionCiCommand.cs", "tools/SharpTestBench.Tools/ManagedTestsCommand.cs", "tools/SharpTestBench.Tools/SelectionScenarioEvidence.cs", "tools/SharpTestBench.Tools/ProtocolContractInventory.cs"],
+        include_source_paths=["src/SharpTestBench/**", "tests/SharpTestBench.Tests/Selection*.cs", "tests/SharpTestBench.Tools.Tests/Selection*.cs", "tests/ProtocolContracts/**", "tests/SelectionQuality/**", "tools/SharpTestBench.Tools/*AuditCommand.cs", "tools/SharpTestBench.Tools/SelectionCiCommand.cs", "tools/SharpTestBench.Tools/ManagedTestsCommand.cs", "tools/SharpTestBench.Tools/SelectionScenarioEvidence.cs", "tools/SharpTestBench.Tools/ProtocolContractInventory.cs", "tools/SharpTestBench.Tools/Endurance*.cs", "tests/SharpTestBench.Tools.Tests/Endurance*.cs", "tests/SharpTestBench.Endurance.Mutation.Tests/**", "tools/Endurance/**", "tests/Endurance/**", "tools/*Endurance.ps1", "docs/ENDURANCE.md"],
         exclude_source_paths=["**/bin/**", "**/obj/**"],
     )

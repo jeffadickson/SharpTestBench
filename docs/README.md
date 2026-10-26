@@ -12,6 +12,7 @@
 - [Quick start and installation](../README.md)
 - [Contribution guide and repository layout](../CONTRIBUTING.md)
 - [Development test-tool assessment](TEST_TOOLING.md)
+- [Reproducible mutation, property and malformed-input endurance runs](ENDURANCE.md)
 - [All tracked GitHub tasks](TASKS_INDEX.md)
 - [Remaining work narrative](OPEN_WORK.md)
 - [Simulator capability policy](CAPABILITIES.md)

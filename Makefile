@@ -4,6 +4,7 @@ PYTHON ?= python
 CONFIGURATION ?= Release
 WORKER_OUTPUT ?= build/workers
 ARGS ?= --help
+ENDURANCE_ARGS ?=
 ifeq ($(OS),Windows_NT)
 HOST_OS := win
 HOST_CPU := $(PROCESSOR_ARCHITECTURE)
@@ -28,9 +29,9 @@ HOST_ARCH := unsupported
 endif
 RID ?= $(HOST_OS)-$(HOST_ARCH)
 HELPER := tools/SharpTestBench.Tools/SharpTestBench.Tools.csproj
-.PHONY: help build test coverage native native-tools native-runner verify-native run-native-tools run-native-runner
+.PHONY: help build test coverage endurance native native-tools native-runner verify-native run-native-tools run-native-runner
 help:
-	@echo "build test coverage native native-tools native-runner verify-native run-native-tools run-native-runner"
+	@echo "build test coverage endurance native native-tools native-runner verify-native run-native-tools run-native-runner"
 	@echo "Full helpers: self-contained ReadyToRun. Standalone runner: NativeAOT. RID=$(RID)"
 build:
 	"$(DOTNET)" build SharpTestBench.slnx -c $(CONFIGURATION) -p:RestoreLockedMode=true --disable-build-servers -m:1
@@ -44,6 +45,8 @@ coverage:
 	$(MAKE) build CONFIGURATION=Release
 	"$(DOTNET)" tool restore
 	"$(DOTNET)" run --project "$(HELPER)" -c Release -- code-coverage
+endurance:
+	pwsh -NoProfile -File tools/Endurance.ps1 $(ENDURANCE_ARGS)
 native:
 	"$(DOTNET)" run --project "$(HELPER)" -c Release -- publish-workers --mode all --rid "$(RID)" --output "$(WORKER_OUTPUT)"
 native-tools:

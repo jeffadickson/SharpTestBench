@@ -1,5 +1,9 @@
 # Development history
 
+The [2026-10-26 endurance workflow report](endurance-validation-report.md) records
+new OptiPlex execution, source reviews and remaining standalone qualification.
+It is separate from the completed selection200 batch and older imported reports.
+
 These are the saved development reports and evidence summaries from rounds 1–8, previously stored outside Git. They are now available with a normal clone or pull; no chat synchronization, ZIP, or Dell share is required. Git itself retains the source changes and commit history.
 
 This is a curated development record, not a complete chat transcript. Reports describe historical runs on the Dell Windows/WSL machine. Old absolute paths identify that machine and must not be reused as current-machine configuration. A new computer must run its own dependency checks and baseline tests. Report commit IDs identify the source actually tested; this documentation import adds no runtime changes and does not rerun those tests.

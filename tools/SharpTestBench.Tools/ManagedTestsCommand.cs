@@ -14,7 +14,7 @@ internal static class ManagedTestsCommand
     const int MaximumReportCharacters=16*1024*1024;
     static string Required(string? value,string field)
     {if(string.IsNullOrWhiteSpace(value)||value.Any(char.IsControl))throw new InvalidDataException("Managed case requires "+field);return value;}
-    internal static HashSet<Case> Inventory(string text)
+    internal static HashSet<Case> Inventory(string text,bool requireMutationTarget=true)
     {
         // xUnit appends terminal reset sequences even for its JSON listing. Strip
         // only actual ANSI bytes, not JSON-escaped characters in display names.
@@ -27,11 +27,11 @@ internal static class ManagedTestsCommand
             var item=new Case(Required(row.GetProperty("Class").GetString(),"class"),Required(row.GetProperty("Method").GetString(),"method"),Required(row.GetProperty("DisplayName").GetString(),"display name"));
             if(!ids.Add(id)||!cases.Add(item))throw new InvalidDataException("Duplicate managed discovery identity");
         }
-        if(cases.Count==0||cases.Count(IsTarget)!=1)throw new InvalidDataException("Managed inventory lacks the mutation target");return cases;
+        if(cases.Count==0||requireMutationTarget&&cases.Count(IsTarget)!=1)throw new InvalidDataException("Managed inventory lacks the mutation target");return cases;
     }
-    internal static void Verify(string path,IReadOnlySet<Case> expected,bool mutation)
+    internal static void Verify(string path,IReadOnlySet<Case> expected,bool mutation,bool requireMutationTarget=true)
     {
-        if(expected.Count==0||expected.Count(IsTarget)!=1)throw new InvalidDataException("Managed expected inventory needs one mutation target");
+        if(expected.Count==0||(requireMutationTarget||mutation)&&expected.Count(IsTarget)!=1)throw new InvalidDataException("Managed expected inventory needs one mutation target");
         using var reader=XmlReader.Create(path,new XmlReaderSettings{DtdProcessing=DtdProcessing.Prohibit,XmlResolver=null,MaxCharactersInDocument=MaximumReportCharacters});
         var document=XDocument.Load(reader);if(document.Root?.Name!="assemblies")throw new InvalidDataException("Managed report root differs");var assemblies=document.Root.Elements("assembly").ToArray();
         if(assemblies.Length!=1||assemblies[0].Attribute("errors")?.Value!="0"||assemblies[0].Attribute("not-run")?.Value!="0")throw new InvalidDataException("Managed run has assembly errors or unexecuted cases");
