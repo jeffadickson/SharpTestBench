@@ -16,6 +16,8 @@
     <Project Path="examples/Lfsr/Lfsr.csproj" />
   </Folder>
   <Folder Name="/tests/">
+    <Project Path="tests/SharpTestBench.Process.MutationSubject/SharpTestBench.Process.MutationSubject.csproj" />
+    <Project Path="tests/SharpTestBench.Process.Mutation.Tests/SharpTestBench.Process.Mutation.Tests.csproj" />
     <Project Path="tests/SharpTestBench.Endurance.MutationSubject/SharpTestBench.Endurance.MutationSubject.csproj" />
     <Project Path="tests/SharpTestBench.Endurance.Mutation.Tests/SharpTestBench.Endurance.Mutation.Tests.csproj" />
     <Project Path="tests/RequirementContracts/RequirementContracts.csproj" />

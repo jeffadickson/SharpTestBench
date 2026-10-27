@@ -1,5 +1,10 @@
 # Development history
 
+The [WP-01/WP-02 qualification](work-packages-01-02-validation.md) records fresh
+Windows/Linux baseline and coverage, context-capture and export-link fixes,
+selected Stryker kills, actual publication/simulation and nine timing reports.
+Its bounded package completion does not close broader parent requirements.
+
 The [2026-10-26 endurance workflow report](endurance-validation-report.md) records
 new OptiPlex execution, source reviews and remaining standalone qualification.
 It is separate from the completed selection200 batch and older imported reports.

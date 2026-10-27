@@ -1,0 +1,66 @@
+{
+  "sourceBaseCommit": "c70bc4cca97d8eee884b08516d8fe836faf95beb",
+  "rid": "win-x64",
+  "schemaVersion": 1,
+  "nativeAotNegativeChecks": [],
+  "pairedChecks": [
+    {
+      "fixture": "counter",
+      "standaloneExit": 0,
+      "expectedSeedMatched": true,
+      "logSha256": "71c21cc2f530247e4dca772f0d98b15c06e64c69234f26b5ccedc4a5598de182",
+      "legacyExit": 0,
+      "matched": true,
+      "negative": false
+    },
+    {
+      "fixture": "dsp",
+      "standaloneExit": 0,
+      "expectedSeedMatched": true,
+      "logSha256": "05b3cd180514df1e3882db93e14764870903adc6dc9e5155b5d9e925e4d1f103",
+      "legacyExit": 0,
+      "matched": true,
+      "negative": false
+    },
+    {
+      "fixture": "dsp",
+      "standaloneExit": 1,
+      "expectedSeedMatched": true,
+      "logSha256": "2e6da81d7db77acf2b32a9ec8b67314ffd903206e8aeed8c4816eca16d252fd2",
+      "legacyExit": 1,
+      "matched": true,
+      "negative": true
+    },
+    {
+      "fixture": "cpu",
+      "standaloneExit": 0,
+      "expectedSeedMatched": true,
+      "logSha256": "62896936e1785a8baabb882a12639a0c3dabbcfcaa21516e50fb98df85770daa",
+      "legacyExit": 0,
+      "matched": true,
+      "negative": false
+    },
+    {
+      "fixture": "cpu",
+      "standaloneExit": 1,
+      "expectedSeedMatched": true,
+      "logSha256": "2e6da81d7db77acf2b32a9ec8b67314ffd903206e8aeed8c4816eca16d252fd2",
+      "legacyExit": 1,
+      "matched": true,
+      "negative": true
+    }
+  ],
+  "doctorPassed": true,
+  "artifacts": [
+    {
+      "executableSha256": "94331d428685bb71752f5f0f6aa90a99a1aa4e4016ae21b99d050873a998b288",
+      "worker": "tools",
+      "inventorySha256": "7a654910ad10310e8be06403bab64fae4817186e8c2d4103a508fa4a3a28df2b",
+      "inventoryVerifiedBeforeAndAfter": true,
+      "rid": "win-x64",
+      "deployment": "self-contained-readytorun-with-clr-jit"
+    }
+  ],
+  "scope": "Actual local Icarus simulation; orchestration comparisons only, same managed simulation runtime and pinned GPI bridge; not PR62 independent backend",
+  "publicationLogSha256": "5a1151d75b2cc269168e642817a6edc54e175a75fbab2d075eb1504fede19731"
+}

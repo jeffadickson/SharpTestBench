@@ -44,6 +44,8 @@ public static class EnduranceProcess
         var clock = Stopwatch.StartNew();
         if (!process.Start()) throw new IOException("Child process did not start");
         using var stopStreams = new CancellationTokenSource();
+        // The synchronous facade blocks its caller; pipe continuations must never
+        // require that caller's synchronization context (including test/UI contexts).
         var stdout = Capture(process.StandardOutput.BaseStream, maximumBytes, stopStreams.Token);
         var stderr = Capture(process.StandardError.BaseStream, maximumBytes, stopStreams.Token);
         var input = stdin is null ? Task.CompletedTask : Feed(process.StandardInput.BaseStream, stdin, stopStreams.Token);
@@ -79,7 +81,7 @@ public static class EnduranceProcess
     }
     static async Task Feed(Stream stream, byte[] bytes, CancellationToken cancellation)
     {
-        try { await stream.WriteAsync(bytes, cancellation); await stream.FlushAsync(cancellation); }
+        try { await stream.WriteAsync(bytes, cancellation).ConfigureAwait(false); await stream.FlushAsync(cancellation).ConfigureAwait(false); }
         catch (Exception error) when (error is IOException or ObjectDisposedException or OperationCanceledException) { }
         finally { stream.Close(); }
     }
@@ -90,7 +92,7 @@ public static class EnduranceProcess
         try
         {
             int count;
-            while ((count = await stream.ReadAsync(buffer.AsMemory(), cancellation)) > 0)
+            while ((count = await stream.ReadAsync(buffer.AsMemory(), cancellation).ConfigureAwait(false)) > 0)
             {
                 int keep = Math.Min(count, maximum - (int)output.Length);
                 if (keep > 0) output.Write(buffer, 0, keep);

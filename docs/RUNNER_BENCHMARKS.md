@@ -69,3 +69,9 @@ filesystem, correctness of the original simulation, or performance repeatability
 The subsequent 50-edit hardening batch has a [hashed edit ledger](development-history/optiplex-benchmark-50-iterations.jsonl).
 Those entries are source/test/documentation edits, including individual regression
 cases and review corrections; they are not 50 features or 50 separate benchmarks.
+
+The [WP-01/WP-02 measurements](development-history/work-packages-01-02-validation.md)
+provide fresh Windows/Linux counter/DSP/CPU results, including separate Linux
+NativeAOT reports and actual fault controls. Earlier Windows shared-host binaries
+were rebuilt by later fixture preparation; hashes and per-campaign attestation
+remain, but those older bytes are not archived. See that report's precise scope.

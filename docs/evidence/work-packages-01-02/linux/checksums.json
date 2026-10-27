@@ -1,0 +1,10 @@
+{
+  "benchmark-counter-aot.json": "d9153f655c236b4295e6174be99b4605097dafcbed00bdaa98dc0501617fa277",
+  "benchmark-counter-managed.json": "03648d0bf03009f3fbcb06c974d22908be459ca17c7e81b95dde572f856cf30e",
+  "benchmark-cpu-aot.json": "6660794f75cbe8ad286db1031308c9d6e476f40b599e31a4eb518418c35b7358",
+  "benchmark-cpu-managed.json": "320e04007d645fb5da4610a49ea09395af8c44bfd26afa28f51af1f33b5aecd2",
+  "benchmark-dsp-aot.json": "210b01489294a66dec9af7fe6d66e1b57207ebdd9e88b87b8f7c4d31710fddb0",
+  "benchmark-dsp-managed.json": "63eb1c815e3ec4fe6ee38fe599737be3d3f8d1d2372b3e4bd654d67b95be45fd",
+  "matrix-verification.json": "0ba6962d127178ed174d15b9e9d28ede8b893d972409f0a44be22c447d986dbc",
+  "qualification.json": "1011de400e039bb04e063c94d066fe35a7ad630c3c5e3b6bd08b5e3e4c20c5a7"
+}

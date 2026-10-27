@@ -1,0 +1,325 @@
+{
+  "schemaVersion": 1,
+  "fixture": "counter",
+  "platform": "windows-x64",
+  "sourceBaseCommit": "c70bc4cca97d8eee884b08516d8fe836faf95beb",
+  "sourceBinding": "Qualification source hashes plus protected compiled inputs; final source commit follows testing",
+  "legacyDeployment": "Managed Tools DLL via dotnet",
+  "standaloneDeployment": "managed",
+  "seed": 17,
+  "repeats": 5,
+  "warmups": 1,
+  "units": "milliseconds",
+  "scope": "Icarus process wall time; prebuilt managed fixture/native host; help round trip is a separate startup proxy",
+  "controllerRuntime": ".NET 10.0.13",
+  "rawReportSha256": "7a645373b6e9fead9eaf84392df597eb9ffb15e7593dd35f887f491ba4c3fdd6",
+  "perCampaignBeforeAfterAttestationPassed": true,
+  "postCollectionAllInputsMatch": false,
+  "laterSharedHostRebuilds": [
+    {
+      "identity": "<checkout>/build/sharptestbench_host.dll",
+      "reportHash": "941d6a38267b49d1e895d8b435d81fd321ffea7f7c494de91969aaf5eda623a9",
+      "currentHash": "337af46e1063caefc160c3080539f5d98d45c1862d06e7b33bfd5f8a77252163",
+      "disposition": "Shared host rebuilt by later fixture preparation; original per-campaign before/after attestation passed. Earlier binary bytes are not archived by this harness."
+    }
+  ],
+  "inputs": [
+    {
+      "identity": "<checkout>/.venv-windows/Lib/site-packages/cocotb/libs/cocotb_bootstrap.dll",
+      "sha256": "32031cfbfbf5a66869e07c6609f70469c71199a8597039f432a81d287f0f5456"
+    },
+    {
+      "identity": "<checkout>/.venv-windows/Lib/site-packages/cocotb/libs/gpi_impl_icarus_vpi.dll",
+      "sha256": "d9c8d3530b1471f5e28121f37e0f9a67ff047d96bbb8a01fb25edc362cd3caab"
+    },
+    {
+      "identity": "<checkout>/.venv-windows/Lib/site-packages/cocotb/libs/gpi.dll",
+      "sha256": "721336012110838add5d0e5617eb151e57c475ab6a7283165a012229ccab0cf2"
+    },
+    {
+      "identity": "<checkout>/build/sharptestbench_host.dll",
+      "sha256": "941d6a38267b49d1e895d8b435d81fd321ffea7f7c494de91969aaf5eda623a9"
+    },
+    {
+      "identity": "<checkout>/examples/Counter/bin/Release/net10.0/Counter.deps.json",
+      "sha256": "74e9be4218251d4cd4502814db3f46ffa82c084d22bf3eded2ec752ffd93709b"
+    },
+    {
+      "identity": "<checkout>/examples/Counter/bin/Release/net10.0/Counter.dll",
+      "sha256": "ff3ab094e75334910d6fa57255b1e6256b8d2775b5820a854eeb784118bf789e"
+    },
+    {
+      "identity": "<checkout>/examples/Counter/bin/Release/net10.0/Counter.runtimeconfig.json",
+      "sha256": "c230a317a54dd960bcbeb5f347f52e18dc665a26f7efda2159fced9a5ac7e097"
+    },
+    {
+      "identity": "<checkout>/examples/Counter/bin/Release/net10.0/SharpTestBench.dll",
+      "sha256": "80e6dd0990d86866f6ab34b9d5a02a0c8b3e886f66f2b9487171e61a1027e16d"
+    },
+    {
+      "identity": "<checkout>/examples/Counter/counter.sv",
+      "sha256": "d99a933da0f101aa61555ef2ae210917a872ba75826a5846cad2f74da3758d79"
+    },
+    {
+      "identity": "<checkout>/tools/SharpTestBench.Runner/bin/Release/net10.0/SharpTestBench.Runner.deps.json",
+      "sha256": "4f1502fedda81aae15af6f91d680cf986704881657a280313420fa048435fd65"
+    },
+    {
+      "identity": "<checkout>/tools/SharpTestBench.Runner/bin/Release/net10.0/SharpTestBench.Runner.dll",
+      "sha256": "5fc92a5b99c52c5687f71008ba1f870092e2fbd89859fba69093beab2cd6e614"
+    },
+    {
+      "identity": "<checkout>/tools/SharpTestBench.Runner/bin/Release/net10.0/SharpTestBench.Runner.runtimeconfig.json",
+      "sha256": "fc8762cf9424c33fd5cd4d58f4110509075c26daab2798fa9fded26faf18c7b1"
+    },
+    {
+      "identity": "<checkout>/tools/SharpTestBench.Tools/bin/Release/net10.0/SharpTestBench.Tools.deps.json",
+      "sha256": "212dfaeb7398ba1c8dd206c989da0716bd743e08a00650732f8430d67b61b5ad"
+    },
+    {
+      "identity": "<checkout>/tools/SharpTestBench.Tools/bin/Release/net10.0/SharpTestBench.Tools.dll",
+      "sha256": "f70d7c486ea2edca4da348eaa040d82d593acfca7068e466aaf8c3de2f02042b"
+    },
+    {
+      "identity": "<checkout>/tools/SharpTestBench.Tools/bin/Release/net10.0/SharpTestBench.Tools.runtimeconfig.json",
+      "sha256": "c230a317a54dd960bcbeb5f347f52e18dc665a26f7efda2159fced9a5ac7e097"
+    },
+    {
+      "identity": "external-001/iverilog.exe",
+      "sha256": "25e1ba02e72f58d9d484bc5457d69a6b179d22d86bdf5ba5d6f9f0d4fe620bbf"
+    },
+    {
+      "identity": "external-002/vvp.exe",
+      "sha256": "f0775603e1f1bcf1b2dea16dff963a4b7d71b7b33d5bbe23d2b01ff5b2304e09"
+    },
+    {
+      "identity": "external-003/dotnet.EXE",
+      "sha256": "abce6623a6729059cf39bb0f728c4a7804f625895099c88c17e6e704661e09eb"
+    },
+    {
+      "identity": "external-004/hostfxr.dll",
+      "sha256": "2e6bf792d54303a54467102fd873a7d7a993f828e8d19c040e13e428e5f2d9c8"
+    }
+  ],
+  "toolVersions": [
+    {
+      "tool": "dotnet",
+      "version": "10.0.402\n"
+    },
+    {
+      "tool": "iverilog.exe",
+      "version": "Icarus Verilog version 13.0 (stable) (v13_0)\n\nCopyright (c) 2000-2026 Stephen Williams (steve@icarus.com)"
+    },
+    {
+      "tool": "vvp.exe",
+      "version": "Icarus Verilog runtime version 13.0 (stable) (v13_0)\n\nCopyright (c) 2001-2026 Stephen Williams (steve@icarus.com)"
+    }
+  ],
+  "samples": [
+    {
+      "Round": -1,
+      "Warmup": true,
+      "Order": 0,
+      "Runner": "standalone",
+      "HelpRoundTripMilliseconds": 86.3446,
+      "TotalMilliseconds": 603.917,
+      "CompileMilliseconds": 96.2372,
+      "SimulationMilliseconds": 256.5306,
+      "OtherMilliseconds": 251.1492
+    },
+    {
+      "Round": -1,
+      "Warmup": true,
+      "Order": 1,
+      "Runner": "legacy",
+      "HelpRoundTripMilliseconds": 81.6816,
+      "TotalMilliseconds": 1251.4297,
+      "CompileMilliseconds": 105.55,
+      "SimulationMilliseconds": 228.5827,
+      "OtherMilliseconds": 917.297
+    },
+    {
+      "Round": 0,
+      "Warmup": false,
+      "Order": 0,
+      "Runner": "legacy",
+      "HelpRoundTripMilliseconds": 82.5088,
+      "TotalMilliseconds": 1188.193,
+      "CompileMilliseconds": 145.5496,
+      "SimulationMilliseconds": 225.2149,
+      "OtherMilliseconds": 817.4285
+    },
+    {
+      "Round": 0,
+      "Warmup": false,
+      "Order": 1,
+      "Runner": "standalone",
+      "HelpRoundTripMilliseconds": 84.5885,
+      "TotalMilliseconds": 577.7486,
+      "CompileMilliseconds": 103.3064,
+      "SimulationMilliseconds": 220.0091,
+      "OtherMilliseconds": 254.43310000000002
+    },
+    {
+      "Round": 1,
+      "Warmup": false,
+      "Order": 0,
+      "Runner": "standalone",
+      "HelpRoundTripMilliseconds": 92.4402,
+      "TotalMilliseconds": 559.2689,
+      "CompileMilliseconds": 99.6443,
+      "SimulationMilliseconds": 220.4967,
+      "OtherMilliseconds": 239.12790000000004
+    },
+    {
+      "Round": 1,
+      "Warmup": false,
+      "Order": 1,
+      "Runner": "legacy",
+      "HelpRoundTripMilliseconds": 83.8802,
+      "TotalMilliseconds": 1160.088,
+      "CompileMilliseconds": 109.8724,
+      "SimulationMilliseconds": 217.6706,
+      "OtherMilliseconds": 832.545
+    },
+    {
+      "Round": 2,
+      "Warmup": false,
+      "Order": 0,
+      "Runner": "legacy",
+      "HelpRoundTripMilliseconds": 89.126,
+      "TotalMilliseconds": 1163.4596,
+      "CompileMilliseconds": 103.7173,
+      "SimulationMilliseconds": 225.2094,
+      "OtherMilliseconds": 834.5328999999999
+    },
+    {
+      "Round": 2,
+      "Warmup": false,
+      "Order": 1,
+      "Runner": "standalone",
+      "HelpRoundTripMilliseconds": 85.7599,
+      "TotalMilliseconds": 577.8036,
+      "CompileMilliseconds": 110.0372,
+      "SimulationMilliseconds": 229.4897,
+      "OtherMilliseconds": 238.27669999999998
+    },
+    {
+      "Round": 3,
+      "Warmup": false,
+      "Order": 0,
+      "Runner": "standalone",
+      "HelpRoundTripMilliseconds": 82.1991,
+      "TotalMilliseconds": 560.1667,
+      "CompileMilliseconds": 91.8632,
+      "SimulationMilliseconds": 226.2308,
+      "OtherMilliseconds": 242.0727
+    },
+    {
+      "Round": 3,
+      "Warmup": false,
+      "Order": 1,
+      "Runner": "legacy",
+      "HelpRoundTripMilliseconds": 86.276,
+      "TotalMilliseconds": 1145.5359,
+      "CompileMilliseconds": 102.2515,
+      "SimulationMilliseconds": 220.1761,
+      "OtherMilliseconds": 823.1083
+    },
+    {
+      "Round": 4,
+      "Warmup": false,
+      "Order": 0,
+      "Runner": "legacy",
+      "HelpRoundTripMilliseconds": 77.277,
+      "TotalMilliseconds": 1150.6593,
+      "CompileMilliseconds": 110.0928,
+      "SimulationMilliseconds": 221.0415,
+      "OtherMilliseconds": 819.5250000000001
+    },
+    {
+      "Round": 4,
+      "Warmup": false,
+      "Order": 1,
+      "Runner": "standalone",
+      "HelpRoundTripMilliseconds": 89.5763,
+      "TotalMilliseconds": 568.1345,
+      "CompileMilliseconds": 98.2127,
+      "SimulationMilliseconds": 229.7358,
+      "OtherMilliseconds": 240.186
+    }
+  ],
+  "summary": {
+    "legacy": {
+      "helpRoundTrip": {
+        "count": 5,
+        "min": 77.277,
+        "median": 83.8802,
+        "max": 89.126
+      },
+      "total": {
+        "count": 5,
+        "min": 1145.5359,
+        "median": 1160.088,
+        "max": 1188.193
+      },
+      "compile": {
+        "count": 5,
+        "min": 102.2515,
+        "median": 109.8724,
+        "max": 145.5496
+      },
+      "simulation": {
+        "count": 5,
+        "min": 217.6706,
+        "median": 221.0415,
+        "max": 225.2149
+      },
+      "other": {
+        "count": 5,
+        "min": 817.4285,
+        "median": 823.1083,
+        "max": 834.5328999999999
+      }
+    },
+    "standalone": {
+      "helpRoundTrip": {
+        "count": 5,
+        "min": 82.1991,
+        "median": 85.7599,
+        "max": 92.4402
+      },
+      "total": {
+        "count": 5,
+        "min": 559.2689,
+        "median": 568.1345,
+        "max": 577.8036
+      },
+      "compile": {
+        "count": 5,
+        "min": 91.8632,
+        "median": 99.6443,
+        "max": 110.0372
+      },
+      "simulation": {
+        "count": 5,
+        "min": 220.0091,
+        "median": 226.2308,
+        "max": 229.7358
+      },
+      "other": {
+        "count": 5,
+        "min": 238.27669999999998,
+        "median": 240.186,
+        "max": 254.43310000000002
+      }
+    }
+  },
+  "limitations": [
+    "One finite alternating-order campaign per fixture/deployment",
+    "Warmups excluded; every invocation is a fresh process with warm filesystem/runtime caches",
+    "Help round trip is a startup proxy, not isolated initialization",
+    "Both runners use the same native host, pinned GPI adapter and managed simulation tests",
+    "No HDL or NativeAOT instruction coverage, cross-platform speedup or independent VPI-backend qualification is claimed"
+  ]
+}

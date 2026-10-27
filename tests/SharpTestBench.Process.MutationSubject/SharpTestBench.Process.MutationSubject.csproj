@@ -1,0 +1,5 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><TargetFramework>net10.0</TargetFramework><ImplicitUsings>enable</ImplicitUsings><Nullable>enable</Nullable><TreatWarningsAsErrors>true</TreatWarningsAsErrors><EnableDefaultCompileItems>false</EnableDefaultCompileItems></PropertyGroup>
+  <!-- Isolate exact production pipe code without broadening the evidence-guard campaign. -->
+  <ItemGroup><Compile Include="../../tools/SharpTestBench.Tools/EnduranceProcess.cs" Link="EnduranceProcess.cs" /></ItemGroup>
+</Project>

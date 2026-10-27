@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Library</OutputType><TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings><Nullable>enable</Nullable><TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile><IsTestProject>true</IsTestProject>
+  </PropertyGroup>
+  <!-- VSTest integration is confined to this Stryker driver; existing executable
+       xUnit suites retain their normal runner and dependency graph. -->
+  <ItemGroup>
+    <PackageReference Include="xunit" Version="2.9.3" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.11.0" PrivateAssets="all" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="3.1.5" PrivateAssets="all" />
+    <ProjectReference Include="../SharpTestBench.Process.MutationSubject/SharpTestBench.Process.MutationSubject.csproj" />
+  </ItemGroup>
+</Project>

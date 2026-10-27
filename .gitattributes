@@ -6,3 +6,6 @@ Makefile text eol=lf
 tools/Makefile text eol=lf
 # Preserve exact hash-bound report bytes, including original Windows newlines.
 docs/evidence/endurance/**/*.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+
+# Preserve checksum-bound qualification reports across Windows/Linux checkouts.
+docs/evidence/work-packages-01-02/**/*.json -text

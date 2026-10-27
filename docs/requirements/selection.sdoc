@@ -28,6 +28,11 @@ UID: STB-041
 STATUS: Active
 TITLE: Reproducible verification evidence
 STATEMENT: Verification shall retain reproducible checks and distinguish execution evidence, code coverage and unmeasured behavior.
+RELATIONS:
+- TYPE: File
+  VALUE: tools/Check-RequirementsExport.ps1
+- TYPE: File
+  VALUE: tests/Endurance/RequirementsExport.Tests.ps1
 
 [REQUIREMENT]
 UID: STB-SEL-001

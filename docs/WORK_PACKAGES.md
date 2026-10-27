@@ -3,7 +3,8 @@
 This is the execution plan after delivered source `bdb865e`. It consolidates
 remaining obligations from OPEN_WORK.md, ALPHA_BACKLOG.md, the selection200
 requirement assessment, RUNNER_BENCHMARKS.md and the endurance validation report.
-Those reports remain historical evidence. No package is closed by this plan.
+Those reports remain historical evidence. Planning alone closes no package. WP-01 and WP-02 subsequently passed the bounded
+Windows/Linux gates in the [fresh validation report](development-history/work-packages-01-02-validation.md).
 GitHub issues retain their own completion state; no issue or PR is changed here.
 
 ## Common acceptance and development rules
@@ -42,8 +43,8 @@ implied. No new push or external result upload is authorized by this plan.
 
 | Package | Scope and stable requirement trace | Prerequisite | Exit gate | Current disposition |
 |---|---|---|---|---|
-| WP-01 | Fresh baseline and evidence integrity; STB-041, STB-VER-001..003 | Actual checkout and reusable dependencies inspected | G1 | In progress; old results do not satisfy it |
-| WP-02 | Managed/NativeAOT runner performance and parity; STB-007, STB-VER-003 | G1, doctor, current native publication | G2 | Harness exists; fresh matched measurements outstanding |
+| WP-01 | Fresh baseline and evidence integrity; STB-041, STB-VER-001..003 | Actual checkout and reusable dependencies inspected | G1 | Complete for Windows/Linux x64; fresh post-fix tests, coverage, adversarial and docs gates recorded |
+| WP-02 | Managed/NativeAOT runner performance and parity; STB-007, STB-VER-003 | G1, doctor, current native publication | G2 | Complete for stated Windows/Linux Icarus matrix; nine checked reports and actual Linux AOT execution |
 | WP-03 | Failure lifecycle and endurance qualification; STB-END-001..009 | G1, isolated run directories | G3 | Short Windows/Linux runs exist; hours and terminal disconnect unverified |
 | WP-04 | Remaining upstream surface and selection semantics; STB-001, STB-033, STB-EXP-001..002, STB-SEL-001..006 | G1, pinned source inventories | G4 | Fourteen literal trigger exports and dynamic/other exposures remain |
 | WP-05 | RTL boundary, object-model and backend qualification; STB-007, STB-PRO-001..004 | G1, G4 decisions where semantics change | G5 | Bounded existing fixtures pass historically; broader matrix open |

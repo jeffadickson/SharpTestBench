@@ -1,0 +1,7 @@
+{
+  "benchmark-counter-managed.json": "1b6aa9a0e9e3efcf79fb28694a059f69e805f3ebab56894d75486b5cdaacb4b5",
+  "benchmark-cpu-managed.json": "d466bbf52addaedfc6395376d75b5706f77a7445dd26e78daf51a5fab1b9ea33",
+  "benchmark-dsp-managed.json": "0d0cddd1d4f92fc92c420297ef52effbac79ee40dc67fa21e97ba4f52e192105",
+  "matrix-verification.json": "c072f8bc3d99ec02dc177b0992f9f67161ea297612f0c916533c8a5fa816daf1",
+  "qualification.json": "edd41b4ff18c2510618fd1cfbab5ff1f2a1f8d9209af7cdd2e6b18c365d3510c"
+}

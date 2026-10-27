@@ -2,10 +2,22 @@
 
 `endurance.sdoc` defines stable STB-END-001 through STB-END-009 requirements for
 bounded Stryker.NET/property campaigns and data-only results transport. See
-[ENDURANCE.md](../ENDURANCE.md) for scope and commands. Active does not mean closed.
+[ENDURANCE.md](https://github.com/jeffadickson/SharpTestBench/blob/main/docs/ENDURANCE.md) for scope and commands. Active does not mean closed.
 
 `selection.sdoc` uses stable parent/task IDs and stable refinement IDs. Active means an applicable obligation, not completed verification or closure of the broader tracker issue. Whole-file File relations link implementation and tests; the batch ledger and validation/coverage reports under `docs/development-history/selection200-*` identify actual execution and remaining scope. Source links do not prove a test ran, and StrictDoc export is not a verifier of runtime evidence.
 
 Use StrictDoc0.30.4 from a separate tooling environment. The package is pinned in `requirements.txt`; this computer reuses the isolated ignored `build/strictdoc-env`. From the checkout run `build/strictdoc-env/Scripts/strictdoc.exe export docs/requirements --output-dir build/selection200-strictdoc --no-parallelization` on Windows, or the corresponding environment's `strictdoc` command on Linux. The required Python configuration derives the repository root from its own location. It is tool configuration, while engineering automation uses C#/F#/PowerShell.
 
 The exported HTML and source pages are generated evidence, not committed product artifacts. Traceability here is at file scope, not a claim of automatic C# symbol-to-test or requirement-to-coverage attribution. HDL and NativeAOT instruction coverage remain separate from the four-assembly managed coverage report. Property, fuzz and mutation commands and replay conventions are documented in `tests/SelectionQuality/README.md`.
+
+After export run
+
+```powershell
+$html=Join-Path (Get-Location).Path 'build/selection200-strictdoc/html'
+if(!(Test-Path -LiteralPath $html -PathType Container)){throw 'Export missing'}
+& tools/Check-RequirementsExport.ps1 -Html $html -RepairStrictDocLinks
+```
+
+This checks static local file targets and repairs only known StrictDoc0.30.4
+source-page relative-link defects. Run again without the repair switch to
+verify the normalized tree. It does not validate fragments or external URLs.

@@ -2,7 +2,89 @@
 
 Read this file at the start of every new chat, Codex session, or VS Code agent session. Before EVERY commit, update this file with the actual current work, validation, remaining tasks and delivery state. Commit the updated prompt with the work. Do not merely change a timestamp or copy old results as fresh validation.
 
-## Active work-package follow-up (2026-10-26)
+## Completed WP-01 / WP-02 qualification (2026-10-26/27)
+
+Read docs/WORK_PACKAGES.md, docs/development-history/work-packages-01-02-validation.md
+and docs/evidence/work-packages-01-02/README.md. The user requested completion of
+the first two packages; their stated Windows/Linux x64 gates passed. WP03–WP07
+remain open, as do broader Active StrictDoc obligations. No200-iteration batch
+was restarted. The source commit containing this prompt follows tested base
+c70bc4c plus the recorded candidate source hashes/Git blob IDs. Inspect actual
+Git history/status for its SHA and delivery; this task makes a verified LOCAL
+commit only. The earlier Push request covered c70bc4c, not this new task.
+
+Production fix: EnduranceProcess pipe read/write/flush awaits now use
+ConfigureAwait(false), avoiding a dependency on a caller synchronization context
+blocked by the synchronous facade. Two pre-fix cases failed with2/3 context posts;
+both pass after. Normal xUnit3 and isolated xUnit2/VSTest Process mutation driver
+share the same test source and exact production Process code. Stryker5.0.0 killed
+both selected read/write boolean mutants on each OS;107 ignored and5 excluded
+compile errors are not kills. Flush sensitivity and broader process mutation
+coverage are not claimed. Existing six-guard endurance schemas/scope are unchanged.
+
+StrictDoc0.30.4 source-detail relative links need the new opt-in
+ tools/Check-RequirementsExport.ps1 after export (see requirements README).
+Unknown/missing/escaping/linked targets reject before repair writes. Eleven new
+Pester cases plus ten existing launcher cases passed on both OSes. Checker command
+coverage80/81 (98.77%) each is not managed line/branch coverage. Final requirement
+exports checked64 pages/3427 local file links after672 repairs; second checks
+needed zero repairs. External URLs/fragments are outside that check. Both original
+portable endurance hashes also matched. The established documentation system
+and XMLDoc/StrictDoc source/test traces were preserved.
+
+Fresh final inventories: Core669,Generators17,Tools1386,retained951.
+Windows3008 passed/15 documented skips; Linux3023 passed/no skips. Coverage/subset
+repetitions and Stryker controls are not additional unique cases. Accepted four-
+assembly coverage: Windows7566/11565 lines,4688/8819 branches; Linux7567/11565,
+4710/8819. Each coverage HTML tree checked266 pages/1102 local file links.
+Generated C# stays in the denominator. Both OSes passed FsCheck3.6.0 three1000-case
+properties (replay91557096206384) and2000 malformed regex inputs (seed20261024,
+295 accepted/1705 rejected,zero observed timeouts). No failing randomized input
+was observed or minimized. SDK10.0.402/pinned dependencies were reused; no wholesale
+install. Initial2161 XMLDoc-heavy warnings remain debt despite a zero-warning
+incremental final build. SDK/xUnit analyzers and PowerShell parser/StrictMode ran;
+PSScriptAnalyzer was unavailable. See the report for exact commands and failures.
+
+Actual publication: Windows/Linux x64 Tools are self-contained ReadyToRun with
+CLR/JIT fallback, NOT NativeAOT. Linux x64 Runner is actual NativeAOT (native
+compilation/ELF/linkage retained). Inventories verified before and after execution.
+Published Tools doctor plus positive counter/DSP/CPU and DSP/CPU fault negatives
+passed both runners. Linux AOT directly detected both faults; post-run checks bind
+identities,seed17,status,markers and hashes. Simulation assemblies still require
+hostfxr/CLR separately; this does not qualify PR62's independent backend.
+
+Nine checked benchmark campaigns: seed17,one warmup,five repetitions,alternating
+order,45 measured pairs/90 workload invocations plus18 warmup invocations. Linux
+standalone total medians (counter/DSP/CPU) were389.722/422.561/438.151ms managed
+and239.252/264.055/284.635ms AOT, in separate campaigns with their own legacy
+comparators. Raw ranges/phases are in the portable JSON/report. Help is a startup
+proxy; fixture/native builds are excluded; no general speedup or HDL/AOT instruction
+coverage claim. Later Windows fixture preparation replaced earlier shared-host
+binaries: original per-campaign hash checks passed but older bytes are not archived.
+Portable records explicitly retain that limitation; Linux protected inputs still
+matched at collection. Never call earlier inputs immutable or infer their bytes
+from hashes. The first Windows coverage attempt failed four Git fixture cases and
+was rejected; the controlled context bug is proven, but not every failure's exact
+root cause. All final post-fix gates passed.
+
+Windows checkout C:/dev/SharpTestBench and independent native Linux checkout
+/home/jeffd/src/SharpTestBench keep outputs separate. Both candidate source blob
+inventories matched across platforms before commit. Native checkout synchronization
+must use audited owned-patch reversal and normal local fetch/fast-forward, preserving
+unknown work and ignored outputs; verify actual HEAD/status. Unknown untracked
+Windows AGENTS.md remains untouched/uncommitted. All12 CI workflows stay disabled;
+PR62 stays open/draft/unmerged at0318a864d9b570f9ffbc4857e7365ec9ed6a4736. No hosted
+job, result-branch upload, public package publication or new push was performed.
+
+The latest replacement personal rules use C#/F# by default, PowerShell orchestration,
+ripgrep for routine searches, real StrictDoc, scoped coverage, Stryker.NET, FsCheck,
+seeded fuzz/negative checks, meaningful comments/XMLDoc and existing Sphinx. Do not
+change text-tool installations/aliases silently. Preserve unknown work and source
+pins. Final source/evidence/measurement review was a self-review; no independent
+agent or external expert review/execution is claimed. All accepted findings are
+recorded in the report. Update this prompt before every future source commit.
+
+## Historical work-package planning follow-up (2026-10-26)
 
 The current user requested remaining tasks grouped into meaningful full-testing
 work packages and checked against the canonical development rules. Read
@@ -37,7 +119,7 @@ no independent review is claimed. This commit contains the work-package plan,
 navigation links and updated handoff only. Normal main push is authorized; verify
 its outcome against origin/main after committing. Unknown AGENTS.md stays untracked.
 
-## Current endurance workflow handoff (2026-10-26)
+## Historical endurance workflow handoff (2026-10-26)
 
 The current task implemented and qualified the reproducible endurance workflow. Read docs/ENDURANCE.md, docs/development-history/endurance-validation-report.md and docs/evidence/endurance/README.md. Requirements STB-END-001..009 remain Active obligations with source/test/finite-evidence traceability, not blanket hours-long closure. Do not restart completed historical200-iteration batches. No hours-long run or recurring schedule was started.
 
@@ -100,7 +182,7 @@ Use C# or F# for automation by default, PowerShell/native cmdlets for shell/file
 
 For a newly authorized engineering batch, retain the cadence: build/all three managed suites every10 units; independent review every15; full local validation and verified local commits every50; final independent deep review before the final commit. Run coverage serially with builds/tests in each checkout. Do not manufacture iteration claims. Push only within the user's current authorization. Update this prompt before each commit, including milestone and final commits.
 
-## Next work
+## Historical next-work list (superseded by the completed packages above)
 
 1. Establish a fresh locked Release baseline for the actual source/session and reuse the correct environments. The results above describe the completed batch, not fresh results for later edits.
 2. Continue bounded StrictDoc requirements and dual-runner parity/failure coverage; use docs/OPEN_WORK.md and the final requirement assessment to choose concrete gaps. Preserve evidence schemas and required-pass rejection of skipped cases. Keep the three locally authored CRC/arbiter/register-bank Verilog fixtures and independent oracles meaningful.

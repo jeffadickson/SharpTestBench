@@ -55,6 +55,8 @@ RELATIONS:
 - TYPE: File
   VALUE: tests/SharpTestBench.Tools.Tests/EnduranceProcessTests.cs
 - TYPE: File
+  VALUE: tests/SharpTestBench.Process.Mutation.Tests/ProcessContextMutationTests.cs
+- TYPE: File
   VALUE: tests/SharpTestBench.Tools.Tests/EnduranceStorageTests.cs
 
 [REQUIREMENT]

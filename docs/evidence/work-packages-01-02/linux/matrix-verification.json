@@ -1,0 +1,97 @@
+{
+  "doctorPassed": true,
+  "artifacts": [
+    {
+      "worker": "tools",
+      "rid": "linux-x64",
+      "inventoryVerifiedBeforeAndAfter": true,
+      "deployment": "self-contained-readytorun-with-clr-jit",
+      "executableSha256": "12d80402e96594258adc29e66e6d7bdb81b604441be7fff647a46f4de87674d0",
+      "inventorySha256": "59a8cc557168e8d576b0e8b37b98cbaab53da374084b626cce7a66e8eec37500"
+    },
+    {
+      "worker": "runner",
+      "rid": "linux-x64",
+      "inventoryVerifiedBeforeAndAfter": true,
+      "deployment": "native-aot",
+      "executableSha256": "4f0c9e9e4082a7d7e106bfe6da8910a3cb84a6a9a62ba250b65881ccc684ef2f",
+      "inventorySha256": "0fe7898e4059692d4e21224c04cd2d9985fd1b8aec45d307cf698c12caea77c3"
+    }
+  ],
+  "pairedChecks": [
+    {
+      "legacyExit": 0,
+      "expectedSeedMatched": true,
+      "fixture": "counter",
+      "standaloneExit": 0,
+      "logSha256": "4fc849066f36b91a74eece9c7d3e7c3fab065e557d827fe003626e59cde1caf5",
+      "negative": false,
+      "matched": true
+    },
+    {
+      "legacyExit": 0,
+      "expectedSeedMatched": true,
+      "fixture": "dsp",
+      "standaloneExit": 0,
+      "logSha256": "8c49c81d5684abded9bdcdd3effb564d4c668372d6a1870899794ea5239999ac",
+      "negative": false,
+      "matched": true
+    },
+    {
+      "legacyExit": 1,
+      "expectedSeedMatched": true,
+      "fixture": "dsp",
+      "standaloneExit": 1,
+      "logSha256": "45700a852ab8e4a42692dd902ce2b6937ea0acdc671018bded913a092aca9a6b",
+      "negative": true,
+      "matched": true
+    },
+    {
+      "legacyExit": 0,
+      "expectedSeedMatched": true,
+      "fixture": "cpu",
+      "standaloneExit": 0,
+      "logSha256": "e1502fd545d723418c63ff97a3b45ed92b9b7dc310a0bfe6de24bbf3af11d3ae",
+      "negative": false,
+      "matched": true
+    },
+    {
+      "legacyExit": 1,
+      "expectedSeedMatched": true,
+      "fixture": "cpu",
+      "standaloneExit": 1,
+      "logSha256": "45700a852ab8e4a42692dd902ce2b6937ea0acdc671018bded913a092aca9a6b",
+      "negative": true,
+      "matched": true
+    }
+  ],
+  "rid": "linux-x64",
+  "schemaVersion": 1,
+  "publicationLogSha256": "4fc8d4568c788621c44ae8b0c7f0a8127334cef385944a7e784a259f94cb39a0",
+  "nativeAotNegativeChecks": [
+    {
+      "detected": true,
+      "resultSha256": "af31db8a3bd0e6afb2cd2066ab14235c5e8110b20ee23aa69e9734fbd8cc2efe",
+      "manifestSha256": "a731f30ed2ac8ede79085975796bb46144c40d6732cba6e5eab28dabfbf69081",
+      "seed": 17,
+      "marker": "DSP_MISMATCH",
+      "runEvidenceSha256": "625234b08c8fa944c5d50a3389377729cbc1c5d7bdf820d69fda00c7c4ccdb1d",
+      "fixture": "dsp",
+      "exitCode": 1,
+      "caseIdentitiesAndSeedVerified": true
+    },
+    {
+      "detected": true,
+      "resultSha256": "32877f9b0966ed4814c2f34688ed9290b09aeca541eea53f2ee3430053b621d5",
+      "manifestSha256": "76871239218ba7088cd507e2da891c56d11ce3e916a24c5ce447db7c188cb737",
+      "seed": 17,
+      "marker": "CPU_MISMATCH",
+      "runEvidenceSha256": "8323df338431b192378fd02848dcfe6cd34653722ebeec2fd239f52c6eb24930",
+      "fixture": "cpu",
+      "exitCode": 1,
+      "caseIdentitiesAndSeedVerified": true
+    }
+  ],
+  "sourceBaseCommit": "c70bc4cca97d8eee884b08516d8fe836faf95beb",
+  "scope": "Actual local Icarus simulation; orchestration comparisons only, same managed simulation runtime and pinned GPI bridge; not PR62 independent backend"
+}

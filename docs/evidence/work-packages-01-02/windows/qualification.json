@@ -1,0 +1,201 @@
+{
+  "tools": {
+    "stryker": "5.0.0",
+    "pester": "3.4.0",
+    "strictdoc": "0.30.4",
+    "coverlet": "10.1.0",
+    "reportGenerator": "5.5.11",
+    "fscheck": "3.6.0",
+    "git": "git version 2.56.0.windows.3",
+    "powershell": "7.6.5",
+    "sdk": "10.0.402",
+    "python": "Python 3.12.14",
+    "cocotb": "2.2.0.dev0+r5fa952e9",
+    "cppCompiler": "g++.exe (Rev6, Built by MSYS2 project) 16.2.0"
+  },
+  "schemaVersion": 1,
+  "sourceBaseCommit": "c70bc4cca97d8eee884b08516d8fe836faf95beb",
+  "sourceChanges": "Owned qualification changes identified by sourceHashes; final commit follows testing",
+  "platform": "Microsoft Windows 10.0.26200",
+  "architecture": "X64",
+  "inventory": [
+    {
+      "skipped": 0,
+      "passed": 669,
+      "failed": 0,
+      "suite": "SharpTestBench.Tests",
+      "discovered": 669
+    },
+    {
+      "skipped": 0,
+      "passed": 17,
+      "failed": 0,
+      "suite": "SharpTestBench.Generators.Tests",
+      "discovered": 17
+    },
+    {
+      "skipped": 12,
+      "passed": 1374,
+      "failed": 0,
+      "suite": "SharpTestBench.Tools.Tests",
+      "discovered": 1386
+    }
+  ],
+  "retained": {
+    "passed": 948,
+    "scope": "Full unittest discover; repeated coverage collections are not additional unique cases",
+    "skipped": 3,
+    "total": 951
+  },
+  "coverage": {
+    "assemblies": [
+      "SharpTestBench",
+      "SharpTestBench.Generators",
+      "SharpTestBench.Runner",
+      "SharpTestBench.Tools"
+    ],
+    "lines": {
+      "covered": 7566,
+      "valid": 11565,
+      "percent": 65.42153047989623
+    },
+    "branches": {
+      "covered": 4688,
+      "valid": 8819,
+      "percent": 53.157954416600525
+    }
+  },
+  "coverageSummarySha256": "6c7709740932db3cffd01467009d9b6be7d9adb4b7b6e96e2ed57bd376d5e185",
+  "coverageHtml": {
+    "existingLocalLinks": 1102,
+    "htmlPages": 266,
+    "portableChecksums": 2
+  },
+  "requirementsHtml": {
+    "htmlPages": 64,
+    "localFileLinks": 3427,
+    "repairedLinks": 0,
+    "fragmentValidation": false,
+    "externalValidation": false
+  },
+  "requirementsRepairs": {
+    "htmlPages": 64,
+    "localFileLinks": 3427,
+    "repairedLinks": 672,
+    "fragmentValidation": false,
+    "externalValidation": false
+  },
+  "portableOriginalChecksumsVerified": 2,
+  "pester": {
+    "passed": 21,
+    "coverageScope": "Check-RequirementsExport.ps1; command coverage only, not branch coverage",
+    "skipped": 0,
+    "failed": 0,
+    "commandCoverage": {
+      "NumberOfCommandsAnalyzed": 81,
+      "NumberOfCommandsExecuted": 80,
+      "NumberOfCommandsMissed": 1
+    }
+  },
+  "properties": {
+    "properties": 3,
+    "replaySeed": "91557096206384",
+    "library": "FsCheck3.6.0",
+    "logSha256": "852e94417421a626eebb0a45438714e8a3f5ba7b403d9eb6baebac75d135fecf",
+    "failedCounterexample": null,
+    "casesPerProperty": 1000
+  },
+  "fuzz": {
+    "accepted": 295,
+    "kind": "Deterministic malformed regex inputs, not coverage-guided",
+    "cases": 2000,
+    "unexpectedExceptions": 0,
+    "rejected": 1705,
+    "matchTimeouts": 0,
+    "seed": 20261024
+  },
+  "stryker": {
+    "reportSha256": "989b6e63b39950fe7a24ed91fb8f802c7225a36be7c6c13d56c3f9be1f456e1b",
+    "scope": "Only the read/write ConfigureAwait boolean literals in exact production EnduranceProcess.cs",
+    "selectedTimedOut": 0,
+    "version": "5.0.0",
+    "excludedCompileErrors": 5,
+    "selectedKilled": 2,
+    "mutants": [
+      {
+        "id": "85",
+        "mutatorName": "Boolean mutation",
+        "replacement": "true",
+        "location": {
+          "start": {
+            "line": 84,
+            "column": 75
+          },
+          "end": {
+            "line": 84,
+            "column": 80
+          }
+        }
+      },
+      {
+        "id": "99",
+        "mutatorName": "Boolean mutation",
+        "replacement": "true",
+        "location": {
+          "start": {
+            "line": 95,
+            "column": 100
+          },
+          "end": {
+            "line": 95,
+            "column": 105
+          }
+        }
+      }
+    ],
+    "selectedPending": 0,
+    "selectedUncovered": 0,
+    "selectedInvalid": 0,
+    "exactSourceMatched": true,
+    "excludedIgnored": 107,
+    "controlCases": 2,
+    "selectedSurvived": 0
+  },
+  "sourceHashes": {
+    "tools/SharpTestBench.Tools/EnduranceProcess.cs": "17b65394287201c100f216875d8ef0bc4517b2c0c9a7bb853c2b9838aa4a7e3e",
+    "tools/Check-RequirementsExport.ps1": "0aa4f5ea8e94013597c058a51547229a5e8e1deda143340c542cccb7e9ae9f53",
+    "tests/Endurance/RequirementsExport.Tests.ps1": "dfabcdfb391f76d9d9be1ccc267d1b234299a18920c4c5f0e5a16f8dd82553c3",
+    "tests/SharpTestBench.Process.Mutation.Tests/ProcessContextMutationTests.cs": "61e69ec1bb58c42c01319a2ae21c50e193d079f4edaba065f77ca9ffe77b967c",
+    "tests/SharpTestBench.Process.Mutation.Tests/SharpTestBench.Process.Mutation.Tests.csproj": "d19d2fe06243d97e819cc97a49116d6e14f5b5845ed8a1fa099d1b40cad1d5a5",
+    "tests/SharpTestBench.Process.Mutation.Tests/packages.lock.json": "d3e6d7687cfe4b71b19e4b83f6c23154003319ec27aaaa23bca0eade418cdb01",
+    "tests/SharpTestBench.Process.MutationSubject/SharpTestBench.Process.MutationSubject.csproj": "0eb1775406b8362c98e6fb2531278ea5156073e70c5de9826b32548d0a89b81f",
+    "tests/SharpTestBench.Tools.Tests/SharpTestBench.Tools.Tests.csproj": "d4a317cef621e472ac9dad33bf4ebd337ac8f373f84c4bca57e3765862e7e6c7",
+    "SharpTestBench.slnx": "97f12fd30eda9aa4243cf5dfed202d6e8654df66c505de5741f4dbf41da962e9",
+    "docs/requirements/endurance.sdoc": "273362fa2aff9b6f2a243f450f2b8935096498cefeea7813753ca8d608750d96",
+    "docs/requirements/selection.sdoc": "5946dfc0f460d1b595e2e3a2efd7af8395bedd07720df84ea9d62fc7482c2d4d",
+    "docs/requirements/strictdoc_config.py": "6d9f52bff6f04536abf7d8f7407e4faa2554b0da1d60d720cdddaf6a929c4fc0"
+  },
+  "gitSourceBlobIds": {
+    "tools/SharpTestBench.Tools/EnduranceProcess.cs": "0b9b06b7ca58ecec86b5297839cd282a504a5cd8",
+    "tools/Check-RequirementsExport.ps1": "209bf7a13761ac0ddecf98f29cf86580ce3b0254",
+    "tests/Endurance/RequirementsExport.Tests.ps1": "e1c0dc0f83a5b6edde3e8565e52b13c7807f5f62",
+    "tests/SharpTestBench.Process.Mutation.Tests/ProcessContextMutationTests.cs": "8e86e102a895ba2e2693c99739195f785a64907c",
+    "tests/SharpTestBench.Process.Mutation.Tests/SharpTestBench.Process.Mutation.Tests.csproj": "71997ef16318fa01d677893699df31d5f3e0c913",
+    "tests/SharpTestBench.Process.Mutation.Tests/packages.lock.json": "5edf109d9ec8a4c0a27519c40b0a8826435774b4",
+    "tests/SharpTestBench.Process.MutationSubject/SharpTestBench.Process.MutationSubject.csproj": "1db6b5ea47b57ed39e2aaec768a0fcc24aef586d",
+    "tests/SharpTestBench.Tools.Tests/SharpTestBench.Tools.Tests.csproj": "18d1aa9e6c947f58d0bc35cf7e5c3d51acce9442",
+    "SharpTestBench.slnx": "9ac174da591375bd67da2158aacc2979ae86fadc",
+    "docs/requirements/endurance.sdoc": "3fb4442f031c55b716a4062e4276920e2c8cdbf5",
+    "docs/requirements/selection.sdoc": "1ebbfc721e93101832135848be676c7be9a032a2",
+    "docs/requirements/strictdoc_config.py": "0e3b953a885b60d0b4fcd04a5ebdddf765392ef6"
+  },
+  "limitations": [
+    "Generated C# remains in the four-assembly denominator",
+    "HDL and NativeAOT instruction coverage are unmeasured",
+    "CLI instrumentation covers selected startup/failure paths, not the complete success/runtime-switch matrix",
+    "HTML checks validate static double-quoted local file targets, not fragments/external URLs",
+    "Pester command coverage is not managed line/branch coverage",
+    "The flush flag and broader process code are outside the selected mutation scope",
+    "PSScriptAnalyzer unavailable; PowerShell parser/StrictMode and Pester executed; SDK/xUnit analyzers executed"
+  ]
+}

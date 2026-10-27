@@ -1,0 +1,318 @@
+{
+  "schemaVersion": 1,
+  "fixture": "dsp",
+  "platform": "linux-x64",
+  "sourceBaseCommit": "c70bc4cca97d8eee884b08516d8fe836faf95beb",
+  "sourceBinding": "Qualification source hashes plus protected compiled inputs; final source commit follows testing",
+  "legacyDeployment": "Managed Tools DLL via dotnet",
+  "standaloneDeployment": "native-aot-artifact",
+  "seed": 17,
+  "repeats": 5,
+  "warmups": 1,
+  "units": "milliseconds",
+  "scope": "Icarus process wall time; prebuilt managed fixture/native host; help round trip is a separate startup proxy",
+  "controllerRuntime": ".NET 10.0.13",
+  "rawReportSha256": "814e9c8e63941d421208d2089c89ef13a0e24c31e02ab6a380fc00e05d1f50d8",
+  "perCampaignBeforeAfterAttestationPassed": true,
+  "postCollectionAllInputsMatch": true,
+  "laterSharedHostRebuilds": [],
+  "inputs": [
+    {
+      "identity": "external-001/libcocotb_bootstrap.so",
+      "sha256": "f44321e40c8c57ff7ef44c1d5b3d8521890da1b0c7380bbb6ee8339256d8fb8a"
+    },
+    {
+      "identity": "external-002/libgpi_impl_icarus_vpi.so",
+      "sha256": "7191d827b045f3ebd16087568037e245edee75bce8816d4c4afb584f5a81218b"
+    },
+    {
+      "identity": "external-003/libgpi.so",
+      "sha256": "b3c7eb6de5c2072d65a93e58b9fee2bb6cf2ff70a6a12f96b45afe6a237931a8"
+    },
+    {
+      "identity": "<checkout>/build/libsharptestbench_host.so",
+      "sha256": "39f38e3b34fb0b556056ace69e20213103ae261d268b61378a15087b73007a27"
+    },
+    {
+      "identity": "<checkout>/build/runner-benchmark-dsp-0b0a1d9fe1b145b6a8f8942e22cef2b0/plan.json",
+      "sha256": "a07b7b2442def339264d9342f2d92d74f9b08ff36d1892b10ca627b3a1ee8762"
+    },
+    {
+      "identity": "<checkout>/build/wp02-linux-20261027T032930Z/workers/linux-x64/runner/SharpTestBench.Runner",
+      "sha256": "4f0c9e9e4082a7d7e106bfe6da8910a3cb84a6a9a62ba250b65881ccc684ef2f"
+    },
+    {
+      "identity": "<checkout>/build/wp02-linux-20261027T032930Z/workers/linux-x64/runner/worker-build.json",
+      "sha256": "0fe7898e4059692d4e21224c04cd2d9985fd1b8aec45d307cf698c12caea77c3"
+    },
+    {
+      "identity": "<checkout>/examples/DspFir/bin/Release/net10.0/DspFir.deps.json",
+      "sha256": "864961cb1464b47f198b03d9f76e5ead3944bf531f62fcfa1edd5dd1a5fc4317"
+    },
+    {
+      "identity": "<checkout>/examples/DspFir/bin/Release/net10.0/DspFir.dll",
+      "sha256": "8410d81e8dc8f4211ce79e3bbaa8e039fd1fced3aaf6a55caeaf8f209a578cbe"
+    },
+    {
+      "identity": "<checkout>/examples/DspFir/bin/Release/net10.0/DspFir.runtimeconfig.json",
+      "sha256": "9950d4583cfc9a106857c0d5b8a75b53e8774852b57b80bc3823a74d44a4d87f"
+    },
+    {
+      "identity": "<checkout>/examples/DspFir/bin/Release/net10.0/SharpTestBench.dll",
+      "sha256": "c00961e56861bbcd51d6a468946542c0b8c6781148641c7a56d85a2e1ad7a940"
+    },
+    {
+      "identity": "<checkout>/examples/DspFir/dsp_fir.sv",
+      "sha256": "2ea23d5a9263836eb7103fb43df0124b8b8c963879452200d34d01e08294f0ba"
+    },
+    {
+      "identity": "<checkout>/tools/SharpTestBench.Tools/bin/Release/net10.0/SharpTestBench.Tools.deps.json",
+      "sha256": "fe0d30b4a8314b2f53807cee88c6c5948082c09952c7845ea193854443386003"
+    },
+    {
+      "identity": "<checkout>/tools/SharpTestBench.Tools/bin/Release/net10.0/SharpTestBench.Tools.dll",
+      "sha256": "30002ce77c983b143a8cdd85845bd10e662297dc786bf8cd47fa1af160b05ae8"
+    },
+    {
+      "identity": "<checkout>/tools/SharpTestBench.Tools/bin/Release/net10.0/SharpTestBench.Tools.runtimeconfig.json",
+      "sha256": "9950d4583cfc9a106857c0d5b8a75b53e8774852b57b80bc3823a74d44a4d87f"
+    },
+    {
+      "identity": "external-004/iverilog",
+      "sha256": "a6071e4b4a68feafca0c8ee0e6aa275eee9a43a108c62801cfd1eca6eab6d8a3"
+    },
+    {
+      "identity": "external-005/vvp",
+      "sha256": "a10bd7d4a0850308ac8c2c98115b6a3084f9be978307610f2a521190c28f4023"
+    },
+    {
+      "identity": "external-006/dotnet",
+      "sha256": "8b3d902364f618e31e029d4eba077d52c141dd641e375f4555715604806e44b6"
+    },
+    {
+      "identity": "external-007/libhostfxr.so",
+      "sha256": "03147defc576e5a50a0f52b628d8b98a75fea83e1572956fcd48b5353c4657e5"
+    }
+  ],
+  "toolVersions": [
+    {
+      "tool": "dotnet",
+      "version": "10.0.402\n"
+    },
+    {
+      "tool": "iverilog",
+      "version": "Icarus Verilog version 12.0 (stable) ()\n\nCopyright (c) 2000-2021 Stephen Williams (steve@icarus.com)"
+    },
+    {
+      "tool": "vvp",
+      "version": "Icarus Verilog runtime version 12.0 (stable) ()\n\nCopyright (c) 2001-2021 Stephen Williams (steve@icarus.com)"
+    }
+  ],
+  "samples": [
+    {
+      "Round": -1,
+      "Warmup": true,
+      "Order": 0,
+      "Runner": "standalone",
+      "HelpRoundTripMilliseconds": 5.8223,
+      "TotalMilliseconds": 251.5393,
+      "CompileMilliseconds": 11.3717,
+      "SimulationMilliseconds": 194.9759,
+      "OtherMilliseconds": 45.1917
+    },
+    {
+      "Round": -1,
+      "Warmup": true,
+      "Order": 1,
+      "Runner": "legacy",
+      "HelpRoundTripMilliseconds": 31.2556,
+      "TotalMilliseconds": 661.8932,
+      "CompileMilliseconds": 20.0013,
+      "SimulationMilliseconds": 201.3302,
+      "OtherMilliseconds": 440.5617
+    },
+    {
+      "Round": 0,
+      "Warmup": false,
+      "Order": 0,
+      "Runner": "legacy",
+      "HelpRoundTripMilliseconds": 29.0575,
+      "TotalMilliseconds": 576.0363,
+      "CompileMilliseconds": 16.5917,
+      "SimulationMilliseconds": 192.928,
+      "OtherMilliseconds": 366.51660000000004
+    },
+    {
+      "Round": 0,
+      "Warmup": false,
+      "Order": 1,
+      "Runner": "standalone",
+      "HelpRoundTripMilliseconds": 4.1796,
+      "TotalMilliseconds": 264.0549,
+      "CompileMilliseconds": 10.7698,
+      "SimulationMilliseconds": 180.0767,
+      "OtherMilliseconds": 73.20839999999998
+    },
+    {
+      "Round": 1,
+      "Warmup": false,
+      "Order": 0,
+      "Runner": "standalone",
+      "HelpRoundTripMilliseconds": 5.9751,
+      "TotalMilliseconds": 289.4059,
+      "CompileMilliseconds": 10.7432,
+      "SimulationMilliseconds": 210.0707,
+      "OtherMilliseconds": 68.59199999999998
+    },
+    {
+      "Round": 1,
+      "Warmup": false,
+      "Order": 1,
+      "Runner": "legacy",
+      "HelpRoundTripMilliseconds": 30.8851,
+      "TotalMilliseconds": 573.9906,
+      "CompileMilliseconds": 13.7002,
+      "SimulationMilliseconds": 174.915,
+      "OtherMilliseconds": 385.3754
+    },
+    {
+      "Round": 2,
+      "Warmup": false,
+      "Order": 0,
+      "Runner": "legacy",
+      "HelpRoundTripMilliseconds": 29.8556,
+      "TotalMilliseconds": 627.0764,
+      "CompileMilliseconds": 16.337,
+      "SimulationMilliseconds": 183.1942,
+      "OtherMilliseconds": 427.5452
+    },
+    {
+      "Round": 2,
+      "Warmup": false,
+      "Order": 1,
+      "Runner": "standalone",
+      "HelpRoundTripMilliseconds": 5.4768,
+      "TotalMilliseconds": 245.0836,
+      "CompileMilliseconds": 11.6715,
+      "SimulationMilliseconds": 191.2625,
+      "OtherMilliseconds": 42.14959999999999
+    },
+    {
+      "Round": 3,
+      "Warmup": false,
+      "Order": 0,
+      "Runner": "standalone",
+      "HelpRoundTripMilliseconds": 5.1318,
+      "TotalMilliseconds": 277.9332,
+      "CompileMilliseconds": 12.1082,
+      "SimulationMilliseconds": 225.3255,
+      "OtherMilliseconds": 40.49949999999998
+    },
+    {
+      "Round": 3,
+      "Warmup": false,
+      "Order": 1,
+      "Runner": "legacy",
+      "HelpRoundTripMilliseconds": 32.6839,
+      "TotalMilliseconds": 564.527,
+      "CompileMilliseconds": 14.586,
+      "SimulationMilliseconds": 193.8025,
+      "OtherMilliseconds": 356.1385
+    },
+    {
+      "Round": 4,
+      "Warmup": false,
+      "Order": 0,
+      "Runner": "legacy",
+      "HelpRoundTripMilliseconds": 30.1493,
+      "TotalMilliseconds": 565.0759,
+      "CompileMilliseconds": 16.4729,
+      "SimulationMilliseconds": 177.6316,
+      "OtherMilliseconds": 370.9714000000001
+    },
+    {
+      "Round": 4,
+      "Warmup": false,
+      "Order": 1,
+      "Runner": "standalone",
+      "HelpRoundTripMilliseconds": 4.9468,
+      "TotalMilliseconds": 246.5561,
+      "CompileMilliseconds": 10.6097,
+      "SimulationMilliseconds": 192.9845,
+      "OtherMilliseconds": 42.961899999999986
+    }
+  ],
+  "summary": {
+    "legacy": {
+      "helpRoundTrip": {
+        "count": 5,
+        "min": 29.0575,
+        "median": 30.1493,
+        "max": 32.6839
+      },
+      "total": {
+        "count": 5,
+        "min": 564.527,
+        "median": 573.9906,
+        "max": 627.0764
+      },
+      "compile": {
+        "count": 5,
+        "min": 13.7002,
+        "median": 16.337,
+        "max": 16.5917
+      },
+      "simulation": {
+        "count": 5,
+        "min": 174.915,
+        "median": 183.1942,
+        "max": 193.8025
+      },
+      "other": {
+        "count": 5,
+        "min": 356.1385,
+        "median": 370.9714000000001,
+        "max": 427.5452
+      }
+    },
+    "standalone": {
+      "helpRoundTrip": {
+        "count": 5,
+        "min": 4.1796,
+        "median": 5.1318,
+        "max": 5.9751
+      },
+      "total": {
+        "count": 5,
+        "min": 245.0836,
+        "median": 264.0549,
+        "max": 289.4059
+      },
+      "compile": {
+        "count": 5,
+        "min": 10.6097,
+        "median": 10.7698,
+        "max": 12.1082
+      },
+      "simulation": {
+        "count": 5,
+        "min": 180.0767,
+        "median": 192.9845,
+        "max": 225.3255
+      },
+      "other": {
+        "count": 5,
+        "min": 40.49949999999998,
+        "median": 42.961899999999986,
+        "max": 73.20839999999998
+      }
+    }
+  },
+  "limitations": [
+    "One finite alternating-order campaign per fixture/deployment",
+    "Warmups excluded; every invocation is a fresh process with warm filesystem/runtime caches",
+    "Help round trip is a startup proxy, not isolated initialization",
+    "Both runners use the same native host, pinned GPI adapter and managed simulation tests",
+    "No HDL or NativeAOT instruction coverage, cross-platform speedup or independent VPI-backend qualification is claimed"
+  ]
+}
