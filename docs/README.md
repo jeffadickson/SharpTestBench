@@ -15,6 +15,7 @@
 - [Reproducible mutation, property and malformed-input endurance runs](ENDURANCE.md)
 - [All tracked GitHub tasks](TASKS_INDEX.md)
 - [Remaining work narrative](OPEN_WORK.md)
+- [Remaining work packages and full-testing gates](WORK_PACKAGES.md)
 - [Simulator capability policy](CAPABILITIES.md)
 - [Compatibility inventory](COMPATIBILITY.csv)
 - [Validation and limitations](VALIDATION.md)

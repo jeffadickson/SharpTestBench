@@ -121,3 +121,9 @@ is made. Native simulator adapters are reused, not reimplemented in C#.
 - [x] Python timing trace comparison and upstream nine-state truth-table comparison.
 - [x] Negative test verifies failed assertions produce CLI failure.
 - [x] Benchmark exposed slow bit-string conversion; 32-bit integer path implemented.
+
+## Execution packages
+
+Use [the work-package gates](WORK_PACKAGES.md) to group the remaining obligations,
+sequence prerequisites, and retain bounded acceptance evidence. Package planning
+does not close this backlog or turn historical results into new execution.

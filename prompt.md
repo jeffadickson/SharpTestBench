@@ -2,6 +2,41 @@
 
 Read this file at the start of every new chat, Codex session, or VS Code agent session. Before EVERY commit, update this file with the actual current work, validation, remaining tasks and delivery state. Commit the updated prompt with the work. Do not merely change a timestamp or copy old results as fresh validation.
 
+## Active work-package follow-up (2026-10-26)
+
+The current user requested remaining tasks grouped into meaningful full-testing
+work packages and checked against the canonical development rules. Read
+`docs/WORK_PACKAGES.md`: WP-01 baseline/evidence, WP-02 native comparisons,
+WP-03 endurance lifecycle, WP-04 upstream/selection, WP-05 RTL/backend matrix,
+WP-06 distribution/debugging, WP-07 consolidated acceptance. Each has explicit
+prerequisites and a test gate; none is closed by planning. Existing stable
+StrictDoc requirements remain Active, with bounded evidence distinguished from
+parent closure. No new iteration quota or external results upload is authorized.
+The user subsequently authorized committing and pushing this documentation slice.
+
+Main and origin/main were inspected/fetched at bdb865e; unknown untracked
+AGENTS.md is preserved. Its older shared-WSL-path suggestion is superseded by
+the user's explicit separate native-checkout rule. Current guidance is the
+user's canonical Development Rules supplied on 2026-10-26 plus applicable repo
+guidance; use C#/F#/PowerShell, real StrictDoc, scoped coverage, Stryker.NET,
+FsCheck, seeded fuzz/negative checks, current dependency research for additions,
+XMLDoc and existing Sphinx, isolated outputs, honest source/run provenance.
+Keep CI disabled and PR62 untouched. No new dependency was selected or added.
+
+Fresh Windows SDK10.0.402 locked restore and Release full-solution build passed
+with 2161 warnings and zero errors. Existing XMLDoc warning debt is explicitly
+tracked by G1 rather than concealed. Core669 and Generators17 passed in fresh
+execution. Full Tools suite completed:1384 total,1372 passed,12 Unix skips,zero failures.
+StrictDoc0.30.4 export passed, including source pages, at
+build/work-packages-strictdoc/html. Windows managed total:2058 passed/12 skips. This follow-up changes documentation only;
+no fresh code coverage/mutation result is claimed, and old coverage remains
+historical. Full dual-platform G1, fresh timings and longer-run/platform gates
+are outstanding until their own execution records establish them.
+Final read-through of all four changed documents and evidence claims completed;
+no independent review is claimed. This commit contains the work-package plan,
+navigation links and updated handoff only. Normal main push is authorized; verify
+its outcome against origin/main after committing. Unknown AGENTS.md stays untracked.
+
 ## Current endurance workflow handoff (2026-10-26)
 
 The current task implemented and qualified the reproducible endurance workflow. Read docs/ENDURANCE.md, docs/development-history/endurance-validation-report.md and docs/evidence/endurance/README.md. Requirements STB-END-001..009 remain Active obligations with source/test/finite-evidence traceability, not blanket hours-long closure. Do not restart completed historical200-iteration batches. No hours-long run or recurring schedule was started.
