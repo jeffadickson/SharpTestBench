@@ -16,6 +16,7 @@
 - [All tracked GitHub tasks](TASKS_INDEX.md)
 - [Remaining work narrative](OPEN_WORK.md)
 - [Remaining work packages and full-testing gates](WORK_PACKAGES.md)
+- [Library opportunities and assigned evaluation tasks](LIBRARY_OPPORTUNITIES.md)
 - [Fresh WP-01/WP-02 tests, coverage and native timing evidence](development-history/work-packages-01-02-validation.md)
 - [Simulator capability policy](CAPABILITIES.md)
 - [Compatibility inventory](COMPATIBILITY.csv)

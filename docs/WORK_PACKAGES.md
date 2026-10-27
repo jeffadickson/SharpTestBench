@@ -187,3 +187,21 @@ documentation slice; final local read-through checked scope and evidence claims.
 Actual delivery must be verified against origin/main after the commit.
 Referenced backlog files and all eleven explicitly named
 stable requirement IDs and the nine endurance IDs were checked locally; `git diff --check` passed.
+## Assigned library evaluation tasks
+
+The [source-based library assessment](LIBRARY_OPPORTUNITIES.md) evaluates remaining
+work and already-written code. LIB IDs are backlog tasks, not new requirements.
+No dependency adoption or candidate qualification is implied. Existing G1/G2
+completion remains valid; an implementation change must rerun affected gates.
+
+| Owning package | Added tasks | Evaluation deliverable |
+|---|---|---|
+| WP-03 | LIB-01 CliWrap; LIB-02 TimeProvider; LIB-03 SharpFuzz; LIB-05 JsonSchema.Net; LIB-12 Git boundary | Contract-equivalence prototype, controlled time/fuzz evidence, preserve bootstrap and result transport rules |
+| WP-04 | LIB-04 existing FsCheck model testing; LIB-06 System.CommandLine | Shrinkable selection/lifecycle cases and CLI compatibility decision; preserve upstream Python AST analysis |
+| WP-05 | LIB-04 traffic generators; LIB-12 RNG/CRC/simulator retention | Independent oracle vectors and bounded traffic models; no generic RNG/CRC substitution |
+| WP-06 | LIB-08 NuGet.Packaging/Versioning; LIB-09 PEReader | Version/archive/metadata checks against current fixtures and actual published consumers |
+| WP-07 | LIB-07 AngleSharp; LIB-10 BenchmarkDotNet; conditional LIB-11 Arrow/DuckDB | Broader docs checker or isolated microbenchmark/analysis prototype only when benefit and compatibility pass |
+
+Before closing any evaluation, record adopt/defer/retain with reasons, candidate
+versions and actual test evidence. A new library does not itself close a product
+requirement or retroactively strengthen historical coverage/benchmark results.

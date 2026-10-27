@@ -2,6 +2,37 @@
 
 Read this file at the start of every new chat, Codex session, or VS Code agent session. Before EVERY commit, update this file with the actual current work, validation, remaining tasks and delivery state. Commit the updated prompt with the work. Do not merely change a timestamp or copy old results as fresh validation.
 
+## Library assessment follow-up (2026-10-26/27)
+
+The user's follow-up requested library opportunities for both remaining work and
+existing code, assigned to suitable packages. Read docs/LIBRARY_OPPORTUNITIES.md
+and the added LIB-01..LIB-12 task mapping in docs/WORK_PACKAGES.md. This is a
+source/primary-document assessment only: no dependency/version was added,
+installed, upgraded or integrated, and no candidate build/AOT/runtime/license
+qualification or new coverage is claimed. Existing software requirements and
+accepted WP-01/WP-02 results remain unchanged.
+
+WP-03 owns process-library equivalence (CliWrap), BCL/fake-clock time abstraction,
+SharpFuzz and schema-validation pilots plus Git retention rules. Its first
+correctness subtask probes Core.CommandRunner/BoundedCapture's remaining
+sync-over-async caller-context pattern; this is an inspected risk, not an executed
+new defect. WP-04 owns FsCheck/CLI parsing; WP-05 consumes stateful traffic and
+retains CPython-compatible RNG and independent CRC semantics. WP-06 owns NuGet
+package/version and PE metadata reader evaluations. WP-07 owns HTML DOM parsing,
+complementary BenchmarkDotNet microbenchmarks and conditional Arrow/DuckDB data
+analysis. Every task has a concrete adoption gate and an adopt/defer/retain decision;
+there is no blanket rewrite authorization or assumption of library equivalence.
+
+Primary sources were checked, twelve task definitions and their existing StrictDoc
+IDs resolved, and local Markdown links/whitespace checked. This docs-only change
+has no fresh build/test/coverage results; the previous section contains historical
+execution for the preceding code candidate. Final review checks scope/compatibility
+claims and task ownership, not independent execution. Update this prompt in the
+same local documentation commit. Do not push; preserve unknown AGENTS.md, keep
+CI disabled and PR62 untouched. Current code base before this documentation commit
+is5f798ef on main. Latest personal rules prefer ripgrep for routine searching;
+no text-tool installation/alias/default was changed.
+
 ## Completed WP-01 / WP-02 qualification (2026-10-26/27)
 
 Read docs/WORK_PACKAGES.md, docs/development-history/work-packages-01-02-validation.md
